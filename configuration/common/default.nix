@@ -41,6 +41,7 @@
     defaultUserShell = pkgs.zsh;
     mutableUsers = false;
     users = {
+      # TODO add group docker if docker enabled
       root = {
         hashedPassword = "*";
         openssh.authorizedKeys.keys = [
@@ -48,6 +49,7 @@
         ];
       };
 
+      # TODO add group docker if docker enabled
       xxlpitu = {
         isNormalUser = true;
         extraGroups = [ "wheel" ];

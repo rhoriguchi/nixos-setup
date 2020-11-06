@@ -40,6 +40,8 @@ in {
     };
   };
 
+  # TODO enable docker
+
   networking = {
     hostName = "XXLPitu-Server";
 
