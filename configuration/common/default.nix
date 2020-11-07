@@ -6,6 +6,11 @@ with lib; {
 
   console.keyMap = "de_CH-latin1";
 
+  system = {
+    autoUpgrade.enable = true;
+    stateVersion = "20.09";
+  };
+
   nix.gc = {
     automatic = true;
     dates = "daily";
@@ -29,11 +34,6 @@ with lib; {
       enable = true;
       bantime-increment.rndtime = "5m";
     };
-  };
-
-  system = {
-    autoUpgrade.enable = true;
-    stateVersion = "20.09";
   };
 
   time.timeZone = "Europe/Zurich";
