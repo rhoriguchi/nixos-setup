@@ -40,7 +40,7 @@ in {
     };
   };
 
-  # TODO enable docker
+  virtualisation.docker.enable = true;
 
   networking = {
     hostName = "XXLPitu-Server";
