@@ -8,18 +8,6 @@ in {
     ./hardware-configuration.nix
   ];
 
-  duckdns = {
-    enable = true;
-    subdomain = "xxlpitu-rain-town";
-  };
-
-  glances.enable = true;
-
-  rslsync = {
-    enable = true;
-    syncPath = "${syncDir}";
-  };
-
   fileSystems = {
     "${dataDir}" = {
       autoFormat = true;
@@ -37,5 +25,17 @@ in {
       enable = true;
       interfaces = [ "wlp3s0" ];
     };
+  };
+
+  duckdns = {
+    enable = true;
+    subdomain = "xxlpitu-rain-town";
+  };
+
+  glances.enable = true;
+
+  rslsync = {
+    enable = true;
+    syncPath = "${syncDir}";
   };
 }
