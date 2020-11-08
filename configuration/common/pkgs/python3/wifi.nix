@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs }:
 (pkgs.buildPythonPackage rec {
   pname = "wifi";
   version = "0.3.8";

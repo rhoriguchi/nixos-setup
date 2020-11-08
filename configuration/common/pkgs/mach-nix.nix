@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs }:
 (import (pkgs.fetchFromGitHub {
   owner = "DavHau";
   repo = "mach-nix";
