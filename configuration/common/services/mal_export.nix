@@ -3,6 +3,7 @@ with lib;
 let
   cfg = config.mal_export;
 
+  # TODO extract to pkgs
   malExport = pkgs.mach-nix.buildPythonApplication rec {
     pname = "mal_export";
     version = "1.0.2";

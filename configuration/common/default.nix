@@ -7,14 +7,25 @@ with lib; {
   console.keyMap = "de_CH-latin1";
 
   system = {
-    autoUpgrade.enable = true;
+    autoUpgrade = {
+      enable = true;
+      dates = "daily";
+    };
+
     stateVersion = "20.09";
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 3d";
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 3d";
+    };
+
+    optimise = {
+      automatic = true;
+      dates = [ "daily" ];
+    };
   };
 
   nixpkgs = {
@@ -24,23 +35,23 @@ with lib; {
 
   programs.zsh.enable = true;
 
-  services = {
-    openssh = {
-      enable = true;
-      passwordAuthentication = false;
-    };
-
-    fail2ban = {
-      enable = true;
-      bantime-increment.rndtime = "5m";
-    };
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
   };
 
   time.timeZone = "Europe/Zurich";
 
+  networking.interfaces = {
+    eth0.useDHCP = true;
+    wlan0.useDHCP = true;
+    wlp3s0.useDHCP = true;
+  };
+
   users = {
     defaultUserShell = pkgs.zsh;
     mutableUsers = false;
+
     users = {
       root = {
         hashedPassword = "*";

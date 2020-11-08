@@ -17,8 +17,9 @@ let
     hide = veth*, lo
   '';
 
+  # TODO move to pkgs
   myGlances = with pkgs.python3Packages;
-    (glances.overrideAttrs (oldAttrs: {
+    (pkgs.glances.overrideAttrs (oldAttrs: {
       propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ requests ]
         ++ optional config.virtualisation.docker.enable docker
         ++ optional config.networking.wireless.enable wifi;

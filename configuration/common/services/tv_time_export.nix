@@ -3,6 +3,7 @@ with lib;
 let
   cfg = config.tv_time_export;
 
+  # TODO extract to pkgs
   tvTimeExport = pkgs.mach-nix.buildPythonApplication rec {
     pname = "tv_time_export";
     version = "1.0.7";
