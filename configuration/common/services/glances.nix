@@ -16,14 +16,6 @@ let
     [network]
     hide = veth*, lo
   '';
-
-  # TODO move to pkgs
-  myGlances = with pkgs.python3Packages;
-    (pkgs.glances.overrideAttrs (oldAttrs: {
-      propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ requests ]
-        ++ optional config.virtualisation.docker.enable docker
-        ++ optional config.networking.wireless.enable wifi;
-    }));
 in {
   options.glances = {
     enable = mkEnableOption "Glances";
@@ -40,7 +32,9 @@ in {
       description = "Glances";
       serviceConfig = {
         ExecStart =
-          "${myGlances}/bin/glances --config ${configFile} --webserver --time 1 --byte --port ${toString cfg.port}";
+          "${pkgs.glances}/bin/glances --config ${configFile} --webserver --time 1 --byte --port ${
+            toString cfg.port
+          }";
         Restart = "on-abort";
         User = "glances";
       };

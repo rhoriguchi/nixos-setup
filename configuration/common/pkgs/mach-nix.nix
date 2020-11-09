@@ -1,5 +1,5 @@
-{ pkgs }:
-(import (pkgs.fetchFromGitHub {
+{ pkgs, fetchFromGitHub }:
+(import (fetchFromGitHub {
   owner = "DavHau";
   repo = "mach-nix";
   rev = "3.0.2";

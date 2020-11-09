@@ -3,19 +3,6 @@ with lib;
 let
   cfg = config.tv_time_export;
 
-  # TODO extract to pkgs
-  tvTimeExport = pkgs.mach-nix.buildPythonApplication rec {
-    pname = "tv_time_export";
-    version = "1.0.7";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "rhoriguchi";
-      repo = pname;
-      rev = version;
-      sha256 = "079qkxdhvbsfn38a0lz8s26vlbssmzgsipx6fmwxjhk4dg4k2mzh";
-    };
-  };
-
   configFile = pkgs.writeText "config.yaml" ''
     username: ${cfg.username}
     password: ${cfg.password}
@@ -54,7 +41,7 @@ in {
       after = [ "network.target" ];
       description = "tv_time_export";
       serviceConfig = {
-        ExecStart = "${tvTimeExport}/bin/tv_time_export ${configFile}";
+        ExecStart = "${pkgs.tv_time_export}/bin/tv_time_export ${configFile}";
         ExecStartPre = "${pkgs.busybox}/bin/mkdir -p ${cfg.exportPath}";
         Restart = "on-abort";
         UMask = "0007";
