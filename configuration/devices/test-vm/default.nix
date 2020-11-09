@@ -25,7 +25,7 @@ in {
   };
 
   # rslsync = {
-  #   enable = false;
+  #   enable = true;
   #   syncPath = "${syncDir}";
   # };
 }
