@@ -102,6 +102,14 @@ in {
       groups.rslsync.gid = config.ids.gids.rslsync;
     };
 
+    system.activationScripts.rslsync = ''
+      ${pkgs.busybox}/bin/mkdir -p ${cfg.syncPath}
+      ${pkgs.busybox}/bin/chown -R ${toString config.ids.uids.rslsync}:${
+        toString config.ids.gids.rslsync
+      } ${cfg.syncPath}
+      ${pkgs.busybox}/bin/chmod -R 0755 ${cfg.syncPath}/..
+    '';
+
     systemd.services.rslsync = {
       after = [ "network.target" ];
       description = "Resilio Sync";
@@ -110,7 +118,7 @@ in {
           "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
         ExecStartPre = "${pkgs.busybox}/bin/mkdir -p "
           + builtins.concatStringsSep " "
-          (builtins.map (builtins.getAttr "dir") sharedFolders);
+          (map (builtins.getAttr "dir") sharedFolders);
         Restart = "on-abort";
         UMask = "0007";
         User = "rslsync";
