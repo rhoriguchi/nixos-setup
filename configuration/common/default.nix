@@ -29,6 +29,7 @@ with lib; {
   };
 
   nixpkgs = {
+    # TODO find solution to get rid of this
     config.allowUnfree = true;
     overlays = import ./pkgs;
   };
