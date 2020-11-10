@@ -23,7 +23,7 @@ let
     device_name = lib.strings.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.syncPath;
-    check_for_updates = true;
+    check_for_updates = false;
     use_upnp = true;
     download_limit = 0;
     upload_limit = 0;
@@ -32,6 +32,8 @@ let
     shared_folders = sharedFolders;
     send_statistics = false;
     peer_expiration_days = 1;
+    use_gui = false;
+    disk_low_priority = true;
   });
 in {
   options.rslsync = {
