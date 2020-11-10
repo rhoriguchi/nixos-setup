@@ -29,8 +29,8 @@ with lib; {
   };
 
   nixpkgs = {
-    # TODO find solution to get rid of this
-    config.allowUnfree = true;
+    config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [ "resilio-sync" ];
     overlays = import ./pkgs;
   };
 
