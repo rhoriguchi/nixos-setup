@@ -40,7 +40,7 @@ in {
       description = "Glances";
       serviceConfig = {
         ExecStart =
-          "${myGlances}/bin/glances --config ${configFile} --webserver --time 1 --byte";
+          "${myGlances}/bin/glances --config ${configFile} --webserver --time 1 --byte --port ${toString cfg.port}";
         Restart = "on-abort";
         User = "glances";
       };
