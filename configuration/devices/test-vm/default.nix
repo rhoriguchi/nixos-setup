@@ -24,8 +24,10 @@ in {
     exportPath = "${syncDir}/tv_time_export";
   };
 
-  # rslsync = {
-  #   enable = true;
-  #   syncPath = "${syncDir}";
-  # };
+  rslsync = {
+    enable = true;
+    syncPath = "${syncDir}";
+  };
+
+  systemd.services.rslsync.enable = false;
 }
