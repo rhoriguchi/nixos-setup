@@ -19,7 +19,7 @@ let
     known_hosts = [ ];
   }) cfg.secrets;
 
-  configFile = pkgs.writeText "config.json" (builtins.toJSON {
+  configFile = (pkgs.formats.json { }).generate "config.json" {
     device_name = lib.strings.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.syncPath;
@@ -34,7 +34,7 @@ let
     peer_expiration_days = 1;
     use_gui = false;
     disk_low_priority = true;
-  });
+  };
 in {
   options.rslsync = {
     enable = mkEnableOption "Resilio Sync";

@@ -3,19 +3,12 @@ with lib;
 let
   cfg = config.glances;
 
-  configFile = pkgs.writeText "glances.conf" ''
-    [global]
-    check_update = true
-
-    [diskio]
-    hide = loop*, zram*, mmcblk*
-
-    [fs]
-    hide = mmcblk.*
-
-    [network]
-    hide = veth*, lo
-  '';
+  configFile = (pkgs.formats.toml { }).generate "glances.conf" {
+    diskio.hide = "loop*, zram*, mmcblk*";
+    fs.hide = "mmcblk.*";
+    global.check_update = true;
+    network.hide = "veth*, lo";
+  };
 in {
   options.glances = {
     enable = mkEnableOption "Glances";

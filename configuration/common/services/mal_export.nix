@@ -3,11 +3,11 @@ with lib;
 let
   cfg = config.mal_export;
 
-  configFile = pkgs.writeText "config.yaml" ''
-    username: ${cfg.username}
-    password: ${cfg.password}
-    save_path: ${cfg.exportPath}
-  '';
+  configFile = (pkgs.formats.yaml { }).generate "config.yaml" {
+    username = cfg.username;
+    password = cfg.password;
+    save_path = cfg.exportPath;
+  };
 in {
   options.mal_export = {
     enable = mkEnableOption "mal_export";

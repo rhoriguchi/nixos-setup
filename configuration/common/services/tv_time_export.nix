@@ -3,11 +3,11 @@ with lib;
 let
   cfg = config.tv_time_export;
 
-  configFile = pkgs.writeText "config.yaml" ''
-    username: ${cfg.username}
-    password: ${cfg.password}
-    save_path: ${cfg.exportPath}
-  '';
+  configFile = (pkgs.formats.yaml { }).generate "config.yaml" {
+    username = cfg.username;
+    password = cfg.password;
+    save_path = cfg.exportPath;
+  };
 in {
   options.tv_time_export = {
     enable = mkEnableOption "tv_time_export";
