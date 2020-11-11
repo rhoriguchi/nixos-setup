@@ -1,16 +1,16 @@
 { config, pkgs, lib, ... }:
 let
-  dataDir = "/media/Data";
+  dataDir = "/tmp";
   syncDir = "${dataDir}/Sync";
 in {
   imports = [ ./hardware-configuration.nix ];
 
   users.users.xxlpitu.password = lib.mkForce "asdf1234";
 
-  # duckdns = {
-  #   enable = true;
-  #   subdomain = "xxlpitu-rain-town";
-  # };
+  duckdns = {
+    enable = true;
+    subdomain = "xxlpitu-rain-town";
+  };
 
   glances.enable = true;
 
@@ -29,5 +29,8 @@ in {
     syncPath = "${syncDir}";
   };
 
-  systemd.services.rslsync.enable = false;
+  systemd.services = {
+    duckdns.enable = false;
+    rslsync.enable = false;
+  };
 }
