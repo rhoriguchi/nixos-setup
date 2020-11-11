@@ -23,7 +23,7 @@ let
     device_name = lib.strings.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.syncPath;
-    check_for_updates = false;
+    check_for_updates = true;
     use_upnp = true;
     download_limit = 0;
     upload_limit = 0;
