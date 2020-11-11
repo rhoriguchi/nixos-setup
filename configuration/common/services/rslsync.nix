@@ -3,7 +3,7 @@ with lib;
 let
   cfg = config.rslsync;
 
-  sharedFolders = builtins.map (secret: {
+  sharedFolders = map (secret: {
     secret = secret.secret;
     dir = "${cfg.syncPath}/${
         if secret.dirName != null then
