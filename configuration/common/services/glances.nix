@@ -4,6 +4,7 @@ let
   cfg = config.glances;
 
   configFile = (pkgs.formats.toml { }).generate "glances.conf" {
+    connections.disable = false;
     diskio.hide = "loop*, zram*, mmcblk*";
     fs.hide = "mmcblk.*";
     global.check_update = true;
@@ -25,7 +26,7 @@ in {
       description = "Glances";
       serviceConfig = {
         ExecStart =
-          "${pkgs.glances}/bin/glances --config ${configFile} --webserver --time 1 --byte --port ${
+          "${pkgs.glances}/bin/glances --config ${configFile} --time 1 --byte --webserver --port ${
             toString cfg.port
           }";
         Restart = "on-abort";
