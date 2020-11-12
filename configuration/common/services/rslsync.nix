@@ -47,7 +47,7 @@ in {
     };
     listeningPort = mkOption {
       default = 5555;
-      type = types.int;
+      type = types.port;
     };
     syncPath = mkOption { type = types.str; };
     secrets = mkOption {

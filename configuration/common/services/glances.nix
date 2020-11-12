@@ -15,7 +15,7 @@ in {
     enable = mkEnableOption "Glances";
     port = mkOption {
       default = 61208;
-      type = types.int;
+      type = types.port;
     };
   };
 
