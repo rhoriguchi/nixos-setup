@@ -103,7 +103,8 @@ in {
 
       groups.rslsync.gid = config.ids.gids.rslsync;
     };
-
+    
+    # TODO run after every rebuild
     system.activationScripts.rslsync = ''
       mkdir -p ${cfg.syncPath}
       chown -R ${toString config.ids.uids.rslsync}:${
