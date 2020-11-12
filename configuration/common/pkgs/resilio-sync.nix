@@ -1,4 +1,3 @@
-# TODO create pull request with arm64
 { resilio-sync, stdenv, fetchurl }:
 let
   arch = {
