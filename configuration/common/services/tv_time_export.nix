@@ -42,7 +42,7 @@ in {
       description = "tv_time_export";
       serviceConfig = {
         ExecStart = "${pkgs.tv_time_export}/bin/tv_time_export ${configFile}";
-        ExecStartPre = "${pkgs.busybox}/bin/mkdir -p ${cfg.exportPath}";
+        ExecStartPre = "mkdir -p ${cfg.exportPath}";
         Restart = "on-abort";
         UMask = "0007";
         User = "mal_export";

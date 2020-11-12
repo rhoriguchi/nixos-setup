@@ -42,7 +42,7 @@ in {
       description = "mal_export";
       serviceConfig = {
         ExecStart = "${pkgs.mal_export}/bin/mal_export ${configFile}";
-        ExecStartPre = "${pkgs.busybox}/bin/mkdir -p ${cfg.exportPath}";
+        ExecStartPre = "mkdir -p ${cfg.exportPath}";
         Restart = "on-abort";
         UMask = "0007";
         User = "mal_export";

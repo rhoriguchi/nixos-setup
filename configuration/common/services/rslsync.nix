@@ -105,11 +105,11 @@ in {
     };
 
     system.activationScripts.rslsync = ''
-      ${pkgs.busybox}/bin/mkdir -p ${cfg.syncPath}
-      ${pkgs.busybox}/bin/chown -R ${toString config.ids.uids.rslsync}:${
+      mkdir -p ${cfg.syncPath}
+      chown -R ${toString config.ids.uids.rslsync}:${
         toString config.ids.gids.rslsync
       } ${cfg.syncPath}
-      ${pkgs.busybox}/bin/chmod -R 0755 ${cfg.syncPath}/..
+      chmod -R 0755 ${cfg.syncPath}/..
     '';
 
     systemd.services.rslsync = {
@@ -118,8 +118,7 @@ in {
       serviceConfig = {
         ExecStart =
           "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
-        ExecStartPre = "${pkgs.busybox}/bin/mkdir -p "
-          + builtins.concatStringsSep " "
+        ExecStartPre = "mkdir -p " + builtins.concatStringsSep " "
           (map (builtins.getAttr "dir") sharedFolders);
         Restart = "on-abort";
         UMask = "0007";
