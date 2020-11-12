@@ -4,9 +4,7 @@ let cfg = config.duckdns;
 in {
   options.duckdns = {
     enable = mkEnableOption "Duck DNS";
-
     token = mkOption { type = types.str; };
-
     subdomain = mkOption { type = types.str; };
   };
 
