@@ -4,6 +4,7 @@
   })
   (self: super: {
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
+    log2ram = super.callPackage ./log2ram.nix { };
     mal_export = super.callPackage ./mal_export.nix { };
     resilio-sync =
       super.callPackage ./resilio-sync.nix { inherit (super) resilio-sync; };

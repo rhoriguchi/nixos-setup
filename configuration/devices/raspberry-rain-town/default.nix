@@ -45,4 +45,6 @@ in {
     enable = true;
     syncPath = "${syncDir}";
   };
+
+  log2ram.enable = true;
 }

@@ -29,6 +29,8 @@ in {
     syncPath = "${syncDir}";
   };
 
+  log2ram.enable = true;
+
   systemd.services = {
     duckdns.enable = false;
     rslsync.enable = false;
