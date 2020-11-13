@@ -3,6 +3,12 @@ with lib;
 let
   cfg = config.rslsync;
 
+  isUniqueIgnoreNullByAttrName = list: attrName:
+    lists.unique (builtins.filter (match: match != null)
+      (map (builtins.getAttr attrName) list))
+    == builtins.filter (match: match != null)
+    (map (builtins.getAttr attrName) list);
+
   sharedFolders = map (secret: {
     secret = secret.secret;
     dir = "${cfg.syncPath}/${
@@ -83,15 +89,11 @@ in {
         message = "Secrets cannot be empty";
       }
       {
-        assertion = lists.unique (map (builtins.getAttr "secret") cfg.secrets)
-          == map (builtins.getAttr "secret") cfg.secrets;
+        assertion = isUniqueIgnoreNullByAttrName cfg.secrets "secret";
         message = "Secret in secrets must be unique";
       }
       {
-        assertion = lists.unique (builtins.filter (match: match != null)
-          (map (builtins.getAttr "dirName") cfg.secrets))
-          == builtins.filter (match: match != null)
-          (map (builtins.getAttr "dirName") cfg.secrets);
+        assertion = isUniqueIgnoreNullByAttrName cfg.secrets "dirName";
         message = "Dir name in secrets must be unique";
       }
     ];
