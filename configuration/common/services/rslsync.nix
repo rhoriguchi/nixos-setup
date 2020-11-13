@@ -129,6 +129,7 @@ in {
         UMask = "0007";
         User = "rslsync";
       };
+      unitConfig.ConditionPathExists = [ cfg.syncPath ];
       wantedBy = [ "multi-user.target" ];
     };
 
