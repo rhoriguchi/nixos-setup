@@ -34,6 +34,8 @@ with lib; {
     overlays = import ./pkgs;
   };
 
+  environment.systemPackages = with pkgs; [ glances htop ];
+
   programs.zsh.enable = true;
 
   services.openssh = {
