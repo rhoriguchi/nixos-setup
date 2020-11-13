@@ -40,10 +40,9 @@ glances.overrideAttrs (oldAttrs: {
     future
     netifaces
     psutil
-    pySMART_smartx
     pysnmp
     requests
     setuptools
-  ]) ++ [ py-cpuinfo ] ++ optional stdenv.isLinux hddtemp
+  ]) ++ [ py-cpuinfo pySMART_smartx ] ++ optional stdenv.isLinux hddtemp
     ++ optional stdenv.isLinux pymdstat;
 })
