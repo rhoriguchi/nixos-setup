@@ -20,7 +20,7 @@ let
   }) cfg.secrets;
 
   configFile = (pkgs.formats.json { }).generate "config.json" {
-    device_name = lib.strings.toUpper cfg.deviceName;
+    device_name = strings.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.syncPath;
     check_for_updates = true;
@@ -83,13 +83,15 @@ in {
         message = "Secrets cannot be empty";
       }
       {
-        # TODO use map function to get all secret and check if unique
-        assertion = lib.lists.unique cfg.secrets == cfg.secrets;
+        assertion = lists.unique (map (builtins.getAttr "secret") cfg.secrets)
+          == map (builtins.getAttr "secret") cfg.secrets;
         message = "Secret in secrets must be unique";
       }
       {
-        # TODO use map function to get all dirName and check if unique
-        assertion = lib.lists.unique cfg.secrets == cfg.secrets;
+        assertion = lists.unique (builtins.filter (match: match != null)
+          (map (builtins.getAttr "dirName") cfg.secrets))
+          == builtins.filter (match: match != null)
+          (map (builtins.getAttr "dirName") cfg.secrets);
         message = "Dir name in secrets must be unique";
       }
     ];
@@ -103,7 +105,7 @@ in {
 
       groups.rslsync.gid = config.ids.gids.rslsync;
     };
-    
+
     # TODO run after every rebuild
     system.activationScripts.rslsync = ''
       mkdir -p ${cfg.syncPath}
