@@ -30,7 +30,7 @@ with lib; {
 
   nixpkgs = {
     config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [ "resilio-sync" ];
+      builtins.elem (getName pkg) [ "resilio-sync" ];
     overlays = import ./pkgs;
   };
 
