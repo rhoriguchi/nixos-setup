@@ -4,6 +4,8 @@ let
   syncDir = "${dataDir}/Sync";
 in {
   imports = [
+    ../default.nix
+
     # TODO needs to be generated and replaced
     ./hardware-configuration.nix
   ];

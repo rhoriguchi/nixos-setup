@@ -4,7 +4,7 @@ let
   dataDir = "/tmp";
   syncDir = "${dataDir}/Sync";
 in {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ ../default.nix ./hardware-configuration.nix ];
 
   networking.hostName = "TEST-SERVER-VM";
 

@@ -3,7 +3,7 @@ let
   dataDir = "/media/Data";
   syncDir = "${dataDir}/Sync";
 in {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ ../default.nix ./hardware-configuration.nix ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_4_19;
