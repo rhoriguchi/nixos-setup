@@ -51,6 +51,18 @@ with lib; {
     wlp3s0.useDHCP = true;
   };
 
+  environment.etc."docker/daemon.json" = {
+    enable = config.virtualisation.docker.enable;
+
+    source = (pkgs.formats.json { }).generate "daemon.json" {
+      log-driver = "json-file";
+      log-opts = {
+        max-file = 10;
+        max-size = "10m";
+      };
+    };
+  };
+
   users = {
     defaultUserShell = pkgs.zsh;
     mutableUsers = false;
