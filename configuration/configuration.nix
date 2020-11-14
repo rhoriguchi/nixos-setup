@@ -1,8 +1,8 @@
 {
   imports = [
     ./common
-    # ./devices/raspberry-rain-town
-    # ./devices/server
-    # ./devices/test-vm
+    # ./devices/servers/raspberry-rain-town
+    # ./devices/servers/server
+    # ./devices/servers/test-server-vm
   ];
 }

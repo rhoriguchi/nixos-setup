@@ -6,7 +6,7 @@ let
 in {
   imports = [ ./hardware-configuration.nix ];
 
-  networking.hostName = "Test-VM";
+  networking.hostName = "TEST-SERVER-VM";
 
   users.users.xxlpitu.password = mkForce "asdf1234";
 
