@@ -1,11 +1,14 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
+with lib;
 let
   dataDir = "/tmp";
   syncDir = "${dataDir}/Sync";
 in {
   imports = [ ./hardware-configuration.nix ];
 
-  users.users.xxlpitu.password = lib.mkForce "asdf1234";
+  networking.hostName = "Test-VM";
+
+  users.users.xxlpitu.password = mkForce "asdf1234";
 
   duckdns = {
     enable = true;

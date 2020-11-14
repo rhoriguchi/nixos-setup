@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   dataDir = "/media/Data";
   syncDir = "${dataDir}/Sync";
