@@ -13,6 +13,7 @@ in {
       IdentityFile ${./keys/id_rsa}
     '';
 
+    # TODO generate new key and add to GitHub
     matchBlocks = {
       "gitlab.com" = {
         identityFile = "${./keys/gitlab_rsa}";
