@@ -1,6 +1,9 @@
 { config, ... }:
-# TODO hand this over as variable
-let userName = "rhoriguchi";
+let
+  # TODO hand this over as variable
+  userName = "rhoriguchi";
+
+  dag = config.home-manager.users."${userName}".lib.dag;
 in {
   home-manager.users."${userName}".programs.ssh = {
     enable = true;
@@ -20,8 +23,7 @@ in {
         user = "git";
       };
 
-      "*.duckdns.org" =
-        config.home-manager.users."${userName}".lib.dag.entryBefore [ "gitlab.com" ] { user = "xxlpitu"; };
+      "*.duckdns.org" = dag.entryBefore [ "gitlab.com" ] { user = "xxlpitu"; };
     };
   };
 }
