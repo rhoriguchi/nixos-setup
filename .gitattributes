@@ -1,1 +1,4 @@
 secrets.nix filter=git-crypt diff=git-crypt
+
+**/ssh/keys/ filter=git-crypt diff=git-crypt
+*_rsa filter=git-crypt diff=git-crypt
