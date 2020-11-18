@@ -1,10 +1,12 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 let
   # TODO hand this over as variable
   username = "rhoriguchi";
 
   dag = config.home-manager.users."${username}".lib.dag;
 in {
+  # TODO generate public keys and change permissions of .ssh
+
   home-manager.users."${username}".programs.ssh = {
     enable = true;
 
