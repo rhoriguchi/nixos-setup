@@ -16,14 +16,18 @@ in {
       IdentityFile ${./keys/id_rsa}
     '';
 
-    # TODO generate new key and add to GitHub
     matchBlocks = {
+      "github.com" = {
+        identityFile = "${./keys/github_rsa}";
+        user = "git";
+      };
+
       "gitlab.com" = {
         identityFile = "${./keys/gitlab_rsa}";
         user = "git";
       };
 
-      "*.duckdns.org" = dag.entryBefore [ "gitlab.com" ] { user = "xxlpitu"; };
+      "*.duckdns.org" = dag.entryBefore [ "github.com" "gitlab.com" ] { user = "xxlpitu"; };
     };
   };
 }
