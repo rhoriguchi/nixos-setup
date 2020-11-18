@@ -29,7 +29,8 @@ in {
         user = "git";
       };
 
-      "*.duckdns.org" = dag.entryBefore [ "github.com" "gitlab.com" ] { user = "xxlpitu"; };
+      "*.duckdns.org" =
+        dag.entryBefore [ "github.com" "gitlab.com" ] { user = "xxlpitu"; };
     };
   };
 }
