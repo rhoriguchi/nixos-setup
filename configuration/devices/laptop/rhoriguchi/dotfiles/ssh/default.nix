@@ -1,11 +1,11 @@
 { config, ... }:
 let
   # TODO hand this over as variable
-  userName = "rhoriguchi";
+  username = "rhoriguchi";
 
-  dag = config.home-manager.users."${userName}".lib.dag;
+  dag = config.home-manager.users."${username}".lib.dag;
 in {
-  home-manager.users."${userName}".programs.ssh = {
+  home-manager.users."${username}".programs.ssh = {
     enable = true;
 
     compression = true;

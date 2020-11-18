@@ -1,11 +1,11 @@
 { pkgs, ... }:
 # TODO hand this over as variable
-let userName = "rhoriguchi";
+let username = "rhoriguchi";
 in {
-  users.users."${userName}".packages = (with pkgs; [ papirus-icon-theme ])
+  users.users."${username}".packages = (with pkgs; [ papirus-icon-theme ])
     ++ (with pkgs.gnomeExtensions; [ dash-to-dock desktop-icons ]);
 
-  home-manager.users."${userName}".dconf = {
+  home-manager.users."${username}".dconf = {
     enable = true;
 
     settings = {

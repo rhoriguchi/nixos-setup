@@ -1,15 +1,15 @@
 { pkgs, config, ... }:
-let userName = "rhoriguchi";
+let username = "rhoriguchi";
 in {
   imports = [ ./dotfiles ./theme ];
 
-  users.users."${userName}" = {
+  users.users."${username}" = {
     extraGroups = [ "docker" "networkmanager" "vboxusers" "wheel" ];
-    home = "/home/${userName}";
+    home = "/home/${username}";
     isNormalUser = true;
   };
 
-  home-manager.users."${userName}".home = {
+  home-manager.users."${username}".home = {
     language = {
       base = "en_US.UTF-8";
       numeric = "de_CH.UTF-8";

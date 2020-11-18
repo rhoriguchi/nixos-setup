@@ -1,11 +1,11 @@
 { pkgs, ... }:
 # TODO hand this over as variable
-let userName = "rhoriguchi";
+let username = "rhoriguchi";
 in {
-  home-manager.users."${userName}".programs.git = {
+  home-manager.users."${username}".programs.git = {
     enable = true;
 
-    userName = "Ryan Horiguchi";
+    username = "Ryan Horiguchi";
     userEmail = "ryan.horiguchi@gmail.com";
 
     extraConfig = {

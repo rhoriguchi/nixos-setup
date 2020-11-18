@@ -1,8 +1,8 @@
 { ... }:
 # TODO hand this over as variable
-let userName = "rhoriguchi";
+let username = "rhoriguchi";
 in {
-  home-manager.users."${userName}".xdg.configFile."neofetch/config.conf" = {
+  home-manager.users."${username}".xdg.configFile."neofetch/config.conf" = {
     source = ./config.conf;
     force = true;
   };

@@ -1,14 +1,14 @@
 { pkgs, utils, config, ... }:
 # TODO hand this over as variable
-let userName = "rhoriguchi";
+let username = "rhoriguchi";
 in {
-  home-manager.users."${userName}".programs.alacritty = {
+  home-manager.users."${username}".programs.alacritty = {
     enable = true;
 
     settings = {
       shell.program =
-        "${utils.toShellPath config.users.users."${userName}".shell}";
-      working_directory = config.users.users."${userName}".home;
+        "${utils.toShellPath config.users.users."${username}".shell}";
+      working_directory = config.users.users."${username}".home;
       window = "Maximized";
 
       scrolling = {
