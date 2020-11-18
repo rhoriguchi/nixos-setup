@@ -5,7 +5,7 @@ in {
   home-manager.users."${username}".programs.git = {
     enable = true;
 
-    username = "Ryan Horiguchi";
+    userName = "Ryan Horiguchi";
     userEmail = "ryan.horiguchi@gmail.com";
 
     extraConfig = {
