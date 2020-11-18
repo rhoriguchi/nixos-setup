@@ -1,12 +1,8 @@
 { pkgs, lib, config, ... }:
 with lib; {
-  system = {
-    autoUpgrade = {
-      enable = true;
-      dates = "daily";
-    };
-
-    stateVersion = "20.09";
+  system.autoUpgrade = {
+    enable = true;
+    dates = "daily";
   };
 
   nix = {

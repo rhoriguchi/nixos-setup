@@ -9,10 +9,11 @@ with lib; {
   time.timeZone = "Europe/Zurich";
 
   nixpkgs = {
-    config.allowUnfreePredicate = pkg:
-      builtins.elem (getName pkg) [ "resilio-sync" ];
+    config.allowUnfree = true;
     overlays = import ./pkgs;
   };
+
+  system.stateVersion = "20.09";
 
   networking.interfaces = {
     eth0.useDHCP = true;

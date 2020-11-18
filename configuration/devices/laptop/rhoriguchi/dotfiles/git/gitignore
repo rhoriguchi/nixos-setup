@@ -1,0 +1,25 @@
+# Allway Sync
+_SYNCAPP
+
+# Mac folder view and thumbnail cache files
+.DS_Store
+desktop.ini
+Desktop.ini
+._*
+Thumbs.db
+thumbs.db
+
+# Files on external disks
+.Spotlight-V100
+.Trashes
+
+# vim
+*.swp
+
+# Microsoft office
+*.tmp
+~$*.doc*
+~$*.xls*
+*.xlk
+~$*.ppt*
+*.~vsd*
