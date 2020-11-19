@@ -1,1 +1,1 @@
-{ imports = [ ./alacritty.nix ./git ./neofetch ./ssh ]; }
+{ imports = [ ./alacritty.nix ./git ./neofetch ./ssh ./zsh.nix ]; }

@@ -56,11 +56,6 @@ with lib; {
     options = [ "defaults" "nofail" ];
   };
 
-  # TODO remove stupid aliases in "/etc/bashrc"
-  # alias l='ls -alh'
-  # alias ll='ls -l'
-  # alias ls='ls --color=tty'
-
   # TODO gnome default language is fucked up, login screen as example
 
   services = {
@@ -173,7 +168,9 @@ with lib; {
         pytest
         pytest_xdist
       ]) ++ (with pkgs.vscode-extensions;
-        [ shan.code-settings-sync ]); # TODO not installed # TODO install as rhoriguchi package
+        [
+          shan.code-settings-sync
+        ]); # TODO not installed # TODO install as rhoriguchi package
   };
 
   # TODO remove everything after this line
