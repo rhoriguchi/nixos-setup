@@ -5,7 +5,6 @@ in {
   home-manager.users."${username}".programs.zsh = {
     enable = true;
 
-
     # TODO remove stupid aliases in "/etc/bashrc"
     # alias l='ls -alh'
     # alias ll='ls -l'
