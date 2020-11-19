@@ -20,7 +20,22 @@ with lib; {
     wlan0.useDHCP = true;
   };
 
-  programs.zsh.enable = true;
+  programs = {
+    nano = {
+      nanorc = ''
+        set constantshow
+        set linenumbers
+        set softwrap
+        set tabsize 4
+        set tabstospaces
+        unset nonewlines
+      '';
+
+      syntaxHighlight = true;
+    };
+
+    zsh.enable = true;
+  };
 
   users = {
     defaultUserShell = pkgs.zsh;
