@@ -13,7 +13,7 @@
     terraform =
       super.callPackage ./terraform.nix { inherit (super) terraform; };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
-    vscode-extensions = super.callPackage ./vscode-extensions.nix {
+    vscode-extensions = super.callPackage ./vscode-extensions {
       inherit (super) vscode-extensions;
     };
   })
