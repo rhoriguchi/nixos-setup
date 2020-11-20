@@ -25,5 +25,6 @@ in {
     keyboard.layout = "ch";
   };
 
+  # TODO set up gnome calendar
   # TODO make firefox default browser https://askubuntu.com/questions/16621/how-to-set-the-default-browser-from-the-command-line
 }
