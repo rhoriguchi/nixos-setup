@@ -167,10 +167,7 @@ with lib; {
         pylint
         pytest
         pytest_xdist
-      ]) ++ (with pkgs.vscode-extensions;
-        [
-          shan.code-settings-sync
-        ]); # TODO not installed # TODO install as rhoriguchi package
+      ]);
   };
 
   # TODO remove everything after this line
