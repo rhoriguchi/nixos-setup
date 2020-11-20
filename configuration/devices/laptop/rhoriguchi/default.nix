@@ -1,4 +1,5 @@
 { pkgs, config, ... }:
+# TODO hand this over as variable
 let username = "rhoriguchi";
 in {
   imports = [ ./dotfiles ./theme ];
