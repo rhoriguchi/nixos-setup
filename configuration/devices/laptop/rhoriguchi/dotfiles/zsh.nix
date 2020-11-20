@@ -5,13 +5,13 @@ in {
   home-manager.users."${username}".programs.zsh = {
     enable = true;
 
-    # TODO remove stupid aliases in "/etc/bashrc"
+    # TODO remove stupid aliases created in nixos/modules/config/shells-environment.nix#170
     # alias l='ls -alh'
     # alias ll='ls -l'
     # alias ls='ls --color=tty'
     shellAliases = {
       cls = "clear";
-      ls = "ls --color -Ah";
+      ls = "ls --color=tty -Ah";
 
       neofetch = "echo; echo; neofetch";
 
