@@ -25,22 +25,29 @@ let
     known_hosts = [ ];
   }) cfg.secrets;
 
-  configFile = (pkgs.formats.json { }).generate "config.json" {
+  configFile = (pkgs.formats.json { }).generate "config.json" ({
     device_name = strings.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.syncPath;
-    check_for_updates = true;
+    check_for_updates = cfg.checkForUpdates;
     use_upnp = true;
     download_limit = 0;
     upload_limit = 0;
     directory_root = cfg.syncPath;
     directory_root_policy = "belowroot";
-    shared_folders = sharedFolders;
     send_statistics = false;
     peer_expiration_days = 1;
     use_gui = false;
     disk_low_priority = true;
-  };
+  } // optionalAttrs (!cfg.webUI.enable && sharedFolders != [ ]) {
+    shared_folders = sharedFolders;
+  } // optionalAttrs cfg.webUI.enable {
+    webui = {
+      login = cfg.webUI.username;
+      password = cfg.webUI.password;
+      listen = "0.0.0.0:${toString cfg.webUI.port}";
+    };
+  });
 in {
   options.rslsync = {
     enable = mkEnableOption "Resilio Sync";
@@ -50,6 +57,29 @@ in {
         config.networking.hostName
       else
         "";
+    };
+    webUI = mkOption {
+      type = types.submodule {
+        options = {
+          enable = mkOption {
+            type = types.bool;
+            default = false;
+          };
+          username = mkOption {
+            type = types.str;
+            default = "admin";
+          };
+          password = mkOption { type = types.str; };
+          port = mkOption {
+            type = types.port;
+            default = 8888;
+          };
+        };
+      };
+    };
+    checkForUpdates = mkOption {
+      default = true;
+      type = types.bool;
     };
     listeningPort = mkOption {
       default = 5555;
@@ -85,7 +115,15 @@ in {
         message = "Device name cannot be empty.";
       }
       {
-        assertion = builtins.length cfg.secrets > 0;
+        assertion = cfg.webUI.enable && cfg.webUI.username != "";
+        message = "When web ui is enabled username must be set";
+      }
+      {
+        assertion = cfg.webUI.enable && cfg.webUI.password != "";
+        message = "When web ui is enabled password must be set";
+      }
+      {
+        assertion = !cfg.webUI.enable || cfg.secrets != [ ];
         message = "Secrets cannot be empty";
       }
       {

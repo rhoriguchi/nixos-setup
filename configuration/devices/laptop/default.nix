@@ -1,5 +1,9 @@
 { config, pkgs, lib, ... }:
-with lib; {
+with lib;
+let
+  dataDir = "/tmp";
+  syncDir = "${dataDir}/Sync";
+in {
   imports = [
     # TODO done use package source, get from github directly
     <home-manager/nixos>
@@ -50,7 +54,7 @@ with lib; {
 
   hardware.bluetooth.enable = true;
 
-  fileSystems."/media/Data" = {
+  fileSystems."${dataDir}" = {
     device = "/dev/disk/by-uuid/8b0f2c45-5560-4503-a72c-ff354e4fdb70";
     fsType = "ext4";
     options = [ "defaults" "nofail" ];
@@ -92,6 +96,12 @@ with lib; {
     };
 
     steam.enable = true;
+  };
+
+  rslsync = {
+    enable = true;
+    syncPath = "${syncDir}";
+    webUI.enable = true;
   };
 
   environment = {

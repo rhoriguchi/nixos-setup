@@ -40,6 +40,7 @@ in {
 
   rslsync = {
     enable = true;
+    checkForUpdates = false;
     syncPath = "${syncDir}";
   };
 
