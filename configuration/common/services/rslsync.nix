@@ -110,11 +110,11 @@ in {
 
     # TODO run after every rebuild
     system.activationScripts.rslsync = ''
-      mkdir -p ${cfg.syncPath}
-      chown -R ${toString config.ids.uids.rslsync}:${
+      ${pkgs.coreutils}/bin/mkdir -p ${cfg.syncPath}
+      ${pkgs.coreutils}/bin/chown -R ${toString config.ids.uids.rslsync}:${
         toString config.ids.gids.rslsync
       } ${cfg.syncPath}
-      chmod -R 0755 ${cfg.syncPath}/..
+      ${pkgs.coreutils}/bin/chmod -R 0755 ${cfg.syncPath}/..
     '';
 
     systemd.services.rslsync = {
@@ -123,7 +123,8 @@ in {
       serviceConfig = {
         ExecStart =
           "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
-        ExecStartPre = "mkdir -p " + builtins.concatStringsSep " "
+        ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p "
+          + builtins.concatStringsSep " "
           (map (builtins.getAttr "dir") sharedFolders);
         Restart = "on-abort";
         UMask = "0007";
