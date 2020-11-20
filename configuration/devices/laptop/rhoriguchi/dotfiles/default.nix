@@ -1,1 +1,1 @@
-{ imports = [ ./alacritty.nix ./git ./neofetch ./ssh ./zsh.nix ]; }
+{ imports = [ ./alacritty.nix ./dircolors ./git ./neofetch ./ssh ./zsh.nix ]; }
