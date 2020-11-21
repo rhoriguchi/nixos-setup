@@ -82,8 +82,7 @@ in {
       LOG_DISK_SIZE=${toString cfg.logDiskSize}M
     '';
 
-    # TODO run after every rebuild
-    system.activationScripts.rslsync = ''
+    system.userActivationScripts.rslsync = ''
       rm -rf /var/log.hdd
       rm -rf /var/hdd.log
     '';

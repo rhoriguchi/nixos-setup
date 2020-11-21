@@ -146,8 +146,7 @@ in {
       groups.rslsync.gid = config.ids.gids.rslsync;
     };
 
-    # TODO run after every rebuild
-    system.activationScripts.rslsync = ''
+    system.userActivationScripts.rslsync = ''
       ${pkgs.coreutils}/bin/mkdir -p ${cfg.syncPath}
       ${pkgs.coreutils}/bin/chown -R ${toString config.ids.uids.rslsync}:${
         toString config.ids.gids.rslsync
