@@ -163,7 +163,6 @@ in {
       vlc
       vscode
     ]) ++ (with pkgs.gnome3; [ dconf-editor networkmanager-openconnect ])
-      ++ (with pkgs.gnomeExtensions; [ caffeine ])
       ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
         datagrip
         idea-ultimate
