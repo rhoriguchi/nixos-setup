@@ -146,7 +146,7 @@ in {
       groups.rslsync.gid = config.ids.gids.rslsync;
     };
 
-    system.userActivationScripts.rslsync = ''
+    system.userActivationScripts.rslsync = mkIf (!cfg.webUI.enable) ''
       ${pkgs.coreutils}/bin/mkdir -p ${cfg.syncPath}
       ${pkgs.coreutils}/bin/chown -R ${toString config.ids.uids.rslsync}:${
         toString config.ids.gids.rslsync
