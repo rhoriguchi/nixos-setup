@@ -2,7 +2,7 @@
 # TODO hand this over as variable
 let username = "rhoriguchi";
 in {
-  imports = [ ./dotfiles ./theme ];
+  imports = [ ./dotfiles ./settings.nix ./theme ];
 
   users.users."${username}" = {
     extraGroups = [ "docker" "networkmanager" "vboxusers" "wheel" ];
