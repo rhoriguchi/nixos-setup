@@ -1,8 +1,8 @@
 { lib, config, pkgs, ... }:
 with lib;
-let cfg = config.duckdns;
+let cfg = config.services.duckdns;
 in {
-  options.duckdns = {
+  options.services.duckdns = {
     enable = mkEnableOption "Duck DNS";
     token = mkOption { type = types.str; };
     subdomain = mkOption { type = types.str; };

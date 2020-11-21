@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 with lib;
 let
-  cfg = config.tv_time_export;
+  cfg = config.services.tv_time_export;
 
   configFile = (pkgs.formats.yaml { }).generate "config.yaml" {
     username = cfg.username;
@@ -9,7 +9,7 @@ let
     save_path = cfg.exportPath;
   };
 in {
-  options.tv_time_export = {
+  options.services.tv_time_export = {
     enable = mkEnableOption "tv_time_export";
     exportPath = mkOption { type = types.str; };
     username = mkOption { type = types.str; };

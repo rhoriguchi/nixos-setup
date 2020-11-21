@@ -18,9 +18,13 @@ with lib; {
     };
   };
 
-  services.openssh = {
-    enable = true;
-    passwordAuthentication = false;
+  services = {
+    glances.enable = true;
+
+    openssh = {
+      enable = true;
+      passwordAuthentication = false;
+    };
   };
 
   environment.systemPackages = with pkgs; [ glances htop ];

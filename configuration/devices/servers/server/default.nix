@@ -31,26 +31,26 @@ in {
 
   virtualisation.docker.enable = true;
 
-  duckdns = {
-    enable = true;
-    subdomain = "xxlpitu-home";
-  };
+  services = {
+    duckdns = {
+      enable = true;
+      subdomain = "xxlpitu-home";
+    };
 
-  glances.enable = true;
+    rslsync = {
+      enable = true;
+      checkForUpdates = false;
+      syncPath = "${syncDir}";
+    };
 
-  rslsync = {
-    enable = true;
-    checkForUpdates = false;
-    syncPath = "${syncDir}";
-  };
+    mal_export = {
+      enable = true;
+      exportPath = "${syncDir}/mal_export";
+    };
 
-  mal_export = {
-    enable = true;
-    exportPath = "${syncDir}/mal_export";
-  };
-
-  tv_time_export = {
-    enable = true;
-    exportPath = "${syncDir}/tv_time_export";
+    tv_time_export = {
+      enable = true;
+      exportPath = "${syncDir}/tv_time_export";
+    };
   };
 }

@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 with lib;
 let
-  cfg = config.glances;
+  cfg = config.services.glances;
 
   configFile = (pkgs.formats.toml { }).generate "glances.conf" {
     connections.disable = false;
@@ -11,7 +11,7 @@ let
     network.hide = "veth*, lo";
   };
 in {
-  options.glances = {
+  options.services.glances = {
     enable = mkEnableOption "Glances";
     port = mkOption {
       default = 61208;

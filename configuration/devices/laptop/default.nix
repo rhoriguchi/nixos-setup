@@ -63,6 +63,14 @@ in {
   # TODO gnome default language is fucked up, login screen as example
 
   services = {
+    rslsync = {
+      enable = true;
+      syncPath = "${syncDir}";
+      webUI.enable = true;
+    };
+
+    teamviewer.enable = true;
+
     xserver = {
       enable = true;
 
@@ -83,8 +91,6 @@ in {
       chrome-gnome-shell.enable = false;
       gnome-initial-setup.enable = mkForce false;
     };
-
-    teamviewer.enable = true;
   };
 
   programs = {
@@ -96,12 +102,6 @@ in {
     };
 
     steam.enable = true;
-  };
-
-  rslsync = {
-    enable = true;
-    syncPath = "${syncDir}";
-    webUI.enable = true;
   };
 
   environment = {

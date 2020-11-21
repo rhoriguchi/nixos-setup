@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 with lib;
 let
-  cfg = config.mal_export;
+  cfg = config.services.mal_export;
 
   configFile = (pkgs.formats.yaml { }).generate "config.yaml" {
     username = cfg.username;
@@ -9,7 +9,7 @@ let
     save_path = cfg.exportPath;
   };
 in {
-  options.mal_export = {
+  options.services.mal_export = {
     enable = mkEnableOption "mal_export";
     exportPath = mkOption { type = types.str; };
     username = mkOption { type = types.str; };

@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 with lib;
 let
-  cfg = config.rslsync;
+  cfg = config.services.rslsync;
 
   isUniqueIgnoreNullByAttrName = list: attrName:
     lists.unique (builtins.filter (match: match != null)
@@ -49,7 +49,7 @@ let
     };
   });
 in {
-  options.rslsync = {
+  options.services.rslsync = {
     enable = mkEnableOption "Resilio Sync";
     deviceName = mkOption {
       type = types.str;

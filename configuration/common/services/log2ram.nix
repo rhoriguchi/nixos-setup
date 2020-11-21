@@ -1,8 +1,8 @@
 { lib, config, pkgs, ... }:
 with lib;
-let cfg = config.log2ram;
+let cfg = config.services.log2ram;
 in {
-  options.log2ram = {
+  options.services.log2ram = {
     enable = mkEnableOption "Log2Ram";
     ram = mkOption {
       default = 60;

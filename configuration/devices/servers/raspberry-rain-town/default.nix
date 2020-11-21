@@ -34,18 +34,18 @@ in {
     };
   };
 
-  duckdns = {
-    enable = true;
-    subdomain = "xxlpitu-rain-town";
+  services = {
+    duckdns = {
+      enable = true;
+      subdomain = "xxlpitu-rain-town";
+    };
+
+    rslsync = {
+      enable = true;
+      checkForUpdates = false;
+      syncPath = "${syncDir}";
+    };
+
+    log2ram.enable = true;
   };
-
-  glances.enable = true;
-
-  rslsync = {
-    enable = true;
-    checkForUpdates = false;
-    syncPath = "${syncDir}";
-  };
-
-  log2ram.enable = true;
 }
