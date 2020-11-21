@@ -9,9 +9,7 @@ in {
     enable = true;
 
     settings = {
-      "org/gnome/desktop/background" = {
-        picture-uri = "file:${./wallpaper.jpg}";
-      };
+      "org/gnome/desktop/background".picture-uri = "file:${./wallpaper.jpg}";
       "org/gnome/desktop/interface" = {
         clock-show-seconds = true;
         clock-show-weekday = true;
