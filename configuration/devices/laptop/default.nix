@@ -109,12 +109,11 @@ in {
 
   environment = {
     # TODO remove xterm desktop icon
-    gnome3.excludePackages = (with pkgs; [ gnome-photos ])
+    gnome3.excludePackages = (with pkgs; [ gnome-connections gnome-photos ])
       ++ (with pkgs.gnome3; [
         eog
         geary
         gedit
-        gnome-calendar
         gnome-characters
         gnome-clocks
         gnome-contacts
@@ -124,7 +123,6 @@ in {
         gnome-screenshot
         gnome-terminal
         gnome-weather
-        pkgs.gnome-connections
         seahorse
         simple-scan
         totem
