@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, xorg, glib }:
+{ stdenv, fetchFromGitHub, xorg, glib, coreutils }:
 # TODO does not work like intended
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-unite-shell";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/share/gnome-shell/extensions
+    ${coreutils}/bin/mkdir -p $out/share/gnome-shell/extensions
     cp -r ${uuid} $out/share/gnome-shell/extensions
     runHook postInstall
   '';
