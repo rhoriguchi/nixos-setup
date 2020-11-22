@@ -5,7 +5,7 @@ in {
   imports = [ ./dotfiles ./settings.nix ./theme ];
 
   users.users."${username}" = {
-    extraGroups = [ "docker" "networkmanager" "vboxusers" "wheel" ];
+    extraGroups = [ "docker" "networkmanager" "rslsync" "vboxusers" "wheel" ];
     home = "/home/${username}";
     isNormalUser = true;
   };
