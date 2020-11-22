@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
+  # TODO change
   dataDir = "/tmp";
   syncDir = "${dataDir}/Sync";
 in {
