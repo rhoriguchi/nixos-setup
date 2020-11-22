@@ -34,7 +34,18 @@ with lib; {
       syntaxHighlight = true;
     };
 
-    zsh.enable = true;
+    zsh = {
+      enable = true;
+
+      shellAliases = {
+        l = null;
+        ll = null;
+        run-help = null;
+
+        cls = "clear";
+        ls = "ls --color=tty -Ah";
+      };
+    };
   };
 
   users = {
@@ -51,15 +62,27 @@ with lib; {
     };
   };
 
-  environment.etc."docker/daemon.json" = {
-    enable = config.virtualisation.docker.enable;
+  environment = {
+    etc."docker/daemon.json" = {
+      enable = config.virtualisation.docker.enable;
 
-    source = (pkgs.formats.json { }).generate "daemon.json" {
-      log-driver = "json-file";
-      log-opts = {
-        max-file = 10;
-        max-size = "10m";
+      source = (pkgs.formats.json { }).generate "daemon.json" {
+        log-driver = "json-file";
+        log-opts = {
+          max-file = 10;
+          max-size = "10m";
+        };
       };
+    };
+
+    shellAliases = {
+      l = null;
+      ll = null;
+      run-help = null;
+      which-command = null;
+
+      cls = "clear";
+      ls = "ls --color=tty -Ah";
     };
   };
 }
