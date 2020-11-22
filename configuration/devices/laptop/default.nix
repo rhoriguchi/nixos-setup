@@ -162,13 +162,16 @@ in {
       virtualbox
       vlc
       vscode
-    ]) ++ (with pkgs.gnome3; [ dconf-editor networkmanager-openconnect ])
-      ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
-        datagrip
-        idea-ultimate
-        pycharm-professional
-        webstorm
-      ]) ++ (with pkgs.nodePackages; [ npm prettier ])
+    ]) ++ (with pkgs.gnome3; [
+      adwaita-icon-theme
+      dconf-editor
+      networkmanager-openconnect
+    ]) ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
+      datagrip
+      idea-ultimate
+      pycharm-professional
+      webstorm
+    ]) ++ (with pkgs.nodePackages; [ npm prettier ])
       ++ (with pkgs.python38Packages; [
         flake8
         mypy
