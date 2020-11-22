@@ -3,7 +3,12 @@
 let username = "rhoriguchi";
 in {
   users.users."${username}".packages = (with pkgs; [ papirus-icon-theme ])
-    ++ (with pkgs.gnomeExtensions; [ caffeine dash-to-dock desktop-icons ]);
+    ++ (with pkgs.gnomeExtensions; [
+      caffeine
+      dash-to-dock
+      desktop-icons
+      unite-shell
+    ]);
 
   home-manager.users."${username}".dconf = {
     enable = true;
