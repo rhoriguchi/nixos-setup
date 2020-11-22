@@ -69,6 +69,8 @@ in {
       webUI.enable = true;
     };
 
+    udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
+
     teamviewer.enable = true;
 
     xserver = {
@@ -166,12 +168,13 @@ in {
       adwaita-icon-theme
       dconf-editor
       networkmanager-openconnect
-    ]) ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
-      datagrip
-      idea-ultimate
-      pycharm-professional
-      webstorm
-    ]) ++ (with pkgs.nodePackages; [ npm prettier ])
+    ]) ++ (with pkgs.gnomeExtensions; [ appindicator ])
+      ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
+        datagrip
+        idea-ultimate
+        pycharm-professional
+        webstorm
+      ]) ++ (with pkgs.nodePackages; [ npm prettier ])
       ++ (with pkgs.python38Packages; [
         flake8
         mypy
