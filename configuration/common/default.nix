@@ -34,20 +34,7 @@ with lib; {
       syntaxHighlight = true;
     };
 
-    zsh = {
-      enable = true;
-
-      # TODO duplicate
-      shellAliases = {
-        l = null;
-        ll = null;
-        run-help = null;
-        which-command = null;
-
-        cls = "clear";
-        ls = "ls --color=tty -Ah";
-      };
-    };
+    zsh.enable = true;
   };
 
   users = {
@@ -80,8 +67,6 @@ with lib; {
     shellAliases = {
       l = null;
       ll = null;
-      run-help = null;
-      which-command = null;
 
       cls = "clear";
       ls = "ls --color=tty -Ah";
