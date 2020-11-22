@@ -37,6 +37,7 @@ with lib; {
     zsh = {
       enable = true;
 
+      # TODO duplicate
       shellAliases = {
         l = null;
         ll = null;
