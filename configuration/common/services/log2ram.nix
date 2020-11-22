@@ -83,8 +83,8 @@ in {
     '';
 
     system.userActivationScripts.rslsync = ''
-      rm -rf /var/log.hdd
-      rm -rf /var/hdd.log
+      ${pkgs.coreutils}/bin/rm -rf /var/log.hdd
+      ${pkgs.coreutils}/bin/rm -rf /var/hdd.log
     '';
 
     systemd.services = {

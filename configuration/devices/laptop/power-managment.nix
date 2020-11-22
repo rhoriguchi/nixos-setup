@@ -1,13 +1,13 @@
 { pkgs, ... }:
 let
   acShellScript = pkgs.writeShellScript "ac" ''
-    echo 3 > /sys/devices/platform/asus-nb-wmi/leds/asus::kbd_backlight/brightness
-    echo 24000 > /sys/class/backlight/intel_backlight/brightness
+    ${pkgs.coreutils}/bin/echo 3 > /sys/devices/platform/asus-nb-wmi/leds/asus::kbd_backlight/brightness
+    ${pkgs.coreutils}/bin/echo 24000 > /sys/class/backlight/intel_backlight/brightness
   '';
 
   batteryShellScript = pkgs.writeShellScript "battery" ''
-    echo 0 > /sys/devices/platform/asus-nb-wmi/leds/asus::kbd_backlight/brightness
-    echo 16000 > /sys/class/backlight/intel_backlight/brightness
+    ${pkgs.coreutils}/bin/echo 0 > /sys/devices/platform/asus-nb-wmi/leds/asus::kbd_backlight/brightness
+    ${pkgs.coreutils}/bin/echo 16000 > /sys/class/backlight/intel_backlight/brightness
   '';
 in {
   services.udev.extraRules = ''
