@@ -8,3 +8,27 @@ sudo nix-channel --add https://github.com/nix-community/home-manager/archive/rel
 
 sudo nix-channel --update
 ```
+
+## Laptop manuel steps
+
+Login to:
+
+- Discord
+- Firefox
+- Gitkraken
+- JetBrains
+  - IntelliJ IDEA Ultimate
+  - PyCharm Professional
+  - WebStorm
+  - DataGrip
+- MegaSync
+- Postman
+- Resilio Sync
+- Steam
+- TeamViewer
+
+### Visual Studio Code
+
+Install **Settings Sync** extension
+Manualy enter `GistId` and `Token`
+Download settings
