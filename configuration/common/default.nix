@@ -41,6 +41,7 @@ with lib; {
         l = null;
         ll = null;
         run-help = null;
+        which-command = null;
 
         cls = "clear";
         ls = "ls --color=tty -Ah";
