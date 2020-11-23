@@ -9,7 +9,7 @@ in {
       shell.program =
         "${utils.toShellPath config.users.users."${username}".shell}";
       working_directory = config.users.users."${username}".home;
-      window = "Maximized";
+      window.startup_mode = "Maximized";
 
       scrolling = {
         history = 10000;
