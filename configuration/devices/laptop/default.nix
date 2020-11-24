@@ -163,7 +163,7 @@ in {
       qbittorrent
       spotify
       terraform
-      virtualbox
+      virtualboxWithExtpack
       vlc
       vscode
     ]) ++ (with pkgs.gnome3; [
@@ -184,7 +184,10 @@ in {
         pylint
         pytest
         pytest_xdist
-      ]);
+      ])
+
+      # TODO remove
+      ++ (with pkgs.linuxPackages; [ virtualboxGuestAdditions ]);
   };
 
   # TODO remove everything after this line
