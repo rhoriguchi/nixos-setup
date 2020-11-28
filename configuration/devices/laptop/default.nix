@@ -31,6 +31,8 @@ in {
     ./power-managment.nix
   ];
 
+  nix.autoOptimiseStore = true;
+
   virtualisation.docker.enable = true;
 
   networking = {
