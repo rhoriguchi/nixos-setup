@@ -1,7 +1,6 @@
 [
   (self: super: {
     mach-nix = super.callPackage ./mach-nix.nix { pkgs = super; };
-    python3 = super.callPackage ./python3 { inherit (super) python3; };
   })
   (self: super: {
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
