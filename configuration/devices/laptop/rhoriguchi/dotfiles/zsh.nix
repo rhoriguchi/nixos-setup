@@ -5,7 +5,6 @@
     shellAliases = {
       neofetch = "echo; echo; neofetch";
 
-      # TODO only add if nautilius on path
       open = "nautilus $PWD";
     };
 

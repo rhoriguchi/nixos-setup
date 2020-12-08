@@ -153,6 +153,7 @@ in {
     ]) ++ (with pkgs.gnome3; [
       adwaita-icon-theme
       dconf-editor
+      nautilus
       networkmanager-openconnect
     ]) ++ (with pkgs.gnomeExtensions; [ appindicator ])
       ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
