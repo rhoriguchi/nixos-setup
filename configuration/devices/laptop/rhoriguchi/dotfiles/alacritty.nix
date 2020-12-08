@@ -1,14 +1,11 @@
-{ pkgs, utils, config, ... }:
-# TODO hand this over as variable
-let username = "rhoriguchi";
-in {
-  home-manager.users."${username}".programs.alacritty = {
+{ pkgs, utils, config, ... }: {
+  home-manager.users.rhoriguchi.programs.alacritty = {
     enable = true;
 
     settings = {
       shell.program =
-        "${utils.toShellPath config.users.users."${username}".shell}";
-      working_directory = config.users.users."${username}".home;
+        "${utils.toShellPath config.users.users.rhoriguchi.shell}";
+      working_directory = config.users.users.rhoriguchi.home;
       window.startup_mode = "Maximized";
 
       scrolling = {

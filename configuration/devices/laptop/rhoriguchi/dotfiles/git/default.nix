@@ -1,8 +1,5 @@
-{ pkgs, ... }:
-# TODO hand this over as variable
-let username = "rhoriguchi";
-in {
-  home-manager.users."${username}".programs.git = {
+{ pkgs, ... }: {
+  home-manager.users.rhoriguchi.programs.git = {
     enable = true;
 
     userName = "Ryan Horiguchi";

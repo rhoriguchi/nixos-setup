@@ -1,8 +1,5 @@
-{ pkgs, ... }:
-# TODO hand this over as variable
-let username = "rhoriguchi";
-in {
-  users.users."${username}".packages = (with pkgs; [ papirus-icon-theme ])
+{ pkgs, ... }: {
+  users.users.rhoriguchi.packages = (with pkgs; [ papirus-icon-theme ])
     ++ (with pkgs.gnomeExtensions; [
       caffeine
       dash-to-dock
@@ -10,7 +7,7 @@ in {
       unite-shell
     ]);
 
-  home-manager.users."${username}".dconf = {
+  home-manager.users.rhoriguchi.dconf = {
     enable = true;
 
     settings = {

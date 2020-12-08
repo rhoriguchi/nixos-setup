@@ -1,8 +1,5 @@
-{ pkgs, ... }:
-# TODO hand this over as variable
-let username = "rhoriguchi";
-in {
-  home-manager.users."${username}".dconf = {
+{ pkgs, ... }: {
+  home-manager.users.rhoriguchi.dconf = {
     enable = true;
 
     # TODO find out what is really needed

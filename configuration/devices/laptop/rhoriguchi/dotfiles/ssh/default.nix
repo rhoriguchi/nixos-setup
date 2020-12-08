@@ -1,13 +1,9 @@
 { pkgs, config, ... }:
-let
-  # TODO hand this over as variable
-  username = "rhoriguchi";
-
-  dag = config.home-manager.users."${username}".lib.dag;
+let dag = config.home-manager.users.rhoriguchi.lib.dag;
 in {
   # TODO generate public keys and change permissions of .ssh
 
-  home-manager.users."${username}".programs.ssh = {
+  home-manager.users.rhoriguchi.programs.ssh = {
     enable = true;
 
     compression = true;

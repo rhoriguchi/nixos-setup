@@ -1,7 +1,4 @@
-{ pkgs, config, ... }:
-# TODO hand this over as variable
-let username = "rhoriguchi";
-in {
+{ pkgs, config, ... }: {
   imports = [
     # TODO done use package source, get from github directly
     <home-manager/nixos>
@@ -21,18 +18,18 @@ in {
     #     }
     #   }/nixos")
 
-    ./dotfiles 
-    ./settings.nix 
-    ./theme 
+    ./dotfiles
+    ./settings.nix
+    ./theme
   ];
 
-  users.users."${username}" = {
+  users.users.rhoriguchi = {
     extraGroups = [ "docker" "networkmanager" "rslsync" "vboxusers" "wheel" ];
-    home = "/home/${username}";
+    home = "/home/rhoriguchi";
     isNormalUser = true;
   };
 
-  home-manager.users."${username}".home = {
+  home-manager.users.rhoriguchi.home = {
     language = {
       base = "en_US.UTF-8";
       numeric = "de_CH.UTF-8";
