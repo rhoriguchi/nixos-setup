@@ -2,7 +2,29 @@
 # TODO hand this over as variable
 let username = "rhoriguchi";
 in {
-  imports = [ ./dotfiles ./settings.nix ./theme ];
+  imports = [
+    # TODO done use package source, get from github directly
+    <home-manager/nixos>
+
+    # (import "${
+    #     builtins.fetchGit {
+    #       ref = "release-${config.system.stateVersion}";
+    #       url = "https://github.com/rycee/home-manager";
+    #     }
+    #   }/nixos")
+
+    # (import "${
+    #     pkgs.fetchFromGitHub {
+    #       owner = "nix-community";
+    #       rev = "release-${config.system.stateVersion}";
+    #       sha256 = "0iksjch94wfvyq0cgwv5wq52j0dc9cavm68wka3pahhdvjlxd3js";
+    #     }
+    #   }/nixos")
+
+    ./dotfiles 
+    ./settings.nix 
+    ./theme 
+  ];
 
   users.users."${username}" = {
     extraGroups = [ "docker" "networkmanager" "rslsync" "vboxusers" "wheel" ];
