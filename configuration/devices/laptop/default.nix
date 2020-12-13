@@ -54,12 +54,11 @@ in {
 
   hardware.bluetooth.enable = true;
 
-  # TODO commented
-  # fileSystems."${dataDir}" = {
-  #   device = "/dev/disk/by-uuid/8b0f2c45-5560-4503-a72c-ff354e4fdb70";
-  #   fsType = "ext4";
-  #   options = [ "defaults" "nofail" ];
-  # };
+  fileSystems."${dataDir}" = {
+    device = "/dev/disk/by-uuid/8b0f2c45-5560-4503-a72c-ff354e4fdb70";
+    fsType = "ext4";
+    options = [ "defaults" "nofail" ];
+  };
 
   # TODO gnome default language is fucked up, login screen as example
 
