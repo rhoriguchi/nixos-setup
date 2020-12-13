@@ -46,8 +46,6 @@ in {
   # |                               |                      |                  N/A |
   # +-------------------------------+----------------------+----------------------+
 
-  # TODO enable webcam
-
   # TODO printer support https://search.nixos.org/options?channel=unstable&from=0&size=30&sort=relevance&query=services.printing
 
   # TODO get drivers for function buttons
