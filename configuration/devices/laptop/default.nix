@@ -48,6 +48,7 @@ in {
 
   # TODO get drivers for function buttons
   # https://www.digitec.ch/en/s1/product/asus-vivobook-pro-15-n580gd-e4287t-1560-full-hd-intel-core-i7-8750h-16gb-256gb-2000gb-ssd-hdd-notebo-8850945
+  # https://github.com/torvalds/linux/blob/master/drivers/platform/x86/asus-nb-wmi.c
 
   # TODO figur out ProtonVPN
 
