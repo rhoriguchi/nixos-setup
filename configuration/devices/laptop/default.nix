@@ -176,10 +176,7 @@ in {
         pylint
         pytest
         pytest_xdist
-      ])
-
-      # TODO remove
-      ++ (with pkgs.linuxPackages; [ virtualboxGuestAdditions ]);
+      ]);
   };
 
   # TODO remove everything after this line
