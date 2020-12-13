@@ -120,6 +120,7 @@ in {
 
     systemPackages = (with pkgs; [
       alacritty
+      ansible
       curl
       discord
       # displaylink # TODO does not work
