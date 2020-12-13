@@ -46,8 +46,6 @@ in {
   # |                               |                      |                  N/A |
   # +-------------------------------+----------------------+----------------------+
 
-  # TODO printer support https://search.nixos.org/options?channel=unstable&from=0&size=30&sort=relevance&query=services.printing
-
   # TODO get drivers for function buttons
   # https://www.digitec.ch/en/s1/product/asus-vivobook-pro-15-n580gd-e4287t-1560-full-hd-intel-core-i7-8750h-16gb-256gb-2000gb-ssd-hdd-notebo-8850945
 
@@ -74,6 +72,12 @@ in {
     udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
 
     teamviewer.enable = true;
+
+    printing = {
+      enable = true;
+
+      drivers = [ pkgs.hplip ];
+    };
 
     xserver = {
       enable = true;
