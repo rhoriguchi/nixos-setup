@@ -30,6 +30,19 @@ in {
 
   # TODO enable nvidia gpu https://nixos.wiki/wiki/Nvidia
 
+  # > nvidia-smi                                                                                                                                                                                                                                               (:|✔)
+  # +-----------------------------------------------------------------------------+
+  # | NVIDIA-SMI 450.80.02    Driver Version: 450.80.02    CUDA Version: 11.0     |
+  # |-------------------------------+----------------------+----------------------+
+  # | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+  # | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+  # |                               |                      |               MIG M. |
+  # |===============================+======================+======================|
+  # |   0  GeForce GTX 1050    Off  | 00000000:01:00.0 Off |                  N/A |
+  # | N/A   62C    P0    N/A /  N/A |   1301MiB /  4042MiB |      3%      Default |
+  # |                               |                      |                  N/A |
+  # +-------------------------------+----------------------+----------------------+
+
   # TODO enable webcam
 
   # TODO printer support https://search.nixos.org/options?channel=unstable&from=0&size=30&sort=relevance&query=services.printing
