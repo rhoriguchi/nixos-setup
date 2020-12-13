@@ -15,10 +15,7 @@ with lib; {
 
   system.stateVersion = "20.09";
 
-  networking.interfaces = {
-    eth0.useDHCP = true;
-    wlan0.useDHCP = true;
-  };
+  networking.interfaces.eth0.useDHCP = true;
 
   programs = {
     nano = {

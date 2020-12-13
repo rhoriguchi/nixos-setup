@@ -19,6 +19,8 @@ in {
   networking = {
     hostName = "XXLPitu-Server";
 
+    interfaces.wlp3s0.useDHCP = true;
+
     # TODO maybe bcmwl-kernel-source needed
     # linuxPackages.broadcom_sta
 

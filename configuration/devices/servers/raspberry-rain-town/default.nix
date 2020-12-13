@@ -25,14 +25,7 @@ in {
     options = [ "defaults" "nofail" ];
   };
 
-  networking = {
-    hostName = "XXLPitu-Rain-Town";
-
-    wireless = {
-      enable = true;
-      interfaces = [ "wlp3s0" ];
-    };
-  };
+  networking = { hostName = "XXLPitu-Rain-Town"; };
 
   services = {
     duckdns = {
