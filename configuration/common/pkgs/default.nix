@@ -3,6 +3,10 @@
     mach-nix = super.callPackage ./mach-nix.nix { pkgs = super; };
   })
   (self: super: {
+    displaylink = super.callPackage ./displaylink {
+      inherit (super) displaylink;
+      inherit (super.linuxPackages) evdi;
+    };
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
     gnomeExtensions =
       super.callPackage ./gnomeExtensions { inherit (super) gnomeExtensions; };

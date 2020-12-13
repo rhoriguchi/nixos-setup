@@ -80,14 +80,14 @@ in {
       displayManager = {
         gdm.enable = true;
 
-        # TODO displaylink
-        # sessionCommands = "${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 2 0";
+        sessionCommands = "${
+            lib.getBin pkgs.xorg.xrandr
+          }/bin/xrandr --setprovideroutputsource 2 0";
       };
 
       desktopManager.gnome3.enable = true;
 
-      # TODO displaylink
-      # videoDrivers = [ "displaylink" "modesetting" ];
+      videoDrivers = [ "displaylink" "modesetting" ];
     };
 
     gnome3 = {
@@ -136,7 +136,7 @@ in {
       ansible
       curl
       discord
-      # displaylink # TODO does not work
+      displaylink
       docker-compose
       etcher
       firefox
