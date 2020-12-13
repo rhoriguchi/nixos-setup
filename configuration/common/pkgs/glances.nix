@@ -32,8 +32,6 @@ let
     };
   };
 in glances.overrideAttrs (oldAttrs: {
-  # TODO add override for log file location https://glances.readthedocs.io/en/stable/config.html#logging
-
   propagatedBuildInputs = with python3Packages;
     [
       bottle
