@@ -28,6 +28,8 @@ in {
     };
   };
 
+  # TODO disable wrait cooler light https://github.com/gfduszynski/cm-rgb
+
   virtualisation.docker.enable = true;
 
   services = {
