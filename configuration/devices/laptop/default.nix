@@ -31,28 +31,20 @@ in {
     };
   };
 
-  # TODO enable nvidia gpu https://nixos.wiki/wiki/Nvidia
-
-  # > nvidia-smi                                                                                                                                                                                                                                               (:|✔)
-  # +-----------------------------------------------------------------------------+
-  # | NVIDIA-SMI 450.80.02    Driver Version: 450.80.02    CUDA Version: 11.0     |
-  # |-------------------------------+----------------------+----------------------+
-  # | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-  # | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-  # |                               |                      |               MIG M. |
-  # |===============================+======================+======================|
-  # |   0  GeForce GTX 1050    Off  | 00000000:01:00.0 Off |                  N/A |
-  # | N/A   62C    P0    N/A /  N/A |   1301MiB /  4042MiB |      3%      Default |
-  # |                               |                      |                  N/A |
-  # +-------------------------------+----------------------+----------------------+
-
   # TODO get drivers for function buttons
   # https://www.digitec.ch/en/s1/product/asus-vivobook-pro-15-n580gd-e4287t-1560-full-hd-intel-core-i7-8750h-16gb-256gb-2000gb-ssd-hdd-notebo-8850945
   # https://github.com/torvalds/linux/blob/master/drivers/platform/x86/asus-nb-wmi.c
 
   # TODO figur out ProtonVPN
 
-  hardware.bluetooth.enable = true;
+  hardware = {
+    bluetooth.enable = true;
+
+    nvidia.prime = {
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
 
   fileSystems."${dataDir}" = {
     device = "/dev/disk/by-uuid/8b0f2c45-5560-4503-a72c-ff354e4fdb70";
@@ -92,7 +84,7 @@ in {
 
       desktopManager.gnome3.enable = true;
 
-      videoDrivers = [ "displaylink" "modesetting" ];
+      videoDrivers = [ "displaylink" "modesetting" "nvidia" ];
     };
 
     gnome3 = {
