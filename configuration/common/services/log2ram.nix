@@ -82,7 +82,7 @@ in {
       LOG_DISK_SIZE=${toString cfg.logDiskSize}M
     '';
 
-    system.userActivationScripts.rslsync = ''
+    system.activationScripts.rslsync = ''
       ${pkgs.coreutils}/bin/rm -rf /var/log.hdd
       ${pkgs.coreutils}/bin/rm -rf /var/hdd.log
     '';
