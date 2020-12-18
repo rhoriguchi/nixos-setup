@@ -4,6 +4,7 @@ with lib; {
 
   boot.loader.grub.device = "/dev/sda";
 
+  # TODO does not work
   console.keyMap = "de_CH-latin1";
 
   time.timeZone = "Europe/Zurich";
