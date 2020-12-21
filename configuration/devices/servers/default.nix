@@ -25,6 +25,8 @@ with lib; {
       enable = true;
       passwordAuthentication = false;
     };
+
+    journald.extraConfig = "Storage=persistent";
   };
 
   environment.systemPackages = with pkgs; [ glances htop ];
