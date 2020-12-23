@@ -54,6 +54,8 @@ in {
 
   # TODO gnome default language is fucked up, login screen as example
 
+  console.useXkbConfig = true;
+
   services = {
     rslsync = {
       enable = true;
@@ -73,6 +75,10 @@ in {
 
     xserver = {
       enable = true;
+
+      layout = "ch";
+      xkbModel = "pc105";
+      xkbVariant = "de_nodeadkeys";
 
       displayManager = {
         gdm.enable = true;
