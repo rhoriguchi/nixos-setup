@@ -38,7 +38,5 @@ in {
       checkForUpdates = false;
       syncPath = "${syncDir}";
     };
-
-    log2ram.enable = true;
   };
 }
