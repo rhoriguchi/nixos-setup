@@ -25,7 +25,7 @@ in {
     options = [ "defaults" "nofail" ];
   };
 
-  networking = { hostName = "XXLPitu-Rain-Town"; };
+  networking.hostName = "XXLPitu-Rain-Town";
 
   services = {
     duckdns = {
