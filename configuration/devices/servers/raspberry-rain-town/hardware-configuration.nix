@@ -1,18 +1,43 @@
-{ config, lib, pkgs, ... }: {
-  imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix> ];
+{ lib, pkgs, ... }: {
+  imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "usbhid" "usb_storage" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
-    fsType = "ext4";
+    initrd = {
+      availableKernelModules = [ "usbhid" ];
+      kernelModules = [ ];
+    };
+
+    kernelPackages = pkgs.linuxPackages_rpi4;
+
+    kernelParams = [ "console=ttyAMA0,115200" "console=tty1" ];
+
+    kernelModules = [ ];
+
+    loader = {
+      grub.enable = false;
+
+      raspberryPi = {
+        enable = true;
+        version = 4;
+      };
+    };
+  };
+
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+
+  fileSystems = {
+    "/boot" = {
+      device = "/dev/disk/by-label/NIXOS_BOOT";
+      fsType = "vfat";
+    };
+
+    "/" = {
+      device = "/dev/disk/by-label/NIXOS_SD";
+      fsType = "ext4";
+    };
   };
 
   swapDevices = [ ];
-
-  nix.maxJobs = lib.mkDefault 4;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 }

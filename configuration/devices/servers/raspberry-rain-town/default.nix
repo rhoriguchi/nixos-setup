@@ -5,20 +5,6 @@ let
 in {
   imports = [ ../default.nix ./hardware-configuration.nix ];
 
-  boot = {
-    kernelPackages = pkgs.linuxPackages_4_19;
-
-    loader = {
-      grub.enable = false;
-      generic-extlinux-compatible.enable = true;
-    };
-  };
-
-  swapDevices = [{
-    device = "/swapfile";
-    size = 1024;
-  }];
-
   fileSystems."${dataDir}" = {
     device = "/dev/disk/by-uuid/842c1418-e4c5-4102-a214-82b124996586";
     fsType = "ext4";
