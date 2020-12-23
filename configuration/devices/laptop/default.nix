@@ -148,7 +148,8 @@ in {
       keepass
       libreoffice-fresh
       maven
-      megasync
+      # TODO commented
+      # megasync
       neofetch
       nodejs
       openssl
@@ -158,7 +159,8 @@ in {
       qbittorrent
       spotify
       terraform
-      virtualboxWithExtpack
+      # TODO commented
+      # virtualboxWithExtpack
       vlc
       vscode
     ]) ++ (with pkgs.gnome3; [ adwaita-icon-theme dconf-editor nautilus ])
