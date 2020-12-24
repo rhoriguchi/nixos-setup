@@ -2,6 +2,13 @@
 with lib; {
   imports = [ ./secrets.nix ./services ];
 
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = import ./pkgs;
+  };
+
+  system.stateVersion = "20.09";
+
   boot.loader.grub.device = "/dev/sda";
 
   time.timeZone = "Europe/Zurich";
@@ -20,12 +27,7 @@ with lib; {
     };
   };
 
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = import ./pkgs;
-  };
-
-  system.stateVersion = "20.09";
+  systemd.extraConfig = "DefaultTimeoutStopSec=10";
 
   networking.interfaces.eth0.useDHCP = true;
 
