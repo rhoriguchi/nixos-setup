@@ -47,6 +47,7 @@ in {
   };
 
   fileSystems."${dataDir}" = {
+    # TODO use /dev/disk/by-partuuid
     device = "/dev/disk/by-uuid/8b0f2c45-5560-4503-a72c-ff354e4fdb70";
     fsType = "ext4";
     options = [ "defaults" "nofail" ];

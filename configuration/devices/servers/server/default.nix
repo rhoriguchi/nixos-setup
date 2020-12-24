@@ -11,7 +11,7 @@ in {
   ];
 
   fileSystems."${dataDir}" = {
-    device = "/dev/disk/by-uuid/8b0f2c45-5560-4503-a72c-ff354e4fdb70";
+    device = "/dev/disk/by-partuuid/0e01cf89-f498-4b5c-8df5-f6da03846b3f";
     fsType = "ext4";
     options = [ "defaults" "nofail" ];
   };
