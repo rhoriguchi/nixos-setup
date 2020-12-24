@@ -3,12 +3,11 @@ with lib;
 let
   cfg = config.services.glances;
 
-  configFile = (pkgs.formats.toml { }).generate "glances.conf" {
+  configFile = (pkgs.formats.ini { }).generate "glances.conf" {
     connections.disable = false;
-    diskio.hide = "loop*, zram*, mmcblk*";
-    fs.hide = "mmcblk.*";
+    diskio.hide = "loop*";
     global.check_update = false;
-    network.hide = "veth*, lo";
+    network.hide = "lo";
   };
 in {
   options.services.glances = {
