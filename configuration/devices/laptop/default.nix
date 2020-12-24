@@ -160,6 +160,7 @@ in {
       neofetch
       nodejs
       openssl
+      parted
       postgresql
       postman
       python3
