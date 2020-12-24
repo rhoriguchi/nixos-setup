@@ -26,7 +26,7 @@ in {
       description = "Glances";
       serviceConfig = {
         ExecStart =
-          "${pkgs.glances}/bin/glances --config ${configFile} --time 1 --byte --webserver --port ${
+          "${pkgs.glances}/bin/glances --config ${configFile} --time 1 --disable-irix --percpu --byte --webserver --port ${
             toString cfg.port
           }";
         Restart = "on-abort";
