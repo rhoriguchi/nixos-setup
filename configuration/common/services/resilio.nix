@@ -29,7 +29,7 @@ let
     device_name = strings.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.syncPath;
-    check_for_updates = cfg.checkForUpdates;
+    check_for_updates = false;
     use_upnp = true;
     download_limit = 0;
     upload_limit = 0;
@@ -78,10 +78,6 @@ in {
           };
         };
       };
-    };
-    checkForUpdates = mkOption {
-      default = true;
-      type = types.bool;
     };
     listeningPort = mkOption {
       default = 5555;

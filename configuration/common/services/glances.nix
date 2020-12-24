@@ -7,7 +7,7 @@ let
     connections.disable = false;
     diskio.hide = "loop*, zram*, mmcblk*";
     fs.hide = "mmcblk.*";
-    global.check_update = true;
+    global.check_update = false;
     network.hide = "veth*, lo";
   };
 in {

@@ -31,7 +31,6 @@ in {
 
     resilio = {
       enable = false;
-      checkForUpdates = false;
       syncPath = "${syncDir}";
     };
   };
