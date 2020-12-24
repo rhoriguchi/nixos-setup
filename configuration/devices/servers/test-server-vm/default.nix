@@ -29,7 +29,7 @@ in {
       exportPath = "${syncDir}/tv_time_export";
     };
 
-    rslsync = {
+    resilio = {
       enable = false;
       checkForUpdates = false;
       syncPath = "${syncDir}";
@@ -38,6 +38,6 @@ in {
 
   systemd.services = {
     duckdns.enable = false;
-    rslsync.enable = false;
+    resilio.enable = false;
   };
 }

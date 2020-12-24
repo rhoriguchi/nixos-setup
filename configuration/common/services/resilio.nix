@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 with lib;
 let
-  cfg = config.services.rslsync;
+  cfg = config.services.resilio;
 
   isUniqueIgnoreNullByAttrName = list: attrName:
     lists.unique (builtins.filter (match: match != null)
@@ -49,7 +49,9 @@ let
     };
   });
 in {
-  options.services.rslsync = {
+  disabledModules = [ "services/networking/resilio.nix" ];
+
+  options.services.resilio = {
     enable = mkEnableOption "Resilio Sync";
     deviceName = mkOption {
       type = types.str;
@@ -115,15 +117,15 @@ in {
         message = "Device name cannot be empty.";
       }
       {
-        assertion = cfg.webUI.enable && cfg.webUI.username != "";
+        assertion = cfg.webUI.enable -> cfg.webUI.username != "";
         message = "When web ui is enabled username must be set";
       }
       {
-        assertion = cfg.webUI.enable && cfg.webUI.password != "";
+        assertion = cfg.webUI.enable -> cfg.webUI.password != "";
         message = "When web ui is enabled password must be set";
       }
       {
-        assertion = !cfg.webUI.enable || cfg.secrets != [ ];
+        assertion = !cfg.webUI.enable -> cfg.secrets != [ ];
         message = "Secrets cannot be empty";
       }
       {
@@ -154,7 +156,7 @@ in {
       ${pkgs.coreutils}/bin/chmod -R 0755 ${cfg.syncPath}/..
     '';
 
-    systemd.services.rslsync = {
+    systemd.services.resilio = {
       after = [ "network.target" ];
       description = "Resilio Sync";
       serviceConfig = {

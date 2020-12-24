@@ -19,7 +19,7 @@ in {
       subdomain = "xxlpitu-rain-town";
     };
 
-    rslsync = {
+    resilio = {
       enable = true;
       checkForUpdates = false;
       syncPath = "${syncDir}";

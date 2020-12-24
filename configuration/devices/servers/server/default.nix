@@ -40,7 +40,7 @@ in {
       subdomain = "xxlpitu-home";
     };
 
-    rslsync = {
+    resilio = {
       enable = true;
       checkForUpdates = false;
       syncPath = "${syncDir}";

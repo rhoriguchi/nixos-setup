@@ -3,7 +3,7 @@
     ./duckdns.nix
     ./glances.nix
     ./mal_export.nix
-    ./rslsync.nix
+    ./resilio.nix
     ./tv_time_export.nix
   ];
 }

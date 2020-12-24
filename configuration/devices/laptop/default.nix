@@ -57,7 +57,7 @@ in {
   console.useXkbConfig = true;
 
   services = {
-    rslsync = {
+    resilio = {
       enable = true;
       syncPath = "${syncDir}";
       webUI.enable = true;

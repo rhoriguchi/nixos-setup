@@ -34,7 +34,7 @@ in {
 
     users.users.mal_export = {
       isSystemUser = true;
-      extraGroups = optional config.services.rslsync.enable "rslsync";
+      extraGroups = optional config.services.resilio.enable "rslsync";
     };
 
     systemd.services.mal_export = {

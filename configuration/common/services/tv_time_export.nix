@@ -34,7 +34,7 @@ in {
 
     users.users.tv_time_export = {
       isSystemUser = true;
-      extraGroups = optional config.services.rslsync.enable "rslsync";
+      extraGroups = optional config.services.resilio.enable "rslsync";
     };
 
     systemd.services.tv_time_export = {
