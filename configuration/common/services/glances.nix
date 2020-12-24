@@ -5,7 +5,7 @@ let
 
   configFile = (pkgs.formats.ini { }).generate "glances.conf" {
     connections.disable = false;
-    diskio.hide = "loop*";
+    diskio.hide = "loop\\d+,mmcblk\\d+p\\d+";
     global.check_update = false;
     network.hide = "lo";
   };
