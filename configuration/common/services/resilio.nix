@@ -144,14 +144,6 @@ in {
       groups.rslsync.gid = config.ids.gids.rslsync;
     };
 
-    system.activationScripts.rslsync = mkIf (!cfg.webUI.enable) ''
-      ${pkgs.coreutils}/bin/mkdir -p ${cfg.syncPath}
-      ${pkgs.coreutils}/bin/chown -R ${toString config.ids.uids.rslsync}:${
-        toString config.ids.gids.rslsync
-      } ${cfg.syncPath}
-      ${pkgs.coreutils}/bin/chmod -R 0755 ${cfg.syncPath}/..
-    '';
-
     systemd.services.resilio = {
       after = [ "network.target" ];
       description = "Resilio Sync";
