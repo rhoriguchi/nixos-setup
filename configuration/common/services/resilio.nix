@@ -162,7 +162,7 @@ in {
           + builtins.concatStringsSep " "
           (map (builtins.getAttr "dir") sharedFolders);
         StandardOutput = "null";
-        StandardError = "journal";
+        StandardError = "null";
         Restart = "on-abort";
         UMask = "0007";
         User = "rslsync";
