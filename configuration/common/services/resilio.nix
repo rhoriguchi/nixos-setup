@@ -161,6 +161,8 @@ in {
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p "
           + builtins.concatStringsSep " "
           (map (builtins.getAttr "dir") sharedFolders);
+        StandardOutput = "null";
+        StandardError = "journal";
         Restart = "on-abort";
         UMask = "0007";
         User = "rslsync";
