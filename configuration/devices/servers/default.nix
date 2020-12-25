@@ -29,7 +29,7 @@ with lib; {
     journald.extraConfig = "Storage=persistent";
   };
 
-  environment.systemPackages = with pkgs; [ glances htop ];
+  environment.systemPackages = (with pkgs; [ htop ]);
 
   users.users.xxlpitu = {
     extraGroups = [ "wheel" ]

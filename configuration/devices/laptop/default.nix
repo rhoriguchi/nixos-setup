@@ -186,7 +186,7 @@ in {
         pylint
         pytest
         pytest_xdist
-      ]);
+      ]) ++ (with pkgs.unixtools; [ ifconfig ]);
   };
 
   # TODO remove everything after this line
