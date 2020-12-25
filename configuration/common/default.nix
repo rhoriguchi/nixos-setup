@@ -29,6 +29,8 @@ with lib; {
 
   networking.interfaces.eth0.useDHCP = true;
 
+  services.openssh.passwordAuthentication = false;
+
   programs = {
     nano = {
       nanorc = ''

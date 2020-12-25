@@ -191,10 +191,7 @@ in {
 
   # TODO remove everything after this line
   ############################################################################################################################
-  services.openssh = {
-    enable = true;
-    passwordAuthentication = false;
-  };
+  services.openssh.enable = true;
 
   users.users.rhoriguchi.password = mkForce "asdf1234";
 
