@@ -52,6 +52,7 @@ with lib; {
     defaultUserShell = pkgs.zsh;
     mutableUsers = false;
 
+    # TODO move to server default?
     users = {
       root = {
         hashedPassword = "*";
