@@ -39,7 +39,7 @@ let
     peer_expiration_days = 1;
     use_gui = false;
     disk_low_priority = true;
-  } // optionalAttrs (!cfg.webUI.enable && sharedFolders != [ ]) {
+  } // optionalAttrs (!cfg.webUI.enable -> cfg.secrets != [ ]) {
     shared_folders = sharedFolders;
   } // optionalAttrs cfg.webUI.enable {
     webui = {
