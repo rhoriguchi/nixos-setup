@@ -35,10 +35,11 @@ in {
       syncPath = "${syncDir}";
     };
 
-    mal_export = {
-      enable = true;
-      exportPath = "${syncDir}/mal_export";
-    };
+    # TODO does not work because of recaptcha
+    # mal_export = {
+    #   enable = true;
+    #   exportPath = "${syncDir}/mal_export";
+    # };
 
     tv_time_export = {
       enable = true;
