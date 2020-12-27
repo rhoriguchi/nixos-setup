@@ -11,7 +11,11 @@ in {
     options = [ "defaults" "nofail" ];
   };
 
-  networking.hostName = "XXLPitu-Rain-Town";
+  networking = {
+    hostName = "XXLPitu-Rain-Town";
+
+    interfaces.eth0.useDHCP = true;
+  };
 
   services = {
     duckdns = {

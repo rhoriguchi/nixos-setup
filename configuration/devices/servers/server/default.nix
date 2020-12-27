@@ -5,21 +5,20 @@ let
 in {
   imports = [ ../default.nix ./hardware-configuration.nix ];
 
-  fileSystems."${dataDir}" = {
-    device = "/dev/disk/by-partuuid/0e01cf89-f498-4b5c-8df5-f6da03846b3f";
-    fsType = "ext4";
-    options = [ "defaults" "nofail" ];
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
   networking = {
     hostName = "XXLPitu-Server";
 
-    interfaces.wlp3s0.useDHCP = true;
-
-    wireless = {
-      enable = true;
-      interfaces = [ "wlp3s0" ];
+    interfaces = {
+      enp5s0.useDHCP = true;
+      wlp4s0.useDHCP = true;
     };
+
+    wireless.enable = true;
   };
 
   virtualisation.docker.enable = true;

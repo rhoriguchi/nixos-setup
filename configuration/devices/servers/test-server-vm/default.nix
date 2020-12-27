@@ -8,8 +8,7 @@ in {
 
   networking.hostName = "TEST-SERVER-VM";
 
-  environment.systemPackages = with pkgs.linuxPackages;
-    [ virtualboxGuestAdditions ];
+  environment.systemPackages = [ pkgs.linuxPackages.virtualboxGuestAdditions ];
 
   users.users.xxlpitu.password = mkForce "asdf1234";
 

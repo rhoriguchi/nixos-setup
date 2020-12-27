@@ -4,8 +4,7 @@
 { config, lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
@@ -22,4 +21,5 @@
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/d2d04b44-2cb0-4569-b654-0aec59ef060f"; }];
+
 }

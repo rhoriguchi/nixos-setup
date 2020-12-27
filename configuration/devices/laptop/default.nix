@@ -1,8 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-  # TODO change
-  dataDir = "/tmp";
+  dataDir = "/media/Data";
   syncDir = "${dataDir}/Sync";
 in {
   imports = [
@@ -10,25 +9,32 @@ in {
     ./hardware-configuration.nix
 
     ./rhoriguchi
-    ./power-managment.nix
+    # TODO commented
+    # ./power-managment.nix
   ];
+  
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   nix.autoOptimiseStore = true;
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableNvidia = true;
+  };
 
   networking = {
     hostName = "RYAN-LAPTOP";
 
+    interfaces.eno2.useDHCP = true;
     interfaces.wlo1.useDHCP = true;
 
     networkmanager.unmanaged =
       builtins.attrNames config.networking.wireless.networks;
 
-    wireless = {
-      enable = true;
-      interfaces = [ "wlo1" ];
-    };
+    wireless.enable = true;
   };
 
   # TODO get drivers for function buttons
@@ -46,12 +52,13 @@ in {
     };
   };
 
-  fileSystems."${dataDir}" = {
-    # TODO use /dev/disk/by-partuuid
-    device = "/dev/disk/by-uuid/8b0f2c45-5560-4503-a72c-ff354e4fdb70";
-    fsType = "ext4";
-    options = [ "defaults" "nofail" ];
-  };
+  # TODO fomrat drive
+  # fileSystems."${dataDir}" = {
+  #   # TODO use /dev/disk/by-partuuid
+  #   device = "/dev/disk/by-uuid/8b0f2c45-5560-4503-a72c-ff354e4fdb70";
+  #   fsType = "ext4";
+  #   options = [ "defaults" "nofail" ];
+  # };
 
   # TODO gnome default language is fucked up, login screen as example
 
@@ -148,6 +155,7 @@ in {
       gimp
       git
       git-crypt
+      gnufdisk
       gitkraken
       gnupg
       google-chrome
@@ -155,8 +163,7 @@ in {
       keepass
       libreoffice-fresh
       maven
-      # TODO commented
-      # megasync
+      megasync
       neofetch
       nodejs
       openssl
@@ -167,8 +174,7 @@ in {
       qbittorrent
       spotify
       terraform
-      # TODO commented
-      # virtualboxWithExtpack
+      virtualboxWithExtpack
       vlc
       vscode
     ]) ++ (with pkgs.gnome3; [ adwaita-icon-theme dconf-editor nautilus ])
@@ -187,20 +193,5 @@ in {
         pytest
         pytest_xdist
       ]) ++ (with pkgs.unixtools; [ ifconfig ]);
-  };
-
-  # TODO remove everything after this line
-  ############################################################################################################################
-  services.openssh.enable = true;
-
-  users.users.rhoriguchi.password = mkForce "asdf1234";
-
-  users.users.xxlpitu = {
-    extraGroups = [ "docker" "vboxusers" "wheel" ];
-    password = mkForce "asdf1234";
-    isNormalUser = true;
-    openssh.authorizedKeys.keys = [
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGCgZ0lbfQGzGvXu2nkxD1wp05Kf0fTxNoiHf47g6Ii0ofY3dtG5DGHAB7gjdS2csoQ20S+5GpI0Zu2kRUIjj1XQtKGsgiDVF8fmbDOowmcrx00+Oi37/3ea2oIddBu5gD8rSiLvE0pxksqZC4iQ6FKx+8lECQo46ws/r/EUq+yiTV16FoY/CjCrYLpOkT1Oaj0K/8ZrwcWWhUfGApdvR3AudxEVB0FkmKWxJ7EkkrgUIWkijFghiPDlWpJ4n1dZIo4g5wqkGvT6Ugn0CHlbpKLxuxUWkJL7DEDcCf2xhdL8dnyp0PtzKIQA9yQYORk3AIbCWtXOOymNq2Ep2yPEAxjPYwx0tp/eX7PFLKQXas2D1GrWpPkr3t5j/61GgAQOWjhUbrTeoy8QvFcxTDezuuaIJh43rsdPafMRcCn47QyCX0XuRyIUE49IXp48XXpchV+a7o8Yoh29l8wXZnv4iAAhbpXzS+jwxReTu5useg77ZrtdmBBAlk5xGDD21ByLfW4IGFW662Tms7YJHx2ppCVJF/9py6GJ5dTkYPAbqA7eo0JmhCR45+KYR9nHasf5/Mg/g4WKUxK6NhQ19eXtgmV66REzP3PTNENyQ+pu+/jbBM8u7rVXH2GzzjfMT8kjoOsbtPJ4KIgnbpSw1LFzhYMlSf/kYCDRhCINf7swwaKQ== rhoriguchi"
-    ];
   };
 }
