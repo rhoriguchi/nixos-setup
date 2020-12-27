@@ -2,7 +2,12 @@
 with lib; {
   imports = [ ./secrets.nix ./services ];
 
-  boot.loader.grub.device = "/dev/sda";
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = import ./pkgs;
+  };
+
+  system.stateVersion = "20.09";
 
   time.timeZone = "Europe/Zurich";
 
@@ -20,16 +25,7 @@ with lib; {
     };
   };
 
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = import ./pkgs;
-  };
-
-  system.stateVersion = "20.09";
-
   networking.interfaces.eth0.useDHCP = true;
-
-  services.openssh.passwordAuthentication = false;
 
   programs = {
     nano = {

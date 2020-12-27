@@ -21,7 +21,10 @@ with lib; {
   services = {
     glances.enable = true;
 
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      passwordAuthentication = false;
+    };
 
     journald.extraConfig = "Storage=persistent";
   };
