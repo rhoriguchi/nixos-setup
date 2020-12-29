@@ -23,7 +23,6 @@ Login to:
   - DataGrip
 - MegaSync
 - Postman
-- Resilio Sync
 - Steam
 - TeamViewer
 
