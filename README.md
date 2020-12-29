@@ -25,9 +25,3 @@ Login to:
 - Postman
 - Steam
 - TeamViewer
-
-### Visual Studio Code
-
-Install **Settings Sync** extension
-Manualy enter `GistId` and `Token`
-Download settings
