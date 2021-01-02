@@ -45,7 +45,7 @@ in {
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${cfg.exportPath}";
         Restart = "on-abort";
         UMask = "0007";
-        User = "mal_export";
+        User = "tv_time_export";
       };
       startAt = "06:00";
     };
