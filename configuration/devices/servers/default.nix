@@ -5,18 +5,9 @@ with lib; {
     dates = "daily";
   };
 
-  nix = {
-    # TODO use this for all devices? laptop?
-    gc = {
-      automatic = true;
-      dates = "daily";
-      options = "--delete-older-than 3d";
-    };
-
-    optimise = {
-      automatic = true;
-      dates = [ "daily" ];
-    };
+  nix.optimise = {
+    automatic = true;
+    dates = [ "daily" ];
   };
 
   networking.networkmanager = {

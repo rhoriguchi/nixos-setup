@@ -7,6 +7,12 @@ with lib; {
     overlays = import ./pkgs;
   };
 
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 3d";
+  };
+
   system.stateVersion = "20.09";
 
   time.timeZone = "Europe/Zurich";
