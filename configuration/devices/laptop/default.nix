@@ -84,9 +84,7 @@ in {
       displayManager = {
         gdm = {
           enable = true;
-
-          # TODO commented
-          # nvidiaWayland = true;
+          wayland = false;
         };
 
         sessionCommands = "${
@@ -102,6 +100,8 @@ in {
           click-method='default'
         '';
       };
+
+      libinput.enable = true;
 
       videoDrivers = [
         "displaylink"
