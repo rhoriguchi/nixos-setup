@@ -159,6 +159,7 @@ in {
     systemPackages = (with pkgs; [
       alacritty
       ansible
+      binutils-unwrapped
       curl
       discord
       displaylink
