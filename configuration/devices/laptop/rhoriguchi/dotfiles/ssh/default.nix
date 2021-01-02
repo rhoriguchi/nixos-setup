@@ -1,32 +1,61 @@
 { pkgs, config, ... }:
-let dag = config.home-manager.users.rhoriguchi.lib.dag;
-in {
-  # TODO generate public keys and change permissions of .ssh
+let
+  home = config.users.users.rhoriguchi.home;
 
-  home-manager.users.rhoriguchi.programs.ssh = {
-    enable = true;
+  configFile = pkgs.writeText "config" ''
+    Host *.duckdns.org
+      User xxlpitu
 
-    compression = true;
-    hashKnownHosts = false;
+    Host github.com
+      User git
+      IdentityFile ${home}/.ssh/github_rsa
 
-    extraConfig = ''
+    Host gitlab.com
+      User git
+      IdentityFile ${home}/.ssh/gitlab_rsa
+
+    Host *
+      AddKeysToAgent yes
+      AddressFamily any
+      Compression yes
       ConnectionAttempts 3
-      IdentityFile ${./keys/id_rsa}
-    '';
+      HashKnownHosts no
+      IdentityFile ${home}/.ssh/id_rsa
+      NumberOfPasswordPrompts 3
+      PubkeyAuthentication yes
+      ServerAliveCountMax 3
+      ServerAliveInterval 10
+  '';
+in {
+  system.activationScripts.rhoriguchiGenerateSSHConfig = ''
+    ${pkgs.coreutils}/bin/mkdir -pm 0700 ${home}/.ssh
 
-    matchBlocks = {
-      "github.com" = {
-        identityFile = "${./keys/github_rsa}";
-        user = "git";
-      };
 
-      "gitlab.com" = {
-        identityFile = "${./keys/gitlab_rsa}";
-        user = "git";
-      };
+    ${pkgs.coreutils}/bin/cp -f ${configFile} ${home}/.ssh/config
+    ${pkgs.coreutils}/bin/chmod 0700 ${home}/.ssh/config
 
-      "*.duckdns.org" =
-        dag.entryBefore [ "github.com" "gitlab.com" ] { user = "xxlpitu"; };
-    };
-  };
+
+    ${pkgs.coreutils}/bin/cp -f ${./keys/id_rsa} ${home}/.ssh/id_rsa
+    ${pkgs.coreutils}/bin/chmod 0600 ${home}/.ssh/id_rsa
+
+    ${pkgs.openssh}/bin/ssh-keygen -y -f ${home}/.ssh/id_rsa > ${home}/.ssh/id_rsa.pub
+    ${pkgs.coreutils}/bin/chmod 0644 ${home}/.ssh/id_rsa.pub
+
+
+    ${pkgs.coreutils}/bin/cp -f ${./keys/github_rsa} ${home}/.ssh/github_rsa
+    ${pkgs.coreutils}/bin/chmod 0600 ${home}/.ssh/github_rsa
+
+    ${pkgs.openssh}/bin/ssh-keygen -y -f ${home}/.ssh/github_rsa > ${home}/.ssh/github_rsa.pub
+    ${pkgs.coreutils}/bin/chmod 0644 ${home}/.ssh/github_rsa.pub
+
+
+    ${pkgs.coreutils}/bin/cp -f ${./keys/gitlab_rsa} ${home}/.ssh/gitlab_rsa
+    ${pkgs.coreutils}/bin/chmod 0600 ${home}/.ssh/gitlab_rsa
+
+    ${pkgs.openssh}/bin/ssh-keygen -y -f ${home}/.ssh/gitlab_rsa > ${home}/.ssh/gitlab_rsa.pub
+    ${pkgs.coreutils}/bin/chmod 0644 ${home}/.ssh/gitlab_rsa.pub
+
+
+    ${pkgs.coreutils}/bin/chown -R rhoriguchi:users ${home}/.ssh
+  '';
 }

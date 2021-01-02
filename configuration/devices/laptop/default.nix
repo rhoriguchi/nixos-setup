@@ -5,14 +5,11 @@ let
   syncDir = "${dataDir}/Sync";
 in {
   imports = [
-    # TODO needs to be generated and replaced
     ./hardware-configuration.nix
 
     ./rhoriguchi
-    # TODO commented
-    # ./power-managment.nix
   ];
-  
+
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
@@ -22,7 +19,8 @@ in {
 
   virtualisation.docker = {
     enable = true;
-    enableNvidia = true;
+    # TODO commented
+    # enableNvidia = true;
   };
 
   networking = {
@@ -37,30 +35,26 @@ in {
     wireless.enable = true;
   };
 
-  # TODO get drivers for function buttons
-  # https://www.digitec.ch/en/s1/product/asus-vivobook-pro-15-n580gd-e4287t-1560-full-hd-intel-core-i7-8750h-16gb-256gb-2000gb-ssd-hdd-notebo-8850945
-  # https://github.com/torvalds/linux/blob/master/drivers/platform/x86/asus-nb-wmi.c
-
-  # TODO figur out ProtonVPN
-
   hardware = {
     bluetooth.enable = true;
 
-    nvidia.prime = {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
+    # TODO commented
+    # nvidia.optimus_prime = {
+    #  enable = true;
+    #
+    #  intelBusId = "PCI:0:2:0";
+    #  nvidiaBusId = "PCI:1:0:0";
+    # };
   };
 
-  # TODO fomrat drive
-  # fileSystems."${dataDir}" = {
-  #   # TODO use /dev/disk/by-partuuid
-  #   device = "/dev/disk/by-uuid/8b0f2c45-5560-4503-a72c-ff354e4fdb70";
-  #   fsType = "ext4";
-  #   options = [ "defaults" "nofail" ];
-  # };
+  fileSystems."${dataDir}" = {
+    device = "/dev/disk/by-uuid/2ef587d0-6f82-4715-a04f-2d1e6d5c7883";
+    fsType = "ext4";
+    options = [ "defaults" "nofail" ];
+  };
 
-  # TODO gnome default language is fucked up, login screen as example
+  system.activationScripts.createDataDir =
+    "${pkgs.coreutils}/bin/mkdir -pm 0777 ${dataDir}";
 
   console.useXkbConfig = true;
 
@@ -77,7 +71,6 @@ in {
 
     printing = {
       enable = true;
-
       drivers = [ pkgs.hplip ];
     };
 
@@ -89,16 +82,33 @@ in {
       xkbVariant = "de_nodeadkeys";
 
       displayManager = {
-        gdm.enable = true;
+        gdm = {
+          enable = true;
+
+          # TODO commented
+          # nvidiaWayland = true;
+        };
 
         sessionCommands = "${
             lib.getBin pkgs.xorg.xrandr
           }/bin/xrandr --setprovideroutputsource 2 0";
       };
 
-      desktopManager.gnome3.enable = true;
+      desktopManager.gnome3 = {
+        enable = true;
 
-      videoDrivers = [ "displaylink" "modesetting" "nvidia" ];
+        extraGSettingsOverrides = ''
+          [org.gnome.desktop.peripherals.touchpad]
+          click-method='default'
+        '';
+      };
+
+      videoDrivers = [
+        "displaylink"
+        "modesetting"
+        # TODO commented
+        # "nvidia"
+      ];
     };
 
     gnome3 = {
@@ -109,6 +119,11 @@ in {
 
   programs = {
     dconf.enable = true;
+
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
 
     java = {
       enable = true;
@@ -124,7 +139,6 @@ in {
       ++ (with pkgs.gnome3; [
         eog
         geary
-        gedit
         gnome-characters
         gnome-clocks
         gnome-contacts
@@ -155,7 +169,6 @@ in {
       gimp
       git
       git-crypt
-      gnufdisk
       gitkraken
       gnupg
       google-chrome
@@ -166,17 +179,21 @@ in {
       megasync
       neofetch
       nodejs
+      ntfs3g
       openssl
       parted
       postgresql
       postman
+      protonvpn-cli
       python3
       qbittorrent
       spotify
       terraform
-      virtualboxWithExtpack
-      vlc
+      unzip
+      # TODO commented
+      # virtualboxWithExtpack
       vscode
+      vlc
     ]) ++ (with pkgs.gnome3; [ adwaita-icon-theme dconf-editor nautilus ])
       ++ (with pkgs.gnomeExtensions; [ appindicator ])
       ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
@@ -193,5 +210,14 @@ in {
         pytest
         pytest_xdist
       ]) ++ (with pkgs.unixtools; [ ifconfig ]);
+  };
+
+  users.users = {
+    gdavoli = { isNormalUser = true; };
+
+    rhoriguchi = {
+      extraGroups = [ "docker" "networkmanager" "rslsync" "vboxusers" "wheel" ];
+      isNormalUser = true;
+    };
   };
 }

@@ -6,6 +6,7 @@ with lib; {
   };
 
   nix = {
+    # TODO use this for all devices? laptop?
     gc = {
       automatic = true;
       dates = "daily";
