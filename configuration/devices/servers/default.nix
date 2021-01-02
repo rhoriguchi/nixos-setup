@@ -23,6 +23,8 @@ with lib; {
     wifi.macAddress = "permanent";
   };
 
+  console.keyMap = "de_CH-latin1";
+
   services = {
     glances.enable = true;
 
@@ -34,7 +36,7 @@ with lib; {
     journald.extraConfig = "Storage=persistent";
   };
 
-  environment.systemPackages = [ pkgs.htop ];
+  environment.systemPackages = with pkgs; [ glances htop ];
 
   users.users = {
     root = {
