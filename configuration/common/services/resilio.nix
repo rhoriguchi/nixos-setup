@@ -28,26 +28,24 @@ let
   configFile = (pkgs.formats.json { }).generate "config.json" ({
     device_name = strings.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
-    storage_path = cfg.syncPath;
-    check_for_updates = false;
+    storage_path = cfg.storagePath;
+    check_for_updates = cfg.webUI.enable;
     use_upnp = true;
     download_limit = 0;
     upload_limit = 0;
     directory_root = cfg.syncPath;
-    directory_root_policy = "belowroot";
     send_statistics = false;
     peer_expiration_days = 1;
     use_gui = false;
     disk_low_priority = true;
-  } // optionalAttrs (!cfg.webUI.enable -> cfg.secrets != [ ]) {
-    shared_folders = sharedFolders;
-  } // optionalAttrs cfg.webUI.enable {
-    webui = {
-      login = cfg.webUI.username;
-      password = cfg.webUI.password;
-      listen = "0.0.0.0:${toString cfg.webUI.port}";
-    };
-  });
+  } // optionalAttrs (!cfg.webUI.enable) { shared_folders = sharedFolders; }
+    // optionalAttrs cfg.webUI.enable {
+      webui = {
+        login = cfg.webUI.username;
+        password = cfg.webUI.password;
+        listen = "0.0.0.0:${toString cfg.webUI.port}";
+      };
+    });
 in {
   disabledModules = [ "services/networking/resilio.nix" ];
 
@@ -84,6 +82,10 @@ in {
       type = types.port;
     };
     syncPath = mkOption { type = types.str; };
+    storagePath = mkOption {
+      type = types.path;
+      default = "/var/lib/resilio-sync";
+    };
     secrets = mkOption {
       default = [ ];
       type = types.listOf (types.submodule {
@@ -139,17 +141,18 @@ in {
         isSystemUser = true;
         group = "rslsync";
         uid = config.ids.uids.rslsync;
+        createHome = true;
+        home = cfg.storagePath;
       };
 
       groups.rslsync.gid = config.ids.gids.rslsync;
     };
 
-    system.activationScripts.rslsync = mkIf (!cfg.webUI.enable) ''
-      ${pkgs.coreutils}/bin/mkdir -p ${cfg.syncPath}
+    system.activationScripts.resilio = ''
+      ${pkgs.coreutils}/bin/mkdir -pm 0775 ${cfg.syncPath}
       ${pkgs.coreutils}/bin/chown -R ${toString config.ids.uids.rslsync}:${
         toString config.ids.gids.rslsync
       } ${cfg.syncPath}
-      ${pkgs.coreutils}/bin/chmod -R 0755 ${cfg.syncPath}/..
     '';
 
     systemd.services.resilio = {
@@ -158,13 +161,14 @@ in {
       serviceConfig = {
         ExecStart =
           "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
-        ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p "
-          + builtins.concatStringsSep " "
-          (map (builtins.getAttr "dir") sharedFolders);
+        ExecStartPre = mkIf (!cfg.webUI.enable)
+          ("${pkgs.coreutils}/bin/mkdir -pm 0775 "
+            + builtins.concatStringsSep " "
+            (map (builtins.getAttr "dir") sharedFolders));
         StandardOutput = "null";
         StandardError = "null";
         Restart = "on-abort";
-        UMask = "0007";
+        UMask = "0005";
         User = "rslsync";
       };
       unitConfig.ConditionPathExists = [ cfg.syncPath ];
