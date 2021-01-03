@@ -32,6 +32,7 @@ let
     };
   };
 in glances.overrideAttrs (oldAttrs: {
+  # TODO add wrapper that has a couple flags allready set
   propagatedBuildInputs = with python3Packages;
     [
       bottle
