@@ -139,6 +139,7 @@ in {
       ++ (with pkgs.gnome3; [
         eog
         geary
+        gnome-calendar
         gnome-characters
         gnome-clocks
         gnome-contacts
