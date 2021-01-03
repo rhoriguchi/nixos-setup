@@ -63,11 +63,15 @@ with lib; {
     ];
   };
 
-  environment.shellAliases = {
-    l = null;
-    ll = null;
+  environment = {
+    shellAliases = {
+      l = null;
+      ll = null;
 
-    cls = "clear";
-    ls = "ls --color=tty -Ah";
+      cls = "clear";
+      ls = "ls --color=tty -Ah";
+    };
+
+    systemPackages = with pkgs; [ glances ];
   };
 }
