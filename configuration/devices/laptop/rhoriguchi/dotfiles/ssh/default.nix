@@ -3,9 +3,6 @@ let
   home = config.users.users.rhoriguchi.home;
 
   configFile = pkgs.writeText "config" ''
-    Host *.duckdns.org
-      User xxlpitu
-
     Host github.com
       User git
       IdentityFile ${home}/.ssh/github_rsa
@@ -15,6 +12,7 @@ let
       IdentityFile ${home}/.ssh/gitlab_rsa
 
     Host *
+      User xxlpitu
       AddKeysToAgent yes
       AddressFamily any
       Compression yes
