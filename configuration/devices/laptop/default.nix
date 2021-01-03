@@ -191,8 +191,7 @@ in {
       spotify
       terraform
       unzip
-      # TODO commented
-      # virtualboxWithExtpack
+      virtualboxWithExtpack
       vscode
       vlc
     ]) ++ (with pkgs.gnome3; [ adwaita-icon-theme dconf-editor nautilus ])
