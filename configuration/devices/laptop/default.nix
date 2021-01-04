@@ -190,7 +190,7 @@ in {
       python3
       qbittorrent
       spotify
-      terraform
+      terraform_0_14
       unzip
       virtualboxWithExtpack
       vscode
