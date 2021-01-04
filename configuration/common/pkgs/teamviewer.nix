@@ -1,7 +1,6 @@
 { teamviewer }:
 teamviewer.overrideAttrs (oldAttrs: {
   installPhase = oldAttrs.installPhase + ''
-    # TODO does not work
     for i in 16 20 24 32 48 256; do
       size=$i"x"$i
 
