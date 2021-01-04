@@ -6,7 +6,7 @@
 
   # TODO what do these do?
   boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "usbhid" "sd_mod" "rtsx_usb_sdmmc" ];
+    [ "xhci_pci" "ahci" "sd_mod" "rtsx_usb_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
