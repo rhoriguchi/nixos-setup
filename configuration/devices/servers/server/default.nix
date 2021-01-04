@@ -23,6 +23,8 @@ in {
 
   virtualisation.docker.enable = true;
 
+  # TODO install https://grafana.com/docs/loki/latest/clients/docker-driver/
+
   services = {
     duckdns = {
       enable = true;
