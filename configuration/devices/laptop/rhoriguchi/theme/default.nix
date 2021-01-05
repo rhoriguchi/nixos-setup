@@ -26,4 +26,6 @@ in {
         map (builtins.getAttr "uuid") gnomeExtensions;
     };
   };
+
+  # TODO sort overview alphabetically and lock it
 }
