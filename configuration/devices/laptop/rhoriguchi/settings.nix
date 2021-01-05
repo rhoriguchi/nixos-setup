@@ -21,11 +21,11 @@
       "org/gnome/desktop/wm/preference".num-workspaces = 1;
       "org/gnome/mutter".dynamic-workspaces = false;
       "org/gnome/nautilus/preferences".show-hidden-files = true;
+      "org/gnome/shell".favorite-apps = [ ];
     };
 
     # TODO find out what is really needed
     #   settings = {
-    #     "org/gnome/shell".favorite-apps = [ ];
     # keybindings
     #     "org/freedesktop/ibus/general/hotkey" = {
     #       next-engine = [ ];
