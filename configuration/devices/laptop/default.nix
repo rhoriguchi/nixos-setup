@@ -149,6 +149,7 @@ in {
     # TODO remove xterm desktop icon
     gnome3.excludePackages = (with pkgs; [ gnome-connections gnome-photos ])
       ++ (with pkgs.gnome3; [
+        cheese
         geary
         gnome-calendar
         gnome-characters
