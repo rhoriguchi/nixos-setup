@@ -189,6 +189,7 @@ in {
       protonvpn-cli
       python3
       qbittorrent
+      sshpass
       spotify
       terraform_0_14
       unzip
