@@ -7,6 +7,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
+    ./power-management.nix
     ./rhoriguchi
   ];
 
