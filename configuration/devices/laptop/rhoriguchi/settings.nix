@@ -3,31 +3,30 @@
     enable = true;
 
     settings = {
+      "ca/desrt/dconf-editor/Settings".show-warning = false;
       "org/gnome/gedit/preferences/editor" = {
         display-line-numbers = true;
         insert-spaces = true;
         tabs-size = 4;
       };
+      "org/gnome/login-screen" = {
+        enable-fingerprint-authentication = false;
+        enable-smartcard-authentication = false;
+      };
+      "org/gnome/desktop/search-providers" = {
+        disabled = [ "org.gnome.Contacts.desktop" ];
+        sort-order =
+          [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
+      };
+      "org/gnome/desktop/wm/preference".num-workspaces = 1;
+      "org/gnome/mutter".dynamic-workspaces = false;
+      "org/gnome/nautilus/preferences".show-hidden-files = true;
     };
 
     # TODO find out what is really needed
     #   settings = {
-    #     "ca/desrt/dconf-editor/Settings".show-warning = false;
-    #     "org/gnome/desktop/interface".gtk-enable-primary-paste = false;
-    #     "org/gnome/desktop/wm/preference" = {
-    #       action-middle-click-titlebar = "none";
-    #       num-workspaces = 1;
-    #     };
-    #     "org/gnome/login-screen" = {
-    #       enable-fingerprint-authentication = false;
-    #       enable-smartcard-authentication = false;
-    #     };
-    #     "org/gnome/mutter".dynamic-workspaces = false;
-    #     "org/gnome/nautilus/preferences".show-hidden-files = true;
-    #     "org/gnome/settings-daemon/plugins/power".power-button-action = "suspend";
     #     "org/gnome/shell".favorite-apps = [ ];
-
-    #     # keybindings
+    # keybindings
     #     "org/freedesktop/ibus/general/hotkey" = {
     #       next-engine = [ ];
     #       next-engine-in-menu = [ ];

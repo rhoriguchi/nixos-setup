@@ -1,12 +1,15 @@
-{ pkgs, ... }: {
-  # TODO commented
-  # users.users.rhoriguchi.packages = (with pkgs; [ papirus-icon-theme ])
-  #  ++ (with pkgs.gnomeExtensions; [
-  #    caffeine
-  #    dash-to-dock
-  #    desktop-icons
-  #    unite-shell
-  #  ]);
+{ pkgs, ... }:
+let
+  gnomeExtensions = with pkgs.gnomeExtensions;
+    [
+      # caffeine
+      dash-to-dock
+      # desktop-icons
+      # unite-shell
+    ];
+in {
+  users.users.rhoriguchi.packages = gnomeExtensions
+    ++ (with pkgs; [ papirus-icon-theme ]);
 
   home-manager.users.rhoriguchi.dconf = {
     enable = true;
@@ -19,6 +22,8 @@
         icon-theme = "Papirus";
         show-battery-percentage = true;
       };
+      "org/gnome/shell/enabled-extensions".enabled-extensions =
+        map (builtins.getAttr "uuid") gnomeExtensions;
     };
   };
 }
