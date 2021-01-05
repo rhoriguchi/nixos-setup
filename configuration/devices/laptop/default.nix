@@ -195,7 +195,7 @@ in {
       ntfs3g
       openssl
       parted
-      postgresql
+      postgresql_12
       postman
       protonvpn-cli
       python3
