@@ -5,6 +5,17 @@ let
   syncDir = "${dataDir}/Sync";
 in {
   imports = [
+    <home-manager/nixos>
+
+    #TODO done use package source, get from github directly
+    #(import "${
+    #    pkgs.fetchFromGitHub {
+    #      owner = "nix-community";
+    #      rev = "release-${config.system.stateVersion}";
+    #      sha256 = "0iksjch94wfvyq0cgwv5wq52j0dc9cavm68wka3pahhdvjlxd3js";
+    #    }
+    #  }/nixos")
+
     ./hardware-configuration.nix
 
     ./power-management.nix
