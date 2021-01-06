@@ -38,8 +38,10 @@ in {
   networking = {
     hostName = "RYAN-LAPTOP";
 
-    interfaces.eno2.useDHCP = true;
-    interfaces.wlo1.useDHCP = true;
+    interfaces = {
+      eno2.useDHCP = true;
+      wlo1.useDHCP = true;
+    };
 
     networkmanager.unmanaged =
       builtins.attrNames config.networking.wireless.networks;
