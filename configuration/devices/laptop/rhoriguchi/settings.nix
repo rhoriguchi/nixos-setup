@@ -20,7 +20,6 @@
       };
       "org/gnome/desktop/wm/preferences".num-workspaces = 1;
       "org/gnome/mutter".dynamic-workspaces = false;
-      # TODO schema missing
       "org/gnome/nautilus/preferences".show-hidden-files = true;
       "org/gnome/shell".favorite-apps = [ ];
     };
