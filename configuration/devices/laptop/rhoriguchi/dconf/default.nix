@@ -46,6 +46,16 @@ in {
         enabled-extensions = map (builtins.getAttr "uuid") extensions;
         favorite-apps = [ ];
       };
+      "org/gnome/shell/extensions/caffeine" = {
+        control-nightlight = false;
+        control-nightlight-for-app = false;
+        enable-fullscreen = false;
+        inhibit-apps = [ ];
+        restore-state = false;
+        show-indicator = true;
+        show-notifications = true;
+        user-enabled = false;
+      };
       "org/gnome/shell/extensions/dash-to-dock" = {
         activate-single-window = true;
         animate-show-apps = true;
