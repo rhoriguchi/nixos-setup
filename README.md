@@ -23,5 +23,6 @@ Login to:
   - DataGrip
 - MegaSync
 - Postman
+- Spotify
 - Steam
 - TeamViewer
