@@ -81,7 +81,7 @@ in {
         autohide = false;
         autohide-in-fullscreen = false;
         background-color = "#FFFFFF";
-        background-opacity = 0;
+        background-opacity = 0.0;
         bolt-support = true;
         click-action = "minimize-or-previews";
         custom-background-color = true;
@@ -96,7 +96,7 @@ in {
         dock-position = "BOTTOM";
         extend-height = false;
         force-straight-corner = true;
-        height-fraction = 1;
+        height-fraction = 1.0;
         hide-delay = 0.2;
         hot-keys = true;
         hotkeys-overlay = false;
@@ -112,7 +112,7 @@ in {
         minimize-shift = true;
         multi-monitor = true;
         preferred-monitor = true;
-        pressure-threshold = 100;
+        pressure-threshold = 100.0;
         require-pressure-to-show = false;
         running-indicator-style = "DASHES";
         scroll-action = "do-nothing";
@@ -121,9 +121,9 @@ in {
         shift-middle-click-action = "skip";
         shortcut = [ ];
         shortcut-text = [ ];
-        shortcut-time = 2;
+        shortcut-time = 2.0;
         show-apps-at-top = true;
-        show-delay-tim = 0.25;
+        show-delay = 0.25;
         show-favorites = false;
         show-mounts = false;
         show-running = true;
