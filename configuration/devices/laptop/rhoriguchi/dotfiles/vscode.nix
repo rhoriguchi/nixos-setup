@@ -161,12 +161,6 @@
         sha256 = "1albwz3lc9i20if77inm1ipwws8apigvx24rbag3d1h3p4vwda49";
       }
       {
-        name = "latex-workshop";
-        publisher = "James-Yu";
-        version = "8.15.0";
-        sha256 = "0v4pq3l6g4dr1qvnmgsw148061lngwmk3zm12q0kggx85blki12d";
-      }
-      {
         name = "material-icon-theme";
         publisher = "PKief";
         version = "4.4.0";
@@ -255,12 +249,6 @@
         publisher = "KnisterPeter";
         version = "0.30.4";
         sha256 = "0wcl2ilndayfmvb0ff9p20dcrp01yga4bc2nc3pww1immw4y1jim";
-      }
-      {
-        name = "vscode-lombok";
-        publisher = "GabrielBB";
-        version = "1.0.1";
-        sha256 = "1hc7p7an3yd2ssq1laixr0z8cn9yz7aq25hdw6k2fakgklzis6y6";
       }
       {
         name = "vscode-markdownlint";
