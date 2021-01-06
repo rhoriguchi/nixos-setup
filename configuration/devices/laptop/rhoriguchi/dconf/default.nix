@@ -1,12 +1,10 @@
 { pkgs, ... }:
 let
-  extensions = with pkgs.gnomeExtensions;
-    [
-      # TODO commented
-      # appindicator
-      # caffeine
-      dash-to-dock
-    ];
+  extensions = with pkgs.gnomeExtensions; [
+    appindicator
+    caffeine
+    dash-to-dock
+  ];
 in {
   users.users.rhoriguchi.packages = extensions
     ++ (with pkgs; [ papirus-icon-theme ]);
