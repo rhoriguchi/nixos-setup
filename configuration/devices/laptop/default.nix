@@ -105,6 +105,9 @@ in {
         enable = true;
 
         extraGSettingsOverrides = ''
+          [org.gnome.shell]
+          enabled-extensions=['${pkgs.gnomeExtensions.appindicator.uuid}']
+
           [org.gnome.desktop.peripherals.touchpad]
           click-method='default'
         '';
@@ -210,6 +213,7 @@ in {
       vscode
       vlc
     ]) ++ (with pkgs.gnome3; [ dconf-editor ])
+      ++ (with pkgs.gnomeExtensions; [ appindicator ])
       ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
         datagrip
         idea-ultimate
