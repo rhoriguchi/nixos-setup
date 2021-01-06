@@ -141,7 +141,9 @@ in {
   };
 
   environment = {
-    # TODO remove xterm desktop icon
+    # TODO hide desktop icons 
+    # startcenter.desktop (libreOffice) | org.gnome.Extensions.desktop | org.gnome.Logs.desktop | nixos-manual.desktop | xterm.desktop
+    # https://wiki.archlinux.org/index.php/Desktop_entries#Hide_desktop_entries
     gnome3.excludePackages = (with pkgs; [ gnome-connections gnome-photos ])
       ++ (with pkgs.gnome3; [
         cheese
