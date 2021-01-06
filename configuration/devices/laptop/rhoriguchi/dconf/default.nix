@@ -89,6 +89,7 @@ in {
         custom-theme-running-dots-border-color = "#FFFFFF";
         custom-theme-running-dots-border-width = 0;
         custom-theme-running-dots-color = "#D2D2D2";
+        custom-theme-shrink = true;
         customize-alphas = false;
         dash-max-icon-size = 48;
         dock-fixed = true;
