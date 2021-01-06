@@ -144,7 +144,7 @@ in {
 
   environment = {
     # TODO hide desktop icons 
-    # startcenter.desktop (libreOffice) | org.gnome.Extensions.desktop | org.gnome.Logs.desktop | nixos-manual.desktop | xterm.desktop
+    # startcenter.desktop (libreOffice) | org.gnome.Logs.desktop | nixos-manual.desktop | xterm.desktop
     # https://wiki.archlinux.org/index.php/Desktop_entries#Hide_desktop_entries
     gnome3.excludePackages = (with pkgs; [ gnome-connections gnome-photos ])
       ++ (with pkgs.gnome3; [
@@ -158,6 +158,7 @@ in {
         gnome-maps
         gnome-music
         gnome-screenshot
+        gnome-shell-extensions
         gnome-terminal
         gnome-weather
         seahorse
@@ -208,8 +209,7 @@ in {
       virtualboxWithExtpack
       vscode
       vlc
-    ]) ++ (with pkgs.gnome3; [ adwaita-icon-theme dconf-editor nautilus ])
-      ++ (with pkgs.gnomeExtensions; [ appindicator ])
+    ]) ++ (with pkgs.gnome3; [ dconf-editor ])
       ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
         datagrip
         idea-ultimate
