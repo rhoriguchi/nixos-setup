@@ -2,6 +2,8 @@
 let
   extensions = with pkgs.gnomeExtensions;
     [
+      # TODO commented
+      # appindicator
       # caffeine
       dash-to-dock
     ];
