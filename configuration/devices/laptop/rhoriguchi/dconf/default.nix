@@ -112,7 +112,7 @@ in {
         min-alpha = 0.2;
         minimize-shift = true;
         multi-monitor = true;
-        preferred-monitor = true;
+        preferred-monitor = 1;
         pressure-threshold = 100.0;
         require-pressure-to-show = false;
         running-indicator-style = "DASHES";
