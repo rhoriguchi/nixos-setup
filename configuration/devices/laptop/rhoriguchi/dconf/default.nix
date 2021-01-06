@@ -37,6 +37,7 @@ in {
         enable-smartcard-authentication = false;
       };
       "org/gnome/mutter".dynamic-workspaces = false;
+      # TODO does not work
       "org/gnome/nautilus/preferences".show-hidden-files = true;
       "org/gnome/shell" = {
         app-picker-layout = [ ];
