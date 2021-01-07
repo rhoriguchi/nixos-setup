@@ -87,19 +87,20 @@
       }
     ];
 
-    extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+    extensions = (with pkgs.vscode-extensions; [
+      bbenoist.Nix
+      formulahendry.auto-close-tag
+      ms-azuretools.vscode-docker
+      naumovs.color-highlight
+      pkief.material-icon-theme
+      redhat.vscode-yaml
+    ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # TODO create pull request to add all missing
-      {
-        name = "auto-close-tag";
-        publisher = "formulahendry";
-        version = "0.5.9";
-        sha256 = "1bq2c83w5mwm0l4lb8agbl5z1dknf4fmbf13ybx6hclkb0acljvw";
-      }
       {
         name = "auto-rename-tag";
         publisher = "formulahendry";
-        version = "0.1.5";
-        sha256 = "1ic3nxpcan8wwwzwm099plkn7fdy0zz2575rh4znc4sqgcqywh2i";
+        version = "0.1.6";
+        sha256 = "0cqg9mxkyf41brjq2c764w42lzyn6ffphw6ciw7xnqk1h1x8wwbs";
       }
       {
         name = "beautify";
@@ -108,40 +109,16 @@
         sha256 = "1c0kfavdwgwham92xrh0gnyxkrl9qlkpv39l1yhrldn8vd10fj5i";
       }
       {
-        name = "bracket-pair-colorizer";
+        name = "bracket-pair-colorizer-2";
         publisher = "CoenraadS";
-        version = "1.0.61";
-        sha256 = "0r3bfp8kvhf9zpbiil7acx7zain26grk133f0r0syxqgml12i652";
-      }
-      {
-        name = "code-runner";
-        publisher = "formulahendry";
-        version = "0.11.1";
-        sha256 = "1y7rb0sg2vy7pyqn05pj4hign2sqxj63bpmgbp5fxvf5ygnm702g";
-      }
-      {
-        name = "color-highlight";
-        publisher = "naumovs";
-        version = "2.3.0";
-        sha256 = "1syzf43ws343z911fnhrlbzbx70gdn930q67yqkf6g0mj8lf2za2";
+        version = "0.2.0";
+        sha256 = "0nppgfbmw0d089rka9cqs3sbd5260dhhiipmjfga3nar9vp87slh";
       }
       {
         name = "copy-relative-path";
         publisher = "alexdima";
         version = "0.0.2";
         sha256 = "06g601n9d6wyyiz659w60phgm011gn9jj5fy0gf5wpi2bljk3vcn";
-      }
-      {
-        name = "git-indicators";
-        publisher = "lamartire";
-        version = "2.1.2";
-        sha256 = "13bayq2nl3q0rzwq9bqc5jw13l71aq8laxi32bcab4xnw3pcamky";
-      }
-      {
-        name = "git-project-manager";
-        publisher = "felipecaputo";
-        version = "1.7.1";
-        sha256 = "1pghgzs89qwp9bx6z749z6a00pfqm2416n4lmna6dhpk5671hah9";
       }
       {
         name = "gitlens";
@@ -160,18 +137,6 @@
         publisher = "vincaslt";
         version = "0.10.0";
         sha256 = "1albwz3lc9i20if77inm1ipwws8apigvx24rbag3d1h3p4vwda49";
-      }
-      {
-        name = "material-icon-theme";
-        publisher = "PKief";
-        version = "4.4.0";
-        sha256 = "1m9mis59j9xnf1zvh67p5rhayaa9qxjiw9iw847nyl9vsy73w8ya";
-      }
-      {
-        name = "Nix";
-        publisher = "bbenoist";
-        version = "1.0.1";
-        sha256 = "0zd0n9f5z1f0ckzfjr38xw2zzmcxg1gjrava7yahg5cvdcw6l35b";
       }
       {
         name = "nixfmt-vscode";
@@ -204,18 +169,6 @@
         sha256 = "0h7wc4pffyq1i8vpj4a5az02g2x04y7y1chilmcfmzg2w42xpby7";
       }
       {
-        name = "remote-containers";
-        publisher = "ms-vscode-remote";
-        version = "0.148.1";
-        sha256 = "0689qn2a93vv71k2gr0g7l5c6y94h8ffsczhyiff452dh9mcfvnk";
-      }
-      {
-        name = "scriptcsRunner";
-        publisher = "filipw";
-        version = "0.1.0";
-        sha256 = "0l0923aqr8hkkvn9wpwjrc7d6c39y4cwcqk9sbih8fcy2g245sal";
-      }
-      {
         name = "sort-lines";
         publisher = "Tyriar";
         version = "1.9.0";
@@ -234,24 +187,6 @@
         sha256 = "1cqp10pwyjic1p8ss1f5ng9igqmaqn10l65fpyka1dy2k90i1yay";
       }
       {
-        name = "vscode-docker";
-        publisher = "ms-azuretools";
-        version = "1.8.1";
-        sha256 = "08691mwb3kgmk5fnjpw1g3a5i7qwalw1yrv2skm519wh62w6nmw8";
-      }
-      {
-        name = "vscode-fileutils";
-        publisher = "sleistner";
-        version = "3.4.2";
-        sha256 = "1w3radmiv9amcl76n5zkalvfjq84p1y3fnf7ww3zpjd82iihzpbj";
-      }
-      {
-        name = "vscode-github";
-        publisher = "KnisterPeter";
-        version = "0.30.4";
-        sha256 = "0wcl2ilndayfmvb0ff9p20dcrp01yga4bc2nc3pww1immw4y1jim";
-      }
-      {
         name = "vscode-markdownlint";
         publisher = "DavidAnson";
         version = "0.38.0";
@@ -262,12 +197,6 @@
         publisher = "Rubymaniac";
         version = "0.0.8";
         sha256 = "0fqwcvwq37ndms6vky8jjv0zliy6fpfkh8d9raq8hkinfxq6klgl";
-      }
-      {
-        name = "vscode-xml";
-        publisher = "redhat";
-        version = "0.14.0";
-        sha256 = "04rk7gy660saccqn89m93dzw3hkpkdj66sbsk1wb125bfignmq4c";
       }
       {
         name = "vscodeintellicode";
