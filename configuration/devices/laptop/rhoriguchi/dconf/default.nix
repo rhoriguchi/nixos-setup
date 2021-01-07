@@ -4,6 +4,7 @@ let
     appindicator
     caffeine
     dash-to-dock
+    # TODO add unite-shell to decrease spacing https://github.com/hardpixel/unite-shell
   ];
 in {
   users.users.rhoriguchi.packages = extensions

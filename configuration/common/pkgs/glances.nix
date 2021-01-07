@@ -33,6 +33,7 @@ let
   };
 in glances.overrideAttrs (oldAttrs: {
   # TODO add wrapper that has a couple flags allready set
+  # TODO figour out how to replace specific and only add missing
   propagatedBuildInputs = with python3Packages;
     [
       bottle
