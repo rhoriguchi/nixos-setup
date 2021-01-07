@@ -2,7 +2,8 @@
 let home = config.users.users.rhoriguchi.home;
 in {
   imports = [
-    ./auto-start.nix
+    # TODO does not work
+    # ./auto-start.nix
     ./dconf
     ./dircolors
     ./flameshot.nix
