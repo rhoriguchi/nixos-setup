@@ -8,6 +8,8 @@
       inherit (super.linuxPackages) evdi;
     };
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
+    gnomeExtensions =
+      super.callPackage ./gnomeExtensions { inherit (super) gnomeExtensions; };
     mal_export = super.callPackage ./mal_export.nix { };
     terraform =
       super.callPackage ./terraform.nix { inherit (super) terraform; };

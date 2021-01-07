@@ -4,7 +4,7 @@ let
     appindicator
     caffeine
     dash-to-dock
-    # TODO add unite-shell to decrease spacing https://github.com/hardpixel/unite-shell
+    unite-shell
   ];
 in {
   users.users.rhoriguchi.packages = extensions
@@ -148,6 +148,8 @@ in {
         transparency-mode = "FIXED";
         unity-backlit-items = false;
       };
+      # TODO https://github.com/hardpixel/unite-shell/blob/master/unite%40hardpixel.eu/schemas/org.gnome.shell.extensions.unite.gschema.xml
+      # "org/gnome/shell/extensions/unite" = { }; 
     };
   };
 
