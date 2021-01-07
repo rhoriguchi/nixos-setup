@@ -150,7 +150,7 @@ in {
       };
       "org/gnome/shell/extensions/unite" = {
         autofocus-windows = true;
-        desktop-name-text = "Desktop";
+        desktop-name-text = "";
         extend-left-box = false;
         greyscale-tray-icons = false;
         hide-activities-button = "always";
