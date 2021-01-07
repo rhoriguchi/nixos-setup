@@ -178,7 +178,7 @@ in {
       docker-compose
       etcher
       firefox
-      flameshot # TODO fix? https://github.com/nix-community/home-manager/blob/master/modules/services/flameshot.nix
+      flameshot
       gimp
       git
       git-crypt

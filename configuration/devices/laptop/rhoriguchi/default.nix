@@ -2,6 +2,7 @@
 let home = config.users.users.rhoriguchi.home;
 in {
   imports = [
+    ./auto-start.nix
     ./dconf
     ./dircolors
     ./git
