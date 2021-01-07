@@ -29,6 +29,21 @@ in {
         sort-order =
           [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
       };
+      "org/gnome/desktop/wm/keybindings" = {
+        close = [ "<Alt>F4" ];
+        minimize = [ ];
+        move-to-monitor-down = [ ];
+        move-to-monitor-left = [ ];
+        move-to-monitor-right = [ ];
+        move-to-monitor-up = [ ];
+        move-to-workspace-1 = [ ];
+        move-to-workspace-down = [ ];
+        move-to-workspace-last = [ ];
+        move-to-workspace-left = [ ];
+        move-to-workspace-right = [ ];
+        move-to-workspace-up = [ ];
+        show-desktop = [ "<Super>d" ];
+      };
       "org/gnome/desktop/wm/preferences" = {
         button-layout = ":minimize,maximize,close";
         num-workspaces = 1;
@@ -43,6 +58,10 @@ in {
         enable-smartcard-authentication = false;
       };
       "org/gnome/mutter".dynamic-workspaces = false;
+      "org/gnome/mutter/keybindings" = {
+        toggle-tiled-left = [ "<Super>Left" ];
+        toggle-tiled-right = [ "<Super>Right" ];
+      };
       # TODO does not work
       "org/gnome/nautilus/preferences".show-hidden-files = true;
       "org/gnome/shell" = {
@@ -172,6 +191,25 @@ in {
         window-buttons-placement = "auto";
         window-buttons-theme = "default-dark";
       };
+      "org/gnome/settings-daemon/plugins/media-keys" = {
+        area-screenshot = [ ];
+        area-screenshot-clip = [ ];
+      };
+      "org/gnome/shell/keybindings" = {
+        focus-active-notification = [ ];
+        switch-to-application-1 = [ ];
+        switch-to-application-2 = [ ];
+        switch-to-application-3 = [ ];
+        switch-to-application-4 = [ ];
+        switch-to-application-5 = [ ];
+        switch-to-application-6 = [ ];
+        switch-to-application-7 = [ ];
+        switch-to-application-8 = [ ];
+        switch-to-application-9 = [ ];
+        toggle-application-view = [ ];
+        toggle-message-tray = [ ];
+        toggle-overview = [ "<SUPER>" ];
+      };
     };
   };
 
@@ -192,26 +230,13 @@ in {
   #       activate-window-menu = [ ];
   #       begin-move = [ ];
   #       begin-resize = [ ];
-  #       close = [ "<Alt>F4" ];
   #       cycle-group = [ ];
   #       cycle-group-backward = [ ];
   #       cycle-panels = [ ];
   #       cycle-panels-backward = [ ];
   #       cycle-windows = [ ];
   #       cycle-windows-backward = [ ];
-  #       minimize = [ ];
-  #       move-to-monitor-down = [ ];
-  #       move-to-monitor-left = [ ];
-  #       move-to-monitor-right = [ ];
-  #       move-to-monitor-up = [ ];
-  #       move-to-workspace-1 = [ ];
-  #       move-to-workspace-down = [ ];
-  #       move-to-workspace-last = [ ];
-  #       move-to-workspace-left = [ ];
-  #       move-to-workspace-right = [ ];
-  #       move-to-workspace-up = [ ];
   #       panel-main-menu = [ ];
-  #       show-desktop = [ "<Super>d" ];
   #       switch-applications-backward = [ ];
   #       switch-group = [ ];
   #       switch-group-backward = [ ];
@@ -228,8 +253,6 @@ in {
   #       unmaximize = [ ];
   #     };
   #     "org/gnome/settings-daemon/plugins/media-keys" = {
-  #       area-screenshot = [ ];
-  #       area-screenshot-clip = [ ];
   #       calculator-static = [ ];
   #       email = [ ];
   #       email-static = [ ];
@@ -248,21 +271,6 @@ in {
   #       window-screenshot-clip = [ ];
   #       www = [ ];
   #       www-static = [ ];
-  #     };
-  #     "org/gnome/shell/keybindings" = {
-  #       focus-active-notification = [ ];
-  #       switch-to-application-1 = [ ];
-  #       switch-to-application-2 = [ ];
-  #       switch-to-application-3 = [ ];
-  #       switch-to-application-4 = [ ];
-  #       switch-to-application-5 = [ ];
-  #       switch-to-application-6 = [ ];
-  #       switch-to-application-7 = [ ];
-  #       switch-to-application-8 = [ ];
-  #       switch-to-application-9 = [ ];
-  #       toggle-application-view = [ ];
-  #       toggle-message-tray = [ ];
-  #       toggle-overview = [ ];
   #     };
   #   };
 }
