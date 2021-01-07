@@ -2,10 +2,10 @@
 let home = config.users.users.rhoriguchi.home;
 in {
   imports = [
-    ./alacritty.nix
     ./dconf
     ./dircolors
     ./git
+    ./gnome-terminal.nix
     ./neofetch
     ./ssh
     ./vscode.nix
