@@ -148,8 +148,28 @@ in {
         transparency-mode = "FIXED";
         unity-backlit-items = false;
       };
-      # TODO https://github.com/hardpixel/unite-shell/blob/master/unite%40hardpixel.eu/schemas/org.gnome.shell.extensions.unite.gschema.xml
-      # "org/gnome/shell/extensions/unite" = { }; 
+      "org/gnome/shell/extensions/unite" = {
+        autofocus-windows = true;
+        desktop-name-text = "Desktop";
+        extend-left-box = false;
+        greyscale-tray-icons = false;
+        hide-activities-button = "always";
+        hide-aggregate-menu-arrow = true;
+        hide-app-menu-arrow = false;
+        hide-app-menu-icon = false;
+        hide-dropdown-arrows = false;
+        hide-window-titlebars = "never";
+        notifications-position = "center";
+        reduce-panel-spacing = true;
+        restrict-to-primary-screen = false;
+        show-desktop-name = true;
+        show-legacy-tray = false;
+        show-window-buttons = "never";
+        show-window-title = "never";
+        use-system-fonts = true;
+        window-buttons-placement = "auto";
+        window-buttons-theme = "default-dark";
+      };
     };
   };
 
