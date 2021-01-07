@@ -8,8 +8,6 @@
       "e17653c5-1b1f-418d-9833-ccb64992112d" = {
         default = true;
 
-        # TODO "background-transparency-percent" missing, create pull request
-
         allowBold = true;
         # audibleBell = false; # TODO commented because this a new feature https://github.com/nix-community/home-manager/pull/1671
         cursorBlinkMode = "on";
