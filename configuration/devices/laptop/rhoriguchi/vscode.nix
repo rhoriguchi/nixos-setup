@@ -88,6 +88,7 @@
     ];
 
     extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      # TODO create pull request to add all missing
       {
         name = "auto-close-tag";
         publisher = "formulahendry";
