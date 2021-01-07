@@ -28,7 +28,7 @@ in {
           [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
       };
       "org/gnome/desktop/wm/preferences" = {
-        button-layout = "menu:minimize,maximize,close";
+        button-layout = ":minimize,maximize,close";
         num-workspaces = 1;
       };
       "org/gnome/gedit/preferences/editor" = {
