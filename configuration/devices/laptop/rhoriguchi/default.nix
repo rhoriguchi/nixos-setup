@@ -5,6 +5,7 @@ in {
     ./auto-start.nix
     ./dconf
     ./dircolors
+    ./flameshot.nix
     ./git
     ./gnome-terminal.nix
     ./neofetch
