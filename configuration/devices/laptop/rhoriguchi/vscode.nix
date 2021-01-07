@@ -10,6 +10,7 @@
       "editor.suggestSelection" = "first";
       "editor.wordBasedSuggestionsMode" = "allDocuments";
       "explorer.compactFolders" = false;
+      "explorer.confirmDelete" = false;
       "extensions.autoUpdate" = false;
       "files.autoSave" = "onFocusChange";
       "files.exclude" = {
@@ -29,7 +30,6 @@
       "gitlens.advanced.messages" = { "suppressShowKeyBindingsNotice" = true; };
       "gitlens.defaultDateFormat" = "DD.MM.YYYY HH:MM";
       "gitlens.defaultDateShortFormat" = "DD.MM.YYYY";
-      "latex-workshop.view.pdf.viewer" = "tab";
       "prettier.arrowParens" = "always";
       "prettier.printWidth" = 120;
       "prettier.singleQuote" = true;
