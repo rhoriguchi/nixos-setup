@@ -19,6 +19,7 @@ in {
       "org/gnome/desktop/interface" = {
         clock-show-seconds = true;
         clock-show-weekday = true;
+        enable-hot-corners = false;
         icon-theme = "Papirus";
         show-battery-percentage = true;
       };
