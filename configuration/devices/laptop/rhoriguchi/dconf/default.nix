@@ -3,6 +3,7 @@ let
   extensions = with pkgs.gnomeExtensions; [
     appindicator
     caffeine
+    # TODO add https://github.com/stuartlangridge/gnome-shell-clock-override
     dash-to-dock
     unite-shell
   ];
