@@ -139,7 +139,7 @@ in {
 
     java = {
       enable = true;
-      package = pkgs.jdk14;
+      package = pkgs.jdk;
     };
 
     steam.enable = true;
