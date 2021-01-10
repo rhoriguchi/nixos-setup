@@ -91,6 +91,7 @@
       bbenoist.Nix
       formulahendry.auto-close-tag
       ms-azuretools.vscode-docker
+      ms-python.python
       naumovs.color-highlight
       pkief.material-icon-theme
       redhat.vscode-yaml
