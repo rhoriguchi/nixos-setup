@@ -6,6 +6,7 @@ let
     appindicator
     caffeine
     dash-to-dock
+    gnome-fuzzy-app-search
     unite-shell
   ];
 in {
@@ -170,6 +171,7 @@ in {
         transparency-mode = "FIXED";
         unity-backlit-items = false;
       };
+      "org/gnome/shell/extensions/gnome-fuzzy-app-search".applications = true;
       "org/gnome/shell/extensions/unite" = {
         autofocus-windows = true;
         desktop-name-text = "";
