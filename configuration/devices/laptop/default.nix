@@ -42,11 +42,6 @@ in {
       eno2.useDHCP = true;
       wlo1.useDHCP = true;
     };
-
-    networkmanager.unmanaged =
-      builtins.attrNames config.networking.wireless.networks;
-
-    wireless.enable = true;
   };
 
   hardware = {
