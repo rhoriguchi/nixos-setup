@@ -1,6 +1,16 @@
-{ glances, lib, stdenv, fetchFromGitHub, python3Packages, hddtemp }:
+{ glances, lib, stdenv, fetchFromGitHub, python3Packages, mach-nix }:
 with lib;
 let
+  py3nvml = mach-nix.buildPythonPackage rec {
+    pname = "py3nvml";
+    version = "0.2.6";
+
+    src = python3Packages.fetchPypi {
+      inherit pname version;
+      sha256 = "1jyplsmj85alwzypnd1iy40hg88p6zv6aw80lamq2sqkay5nqhcq";
+    };
+  };
+
   py-cpuinfo = python3Packages.py-cpuinfo.overridePythonAttrs (oldAttrs: rec {
     version = "7.0.0";
 
@@ -33,18 +43,7 @@ let
   };
 in glances.overrideAttrs (oldAttrs: {
   # TODO add wrapper that has a couple flags allready set
-  # TODO figour out how to replace specific and only add missing
-  propagatedBuildInputs = with python3Packages;
-    [
-      bottle
-      docker
-      future
-      netifaces
-      psutil
-      py-cpuinfo
-      pySMART_smartx
-      pysnmp
-      requests
-      setuptools
-    ] ++ optional stdenv.isLinux hddtemp ++ optional stdenv.isLinux pymdstat;
+  propagatedBuildInputs = oldAttrs.propagatedBuildInputs
+    ++ (with python3Packages; [ docker requests ]) ++ [ py3nvml pySMART_smartx ]
+    ++ optional stdenv.isLinux pymdstat;
 })
