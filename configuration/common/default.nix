@@ -15,6 +15,8 @@ with lib; {
 
   system.stateVersion = "20.09";
 
+  documentation.doc.enable = false;
+
   time.timeZone = "Europe/Zurich";
 
   i18n = {
