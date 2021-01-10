@@ -1,11 +1,11 @@
 { pkgs, ... }:
 let
-  # TODO add https://github.com/stuartlangridge/gnome-shell-clock-override
   extensions = with pkgs.gnomeExtensions; [
     appindicator
     caffeine
     dash-to-dock
     gnome-fuzzy-app-search
+    gnome-shell-clock-override
     unite-shell
     window-is-ready-remover
   ];
@@ -81,6 +81,8 @@ in {
         show-notifications = true;
         user-enabled = false;
       };
+      "org/gnome/shell/extensions/clock_override".override-string =
+        "%FT%R:%S%:z";
       "org/gnome/shell/extensions/dash-to-dock" = {
         activate-single-window = true;
         animate-show-apps = true;
