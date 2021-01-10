@@ -1,9 +1,10 @@
 { pkgs, ... }:
 let
+  # TODO add https://github.com/stuartlangridge/gnome-shell-clock-override
+  # TODO add https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/desktops/gnome-3/extensions/window-is-ready-remover/default.nix#L24
   extensions = with pkgs.gnomeExtensions; [
     appindicator
     caffeine
-    # TODO add https://github.com/stuartlangridge/gnome-shell-clock-override
     dash-to-dock
     unite-shell
   ];
