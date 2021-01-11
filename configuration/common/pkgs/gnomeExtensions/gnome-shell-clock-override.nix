@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, gnome3, glib, unzip, zip }:
+{ stdenv, fetchFromGitHub, gnome3, gettext, glib, unzip, zip }:
 # TODO create pull request
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-gnome-shell-clock-override";
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   uuid = "clock-override@gnomeshell.kryogenix.org";
 
-  nativeBuildInputs = [ glib unzip zip ];
+  nativeBuildInputs = [ gettext glib unzip zip ];
 
   makeFlags = [ "PREFIX=$(out)/share/gnome-shell/extensions" ];
 
