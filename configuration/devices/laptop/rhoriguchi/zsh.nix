@@ -80,23 +80,18 @@
 
       zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
       zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+      # TODO create pull request to add some config option to set this up nicely
+      local current_user="%{$fg[magenta]%}$USER%{$reset_color%}"
+      local root="%{$fg[red]%}root%{$reset_color%}"
+      local user_string="%(!.''${root}.''${current_user})"
+
+      local hostname="%{$fg[magenta]%}%M%{$reset_color%}"
+      local path_string="%{$fg[green]%}%~%{$reset_color%}"
+      local prompt_string=">"
+
+      PROMPT="''${user_string}@''${hostname} ''${path_string} ''${prompt_string} %{$reset_color%}"
+      RPROMPT="$(git_super_status)"
     '';
-
-    localVariables = {
-      current_user = "%{$fg[magenta]%}$USER%{$reset_color%}";
-      root = "%{$fg[red]%}root%{$reset_color%}";
-      user_string = "%(!.\${root}.\${current_user})";
-
-      hostname = "%{$fg[magenta]%}%M%{$reset_color%}";
-      path_string = "%{$fg[green]%}%~%{$reset_color%}";
-      prompt_string = ">";
-
-      # TODO does not work
-      PROMPT =
-        "\${user_string}@\${hostname} \${path_string} \${prompt_string} %{$reset_color%}";
-
-      # TODO perl issues
-      # RPROMPT = "$(git_super_status)";
-    };
   };
 }
