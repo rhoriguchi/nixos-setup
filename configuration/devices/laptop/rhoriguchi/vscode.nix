@@ -90,31 +90,25 @@
 
     extensions = (with pkgs.vscode-extensions; [
       bbenoist.Nix
+      brettm12345.nixfmt-vscode
+      coenraads.bracket-pair-colorizer-2
       formulahendry.auto-close-tag
+      formulahendry.auto-rename-tag
+      ibm.output-colorizer
       ms-azuretools.vscode-docker
       ms-python.python
       naumovs.color-highlight
       pkief.material-icon-theme
       redhat.vscode-yaml
+      tyriar.sort-lines
+      vincaslt.highlight-matching-tag
     ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # TODO create pull request to add all missing
-      {
-        name = "auto-rename-tag";
-        publisher = "formulahendry";
-        version = "0.1.6";
-        sha256 = "0cqg9mxkyf41brjq2c764w42lzyn6ffphw6ciw7xnqk1h1x8wwbs";
-      }
       {
         name = "beautify";
         publisher = "HookyQR";
         version = "1.5.0";
         sha256 = "1c0kfavdwgwham92xrh0gnyxkrl9qlkpv39l1yhrldn8vd10fj5i";
-      }
-      {
-        name = "bracket-pair-colorizer-2";
-        publisher = "CoenraadS";
-        version = "0.2.0";
-        sha256 = "0nppgfbmw0d089rka9cqs3sbd5260dhhiipmjfga3nar9vp87slh";
       }
       {
         name = "code-spell-checker";
@@ -141,24 +135,6 @@
         sha256 = "1kvsj085w1xax6fg0kvsj1cizqh86i0pkzpwi0sbfvmcq21i6ghn";
       }
       {
-        name = "highlight-matching-tag";
-        publisher = "vincaslt";
-        version = "0.10.0";
-        sha256 = "1albwz3lc9i20if77inm1ipwws8apigvx24rbag3d1h3p4vwda49";
-      }
-      {
-        name = "nixfmt-vscode";
-        publisher = "brettm12345";
-        version = "0.0.1";
-        sha256 = "07w35c69vk1l6vipnq3qfack36qcszqxn8j3v332bl0w6m02aa7k";
-      }
-      {
-        name = "output-colorizer";
-        publisher = "IBM";
-        version = "0.1.2";
-        sha256 = "0i9kpnlk3naycc7k8gmcxas3s06d67wxr3nnyv5hxmsnsx5sfvb7";
-      }
-      {
         name = "partial-diff";
         publisher = "ryu1kn";
         version = "1.4.1";
@@ -175,12 +151,6 @@
         publisher = "esbenp";
         version = "5.8.0";
         sha256 = "0h7wc4pffyq1i8vpj4a5az02g2x04y7y1chilmcfmzg2w42xpby7";
-      }
-      {
-        name = "sort-lines";
-        publisher = "Tyriar";
-        version = "1.9.0";
-        sha256 = "0l4wibsjnlbzbrl1wcj18vnm1q4ygvxmh347jvzziv8f1l790qjl";
       }
       {
         # TODO add terraformm-ls https://github.com/hashicorp/terraform-ls
