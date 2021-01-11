@@ -5,6 +5,7 @@
     package = pkgs.vscode;
 
     userSettings = {
+      "cSpell.enableFiletypes" = [ "nix" "terraform" ];
       "editor.renderIndentGuides" = false;
       "editor.renderWhitespace" = "trailing";
       "editor.suggestSelection" = "first";
@@ -116,6 +117,12 @@
         sha256 = "0nppgfbmw0d089rka9cqs3sbd5260dhhiipmjfga3nar9vp87slh";
       }
       {
+        name = "code-spell-checker";
+        publisher = "streetsidesoftware";
+        version = "1.10.2";
+        sha256 = "1ll046rf5dyc7294nbxqk5ya56g2bzqnmxyciqpz2w5x7j75rjib";
+      }
+      {
         name = "copy-relative-path";
         publisher = "alexdima";
         version = "0.0.2";
@@ -176,6 +183,7 @@
         sha256 = "0l4wibsjnlbzbrl1wcj18vnm1q4ygvxmh347jvzziv8f1l790qjl";
       }
       {
+        # TODO add terraformm-ls https://github.com/hashicorp/terraform-ls
         name = "terraform";
         publisher = "hashicorp";
         version = "2.3.0";
