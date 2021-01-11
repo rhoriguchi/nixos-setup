@@ -1,5 +1,6 @@
 { stdenv, fetchFromGitLab, gnome3, glib }:
 # TODO create pull request
+# TODO does not work
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-gnome-fuzzy-app-search";
   version = "2";

@@ -1,5 +1,7 @@
 { stdenv, fetchFromGitHub, gnome3, gettext, glib, unzip, zip }:
 # TODO create pull request
+# TODO does not work
+# TODO don't use makefile
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-gnome-shell-clock-override";
   version = "5";
