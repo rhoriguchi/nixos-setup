@@ -6,6 +6,7 @@
 
     userSettings = {
       "cSpell.enableFiletypes" = [ "nix" "terraform" ];
+      "cSpell.userWords" = [ "rhoriguchi" ];
       "editor.renderIndentGuides" = false;
       "editor.renderWhitespace" = "trailing";
       "editor.suggestSelection" = "first";
