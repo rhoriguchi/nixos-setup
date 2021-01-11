@@ -3,6 +3,8 @@
     mach-nix = super.callPackage ./mach-nix.nix { pkgs = super; };
   })
   (self: super: {
+    # TODO add grafana/loki-docker-driver https://grafana.com/docs/loki/latest/clients/docker-driver/
+    # https://docs.docker.com/engine/extend/#developing-a-plugin
     displaylink = super.callPackage ./displaylink {
       inherit (super) displaylink;
       inherit (super.linuxPackages) evdi;
