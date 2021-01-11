@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Fuzzy application search results for Gnome Search";
     # license = licenses.gpl3Only;
-    # maintainers = with maintainers; [ rhoriguchi ];
     homepage = "https://gitlab.com/Czarlie/gnome-fuzzy-app-search";
-    broken = versionAtLeast gnome3.gnome-shell.version "3.18";
+    broken = versionOlder gnome3.gnome-shell.version "3.18";
   };
 }

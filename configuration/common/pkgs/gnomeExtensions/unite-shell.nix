@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, xorg, glib, coreutils }:
-# TODO create pull request
+{ stdenv, gnome3, fetchFromGitHub, xprop, glib, coreutils }:
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-unite-shell";
   version = "44";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ glib ];
 
-  buildInputs = [ xorg.xprop ];
+  buildInputs = [ xprop ];
 
   buildPhase = ''
     runHook preBuild
@@ -25,8 +24,15 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    ${coreutils}/bin/mkdir -p $out/share/gnome-shell/extensions
+    mkdir -p $out/share/gnome-shell/extensions
     cp -r ${uuid} $out/share/gnome-shell/extensions
     runHook postInstall
   '';
+
+  meta = with stdenv.lib; {
+    description = "Unite is a GNOME Shell extension which makes a few layout tweaks to the top panel and removes window decorations to make it look like Ubuntu Unity Shell";
+    license = licenses.gpl3Only;
+    homepage = "https://github.com/hardpixel/unite-shell";
+    broken = versionOlder gnome3.gnome-shell.version "3.32";
+  };
 }

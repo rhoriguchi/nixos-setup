@@ -21,9 +21,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Override the Gnome Shell clock with a new time format or text of your choice";
-    # license = licenses.gpl3Only;
-    # maintainers = with maintainers; [ rhoriguchi ];
+    license = licenses.mit;
     homepage = "https://github.com/stuartlangridge/gnome-shell-clock-override";
-    broken = versionAtLeast gnome3.gnome-shell.version "3.18";
+    broken = versionOlder gnome3.gnome-shell.version "3.18";
   };
 }
