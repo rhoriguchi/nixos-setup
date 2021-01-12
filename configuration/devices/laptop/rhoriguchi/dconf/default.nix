@@ -64,8 +64,6 @@ in {
         toggle-tiled-left = [ "<Super>Left" ];
         toggle-tiled-right = [ "<Super>Right" ];
       };
-      # TODO does not work
-      "org/gnome/nautilus/preferences".show-hidden-files = true;
       "org/gnome/shell" = {
         app-picker-layout = [ ];
         enabled-extensions = map (builtins.getAttr "uuid") extensions;
@@ -215,6 +213,7 @@ in {
         toggle-message-tray = [ ];
         toggle-overview = [ "<SUPER>" ];
       };
+      "org/gtk/settings/file-chooser".show-hidden = true;
     };
   };
 
