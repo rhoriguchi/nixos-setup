@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 let home = config.users.users.rhoriguchi.home;
 in {
   imports = [
