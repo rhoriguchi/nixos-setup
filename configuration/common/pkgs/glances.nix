@@ -56,7 +56,7 @@ let
     };
   };
 in glances.overrideAttrs (oldAttrs: {
-  # TODO add wrapper that has a couple flags allready set
+  # TODO add wrapper that has a couple flags already set
   propagatedBuildInputs = oldAttrs.propagatedBuildInputs
     ++ (with python3Packages; [ docker requests ]) ++ [ py3nvml pySMART_smartx ]
     ++ optional stdenv.isLinux pymdstat;
