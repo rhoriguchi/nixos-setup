@@ -73,7 +73,10 @@
         "editor.wordWrapColumn" = 120;
       };
       "[nix]" = { "editor.tabSize" = 2; };
-      "[yaml]" = { "editor.tabSize" = 2; };
+      "[yaml]" = {
+        "editor.defaultFormatter" = "redhat.vscode-yaml";
+        "editor.tabSize" = 2;
+      };
     };
 
     keybindings = [
