@@ -138,7 +138,6 @@ in {
     # https://wiki.archlinux.org/index.php/Desktop_entries#Hide_desktop_entries
     gnome3.excludePackages = (with pkgs; [ gnome-connections gnome-photos ])
       ++ (with pkgs.gnome3; [
-        cheese
         geary
         gnome-calendar
         gnome-characters
