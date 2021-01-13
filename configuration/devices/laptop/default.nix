@@ -213,7 +213,7 @@ in {
   };
 
   users.users = {
-    gdavoli = { isNormalUser = true; };
+    gdavoli.isNormalUser = true;
 
     rhoriguchi = {
       extraGroups = [ "docker" "networkmanager" "rslsync" "vboxusers" "wheel" ];
