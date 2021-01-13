@@ -1,9 +1,7 @@
 { stdenv, fetchFromGitHub, gnome3, gettext, glib, unzip, zip }:
 # TODO create pull request
-# TODO does not work
-# TODO don't use makefile
 stdenv.mkDerivation rec {
-  pname = "gnome-shell-extension-gnome-shell-clock-override";
+  pname = "gnome-shell-extension-clock-override";
   version = "5";
 
   src = fetchFromGitHub {
@@ -16,6 +14,8 @@ stdenv.mkDerivation rec {
   uuid = "clock-override@gnomeshell.kryogenix.org";
 
   nativeBuildInputs = [ gettext glib unzip zip ];
+
+  preBuild = "sed -i '/gnome-shell-extension-tool/d' Makefile";
 
   makeFlags = [ "PREFIX=$(out)/share/gnome-shell/extensions" ];
 

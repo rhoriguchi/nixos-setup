@@ -3,9 +3,9 @@ let
   extensions = with pkgs.gnomeExtensions; [
     appindicator
     caffeine
+    clock-override
     dash-to-dock
     gnome-fuzzy-app-search
-    gnome-shell-clock-override
     unite-shell
     window-is-ready-remover
   ];
