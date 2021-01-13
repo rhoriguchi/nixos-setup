@@ -175,6 +175,7 @@ in {
       htop
       keepass
       libreoffice-fresh
+      lsb-release
       maven
       megasync
       neofetch
@@ -187,13 +188,13 @@ in {
       protonvpn-cli
       python3
       qbittorrent
-      sshpass
       spotify
+      sshpass
       terraform_0_14
       unzip
       virtualboxWithExtpack
-      vscode
       vlc
+      vscode
     ]) ++ (with pkgs.gnome3; [ dconf-editor ])
       ++ (with pkgs.gnomeExtensions; [ appindicator ])
       ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
