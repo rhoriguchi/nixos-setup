@@ -11,6 +11,6 @@ let
   };
 in {
   system.activationScripts.rhoriguchiSetIcon = ''
-    ${pkgs.coreutils}/bin/ln -sf ${configFile} /var/lib/AccountsService/users/rhoriguchi
+    ${pkgs.coreutils}/bin/cp -f ${configFile} /var/lib/AccountsService/users/rhoriguchi
   '';
 }
