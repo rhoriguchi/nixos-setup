@@ -202,8 +202,11 @@ in {
         idea-ultimate
         pycharm-professional
         webstorm
-      ]) ++ (with pkgs.nodePackages; [ npm prettier ])
-      ++ (with pkgs.python38Packages; [
+      ]) ++ (with pkgs.nodePackages; [
+        # TODO add @angular/cli https://www.npmjs.com/package/@angular/cli
+        npm
+        prettier
+      ]) ++ (with pkgs.python38Packages; [
         flake8
         mypy
         pip
