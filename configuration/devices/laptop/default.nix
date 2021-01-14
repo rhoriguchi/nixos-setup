@@ -188,6 +188,7 @@ in {
       protonvpn-cli
       python3
       qbittorrent
+      signal-desktop
       spotify
       sshpass
       terraform_0_14
