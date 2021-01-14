@@ -194,6 +194,7 @@
         sha256 = "0fqwcvwq37ndms6vky8jjv0zliy6fpfkh8d9raq8hkinfxq6klgl";
       }
       {
+        # TODO has issues "Couldn't download IntelliCode model. Please check your network connectivity or firewall settings."
         name = "vscodeintellicode";
         publisher = "VisualStudioExptTeam";
         version = "1.2.10";
