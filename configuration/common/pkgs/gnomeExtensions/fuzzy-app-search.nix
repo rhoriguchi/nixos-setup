@@ -2,7 +2,7 @@
 # TODO create pull request
 # TODO does not work
 stdenv.mkDerivation rec {
-  pname = "gnome-shell-extension-gnome-fuzzy-app-search";
+  pname = "gnome-shell-extension-fuzzy-app-search";
   version = "2";
 
   src = fetchFromGitLab {

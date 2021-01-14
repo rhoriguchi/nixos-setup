@@ -5,7 +5,7 @@ let
     caffeine
     clock-override
     dash-to-dock
-    gnome-fuzzy-app-search
+    fuzzy-app-search
     unite-shell
     window-is-ready-remover
   ];
