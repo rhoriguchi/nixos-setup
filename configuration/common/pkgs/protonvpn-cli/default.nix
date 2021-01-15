@@ -7,6 +7,7 @@ let
     startupNotify = true;
     terminal = true;
     type = "Application";
+    # TODO icon not shown
     icon = "proton-vpn";
   };
 
@@ -17,15 +18,17 @@ let
     startupNotify = true;
     terminal = true;
     type = "Application";
+    # TODO icon not shown
     icon = "proton-vpn";
   };
 in protonvpn-cli.overrideAttrs (oldAttrs: {
-  installPhase = ''
-    mkdir -p $out/share/icons
-    cp ${./icon.png} $out/share/icons/proton-vpn.png
+  # TODO breaks the bin
+  # installPhase = oldAttrs.installPhase + ''
+  #   mkdir -p $out/share/icons
+  #   cp ${./icon.png} $out/share/icons/proton-vpn.png
 
-    mkdir -p $out/share/applications
-    cp ${desktopItemConnect}/share/applications/${desktopItemConnect.name} $out/share/applications
-    cp ${desktopItemDisconnect}/share/applications/${desktopItemDisconnect.name} $out/share/applications
-  '';
+  #   mkdir -p $out/share/applications
+  #   cp ${desktopItemConnect}/share/applications/${desktopItemConnect.name} $out/share/applications
+  #   cp ${desktopItemDisconnect}/share/applications/${desktopItemDisconnect.name} $out/share/applications
+  # '';
 })
