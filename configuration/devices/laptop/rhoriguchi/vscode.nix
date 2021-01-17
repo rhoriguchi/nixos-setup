@@ -93,9 +93,11 @@
     ];
 
     extensions = (with pkgs.vscode-extensions; [
+      alexdima.copy-relative-path
       bbenoist.Nix
       brettm12345.nixfmt-vscode
       coenraads.bracket-pair-colorizer-2
+      esbenp.prettier-vscode
       formulahendry.auto-close-tag
       formulahendry.auto-rename-tag
       ibm.output-colorizer
@@ -104,6 +106,7 @@
       naumovs.color-highlight
       pkief.material-icon-theme
       redhat.vscode-yaml
+      ryu1kn.partial-diff
       tyriar.sort-lines
       vincaslt.highlight-matching-tag
     ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
@@ -119,12 +122,6 @@
         publisher = "streetsidesoftware";
         version = "1.10.2";
         sha256 = "1ll046rf5dyc7294nbxqk5ya56g2bzqnmxyciqpz2w5x7j75rjib";
-      }
-      {
-        name = "copy-relative-path";
-        publisher = "alexdima";
-        version = "0.0.2";
-        sha256 = "06g601n9d6wyyiz659w60phgm011gn9jj5fy0gf5wpi2bljk3vcn";
       }
       # TODO fails https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp
       # Installing C# dependencies...
@@ -151,22 +148,10 @@
         sha256 = "1kvsj085w1xax6fg0kvsj1cizqh86i0pkzpwi0sbfvmcq21i6ghn";
       }
       {
-        name = "partial-diff";
-        publisher = "ryu1kn";
-        version = "1.4.1";
-        sha256 = "1r4kg4slgxncdppr4fn7i5vfhvzcg26ljia2r97n6wvwn8534vs9";
-      }
-      {
         name = "path-intellisense";
         publisher = "christian-kohler";
         version = "2.3.0";
         sha256 = "1wyp3k4gci1i64nrry12il6yflhki18gq2498z3nlsx4yi36jb3l";
-      }
-      {
-        name = "prettier-vscode";
-        publisher = "esbenp";
-        version = "5.8.0";
-        sha256 = "0h7wc4pffyq1i8vpj4a5az02g2x04y7y1chilmcfmzg2w42xpby7";
       }
       {
         # TODO add terraformm-ls https://github.com/hashicorp/terraform-ls
