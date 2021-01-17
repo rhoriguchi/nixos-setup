@@ -59,6 +59,7 @@
       "workbench.colorTheme" = "Visual Studio 2019 Light";
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.list.smoothScrolling" = true;
+      "workbench.startupEditor" = "none";
       "[html]" = {
         "editor.defaultFormatter" = "vscode.html-language-features";
       };
