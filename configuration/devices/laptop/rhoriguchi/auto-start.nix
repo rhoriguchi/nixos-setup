@@ -6,5 +6,7 @@
       "${megasync}/share/applications/megasync.desktop";
     ".config/autostart/${signal-desktop.pname}.desktop".source =
       "${signal-desktop}/share/applications/signal-desktop.desktop";
+    ".config/autostart/${teamviewer.pname}.desktop".source =
+      "${teamviewer}/share/applications/com.teamviewer.TeamViewer.desktop";
   };
 }
