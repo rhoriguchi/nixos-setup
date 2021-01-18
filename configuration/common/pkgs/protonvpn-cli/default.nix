@@ -22,13 +22,12 @@ let
     icon = "proton-vpn";
   };
 in protonvpn-cli.overrideAttrs (oldAttrs: {
-  # TODO breaks the bin
-  # installPhase = oldAttrs.installPhase + ''
-  #   mkdir -p $out/share/icons
-  #   cp ${./icon.png} $out/share/icons/proton-vpn.png
+  postInstall = ''
+    mkdir -p $out/share/icons
+    cp ${./icon.png} $out/share/icons/proton-vpn.png
 
-  #   mkdir -p $out/share/applications
-  #   cp ${desktopItemConnect}/share/applications/${desktopItemConnect.name} $out/share/applications
-  #   cp ${desktopItemDisconnect}/share/applications/${desktopItemDisconnect.name} $out/share/applications
-  # '';
+    mkdir -p $out/share/applications
+    cp ${desktopItemConnect}/share/applications/${desktopItemConnect.name} $out/share/applications
+    cp ${desktopItemDisconnect}/share/applications/${desktopItemDisconnect.name} $out/share/applications
+  '';
 })
