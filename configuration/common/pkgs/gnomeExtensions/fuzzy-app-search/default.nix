@@ -18,6 +18,10 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "INSTALL_PATH=$(out)/share/gnome-shell/extensions" ];
 
+  patches = [
+    ./fix-paths.patch
+  ];
+
   meta = with stdenv.lib; {
     description = "Fuzzy application search results for Gnome Search";
     license = licenses.gpl3Only;
