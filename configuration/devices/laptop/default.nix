@@ -162,7 +162,6 @@ in {
       discord
       displaylink
       docker-compose
-      etcher
       firefox
       flameshot
       gimp
