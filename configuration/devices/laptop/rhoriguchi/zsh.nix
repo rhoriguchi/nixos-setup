@@ -15,6 +15,8 @@
       extended = true;
     };
 
+    # TODO add https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/terraform
+    # TODO add https://github.com/zsh-users/zsh-autosuggestions/issues/571
     plugins = [{
       name = pkgs.zsh-git-prompt.pname;
       file = "zshrc.sh";
