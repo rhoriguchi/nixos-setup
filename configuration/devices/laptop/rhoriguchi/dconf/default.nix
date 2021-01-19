@@ -81,7 +81,7 @@ in {
         user-enabled = false;
       };
       "org/gnome/shell/extensions/clock_override".override-string =
-        "%a %d.%m.%Y";
+        "%H:%M:%S";
       "org/gnome/shell/extensions/dash-to-dock" = {
         activate-single-window = true;
         animate-show-apps = true;
