@@ -1,5 +1,5 @@
 diff --git a/applicationsUtils.js b/applicationsUtils.js
-index 635b3ba..dce3bb3 100644
+index 635b3ba..f8ccedc 100644
 --- a/applicationsUtils.js
 +++ b/applicationsUtils.js
 @@ -46,24 +46,22 @@ var Search = new Lang.Class({
@@ -27,13 +27,13 @@ index 635b3ba..dce3bb3 100644
 +        this._listen = GLib.get_system_data_dirs()
 +            .filter((path) => path.endsWith('/share'))
 +            .map((path) => Gio.File.new_for_path(path + '/applications'))
-+            .filter((file) => file.query_exists(None))
++            .filter((file) => file.query_exists(null))
 +            .map((file) => {
 +                let monitor = file.monitor(Gio.FileMonitorFlags.NONE, null);
-+    
++
 +                // refresh on each directory change
 +                monitor.connect('changed', Lang.bind(this, this._handleMonitorChanged));
-+    
++
 +                return {
 +                    file: file,
 +                    monitor: monitor,
