@@ -16,11 +16,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ glib ];
 
-  makeFlags = [ "INSTALL_PATH=$(out)/share/gnome-shell/extensions" ];
+  patches = [ ./fix-paths.patch ];
 
-  patches = [
-    ./fix-paths.patch
-  ];
+  makeFlags = [ "INSTALL_PATH=$(out)/share/gnome-shell/extensions" ];
 
   meta = with stdenv.lib; {
     description = "Fuzzy application search results for Gnome Search";
