@@ -16,12 +16,20 @@
     };
 
     # TODO add https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/terraform
-    # TODO add https://github.com/zsh-users/zsh-autosuggestions/issues/571
-    plugins = [{
-      name = pkgs.zsh-git-prompt.pname;
-      file = "zshrc.sh";
-      src = "${pkgs.zsh-git-prompt}/share/zsh-git-prompt";
-    }];
+    plugins = [
+      {
+        name = pkgs.zsh-autosuggestions.pname;
+        file = "zsh-autosuggestions.zsh";
+        src = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions";
+      }
+      {
+        name = pkgs.zsh-git-prompt.pname;
+        file = "zshrc.sh";
+        src = "${pkgs.zsh-git-prompt}/share/zsh-git-prompt";
+      }
+    ];
+
+    localVariables.ZSH_AUTOSUGGEST_STRATEGY = [ "completion" ];
 
     initExtra = ''
       autoload -U colors && colors
