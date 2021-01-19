@@ -1,28 +1,28 @@
 { stdenv, fetchFromGitLab, gnome3, glib }:
-# TODO create pull request
-# TODO does not work
+
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-fuzzy-app-search";
-  version = "2";
+  version = "4";
 
   src = fetchFromGitLab {
     owner = "Czarlie";
     repo = "gnome-fuzzy-app-search";
-    rev = "v${version}";
-    sha256 = "07kw580l68gbxb57h2zxxhij3d09r8wf87jqzx607jlacs7gn7kv";
+    rev = "da9c15d39958d9c3b38df3b616fd40b85aed24e5";
+    sha256 = "1r3qha530s97x818znn1wi76f4x9bhlgi7jlxfwjnrwys62cv5fn";
   };
 
   uuid = "gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com";
 
   nativeBuildInputs = [ glib ];
 
-  patches = [ ./fix-paths.patch ];
+  patches = [ ./fix-desktop-file-paths.patch ];
 
   makeFlags = [ "INSTALL_PATH=$(out)/share/gnome-shell/extensions" ];
 
   meta = with stdenv.lib; {
     description = "Fuzzy application search results for Gnome Search";
     license = licenses.gpl3Only;
+    maintainers = with maintainers; [ rhoriguchi ];
     homepage = "https://gitlab.com/Czarlie/gnome-fuzzy-app-search";
     broken = versionOlder gnome3.gnome-shell.version "3.18";
   };
