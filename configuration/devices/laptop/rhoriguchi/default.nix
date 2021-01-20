@@ -5,10 +5,10 @@ in {
     ./accounts-service
     # TODO does not work
     # ./auto-start.nix
-    ./dconf
     ./dircolors
     ./flameshot.nix
     ./git
+    ./gnome
     ./gnome-terminal.nix
     ./neofetch
     ./ssh
