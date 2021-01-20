@@ -36,6 +36,7 @@
       "prettier.printWidth" = 120;
       "prettier.singleQuote" = true;
       "prettier.trailingComma" = "es5";
+      "svg.preview.autoShow" = true;
       "terraform.languageServer" = {
         "args" = [ "serve" ];
         "external" = true;
@@ -153,6 +154,12 @@
         publisher = "christian-kohler";
         version = "2.3.0";
         sha256 = "1wyp3k4gci1i64nrry12il6yflhki18gq2498z3nlsx4yi36jb3l";
+      }
+      {
+        name = "svg";
+        publisher = "jock";
+        version = "1.4.4";
+        sha256 = "0kn2ic7pgbd4rbvzpsxfwyiwxa1iy92l0h3jsppxc8gk8xbqm2nc";
       }
       {
         # TODO add terraformm-ls https://github.com/hashicorp/terraform-ls
