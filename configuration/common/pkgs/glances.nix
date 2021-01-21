@@ -1,6 +1,16 @@
-{ glances, lib, stdenv, fetchFromGitHub, python3Packages }:
+{ glances, formats, lib, stdenv, fetchFromGitHub, python3Packages, makeWrapper
+}:
 with lib;
 let
+  configFile = (formats.ini { }).generate "glances.conf" {
+    connections.disable = false;
+    diskio.hide = "loop\\d+,^mmcblk\\d+$,^sd[a-z]+$";
+    fs.hide = "/nix/store";
+    global.check_update = false;
+    irq.disable = true;
+    network.hide = "lo";
+  };
+
   py3nvml = python3Packages.buildPythonPackage rec {
     pname = "py3nvml";
     version = "0.2.6";
@@ -56,8 +66,17 @@ let
     };
   };
 in glances.overrideAttrs (oldAttrs: {
-  # TODO add wrapper that has a couple flags already set
+  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
+
   propagatedBuildInputs = oldAttrs.propagatedBuildInputs
     ++ (with python3Packages; [ docker requests ]) ++ [ py3nvml pySMART_smartx ]
     ++ optional stdenv.isLinux pymdstat;
+
+  postInstall = ''
+    wrapProgram $out/bin/glances \
+      --add-flags "--config ${configFile}" \
+      --add-flags "--time 1" \
+      --add-flags "--disable-irix" \
+      --add-flags "--byte"
+  '';
 })

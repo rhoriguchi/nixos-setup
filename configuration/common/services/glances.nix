@@ -1,15 +1,6 @@
 { lib, config, pkgs, ... }:
 with lib;
-let
-  cfg = config.services.glances;
-
-  configFile = (pkgs.formats.ini { }).generate "glances.conf" {
-    connections.disable = false;
-    diskio.hide = "loop\\d+,^mmcblk\\d+$,^sd[a-z]+$";
-    fs.hide = "/nix/store";
-    global.check_update = false;
-    network.hide = "lo";
-  };
+let cfg = config.services.glances;
 in {
   options.services.glances = {
     enable = mkEnableOption "Glances";
@@ -26,9 +17,7 @@ in {
       description = "Glances";
       serviceConfig = {
         ExecStart =
-          "${pkgs.glances}/bin/glances --config ${configFile} --time 1 --disable-irix --percpu --byte --webserver --port ${
-            toString cfg.port
-          }";
+          "${pkgs.glances}/bin/glances --webserver --port ${toString cfg.port}";
         Restart = "on-abort";
         User = "glances";
       };
