@@ -8,7 +8,7 @@ let
     fs.hide = "/nix/store";
     global.check_update = false;
     irq.disable = true;
-    network.hide = "lo";
+    network.hide = "lo,^br.*$,^veth.*$";
   };
 
   py3nvml = python3Packages.buildPythonPackage rec {
