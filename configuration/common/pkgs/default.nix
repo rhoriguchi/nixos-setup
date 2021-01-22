@@ -16,8 +16,8 @@
     protonvpn-cli =
       super.callPackage ./protonvpn-cli { inherit (super) protonvpn-cli; };
     mal_export = super.callPackage ./mal_export.nix { };
-    terraform =
-      super.callPackage ./terraform.nix { inherit (super) terraform; };
+    terraform_0_14 =
+      super.callPackage ./terraform.nix { inherit (super) terraform_0_14; };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
   })
 ]

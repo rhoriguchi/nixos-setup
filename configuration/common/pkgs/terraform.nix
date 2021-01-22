@@ -1,29 +1,33 @@
-{ terraform, installShellFiles }:
-terraform.overrideAttrs (oldAttrs: {
+{ terraform_0_14, installShellFiles }:
+terraform_0_14.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ installShellFiles ];
 
   postInstall = oldAttrs.postInstall + ''
-    echo "complete -C $out/bin/terraform terraform" > terraform.bash
-    installShellCompletion --bash terraform.bash
+    touch ~/.bashrc
+    mkdir -p ~/.config/fish && touch ~/.config/fish/config
+    touch ~/.zshrc
 
-    # TODO does not work
+    $out/bin/terraform -install-autocomplete
 
-    # > terraform -install-autocomplete
-    
-    # > cat ~/.zshrc
-    # autoload -U +X bashcompinit && bashcompinit        
-    # complete -o nospace -C /usr/bin/terraform terraform
-
-    # > cat ~/.config/fish/completions/terraform.fish
-    # function __complete_terraform
-    #   set -lx COMP_LINE (string join ' ' (commandline -o))
-    #   test (commandline -ct) = ""
-    #   and set COMP_LINE "$COMP_LINE "
-    #   /usr/bin/terraform
-    # end
-    # complete -c terraform -a "(__complete_terraform)"
-
-    # echo "complete -o nospace -C $out/bin/terraform terraform" > terraform.zsh
-    # installShellCompletion --zsh terraform.zsh
+    installShellCompletion --cmd terraform \
+      --bash ~/.bashrc \
+      --fish ~/.config/fish/completions/terraform.fish \
+      --zsh <(sed '/bashcompinit/d' ~/.zshrc)
   '';
+
+  # > cat ~/.bashrc
+  # complete -C /nix/store/w59ayb7msikg2hglkbvqc6n177y2sd8a-terraform-0.14.4/bin/terraform terraform
+
+  # > cat ~/.zshrc
+  # autoload -U +X bashcompinit && bashcompinit
+  # complete -o nospace -C /nix/store/w59ayb7msikg2hglkbvqc6n177y2sd8a-terraform-0.14.4/bin/terraform terraform
+
+  # > cat ~/.config/fish/completions/terraform.fish
+  # function __complete_terraform
+  #     set -lx COMP_LINE (string join ' ' (commandline -o))
+  #     test (commandline -ct) = ""
+  #     and set COMP_LINE "$COMP_LINE "
+  #     /nix/store/w59ayb7msikg2hglkbvqc6n177y2sd8a-terraform-0.14.4/bin/terraform
+  # end
+  # complete -c terraform -a "(__complete_terraform)"
 })
