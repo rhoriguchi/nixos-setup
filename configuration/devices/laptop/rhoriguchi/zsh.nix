@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+# TODO try https://github.com/bennofs/nix-index#usage-as-a-command-not-found-replacement
+{
   home-manager.users.rhoriguchi.programs.zsh = {
     enable = true;
 
