@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitLab, gnome3, glib }:
+{ lib, stdenv, fetchFromGitLab, gnome3, glib }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-fuzzy-app-search";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "INSTALL_PATH=$(out)/share/gnome-shell/extensions" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Fuzzy application search results for Gnome Search";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ rhoriguchi ];
