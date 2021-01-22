@@ -17,17 +17,16 @@
       extended = true;
     };
 
-    # TODO add https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/terraform
-    plugins = [
+    plugins = with pkgs; [
       {
-        name = pkgs.zsh-autosuggestions.pname;
+        name = zsh-autosuggestions.pname;
         file = "zsh-autosuggestions.zsh";
-        src = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions";
+        src = "${zsh-autosuggestions}/share/${zsh-autosuggestions.pname}";
       }
       {
-        name = pkgs.zsh-git-prompt.pname;
+        name = zsh-git-prompt.pname;
         file = "zshrc.sh";
-        src = "${pkgs.zsh-git-prompt}/share/zsh-git-prompt";
+        src = "${zsh-git-prompt}/share/${zsh-git-prompt.pname}";
       }
     ];
 
