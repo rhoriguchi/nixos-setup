@@ -5,7 +5,6 @@ in {
     ./accounts-service
     # TODO does not work
     # ./auto-start.nix
-    ./dircolors
     ./flameshot.nix
     ./git
     ./gnome
