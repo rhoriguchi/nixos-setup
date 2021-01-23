@@ -132,6 +132,7 @@
       # Failed at stage: touchBeginFile
       # Error: EROFS: read-only file system, mkdir '/home/rhoriguchi/.vscode/extensions/ms-dotnettools.csharp/.omnisharp'
       {
+        # https://github.com/NixOS/nixpkgs/pull/100181
         name = "csharp";
         publisher = "ms-dotnettools";
         version = "1.23.8";
@@ -161,8 +162,9 @@
         version = "1.4.4";
         sha256 = "0kn2ic7pgbd4rbvzpsxfwyiwxa1iy92l0h3jsppxc8gk8xbqm2nc";
       }
+      # TODO add terraformm-ls https://github.com/hashicorp/terraform-ls
       {
-        # TODO add terraformm-ls https://github.com/hashicorp/terraform-ls
+        # https://github.com/NixOS/nixpkgs/pull/110505
         name = "terraform";
         publisher = "hashicorp";
         version = "2.3.0";
