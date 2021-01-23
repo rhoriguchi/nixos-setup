@@ -171,8 +171,8 @@
       {
         name = "todo-tree";
         publisher = "Gruntfuggly";
-        version = "0.0.193";
-        sha256 = "1cqp10pwyjic1p8ss1f5ng9igqmaqn10l65fpyka1dy2k90i1yay";
+        version = "0.0.196";
+        sha256 = "1l4f290018f2p76q6hn2b2injps6wz65as7dm537wrsvsivyg2qz";
       }
       {
         name = "vscode-markdownlint";
