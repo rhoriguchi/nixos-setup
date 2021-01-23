@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "This extension fades your top panel to nothingness when there are no maximized windows present";
+    description =
+      "This extension fades your top panel to nothingness when there are no maximized windows present";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ rhoriguchi ];
     homepage = "https://github.com/ewlsh/dynamic-panel-transparency";
