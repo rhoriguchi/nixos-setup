@@ -40,6 +40,8 @@
       "terraform.languageServer" = {
         "args" = [ "serve" ];
         "external" = true;
+        # TODO this can be remove once https://github.com/NixOS/nixpkgs/pull/110505 is merged
+        "pathToBinary" = "${pkgs.terraform-ls}/bin/terraform-ls";
       };
       "todo-tree.highlights.defaultHighlight" = {
         "fontWeight" = "bold";
@@ -156,7 +158,6 @@
         version = "1.4.4";
         sha256 = "0kn2ic7pgbd4rbvzpsxfwyiwxa1iy92l0h3jsppxc8gk8xbqm2nc";
       }
-      # TODO add terraformm-ls https://github.com/hashicorp/terraform-ls
       {
         # https://github.com/NixOS/nixpkgs/pull/110505
         name = "terraform";
