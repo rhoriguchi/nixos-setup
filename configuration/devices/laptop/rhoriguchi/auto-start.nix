@@ -1,12 +1,26 @@
-{ pkgs, ... }: {
-  home-manager.users.rhoriguchi.home.file = with pkgs; {
-    ".config/autostart/${flameshot.pname}.desktop".source =
-      "${flameshot}/share/applications/org.flameshot.Flameshot.desktop";
-    ".config/autostart/${megasync.pname}.desktop".source =
-      "${megasync}/share/applications/megasync.desktop";
-    ".config/autostart/${signal-desktop.pname}.desktop".source =
-      "${signal-desktop}/share/applications/signal-desktop.desktop";
-    ".config/autostart/${teamviewer.pname}.desktop".source =
-      "${teamviewer}/share/applications/com.teamviewer.TeamViewer.desktop";
-  };
+{ pkgs, lib, ... }:
+let
+  applications = with pkgs; [
+    {
+      package = flameshot;
+      desktop = "org.flameshot.Flameshot.desktop";
+    }
+    {
+      package = megasync;
+      desktop = "megasync.desktop";
+    }
+    {
+      package = signal-desktop;
+      desktop = "signal-desktop.desktop";
+    }
+    {
+      package = teamviewer;
+      desktop = "com.teamviewer.TeamViewer.desktop";
+    }
+  ];
+in {
+  home-manager.users.rhoriguchi.home.file = lib.mkMerge (map (application: {
+    ".config/autostart/${application.package.pname}.desktop".source =
+      "${application.package}/share/applications/${application.desktop}";
+  }) applications);
 }
