@@ -151,12 +151,6 @@
         sha256 = "1kvsj085w1xax6fg0kvsj1cizqh86i0pkzpwi0sbfvmcq21i6ghn";
       }
       {
-        name = "path-intellisense";
-        publisher = "christian-kohler";
-        version = "2.3.0";
-        sha256 = "1wyp3k4gci1i64nrry12il6yflhki18gq2498z3nlsx4yi36jb3l";
-      }
-      {
         name = "svg";
         publisher = "jock";
         version = "1.4.4";
