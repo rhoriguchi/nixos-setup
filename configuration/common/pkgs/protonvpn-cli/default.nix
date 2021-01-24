@@ -25,7 +25,7 @@ in protonvpn-cli.overrideAttrs (oldAttrs: {
     cp ${./icon.png} $out/share/pixmaps/proton-vpn.png
 
     mkdir -p $out/share/applications
-    cp ${desktopItemConnect}/share/applications/${desktopItemConnect.name} $out/share/applications
-    cp ${desktopItemDisconnect}/share/applications/${desktopItemDisconnect.name} $out/share/applications
+    ln -s ${desktopItemConnect}/share/applications/* $out/share/applications
+    ln -s ${desktopItemDisconnect}/share/applications/* $out/share/applications
   '';
 })
