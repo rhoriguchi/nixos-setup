@@ -22,6 +22,8 @@
         support = "support/";
       };
 
+      pull.ff = "only";
+
       push.default = "simple";
 
       feature.manyFiles = true;
