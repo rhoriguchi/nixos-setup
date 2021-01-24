@@ -9,7 +9,7 @@
         default = true;
 
         allowBold = true;
-        # audibleBell = false; # TODO commented because this a new feature https://github.com/nix-community/home-manager/pull/1671
+        audibleBell = false;
         cursorBlinkMode = "on";
         visibleName = "DEFAULT";
 
