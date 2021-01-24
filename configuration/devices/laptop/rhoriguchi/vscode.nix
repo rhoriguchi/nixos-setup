@@ -153,6 +153,13 @@
         version = "0.9.3";
         sha256 = "1kvsj085w1xax6fg0kvsj1cizqh86i0pkzpwi0sbfvmcq21i6ghn";
       }
+      # TODO figure out if java jdk is required?
+      {
+        name = "java";
+        publisher = "redhat";
+        version = "0.74.0";
+        sha256 = "0d5rp1p9v5yxq6sadlsa87lg257k43jgsx4s5zb8pwj63lh728h1";
+      }
       {
         name = "svg";
         publisher = "jock";
