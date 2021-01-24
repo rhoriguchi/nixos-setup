@@ -6,6 +6,8 @@
     userEmail = "ryan.horiguchi@gmail.com";
 
     extraConfig = {
+      alias.history = "log --pretty=oneline";
+
       init.defaultBranch = "master";
 
       core = {
