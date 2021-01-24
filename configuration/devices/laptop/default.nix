@@ -204,7 +204,6 @@ in {
         pycharm-professional
         webstorm
       ]) ++ (with pkgs.nodePackages; [
-        # TODO add @angular/cli https://www.npmjs.com/package/@angular/cli
         npm
         prettier
       ]) ++ (with pkgs.python38Packages; [
