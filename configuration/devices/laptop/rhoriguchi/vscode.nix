@@ -29,7 +29,7 @@
         "**/CVS" = true;
       };
       "files.insertFinalNewline" = true;
-      "gitlens.advanced.messages" = { "suppressShowKeyBindingsNotice" = true; };
+      "gitlens.advanced.messages"."suppressShowKeyBindingsNotice" = true;
       "gitlens.defaultDateFormat" = "DD.MM.YYYY HH:MM";
       "gitlens.defaultDateShortFormat" = "DD.MM.YYYY";
       "prettier.arrowParens" = "always";
@@ -76,7 +76,7 @@
         "editor.wordWrap" = "wordWrapColumn";
         "editor.wordWrapColumn" = 120;
       };
-      "[nix]" = { "editor.tabSize" = 2; };
+      "[nix]"."editor.tabSize" = 2;
       "[yaml]" = {
         "editor.defaultFormatter" = "redhat.vscode-yaml";
         "editor.tabSize" = 2;
