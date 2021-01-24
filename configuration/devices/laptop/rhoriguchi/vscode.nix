@@ -115,6 +115,7 @@
       vincaslt.highlight-matching-tag
     ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # TODO create pull request to add all missing
+      # TODO maybe add? https://marketplace.visualstudio.com/items?itemName=jnoortheen.nix-ide
       {
         name = "beautify";
         publisher = "HookyQR";
