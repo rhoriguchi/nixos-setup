@@ -198,6 +198,12 @@
         version = "1.2.10";
         sha256 = "1l980w4r18613hzwvqgnzm9csi72r9ngyzl94p39rllpiqy7xrhi";
       }
+      {
+        name = "jinja";
+        publisher = "wholroyd";
+        version = "0.0.8";
+        sha256 = "1ln9gly5bb7nvbziilnay4q448h9npdh7sd9xy277122h0qawkci";
+      }
     ];
   };
 }
