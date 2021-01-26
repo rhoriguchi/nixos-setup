@@ -101,33 +101,29 @@
       bbenoist.Nix
       brettm12345.nixfmt-vscode
       coenraads.bracket-pair-colorizer-2
+      davidanson.vscode-markdownlint
       esbenp.prettier-vscode
       formulahendry.auto-close-tag
       formulahendry.auto-rename-tag
+      gruntfuggly.todo-tree
+      hookyqr.beautify
       ibm.output-colorizer
+      jock.svg
       ms-azuretools.vscode-docker
       ms-python.python
       naumovs.color-highlight
       pkief.material-icon-theme
       redhat.vscode-yaml
+      rubymaniac.vscode-paste-and-indent
       ryu1kn.partial-diff
+      spywhere.guides
+      streetsidesoftware.code-spell-checker
       tyriar.sort-lines
       vincaslt.highlight-matching-tag
     ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # TODO create pull request to add all missing
       # TODO maybe add? https://marketplace.visualstudio.com/items?itemName=jnoortheen.nix-ide
-      {
-        name = "beautify";
-        publisher = "HookyQR";
-        version = "1.5.0";
-        sha256 = "1c0kfavdwgwham92xrh0gnyxkrl9qlkpv39l1yhrldn8vd10fj5i";
-      }
-      {
-        name = "code-spell-checker";
-        publisher = "streetsidesoftware";
-        version = "1.10.2";
-        sha256 = "1ll046rf5dyc7294nbxqk5ya56g2bzqnmxyciqpz2w5x7j75rjib";
-      }
+
       # TODO fails https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp
       # Installing C# dependencies...
       # Platform: linux, x86_64, name=nixos, version=21.03pre262347.257cbbcd3ab
@@ -147,12 +143,6 @@
         version = "11.0.6";
         sha256 = "0qlaq7hn3m73rx9bmbzz3rc7khg0kw948z2j4rd8gdmmryy217yw";
       }
-      {
-        name = "guides";
-        publisher = "spywhere";
-        version = "0.9.3";
-        sha256 = "1kvsj085w1xax6fg0kvsj1cizqh86i0pkzpwi0sbfvmcq21i6ghn";
-      }
       # TODO figure out if java jdk is required?
       {
         name = "java";
@@ -161,35 +151,11 @@
         sha256 = "0d5rp1p9v5yxq6sadlsa87lg257k43jgsx4s5zb8pwj63lh728h1";
       }
       {
-        name = "svg";
-        publisher = "jock";
-        version = "1.4.4";
-        sha256 = "0kn2ic7pgbd4rbvzpsxfwyiwxa1iy92l0h3jsppxc8gk8xbqm2nc";
-      }
-      {
         # https://github.com/NixOS/nixpkgs/pull/110505
         name = "terraform";
         publisher = "hashicorp";
         version = "2.3.0";
         sha256 = "0696q8nr6kb5q08295zvbqwj7lr98z18gz1chf0adgrh476zm6qq";
-      }
-      {
-        name = "todo-tree";
-        publisher = "Gruntfuggly";
-        version = "0.0.196";
-        sha256 = "1l4f290018f2p76q6hn2b2injps6wz65as7dm537wrsvsivyg2qz";
-      }
-      {
-        name = "vscode-markdownlint";
-        publisher = "DavidAnson";
-        version = "0.38.0";
-        sha256 = "0d6hbsjrx1j8wrmfnvdwsa7sci1brplgxwkmy6sp74va7zxfjnqv";
-      }
-      {
-        name = "vscode-paste-and-indent";
-        publisher = "Rubymaniac";
-        version = "0.0.8";
-        sha256 = "0fqwcvwq37ndms6vky8jjv0zliy6fpfkh8d9raq8hkinfxq6klgl";
       }
       {
         # TODO has issues "Couldn't download IntelliCode model. Please check your network connectivity or firewall settings."
