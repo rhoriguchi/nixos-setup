@@ -123,14 +123,14 @@
     ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # TODO create pull request to add all missing
       # TODO maybe add? https://marketplace.visualstudio.com/items?itemName=jnoortheen.nix-ide
-
-      # TODO fails https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp
-      # Installing C# dependencies...
-      # Platform: linux, x86_64, name=nixos, version=21.03pre262347.257cbbcd3ab
-
-      # Failed at stage: touchBeginFile
-      # Error: EROFS: read-only file system, mkdir '/home/rhoriguchi/.vscode/extensions/ms-dotnettools.csharp/.omnisharp'
       {
+        # TODO fails https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp
+        # Installing C# dependencies...
+        # Platform: linux, x86_64, name=nixos, version=21.03pre262347.257cbbcd3ab
+
+        # Failed at stage: touchBeginFile
+        # Error: EROFS: read-only file system, mkdir '/home/rhoriguchi/.vscode/extensions/ms-dotnettools.csharp/.omnisharp'
+
         # https://github.com/NixOS/nixpkgs/pull/100181
         name = "csharp";
         publisher = "ms-dotnettools";
@@ -143,8 +143,8 @@
         version = "11.0.6";
         sha256 = "0qlaq7hn3m73rx9bmbzz3rc7khg0kw948z2j4rd8gdmmryy217yw";
       }
-      # TODO figure out if java jdk is required?
       {
+        # TODO figure out if java jdk is required?
         name = "java";
         publisher = "redhat";
         version = "0.74.0";
