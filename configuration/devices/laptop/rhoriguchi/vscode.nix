@@ -138,6 +138,19 @@
         sha256 = "1lb3y7fs2c6kbygjfls7lc3dc8snlspkfa15mp49srhc0kbxcgff";
       }
       {
+        # ((vscode-utils.extensionFromVscodeMarketplace {
+        #   name = "gitlens";
+        #   publisher = "eamodio";
+        #   version = "11.0.6";
+        #   sha256 = "0qlaq7hn3m73rx9bmbzz3rc7khg0kw948z2j4rd8gdmmryy217yw";
+        # }).overrideAttrs (oldAttrs: {
+        #   buildInputs = oldAttrs.buildInputs ++ [ pkgs.git ];
+
+        #   meta = with lib; {
+        #     license = licenses.mit;
+        #   };
+        # }));
+
         name = "gitlens";
         publisher = "eamodio";
         version = "11.0.6";
