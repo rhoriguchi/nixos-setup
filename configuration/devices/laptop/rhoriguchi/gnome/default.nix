@@ -7,7 +7,7 @@ let
     dash-to-dock
     dynamic-panel-transparency
     fuzzy-app-search
-    unite-shell # TODO rename to unite
+    unite
     window-is-ready-remover
   ];
 in {
