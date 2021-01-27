@@ -17,4 +17,14 @@
       super.callPackage ./terraform.nix { inherit (super) terraform_0_14; };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
   })
+  # TODO add hook to set 'NoDisplay=true'
+  # (
+  #   cups # cups.desktop
+  #   gnome3.gnome-logs # org.gnome.Logs.desktop
+  #   xterm # xterm.desktop
+  #   hplip # hplip.desktop
+
+  #   # not sure overwriting libreoffice works for libreoffice-fresh
+  #   libreoffice # startcenter.desktop base.desktop draw.desktop math.desktop
+  # )
 ]

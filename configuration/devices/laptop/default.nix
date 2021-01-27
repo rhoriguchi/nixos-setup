@@ -133,9 +133,6 @@ in {
   };
 
   environment = {
-    # TODO hide desktop icons 
-    # cups.desktop | startcenter.desktop (libreOffice) | org.gnome.Logs.desktop | xterm.desktop | hplip.desktop
-    # https://wiki.archlinux.org/index.php/Desktop_entries#Hide_desktop_entries
     gnome3.excludePackages = (with pkgs; [ gnome-connections gnome-photos ])
       ++ (with pkgs.gnome3; [
         epiphany
