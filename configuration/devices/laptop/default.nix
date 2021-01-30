@@ -200,10 +200,8 @@ in {
         idea-ultimate
         pycharm-professional
         webstorm
-      ]) ++ (with pkgs.nodePackages; [
-        npm
-        prettier
-      ]) ++ (with pkgs.python38Packages; [
+      ]) ++ (with pkgs.nodePackages; [ npm prettier ])
+      ++ (with pkgs.python38Packages; [
         flake8
         mypy
         pip
