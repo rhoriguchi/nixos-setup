@@ -193,7 +193,7 @@ in {
       virtualboxWithExtpack
       vlc
       vscode
-    ]) ++ (with pkgs.gnome3; [ dconf-editor ])
+    ]) ++ (with pkgs.gnome3; [ dconf-editor networkmanager-openconnect ])
       ++ (with pkgs.gnomeExtensions; [ appindicator ])
       ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
         datagrip
