@@ -155,6 +155,7 @@ in {
 
     systemPackages = (with pkgs; [
       ansible
+      bind
       binutils-unwrapped
       curl
       discord
