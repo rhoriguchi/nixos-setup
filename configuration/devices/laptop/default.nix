@@ -21,10 +21,17 @@ in {
 
   nix.autoOptimiseStore = true;
 
-  virtualisation.docker = {
-    enable = true;
-    # TODO commented
-    # enableNvidia = true;
+  virtualisation = {
+    docker = {
+      enable = true;
+      # TODO commented
+      # enableNvidia = true;
+    };
+
+    virtualbox.host = {
+      enable = true;
+      enableExtensionPack = true;
+    };
   };
 
   networking = {
@@ -191,7 +198,6 @@ in {
       sshpass
       terraform_0_14
       unzip
-      virtualboxWithExtpack
       vlc
       vscode
     ]) ++ (with pkgs.gnome3; [ dconf-editor networkmanager-openconnect ])
