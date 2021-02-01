@@ -2,6 +2,7 @@
   home-manager.users.rhoriguchi.programs.vscode = {
     enable = true;
 
+    # TODO figure out why this can't be removed, this is the default
     package = pkgs.vscode;
 
     userSettings = {

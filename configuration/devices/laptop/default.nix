@@ -131,10 +131,7 @@ in {
       enableSSHSupport = true;
     };
 
-    java = {
-      enable = true;
-      package = pkgs.jdk;
-    };
+    java.enable = true;
 
     steam.enable = true;
   };
