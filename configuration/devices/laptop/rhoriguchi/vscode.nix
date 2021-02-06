@@ -184,6 +184,12 @@
         version = "0.0.8";
         sha256 = "1ln9gly5bb7nvbziilnay4q448h9npdh7sd9xy277122h0qawkci";
       }
+      {
+        name = "pdf";
+        publisher = "tomoki1207";
+        version = "1.1.0";
+        sha256 = "0pcs4iy77v4f04f8m9w2rpdzfq7sqbspr7f2sm1fv7bm515qgsvb";
+      }
     ];
   };
 }
