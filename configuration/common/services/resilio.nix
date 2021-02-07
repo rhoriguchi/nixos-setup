@@ -150,9 +150,6 @@ in {
 
     system.activationScripts.resilio = ''
       ${pkgs.coreutils}/bin/mkdir -pm 0775 ${cfg.syncPath}
-      ${pkgs.coreutils}/bin/chown -R ${toString config.ids.uids.rslsync}:${
-        toString config.ids.gids.rslsync
-      } ${cfg.syncPath}
     '';
 
     systemd.services.resilio = {
