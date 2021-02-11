@@ -77,6 +77,13 @@ in {
 
     teamviewer.enable = true;
 
+    printing = {
+      enable = true;
+
+      drivers = with pkgs; [ hplip ];
+      webInterface = false;
+    };
+
     xserver = {
       enable = true;
 
@@ -173,7 +180,6 @@ in {
       gitkraken
       gnupg
       google-chrome
-      hplip
       htop
       keepass
       libreoffice-fresh
