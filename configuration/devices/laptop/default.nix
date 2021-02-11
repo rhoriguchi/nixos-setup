@@ -158,7 +158,7 @@ in {
       ]);
 
     systemPackages = (with pkgs; [
-      ansible
+      ansible_2_9
       bind
       binutils-unwrapped
       curl
