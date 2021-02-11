@@ -24,8 +24,7 @@ in {
   virtualisation = {
     docker = {
       enable = true;
-      # TODO commented
-      # enableNvidia = true;
+      enableNvidia = true;
     };
 
     virtualbox.host = {
@@ -46,13 +45,17 @@ in {
   hardware = {
     bluetooth.enable = true;
 
-    # TODO commented
-    # nvidia.optimus_prime = {
-    #  enable = true;
-    #
-    #  intelBusId = "PCI:0:2:0";
-    #  nvidiaBusId = "PCI:1:0:0";
-    # };
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+
+      prime = {
+        offload.enable = true;
+
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
   };
 
   fileSystems."${dataDir}" = {
@@ -116,12 +119,7 @@ in {
 
       libinput.enable = true;
 
-      videoDrivers = [
-        "displaylink"
-        "modesetting"
-        # TODO commented
-        # "nvidia"
-      ];
+      videoDrivers = [ "displaylink" "modesetting" "nvidia" ];
     };
 
     gnome3 = {

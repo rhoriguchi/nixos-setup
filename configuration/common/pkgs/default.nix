@@ -23,6 +23,7 @@
   #   gnome3.gnome-logs # org.gnome.Logs.desktop
   #   xterm # xterm.desktop
   #   hplip # hplip.desktop
+  #   nvidia-settings # nvidia-settings.desktop
 
   #   # not sure overwriting libreoffice works for libreoffice-fresh
   #   libreoffice # startcenter.desktop base.desktop draw.desktop math.desktop
