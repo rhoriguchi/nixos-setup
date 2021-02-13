@@ -38,6 +38,7 @@
       "prettier.singleQuote" = true;
       "prettier.trailingComma" = "es5";
       "svg.preview.autoShow" = true;
+      "telemetry.enableTelemetry" = false;
       "terraform.languageServer" = {
         "args" = [ "serve" ];
         "external" = true;
