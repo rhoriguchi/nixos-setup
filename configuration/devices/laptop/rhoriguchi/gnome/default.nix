@@ -207,8 +207,12 @@ in {
       };
       "org/gnome/shell/extensions/gnome-fuzzy-app-search".applications = true;
       "org/gnome/shell/extensions/unite" = {
+        app-menu-ellipsize-mode = "end";
+        app-menu-max-width = 0;
         autofocus-windows = true;
         desktop-name-text = "";
+        ellipsizeMode = "end";
+        enable-titlebar-actions = true;
         extend-left-box = false;
         greyscale-tray-icons = false;
         hide-activities-button = "always";
