@@ -110,7 +110,6 @@
       formulahendry.auto-close-tag
       formulahendry.auto-rename-tag
       gruntfuggly.todo-tree
-      hookyqr.beautify
       ibm.output-colorizer
       jock.svg
       ms-azuretools.vscode-docker
