@@ -15,6 +15,7 @@
       "explorer.compactFolders" = false;
       "explorer.confirmDelete" = false;
       "extensions.autoUpdate" = false;
+      "files.associations"."*.jinja2" = "jinja";
       "files.autoSave" = "onFocusChange";
       "files.exclude" = {
         "**/.classpath" = true;
