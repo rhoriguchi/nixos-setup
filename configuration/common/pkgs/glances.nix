@@ -35,17 +35,6 @@ let
     };
   };
 
-  py-cpuinfo = python3Packages.py-cpuinfo.overridePythonAttrs (oldAttrs: rec {
-    version = "7.0.0";
-
-    src = fetchFromGitHub {
-      owner = "workhorsy";
-      repo = "py-cpuinfo";
-      rev = "v${version}";
-      sha256 = "10qfaibyb2syiwiyv74l7d97vnmlk079qirgnw3ncklqjs0s3gbi";
-    };
-  });
-
   pymdstat = python3Packages.buildPythonPackage rec {
     pname = "pymdstat";
     version = "0.4.2";
