@@ -8,8 +8,6 @@
       inherit (super.linuxPackages) evdi;
     };
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
-    gnomeExtensions =
-      super.callPackage ./gnomeExtensions { inherit (super) gnomeExtensions; };
     protonvpn-cli =
       super.callPackage ./protonvpn-cli { inherit (super) protonvpn-cli; };
     mal_export = super.callPackage ./mal_export.nix { };
