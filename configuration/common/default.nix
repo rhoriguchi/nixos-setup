@@ -15,6 +15,8 @@ with lib; {
 
   system.stateVersion = "20.09";
 
+  networking.useDHCP = false;
+
   documentation.doc.enable = false;
 
   time.timeZone = "Europe/Zurich";

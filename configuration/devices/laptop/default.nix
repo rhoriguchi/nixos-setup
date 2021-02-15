@@ -37,7 +37,9 @@ in {
     hostName = "RYAN-LAPTOP";
 
     interfaces = {
+      # TODO add "Targus DOCK190EUZ"
       eno2.useDHCP = true;
+      enp0s20f0u4u3u1.useDHCP = true; # Icy Box IB-DK2106-C
       wlo1.useDHCP = true;
     };
   };
