@@ -78,7 +78,7 @@ in {
       webUI.enable = true;
     };
 
-    udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
+    udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
 
     teamviewer.enable = true;
 
