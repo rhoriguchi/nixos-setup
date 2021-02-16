@@ -157,6 +157,7 @@ in {
         gnome-music
         gnome-screenshot
         gnome-shell-extensions
+        gnome-terminal
         gnome-weather
         seahorse
         simple-scan
@@ -164,7 +165,10 @@ in {
         yelp
       ]);
 
+    sessionVariables.TERMINAL = "alacritty";
+
     systemPackages = (with pkgs; [
+      alacritty
       ansible_2_9
       bind
       binutils-unwrapped
