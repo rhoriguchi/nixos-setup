@@ -21,6 +21,7 @@
         "**/.classpath" = true;
         "**/.DS_Store" = true;
         "**/.factorypath" = true;
+        "**/.git-crypt" = true;
         "**/.git" = true;
         "**/.hg" = true;
         "**/.idea" = true;
