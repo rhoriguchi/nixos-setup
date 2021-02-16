@@ -72,13 +72,13 @@ in {
   console.useXkbConfig = true;
 
   services = {
+    udev.packages = with pkgs.gnome3; [ gnome-settings-daemon ];
+
     resilio = {
       enable = true;
       syncPath = "${syncDir}";
       webUI.enable = true;
     };
-
-    udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
 
     teamviewer.enable = true;
 
