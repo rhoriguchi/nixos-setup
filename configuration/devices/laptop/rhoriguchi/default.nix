@@ -10,6 +10,7 @@ in {
     ./fzf.nix
     ./git
     ./gnome
+    ./htop
     ./neofetch
     ./ssh
     ./vscode.nix
