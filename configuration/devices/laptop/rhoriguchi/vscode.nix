@@ -32,6 +32,7 @@
         "**/CVS" = true;
       };
       "files.insertFinalNewline" = true;
+      "files.trimTrailingWhitespace" = true;
       "gitlens.advanced.messages"."suppressShowKeyBindingsNotice" = true;
       "gitlens.defaultDateFormat" = "DD.MM.YYYY HH:MM";
       "gitlens.defaultDateShortFormat" = "DD.MM.YYYY";
