@@ -5,7 +5,6 @@ let
   syncDir = "${dataDir}/Sync";
 in {
   imports = [
-    # TODO figure out how to import this from github
     <home-manager/nixos>
 
     ./hardware-configuration.nix

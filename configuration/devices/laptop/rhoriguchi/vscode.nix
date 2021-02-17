@@ -45,7 +45,7 @@
       "terraform.languageServer" = {
         "args" = [ "serve" ];
         "external" = true;
-        # TODO this can be remove once https://github.com/NixOS/nixpkgs/pull/110505 is merged
+        # TODO this can be remove once https://github.com/NixOS/nixpkgs/pull/113409 is merged
         "pathToBinary" = "${pkgs.terraform-ls}/bin/terraform-ls";
       };
       "todo-tree.highlights.defaultHighlight" = {
@@ -150,7 +150,7 @@
         sha256 = "0d5rp1p9v5yxq6sadlsa87lg257k43jgsx4s5zb8pwj63lh728h1";
       }
       {
-        # https://github.com/NixOS/nixpkgs/pull/110505
+        # TODO add as package when https://github.com/NixOS/nixpkgs/pull/113409 is merged
         name = "terraform";
         publisher = "hashicorp";
         version = "2.3.0";
