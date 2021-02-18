@@ -124,8 +124,10 @@
       ryu1kn.partial-diff
       spywhere.guides
       streetsidesoftware.code-spell-checker
+      tomoki1207.pdf
       tyriar.sort-lines
       vincaslt.highlight-matching-tag
+      wholroyd.jinja
     ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # TODO create pull request to add all missing
       # TODO maybe add? https://marketplace.visualstudio.com/items?itemName=jnoortheen.nix-ide
@@ -163,18 +165,6 @@
         publisher = "VisualStudioExptTeam";
         version = "1.2.10";
         sha256 = "1l980w4r18613hzwvqgnzm9csi72r9ngyzl94p39rllpiqy7xrhi";
-      }
-      {
-        name = "jinja";
-        publisher = "wholroyd";
-        version = "0.0.8";
-        sha256 = "1ln9gly5bb7nvbziilnay4q448h9npdh7sd9xy277122h0qawkci";
-      }
-      {
-        name = "pdf";
-        publisher = "tomoki1207";
-        version = "1.1.0";
-        sha256 = "0pcs4iy77v4f04f8m9w2rpdzfq7sqbspr7f2sm1fv7bm515qgsvb";
       }
     ];
   };
