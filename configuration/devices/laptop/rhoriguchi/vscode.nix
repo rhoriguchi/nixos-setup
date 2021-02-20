@@ -46,8 +46,6 @@
       "terraform.languageServer" = {
         "args" = [ "serve" ];
         "external" = true;
-        # TODO this can be remove once https://github.com/NixOS/nixpkgs/pull/113409 is merged
-        "pathToBinary" = "${pkgs.terraform-ls}/bin/terraform-ls";
       };
       "todo-tree.highlights.defaultHighlight" = {
         "fontWeight" = "bold";
@@ -113,6 +111,7 @@
       formulahendry.auto-close-tag
       formulahendry.auto-rename-tag
       gruntfuggly.todo-tree
+      hashicorp.terraform
       ibm.output-colorizer
       jock.svg
       ms-azuretools.vscode-docker
@@ -151,13 +150,6 @@
         publisher = "redhat";
         version = "0.74.0";
         sha256 = "0d5rp1p9v5yxq6sadlsa87lg257k43jgsx4s5zb8pwj63lh728h1";
-      }
-      {
-        # TODO add as package when https://github.com/NixOS/nixpkgs/pull/113409 is merged
-        name = "terraform";
-        publisher = "hashicorp";
-        version = "2.3.0";
-        sha256 = "0696q8nr6kb5q08295zvbqwj7lr98z18gz1chf0adgrh476zm6qq";
       }
       {
         # TODO has issues "Couldn't download IntelliCode model. Please check your network connectivity or firewall settings."
