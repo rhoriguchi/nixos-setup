@@ -57,6 +57,8 @@ in {
         nvidiaBusId = "PCI:1:0:0";
       };
     };
+
+    openrazer.enable = true;
   };
 
   fileSystems."${dataDir}" = {
@@ -229,7 +231,8 @@ in {
     gdavoli.isNormalUser = true;
 
     rhoriguchi = {
-      extraGroups = [ "docker" "networkmanager" "rslsync" "vboxusers" "wheel" ];
+      extraGroups =
+        [ "docker" "networkmanager" "plugdev" "rslsync" "vboxusers" "wheel" ];
       isNormalUser = true;
     };
   };
