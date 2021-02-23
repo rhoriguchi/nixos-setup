@@ -5,6 +5,8 @@
     shellAliases = {
       neofetch = "echo; echo; neofetch";
 
+      nixfmt = "nixfmt --width=999";
+
       open = "nautilus $PWD";
     };
 
