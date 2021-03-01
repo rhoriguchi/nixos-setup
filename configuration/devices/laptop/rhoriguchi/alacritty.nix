@@ -3,8 +3,7 @@
     enable = true;
 
     settings = {
-      shell.program =
-        "${utils.toShellPath config.users.defaultUserShell}";
+      shell.program = "${utils.toShellPath config.users.defaultUserShell}";
       working_directory = config.users.users.rhoriguchi.home;
       window.startup_mode = "Maximized";
 
