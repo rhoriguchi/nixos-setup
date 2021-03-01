@@ -1,4 +1,7 @@
 { pkgs, utils, config, ... }: {
+
+  fonts.fonts = with pkgs; [ jetbrains-mono ];
+
   home-manager.users.rhoriguchi.programs.alacritty = {
     enable = true;
 
@@ -10,6 +13,23 @@
       scrolling = {
         history = 10000;
         multiplier = 3;
+      };
+
+      font = {
+        normal = {
+          family = "JetBrains Mono";
+          style = "Regular";
+        };
+
+        bold = {
+          family = "JetBrains Mono";
+          style = "Bold";
+        };
+
+        italic = {
+          family = "JetBrains Mono";
+          style = "Italic";
+        };
       };
 
       colors = {
