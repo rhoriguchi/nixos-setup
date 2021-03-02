@@ -1,5 +1,4 @@
 { pkgs, utils, config, ... }: {
-
   fonts.fonts = with pkgs; [ jetbrains-mono ];
 
   home-manager.users.rhoriguchi.programs.alacritty = {
