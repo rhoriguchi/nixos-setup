@@ -11,10 +11,12 @@
     protonvpn-cli =
       super.callPackage ./protonvpn-cli { inherit (super) protonvpn-cli; };
     mal_export = super.callPackage ./mal_export.nix { };
-    megasync = super.callPackage ./megasync.nix { };
     terraform_0_14 =
       super.callPackage ./terraform.nix { inherit (super) terraform_0_14; };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
+
+    teamviewer = super.callPackage ./teamviewer.nix {};
+    megasync = super.callPackage ./megasync.nix { };
   })
   # TODO add hook to set 'NoDisplay=true'
   # (
