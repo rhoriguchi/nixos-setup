@@ -12,7 +12,7 @@ let
   ];
 in {
   users.users.rhoriguchi.packages = extensions
-    ++ (with pkgs; [ papirus-icon-theme pop-gtk-theme ]);
+    ++ (with pkgs; [ papirus-icon-theme yaru-theme ]);
 
   home-manager.users.rhoriguchi.dconf = {
     enable = true;
@@ -24,7 +24,7 @@ in {
         clock-show-seconds = true;
         clock-show-weekday = true;
         enable-hot-corners = false;
-        gtk-theme = "Pop";
+        gtk-theme = "Yaru-light";
         icon-theme = "Papirus";
         show-battery-percentage = true;
       };
@@ -55,7 +55,7 @@ in {
       "org/gnome/desktop/wm/preferences" = {
         button-layout = ":minimize,maximize,close";
         num-workspaces = 1;
-        theme = "Pop";
+        theme = "Yaru-light";
       };
       "org/gnome/gedit/preferences/editor" = {
         display-line-numbers = true;
