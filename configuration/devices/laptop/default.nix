@@ -175,7 +175,6 @@ in {
       docker-compose
       firefox
       flameshot
-      fzf
       gimp
       git
       git-crypt
