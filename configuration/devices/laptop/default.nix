@@ -73,8 +73,6 @@ in {
   console.useXkbConfig = true;
 
   services = {
-    udev.packages = with pkgs.gnome3; [ gnome-settings-daemon ];
-
     resilio = {
       enable = true;
       syncPath = "${syncDir}";
@@ -132,8 +130,6 @@ in {
   };
 
   programs = {
-    dconf.enable = true;
-
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
