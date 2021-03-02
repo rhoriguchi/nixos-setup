@@ -179,7 +179,6 @@ in {
       git
       git-crypt
       gitkraken
-      gnupg
       google-chrome
       htop
       keepass
