@@ -21,20 +21,21 @@
   (self: super: {
     # TODO do not work
     # discord = super.makeAutostartItem {
-    #   name = "discord";
     #   package = super.discord;
+    #   name = "discord";
     # };
     # flameshot = super.makeAutostartItem {
-    #   name = "org.flameshot.Flameshot";
     #   package = super.flameshot;
+    #   srcPrefix = "org.flameshot";
+    #   name = "Flameshot";
     # };
     # megasync = super.makeAutostartItem {
-    #   name = "megasync";
     #   package = super.megasync;
+    #   name = "megasync";
     # };
     signal-desktop = super.makeAutostartItem {
-      name = "signal-desktop";
       package = super.signal-desktop;
+      name = "signal-desktop";
     };
   })
   # TODO add hook to set 'NoDisplay=true'
