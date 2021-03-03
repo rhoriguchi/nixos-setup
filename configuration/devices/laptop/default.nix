@@ -137,6 +137,8 @@ in {
 
     java.enable = true;
 
+    npm.enable = true;
+
     steam.enable = true;
   };
 
@@ -210,7 +212,7 @@ in {
         idea-ultimate
         pycharm-professional
         webstorm
-      ]) ++ (with pkgs.nodePackages; [ npm prettier ])
+      ]) ++ (with pkgs.nodePackages; [ eslint prettier ])
       ++ (with pkgs.python38Packages; [
         flake8
         mypy
