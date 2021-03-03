@@ -1,4 +1,5 @@
 { terraform_0_14, installShellFiles }:
+# TODO zsh does not work
 terraform_0_14.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ installShellFiles ];
 
@@ -14,8 +15,6 @@ terraform_0_14.overrideAttrs (oldAttrs: {
       --fish ~/.config/fish/completions/terraform.fish \
       --zsh <(sed '/bashcompinit/d' ~/.zshrc)
   '';
-
-  # TODO might help https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/development/web/deno/default.nix#L59-L62
 
   # > cat ~/.bashrc
   # complete -C /nix/store/w59ayb7msikg2hglkbvqc6n177y2sd8a-terraform-0.14.4/bin/terraform terraform
