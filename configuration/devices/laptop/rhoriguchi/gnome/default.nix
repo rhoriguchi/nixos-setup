@@ -73,9 +73,10 @@ in {
       };
       "org/gnome/shell" = {
         app-picker-layout = [ ];
-        enabled-extensions =
-          [ "launch-new-instance@gnome-shell-extensions.gcampax.github.com" ]
-          ++ map (builtins.getAttr "uuid") extensions;
+        enabled-extensions = [
+          "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
+          "user-theme@gnome-shell-extensions.gcampax.github.com"
+        ] ++ map (builtins.getAttr "uuid") extensions;
         favorite-apps = [ ];
       };
       "org/gnome/shell/extensions/caffeine" = {
@@ -237,6 +238,7 @@ in {
         window-buttons-placement = "auto";
         window-buttons-theme = "default-dark";
       };
+      "org/gnome/shell/extensions/unite".name = "Yaru";
       "org/gnome/settings-daemon/plugins/media-keys" = {
         area-screenshot = [ ];
         area-screenshot-clip = [ ];
