@@ -1,6 +1,5 @@
 { pkgs, ... }: {
-  # TODO use home-manager.users.rhoriguchi.xdg.configFile."neofetch/config.conf" ?
-  home-manager.users.rhoriguchi.home.file.".config/flameshot/flameshot.ini".source =
+  home-manager.users.rhoriguchi.xdg.configFile."flameshot/flameshot.ini".source =
     (pkgs.formats.ini { }).generate "flameshot.ini" {
       General = {
         buttons = ''
