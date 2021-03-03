@@ -18,6 +18,25 @@
     megasync = super.callPackage ./megasync.nix { };
     teamviewer = super.callPackage ./teamviewer.nix { };
   })
+  (self: super: {
+    # TODO do not work
+    # discord = super.makeAutostartItem {
+    #   name = "discord";
+    #   package = super.discord;
+    # };
+    # flameshot = super.makeAutostartItem {
+    #   name = "org.flameshot.Flameshot";
+    #   package = super.flameshot;
+    # };
+    # megasync = super.makeAutostartItem {
+    #   name = "megasync";
+    #   package = super.megasync;
+    # };
+    signal-desktop = super.makeAutostartItem {
+      name = "signal-desktop";
+      package = super.signal-desktop;
+    };
+  })
   # TODO add hook to set 'NoDisplay=true'
   # (
   #   cups # cups.desktop
