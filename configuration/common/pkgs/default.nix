@@ -15,8 +15,8 @@
       super.callPackage ./terraform.nix { inherit (super) terraform_0_14; };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
 
-    teamviewer = super.callPackage ./teamviewer.nix { };
     megasync = super.callPackage ./megasync.nix { };
+    teamviewer = super.callPackage ./teamviewer.nix { };
   })
   # TODO add hook to set 'NoDisplay=true'
   # (
