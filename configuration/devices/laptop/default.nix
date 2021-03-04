@@ -21,10 +21,7 @@ in {
   nix.autoOptimiseStore = true;
 
   virtualisation = {
-    docker = {
-      enable = true;
-      enableNvidia = true;
-    };
+    docker.enable = true;
 
     virtualbox.host = {
       enable = true;
