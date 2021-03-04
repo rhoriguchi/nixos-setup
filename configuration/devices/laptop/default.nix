@@ -165,7 +165,6 @@ in {
 
     systemPackages = (with pkgs; [
       alacritty
-      ansible_2_9
       bind
       binutils-unwrapped
       curl
