@@ -12,9 +12,6 @@
       super.callPackage ./protonvpn-cli { inherit (super) protonvpn-cli; };
     mal_export = super.callPackage ./mal_export.nix { };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
-
-    megasync = super.callPackage ./megasync.nix { };
-    teamviewer = super.callPackage ./teamviewer.nix { };
   })
   (self: super: {
     # TODO do not work
