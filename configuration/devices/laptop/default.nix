@@ -20,14 +20,7 @@ in {
 
   nix.autoOptimiseStore = true;
 
-  virtualisation = {
-    docker.enable = true;
-
-    virtualbox.host = {
-      enable = true;
-      enableExtensionPack = true;
-    };
-  };
+  virtualisation.docker.enable = true;
 
   networking = {
     hostName = "RYAN-LAPTOP";
