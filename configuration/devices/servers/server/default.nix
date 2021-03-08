@@ -14,6 +14,11 @@ in {
     hostName = "XXLPitu-Server";
 
     interfaces = {
+      # without PCI-E GPU
+      enp4s0.useDHCP = true;
+      wlp3s0.useDHCP = true;
+
+      # with PCI-E GPU
       enp5s0.useDHCP = true;
       wlp4s0.useDHCP = true;
     };
