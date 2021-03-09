@@ -182,6 +182,7 @@ in {
       ntfs3g
       openssl
       parted
+      pipenv
       postgresql_12
       postman
       protonvpn-cli
