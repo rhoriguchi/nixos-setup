@@ -99,9 +99,6 @@ in {
         enable = true;
 
         extraGSettingsOverrides = ''
-          [org.gnome.shell]
-          enabled-extensions=['${pkgs.gnomeExtensions.appindicator.uuid}']
-
           [org.gnome.desktop.peripherals.touchpad]
           click-method='default'
         '';
@@ -172,7 +169,6 @@ in {
       gitkraken
       gnome3.dconf-editor
       gnome3.networkmanager-openconnect
-      gnomeExtensions.appindicator
       google-chrome
       haskellPackages.nixfmt
       htop
