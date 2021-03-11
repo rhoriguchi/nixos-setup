@@ -187,6 +187,7 @@ in {
       megasync
       neofetch
       nodejs
+      nodePackages."@angular/cli"
       nodePackages.eslint
       nodePackages.prettier
       ntfs3g
