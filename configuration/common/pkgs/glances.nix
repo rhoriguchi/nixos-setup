@@ -29,19 +29,7 @@ let
     pname = "py3nvml";
     version = "0.2.6";
 
-    buildInputs = [
-      (python3Packages.buildPythonPackage rec {
-        pname = "xmltodict";
-        version = "0.12.0";
-
-        doCheck = false;
-
-        src = python3Packages.fetchPypi {
-          inherit pname version;
-          sha256 = "08cadlb9vsb4pmzc99lz3a2lx6qcfazyvgk10pcqijvyxlwcdn2h";
-        };
-      })
-    ];
+    buildInputs = with python3Packages; [ xmltodict ];
 
     src = python3Packages.fetchPypi {
       inherit pname version;
