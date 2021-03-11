@@ -1,5 +1,4 @@
 { lib, config, pkgs, ... }:
-with lib;
 let
   cfg = config.services.mal_export;
 
@@ -10,13 +9,13 @@ let
   };
 in {
   options.services.mal_export = {
-    enable = mkEnableOption "mal_export";
-    exportPath = mkOption { type = types.str; };
-    username = mkOption { type = types.str; };
-    password = mkOption { type = types.str; };
+    enable = lib.mkEnableOption "mal_export";
+    exportPath = lib.mkOption { type = lib.types.str; };
+    username = lib.mkOption { type = lib.types.str; };
+    password = lib.mkOption { type = lib.types.str; };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     assertions = [
       {
         assertion = cfg.exportPath != "";
@@ -34,7 +33,7 @@ in {
 
     users.users.mal_export = {
       isSystemUser = true;
-      extraGroups = optional config.services.resilio.enable "rslsync";
+      extraGroups = lib.optional config.services.resilio.enable "rslsync";
     };
 
     systemd.services.mal_export = {

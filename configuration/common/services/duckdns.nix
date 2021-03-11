@@ -1,14 +1,13 @@
 { lib, config, pkgs, ... }:
-with lib;
 let cfg = config.services.duckdns;
 in {
   options.services.duckdns = {
-    enable = mkEnableOption "Duck DNS";
-    token = mkOption { type = types.str; };
-    subdomain = mkOption { type = types.str; };
+    enable = lib.mkEnableOption "Duck DNS";
+    token = lib.mkOption { type = lib.types.str; };
+    subdomain = lib.mkOption { type = lib.types.str; };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     assertions = [
       {
         assertion = cfg.token != "";

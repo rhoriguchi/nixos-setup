@@ -1,5 +1,4 @@
 { config, pkgs, lib, ... }:
-with lib;
 let
   dataDir = "/media/Data";
   syncDir = "${dataDir}/Sync";
@@ -115,7 +114,7 @@ in {
 
     gnome3 = {
       chrome-gnome-shell.enable = false;
-      gnome-initial-setup.enable = mkForce false;
+      gnome-initial-setup.enable = lib.mkForce false;
     };
   };
 
@@ -133,30 +132,31 @@ in {
   };
 
   environment = {
-    gnome3.excludePackages = (with pkgs; [ gnome-connections gnome-photos ])
-      ++ (with pkgs.gnome3; [
-        epiphany
-        geary
-        gnome-calendar
-        gnome-characters
-        gnome-clocks
-        gnome-contacts
-        gnome-font-viewer
-        gnome-maps
-        gnome-music
-        gnome-screenshot
-        gnome-shell-extensions
-        gnome-terminal
-        gnome-weather
-        seahorse
-        simple-scan
-        totem
-        yelp
-      ]);
+    gnome3.excludePackages = with pkgs; [
+      gnome-connections
+      gnome-photos
+      gnome3.epiphany
+      gnome3.geary
+      gnome3.gnome-calendar
+      gnome3.gnome-characters
+      gnome3.gnome-clocks
+      gnome3.gnome-contacts
+      gnome3.gnome-font-viewer
+      gnome3.gnome-maps
+      gnome3.gnome-music
+      gnome3.gnome-screenshot
+      gnome3.gnome-shell-extensions
+      gnome3.gnome-terminal
+      gnome3.gnome-weather
+      gnome3.seahorse
+      gnome3.simple-scan
+      gnome3.totem
+      gnome3.yelp
+    ];
 
     sessionVariables.TERMINAL = "alacritty";
 
-    systemPackages = (with pkgs; [
+    systemPackages = with pkgs; [
       alacritty
       bind
       binutils-unwrapped
@@ -170,8 +170,16 @@ in {
       git
       git-crypt
       gitkraken
+      gnome3.dconf-editor
+      gnome3.networkmanager-openconnect
+      gnomeExtensions.appindicator
       google-chrome
+      haskellPackages.nixfmt
       htop
+      jetbrains.datagrip
+      jetbrains.idea-ultimate
+      jetbrains.pycharm-professional
+      jetbrains.webstorm
       keepass
       libreoffice-fresh
       lsb-release
@@ -179,6 +187,8 @@ in {
       megasync
       neofetch
       nodejs
+      nodePackages.eslint
+      nodePackages.prettier
       ntfs3g
       openssl
       parted
@@ -187,31 +197,23 @@ in {
       postman
       protonvpn-cli
       python3
+      python3Packages.flake8
+      python3Packages.mypy
+      python3Packages.pip
+      python3Packages.pylint
+      python3Packages.pytest
+      python3Packages.pytest_xdist
       qbittorrent
       signal-desktop
       spotify
       sshpass
       terraform_0_14
+      unixtools.ifconfig
       unzip
       vlc
       vscode
       yarn
-    ]) ++ (with pkgs.gnome3; [ dconf-editor networkmanager-openconnect ])
-      ++ (with pkgs.gnomeExtensions; [ appindicator ])
-      ++ (with pkgs.haskellPackages; [ nixfmt ]) ++ (with pkgs.jetbrains; [
-        datagrip
-        idea-ultimate
-        pycharm-professional
-        webstorm
-      ]) ++ (with pkgs.nodePackages; [ eslint prettier ])
-      ++ (with pkgs.python3Packages; [
-        flake8
-        mypy
-        pip
-        pylint
-        pytest
-        pytest_xdist
-      ]) ++ (with pkgs.unixtools; [ ifconfig ]);
+    ];
   };
 
   users.users = {

@@ -1,16 +1,15 @@
 { lib, config, pkgs, ... }:
-with lib;
 let cfg = config.services.glances;
 in {
   options.services.glances = {
-    enable = mkEnableOption "Glances";
-    port = mkOption {
+    enable = lib.mkEnableOption "Glances";
+    port = lib.mkOption {
       default = 61208;
-      type = types.port;
+      type = lib.types.port;
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     users.users.glances.isSystemUser = true;
 
     systemd.services.glances = {

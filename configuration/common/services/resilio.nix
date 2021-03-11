@@ -1,10 +1,9 @@
 { lib, config, pkgs, ... }:
-with lib;
 let
   cfg = config.services.resilio;
 
   isUniqueIgnoreNullByAttrName = list: attrName:
-    lists.unique (builtins.filter (match: match != null)
+    lib.lists.unique (builtins.filter (match: match != null)
       (map (builtins.getAttr attrName) list))
     == builtins.filter (match: match != null)
     (map (builtins.getAttr attrName) list);
@@ -26,7 +25,7 @@ let
   }) cfg.secrets;
 
   configFile = (pkgs.formats.json { }).generate "config.json" ({
-    device_name = strings.toUpper cfg.deviceName;
+    device_name = lib.strings.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.storagePath;
     check_for_updates = cfg.webUI.enable;
@@ -38,8 +37,8 @@ let
     peer_expiration_days = 1;
     use_gui = false;
     disk_low_priority = true;
-  } // optionalAttrs (!cfg.webUI.enable) { shared_folders = sharedFolders; }
-    // optionalAttrs cfg.webUI.enable {
+  } // lib.optionalAttrs (!cfg.webUI.enable) { shared_folders = sharedFolders; }
+    // lib.optionalAttrs cfg.webUI.enable {
       webui = {
         login = cfg.webUI.username;
         password = cfg.webUI.password;
@@ -50,53 +49,53 @@ in {
   disabledModules = [ "services/networking/resilio.nix" ];
 
   options.services.resilio = {
-    enable = mkEnableOption "Resilio Sync";
-    deviceName = mkOption {
-      type = types.str;
+    enable = lib.mkEnableOption "Resilio Sync";
+    deviceName = lib.mkOption {
+      type = lib.types.str;
       default = if config.networking.hostName != "" then
         config.networking.hostName
       else
         "";
     };
-    webUI = mkOption {
-      type = types.submodule {
+    webUI = lib.mkOption {
+      type = lib.types.submodule {
         options = {
-          enable = mkOption {
-            type = types.bool;
+          enable = lib.mkOption {
+            type = lib.types.bool;
             default = false;
           };
-          username = mkOption {
-            type = types.str;
+          username = lib.mkOption {
+            type = lib.types.str;
             default = "admin";
           };
-          password = mkOption { type = types.str; };
-          port = mkOption {
-            type = types.port;
+          password = lib.mkOption { type = lib.types.str; };
+          port = lib.mkOption {
+            type = lib.types.port;
             default = 8888;
           };
         };
       };
     };
-    listeningPort = mkOption {
+    listeningPort = lib.mkOption {
       default = 5555;
-      type = types.port;
+      type = lib.types.port;
     };
-    syncPath = mkOption { type = types.str; };
-    storagePath = mkOption {
-      type = types.path;
+    syncPath = lib.mkOption { type = lib.types.str; };
+    storagePath = lib.mkOption {
+      type = lib.types.path;
       default = "/var/lib/resilio-sync";
     };
-    secrets = mkOption {
+    secrets = lib.mkOption {
       default = [ ];
-      type = types.listOf (types.submodule {
+      type = lib.types.listOf (lib.types.submodule {
         options = {
-          secret = mkOption {
-            type = types.str // {
+          secret = lib.mkOption {
+            type = lib.types.str // {
               check = x: (builtins.isList (builtins.match "^[0-9A-Z]{33}$" x));
             };
           };
-          dirName = mkOption {
-            type = types.nullOr types.str;
+          dirName = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
             default = null;
           };
         };
@@ -104,7 +103,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     assertions = [
       {
         assertion = cfg.syncPath != "";
@@ -158,7 +157,7 @@ in {
       serviceConfig = {
         ExecStart =
           "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
-        ExecStartPre = mkIf (!cfg.webUI.enable)
+        ExecStartPre = lib.mkIf (!cfg.webUI.enable)
           ("${pkgs.coreutils}/bin/mkdir -pm 0775 "
             + builtins.concatStringsSep " "
             (map (builtins.getAttr "dir") sharedFolders));

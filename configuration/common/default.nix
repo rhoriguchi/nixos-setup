@@ -1,5 +1,4 @@
-{ lib, config, pkgs, ... }:
-with lib; {
+{ lib, config, pkgs, ... }: {
   imports = [ ./secrets.nix ./services ];
 
   nixpkgs = {

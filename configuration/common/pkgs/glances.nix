@@ -1,6 +1,5 @@
 { glances, formats, lib, stdenv, fetchFromGitHub, python3Packages, makeWrapper
 }:
-with lib;
 let
   configFile = (formats.ini { }).generate "glances.conf" {
     connections.disable = false;
@@ -15,7 +14,7 @@ let
     pname = "sparklines";
     version = "0.4.2";
 
-    buildInputs = with python3Packages; [ future ];
+    buildInputs = [ python3Packages.future ];
 
     src = python3Packages.fetchPypi {
       inherit pname version;
@@ -29,7 +28,7 @@ let
     pname = "py3nvml";
     version = "0.2.6";
 
-    buildInputs = with python3Packages; [ xmltodict ];
+    buildInputs = [ python3Packages.xmltodict ];
 
     src = python3Packages.fetchPypi {
       inherit pname version;
@@ -59,10 +58,13 @@ let
 in glances.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
 
-  propagatedBuildInputs = oldAttrs.propagatedBuildInputs
-    ++ (with python3Packages; [ docker requests ])
-    ++ [ sparklines py3nvml pySMART_smartx ]
-    ++ optional stdenv.isLinux pymdstat;
+  propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
+    py3nvml
+    pySMART_smartx
+    python3Packages.docker
+    python3Packages.requests
+    sparklines
+  ] ++ lib.optional stdenv.isLinux pymdstat;
 
   postInstall = ''
     wrapProgram $out/bin/glances \
