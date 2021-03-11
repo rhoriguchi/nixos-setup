@@ -184,8 +184,6 @@ in {
       neofetch
       nodejs
       nodePackages."@angular/cli"
-      nodePackages.eslint
-      nodePackages.prettier
       ntfs3g
       openssl
       parted
@@ -194,12 +192,7 @@ in {
       postman
       protonvpn-cli
       python3
-      python3Packages.flake8
-      python3Packages.mypy
       python3Packages.pip
-      python3Packages.pylint
-      python3Packages.pytest
-      python3Packages.pytest_xdist
       qbittorrent
       signal-desktop
       spotify
