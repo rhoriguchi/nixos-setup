@@ -11,6 +11,20 @@ let
     network.hide = "lo,^br.*$,^veth.*$";
   };
 
+  sparklines = python3Packages.buildPythonPackage rec {
+    pname = "sparklines";
+    version = "0.4.2";
+
+    buildInputs = with python3Packages; [ future ];
+
+    src = python3Packages.fetchPypi {
+      inherit pname version;
+      sha256 = "125fvkqibs18j51jy82qprl5qy4ayn6l4ccvfbyv2xxjr1nzscvw";
+    };
+
+    doCheck = false;
+  };
+
   py3nvml = python3Packages.buildPythonPackage rec {
     pname = "py3nvml";
     version = "0.2.6";
@@ -58,7 +72,8 @@ in glances.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
 
   propagatedBuildInputs = oldAttrs.propagatedBuildInputs
-    ++ (with python3Packages; [ docker requests ]) ++ [ py3nvml pySMART_smartx ]
+    ++ (with python3Packages; [ docker requests ])
+    ++ [ sparklines py3nvml pySMART_smartx ]
     ++ optional stdenv.isLinux pymdstat;
 
   postInstall = ''
@@ -66,6 +81,7 @@ in glances.overrideAttrs (oldAttrs: {
       --add-flags "--config ${configFile}" \
       --add-flags "--time 1" \
       --add-flags "--disable-irix" \
-      --add-flags "--byte"
+      --add-flags "--byte" \
+      --add-flags "--sparkline"
   '';
 })
