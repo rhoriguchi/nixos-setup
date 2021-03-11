@@ -203,7 +203,7 @@ in {
         pycharm-professional
         webstorm
       ]) ++ (with pkgs.nodePackages; [ eslint prettier ])
-      ++ (with pkgs.python38Packages; [
+      ++ (with pkgs.python3Packages; [
         flake8
         mypy
         pip
