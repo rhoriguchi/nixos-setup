@@ -71,7 +71,6 @@ in glances.overrideAttrs (oldAttrs: {
       --add-flags "--config ${configFile}" \
       --add-flags "--time 1" \
       --add-flags "--disable-irix" \
-      --add-flags "--byte" \
-      --add-flags "--sparkline"
+      --add-flags "--byte"
   '';
 })
