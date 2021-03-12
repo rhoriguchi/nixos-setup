@@ -48,11 +48,7 @@
       syntaxHighlight = true;
     };
 
-    zsh = {
-      enable = true;
-
-      promptInit = "";
-    };
+    zsh.enable = true;
   };
 
   users = {
