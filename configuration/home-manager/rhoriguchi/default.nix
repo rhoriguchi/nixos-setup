@@ -11,7 +11,7 @@
     ./gnome
     ./htop
     ./neofetch
-    ./ssh
+    ./ssh.nix
     ./vscode.nix
     ./zsh.nix
   ];
