@@ -4,12 +4,10 @@ let
   syncDir = "${dataDir}/Sync";
 in {
   imports = [
-    <home-manager/nixos>
+    ../../home-manager/rhoriguchi
 
     ./hardware-configuration.nix
-
     ./power-management.nix
-    ./rhoriguchi
   ];
 
   boot.loader = {

@@ -3,7 +3,7 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = import ./pkgs;
+    overlays = import ./overlays;
   };
 
   nix.gc = {
