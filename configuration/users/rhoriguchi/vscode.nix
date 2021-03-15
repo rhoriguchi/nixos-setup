@@ -112,6 +112,7 @@
       pkgs.vscode-extensions.ibm.output-colorizer
       pkgs.vscode-extensions.jock.svg
       pkgs.vscode-extensions.ms-azuretools.vscode-docker
+      pkgs.vscode-extensions.ms-dotnettools.csharp
       pkgs.vscode-extensions.ms-python.python
       pkgs.vscode-extensions.naumovs.color-highlight
       pkgs.vscode-extensions.pkief.material-icon-theme
@@ -127,20 +128,6 @@
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # TODO create pull request to add all missing
       # TODO maybe add? https://marketplace.visualstudio.com/items?itemName=jnoortheen.nix-ide
-      {
-        # TODO fails https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp
-        # Installing C# dependencies...
-        # Platform: linux, x86_64, name=nixos, version=21.03pre262347.257cbbcd3ab
-
-        # Failed at stage: touchBeginFile
-        # Error: EROFS: read-only file system, mkdir '/home/rhoriguchi/.vscode/extensions/ms-dotnettools.csharp/.omnisharp'
-
-        # https://github.com/NixOS/nixpkgs/pull/100181
-        name = "csharp";
-        publisher = "ms-dotnettools";
-        version = "1.23.8";
-        sha256 = "1lb3y7fs2c6kbygjfls7lc3dc8snlspkfa15mp49srhc0kbxcgff";
-      }
       {
         # TODO figure out if java jdk is required?
         name = "java";
