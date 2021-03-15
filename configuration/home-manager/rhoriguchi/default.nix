@@ -15,4 +15,9 @@
     ./vscode.nix
     ./zsh.nix
   ];
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
 }
