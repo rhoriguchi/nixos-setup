@@ -170,6 +170,7 @@ in {
       google-chrome
       haskellPackages.nixfmt
       htop
+      inkscape
       jetbrains.datagrip
       jetbrains.idea-ultimate
       jetbrains.pycharm-professional
