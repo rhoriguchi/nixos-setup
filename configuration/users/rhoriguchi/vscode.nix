@@ -63,6 +63,7 @@
       "workbench.colorTheme" = "Visual Studio 2019 Light";
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.list.smoothScrolling" = true;
+      "workbench.productIconTheme" = "icons-carbon";
       "workbench.startupEditor" = "none";
       "[html]" = {
         "editor.defaultFormatter" = "vscode.html-language-features";
@@ -140,6 +141,13 @@
         publisher = "VisualStudioExptTeam";
         version = "1.2.10";
         sha256 = "1l980w4r18613hzwvqgnzm9csi72r9ngyzl94p39rllpiqy7xrhi";
+      }
+      {
+        # TODO remove once PR merged https://github.com/NixOS/nixpkgs/pull/116422
+        name = "icons-carbon";
+        publisher = "antfu";
+        version = "0.2.2";
+        sha256 = "0mfap16la09mn0jhvy8s3dainrmjz64vra7d0d4fbcpgg420kv3f";
       }
     ];
   };
