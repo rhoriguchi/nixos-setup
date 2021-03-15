@@ -4,7 +4,7 @@ let
   syncDir = "${dataDir}/Sync";
 in {
   imports = [
-    ../../home-manager/rhoriguchi
+    ../../users/rhoriguchi
 
     ./hardware-configuration.nix
     ./power-management.nix
