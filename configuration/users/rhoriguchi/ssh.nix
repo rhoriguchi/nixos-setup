@@ -5,9 +5,11 @@ in {
     enable = true;
 
     compression = true;
+    controlPath = "${home}/.ssh/master-%r@%n:%p";
     hashKnownHosts = false;
     serverAliveCountMax = 3;
     serverAliveInterval = 10;
+    userKnownHostsFile = "${home}/.ssh/known_hosts";
 
     extraConfig = ''
       AddKeysToAgent yes
