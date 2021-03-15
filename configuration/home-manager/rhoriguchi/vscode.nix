@@ -100,34 +100,34 @@
       }
     ];
 
-    extensions = (with pkgs.vscode-extensions; [
-      alexdima.copy-relative-path
-      bbenoist.Nix
-      brettm12345.nixfmt-vscode
-      coenraads.bracket-pair-colorizer-2
-      davidanson.vscode-markdownlint
-      eamodio.gitlens
-      esbenp.prettier-vscode
-      formulahendry.auto-close-tag
-      formulahendry.auto-rename-tag
-      gruntfuggly.todo-tree
-      hashicorp.terraform
-      ibm.output-colorizer
-      jock.svg
-      ms-azuretools.vscode-docker
-      ms-python.python
-      naumovs.color-highlight
-      pkief.material-icon-theme
-      redhat.vscode-yaml
-      rubymaniac.vscode-paste-and-indent
-      ryu1kn.partial-diff
-      spywhere.guides
-      streetsidesoftware.code-spell-checker
-      tomoki1207.pdf
-      tyriar.sort-lines
-      vincaslt.highlight-matching-tag
-      wholroyd.jinja
-    ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+    extensions = [
+      pkgs.vscode-extensions.alexdima.copy-relative-path
+      pkgs.vscode-extensions.bbenoist.Nix
+      pkgs.vscode-extensions.brettm12345.nixfmt-vscode
+      pkgs.vscode-extensions.coenraads.bracket-pair-colorizer-2
+      pkgs.vscode-extensions.davidanson.vscode-markdownlint
+      pkgs.vscode-extensions.eamodio.gitlens
+      pkgs.vscode-extensions.esbenp.prettier-vscode
+      pkgs.vscode-extensions.formulahendry.auto-close-tag
+      pkgs.vscode-extensions.formulahendry.auto-rename-tag
+      pkgs.vscode-extensions.gruntfuggly.todo-tree
+      pkgs.vscode-extensions.hashicorp.terraform
+      pkgs.vscode-extensions.ibm.output-colorizer
+      pkgs.vscode-extensions.jock.svg
+      pkgs.vscode-extensions.ms-azuretools.vscode-docker
+      pkgs.vscode-extensions.ms-python.python
+      pkgs.vscode-extensions.naumovs.color-highlight
+      pkgs.vscode-extensions.pkief.material-icon-theme
+      pkgs.vscode-extensions.redhat.vscode-yaml
+      pkgs.vscode-extensions.rubymaniac.vscode-paste-and-indent
+      pkgs.vscode-extensions.ryu1kn.partial-diff
+      pkgs.vscode-extensions.spywhere.guides
+      pkgs.vscode-extensions.streetsidesoftware.code-spell-checker
+      pkgs.vscode-extensions.tomoki1207.pdf
+      pkgs.vscode-extensions.tyriar.sort-lines
+      pkgs.vscode-extensions.vincaslt.highlight-matching-tag
+      pkgs.vscode-extensions.wholroyd.jinja
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # TODO create pull request to add all missing
       # TODO maybe add? https://marketplace.visualstudio.com/items?itemName=jnoortheen.nix-ide
       {

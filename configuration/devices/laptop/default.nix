@@ -71,7 +71,7 @@ in {
     printing = {
       enable = true;
 
-      drivers = with pkgs; [ hplip ];
+      drivers = [ pkgs.hplip ];
       webInterface = false;
     };
 
@@ -127,81 +127,81 @@ in {
   };
 
   environment = {
-    gnome3.excludePackages = with pkgs; [
-      gnome-connections
-      gnome-photos
-      gnome3.epiphany
-      gnome3.geary
-      gnome3.gnome-calendar
-      gnome3.gnome-characters
-      gnome3.gnome-clocks
-      gnome3.gnome-contacts
-      gnome3.gnome-font-viewer
-      gnome3.gnome-maps
-      gnome3.gnome-music
-      gnome3.gnome-screenshot
-      gnome3.gnome-shell-extensions
-      gnome3.gnome-terminal
-      gnome3.gnome-weather
-      gnome3.seahorse
-      gnome3.simple-scan
-      gnome3.totem
-      gnome3.yelp
+    gnome3.excludePackages = [
+      pkgs.gnome-connections
+      pkgs.gnome-photos
+      pkgs.gnome3.epiphany
+      pkgs.gnome3.geary
+      pkgs.gnome3.gnome-calendar
+      pkgs.gnome3.gnome-characters
+      pkgs.gnome3.gnome-clocks
+      pkgs.gnome3.gnome-contacts
+      pkgs.gnome3.gnome-font-viewer
+      pkgs.gnome3.gnome-maps
+      pkgs.gnome3.gnome-music
+      pkgs.gnome3.gnome-screenshot
+      pkgs.gnome3.gnome-shell-extensions
+      pkgs.gnome3.gnome-terminal
+      pkgs.gnome3.gnome-weather
+      pkgs.gnome3.seahorse
+      pkgs.gnome3.simple-scan
+      pkgs.gnome3.totem
+      pkgs.gnome3.yelp
     ];
 
     sessionVariables.TERMINAL = "alacritty";
 
-    systemPackages = with pkgs; [
-      alacritty
-      bind
-      binutils-unwrapped
-      curl
-      discord
-      displaylink
-      docker-compose
-      firefox
-      flameshot
-      gimp
-      git
-      git-crypt
-      gitkraken
-      gnome3.dconf-editor
-      gnome3.networkmanager-openconnect
-      google-chrome
-      haskellPackages.nixfmt
-      htop
-      inkscape
-      jetbrains.datagrip
-      jetbrains.idea-ultimate
-      jetbrains.pycharm-professional
-      jetbrains.webstorm
-      keepass
-      libreoffice-fresh
-      lsb-release
-      maven
-      megasync
-      neofetch
-      nodejs
-      nodePackages."@angular/cli"
-      ntfs3g
-      openssl
-      parted
-      pipenv
-      postgresql_12
-      postman
-      protonvpn-cli
-      python3
-      python3Packages.pip
-      qbittorrent
-      signal-desktop
-      spotify
-      sshpass
-      terraform_0_14
-      unixtools.ifconfig
-      unzip
-      vlc
-      vscode
-      yarn
+    systemPackages = [
+      pkgs.alacritty
+      pkgs.bind
+      pkgs.binutils-unwrapped
+      pkgs.curl
+      pkgs.discord
+      pkgs.displaylink
+      pkgs.docker-compose
+      pkgs.firefox
+      pkgs.flameshot
+      pkgs.gimp
+      pkgs.git
+      pkgs.git-crypt
+      pkgs.gitkraken
+      pkgs.gnome3.dconf-editor
+      pkgs.gnome3.networkmanager-openconnect
+      pkgs.google-chrome
+      pkgs.haskellPackages.nixfmt
+      pkgs.htop
+      pkgs.inkscape
+      pkgs.jetbrains.datagrip
+      pkgs.jetbrains.idea-ultimate
+      pkgs.jetbrains.pycharm-professional
+      pkgs.jetbrains.webstorm
+      pkgs.keepass
+      pkgs.libreoffice-fresh
+      pkgs.lsb-release
+      pkgs.maven
+      pkgs.megasync
+      pkgs.neofetch
+      pkgs.nodejs
+      pkgs.nodePackages."@angular/cli"
+      pkgs.ntfs3g
+      pkgs.openssl
+      pkgs.parted
+      pkgs.pipenv
+      pkgs.postgresql_12
+      pkgs.postman
+      pkgs.protonvpn-cli
+      pkgs.python3
+      pkgs.python3Packages.pip
+      pkgs.qbittorrent
+      pkgs.signal-desktop
+      pkgs.spotify
+      pkgs.sshpass
+      pkgs.terraform_0_14
+      pkgs.unixtools.ifconfig
+      pkgs.unzip
+      pkgs.vlc
+      pkgs.vscode
+      pkgs.yarn
     ];
   };
 

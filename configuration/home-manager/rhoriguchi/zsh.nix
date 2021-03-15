@@ -17,16 +17,17 @@
       extended = true;
     };
 
-    plugins = with pkgs; [
+    plugins = [
       {
-        name = zsh-autosuggestions.pname;
+        name = pkgs.zsh-autosuggestions.pname;
         file = "zsh-autosuggestions.zsh";
-        src = "${zsh-autosuggestions}/share/${zsh-autosuggestions.pname}";
+        src =
+          "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
       }
       {
-        name = zsh-git-prompt.pname;
+        name = pkgs.zsh-git-prompt.pname;
         file = "zshrc.sh";
-        src = "${zsh-git-prompt}/share/${zsh-git-prompt.pname}";
+        src = "${pkgs.zsh-git-prompt}/share/${pkgs.zsh-git-prompt.pname}";
       }
     ];
 

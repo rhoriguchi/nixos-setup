@@ -27,7 +27,7 @@
     journald.extraConfig = "Storage=persistent";
   };
 
-  environment.systemPackages = with pkgs; [ htop ];
+  environment.systemPackages = [ pkgs.htop ];
 
   users.users = {
     root = {

@@ -1,18 +1,18 @@
 { pkgs, ... }:
 let
-  extensions = with pkgs.gnomeExtensions; [
-    appindicator
-    caffeine
-    clock-override
-    dash-to-dock
-    dynamic-panel-transparency
-    fuzzy-app-search
-    unite
-    window-is-ready-remover
+  extensions = [
+    pkgs.gnomeExtensions.appindicator
+    pkgs.gnomeExtensions.caffeine
+    pkgs.gnomeExtensions.clock-override
+    pkgs.gnomeExtensions.dash-to-dock
+    pkgs.gnomeExtensions.dynamic-panel-transparency
+    pkgs.gnomeExtensions.fuzzy-app-search
+    pkgs.gnomeExtensions.unite
+    pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
   users.users.rhoriguchi.packages = extensions
-    ++ (with pkgs; [ papirus-icon-theme yaru-theme ]);
+    ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ];
 
   home-manager.users.rhoriguchi.dconf = {
     enable = true;

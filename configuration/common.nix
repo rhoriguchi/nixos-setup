@@ -75,6 +75,6 @@
       ls = "ls --color=tty -Ah";
     };
 
-    systemPackages = with pkgs; [ glances ];
+    systemPackages = [ pkgs.glances ];
   };
 }
