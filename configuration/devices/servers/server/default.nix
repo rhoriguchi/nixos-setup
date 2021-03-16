@@ -29,9 +29,6 @@ in {
   # TODO install https://grafana.com/docs/loki/latest/clients/docker-driver/
   virtualisation.docker.enable = true;
 
-  system.activationScripts.turnOffWraithPrismCoolerRGB =
-    "${pkgs.cm-rgb}/bin/cm-rgb-cli set logo --mode=off save";
-
   services = {
     duckdns = {
       enable = true;
