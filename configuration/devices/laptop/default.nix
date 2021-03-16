@@ -17,8 +17,6 @@ in {
 
   nix.autoOptimiseStore = true;
 
-  virtualisation.docker.enable = true;
-
   networking = {
     hostName = "RYAN-LAPTOP";
 
@@ -56,6 +54,8 @@ in {
 
   system.activationScripts.createDataDir =
     "${pkgs.coreutils}/bin/mkdir -pm 0777 ${dataDir}";
+
+  virtualisation.docker.enable = true;
 
   console.useXkbConfig = true;
 
