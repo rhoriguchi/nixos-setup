@@ -32,10 +32,10 @@
     #   package = super.megasync;
     #   name = "megasync";
     # };
-    signal-desktop = super.makeAutostartItem {
-      package = super.signal-desktop;
-      name = "signal-desktop";
-    };
+    # signal-desktop = super.makeAutostartItem {
+    #   package = super.signal-desktop;
+    #   name = "signal-desktop";
+    # };
   })
   # TODO add hook to set 'NoDisplay=true'
   # (
