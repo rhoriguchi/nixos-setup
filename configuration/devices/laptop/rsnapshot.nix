@@ -79,8 +79,7 @@ in {
     ];
   };
 
-  system.activationScripts.createBackupDir =
-    "${pkgs.coreutils}/bin/mkdir -pm 0777 ${backupDir}";
+  system.activationScripts.createBackupDir = "mkdir -pm 0777 ${backupDir}";
 
   services.rsnapshot = {
     enable = true;

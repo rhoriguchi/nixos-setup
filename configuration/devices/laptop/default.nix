@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
-let
-  dataDir = "/media/Data";
+let dataDir = "/media/Data";
 in {
   imports = [
     ../../users/rhoriguchi
@@ -53,8 +52,7 @@ in {
     options = [ "defaults" "nofail" ];
   };
 
-  system.activationScripts.createDataDir =
-    "${pkgs.coreutils}/bin/mkdir -pm 0777 ${dataDir}";
+  system.activationScripts.createDataDir = "mkdir -pm 0777 ${dataDir}";
 
   virtualisation.podman = {
     enable = true;

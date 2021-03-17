@@ -10,7 +10,6 @@ let
     };
   };
 in {
-  system.activationScripts.rhoriguchiCopyAccountServiceConfig = ''
-    ${pkgs.coreutils}/bin/cp -f ${configFile} /var/lib/AccountsService/users/rhoriguchi
-  '';
+  system.activationScripts.rhoriguchiCopyAccountServiceConfig =
+    "cp -f ${configFile} /var/lib/AccountsService/users/rhoriguchi";
 }
