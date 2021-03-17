@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   dataDir = "/media/Data";
-  syncDir = "${dataDir}/Sync";
 in {
   imports = [
     ../../users/rhoriguchi
@@ -65,7 +64,7 @@ in {
   services = {
     resilio = {
       enable = true;
-      syncPath = "${syncDir}";
+      syncPath = "${dataDir}/Sync";
       webUI.enable = true;
     };
 

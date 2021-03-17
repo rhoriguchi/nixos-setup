@@ -1,7 +1,6 @@
 { pkgs, ... }:
 let
   dataDir = "/media/Data";
-  syncDir = "${dataDir}/Sync";
 in {
   imports = [ ../default.nix ./hardware-configuration.nix ];
 
@@ -25,7 +24,7 @@ in {
 
     resilio = {
       enable = true;
-      syncPath = "${syncDir}";
+      syncPath = "${dataDir}/Sync";
     };
   };
 }
