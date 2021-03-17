@@ -6,6 +6,8 @@ in {
     ../../users/rhoriguchi
 
     ./hardware-configuration.nix
+
+    ./rsnapshot.nix
     ./power-management.nix
   ];
 
