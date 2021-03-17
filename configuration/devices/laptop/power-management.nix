@@ -1,8 +1,5 @@
 { pkgs, ... }:
 let
-  # TODO add rule to modify org.gnome.desktop.session idle-delay (gsettings does not work)
-  # TODO disable caffinate
-
   acShellScript = pkgs.writeShellScript "ac" ''
     echo 3 > /sys/devices/platform/asus-nb-wmi/leds/asus::kbd_backlight/brightness
     echo 24000 > /sys/class/backlight/intel_backlight/brightness
