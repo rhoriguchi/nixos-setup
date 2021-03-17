@@ -10,7 +10,7 @@ let
     };
   };
 in {
-  system.activationScripts.rhoriguchiSetIcon = ''
+  system.activationScripts.rhoriguchiCopyAccountServiceConfig = ''
     ${pkgs.coreutils}/bin/cp -f ${configFile} /var/lib/AccountsService/users/rhoriguchi
   '';
 }
