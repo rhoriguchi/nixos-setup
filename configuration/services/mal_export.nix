@@ -43,7 +43,7 @@ in {
         ExecStart = "${pkgs.mal_export}/bin/mal_export ${configFile}";
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${cfg.exportPath}";
         Restart = "on-abort";
-        UMask = "0007";
+        UMask = "0002";
         User = "mal_export";
       };
       startAt = "06:00";
