@@ -49,7 +49,15 @@ in {
   };
 
   # TODO install https://grafana.com/docs/loki/latest/clients/docker-driver/
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+
+    logDriver = "json-file";
+    extraOptions = builtins.concatStringsSep " " [
+      "--log-opt max-file=10"
+      "--log-opt max-size=10m"
+    ];
+  };
 
   services = {
     duckdns = {

@@ -58,14 +58,6 @@
     users.root.hashedPassword = "*";
   };
 
-  virtualisation.docker = {
-    logDriver = "json-file";
-    extraOptions = builtins.concatStringsSep " " [
-      "--log-opt max-file=10"
-      "--log-opt max-size=10m"
-    ];
-  };
-
   environment = {
     shellAliases = {
       l = null;
