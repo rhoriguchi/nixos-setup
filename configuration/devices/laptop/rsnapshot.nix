@@ -58,9 +58,7 @@ let
     "--no-group"
     "--no-owner"
     "--no-perms"
-    "--progress"
     "--recursive"
-    "--stats"
     "--times"
     "--verbose"
   ];
