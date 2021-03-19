@@ -130,11 +130,11 @@
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # TODO create pull request to add all missing
       {
-        # TODO figure out if java jdk is required?
+        # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/116941
         name = "java";
         publisher = "redhat";
-        version = "0.74.0";
-        sha256 = "0d5rp1p9v5yxq6sadlsa87lg257k43jgsx4s5zb8pwj63lh728h1";
+        version = "0.76.0";
+        sha256 = "0xb9brki4s00piv4kqgz6idm16nk6x1j6502jljz7y9pif38z32y";
       }
       {
         # TODO has issues "Couldn't download IntelliCode model. Please check your network connectivity or firewall settings."
