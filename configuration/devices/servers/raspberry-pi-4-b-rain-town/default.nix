@@ -1,6 +1,5 @@
 { pkgs, ... }:
-let
-  dataDir = "/media/Data";
+let dataDir = "/media/Data";
 in {
   imports = [ ../default.nix ./hardware-configuration.nix ];
 
