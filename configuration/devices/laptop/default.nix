@@ -155,8 +155,6 @@ in {
 
     systemPackages = [
       pkgs.alacritty
-      pkgs.bind
-      pkgs.binutils-unwrapped
       pkgs.curl
       pkgs.discord
       pkgs.displaylink
@@ -179,14 +177,12 @@ in {
       pkgs.jetbrains.webstorm
       pkgs.keepass
       pkgs.libreoffice-fresh
-      pkgs.lsb-release
       pkgs.maven
       pkgs.megasync
       pkgs.neofetch
       pkgs.nodejs
       pkgs.nodePackages."@angular/cli"
       pkgs.openssl
-      pkgs.parted
       pkgs.pipenv
       pkgs.postgresql_12
       pkgs.postman
@@ -198,7 +194,6 @@ in {
       pkgs.spotify
       pkgs.sshpass
       pkgs.terraform_0_14
-      pkgs.unixtools.ifconfig
       pkgs.unzip
       pkgs.vlc
       pkgs.vscode
