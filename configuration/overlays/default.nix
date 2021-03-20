@@ -17,36 +17,35 @@
     teamviewer =
       super.callPackage ./teamviewer.nix { inherit (super) teamviewer; };
   })
-  (self: super:
-    {
-      # TODO do not work
-      # discord = super.makeAutostartItem {
-      #   package = super.discord;
-      #   name = "discord";
-      # };
-      # flameshot = super.makeAutostartItem {
-      #   package = super.flameshot;
-      #   srcPrefix = "org.flameshot";
-      #   name = "Flameshot";
-      # };
-      # megasync = super.makeAutostartItem {
-      #   package = super.megasync;
-      #   name = "megasync";
-      # };
-      # signal-desktop = super.makeAutostartItem {
-      #   package = super.signal-desktop;
-      #   name = "signal-desktop";
-      # };
-    })
-  # TODO add hook to set 'NoDisplay=true'
-  # (
-  #   cups # cups.desktop
-  #   gnome3.gnome-logs # org.gnome.Logs.desktop
-  #   xterm # xterm.desktop
-  #   hplip # hplip.desktop
-  #   nvidia-settings # nvidia-settings.desktop
 
-  #   # not sure overwriting libreoffice works for libreoffice-fresh
-  #   libreoffice # startcenter.desktop base.desktop draw.desktop math.desktop
-  # )
+  # # TODO do not work
+  # (self: super: {
+  #   discord = super.makeAutostartItem {
+  #     package = super.discord;
+  #     name = "discord";
+  #   };
+  #   flameshot = super.makeAutostartItem {
+  #     package = super.flameshot;
+  #     srcPrefix = "org.flameshot";
+  #     name = "Flameshot";
+  #   };
+  #   megasync = super.makeAutostartItem {
+  #     package = super.megasync;
+  #     name = "megasync";
+  #   };
+  #   signal-desktop = super.makeAutostartItem {
+  #     package = super.signal-desktop;
+  #     name = "signal-desktop";
+  #   };
+  # })
+
+  # TODO add hook to set 'NoDisplay=true'
+  # cups # cups.desktop
+  # gnome3.gnome-logs # org.gnome.Logs.desktop
+  # xterm # xterm.desktop
+  # hplip # hplip.desktop
+  # nvidia-settings # nvidia-settings.desktop
+  #
+  # not sure overwriting libreoffice works for libreoffice-fresh
+  # libreoffice # startcenter.desktop base.desktop draw.desktop math.desktop
 ]
