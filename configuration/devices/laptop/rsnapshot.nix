@@ -63,6 +63,8 @@ let
     "--verbose"
   ];
 in {
+  environment.systemPackages = [ pkgs.ntfs3g ];
+
   fileSystems."${backupDir}" = {
     device = "/dev/disk/by-uuid/39330EF715A92911";
     fsType = "ntfs";
