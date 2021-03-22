@@ -5,9 +5,13 @@ let
 in {
   imports = [ ../default.nix ./hardware-configuration.nix ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
+    kernelModules = [ "k10temp" "nct6775" ];
   };
 
   networking = {

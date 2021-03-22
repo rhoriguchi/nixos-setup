@@ -4,9 +4,9 @@
 { config, lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "k10temp" "kvm-amd" "nct6775" "wl" ];
+  boot.kernelModules = [ "kvm-amd" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" = {
