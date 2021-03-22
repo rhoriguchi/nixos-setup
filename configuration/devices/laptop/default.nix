@@ -50,8 +50,6 @@ in {
     options = [ "defaults" "nofail" ];
   };
 
-  system.activationScripts.createDataDir = "mkdir -pm 0777 ${dataDir}";
-
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
@@ -123,7 +121,7 @@ in {
 
     npm.enable = true;
 
-    steam.enable = true;
+    # steam.enable = true;
   };
 
   environment = {

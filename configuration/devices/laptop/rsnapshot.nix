@@ -77,8 +77,6 @@ in {
     ];
   };
 
-  system.activationScripts.createBackupDir = "mkdir -pm 0777 ${backupDir}";
-
   services.rsnapshot = {
     enable = true;
 
