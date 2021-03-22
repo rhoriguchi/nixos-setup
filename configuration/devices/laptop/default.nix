@@ -125,7 +125,7 @@ in {
 
     npm.enable = true;
 
-    # steam.enable = true;
+    steam.enable = true;
   };
 
   environment = {
