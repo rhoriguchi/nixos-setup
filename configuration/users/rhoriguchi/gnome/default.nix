@@ -236,7 +236,7 @@ in {
         show-window-title = "never";
         use-system-fonts = true;
         window-buttons-placement = "auto";
-        window-buttons-theme = "default-dark";
+        window-buttons-theme = "yaru";
       };
       "org/gnome/shell/extensions/unite".name = "Yaru";
       "org/gnome/settings-daemon/plugins/media-keys" = {
