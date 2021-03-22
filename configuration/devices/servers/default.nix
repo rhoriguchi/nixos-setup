@@ -1,12 +1,13 @@
 { pkgs, lib, config, ... }: {
   system.autoUpgrade = {
     enable = true;
-    dates = "daily";
+    dates = "00:00";
   };
 
-  nix.optimise = {
+  nix.gc = {
     automatic = true;
-    dates = [ "daily" ];
+    dates = "05:00";
+    options = "--delete-older-than 7d";
   };
 
   networking.networkmanager = {
@@ -27,7 +28,7 @@
     journald.extraConfig = "Storage=persistent";
   };
 
-  environment.systemPackages = [ pkgs.htop ];
+  environment.systemPackages = [ pkgs.glances pkgs.htop ];
 
   users.users = {
     root = {

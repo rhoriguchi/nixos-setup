@@ -15,8 +15,6 @@ in {
     efi.canTouchEfiVariables = true;
   };
 
-  nix.autoOptimiseStore = true;
-
   networking = {
     hostName = "Ryan-Laptop";
 
@@ -165,6 +163,7 @@ in {
       pkgs.git
       pkgs.git-crypt
       pkgs.gitkraken
+      pkgs.glances
       pkgs.gnome3.dconf-editor
       pkgs.gnome3.networkmanager-openconnect
       pkgs.google-chrome

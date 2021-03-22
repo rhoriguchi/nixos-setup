@@ -6,11 +6,7 @@
     overlays = import ./overlays;
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 7d";
-  };
+  nix.autoOptimiseStore = true;
 
   system.stateVersion = "20.09";
 
@@ -58,15 +54,11 @@
     users.root.hashedPassword = "*";
   };
 
-  environment = {
-    shellAliases = {
-      l = null;
-      ll = null;
+  environment.shellAliases = {
+    l = null;
+    ll = null;
 
-      cls = "clear";
-      ls = "ls --color=tty -Ah";
-    };
-
-    systemPackages = [ pkgs.glances ];
+    cls = "clear";
+    ls = "ls --color=tty -Ah";
   };
 }
