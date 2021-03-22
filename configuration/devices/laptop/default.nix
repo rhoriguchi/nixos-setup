@@ -121,6 +121,7 @@ in {
 
     npm.enable = true;
 
+    # TODO commented till new release
     # steam.enable = true;
   };
 
