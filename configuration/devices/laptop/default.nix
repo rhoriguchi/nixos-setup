@@ -156,7 +156,7 @@ in {
       pkgs.displaylink
       pkgs.docker-compose
       pkgs.firefox
-      pkgs.flameshot
+      pkgs.flameshot # TODO does not work like intended only through console
       pkgs.gimp
       pkgs.git
       pkgs.git-crypt
