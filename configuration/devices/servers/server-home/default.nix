@@ -11,7 +11,7 @@ in {
   };
 
   networking = {
-    hostName = "XXLPitu-Server";
+    hostName = "XXLPitu-Home";
 
     interfaces = {
       # without PCI-E GPU

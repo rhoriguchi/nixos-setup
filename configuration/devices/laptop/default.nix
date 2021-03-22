@@ -18,7 +18,7 @@ in {
   nix.autoOptimiseStore = true;
 
   networking = {
-    hostName = "RYAN-LAPTOP";
+    hostName = "Ryan-Laptop";
 
     interfaces = {
       eno2.useDHCP = true;
@@ -125,7 +125,7 @@ in {
 
     npm.enable = true;
 
-    steam.enable = true;
+    # steam.enable = true;
   };
 
   environment = {
