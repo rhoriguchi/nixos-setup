@@ -44,13 +44,17 @@
         "args" = [ "serve" ];
         "external" = true;
       };
+      "todo-tree.highlights.customHighlight" = {
+        "[ ]"."background" = "#FF413680";
+        "[X]"."background" = "#2ECC4080";
+      };
       "todo-tree.highlights.defaultHighlight" = {
         "fontWeight" = "bold";
         "foreground" = "green";
         "type" = "tag-and-comment";
       };
-      "todo-tree.regex.regex" =
-        "((//|#|%|<!--|;|/\\*|^)\\s*($TAGS)|^\\s*- \\[ \\])";
+      "todo-tree.general.tags" =
+        [ "[ ]" "[x]" "BUG" "FIXME" "HACK" "TODO" "XXX" ];
       "todo-tree.regex.regexCaseSensitive" = false;
       "todo-tree.tree.expanded" = true;
       "todo-tree.tree.showCountsInTree" = true;
