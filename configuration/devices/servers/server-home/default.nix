@@ -48,7 +48,6 @@ in {
     '';
   };
 
-  # TODO install https://grafana.com/docs/loki/latest/clients/docker-driver/
   virtualisation.docker = {
     enable = true;
 
