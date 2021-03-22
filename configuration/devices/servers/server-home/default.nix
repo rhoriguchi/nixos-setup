@@ -26,11 +26,12 @@ in {
     wireless.enable = true;
   };
 
-  # hwmon1/pwm(2|3) = cpu fans
-  # hwmon1/pwm(1|4) = case fans
-  # hwmon1/pwm6 = motherboard chip fan
   hardware.fancontrol = {
     enable = true;
+
+    # hwmon1/pwm(2|3) = cpu fans
+    # hwmon1/pwm(1|4) = case fans
+    # hwmon1/pwm6 = motherboard chip fan
 
     config = ''
       INTERVAL=1
