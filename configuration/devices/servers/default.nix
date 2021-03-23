@@ -24,8 +24,6 @@
       enable = true;
       passwordAuthentication = false;
     };
-
-    journald.extraConfig = "Storage=persistent";
   };
 
   environment.systemPackages = [ pkgs.glances pkgs.htop ];
