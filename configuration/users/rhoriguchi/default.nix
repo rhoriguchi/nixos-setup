@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [
     ./accounts-service
     ./alacritty.nix

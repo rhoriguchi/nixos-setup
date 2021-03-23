@@ -1,4 +1,4 @@
-{ ... }: {
+{
   home-manager.users.rhoriguchi.programs.fzf = {
     enable = true;
 
