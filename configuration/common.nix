@@ -1,5 +1,5 @@
 { lib, config, pkgs, ... }: {
-  imports = [ ./secrets.nix ./services ];
+  imports = [ ./channels ./secrets.nix ./services ];
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -9,6 +9,11 @@
   nix.autoOptimiseStore = true;
 
   system.stateVersion = "20.09";
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
 
   networking.useDHCP = false;
 
