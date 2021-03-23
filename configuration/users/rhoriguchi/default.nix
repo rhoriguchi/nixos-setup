@@ -1,5 +1,7 @@
 {
   imports = [
+    ../../channels/home-manager.nix
+
     ./accounts-service
     ./alacritty.nix
     ./flameshot.nix

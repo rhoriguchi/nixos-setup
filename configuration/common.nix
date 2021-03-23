@@ -1,5 +1,5 @@
 { lib, config, pkgs, ... }: {
-  imports = [ ./channels ./secrets.nix ./services ];
+  imports = [ ./secrets.nix ./services ];
 
   nixpkgs = {
     config.allowUnfree = true;
