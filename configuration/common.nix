@@ -35,6 +35,8 @@
     };
   };
 
+  variablesEDITOR = "nano";
+
   programs = {
     nano = {
       nanorc = ''
