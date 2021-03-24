@@ -57,8 +57,6 @@
   users = {
     defaultUserShell = pkgs.zsh;
     mutableUsers = false;
-
-    users.root.hashedPassword = "*";
   };
 
   environment.shellAliases = {
