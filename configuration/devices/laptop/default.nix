@@ -148,7 +148,7 @@ in {
       pkgs.gnome3.yelp
     ];
 
-    sessionVariables.TERMINAL = "alacritty";
+    variables.TERMINAL = "alacritty";
 
     systemPackages = [
       pkgs.alacritty
