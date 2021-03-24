@@ -30,8 +30,6 @@
     };
   };
 
-  variables.EDITOR = "nano";
-
   programs = {
     nano = {
       nanorc = ''
@@ -54,11 +52,15 @@
     mutableUsers = false;
   };
 
-  environment.shellAliases = {
-    l = null;
-    ll = null;
+  environment = {
+    variables.EDITOR = "nano";
 
-    cls = "clear";
-    ls = "ls --color=tty -Ah";
+    shellAliases = {
+      l = null;
+      ll = null;
+
+      cls = "clear";
+      ls = "ls --color=tty -Ah";
+    };
   };
 }
