@@ -30,7 +30,7 @@
     };
   };
 
-  variablesEDITOR = "nano";
+  variables.EDITOR = "nano";
 
   programs = {
     nano = {
