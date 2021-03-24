@@ -58,6 +58,8 @@ in {
   console.useXkbConfig = true;
 
   services = {
+    openssh.openFirewall = false;
+
     resilio = {
       enable = true;
       syncPath = "${dataDir}/Sync";

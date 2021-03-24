@@ -8,6 +8,26 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 sudo nix-channel --update
 ```
 
+## Nixops
+
+### Init
+
+```bash
+nixops create nixops.nix
+```
+
+### Info
+
+```bash
+nixops info
+```
+
+### Deploy
+
+```bash
+nixops deploy
+```
+
 ## Laptop manuel steps
 
 Login to:
