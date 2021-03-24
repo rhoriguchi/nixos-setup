@@ -10,11 +10,6 @@
 
   system.stateVersion = "20.09";
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-  };
-
   networking.useDHCP = false;
 
   documentation.doc.enable = false;
