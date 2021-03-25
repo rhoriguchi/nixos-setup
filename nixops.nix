@@ -39,4 +39,18 @@
 
     nixpkgs.system = "aarch64-linux";
   };
+
+  XXLPitu-Horgen = { ... }: {
+    # TODO use correct values
+    # deployment = {
+    #   targetHost = "xxlpitu-horgen.duckdns.org";
+    #   targetPort = 1234;
+    # };
+
+    deployment.targetHost = "192.168.2.130";
+
+    imports = [ ./configuration/devices/servers/raspberry-pi-3-b-plus-horgen ];
+
+    nixpkgs.system = "aarch64-linux";
+  };
 }
