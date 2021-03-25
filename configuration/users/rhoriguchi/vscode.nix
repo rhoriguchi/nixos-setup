@@ -1,10 +1,14 @@
 { pkgs, ... }: {
+  fonts.fonts = [ pkgs.jetbrains-mono ];
+
   home-manager.users.rhoriguchi.programs.vscode = {
     enable = true;
 
     userSettings = {
       "cSpell.enableFiletypes" = [ "nix" "terraform" ];
       "cSpell.userWords" = [ "rhoriguchi" ];
+      "editor.fontFamily" = "JetBrains Mono";
+      "editor.fontLigatures" = true;
       "editor.renderIndentGuides" = false;
       "editor.renderWhitespace" = "trailing";
       "editor.suggestSelection" = "first";
