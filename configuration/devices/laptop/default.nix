@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 let dataDir = "/media/Data";
 in {
   imports = [
