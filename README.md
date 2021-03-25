@@ -1,11 +1,9 @@
 # nix_setup
 
-## Update to unstable package source
+## Add unstable package channel
 
 ```bash
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
-
-sudo nix-channel --update
 ```
 
 ## Nixops
@@ -25,6 +23,7 @@ nixops info
 ### Deploy
 
 ```bash
+sudo nix-channel --update
 nixops deploy
 ```
 
