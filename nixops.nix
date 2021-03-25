@@ -11,6 +11,8 @@
 
     imports = [ ./configuration/devices/laptop ];
 
+    services.openssh.openFirewall = false;
+
     environment.systemPackages = [
       (import (pkgs.fetchFromGitHub {
         owner = "NixOS";
