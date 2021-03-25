@@ -65,7 +65,10 @@
   };
 
   environment = {
-    variables.EDITOR = "nano";
+    variables = {
+      EDITOR = "nano";
+      NIXPKGS_ALLOW_UNFREE = "1";
+    };
 
     shellAliases = {
       l = null;
