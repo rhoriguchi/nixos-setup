@@ -8,8 +8,8 @@ let
   '';
 
   postExecShellScript = pkgs.writeShellScript "postExec" ''
-    umount ${backupDir}
-    ${pkgs.cryptsetup}/bin/cryptsetup luksClose backup
+    umount ${backupDir} || true
+    ${pkgs.cryptsetup}/bin/cryptsetup luksClose backup || true
   '';
 
   excludeFile = pkgs.writeText "default.exclude" ''
