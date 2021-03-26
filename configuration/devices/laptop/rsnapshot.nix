@@ -2,6 +2,16 @@
 let
   backupDir = "/media/Backup";
 
+  preExecShellScript = pkgs.writeShellScript "preExec" ''
+    ${pkgs.cryptsetup}/bin/cryptsetup luksOpen --key-file /media/Data/Sync/Storage/Luks/backup.key /dev/disk/by-uuid/28ca9d71-aec7-4b19-9fd6-ab6f7cc1b186 backup
+    mount /dev/disk/by-uuid/84ecadcc-4fa1-4060-ac42-d774e032db77 ${backupDir}
+  '';
+
+  postExecShellScript = pkgs.writeShellScript "postExec" ''
+    umount ${backupDir}
+    ${pkgs.cryptsetup}/bin/cryptsetup luksClose backup
+  '';
+
   excludeFile = pkgs.writeText "default.exclude" ''
     # JetBrains
     - /**.idea
@@ -63,28 +73,16 @@ let
     "--verbose"
   ];
 in {
-  fileSystems."${backupDir}" = {
-    device = "/dev/disk/by-uuid/39330EF715A92911";
-    fsType = "ntfs";
-    options = [
-      "defaults"
-      "mode=0777"
-      "nofail"
-      "umask=0000"
-      "x-systemd.automount"
-      "x-systemd.device-timeout=1ms"
-      "x-systemd.idle-timeout=1min"
-    ];
-  };
-
   services.rsnapshot = {
     enable = true;
 
     enableManualRsnapshot = true;
     extraConfig = ''
       verbose	4
-      no_create_root	1
       rsync_long_args	${rsyncLongArgs}
+
+      cmd_preexec	${preExecShellScript}
+      cmd_postexec	${postExecShellScript}
 
       snapshot_root	${backupDir}/snapshot/Laptop
 
@@ -92,7 +90,6 @@ in {
 
       retain	manual	5
 
-      backup	/etc/nixos/	localhost/
       backup	/home/rhoriguchi/	localhost/
       backup	/media/Data/Downloads/	localhost/
       backup	/media/Data/Sync/	localhost/
