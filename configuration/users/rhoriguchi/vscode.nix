@@ -126,6 +126,7 @@
       pkgs.vscode-extensions.ms-python.python
       pkgs.vscode-extensions.naumovs.color-highlight
       pkgs.vscode-extensions.pkief.material-icon-theme
+      pkgs.vscode-extensions.redhat.java
       pkgs.vscode-extensions.redhat.vscode-yaml
       pkgs.vscode-extensions.rubymaniac.vscode-paste-and-indent
       pkgs.vscode-extensions.ryu1kn.partial-diff
@@ -137,13 +138,6 @@
       pkgs.vscode-extensions.wholroyd.jinja
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # TODO create pull request to add all missing
-      {
-        # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/116941
-        name = "java";
-        publisher = "redhat";
-        version = "0.76.0";
-        sha256 = "0xb9brki4s00piv4kqgz6idm16nk6x1j6502jljz7y9pif38z32y";
-      }
       {
         # TODO has issues "Couldn't download IntelliCode model. Please check your network connectivity or firewall settings."
         name = "vscodeintellicode";
