@@ -19,7 +19,8 @@ in {
   };
 
   fileSystems."${dataDir}" = {
-    device = "/dev/disk/by-partuuid/0ceb323f-3733-0a4b-aacf-64c3d096bd52";
+    # TODO update
+    device = "/dev/disk/by-uuid/0ceb323f-3733-0a4b-aacf-64c3d096bd52";
     fsType = "ext4";
     options = [ "defaults" "nofail" ];
   };
