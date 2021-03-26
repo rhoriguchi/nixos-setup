@@ -4,7 +4,7 @@ let
 
   preExecShellScript = pkgs.writeShellScript "preExec" ''
     ${pkgs.cryptsetup}/bin/cryptsetup luksOpen --key-file /media/Data/Sync/Storage/Luks/backup.key /dev/disk/by-uuid/28ca9d71-aec7-4b19-9fd6-ab6f7cc1b186 backup
-    mount /dev/disk/by-uuid/84ecadcc-4fa1-4060-ac42-d774e032db77 ${backupDir}
+    mountpoint -q ${backupDir} || mount /dev/disk/by-uuid/84ecadcc-4fa1-4060-ac42-d774e032db77 ${backupDir}
   '';
 
   postExecShellScript = pkgs.writeShellScript "postExec" ''
