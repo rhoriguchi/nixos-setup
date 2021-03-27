@@ -136,15 +136,17 @@
       pkgs.vscode-extensions.tyriar.sort-lines
       pkgs.vscode-extensions.vincaslt.highlight-matching-tag
       pkgs.vscode-extensions.wholroyd.jinja
-    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      # TODO create pull request to add all missing
-      {
-        # TODO has issues "Couldn't download IntelliCode model. Please check your network connectivity or firewall settings."
-        name = "vscodeintellicode";
-        publisher = "VisualStudioExptTeam";
-        version = "1.2.10";
-        sha256 = "1l980w4r18613hzwvqgnzm9csi72r9ngyzl94p39rllpiqy7xrhi";
-      }
     ];
+
+    # TODO has issues "Couldn't download IntelliCode model. Please check your network connectivity or firewall settings."
+    # pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+    #   # TODO create pull request to add all missing
+    #   {
+    #     name = "vscodeintellicode";
+    #     publisher = "VisualStudioExptTeam";
+    #     version = "1.2.10";
+    #     sha256 = "1l980w4r18613hzwvqgnzm9csi72r9ngyzl94p39rllpiqy7xrhi";
+    #   }
+    # ];
   };
 }
