@@ -13,15 +13,6 @@
 
     services.openssh.openFirewall = false;
 
-    environment.systemPackages = [
-      (import (pkgs.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixops";
-        rev = "3eda277f97e952efa34b476056c046c9260781da";
-        sha256 = "1i520pqajpcivgam6s9hx9v0dzy946hm9fcgrr2sw090vcsz5hl4";
-      })).default
-    ];
-
     boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
