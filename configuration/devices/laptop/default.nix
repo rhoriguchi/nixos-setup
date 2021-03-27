@@ -66,13 +66,6 @@ in {
 
     teamviewer.enable = true;
 
-    printing = {
-      enable = true;
-
-      drivers = [ pkgs.hplip ];
-      webInterface = false;
-    };
-
     xserver = {
       enable = true;
 

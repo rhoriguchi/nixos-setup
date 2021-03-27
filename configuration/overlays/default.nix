@@ -43,7 +43,6 @@
   # })
 
   # TODO add hook to set 'NoDisplay=true'
-  # cups # cups.desktop
   # gnome3.gnome-logs # org.gnome.Logs.desktop
   # xterm # xterm.desktop
   # hplip # hplip.desktop
