@@ -13,9 +13,6 @@
     mal_export = super.callPackage ./mal_export.nix { };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
 
-    # TODO temp fix till in pkgs https://github.com/NixOS/nixpkgs/pull/117631
-    vscode = super.callPackage ./vscode.nix { inherit (super) vscode; };
-
     # TODO temp fix till in pkgs https://github.com/NixOS/nixpkgs/pull/117435
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
 
