@@ -8,9 +8,9 @@
       inherit (super.linuxPackages) evdi;
     };
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
+    mal_export = super.callPackage ./mal_export.nix { };
     protonvpn-cli =
       super.callPackage ./protonvpn-cli { inherit (super) protonvpn-cli; };
-    mal_export = super.callPackage ./mal_export.nix { };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
 
     # TODO temp fix till in pkgs https://github.com/NixOS/nixpkgs/pull/117435
