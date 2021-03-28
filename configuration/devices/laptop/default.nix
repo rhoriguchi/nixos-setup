@@ -110,6 +110,8 @@ in {
       enableSSHSupport = true;
     };
 
+    firefox.enable = true;
+
     java.enable = true;
 
     npm.enable = true;
@@ -148,7 +150,6 @@ in {
       pkgs.discord
       pkgs.displaylink
       pkgs.docker-compose
-      pkgs.firefox
       pkgs.flameshot # TODO does not work like intended only through console
       pkgs.gimp
       pkgs.git
