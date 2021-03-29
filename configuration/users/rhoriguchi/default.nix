@@ -4,6 +4,7 @@
 
     ./accounts-service
     ./alacritty.nix
+    ./firefox.nix
     ./flameshot.nix
     ./fzf.nix
     ./git
