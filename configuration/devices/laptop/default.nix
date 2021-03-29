@@ -79,9 +79,7 @@ in {
           wayland = false;
         };
 
-        sessionCommands = "${
-            lib.getBin pkgs.xorg.xrandr
-          }/bin/xrandr --setprovideroutputsource 2 0";
+        sessionCommands = "${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 2 0";
       };
 
       desktopManager.gnome3 = {
@@ -196,8 +194,7 @@ in {
     gdavoli.isNormalUser = true;
 
     rhoriguchi = {
-      extraGroups =
-        [ "docker" "networkmanager" "plugdev" "rslsync" "vboxusers" "wheel" ];
+      extraGroups = [ "docker" "networkmanager" "plugdev" "rslsync" "vboxusers" "wheel" ];
       isNormalUser = true;
     };
   };

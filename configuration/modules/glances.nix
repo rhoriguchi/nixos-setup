@@ -15,8 +15,7 @@ in {
     systemd.services.glances = {
       description = "Glances";
       serviceConfig = {
-        ExecStart =
-          "${pkgs.glances}/bin/glances --webserver --port ${toString cfg.port}";
+        ExecStart = "${pkgs.glances}/bin/glances --webserver --port ${toString cfg.port}";
         Restart = "on-abort";
         User = "glances";
       };

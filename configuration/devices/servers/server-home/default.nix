@@ -56,10 +56,7 @@ in {
     enable = true;
 
     logDriver = "json-file";
-    extraOptions = builtins.concatStringsSep " " [
-      "--log-opt max-file=10"
-      "--log-opt max-size=10m"
-    ];
+    extraOptions = builtins.concatStringsSep " " [ "--log-opt max-file=10" "--log-opt max-size=10m" ];
   };
 
   services = {

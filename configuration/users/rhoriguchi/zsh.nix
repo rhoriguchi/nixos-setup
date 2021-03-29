@@ -5,8 +5,6 @@
     shellAliases = {
       neofetch = "echo; echo; neofetch";
 
-      nixfmt = "nixfmt --width=999";
-
       open = "nautilus $PWD";
     };
 
@@ -21,8 +19,7 @@
       {
         name = pkgs.zsh-autosuggestions.pname;
         file = "zsh-autosuggestions.zsh";
-        src =
-          "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
+        src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
       }
       {
         name = pkgs.zsh-git-prompt.pname;

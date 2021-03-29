@@ -25,8 +25,7 @@ in {
       after = [ "network.target" ];
       description = "Duck DNS";
       serviceConfig = {
-        ExecStart =
-          "${pkgs.curl}/bin/curl -s https://www.duckdns.org/update?domains=${cfg.subdomain}&token=${cfg.token}&ip=";
+        ExecStart = "${pkgs.curl}/bin/curl -s https://www.duckdns.org/update?domains=${cfg.subdomain}&token=${cfg.token}&ip=";
         Restart = "on-abort";
         User = "duckdns";
       };

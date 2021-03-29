@@ -5,8 +5,7 @@
       sha256 = "13z0nrzx6g6ls4nl31ac1nq0s2qaslqai55d94bancvzhbklpn37";
     in "${
       fetchTarball {
-        url =
-          "https://github.com/nix-community/home-manager/archive/${commit}.tar.gz";
+        url = "https://github.com/nix-community/home-manager/archive/${commit}.tar.gz";
         inherit sha256;
       }
     }/nixos")

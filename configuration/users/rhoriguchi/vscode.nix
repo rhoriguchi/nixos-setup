@@ -57,15 +57,13 @@
         "foreground" = "green";
         "type" = "tag-and-comment";
       };
-      "todo-tree.general.tags" =
-        [ "[ ]" "[x]" "BUG" "FIXME" "HACK" "TODO" "XXX" ];
+      "todo-tree.general.tags" = [ "[ ]" "[x]" "BUG" "FIXME" "HACK" "TODO" "XXX" ];
       "todo-tree.regex.regexCaseSensitive" = false;
       "todo-tree.tree.expanded" = true;
       "todo-tree.tree.showCountsInTree" = true;
       "todo-tree.tree.showScanModeButton" = false;
       "update.mode" = "none";
-      "vsintellicode.modify.editor.suggestSelection" =
-        "automaticallyOverrodeDefaultValue";
+      "vsintellicode.modify.editor.suggestSelection" = "automaticallyOverrodeDefaultValue";
       "window.openFoldersInNewWindow" = "on";
       "window.zoomLevel" = 0;
       "workbench.colorTheme" = "Visual Studio 2019 Light";
@@ -73,15 +71,9 @@
       "workbench.list.smoothScrolling" = true;
       "workbench.productIconTheme" = "icons-carbon";
       "workbench.startupEditor" = "none";
-      "[html]" = {
-        "editor.defaultFormatter" = "vscode.html-language-features";
-      };
-      "[json]" = {
-        "editor.defaultFormatter" = "vscode.json-language-features";
-      };
-      "[jsonc]" = {
-        "editor.defaultFormatter" = "vscode.json-language-features";
-      };
+      "[html]" = { "editor.defaultFormatter" = "vscode.html-language-features"; };
+      "[json]" = { "editor.defaultFormatter" = "vscode.json-language-features"; };
+      "[jsonc]" = { "editor.defaultFormatter" = "vscode.json-language-features"; };
       "[latex]" = {
         "editor.wordWrap" = "wordWrapColumn";
         "editor.wordWrapColumn" = 120;

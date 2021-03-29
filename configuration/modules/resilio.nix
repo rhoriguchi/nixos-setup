@@ -3,19 +3,12 @@ let
   cfg = config.services.resilio;
 
   isUniqueIgnoreNullByAttrName = list: attrName:
-    lib.lists.unique (builtins.filter (match: match != null)
-      (map (builtins.getAttr attrName) list))
-    == builtins.filter (match: match != null)
-    (map (builtins.getAttr attrName) list);
+    lib.lists.unique (builtins.filter (match: match != null) (map (builtins.getAttr attrName) list))
+    == builtins.filter (match: match != null) (map (builtins.getAttr attrName) list);
 
   sharedFolders = map (secret: {
     secret = secret.secret;
-    dir = "${cfg.syncPath}/${
-        if secret.dirName != null then
-          secret.dirName
-        else
-          builtins.hashString "sha256" secret.secret
-      }";
+    dir = "${cfg.syncPath}/${if secret.dirName != null then secret.dirName else builtins.hashString "sha256" secret.secret}";
     use_relay_server = true;
     search_lan = true;
     use_sync_trash = false;
@@ -37,14 +30,13 @@ let
     peer_expiration_days = 1;
     use_gui = false;
     disk_low_priority = true;
-  } // lib.optionalAttrs (!cfg.webUI.enable) { shared_folders = sharedFolders; }
-    // lib.optionalAttrs cfg.webUI.enable {
-      webui = {
-        login = cfg.webUI.username;
-        password = cfg.webUI.password;
-        listen = "0.0.0.0:${toString cfg.webUI.port}";
-      };
-    });
+  } // lib.optionalAttrs (!cfg.webUI.enable) { shared_folders = sharedFolders; } // lib.optionalAttrs cfg.webUI.enable {
+    webui = {
+      login = cfg.webUI.username;
+      password = cfg.webUI.password;
+      listen = "0.0.0.0:${toString cfg.webUI.port}";
+    };
+  });
 in {
   disabledModules = [ "services/networking/resilio.nix" ];
 
@@ -52,10 +44,7 @@ in {
     enable = lib.mkEnableOption "Resilio Sync";
     deviceName = lib.mkOption {
       type = lib.types.str;
-      default = if config.networking.hostName != "" then
-        config.networking.hostName
-      else
-        "";
+      default = if config.networking.hostName != "" then config.networking.hostName else "";
     };
     webUI = lib.mkOption {
       type = lib.types.submodule {
@@ -89,11 +78,7 @@ in {
       default = [ ];
       type = lib.types.listOf (lib.types.submodule {
         options = {
-          secret = lib.mkOption {
-            type = lib.types.str // {
-              check = x: (builtins.isList (builtins.match "^[0-9A-Z]{33}$" x));
-            };
-          };
+          secret = lib.mkOption { type = lib.types.str // { check = x: (builtins.isList (builtins.match "^[0-9A-Z]{33}$" x)); }; };
           dirName = lib.mkOption {
             type = lib.types.nullOr lib.types.str;
             default = null;
@@ -153,12 +138,9 @@ in {
       after = [ "network.target" ];
       description = "Resilio Sync";
       serviceConfig = {
-        ExecStart =
-          "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
+        ExecStart = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
         ExecStartPre = lib.mkIf (!cfg.webUI.enable)
-          ("${pkgs.coreutils}/bin/mkdir -pm 0775 "
-            + builtins.concatStringsSep " "
-            (map (builtins.getAttr "dir") sharedFolders));
+          ("${pkgs.coreutils}/bin/mkdir -pm 0775 " + builtins.concatStringsSep " " (map (builtins.getAttr "dir") sharedFolders));
         StandardOutput = "null";
         StandardError = "null";
         Restart = "on-abort";

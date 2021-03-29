@@ -9,7 +9,4 @@ let
       XSession = "";
     };
   };
-in {
-  system.activationScripts.rhoriguchiCopyAccountServiceConfig =
-    "cp -f ${configFile} /var/lib/AccountsService/users/rhoriguchi";
-}
+in { system.activationScripts.rhoriguchiCopyAccountServiceConfig = "cp -f ${configFile} /var/lib/AccountsService/users/rhoriguchi"; }

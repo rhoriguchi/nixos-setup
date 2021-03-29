@@ -4,8 +4,7 @@
 { config, lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "sd_mod" "rtsx_usb_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "sd_mod" "rtsx_usb_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -20,8 +19,7 @@
     fsType = "vfat";
   };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/9b96f65f-fe9e-4166-8499-5589e8f723d4"; }];
+  swapDevices = [{ device = "/dev/disk/by-uuid/9b96f65f-fe9e-4166-8499-5589e8f723d4"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

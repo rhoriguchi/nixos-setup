@@ -11,8 +11,7 @@ let
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
-  users.users.rhoriguchi.packages = extensions
-    ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ];
+  users.users.rhoriguchi.packages = extensions ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ];
 
   home-manager.users.rhoriguchi.dconf = {
     enable = true;
@@ -34,8 +33,7 @@ in {
       };
       "org/gnome/desktop/search-providers" = {
         disabled = [ "org.gnome.Contacts.desktop" ];
-        sort-order =
-          [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
+        sort-order = [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
       };
       "org/gnome/desktop/wm/keybindings" = {
         close = [ "<Alt>F4" ];
@@ -73,10 +71,9 @@ in {
       };
       "org/gnome/shell" = {
         app-picker-layout = [ ];
-        enabled-extensions = [
-          "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
-          "user-theme@gnome-shell-extensions.gcampax.github.com"
-        ] ++ map (builtins.getAttr "uuid") extensions;
+        enabled-extensions =
+          [ "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" ]
+          ++ map (builtins.getAttr "uuid") extensions;
         favorite-apps = [ ];
       };
       "org/gnome/shell/extensions/caffeine" = {
@@ -89,8 +86,7 @@ in {
         show-notifications = true;
         user-enabled = false;
       };
-      "org/gnome/shell/extensions/clock_override".override-string =
-        "%d.%m.%Y  %H:%M:%S";
+      "org/gnome/shell/extensions/clock_override".override-string = "%d.%m.%Y  %H:%M:%S";
       "org/gnome/shell/extensions/dash-to-dock" = {
         activate-single-window = true;
         animate-show-apps = true;

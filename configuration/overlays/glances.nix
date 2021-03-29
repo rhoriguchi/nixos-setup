@@ -2,8 +2,7 @@
 let
   configFile = (formats.ini { }).generate "glances.conf" {
     connections.disable = false;
-    diskio.hide =
-      "loop\\d+,^mmcblk\\d+p\\d+$,^sd[a-z]+\\d+$,^nvme0n\\d+pd+$,^dm-\\d+$";
+    diskio.hide = "loop\\d+,^mmcblk\\d+p\\d+$,^sd[a-z]+\\d+$,^nvme0n\\d+pd+$,^dm-\\d+$";
     fs.hide = "/nix/store";
     global.check_update = false;
     irq.disable = true;
@@ -58,13 +57,8 @@ let
 in glances.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
 
-  propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
-    py3nvml
-    pySMART_smartx
-    python3Packages.docker
-    python3Packages.requests
-    sparklines
-  ] ++ lib.optional stdenv.isLinux pymdstat;
+  propagatedBuildInputs = oldAttrs.propagatedBuildInputs
+    ++ [ py3nvml pySMART_smartx python3Packages.docker python3Packages.requests sparklines ] ++ lib.optional stdenv.isLinux pymdstat;
 
   postInstall = ''
     wrapProgram $out/bin/glances \
