@@ -2,7 +2,8 @@
 let
   configFile = (formats.ini { }).generate "glances.conf" {
     connections.disable = false;
-    diskio.hide = "loop\\d+,^mmcblk\\d+p\\d+$,^sd[a-z]+\\d+$,^nvme0n\\d+pd+$,^dm-\\d+$";
+    diskio.hide =
+      "loop\\d+,^mmcblk\\d+p\\d+$,^sd[a-z]+\\d+$,^nvme0n\\d+pd+$,^dm-\\d+$";
     fs.hide = "/nix/store";
     global.check_update = false;
     irq.disable = true;
