@@ -172,6 +172,7 @@ in {
       pkgs.neofetch
       pkgs.nodejs
       pkgs.nodePackages."@angular/cli"
+      pkgs.ntfs3g
       pkgs.openssl
       pkgs.pipenv
       pkgs.postgresql_12
