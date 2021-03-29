@@ -1,6 +1,12 @@
 [
   (self: super: {
-    mach-nix = super.callPackage ./mach-nix.nix { pkgs = super; };
+    mach-nix = let
+      commit = "3.2.0";
+      sha256 = "0qhg36l3c1i6p0p2l346fpj9zsh5kl0xpjmyasi1qcn7mbdfjb0m";
+    in import (fetchTarball {
+      url = "https://github.com/DavHau/mach-nix/archive/${commit}.tar.gz";
+      inherit sha256;
+    }) { pkgs = super; };
   })
   (self: super: {
     displaylink = super.callPackage ./displaylink {
