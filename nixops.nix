@@ -25,22 +25,19 @@
   XXLPitu-Rain-Town = { ... }: {
     deployment.targetHost = "xxlpitu-rain-town.duckdns.org";
 
-    imports = [ ./configuration/devices/servers/raspberry-pi-4-b-8gb-rain-town ];
+    imports = [ ./configuration/devices/servers/raspberry-pi-4-b-8gb/rain-town ];
 
     nixpkgs.system = "aarch64-linux";
   };
 
   # TODO commented
   # XXLPitu-Horgen = { ... }: {
-  #   # TODO use correct values
-  #   # deployment = {
-  #   #   targetHost = "xxlpitu-horgen.duckdns.org";
-  #   #   targetPort = 1234;
-  #   # };
+  #   deployment = {
+  #     targetHost = "xxlpitu-horgen.duckdns.org";
+  #     targetPort = 1234;
+  #   };
 
-  #   deployment.targetHost = "192.168.2.130";
-
-  #   imports = [ ./configuration/devices/servers/raspberry-pi-3-b-plus-horgen ];
+  #   imports = [ ./configuration/devices/servers/raspberry-pi-4-b-8gb/horgen ];
 
   #   nixpkgs.system = "aarch64-linux";
   # };

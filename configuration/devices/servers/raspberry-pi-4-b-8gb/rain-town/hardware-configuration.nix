@@ -19,6 +19,12 @@
     fsType = "vfat";
   };
 
+  fileSystems."/media/Data" = {
+    device = "/dev/disk/by-uuid/dbe57b40-53ca-5249-8160-d89e87b5aca6";
+    fsType = "ext4";
+    options = [ "defaults" "nofail" ];
+  };
+
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
