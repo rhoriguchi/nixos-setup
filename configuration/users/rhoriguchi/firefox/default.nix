@@ -119,6 +119,7 @@
             "devtools.screenshot.clipboard.enabled" = true;
             "devtools.styleeditor.enabled" = false;
             "extensions.autoDisableScopes" = 0;
+            "extensions.pocket.enabled" = false;
             "extensions.ui.extension.hidden" = false;
             "extensions.ui.locale.hidden" = true;
             "extensions.update.enabled" = false;
