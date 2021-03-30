@@ -59,7 +59,7 @@
             "browser.startup.page" = 0;
             "browser.tabs.warnOnClose" = false;
             "browser.toolbars.bookmarks.showOtherBookmarks" = false;
-            "browser.toolbars.bookmarks.visibility" = "never";
+            "browser.toolbars.bookmarks.visibility" = "always";
             "browser.uiCustomization.state" = builtins.toJSON {
               "placements" = {
                 "widget-overflow-fixed-list" = [ ];
