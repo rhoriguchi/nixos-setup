@@ -1,8 +1,4 @@
-{ pkgs, ... }:
-let
-  dataDir = "/media/Data";
-  syncDir = "${dataDir}/Sync";
-in {
+{ pkgs, ... }: {
   imports = [ ../default.nix ./hardware-configuration.nix ];
 
   boot = {
@@ -67,12 +63,12 @@ in {
 
     resilio = {
       enable = true;
-      syncPath = "${syncDir}";
+      syncPath = "/media/Data/Sync";
     };
 
     tv_time_export = {
       enable = true;
-      exportPath = "${syncDir}/tv_time_export";
+      exportPath = "/media/Data/Sync/tv_time_export";
     };
   };
 }
