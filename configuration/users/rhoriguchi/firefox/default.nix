@@ -15,7 +15,6 @@
         pkgs.firefox-addons.metamask
         pkgs.firefox-addons.octolinker
         pkgs.firefox-addons.open-in-browser
-        pkgs.firefox-addons.pocket-select-all
         pkgs.firefox-addons.privacy-badger
         pkgs.firefox-addons.rabattcorner
         pkgs.firefox-addons.reddit-comment-collapser
