@@ -190,12 +190,8 @@ in {
     ];
   };
 
-  users.users = {
-    gdavoli.isNormalUser = true;
-
-    rhoriguchi = {
-      extraGroups = [ "docker" "networkmanager" "plugdev" "rslsync" "vboxusers" "wheel" ];
-      isNormalUser = true;
-    };
+  users.users.rhoriguchi = {
+    extraGroups = [ "docker" "networkmanager" "plugdev" "rslsync" "vboxusers" "wheel" ];
+    isNormalUser = true;
   };
 }
