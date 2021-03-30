@@ -11,6 +11,7 @@
       }) { pkgs = super; };
     })
   (self: super: {
+    discord = super.callPackage ./discord.nix { inherit (super) discord; };
     displaylink = super.callPackage ./displaylink {
       inherit (super) displaylink;
       inherit (super.linuxPackages) evdi;
@@ -18,9 +19,6 @@
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
     protonvpn-cli = super.callPackage ./protonvpn-cli { inherit (super) protonvpn-cli; };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
-
-    # TODO temp fix till in pkgs https://github.com/NixOS/nixpkgs/pull/117435
-    discord = super.callPackage ./discord.nix { inherit (super) discord; };
 
     # TODO temp fix till resolved or never version released https://github.com/NixOS/nixpkgs/issues/96633
     teamviewer = super.callPackage ./teamviewer.nix { inherit (super) teamviewer; };
