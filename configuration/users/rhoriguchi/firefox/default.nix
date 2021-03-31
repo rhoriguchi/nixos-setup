@@ -46,6 +46,7 @@
             "browser.newtabpage.enabled" = false;
             "browser.rights.3.shown" = true;
             "browser.search.region" = "CH";
+            "browser.search.suggest.enabled.private" = true;
             "browser.startup.homepage" = builtins.concatStringsSep "|" [
               "https://todoist.com/app/today"
               "https://web.whatsapp.com"
@@ -108,6 +109,7 @@
             "browser.urlbar.openViewOnFocus" = false;
             "browser.urlbar.placeholderName.private" = "Google";
             "browser.urlbar.placeholderName" = "Google";
+            "browser.urlbar.showSearchSuggestionsFirst" = false;
             "browser.urlbar.suggest.openpage" = false;
             "devtools.aboutdebugging.collapsibilities.processes" = false;
             "devtools.accessibility.enabled" = false;
