@@ -136,7 +136,6 @@
       pkgs.alacritty
       pkgs.curl
       pkgs.discord
-      pkgs.displaylink
       pkgs.docker-compose
       pkgs.firefox
       pkgs.flameshot
