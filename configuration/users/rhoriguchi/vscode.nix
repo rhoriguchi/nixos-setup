@@ -4,6 +4,38 @@
   home-manager.users.rhoriguchi.programs.vscode = {
     enable = true;
 
+    extensions = [
+      pkgs.vscode-extensions.alexdima.copy-relative-path
+      pkgs.vscode-extensions.antfu.icons-carbon
+      pkgs.vscode-extensions.bbenoist.Nix
+      pkgs.vscode-extensions.brettm12345.nixfmt-vscode
+      pkgs.vscode-extensions.coenraads.bracket-pair-colorizer-2
+      pkgs.vscode-extensions.davidanson.vscode-markdownlint
+      pkgs.vscode-extensions.eamodio.gitlens
+      pkgs.vscode-extensions.esbenp.prettier-vscode
+      pkgs.vscode-extensions.formulahendry.auto-close-tag
+      pkgs.vscode-extensions.formulahendry.auto-rename-tag
+      pkgs.vscode-extensions.gruntfuggly.todo-tree
+      pkgs.vscode-extensions.hashicorp.terraform
+      pkgs.vscode-extensions.ibm.output-colorizer
+      pkgs.vscode-extensions.jock.svg
+      pkgs.vscode-extensions.ms-azuretools.vscode-docker
+      pkgs.vscode-extensions.ms-dotnettools.csharp
+      pkgs.vscode-extensions.ms-python.python
+      pkgs.vscode-extensions.naumovs.color-highlight
+      pkgs.vscode-extensions.pkief.material-icon-theme
+      pkgs.vscode-extensions.redhat.java
+      pkgs.vscode-extensions.redhat.vscode-yaml
+      pkgs.vscode-extensions.rubymaniac.vscode-paste-and-indent
+      pkgs.vscode-extensions.ryu1kn.partial-diff
+      pkgs.vscode-extensions.spywhere.guides
+      pkgs.vscode-extensions.streetsidesoftware.code-spell-checker
+      pkgs.vscode-extensions.tomoki1207.pdf
+      pkgs.vscode-extensions.tyriar.sort-lines
+      pkgs.vscode-extensions.vincaslt.highlight-matching-tag
+      pkgs.vscode-extensions.wholroyd.jinja
+    ];
+
     userSettings = {
       "cSpell.enableFiletypes" = [ "nix" "terraform" ];
       "cSpell.userWords" = [ "rhoriguchi" ];
@@ -97,48 +129,5 @@
         when = "editorTextFocus && !editorReadonly";
       }
     ];
-
-    extensions = [
-      pkgs.vscode-extensions.alexdima.copy-relative-path
-      pkgs.vscode-extensions.antfu.icons-carbon
-      pkgs.vscode-extensions.bbenoist.Nix
-      pkgs.vscode-extensions.brettm12345.nixfmt-vscode
-      pkgs.vscode-extensions.coenraads.bracket-pair-colorizer-2
-      pkgs.vscode-extensions.davidanson.vscode-markdownlint
-      pkgs.vscode-extensions.eamodio.gitlens
-      pkgs.vscode-extensions.esbenp.prettier-vscode
-      pkgs.vscode-extensions.formulahendry.auto-close-tag
-      pkgs.vscode-extensions.formulahendry.auto-rename-tag
-      pkgs.vscode-extensions.gruntfuggly.todo-tree
-      pkgs.vscode-extensions.hashicorp.terraform
-      pkgs.vscode-extensions.ibm.output-colorizer
-      pkgs.vscode-extensions.jock.svg
-      pkgs.vscode-extensions.ms-azuretools.vscode-docker
-      pkgs.vscode-extensions.ms-dotnettools.csharp
-      pkgs.vscode-extensions.ms-python.python
-      pkgs.vscode-extensions.naumovs.color-highlight
-      pkgs.vscode-extensions.pkief.material-icon-theme
-      pkgs.vscode-extensions.redhat.java
-      pkgs.vscode-extensions.redhat.vscode-yaml
-      pkgs.vscode-extensions.rubymaniac.vscode-paste-and-indent
-      pkgs.vscode-extensions.ryu1kn.partial-diff
-      pkgs.vscode-extensions.spywhere.guides
-      pkgs.vscode-extensions.streetsidesoftware.code-spell-checker
-      pkgs.vscode-extensions.tomoki1207.pdf
-      pkgs.vscode-extensions.tyriar.sort-lines
-      pkgs.vscode-extensions.vincaslt.highlight-matching-tag
-      pkgs.vscode-extensions.wholroyd.jinja
-    ];
-
-    # TODO has issues "Couldn't download IntelliCode model. Please check your network connectivity or firewall settings."
-    # pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-    #   # TODO create pull request to add all missing
-    #   {
-    #     name = "vscodeintellicode";
-    #     publisher = "VisualStudioExptTeam";
-    #     version = "1.2.10";
-    #     sha256 = "1l980w4r18613hzwvqgnzm9csi72r9ngyzl94p39rllpiqy7xrhi";
-    #   }
-    # ];
   };
 }
