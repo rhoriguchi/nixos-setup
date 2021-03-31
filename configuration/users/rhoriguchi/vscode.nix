@@ -64,7 +64,6 @@
       "todo-tree.tree.showCountsInTree" = true;
       "todo-tree.tree.showScanModeButton" = false;
       "update.mode" = "none";
-      "vsintellicode.modify.editor.suggestSelection" = "automaticallyOverrodeDefaultValue";
       "window.openFoldersInNewWindow" = "on";
       "window.zoomLevel" = 0;
       "workbench.colorTheme" = "Visual Studio 2019 Light";
