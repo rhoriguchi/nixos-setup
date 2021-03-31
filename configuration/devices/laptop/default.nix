@@ -2,10 +2,10 @@
   imports = [
     ../../users/rhoriguchi
 
-    ./hardware-configuration.nix
-
     ./rsnapshot.nix
     ./power-management.nix
+
+    ./hardware-configuration.nix
   ];
 
   boot.loader = {
