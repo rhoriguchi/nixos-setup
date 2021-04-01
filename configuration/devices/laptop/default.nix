@@ -187,7 +187,7 @@
   };
 
   users.users.rhoriguchi = {
-    extraGroups = [ "docker" "networkmanager" "plugdev" "rslsync" "vboxusers" "wheel" ];
+    extraGroups = [ "docker" "networkmanager" "plugdev" "rslsync" "wheel" ];
     isNormalUser = true;
   };
 }
