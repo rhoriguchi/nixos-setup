@@ -1,6 +1,5 @@
 { pkgs, config, ... }: {
   home-manager.users.rhoriguchi = {
-    # TODO generate config with nix expression and create PR for home-manager
     home.file.".mozilla/firefox/default/bookmarks.html".source = ./bookmarks.html;
 
     programs.firefox = {
