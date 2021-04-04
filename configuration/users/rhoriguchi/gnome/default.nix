@@ -50,6 +50,32 @@ in {
         move-to-workspace-up = [ ];
         show-desktop = [ "<Super>d" ];
       };
+      "org/gnome/desktop/wm/keybindings" = {
+        activate-window-menu = [ ];
+        begin-move = [ ];
+        begin-resize = [ ];
+        cycle-group = [ ];
+        cycle-group-backward = [ ];
+        cycle-panels = [ ];
+        cycle-panels-backward = [ ];
+        cycle-windows = [ ];
+        cycle-windows-backward = [ ];
+        panel-main-menu = [ ];
+        switch-applications = [ "<ALT>Tab" ];
+        switch-applications-backward = [ ];
+        switch-group = [ ];
+        switch-group-backward = [ ];
+        switch-input-source = [ ];
+        switch-input-source-backward = [ ];
+        switch-panels = [ ];
+        switch-panels-backward = [ ];
+        switch-to-workspace-1 = [ ];
+        switch-to-workspace-down = [ ];
+        switch-to-workspace-last = [ ];
+        switch-to-workspace-up = [ ];
+        toggle-maximized = [ "<Super>Up" ];
+        unmaximize = [ "<Super>Down>" ];
+      };
       "org/gnome/desktop/wm/preferences" = {
         button-layout = ":minimize,maximize,close";
         num-workspaces = 1;
@@ -233,6 +259,16 @@ in {
       "org/gnome/settings-daemon/plugins/media-keys" = {
         area-screenshot = [ ];
         area-screenshot-clip = [ ];
+        help = [ ];
+        magnifier = [ ];
+        magnifier-zoom-in = [ ];
+        magnifier-zoom-out = [ ];
+        screencast = [ ];
+        screenreader = [ ];
+        screenshot = [ ];
+        screenshot-clip = [ ];
+        window-screenshot = [ ];
+        window-screenshot-clip = [ ];
       };
       "org/gnome/shell/keybindings" = {
         focus-active-notification = [ ];
@@ -252,65 +288,4 @@ in {
       "org/gtk/settings/file-chooser".show-hidden = true;
     };
   };
-
-  # TODO find out what is really needed
-  #   settings = {
-  # keybindings
-  #     "org/freedesktop/ibus/general/hotkey" = {
-  #       next-engine = [ ];
-  #       next-engine-in-menu = [ ];
-  #       trigger = [ ];
-  #       triggers = [ ];
-  #     };
-  #     "org/freedesktop/ibus/panel/emoji" = {
-  #       hotkey = [ ];
-  #       unicode-hotkey = [ ];
-  #     };
-  #     "org/gnome/desktop/wm/keybindings" = {
-  #       activate-window-menu = [ ];
-  #       begin-move = [ ];
-  #       begin-resize = [ ];
-  #       cycle-group = [ ];
-  #       cycle-group-backward = [ ];
-  #       cycle-panels = [ ];
-  #       cycle-panels-backward = [ ];
-  #       cycle-windows = [ ];
-  #       cycle-windows-backward = [ ];
-  #       panel-main-menu = [ ];
-  #       switch-applications-backward = [ ];
-  #       switch-group = [ ];
-  #       switch-group-backward = [ ];
-  #       switch-input-source = [ ];
-  #       switch-input-source-backward = [ ];
-  #       switch-panels = [ ];
-  #       switch-panels-backward = [ ];
-  #       switch-to-workspace-1 = [ ];
-  #       switch-to-workspace-down = [ ];
-  #       switch-to-workspace-last = [ ];
-  #       switch-to-workspace-up = [ ];
-  #       switch-windows-backward = [ ];
-  #       toggle-maximized = [ "<Super>Up" ];
-  #       unmaximize = [ ];
-  #     };
-  #     "org/gnome/settings-daemon/plugins/media-keys" = {
-  #       calculator-static = [ ];
-  #       email = [ ];
-  #       email-static = [ ];
-  #       help = [ ];
-  #       home = [ ];
-  #       logout = [ ];
-  #       magnifier = [ ];
-  #       magnifier-zoom-in = [ ];
-  #       magnifier-zoom-out = [ ];
-  #       screencast = [ "<Ctrl><Shift><Alt>R" ];
-  #       screenreader = [ ];
-  #       screenshot = [ ];
-  #       screenshot-clip = [ ];
-  #       terminal = [ "<Alt>t" ];
-  #       window-screenshot = [ ];
-  #       window-screenshot-clip = [ ];
-  #       www = [ ];
-  #       www-static = [ ];
-  #     };
-  #   };
 }
