@@ -23,7 +23,10 @@
       wlp4s0.useDHCP = true;
     };
 
-    wireless.enable = true;
+    wireless = {
+      enable = true;
+      networks."47555974".psk = (import ../../../secrets.nix).networking.wireless.networks."47555974".psk;
+    };
   };
 
   hardware.fancontrol = {
@@ -58,16 +61,23 @@
   services = {
     duckdns = {
       enable = true;
+
+      token = (import ../../../secrets.nix).services.duckdns.token;
       subdomain = "xxlpitu-home";
     };
 
     resilio = {
       enable = true;
+
+      secrets = (import ../../../secrets.nix).services.resilio.secrets;
       syncPath = "/media/Data/Sync";
     };
 
     tv_time_export = {
       enable = true;
+
+      username = (import ../../../secrets.nix).services.tv_time_export.username;
+      password = (import ../../../secrets.nix).services.tv_time_export.password;
       exportPath = "/media/Data/Sync/tv_time_export";
     };
   };

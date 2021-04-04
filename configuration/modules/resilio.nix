@@ -64,6 +64,7 @@ in {
           };
         };
       };
+      default = { };
     };
     listeningPort = lib.mkOption {
       default = 5555;

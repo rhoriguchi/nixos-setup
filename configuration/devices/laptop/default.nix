@@ -57,7 +57,14 @@
   services = {
     resilio = {
       enable = true;
-      webUI.enable = true;
+
+      webUI = {
+        enable = true;
+
+        username = "admin";
+        password = (import ../../secrets.nix).services.resilio.webUI.password;
+      };
+
       syncPath = "/media/Data/Sync";
     };
 
@@ -191,5 +198,6 @@
   users.users.rhoriguchi = {
     extraGroups = [ "docker" "networkmanager" "plugdev" "rslsync" "wheel" ];
     isNormalUser = true;
+    password = (import ../../secrets.nix).users.users.rhoriguchi.password;
   };
 }

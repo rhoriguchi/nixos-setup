@@ -4,7 +4,7 @@
     enableRollback = true;
   };
 
-  defaults.imports = [ ./configuration/common.nix ./configuration/secrets.nix ];
+  defaults.imports = [ ./configuration/common.nix ];
 
   Laptop = { pkgs, ... }: {
     deployment.targetHost = "localhost";
