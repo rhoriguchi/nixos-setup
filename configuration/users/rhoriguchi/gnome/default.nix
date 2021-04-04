@@ -186,26 +186,21 @@ in {
         force-animation = false;
         hide-corners = true;
         icon-shadow = false;
+        icon-shadow-color = "(0,0,0,0.5)";
+        icon-shadow-position = "(0,2,5)";
         maximized-opacity = 255;
+        maximized-text-color = "(255,255,255)";
         panel-color = [ 0 0 0 ];
         remove-panel-styling = true;
+        text-color = "(255,255,255)";
         text-shadow = false;
+        text-shadow-color = "(0,0,0,1.0)";
+        text-shadow-position = "(0,3,5)";
         transition-speed = 1000;
         transition-type = 1;
         transition-windows-touch = false;
         transition-with-overview = true;
         unmaximized-opacity = 0;
-
-        # https://github.com/ewlsh/dynamic-panel-transparency/blob/master/dynamic-panel-transparency%40rockon999.github.io/schemas/org.gnome.shell.extensions.dynamic-panel-transparency.gschema.xml
-
-        # TODO handle type="(iii)"
-        text-shadow-position = "(0,3,5)";
-        icon-shadow-position = "(0,2,5)";
-        text-color = "(255,255,255)";
-        maximized-text-color = "(255,255,255)";
-        # TODO handle type="(iiid)"
-        icon-shadow-color = "(0,0,0,0.5)";
-        text-shadow-color = "(0,0,0,1.0)";
       };
       "org/gnome/shell/extensions/gnome-fuzzy-app-search".applications = true;
       "org/gnome/shell/extensions/unite" = {
