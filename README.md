@@ -1,4 +1,4 @@
-# nix_setup
+# nix-setup
 
 ## Add unstable package channel
 
