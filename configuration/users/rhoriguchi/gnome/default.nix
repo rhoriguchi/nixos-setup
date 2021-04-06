@@ -35,6 +35,10 @@ in {
         disabled = [ "org.gnome.Contacts.desktop" ];
         sort-order = [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
       };
+      "org/gnome/desktop/peripherals/touchpad" = {
+        tap-and-drag = false;
+        click-method = "areas";
+      };
       "org/gnome/desktop/wm/keybindings" = {
         close = [ "<Alt>F4" ];
         minimize = [ ];

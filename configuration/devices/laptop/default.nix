@@ -86,14 +86,7 @@
         sessionCommands = "${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 2 0";
       };
 
-      desktopManager.gnome3 = {
-        enable = true;
-
-        extraGSettingsOverrides = ''
-          [org.gnome.desktop.peripherals.touchpad]
-          click-method='default'
-        '';
-      };
+      desktopManager.gnome3.enable = true;
 
       libinput.enable = true;
 
