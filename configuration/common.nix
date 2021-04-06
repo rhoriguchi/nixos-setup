@@ -73,9 +73,6 @@
     shellAliases = {
       l = null;
       ll = null;
-
-      cls = "clear";
-      ls = "ls --color=tty -Ah";
     };
   };
 }

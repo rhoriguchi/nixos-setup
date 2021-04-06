@@ -3,6 +3,8 @@
     enable = true;
 
     shellAliases = {
+      cls = "clear";
+      ls = "ls --color=tty -Ah";
       neofetch = "echo; echo; neofetch";
       nixfmt = "nixfmt --width=140";
       open = "nautilus $PWD";
