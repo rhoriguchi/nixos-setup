@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   home-manager.users.rhoriguchi.xdg.configFile."flameshot/flameshot.ini".source = (pkgs.formats.ini { }).generate "flameshot.ini" {
     General = {
       buttons = ''
@@ -10,7 +10,7 @@
       drawColor = "#FF4136";
       drawThickness = 0;
       filenamePattern = "%Y_%m_%d_%H:%M:%S";
-      saveAfterCopyPath = "/home/rhoriguchi/Pictures";
+      saveAfterCopyPath = "${config.users.users.rhoriguchi.home}/Pictures";
       showHelp = false;
       uiColor = "#B10DC9";
     };

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   backupDir = "/media/Backup";
 
@@ -90,7 +90,7 @@ in {
 
       retain	manual	5
 
-      backup	/home/rhoriguchi/	localhost/
+      backup	${config.users.users.rhoriguchi.home}/	localhost/
       backup	/media/Data/Downloads/	localhost/
       backup	/media/Data/Sync/	localhost/
     '';
