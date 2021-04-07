@@ -11,6 +11,7 @@
       pkgs.vscode-extensions.brettm12345.nixfmt-vscode
       pkgs.vscode-extensions.coenraads.bracket-pair-colorizer-2
       pkgs.vscode-extensions.davidanson.vscode-markdownlint
+      pkgs.vscode-extensions.dotjoshjohnson.xml
       pkgs.vscode-extensions.eamodio.gitlens
       pkgs.vscode-extensions.esbenp.prettier-vscode
       pkgs.vscode-extensions.formulahendry.auto-close-tag
