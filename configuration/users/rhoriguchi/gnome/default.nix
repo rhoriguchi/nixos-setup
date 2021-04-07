@@ -11,6 +11,8 @@ let
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
+  fonts.fonts = [ pkgs.jetbrains-mono ];
+
   users.users.rhoriguchi.packages = extensions ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ];
 
   home-manager.users.rhoriguchi.dconf = {
@@ -25,6 +27,7 @@ in {
         enable-hot-corners = false;
         gtk-theme = "Yaru-light";
         icon-theme = "Papirus";
+        monospace-font-name = "JetBrains Mono";
         show-battery-percentage = true;
       };
       "org/gnome/desktop/notifications" = {
