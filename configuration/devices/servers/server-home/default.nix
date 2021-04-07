@@ -39,6 +39,10 @@
     # hwmon1/pwm(1|4) = case fans
     # hwmon1/pwm6 = motherboard chip fan
 
+    # hwmon0/temp2_label = Tctl
+    # hwmon1/temp1_label = SYSTIN
+    # hwmon1/temp6_label = AUXTIN3
+
     config = ''
       INTERVAL=1
       DEVPATH=hwmon0=devices/pci0000:00/0000:00:18.3 hwmon1=devices/platform/nct6775.656
