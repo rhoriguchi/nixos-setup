@@ -7,6 +7,9 @@
       efi.canTouchEfiVariables = true;
     };
 
+    # TODO remove when broadcom drivers work
+    kernelPackages = pkgs.linuxPackages_5_4;
+
     kernelModules = [ "k10temp" "nct6775" ];
   };
 
