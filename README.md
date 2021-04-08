@@ -1,6 +1,6 @@
 # nix-setup
 
-## Add unstable package channel
+## Switch to unstable package channel
 
 ```bash
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
@@ -32,7 +32,6 @@ nixops deploy
 Login to:
 
 - Discord
-- Firefox
 - Gitkraken
 - JetBrains
   - IntelliJ IDEA Ultimate
