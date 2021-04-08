@@ -55,7 +55,7 @@
               "https://www.digitec.ch/de/LiveShopping/81"
               "https://www.galaxus.ch/de/LiveShopping/82"
             ];
-            "browser.startup.page" = 0;
+            "browser.startup.page" = 1;
             "browser.tabs.warnOnClose" = false;
             "browser.toolbars.bookmarks.showOtherBookmarks" = false;
             "browser.toolbars.bookmarks.visibility" = "always";
