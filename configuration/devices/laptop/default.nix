@@ -137,7 +137,6 @@
       pkgs.gnome3.gnome-shell-extensions
       pkgs.gnome3.gnome-terminal
       pkgs.gnome3.gnome-weather
-      pkgs.gnome3.seahorse
       pkgs.gnome3.simple-scan
       pkgs.gnome3.totem
       pkgs.gnome3.yelp
