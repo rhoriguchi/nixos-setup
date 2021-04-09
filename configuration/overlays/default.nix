@@ -9,6 +9,12 @@
         rev = "3.2.0";
         sha256 = "0qhg36l3c1i6p0p2l346fpj9zsh5kl0xpjmyasi1qcn7mbdfjb0m";
       }) { pkgs = super; };
+      nixops = (import (super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixops";
+        rev = "45256745cef246dabe1ae8a7d109988f190cd7ef";
+        sha256 = "0ni1v8ppg5cf35gq7nzd50kajxzp5zkbzhf022in0fgbjcprlzr2";
+      })).default;
     })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
