@@ -173,7 +173,6 @@
       pkgs.maven
       pkgs.megasync
       pkgs.neofetch
-      pkgs.nodejs
       pkgs.nodePackages."@angular/cli"
       pkgs.ntfs3g
       pkgs.openssl
