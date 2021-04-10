@@ -116,8 +116,7 @@
 
     npm.enable = true;
 
-    # TODO uncomment when merged https://github.com/NixOS/nixpkgs/pull/118365
-    # steam.enable = true;
+    steam.enable = true;
   };
 
   environment = {
@@ -158,8 +157,7 @@
       pkgs.glances
       pkgs.gnome3.dconf-editor
       pkgs.gnome3.networkmanager-openconnect
-      # TODO uncomment when merged https://github.com/NixOS/nixpkgs/pull/118365
-      # pkgs.google-chrome
+      pkgs.google-chrome
       pkgs.haskellPackages.nixfmt
       pkgs.htop
       pkgs.inkscape
