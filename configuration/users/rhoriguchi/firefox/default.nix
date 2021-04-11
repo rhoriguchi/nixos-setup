@@ -6,11 +6,11 @@
       enable = true;
 
       extensions = [
+        pkgs.firefox-addons.bitwarden
         pkgs.firefox-addons.export-tabs-urls-and-titles
         pkgs.firefox-addons.facebook-container
         pkgs.firefox-addons.grammarly
         pkgs.firefox-addons.https-everywhere
-        pkgs.firefox-addons.lastpass-password-manager
         pkgs.firefox-addons.metamask
         pkgs.firefox-addons.octolinker
         pkgs.firefox-addons.open-in-browser
@@ -69,7 +69,7 @@
                   "home-button"
                   "urlbar-container"
                   "downloads-button"
-                  "support_lastpass_com-browser-action"
+                  "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action"
                   "jid1-mnnxcxisbpnsxq_jetpack-browser-action"
                   "webextension_metamask_io-browser-action"
                   "_17165bd9-9b71-4323-99a5-3d4ce49f3d75_-browser-action"
