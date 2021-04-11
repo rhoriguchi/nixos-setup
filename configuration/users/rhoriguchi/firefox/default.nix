@@ -83,23 +83,7 @@
                 "TabsToolbar" = [ "tabbrowser-tabs" "new-tab-button" "alltabs-button" ];
                 "PersonalToolbar" = [ "personal-bookmarks" ];
               };
-              "seen" = [
-                "developer-button"
-                "webextension_metamask_io-browser-action"
-                "ublock0_raymondhill_net-browser-action"
-                "support_lastpass_com-browser-action"
-                "_287dcf75-bec6-4eec-b4f6-71948a2eea29_-browser-action"
-                "tab-session-manager_sienori-browser-action"
-                "https-everywhere_eff_org-browser-action"
-                "wappalyzer_crunchlabz_com-browser-action"
-                "_react-devtools-browser-action"
-                "jid1-mnnxcxisbpnsxq_jetpack-browser-action"
-                "_17165bd9-9b71-4323-99a5-3d4ce49f3d75_-browser-action"
-                "87677a2c52b84ad3a151a4a72f5bd3c4_jetpack-browser-action"
-                "profiler-button"
-                "_contain-facebook-browser-action"
-                "_027368fc-da0d-4b05-aada-38db897f3b8c_-browser-action"
-              ];
+              "seen" = [ ];
               "dirtyAreaCache" = [ "nav-bar" "toolbar-menubar" "TabsToolbar" "PersonalToolbar" ];
 
               "currentVersion" = 16;
