@@ -69,7 +69,6 @@
                   "home-button"
                   "urlbar-container"
                   "downloads-button"
-                  "_react-devtools-browser-action"
                   "support_lastpass_com-browser-action"
                   "jid1-mnnxcxisbpnsxq_jetpack-browser-action"
                   "webextension_metamask_io-browser-action"
