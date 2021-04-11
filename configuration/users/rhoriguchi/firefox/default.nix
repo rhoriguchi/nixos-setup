@@ -74,9 +74,8 @@
                   "webextension_metamask_io-browser-action"
                   "_17165bd9-9b71-4323-99a5-3d4ce49f3d75_-browser-action"
                   "tab-session-manager_sienori-browser-action"
-                  "wappalyzer_crunchlabz_com-browser-action"
                   "ublock0_raymondhill_net-browser-action"
-                  "_027368fc-da0d-4b05-aada-38db897f3b8c_-browser-action"
+                  "wappalyzer_crunchlabz_com-browser-action"
                 ];
                 "toolbar-menubar" = [ "menubar-items" ];
                 "TabsToolbar" = [ "tabbrowser-tabs" "new-tab-button" "alltabs-button" ];
