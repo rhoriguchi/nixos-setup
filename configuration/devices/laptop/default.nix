@@ -104,6 +104,8 @@
     };
 
     udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
+
+    onedrive.enable = true;
   };
 
   programs = {
@@ -168,7 +170,6 @@
       pkgs.keepass
       pkgs.libreoffice-fresh
       pkgs.maven
-      pkgs.megasync
       pkgs.neofetch
       pkgs.nodePackages."@angular/cli"
       pkgs.ntfs3g

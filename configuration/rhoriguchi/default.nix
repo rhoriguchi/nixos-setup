@@ -13,6 +13,7 @@
     ./gnome
     ./htop
     ./neofetch
+    ./onedrive.nix
     ./ssh.nix
     ./vscode.nix
     ./zsh.nix

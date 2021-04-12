@@ -21,13 +21,6 @@ in {
       '';
     };
 
-    "autostart/megasync.desktop" = lib.mkIf (builtins.elem pkgs.megasync.name packages) {
-      text = ''
-        ${builtins.readFile "${pkgs.megasync}/share/applications/megasync.desktop"}
-        X-GNOME-Autostart-enabled=true
-      '';
-    };
-
     "autostart/signal-desktop.desktop" = lib.mkIf (builtins.elem pkgs.signal-desktop.name packages) {
       text = ''
         ${builtins.readFile "${pkgs.signal-desktop}/share/applications/signal-desktop.desktop"}
