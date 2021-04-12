@@ -20,7 +20,7 @@ in {
 
     settings = {
       "ca/desrt/dconf-editor/Settings".show-warning = false;
-      "org/gnome/desktop/background".picture-uri = "file:${./wallpaper.jpg}";
+      "org/gnome/desktop/background".picture-uri = "file://${./wallpaper.jpg}";
       "org/gnome/desktop/interface" = {
         clock-show-seconds = true;
         clock-show-weekday = true;
