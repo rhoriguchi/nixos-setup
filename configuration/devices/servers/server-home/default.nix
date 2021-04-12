@@ -18,12 +18,12 @@
 
     interfaces = {
       # without PCI-E GPU
-      enp4s0.useDHCP = true;
-      wlp3s0.useDHCP = true;
+      enp4s0.useDHCP = true; # Ethernet
+      wlp3s0.useDHCP = true; # WiFi
 
       # with PCI-E GPU
-      enp5s0.useDHCP = true;
-      wlp4s0.useDHCP = true;
+      enp5s0.useDHCP = true; # Ethernet
+      wlp4s0.useDHCP = true; # WiFi
     };
 
     wireless = {

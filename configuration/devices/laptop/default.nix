@@ -22,10 +22,9 @@
     hostName = "Ryan-Laptop";
 
     interfaces = {
-      eno2.useDHCP = true;
+      eno2.useDHCP = true; # Ethernet
       enp0s20f0u4u3u1.useDHCP = true; # Icy Box IB-DK2106-C
-      usb0.useDHCP = true; # Targus DOCK190EUZ
-      wlo1.useDHCP = true;
+      wlo1.useDHCP = true; # WiFi
     };
   };
 

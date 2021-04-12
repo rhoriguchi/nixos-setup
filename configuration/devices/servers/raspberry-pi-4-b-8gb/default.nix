@@ -16,7 +16,7 @@
   hardware.enableRedistributableFirmware = true;
 
   networking.interfaces = {
-    eth0.useDHCP = true;
-    wlan0.useDHCP = true;
+    eth0.useDHCP = true; # Ethernet
+    wlan0.useDHCP = true; # WiFi
   };
 }
