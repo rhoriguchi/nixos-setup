@@ -1,6 +1,6 @@
 { pkgs, lib, ... }: {
   imports = [
-    ../../users/rhoriguchi
+    ../../rhoriguchi
 
     ./rsnapshot.nix
     ./power-management.nix

@@ -1,6 +1,6 @@
 {
   imports = [
-    ../home-manager.nix
+    ./home-manager.nix
 
     ./accounts-service
     ./alacritty.nix
