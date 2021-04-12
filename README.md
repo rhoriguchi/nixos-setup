@@ -6,6 +6,25 @@
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 ```
 
+## [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#authorize-the-application-with-your-onedrive-account)
+
+## Laptop manuel steps
+
+Login to:
+
+- Discord
+- Gitkraken
+- JetBrains
+  - IntelliJ IDEA Ultimate
+  - PyCharm Professional
+  - WebStorm
+  - DataGrip
+- Postman
+- Signal
+- Spotify
+- Steam
+- TeamViewer
+
 ## Nixops
 
 ### Init
@@ -26,21 +45,3 @@ nixops info
 sudo nix-channel --update
 nixops deploy
 ```
-
-## Laptop manuel steps
-
-Login to:
-
-- Discord
-- Gitkraken
-- JetBrains
-  - IntelliJ IDEA Ultimate
-  - PyCharm Professional
-  - WebStorm
-  - DataGrip
-- MegaSync
-- Postman
-- Signal
-- Spotify
-- Steam
-- TeamViewer
