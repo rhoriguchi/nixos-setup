@@ -169,6 +169,7 @@
       pkgs.libreoffice-fresh
       pkgs.maven
       pkgs.neofetch
+      pkgs.nodejs
       pkgs.nodePackages."@angular/cli"
       pkgs.ntfs3g
       pkgs.openssl
