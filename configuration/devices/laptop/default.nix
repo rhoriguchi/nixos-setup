@@ -13,9 +13,6 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-
-    # TODO remove when openrazer drivers works on 5.10
-    kernelPackages = pkgs.linuxPackages_5_4;
   };
 
   networking = {
