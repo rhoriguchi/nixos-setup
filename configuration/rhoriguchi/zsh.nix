@@ -7,7 +7,6 @@
       ls = "ls --color=tty -Ah";
       neofetch = "echo; echo; neofetch";
       nixfmt = "nixfmt --width=140";
-      open = "nautilus";
     };
 
     enableCompletion = true;
