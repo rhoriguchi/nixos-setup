@@ -96,7 +96,9 @@
       "todo-tree.tree.showCountsInTree" = true;
       "todo-tree.tree.showScanModeButton" = false;
       "update.mode" = "none";
+      "window.newWindowDimensions" = "maximized";
       "window.openFoldersInNewWindow" = "on";
+      "window.restoreFullscreen" = false;
       "window.zoomLevel" = 0;
       "workbench.colorTheme" = "Visual Studio 2019 Light";
       "workbench.iconTheme" = "material-icon-theme";
