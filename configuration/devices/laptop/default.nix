@@ -174,7 +174,7 @@
       pkgs.ntfs3g
       pkgs.openssl
       pkgs.pipenv
-      pkgs.postgresql_12
+      pkgs.postgresql_13
       pkgs.postman
       pkgs.protonvpn-cli
       pkgs.python3
