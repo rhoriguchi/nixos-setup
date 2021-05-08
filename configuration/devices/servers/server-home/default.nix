@@ -25,26 +25,26 @@
   hardware.fancontrol = {
     enable = true;
 
-    # hwmon1/pwm(2|3) = cpu fans
-    # hwmon1/pwm(1|4) = case fans
-    # hwmon1/pwm6 = motherboard chip fan
+    # hwmon2/pwm(2|3) = cpu fans
+    # hwmon2/pwm(1|4) = case fans
+    # hwmon2/pwm6 = motherboard chip fan
 
-    # hwmon0/temp2_label = Tctl
-    # hwmon1/temp1_label = SYSTIN
-    # hwmon1/temp6_label = AUXTIN3
+    # hwmon1/temp1_label = Tctl
+    # hwmon2/temp1_label = SYSTIN
+    # hwmon2/temp6_label = AUXTIN3
 
     config = ''
       INTERVAL=1
-      DEVPATH=hwmon0=devices/pci0000:00/0000:00:18.3 hwmon1=devices/platform/nct6775.656
-      DEVNAME=hwmon0=k10temp hwmon1=nct6798
-      FCTEMPS=hwmon1/pwm1=hwmon1/temp6_input hwmon1/pwm2=hwmon0/temp2_input hwmon1/pwm3=hwmon0/temp2_input hwmon1/pwm4=hwmon1/temp6_input hwmon1/pwm6=hwmon1/temp1_input
-      FCFANS=hwmon1/pwm1=hwmon1/fan1_input hwmon1/pwm2=hwmon1/fan2_input hwmon1/pwm3=hwmon1/fan3_input hwmon1/pwm4=hwmon1/fan4_input hwmon1/pwm6=hwmon1/fan6_input
-      MINTEMP=hwmon1/pwm1=40 hwmon1/pwm2=65 hwmon1/pwm3=65 hwmon1/pwm4=40 hwmon1/pwm6=65
-      MAXTEMP=hwmon1/pwm1=60 hwmon1/pwm2=80 hwmon1/pwm3=80 hwmon1/pwm4=60 hwmon1/pwm6=80
-      MINSTART=hwmon1/pwm1=20 hwmon1/pwm2=20 hwmon1/pwm3=20 hwmon1/pwm4=20 hwmon1/pwm6=60
-      MINSTOP=hwmon1/pwm1=25 hwmon1/pwm2=25 hwmon1/pwm3=25 hwmon1/pwm4=25 hwmon1/pwm6=55
-      MINPWM=hwmon1/pwm1=25 hwmon1/pwm2=25 hwmon1/pwm3=25 hwmon1/pwm4=25 hwmon1/pwm6=55
-      MAXPWM=hwmon1/pwm1=160 hwmon1/pwm2=160 hwmon1/pwm3=160 hwmon1/pwm4=160 hwmon1/pwm6=160
+      DEVPATH=hwmon1=devices/pci0000:00/0000:00:18.3 hwmon2=devices/platform/nct6775.656
+      DEVNAME=hwmon1=k10temp hwmon2=nct6798
+      FCTEMPS=hwmon2/pwm1=hwmon2/temp6_input hwmon2/pwm2=hwmon2/temp1_input hwmon2/pwm3=hwmon2/temp1_input hwmon2/pwm4=hwmon2/temp6_input hwmon2/pwm6=hwmon2/temp1_input
+      FCFANS=hwmon2/pwm1=hwmon2/fan1_input hwmon2/pwm2=hwmon2/fan2_input hwmon2/pwm3=hwmon2/fan3_input hwmon2/pwm4=hwmon2/fan4_input hwmon2/pwm6=hwmon2/fan6_input
+      MINTEMP=hwmon2/pwm1=40 hwmon2/pwm2=65 hwmon2/pwm3=65 hwmon2/pwm4=40 hwmon2/pwm6=65
+      MAXTEMP=hwmon2/pwm1=60 hwmon2/pwm2=80 hwmon2/pwm3=80 hwmon2/pwm4=60 hwmon2/pwm6=80
+      MINSTART=hwmon2/pwm1=20 hwmon2/pwm2=20 hwmon2/pwm3=20 hwmon2/pwm4=20 hwmon2/pwm6=60
+      MINSTOP=hwmon2/pwm1=25 hwmon2/pwm2=25 hwmon2/pwm3=25 hwmon2/pwm4=25 hwmon2/pwm6=55
+      MINPWM=hwmon2/pwm1=25 hwmon2/pwm2=25 hwmon2/pwm3=25 hwmon2/pwm4=25 hwmon2/pwm6=55
+      MAXPWM=hwmon2/pwm1=160 hwmon2/pwm2=160 hwmon2/pwm3=160 hwmon2/pwm4=160 hwmon2/pwm6=160
     '';
   };
 
