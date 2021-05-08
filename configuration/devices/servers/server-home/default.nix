@@ -7,9 +7,6 @@
       efi.canTouchEfiVariables = true;
     };
 
-    # TODO remove when broadcom drivers works on 5.10
-    kernelPackages = pkgs.linuxPackages_5_4;
-
     kernelModules = [ "k10temp" "nct6775" ];
   };
 
@@ -19,16 +16,9 @@
     interfaces = {
       # without PCI-E GPU
       enp4s0.useDHCP = true; # Ethernet
-      wlp3s0.useDHCP = true; # WiFi
 
       # with PCI-E GPU
       enp5s0.useDHCP = true; # Ethernet
-      wlp4s0.useDHCP = true; # WiFi
-    };
-
-    wireless = {
-      enable = true;
-      networks."47555974".psk = (import ../../../secrets.nix).networking.wireless.networks."47555974".psk;
     };
   };
 
