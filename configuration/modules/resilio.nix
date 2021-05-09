@@ -2,20 +2,21 @@
 let
   cfg = config.services.resilio;
 
-  isUniqueIgnoreNullByAttrName = list: attrName:
-    lib.lists.unique (builtins.filter (match: match != null) (map (builtins.getAttr attrName) list))
-    == builtins.filter (match: match != null) (map (builtins.getAttr attrName) list);
+  secrets = let
+    secrets = lib.lists.flatten (map builtins.attrValues (builtins.attrValues cfg.secrets));
+    filteredSecrets = builtins.filter (secret: secret != null) secrets;
+  in lib.lists.naturalSort filteredSecrets;
 
-  sharedFolders = map (secret: {
-    secret = secret.secret;
-    dir = "${cfg.syncPath}/${if secret.dirName != null then secret.dirName else builtins.hashString "sha256" secret.secret}";
+  sharedFolders = builtins.attrValues (builtins.mapAttrs (key: value: {
+    secret = if builtins.elem key cfg.readWriteDirs then value.readWrite else value.encrypted;
+    dir = "${cfg.syncPath}/${if builtins.elem key cfg.readWriteDirs then key else builtins.hashString "sha256" key}";
     use_relay_server = true;
     search_lan = true;
     use_sync_trash = false;
     overwrite_changes = true;
     selective_sync = false;
     known_hosts = [ ];
-  }) cfg.secrets;
+  }) cfg.secrets);
 
   configFile = (pkgs.formats.json { }).generate "config.json" ({
     device_name = lib.strings.toUpper cfg.deviceName;
@@ -75,15 +76,19 @@ in {
       default = "/var/lib/resilio-sync";
       type = lib.types.path;
     };
-    secrets = lib.mkOption {
+    readWriteDirs = lib.mkOption {
       default = [ ];
-      type = lib.types.listOf (lib.types.submodule {
+      type = lib.types.listOf lib.types.str;
+    };
+    secrets = lib.mkOption {
+      default = { };
+      type = lib.types.attrsOf (lib.types.submodule {
         options = {
-          secret = lib.mkOption { type = lib.types.str // { check = x: (builtins.isList (builtins.match "^[0-9A-Z]{33}$" x)); }; };
-          dirName = lib.mkOption {
-            type = lib.types.nullOr lib.types.str;
+          readWrite = lib.mkOption {
             default = null;
+            type = lib.types.nullOr (lib.types.strMatching "^[0-9A-Z]{33}$");
           };
+          encrypted = lib.mkOption { type = lib.types.strMatching "^[0-9A-Z]{33}$"; };
         };
       });
     };
@@ -112,12 +117,12 @@ in {
         message = "Secrets cannot be empty";
       }
       {
-        assertion = isUniqueIgnoreNullByAttrName cfg.secrets "secret";
-        message = "Secret in secrets must be unique";
+        assertion = secrets == lib.lists.unique secrets;
+        message = "Every secret in secrets must be unique";
       }
       {
-        assertion = isUniqueIgnoreNullByAttrName cfg.secrets "dirName";
-        message = "Dir name in secrets must be unique";
+        assertion = builtins.length (builtins.filter (readWriteDir: cfg.secrets."${readWriteDir}".readWrite == null) cfg.readWriteDirs) == 0;
+        message = "All decrypted dirs need to have a readWrite secret";
       }
     ];
 
@@ -141,7 +146,7 @@ in {
       serviceConfig = {
         ExecStart = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
         ExecStartPre = lib.mkIf (!cfg.webUI.enable)
-          ("${pkgs.coreutils}/bin/mkdir -pm 0775 " + builtins.concatStringsSep " " (map (sharedFolder: sharedFolder.dir) sharedFolders));
+          "${pkgs.coreutils}/bin/mkdir -pm 0775 ${builtins.concatStringsSep " " (map (sharedFolder: sharedFolder.dir) sharedFolders)}";
         StandardOutput = "null";
         StandardError = "null";
         Restart = "on-abort";
