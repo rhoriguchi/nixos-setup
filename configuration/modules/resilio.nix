@@ -72,8 +72,8 @@ in {
     };
     syncPath = lib.mkOption { type = lib.types.str; };
     storagePath = lib.mkOption {
-      type = lib.types.path;
       default = "/var/lib/resilio-sync";
+      type = lib.types.path;
     };
     secrets = lib.mkOption {
       default = [ ];
