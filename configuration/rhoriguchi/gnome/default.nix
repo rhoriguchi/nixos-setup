@@ -106,7 +106,7 @@ in {
         app-picker-layout = [ ];
         enabled-extensions =
           [ "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" ]
-          ++ map (builtins.getAttr "uuid") extensions;
+          ++ map (extension: extension.uuid) extensions;
         favorite-apps = [ ];
       };
       "org/gnome/shell/extensions/caffeine" = {

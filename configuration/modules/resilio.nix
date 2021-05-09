@@ -141,7 +141,7 @@ in {
       serviceConfig = {
         ExecStart = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
         ExecStartPre = lib.mkIf (!cfg.webUI.enable)
-          ("${pkgs.coreutils}/bin/mkdir -pm 0775 " + builtins.concatStringsSep " " (map (builtins.getAttr "dir") sharedFolders));
+          ("${pkgs.coreutils}/bin/mkdir -pm 0775 " + builtins.concatStringsSep " " (map (sharedFolder: sharedFolder.dir) sharedFolders));
         StandardOutput = "null";
         StandardError = "null";
         Restart = "on-abort";
