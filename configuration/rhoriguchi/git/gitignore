@@ -1,6 +1,9 @@
 # Allway Sync
 _SYNCAPP
 
+# Visual Studio Code history
+.history
+
 # Mac folder view and thumbnail cache files
 .DS_Store
 desktop.ini

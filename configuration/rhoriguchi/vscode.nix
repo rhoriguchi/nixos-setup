@@ -35,6 +35,7 @@
       pkgs.vscode-extensions.tyriar.sort-lines
       pkgs.vscode-extensions.vincaslt.highlight-matching-tag
       pkgs.vscode-extensions.wholroyd.jinja
+      pkgs.vscode-extensions.xyz.local-history
     ];
 
     userSettings = {
@@ -58,6 +59,7 @@
         "**/.git-crypt" = true;
         "**/.git" = true;
         "**/.hg" = true;
+        "**/.history" = true;
         "**/.idea" = true;
         "**/.project" = true;
         "**/.settings" = true;
@@ -70,6 +72,7 @@
       "gitlens.advanced.messages"."suppressShowKeyBindingsNotice" = true;
       "gitlens.defaultDateFormat" = "DD.MM.YYYY HH:MM";
       "gitlens.defaultDateShortFormat" = "DD.MM.YYYY";
+      "local-history.dateLocale" = "de-CH";
       "prettier.arrowParens" = "always";
       "prettier.printWidth" = 120;
       "prettier.singleQuote" = true;
