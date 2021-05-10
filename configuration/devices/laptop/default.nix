@@ -95,8 +95,8 @@
 
     gnome3 = {
       chrome-gnome-shell.enable = false;
-      gnome-initial-setup.enable = lib.mkForce false;
-      gnome-online-accounts.enable = lib.mkForce false;
+      gnome-initial-setup.enable = false;
+      gnome-online-accounts.enable = false;
     };
 
     udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
