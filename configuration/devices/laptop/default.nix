@@ -143,7 +143,7 @@
 
     systemPackages = [
       pkgs.alacritty
-      pkgs.ansible_10
+      pkgs.ansible_2_10
       pkgs.curl
       pkgs.discord
       pkgs.docker-compose
