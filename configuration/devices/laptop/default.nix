@@ -101,6 +101,8 @@
 
     udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
 
+    power-profiles-daemon.enable = false;
+
     onedrive.enable = true;
   };
 
