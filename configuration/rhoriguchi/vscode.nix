@@ -40,7 +40,7 @@
 
     userSettings = {
       "cSpell.enableFiletypes" = [ "nix" "terraform" ];
-      "cSpell.userWords" = [ "rhoriguchi" ];
+      "cSpell.userWords" = [ "horiguchi" "rhoriguchi" ];
       "editor.fontFamily" = "JetBrains Mono";
       "editor.linkedEditing" = true;
       "editor.renderIndentGuides" = false;
