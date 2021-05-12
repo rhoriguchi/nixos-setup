@@ -110,8 +110,7 @@ in {
         favorite-apps = [ ];
       };
       "org/gnome/shell/extensions/caffeine" = {
-        control-nightlight = false;
-        control-nightlight-for-app = false;
+        control-nightlight = "never";
         enable-fullscreen = false;
         inhibit-apps = [ ];
         restore-state = false;
