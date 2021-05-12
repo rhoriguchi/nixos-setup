@@ -87,20 +87,20 @@
         sessionCommands = "${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 2 0";
       };
 
-      desktopManager.gnome3.enable = true;
+      desktopManager.gnome.enable = true;
 
       libinput.enable = true;
 
       videoDrivers = [ "displaylink" "modesetting" "nvidia" ];
     };
 
-    gnome3 = {
+    gnome = {
       chrome-gnome-shell.enable = false;
       gnome-initial-setup.enable = false;
       gnome-online-accounts.enable = false;
     };
 
-    udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
+    udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
 
     power-profiles-daemon.enable = false;
 
@@ -121,25 +121,25 @@
   };
 
   environment = {
-    gnome3.excludePackages = [
+    gnome.excludePackages = [
       pkgs.gnome-connections
       pkgs.gnome-photos
-      pkgs.gnome3.epiphany
-      pkgs.gnome3.geary
-      pkgs.gnome3.gnome-calendar
-      pkgs.gnome3.gnome-characters
-      pkgs.gnome3.gnome-clocks
-      pkgs.gnome3.gnome-contacts
-      pkgs.gnome3.gnome-font-viewer
-      pkgs.gnome3.gnome-maps
-      pkgs.gnome3.gnome-music
-      pkgs.gnome3.gnome-screenshot
-      pkgs.gnome3.gnome-shell-extensions
-      pkgs.gnome3.gnome-terminal
-      pkgs.gnome3.gnome-weather
-      pkgs.gnome3.simple-scan
-      pkgs.gnome3.totem
-      pkgs.gnome3.yelp
+      pkgs.gnome.epiphany
+      pkgs.gnome.geary
+      pkgs.gnome.gnome-calendar
+      pkgs.gnome.gnome-characters
+      pkgs.gnome.gnome-clocks
+      pkgs.gnome.gnome-contacts
+      pkgs.gnome.gnome-font-viewer
+      pkgs.gnome.gnome-maps
+      pkgs.gnome.gnome-music
+      pkgs.gnome.gnome-screenshot
+      pkgs.gnome.gnome-shell-extensions
+      pkgs.gnome.gnome-terminal
+      pkgs.gnome.gnome-weather
+      pkgs.gnome.simple-scan
+      pkgs.gnome.totem
+      pkgs.gnome.yelp
     ];
 
     variables.TERMINAL = "alacritty";
@@ -157,8 +157,8 @@
       pkgs.git-crypt
       pkgs.gitkraken
       pkgs.glances
-      pkgs.gnome3.dconf-editor
-      pkgs.gnome3.networkmanager-openconnect
+      pkgs.gnome.dconf-editor
+      pkgs.gnome.networkmanager-openconnect
       pkgs.google-chrome
       pkgs.haskellPackages.nixfmt
       pkgs.htop

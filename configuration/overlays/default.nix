@@ -33,7 +33,7 @@
   })
 
   # TODO add hook to set 'NoDisplay=true'
-  # gnome3.gnome-logs # org.gnome.Logs.desktop
+  # gnome.gnome-logs # org.gnome.Logs.desktop
   # xterm # xterm.desktop
   # hplip # hplip.desktop
   # nvidia-settings # nvidia-settings.desktop
