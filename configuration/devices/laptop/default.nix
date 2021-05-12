@@ -68,7 +68,8 @@
       syncPath = "/media/Data/Sync";
     };
 
-    teamviewer.enable = true;
+    # TODO commented - qtwebkit-5.212.0-alpha4 build issue
+    # teamviewer.enable = true;
 
     xserver = {
       enable = true;
