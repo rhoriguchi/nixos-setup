@@ -13,9 +13,6 @@ let
   '';
 
   excludeFile = pkgs.writeText "default.exclude" ''
-    # JetBrains
-    - /**.idea
-
     # Trash
     - /**.local/share/Trash
     - /**.Trash-1000
