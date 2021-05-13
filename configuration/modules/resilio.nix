@@ -150,7 +150,7 @@ in {
         StandardOutput = "null";
         StandardError = "null";
         Restart = "on-abort";
-        UMask = "0005";
+        UMask = "0002";
         User = "rslsync";
       };
       unitConfig.ConditionPathExists = [ cfg.syncPath ];
