@@ -81,7 +81,9 @@
 
     plex = {
       enable = true;
+
       openFirewall = true;
+      extraPlugins = [ "${pkgs.plexPlugins.myanimelist}/${pkgs.plexPlugins.myanimelist.pname}.bundle" ];
     };
   };
 }
