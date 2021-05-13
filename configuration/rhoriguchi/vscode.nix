@@ -97,7 +97,6 @@
       "todo-tree.regex.regexCaseSensitive" = false;
       "todo-tree.tree.expanded" = true;
       "todo-tree.tree.showCountsInTree" = true;
-      "todo-tree.tree.showScanModeButton" = false;
       "update.mode" = "none";
       "window.newWindowDimensions" = "maximized";
       "window.openFoldersInNewWindow" = "on";
