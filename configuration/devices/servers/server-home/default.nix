@@ -66,7 +66,7 @@
     resilio = {
       enable = true;
 
-      readWriteDirs = [ "tv_time_export" ];
+      readWriteDirs = [ "Series" "tv_time_export" ];
       secrets = (import ../../../secrets.nix).services.resilio.secrets;
       syncPath = "/media/Data/Sync";
     };
@@ -77,6 +77,11 @@
       username = (import ../../../secrets.nix).services.tv_time_export.username;
       password = (import ../../../secrets.nix).services.tv_time_export.password;
       exportPath = "/media/Data/Sync/tv_time_export";
+    };
+
+    plex = {
+      enable = true;
+      openFirewall = true;
     };
   };
 }
