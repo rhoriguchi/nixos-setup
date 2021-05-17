@@ -103,6 +103,7 @@
       "window.restoreFullscreen" = false;
       "window.zoomLevel" = 0;
       "workbench.colorTheme" = "Visual Studio 2019 Light";
+      "workbench.editor.untitled.hint" = "hidden";
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.list.smoothScrolling" = true;
       "workbench.productIconTheme" = "icons-carbon";
