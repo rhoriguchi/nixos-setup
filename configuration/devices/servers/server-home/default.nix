@@ -25,6 +25,10 @@
   hardware.fancontrol = {
     enable = true;
 
+    # grep -H . /sys/class/hwmon/hwmon*/name
+    # grep -H . /sys/class/hwmon/hwmon*/temp*_label
+    # grep -H . /sys/class/hwmon/hwmon*/fan*_input
+
     # hwmon2/pwm(2|3) = cpu fans
     # hwmon2/pwm(1|4) = case fans
     # hwmon2/pwm6 = motherboard chip fan
