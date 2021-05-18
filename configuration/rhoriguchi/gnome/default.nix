@@ -262,6 +262,7 @@ in {
         window-buttons-theme = "yaru";
       };
       "org/gnome/shell/extensions/user-theme".name = "Yaru";
+      "org/gnome/shell/extensions/windowIsReady_Remover".prevent-disable = true;
       "org/gnome/settings-daemon/plugins/media-keys" = {
         area-screenshot = [ ];
         area-screenshot-clip = [ ];
