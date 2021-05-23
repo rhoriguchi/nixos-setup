@@ -8,6 +8,7 @@
       neofetch = "echo; echo; neofetch";
       nixfmt = "nixfmt --width=140";
       open = "nautilus";
+      vscode = "code";
     };
 
     enableCompletion = true;
