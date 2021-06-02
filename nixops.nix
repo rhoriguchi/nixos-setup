@@ -18,29 +18,17 @@
     environment.systemPackages = [ pkgs.nixops ];
   };
 
-  XXLPitu-Home = { ... }: {
-    deployment.targetHost = "xxlpitu-home.duckdns.org";
+  Server = { ... }: {
+    deployment.targetHost = "xxlpitu-server.duckdns.org";
 
-    imports = [ ./configuration/devices/servers/server-home ];
+    imports = [ ./configuration/devices/servers/server ];
   };
 
-  XXLPitu-Rain-Town = { ... }: {
+  Rain-Town = { ... }: {
     deployment.targetHost = "xxlpitu-rain-town.duckdns.org";
 
     imports = [ ./configuration/devices/servers/raspberry-pi-4-b-8gb/rain-town ];
 
     nixpkgs.system = "aarch64-linux";
   };
-
-  # TODO commented
-  # XXLPitu-Horgen = { ... }: {
-  #   deployment = {
-  #     targetHost = "xxlpitu-horgen.duckdns.org";
-  #     targetPort = 1234;
-  #   };
-
-  #   imports = [ ./configuration/devices/servers/raspberry-pi-4-b-8gb/horgen ];
-
-  #   nixpkgs.system = "aarch64-linux";
-  # };
 }

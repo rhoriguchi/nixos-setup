@@ -11,7 +11,7 @@
   };
 
   networking = {
-    hostName = "XXLPitu-Home";
+    hostName = "XXLPitu-Server";
 
     interfaces = {
       # without PCI-E GPU
@@ -64,7 +64,7 @@
       enable = true;
 
       token = (import ../../../secrets.nix).services.duckdns.token;
-      subdomain = "xxlpitu-home";
+      subdomain = "xxlpitu-server";
     };
 
     resilio = {
