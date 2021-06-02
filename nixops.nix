@@ -21,13 +21,13 @@
   Server = { ... }: {
     deployment.targetHost = "xxlpitu-server.duckdns.org";
 
-    imports = [ ./configuration/devices/servers/server ];
+    imports = [ ./configuration/devices/headless/server ];
   };
 
   Rain-Town = { ... }: {
     deployment.targetHost = "xxlpitu-rain-town.duckdns.org";
 
-    imports = [ ./configuration/devices/servers/raspberry-pi-4-b-8gb/rain-town ];
+    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/rain-town ];
 
     nixpkgs.system = "aarch64-linux";
   };
