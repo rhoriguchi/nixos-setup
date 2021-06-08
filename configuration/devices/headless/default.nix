@@ -19,6 +19,11 @@
 
   services.glances.enable = true;
 
+  programs.zsh.shellInit = ''
+    # TODO add config to add services
+    ${pkgs.fancy-motd}/bin/motd
+  '';
+
   environment.systemPackages = [ pkgs.glances pkgs.htop ];
 
   users.users.xxlpitu = {
