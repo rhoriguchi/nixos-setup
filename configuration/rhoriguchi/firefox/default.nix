@@ -114,6 +114,7 @@
             "devtools.screenshot.audio.enabled" = false;
             "devtools.screenshot.clipboard.enabled" = true;
             "devtools.styleeditor.enabled" = false;
+            "extensions.activeThemeID" = "default-theme@mozilla.org";
             "extensions.autoDisableScopes" = 0;
             "extensions.pocket.enabled" = false;
             "extensions.ui.extension.hidden" = false;
