@@ -180,7 +180,7 @@
       pkgs.signal-desktop
       pkgs.spotify
       pkgs.sshpass
-      pkgs.terraform_0_15
+      pkgs.terraform_1_0_0
       pkgs.unzip
       pkgs.vlc
       pkgs.vscode
