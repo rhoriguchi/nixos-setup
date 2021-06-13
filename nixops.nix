@@ -24,10 +24,10 @@
     imports = [ ./configuration/devices/headless/server ];
   };
 
-  Pi-Hole = { ... }: {
-    deployment.targetHost = "xxlpitu-pi-hole";
+  AdGuard = { ... }: {
+    deployment.targetHost = "xxlpitu-adguard";
 
-    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/pi-hole ];
+    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard ];
 
     nixpkgs.system = "aarch64-linux";
   };

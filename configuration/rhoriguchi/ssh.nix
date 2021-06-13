@@ -22,7 +22,9 @@ in {
     matchBlocks = {
       "*.duckdns.org".user = "xxlpitu";
 
-      "xxlpitu-pi-hole" = config.home-manager.users.rhoriguchi.lib.dag.entryAfter [ "*.duckdns.org" ] {
+      "xxlpitu-adguard" = config.home-manager.users.rhoriguchi.lib.dag.entryAfter [ "*.duckdns.org" ] {
+        # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/default.nix"
+        hostname = "XXLPitu-AdGuard";
         user = "xxlpitu";
         proxyJump = "xxlpitu-server.duckdns.org";
       };
