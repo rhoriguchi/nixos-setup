@@ -63,9 +63,6 @@
       # No matching for dotfiles (e.g. * does not expand to .dotfiles but .* does)
       setopt NOGLOBDOTS
 
-      # Use completion
-      autoload -Uz compinit
-
       # Enable completion from within a word
       setopt COMPLETE_IN_WORD
 
