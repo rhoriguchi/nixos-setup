@@ -20,6 +20,7 @@
       pkgs.vscode-extensions.hashicorp.terraform
       pkgs.vscode-extensions.ibm.output-colorizer
       pkgs.vscode-extensions.jock.svg
+      pkgs.vscode-extensions.johnpapa.vscode-peacock
       pkgs.vscode-extensions.ms-azuretools.vscode-docker
       pkgs.vscode-extensions.ms-dotnettools.csharp
       pkgs.vscode-extensions.ms-python.python
@@ -75,6 +76,53 @@
       "gitlens.defaultDateShortFormat" = "DD.MM.YYYY";
       "importCost.javascriptExtensions" = [ "\\.jsx?$" "\\.ts?$" ];
       "local-history.dateLocale" = "de-CH";
+      "peacock.affectActivityBar" = true;
+      "peacock.affectStatusBar" = true;
+      "peacock.affectTitleBar" = false;
+      "peacock.elementAdjustments" = {
+        "activityBar" = "none";
+        "statusBar" = "darken";
+        "titleBar" = "none";
+      };
+      "peacock.favoriteColors" = [
+        {
+          "name" = "NixOS";
+          "value" = "#82BFE0";
+        }
+
+        {
+          "name" = "Black";
+          "value" = "#000000";
+        }
+        {
+          "name" = "Red";
+          "value" = "#FF4136";
+        }
+        {
+          "name" = "Green";
+          "value" = "#2ECC40";
+        }
+        {
+          "name" = "Yellow";
+          "value" = "#FFDC00";
+        }
+        {
+          "name" = "Blue";
+          "value" = "#0074D9";
+        }
+        {
+          "name" = "Magenta";
+          "value" = "#B10DC9";
+        }
+        {
+          "name" = "Cyan";
+          "value" = "#7FDBFF";
+        }
+        {
+          "name" = "White";
+          "value" = "#FFFFFF";
+        }
+      ];
       "prettier.arrowParens" = "always";
       "prettier.printWidth" = 120;
       "prettier.singleQuote" = true;
