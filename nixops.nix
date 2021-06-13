@@ -24,6 +24,14 @@
     imports = [ ./configuration/devices/headless/server ];
   };
 
+  Pi-Hole = { ... }: {
+    deployment.targetHost = "xxlpitu-pi-hole";
+
+    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/pi-hole ];
+
+    nixpkgs.system = "aarch64-linux";
+  };
+
   Rain-Town = { ... }: {
     deployment.targetHost = "xxlpitu-rain-town.duckdns.org";
 

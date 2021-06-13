@@ -14,12 +14,6 @@
     fsType = "ext4";
   };
 
-  fileSystems."/media/Data" = {
-    device = "/dev/disk/by-uuid/f6ac4917-fd9f-42f3-90df-bcd4a0a1bbfd";
-    fsType = "ext4";
-    options = [ "defaults" "nofail" ];
-  };
-
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";

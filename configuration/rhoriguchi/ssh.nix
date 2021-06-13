@@ -22,6 +22,11 @@ in {
     matchBlocks = {
       "*.duckdns.org".user = "xxlpitu";
 
+      "xxlpitu-pi-hole" = config.home-manager.users.rhoriguchi.lib.dag.entryAfter [ "*.duckdns.org" ] {
+        user = "xxlpitu";
+        proxyJump = "xxlpitu-server.duckdns.org";
+      };
+
       "github.com" = {
         user = "git";
         identityFile = "${home}/.ssh/github_rsa";
