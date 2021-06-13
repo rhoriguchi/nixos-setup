@@ -17,8 +17,6 @@
 
   console.keyMap = "de_CH-latin1";
 
-  services.glances.enable = true;
-
   programs.zsh.shellInit = ''
     # TODO add config to add services
     ${pkgs.fancy-motd}/bin/motd
