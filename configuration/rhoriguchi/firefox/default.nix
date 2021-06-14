@@ -54,6 +54,7 @@
               "https://www.daydeal.ch"
               "https://www.digitec.ch/de/LiveShopping/81"
               "https://www.galaxus.ch/de/LiveShopping/82"
+              "https://status.nixos.org"
             ];
             "browser.startup.page" = 1;
             "browser.tabs.warnOnClose" = false;
