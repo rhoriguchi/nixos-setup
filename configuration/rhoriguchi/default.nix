@@ -1,6 +1,6 @@
 {
   imports = [
-    ./home-manager.nix
+    ../home-manager.nix
 
     ./accounts-service
     ./alacritty.nix
@@ -18,4 +18,13 @@
     ./vscode.nix
     ./zsh.nix
   ];
+
+  home-manager.users.rhoriguchi = {
+    news.display = "silent";
+
+    manual = {
+      html.enable = false;
+      json.enable = false;
+    };
+  };
 }

@@ -14,14 +14,5 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-
-    users.rhoriguchi = {
-      news.display = "silent";
-
-      manual = {
-        html.enable = false;
-        json.enable = false;
-      };
-    };
   };
 }
