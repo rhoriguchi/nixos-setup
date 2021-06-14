@@ -18,8 +18,10 @@
   console.keyMap = "de_CH-latin1";
 
   programs.zsh.shellInit = ''
-    # TODO add config to add services
-    ${pkgs.fancy-motd}/bin/motd
+    if (( EUID != 0 )); then
+      # TODO add config to add services
+      ${pkgs.fancy-motd}/bin/motd
+    fi
   '';
 
   environment.systemPackages = [ pkgs.glances pkgs.htop ];
