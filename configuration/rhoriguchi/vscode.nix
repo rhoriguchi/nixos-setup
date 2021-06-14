@@ -123,6 +123,7 @@
           "value" = "#FFFFFF";
         }
       ];
+      "peacock.showColorInStatusBar" = false;
       "prettier.arrowParens" = "always";
       "prettier.printWidth" = 120;
       "prettier.singleQuote" = true;
