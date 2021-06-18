@@ -80,51 +80,51 @@
       "peacock.affectStatusBar" = true;
       "peacock.affectTitleBar" = false;
       "peacock.elementAdjustments" = {
-        "activityBar" = "none";
-        "statusBar" = "darken";
-        "titleBar" = "none";
+        activityBar = "none";
+        statusBar = "darken";
+        titleBar = "none";
       };
       "peacock.favoriteColors" = [
         {
-          "name" = "GitLab";
-          "value" = "#FA7035";
+          name = "GitLab";
+          value = "#FA7035";
         }
         {
-          "name" = "NixOS";
-          "value" = "#82BFE0";
+          name = "NixOS";
+          value = "#82BFE0";
         }
 
         {
-          "name" = "Black";
-          "value" = "#000000";
+          name = "Black";
+          value = "#000000";
         }
         {
-          "name" = "Red";
-          "value" = "#FF4136";
+          name = "Red";
+          value = "#FF4136";
         }
         {
-          "name" = "Green";
-          "value" = "#2ECC40";
+          name = "Green";
+          value = "#2ECC40";
         }
         {
-          "name" = "Yellow";
-          "value" = "#FFDC00";
+          name = "Yellow";
+          value = "#FFDC00";
         }
         {
-          "name" = "Blue";
-          "value" = "#0074D9";
+          name = "Blue";
+          value = "#0074D9";
         }
         {
-          "name" = "Magenta";
-          "value" = "#B10DC9";
+          name = "Magenta";
+          value = "#B10DC9";
         }
         {
-          "name" = "Cyan";
-          "value" = "#7FDBFF";
+          name = "Cyan";
+          value = "#7FDBFF";
         }
         {
-          "name" = "White";
-          "value" = "#FFFFFF";
+          name = "White";
+          value = "#FFFFFF";
         }
       ];
       "peacock.showColorInStatusBar" = false;
@@ -137,17 +137,17 @@
       "telemetry.enableTelemetry" = false;
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
       "terraform.languageServer" = {
-        "args" = [ "serve" ];
-        "external" = true;
+        args = [ "serve" ];
+        external = true;
       };
       "todo-tree.highlights.customHighlight" = {
         "[ ]"."background" = "#FF413680";
         "[X]"."background" = "#2ECC4080";
       };
       "todo-tree.highlights.defaultHighlight" = {
-        "fontWeight" = "bold";
-        "foreground" = "green";
-        "type" = "tag-and-comment";
+        fontWeight = "bold";
+        foreground = "green";
+        type = "tag-and-comment";
       };
       "todo-tree.general.tags" = [ "[ ]" "[x]" "BUG" "FIXME" "HACK" "TODO" "XXX" ];
       "todo-tree.regex.regexCaseSensitive" = false;
