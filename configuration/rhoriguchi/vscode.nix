@@ -86,6 +86,10 @@
       };
       "peacock.favoriteColors" = [
         {
+          "name" = "GitLab";
+          "value" = "#FA7035";
+        }
+        {
           "name" = "NixOS";
           "value" = "#82BFE0";
         }
