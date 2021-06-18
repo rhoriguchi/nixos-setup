@@ -128,6 +128,7 @@
       "prettier.printWidth" = 120;
       "prettier.singleQuote" = true;
       "prettier.trailingComma" = "es5";
+      "security.workspace.trust.enabled" = false;
       "svg.preview.autoShow" = true;
       "telemetry.enableTelemetry" = false;
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
