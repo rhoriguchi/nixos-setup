@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ ... }: {
   imports = [ ../../default.nix ../default.nix ./hardware-configuration.nix ];
 
   networking.hostName = "XXLPitu-AdGuard";
