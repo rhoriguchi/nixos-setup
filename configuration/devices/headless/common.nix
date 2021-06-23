@@ -1,4 +1,20 @@
-{ pkgs, lib, config, ... }: {
+{ pkgs, lib, config, ... }:
+let
+  fancyMotdConfig = pkgs.writeText "config.sh" ''
+    # Max width used for components in second column
+    WIDTH=75
+
+    # Services to show
+    declare -A services
+    services["adguardhome"]="AdGuard Home"
+    services["docker"]="Docker"
+    services["duckdns"]="Duck DNS"
+    services["plex"]="Plex"
+    services["resilio"]="Resilio Sync"
+    services["sshd"]="SSH"
+    services["tv_time_export"]="TV Time export"
+  '';
+in {
   system.autoUpgrade = {
     enable = true;
     dates = "00:00";
@@ -20,7 +36,7 @@
   programs.zsh.shellInit = ''
     if (( EUID != 0 )); then
       # TODO add config to add services
-      ${pkgs.fancy-motd}/bin/motd
+      ${pkgs.fancy-motd}/bin/motd ${fancyMotdConfig}
     fi
   '';
 
