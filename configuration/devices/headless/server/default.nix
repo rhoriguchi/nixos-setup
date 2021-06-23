@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  imports = [ ../default.nix ./hardware-configuration.nix ];
+  imports = [ ../common.nix ./hardware-configuration.nix ];
 
   boot = {
     loader = {
