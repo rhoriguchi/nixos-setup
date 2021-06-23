@@ -8,7 +8,7 @@
 
   nix.autoOptimiseStore = true;
 
-  system.stateVersion = "21.05";
+  system.stateVersion = "21.11";
 
   networking.useDHCP = false;
 
