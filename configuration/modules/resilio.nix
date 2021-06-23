@@ -139,7 +139,10 @@ in {
       groups.rslsync.gid = config.ids.gids.rslsync;
     };
 
-    system.activationScripts.resilio = "mkdir -pm 0775 ${cfg.syncPath}";
+    system.activationScripts.resilio = ''
+      mkdir -pm 0775 ${cfg.syncPath}
+      chown rslsync:rslsync ${cfg.syncPath}
+    '';
 
     systemd.services.resilio = {
       after = [ "network.target" ];
