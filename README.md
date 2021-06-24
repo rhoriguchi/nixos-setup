@@ -6,11 +6,13 @@
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 ```
 
-## [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#authorize-the-application-with-your-onedrive-account)
+## Manual steps
 
-## Laptop manuel steps
+### Laptop
 
-Login to:
+#### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#authorize-the-application-with-your-onedrive-account)
+
+#### Login to
 
 - Discord
 - Gitkraken
@@ -24,6 +26,10 @@ Login to:
 - Spotify
 - Steam
 - TeamViewer
+
+### Server
+
+#### Setup plex over `IP:32400/web`
 
 ## Nixops
 
