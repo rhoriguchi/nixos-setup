@@ -15,11 +15,6 @@ let
     services["tv_time_export"]="TV Time export"
   '';
 in {
-  system.autoUpgrade = {
-    enable = true;
-    dates = "00:00";
-  };
-
   nix.gc = {
     automatic = true;
     dates = "05:00";
