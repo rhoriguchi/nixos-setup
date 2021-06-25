@@ -9,6 +9,7 @@ let
     services["adguardhome"]="AdGuard Home"
     services["docker"]="Docker"
     services["duckdns"]="Duck DNS"
+    services["nginx"]="Nginx"
     services["plex"]="Plex"
     services["resilio"]="Resilio Sync"
     services["sshd"]="SSH"
@@ -42,5 +43,12 @@ in {
     isNormalUser = true;
     password = (import ../../secrets.nix).users.users.xxlpitu.password;
     openssh.authorizedKeys.keys = (import ../../authorized-keys.nix).keys;
+  };
+
+  services.nginx = {
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
   };
 }
