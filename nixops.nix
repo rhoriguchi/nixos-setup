@@ -7,7 +7,7 @@
   defaults.imports = [ ./configuration/common.nix ];
 
   Laptop = { pkgs, ... }: {
-    deployment.targetHost = "localhost";
+    deployment.targetHost = "127.0.0.1";
 
     imports = [ ./configuration/devices/laptop ];
 
