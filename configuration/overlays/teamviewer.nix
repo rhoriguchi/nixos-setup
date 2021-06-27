@@ -1,5 +1,5 @@
 { teamviewer, fetchurl }:
-teamviewer.overrideAttrs (oldAttrs: rec {
+teamviewer.overrideAttrs (_: rec {
   version = "15.9.5";
 
   src = fetchurl {

@@ -1,5 +1,5 @@
 { discord, fetchurl }:
-discord.overrideAttrs (oldAttrs: rec {
+discord.overrideAttrs (_: rec {
   version = "0.0.15";
 
   src = fetchurl {

@@ -19,7 +19,7 @@ let
     type = "Application";
     icon = "proton-vpn";
   };
-in protonvpn-cli.overrideAttrs (oldAttrs: {
+in protonvpn-cli.overrideAttrs (_: {
   postInstall = ''
     mkdir -p $out/share/pixmaps
     cp ${./icon.png} $out/share/pixmaps/proton-vpn.png
