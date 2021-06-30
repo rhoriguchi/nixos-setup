@@ -46,6 +46,10 @@ in {
     openssh.authorizedKeys.keys = (import ../../authorized-keys.nix).keys;
   };
 
+  system.activationScripts.create-zshrc = ''
+    touch ${config.users.users.xxlpitu.home}/.zshrc
+  '';
+
   services.nginx = {
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
