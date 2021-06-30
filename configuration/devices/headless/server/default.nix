@@ -64,7 +64,7 @@
       enable = true;
 
       token = (import ../../../secrets.nix).services.duckdns.token;
-      subdomain = "xxlpitu-server";
+      subdomains = [ "xxlpitu-hs" "xxlpitu-server" ];
     };
 
     resilio = {
