@@ -9,6 +9,7 @@ let
     services["adguardhome"]="AdGuard Home"
     services["docker"]="Docker"
     services["duckdns"]="Duck DNS"
+    services["fancontrol"]="Fancontrol"
     services["nginx"]="Nginx"
     services["plex"]="Plex"
     services["resilio"]="Resilio Sync"
