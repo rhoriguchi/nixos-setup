@@ -29,6 +29,11 @@
         file = "zshrc.sh";
         src = "${pkgs.zsh-git-prompt}/share/${pkgs.zsh-git-prompt.pname}";
       }
+      {
+        name = pkgs.zsh-syntax-highlighting.pname;
+        file = "zsh-syntax-highlighting.zsh";
+        src = "${pkgs.zsh-syntax-highlighting}/share/${pkgs.zsh-syntax-highlighting.pname}";
+      }
     ];
 
     localVariables.ZSH_AUTOSUGGEST_STRATEGY = [ "completion" ];
