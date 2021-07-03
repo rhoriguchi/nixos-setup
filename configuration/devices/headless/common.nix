@@ -12,6 +12,7 @@ let
     services["fancontrol"]="Fancontrol"
     services["nginx"]="Nginx"
     services["plex"]="Plex"
+    services["home-assistant"]="Home Assistant"
     services["resilio"]="Resilio Sync"
     services["sshd"]="SSH"
     services["tv_time_export"]="TV Time export"
