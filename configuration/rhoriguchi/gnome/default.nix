@@ -1,14 +1,15 @@
 { pkgs, ... }:
 let
   extensions = [
-    pkgs.gnomeExtensions.appindicator
+    # TODO update to unaliased names
+    pkgs.gnomeExtensions.appindicator-support
     pkgs.gnomeExtensions.caffeine
     pkgs.gnomeExtensions.clock-override
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.dynamic-panel-transparency
     pkgs.gnomeExtensions.fuzzy-app-search
     pkgs.gnomeExtensions.unite
-    pkgs.gnomeExtensions.window-is-ready-remover
+    pkgs.gnomeExtensions.window-is-ready-notification-remover
   ];
 in {
   fonts.fonts = [ pkgs.jetbrains-mono ];
@@ -106,7 +107,7 @@ in {
         app-picker-layout = [ ];
         enabled-extensions =
           [ "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" ]
-          ++ map (extension: extension.uuid) extensions;
+          ++ map (extension: if builtins.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid) extensions;
         favorite-apps = [ ];
       };
       "org/gnome/shell/extensions/caffeine" = {
