@@ -39,4 +39,12 @@
 
     nixpkgs.system = "aarch64-linux";
   };
+
+  Horgen = { ... }: {
+    deployment.targetHost = "xxlpitu-horgen.duckdns.org";
+
+    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/horgen ];
+
+    nixpkgs.system = "aarch64-linux";
+  };
 }
