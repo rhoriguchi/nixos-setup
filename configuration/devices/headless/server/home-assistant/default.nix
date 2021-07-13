@@ -106,9 +106,7 @@
 
         frontend = { };
 
-        history.exclude = {
-          entities = [ "sensor.time" ];
-        };
+        history.exclude.entities = [ "sensor.time" ];
 
         sun = { };
 
