@@ -34,7 +34,7 @@ in {
 
       "jcrk.synology.me".user = "jdh";
 
-      "xxlpitu-adguard" = config.home-manager.users.rhoriguchi.lib.dag.entryAfter [ "*.duckdns.org" ] {
+      "xxlpitu-adguard" = {
         # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/default.nix"
         hostname = "XXLPitu-AdGuard";
         user = "xxlpitu";
