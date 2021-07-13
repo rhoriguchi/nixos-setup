@@ -41,7 +41,10 @@
   };
 
   Horgen = { ... }: {
-    deployment.targetHost = "xxlpitu-horgen.duckdns.org";
+    deployment = {
+      targetHost = "xxlpitu-horgen.duckdns.org";
+      targetPort = 1234;
+    };
 
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/horgen ];
 
