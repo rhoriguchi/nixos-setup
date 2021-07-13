@@ -40,6 +40,8 @@ in {
         user = "xxlpitu";
         proxyJump = "xxlpitu-server.duckdns.org";
       };
+
+      "xxlpitu-horgen.duckdns.org" = config.home-manager.users.rhoriguchi.lib.dag.entryBefore [ "*.duckdns.org" ] { port = 1234; };
     };
   };
 }
