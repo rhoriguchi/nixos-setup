@@ -8,7 +8,7 @@
       enable = true;
 
       token = (import ../../../../secrets.nix).services.duckdns.token;
-      subdomains = [ " xxlpitu-horgen " ];
+      subdomains = [ "xxlpitu-horgen" ];
     };
 
     resilio = {
