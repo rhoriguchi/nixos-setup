@@ -8,14 +8,14 @@ let
     declare -A services
     services["adguardhome"]="AdGuard Home"
     services["docker"]="Docker"
-    services["duckdns"]="Duck DNS"
+    services["duckdns.timer"]="Duck DNS"
     services["fancontrol"]="Fancontrol"
     services["nginx"]="Nginx"
     services["plex"]="Plex"
     services["home-assistant"]="Home Assistant"
     services["resilio"]="Resilio Sync"
     services["sshd"]="SSH"
-    services["tv_time_export"]="TV Time export"
+    services["tv_time_export.timer"]="TV Time export"
   '';
 in {
   nix.gc = {
