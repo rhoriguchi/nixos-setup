@@ -2,14 +2,14 @@
 let
   extensions = [
     # TODO update to unaliased names
-    pkgs.gnomeExtensions.appindicator-support
+    pkgs.gnomeExtensions.appindicator
     pkgs.gnomeExtensions.caffeine
     pkgs.gnomeExtensions.clock-override
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.dynamic-panel-transparency
     pkgs.gnomeExtensions.fuzzy-app-search
     pkgs.gnomeExtensions.unite
-    pkgs.gnomeExtensions.window-is-ready-notification-remover
+    pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
   fonts.fonts = [ pkgs.jetbrains-mono ];
