@@ -33,7 +33,6 @@ in {
 
   programs.zsh.shellInit = ''
     if (( EUID != 0 )); then
-      # TODO add config to add services
       ${pkgs.fancy-motd}/bin/motd ${fancyMotdConfig}
     fi
   '';
