@@ -183,6 +183,7 @@
       pkgs.sshpass
       pkgs.terraform_1_0_0
       pkgs.unzip
+      pkgs.virt-manager
       pkgs.vlc
       pkgs.vscode
       pkgs.yarn

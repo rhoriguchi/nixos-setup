@@ -18,8 +18,14 @@
     environment.systemPackages = [ pkgs.nixops ];
   };
 
+  Hypervisor = { ... }: {
+    deployment.targetHost = "xxlpitu-home.duckdns.org";
+
+    imports = [ ./configuration/devices/headless/hypervisor ];
+  };
+
   Server = { ... }: {
-    deployment.targetHost = "xxlpitu-server.duckdns.org";
+    deployment.targetHost = "xxlpitu-server";
 
     imports = [ ./configuration/devices/headless/server ];
   };

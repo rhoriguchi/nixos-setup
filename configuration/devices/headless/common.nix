@@ -11,6 +11,7 @@ let
     services["duckdns.timer"]="Duck DNS (Timer)"
     services["fancontrol"]="Fancontrol"
     services["home-assistant"]="Home Assistant"
+    services["libvirtd"]="libvirt"
     services["nginx"]="Nginx"
     services["plex"]="Plex"
     services["resilio"]="Resilio Sync"
