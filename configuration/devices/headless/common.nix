@@ -14,6 +14,7 @@ let
     services["libvirtd"]="libvirt"
     services["nginx"]="Nginx"
     services["plex"]="Plex"
+    services["postgresql"]="PostgreSQL"
     services["resilio"]="Resilio Sync"
     services["sshd"]="SSH"
     services["tv_time_export.timer"]="TV Time export (Timer)"

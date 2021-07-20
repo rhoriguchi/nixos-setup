@@ -32,6 +32,17 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 
 #### Setup plex over `IP:32400/web`
 
+#### Home Assistant
+
+- Create default user
+- Delete all areas
+- Add integrations
+  - Netatmo
+  - Ubiquiti UniFi
+- Configure myStrom buttons
+  - `curl -d "single=post://XXLPitu-Server.local:8123/api/webhook/mystrom_button_blue" "http://myStrom-Button-E9DACB.iot/api/v1/device/F4CFA2E9DACB"`
+  - `curl -d "single=post://XXLPitu-Server.local:8123/api/webhook/mystrom_button_orange" "http://myStrom-Button-E9DAD9.iot/api/v1/device/F4CFA2E9DAD9"`
+
 ### Hypervisor
 
 #### Setup RAID 0
