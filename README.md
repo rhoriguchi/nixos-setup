@@ -22,6 +22,7 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
   - WebStorm
   - DataGrip
 - Postman
+- ProtonVPN Gui
 - Signal
 - Spotify
 - Steam

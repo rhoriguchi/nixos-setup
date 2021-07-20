@@ -21,6 +21,13 @@ in {
       '';
     };
 
+    "autostart/protonvpn-tray.desktop" = lib.mkIf (builtins.elem pkgs.protonvpn-gui.name packages) {
+      text = ''
+        ${builtins.readFile "${pkgs.protonvpn-gui}/share/applications/protonvpn-tray.desktop"}
+        X-GNOME-Autostart-enabled=true
+      '';
+    };
+
     "autostart/signal-desktop.desktop" = lib.mkIf (builtins.elem pkgs.signal-desktop.name packages) {
       text = ''
         ${builtins.readFile "${pkgs.signal-desktop}/share/applications/signal-desktop.desktop"}

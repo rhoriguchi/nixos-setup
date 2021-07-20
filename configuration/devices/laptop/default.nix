@@ -174,7 +174,7 @@
       pkgs.pipenv
       pkgs.postgresql_13
       pkgs.postman
-      pkgs.protonvpn-cli
+      pkgs.protonvpn-gui
       pkgs.python3
       pkgs.python3Packages.pip
       pkgs.qbittorrent
