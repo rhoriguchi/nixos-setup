@@ -7,6 +7,10 @@
       efi.canTouchEfiVariables = true;
     };
 
+    initrd.mdadmConf = ''
+      ARRAY /dev/md0 metadata=1.2 name=XXLPitu-Hypervisor:0 UUID=58e72fa6:8357b906:89668f63:0f7e4785
+    '';
+
     kernelModules = [ "kvm-amd" "kvm-intel" ];
   };
 

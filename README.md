@@ -32,6 +32,21 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 
 #### Setup plex over `IP:32400/web`
 
+### Hypervisor
+
+#### Setup RAID 0
+
+```bash
+sudo mdadm --create --verbose /dev/md0 --level=mirror --raid-devices=2 /dev/sda /dev/sdb
+sudo mkfs.ext4 -F /dev/md0
+```
+
+Add output to `boot.initrd.mdadmConf`:
+
+```bash
+sudo mdadm --detail --scan
+```
+
 ## Nixops
 
 ### Init

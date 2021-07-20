@@ -19,6 +19,11 @@
     fsType = "vfat";
   };
 
+  fileSystems."/media/Data" = {
+    device = "/dev/disk/by-uuid/b4df38ca-e5f1-4454-8f0c-178ae1400228";
+    fsType = "ext4";
+  };
+
   swapDevices = [ ];
 
   hardware.video.hidpi.enable = lib.mkDefault true;
