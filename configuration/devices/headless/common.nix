@@ -25,6 +25,11 @@ in {
     options = "--delete-older-than 7d";
   };
 
+  security.acme = {
+    acceptTerms = true;
+    email = "ryan.horiguchi@gmail.com";
+  };
+
   networking.networkmanager = {
     ethernet.macAddress = "permanent";
     wifi.macAddress = "permanent";
