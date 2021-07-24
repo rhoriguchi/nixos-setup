@@ -30,6 +30,14 @@
 
     # TODO temp fix till resolved or never version released https://github.com/NixOS/nixpkgs/issues/96633
     teamviewer = super.callPackage ./teamviewer.nix { inherit (super) teamviewer; };
+
+    # TODO temp fix till merged https://github.com/NixOS/nixpkgs/pull/124026
+    adguardhome = super.adguardhome.overrideAttrs (old: {
+      src = super.fetchurl {
+        url = "https://github.com/AdguardTeam/AdGuardHome/releases/download/v${old.version}/AdGuardHome_linux_arm64.tar.gz";
+        sha256 = "1k8bmarxh1pdj9ywlpkrm9sb704r2dsrzfybn2b6lyjyvj85x637";
+      };
+    });
   })
 
   # TODO add hook to set 'NoDisplay=true'
