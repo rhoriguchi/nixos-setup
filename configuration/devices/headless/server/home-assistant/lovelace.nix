@@ -20,8 +20,8 @@ let
 in {
   systemd.tmpfiles.rules = [
     "d /run/hass 0700 nginx nginx"
-    "L+ /run/hass/mini-graph-card-bundle.js - - - - ${miniGraphCard}"
     "L+ /run/hass/fold-entity-row.js - - - - ${foldEntityRow}"
+    "L+ /run/hass/mini-graph-card-bundle.js - - - - ${miniGraphCard}"
   ];
 
   services = {
@@ -50,11 +50,11 @@ in {
 
         resources = [
           {
-            url = "/local/mini-graph-card-bundle.js?v=${miniGraphCardVersion}";
+            url = "/local/fold-entity-row.js?v=${foldEntityRowVersion}";
             type = "module";
           }
           {
-            url = "/local/fold-entity-row.js?v=${foldEntityRowVersion}";
+            url = "/local/mini-graph-card-bundle.js?v=${miniGraphCardVersion}";
             type = "module";
           }
         ];
