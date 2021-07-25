@@ -23,7 +23,19 @@
         }
         {
           name = "Netatmo battery";
-          icon = "mdi:battery";
+          icon = ''
+            {% set battery_level = state_attr('climate.netatmo_home', 'battery_level') %}
+
+            {% if battery_level == 'full' or battery_level == 'high' %}
+              mdi:battery
+            {% elif battery_level == 'medium' or battery_level == 'low' %}
+              mdi:battery-50
+            {% elif battery_level == 'very_low' %}
+              mdi:battery-10
+            {% else %}
+              mdi:battery-unknown
+            {% endif %}
+          '';
           state = ''
             {% set battery_level = state_attr('climate.netatmo_home', 'battery_level') %}
 
@@ -37,6 +49,8 @@
               25
             {% elif battery_level == 'very_low' %}
               10
+            {% else %}
+              ?
             {% endif %}
           '';
           unit_of_measurement = "%";
