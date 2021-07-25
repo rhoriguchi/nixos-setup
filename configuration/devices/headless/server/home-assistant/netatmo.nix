@@ -37,8 +37,6 @@
               25
             {% elif battery_level == 'very_low' %}
               10
-            {% else %}
-              ?
             {% endif %}
           '';
           unit_of_measurement = "%";
