@@ -67,10 +67,19 @@
       subdomains = [ "xxlpitu-hs" ];
     };
 
+    gphotos-sync = {
+      enable = true;
+
+      projectId = (import ../../../secrets.nix).services.gphotos-sync.projectId;
+      clientId = (import ../../../secrets.nix).services.gphotos-sync.clientId;
+      clientSecret = (import ../../../secrets.nix).services.gphotos-sync.clientSecret;
+      exportPath = "/media/Data/Sync/Google_Photos";
+    };
+
     resilio = {
       enable = true;
 
-      readWriteDirs = [ "Series" "tv_time_export" ];
+      readWriteDirs = [ "Google_Photos" "Series" "tv_time_export" ];
       secrets = (import ../../../secrets.nix).services.resilio.secrets;
       syncPath = "/media/Data/Sync";
     };

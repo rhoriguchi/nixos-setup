@@ -43,6 +43,10 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
   - `curl -d "single=post://XXLPitu-Server.local:8123/api/webhook/mystrom_button_blue" "http://myStrom-Button-E9DACB.iot/api/v1/device/F4CFA2E9DACB"`
   - `curl -d "single=post://XXLPitu-Server.local:8123/api/webhook/mystrom_button_orange" "http://myStrom-Button-E9DAD9.iot/api/v1/device/F4CFA2E9DAD9"`
 
+#### Google Photos Sync
+
+Run the command the service calls and authenticate the application with Google.
+
 ### Hypervisor
 
 #### Setup RAID 0
