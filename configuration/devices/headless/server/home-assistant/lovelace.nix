@@ -1,5 +1,7 @@
 { pkgs, ... }:
 let
+  # TODO HOME-ASSISTANT add all those files as packages as overlay
+
   batteryEntityVersion = "0.2";
   batteryEntity = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/cbulock/lovelace-battery-entity/${batteryEntityVersion}/battery-entity.js";
