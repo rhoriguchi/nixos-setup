@@ -1,5 +1,11 @@
 { pkgs, ... }:
 let
+  batteryEntityVersion = "0.2";
+  batteryEntity = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/cbulock/lovelace-battery-entity/${batteryEntityVersion}/battery-entity.js";
+    sha256 = "15jmvln2qv40rpgm52ygpc8p4xr5gzgxbvvr7nranprr0vyaff17";
+  };
+
   miniGraphCardVersion = "v0.10.0";
   miniGraphCard = pkgs.fetchurl {
     url = "https://github.com/kalkih/mini-graph-card/releases/download/${miniGraphCardVersion}/mini-graph-card-bundle.js";
@@ -20,6 +26,7 @@ let
 in {
   systemd.tmpfiles.rules = [
     "d /run/hass 0700 nginx nginx"
+    "L+ /run/hass/battery-entity.js - - - - ${batteryEntity}"
     "L+ /run/hass/fold-entity-row.js - - - - ${foldEntityRow}"
     "L+ /run/hass/mini-graph-card-bundle.js - - - - ${miniGraphCard}"
   ];
@@ -49,6 +56,10 @@ in {
         title = "Home";
 
         resources = [
+          {
+            url = "/local/battery-entity.js?v=${batteryEntityVersion}";
+            type = "module";
+          }
           {
             url = "/local/fold-entity-row.js?v=${foldEntityRowVersion}";
             type = "module";
@@ -149,10 +160,11 @@ in {
               ];
             }
             {
+              # TODO HOME-ASSISTANT add myStrom buttons with "custom:fold-entity-row"
               type = "entities";
               title = "Battery";
-              # TODO HOME-ASSISTANT add myStrom buttons with "custom:fold-entity-row"
               entities = [{
+                type = "custom:battery-entity";
                 name = "Netatmo";
                 entity = "sensor.netatmo_battery";
               }];
