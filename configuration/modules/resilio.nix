@@ -148,8 +148,9 @@ in {
       after = [ "network.target" ];
       description = "Resilio Sync";
       serviceConfig = {
-        ExecStartPre = lib.mkIf (!cfg.webUI.enable)
-          "${pkgs.coreutils}/bin/mkdir -pm 0775 ${builtins.concatStringsSep " " (map (sharedFolder: sharedFolder.dir) sharedFolders)}";
+        ExecStartPre = lib.mkIf (!cfg.webUI.enable) "${pkgs.coreutils}/bin/mkdir -pm 0775 ${
+            builtins.concatStringsSep " " (map (sharedFolder: ''"${sharedFolder.dir}"'') sharedFolders)
+          }";
         ExecStart = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
         StandardOutput = "null";
         StandardError = "null";
