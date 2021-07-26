@@ -140,8 +140,8 @@ in {
     };
 
     system.activationScripts.resilio = ''
-      mkdir -pm 0775 ${cfg.syncPath}
-      chown rslsync:rslsync ${cfg.syncPath}
+      mkdir -pm 0775 "${cfg.syncPath}"
+      chown rslsync:rslsync "${cfg.syncPath}"
     '';
 
     systemd.services.resilio = {

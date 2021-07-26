@@ -40,7 +40,7 @@ in {
       after = [ "network.target" ];
       description = "tv_time_export";
       serviceConfig = {
-        ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${cfg.exportPath}";
+        ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.exportPath}"'';
         ExecStart = "${pkgs.tv_time_export}/bin/tv_time_export ${configFile}";
         Restart = "on-abort";
         UMask = "0002";

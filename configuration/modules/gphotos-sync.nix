@@ -61,8 +61,8 @@ in {
       after = [ "network.target" ];
       description = "gphotos-sync";
       serviceConfig = {
-        ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${cfg.exportPath}";
-        ExecStart = "${pkgs.gphotos-sync}/bin/gphotos-sync ${args} ${cfg.exportPath}";
+        ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.exportPath}"'';
+        ExecStart = ''${pkgs.gphotos-sync}/bin/gphotos-sync ${args} "${cfg.exportPath}"'';
         Restart = "on-abort";
         UMask = "0002";
         User = "gphotos-sync";
