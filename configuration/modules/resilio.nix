@@ -162,6 +162,7 @@ in {
         Restart = "on-abort";
         UMask = "0002";
         User = "rslsync";
+        Group = "rslsync";
       };
       unitConfig.ConditionPathExists = [ cfg.syncPath ];
       wantedBy = [ "multi-user.target" ];

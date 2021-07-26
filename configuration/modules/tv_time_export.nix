@@ -45,6 +45,7 @@ in {
         Restart = "on-abort";
         UMask = "0002";
         User = "tv_time_export";
+        Group = if config.services.resilio.enable then "rslsync" else "tv_time_export";
       };
       startAt = "06:00";
     };

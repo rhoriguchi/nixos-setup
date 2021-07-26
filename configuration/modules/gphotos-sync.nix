@@ -66,6 +66,7 @@ in {
         Restart = "on-abort";
         UMask = "0002";
         User = "gphotos-sync";
+        Group = if config.services.resilio.enable then "rslsync" else "gphotos-sync";
       };
       startAt = "04:00";
     };
