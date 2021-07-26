@@ -1,1 +1,1 @@
-{ callPackage }: { myanimelist = callPackage ./myanimelist.nix { }; }
+{ callPackage }: { myAnimeList = callPackage ./myAnimeList.nix { }; }
