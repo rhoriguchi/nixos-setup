@@ -14,7 +14,15 @@ let
     };
   };
 
-  args = [ "--archived" "--do-delete" "--flush-index" "--omit-album-date" "--rescan" "--retry-download" "--secret ${secretFile}" ];
+  args = builtins.concatStringsSep " " [
+    "--archived"
+    "--do-delete"
+    "--flush-index"
+    "--omit-album-date"
+    "--rescan"
+    "--retry-download"
+    "--secret ${secretFile}"
+  ];
 in {
   options.services.gphotos-sync = {
     enable = lib.mkEnableOption "Google Photos Sync";
@@ -54,7 +62,7 @@ in {
       description = "gphotos-sync";
       serviceConfig = {
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${cfg.exportPath}";
-        ExecStart = "${pkgs.gphotos-sync}/bin/gphotos-sync ${builtins.concatStringsSep " " args} ${cfg.exportPath}";
+        ExecStart = "${pkgs.gphotos-sync}/bin/gphotos-sync ${args} ${cfg.exportPath}";
         Restart = "on-abort";
         UMask = "0002";
         User = "gphotos-sync";
