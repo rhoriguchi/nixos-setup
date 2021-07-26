@@ -25,7 +25,7 @@
       inherit (super.linuxPackages) evdi;
     };
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
-    plexPlugins.myanimelist = super.callPackage ./plexPlugins/myanimelist.nix { };
+    plexPlugins = super.callPackage ./plexPlugins { };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
 
     # TODO temp fix till resolved or never version released https://github.com/NixOS/nixpkgs/issues/96633
