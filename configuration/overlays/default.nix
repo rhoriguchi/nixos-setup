@@ -25,6 +25,7 @@
       inherit (super.linuxPackages) evdi;
     };
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
+    hs = super.callPackage ./hs { };
     plexPlugins = super.callPackage ./plexPlugins { };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
 

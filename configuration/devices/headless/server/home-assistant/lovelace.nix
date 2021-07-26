@@ -1,44 +1,18 @@
 { pkgs, ... }:
 let
-  # TODO HOME-ASSISTANT add all those files as packages as overlay
+  lovelaceModules = [ pkgs.hs.lovelaceModule.batteryEntity pkgs.hs.lovelaceModule.foldEntityRow pkgs.hs.lovelaceModule.miniGraphCard ];
 
-  batteryEntityVersion = "0.2";
-  batteryEntity = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/cbulock/lovelace-battery-entity/${batteryEntityVersion}/battery-entity.js";
-    sha256 = "15jmvln2qv40rpgm52ygpc8p4xr5gzgxbvvr7nranprr0vyaff17";
-  };
-
-  miniGraphCardVersion = "v0.10.0";
-  miniGraphCard = pkgs.fetchurl {
-    url = "https://github.com/kalkih/mini-graph-card/releases/download/${miniGraphCardVersion}/mini-graph-card-bundle.js";
-    sha256 = "04m8zk6j3hkd2q230j97b6w0f6y1bxqc4xv8ab94a0h9vfji2pl1";
-  };
-
-  foldEntityRowVersion = "20.0.4";
-  foldEntityRow = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/thomasloven/lovelace-fold-entity-row/${foldEntityRowVersion}/fold-entity-row.js";
-    sha256 = "0bpympqgvnbddhi29qgfmnj12j1mhaqh339draxd1gwi54x2r29s";
-  };
-
-  themes = let version = "1.0.3";
-  in pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/liri/lovelace-themes/${version}/themes/google-home.yaml";
-    sha256 = "0f9z5qc4wjc8npc2xq8h8j1hlff6dn9ax9p0c6nbn04jidp6vpsr";
-  };
+  theme = pkgs.hs.theme.googleHome;
 in {
-  systemd.tmpfiles.rules = [
-    "d /run/hass 0700 nginx nginx"
-    "L+ /run/hass/battery-entity.js - - - - ${batteryEntity}"
-    "L+ /run/hass/fold-entity-row.js - - - - ${foldEntityRow}"
-    "L+ /run/hass/mini-graph-card-bundle.js - - - - ${miniGraphCard}"
-  ];
+  systemd.tmpfiles.rules = [ "d /run/hass 0700 nginx nginx" ]
+    ++ map (lovelaceModule: "L+ /run/hass/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js") lovelaceModules;
 
   services = {
     nginx.virtualHosts."home-assistant" = { locations."/local/" = { alias = "/run/hass/"; }; };
 
     home-assistant = {
       config = {
-        frontend.themes = "!include ${themes}";
+        frontend.themes = "!include ${theme}/${theme.pname}.yaml";
 
         automation = [{
           alias = "Set theme at startup";
@@ -57,20 +31,10 @@ in {
       lovelaceConfig = {
         title = "Home";
 
-        resources = [
-          {
-            url = "/local/battery-entity.js?v=${batteryEntityVersion}";
-            type = "module";
-          }
-          {
-            url = "/local/fold-entity-row.js?v=${foldEntityRowVersion}";
-            type = "module";
-          }
-          {
-            url = "/local/mini-graph-card-bundle.js?v=${miniGraphCardVersion}";
-            type = "module";
-          }
-        ];
+        resources = map (lovelaceModule: {
+          url = "/local/${lovelaceModule.pname}.js?v=${lovelaceModule.version}";
+          type = "module";
+        }) lovelaceModules;
 
         views = [{
           title = "Default";
