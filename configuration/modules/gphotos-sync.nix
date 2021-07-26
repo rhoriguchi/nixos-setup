@@ -14,15 +14,7 @@ let
     };
   };
 
-  args = [
-    "--archived"
-    "--do-delete"
-    "--flush-index"
-    "--omit-album-date"
-    "--rescan"
-    "--retry-download"
-    "--secret ${secretFile}"
-  ];
+  args = [ "--archived" "--do-delete" "--flush-index" "--omit-album-date" "--rescan" "--retry-download" "--secret ${secretFile}" ];
 in {
   options.services.gphotos-sync = {
     enable = lib.mkEnableOption "Google Photos Sync";
