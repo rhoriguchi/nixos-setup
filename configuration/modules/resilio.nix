@@ -142,6 +142,11 @@ in {
     system.activationScripts.resilio = ''
       mkdir -pm 0775 "${cfg.syncPath}"
       chown rslsync:rslsync "${cfg.syncPath}"
+    '' + lib.optionalString (!cfg.webUI.enable) ''
+      ${pkgs.findutils}/bin/find ${cfg.syncPath} -mindepth 1 -maxdepth 1 -type d ${
+        builtins.concatStringsSep " -and "
+        (map (sharedFolder: ''-not -name "${lib.replaceStrings [ "${cfg.syncPath}/" ] [ "" ] sharedFolder.dir}"'') sharedFolders)
+      } | xargs rm -rf
     '';
 
     systemd.services.resilio = {
