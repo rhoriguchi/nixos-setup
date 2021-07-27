@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   lovelaceModules = [
     pkgs.hs.lovelaceModule.batteryEntity
@@ -10,27 +10,50 @@ let
 
   theme = pkgs.hs.theme.googleHome;
 
-  #̉ TODO HOME-ASSISTANT automatically apply to "custom:mini-graph-card"
-  miniGraphCardStyle = ''
-    .header span {
-      color: var(--ha-card-header-color) !important;
-      font-size: var(--ha-card-header-font-size, 24px) !important;
-      font-weight: normal !important;
-      margin-top: 10px !important;
-      opacity: 1 !important;
-    }
-  '';
+  cardStyles = {
+    "custom:mini-graph-card" = ''
+      .header span {
+        color: var(--ha-card-header-color) !important;
+        font-size: var(--ha-card-header-font-size, 24px) !important;
+        font-weight: normal !important;
+        margin-top: 10px !important;
+        opacity: 1 !important;
+      }
+    '';
 
-  #̉ TODO HOME-ASSISTANT automatically apply to "custom:simple-thermostat"
-  simpleThermostatStyle = ''
-    .header__title {
-      color: var(--ha-card-header-color) !important;
-    }
+    "custom:simple-thermostat" = ''
+      .header__title {
+        color: var(--ha-card-header-color) !important;
+      }
 
-    .mode-item.active, .mode-item.active:hover {
-      background: var(--mdc-theme-primary) !important;
-    }
-  '';
+      .mode-item.active.auto {
+        background: #E0E0E0 !important;
+      }
+
+      .mode-item.active.away {
+        background: #F7FF9D !important;
+      }
+
+      .mode-item.active.boost {
+        background: #FF8F98 !important;
+      }
+
+      .mode-item.active.Frost.Guard {
+        background: #CEFFFF !important;
+      }
+
+      .mode-item.active.heat {
+        background: #FF8F98 !important;
+      }
+
+      .mode-item.active.Schedule {
+        background: #E0E0E0 !important;
+      }
+    '';
+  };
+
+  addStyleToCards = cards:
+    map (card: (card // lib.optionalAttrs (builtins.hasAttr card.type cardStyles) { style = cardStyles."${card.type}"; })) cards;
 in {
   systemd.tmpfiles.rules = [ "d /run/hass 0700 nginx nginx" ]
     ++ map (lovelaceModule: "L+ /run/hass/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js") lovelaceModules;
@@ -66,7 +89,7 @@ in {
 
         views = [{
           title = "Default";
-          cards = [
+          cards = addStyleToCards [
             {
               type = "custom:simple-thermostat";
               entity = "climate.netatmo_home";
@@ -86,8 +109,6 @@ in {
                   boost.icon = "mdi:thermometer-plus";
                 };
               };
-
-              style = simpleThermostatStyle;
             }
             {
               type = "custom:mini-graph-card";
@@ -97,7 +118,7 @@ in {
               points_per_hour = 0.5;
               update_interval = 60;
               line_width = 3;
-              line_color = "var(--mdc-theme-primary)";
+              line_color = [ "var(--mdc-theme-primary)" ];
 
               show = {
                 icon = false;
@@ -108,8 +129,6 @@ in {
                 name = "Current temperature";
                 entity = "sensor.netatmo_current_temperature";
               }];
-
-              style = miniGraphCardStyle;
             }
             {
               type = "custom:mini-graph-card";
@@ -119,6 +138,7 @@ in {
               points_per_hour = 2;
               update_interval = 60;
               line_width = 3;
+              line_color = [ "var(--mdc-theme-primary)" "#F4B242" ];
 
               show = {
                 icon = false;
@@ -135,8 +155,6 @@ in {
                   entity = "sensor.speedtest_upload";
                 }
               ];
-
-              style = miniGraphCardStyle;
             }
             {
               # TODO HOME-ASSISTANT toggle is broken
