@@ -70,7 +70,6 @@ in {
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_blue";
-
         }];
         action = [{
           service = "light.toggle";
@@ -82,7 +81,6 @@ in {
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_orange";
-
         }];
         action = [{
           service = "light.toggle";
