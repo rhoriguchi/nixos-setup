@@ -31,13 +31,15 @@ let
     peer_expiration_days = 1;
     use_gui = false;
     disk_low_priority = true;
-  } // lib.optionalAttrs (!cfg.webUI.enable) { shared_folders = sharedFolders; } // lib.optionalAttrs cfg.webUI.enable {
+  } // (if cfg.webUI.enable then {
     webui = {
       login = cfg.webUI.username;
       password = cfg.webUI.password;
       listen = "0.0.0.0:${toString cfg.webUI.port}";
     };
-  });
+  } else {
+    shared_folders = sharedFolders;
+  }));
 in {
   disabledModules = [ "services/networking/resilio.nix" ];
 
