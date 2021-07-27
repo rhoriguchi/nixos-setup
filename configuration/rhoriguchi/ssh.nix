@@ -41,13 +41,6 @@ in {
         proxyJump = "xxlpitu-home.duckdns.org";
       };
 
-      "xxlpitu-server" = {
-        # TODO get hostname from "configuration/devices/headless/server/default.nix"
-        hostname = "XXLPitu-Server";
-        user = "xxlpitu";
-        proxyJump = "xxlpitu-home.duckdns.org";
-      };
-
       "xxlpitu-horgen.duckdns.org" = config.home-manager.users.rhoriguchi.lib.dag.entryBefore [ "*.duckdns.org" ] { port = 1234; };
     };
   };
