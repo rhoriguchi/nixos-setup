@@ -58,7 +58,7 @@
 
       system_health = { };
 
-      logger.default = "error";
+      logger.default = "warning";
     };
   };
 }
