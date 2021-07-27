@@ -24,6 +24,7 @@
         "light"
         "logger"
         "lovelace"
+        "mobile_app"
         "mystrom"
         "netatmo"
         "person"
@@ -50,6 +51,8 @@
         unit_system = "metric";
         temperature_unit = "C";
       };
+
+      mobile_app = { };
 
       frontend = { };
 
