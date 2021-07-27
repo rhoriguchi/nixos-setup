@@ -1,8 +1,25 @@
 { pkgs, ... }:
 let
-  lovelaceModules = [ pkgs.hs.lovelaceModule.batteryEntity pkgs.hs.lovelaceModule.foldEntityRow pkgs.hs.lovelaceModule.miniGraphCard ];
+  lovelaceModules = [
+    pkgs.hs.lovelaceModule.batteryEntity
+    pkgs.hs.lovelaceModule.cardMod
+    pkgs.hs.lovelaceModule.foldEntityRow
+    pkgs.hs.lovelaceModule.miniGraphCard
+    pkgs.hs.lovelaceModule.simpleThermostat
+  ];
 
   theme = pkgs.hs.theme.googleHome;
+
+  #̉ TODO HOME-ASSISTANT automatically apply to "custom:simple-thermostat"
+  simpleThermostatStyle = ''
+    .header__title {
+      color: var(--ha-card-header-color) !important;
+    }
+
+    .mode-item.active, .mode-item.active:hover {
+      background: var(--mdc-theme-primary) !important;
+    }
+  '';
 in {
   systemd.tmpfiles.rules = [ "d /run/hass 0700 nginx nginx" ]
     ++ map (lovelaceModule: "L+ /run/hass/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js") lovelaceModules;
@@ -40,8 +57,26 @@ in {
           title = "Default";
           cards = [
             {
-              type = "thermostat";
+              type = "custom:simple-thermostat";
               entity = "climate.netatmo_home";
+
+              header = {
+                name = "Netatmo";
+                icon = false;
+              };
+
+              control = {
+                hvac.auto.icon = "mdi:autorenew";
+
+                preset = {
+                  "Frost Guard".icon = "mdi:snowflake";
+                  Schedule.icon = "mdi:calendar-sync";
+                  away.icon = "mdi:home-export-outline";
+                  boost.icon = "mdi:thermometer-plus";
+                };
+              };
+
+              style = simpleThermostatStyle;
             }
             {
               type = "custom:mini-graph-card";

@@ -5,8 +5,6 @@
       client_secret = (import ../../../../secrets.nix).services.home-assistant.config.netatmo.client_secret;
     };
 
-    homeassistant.customize."climate.netatmo_home".friendly_name = "Netatmo";
-
     template = [{
       sensor = [
         {
