@@ -1,5 +1,6 @@
 { pkgs, config, ... }: {
-  imports = [ ./lovelace.nix ./mystrom.nix ./netatmo.nix ./nginx.nix ./person.nix ./postgres.nix ./unifi.nix ./yeelight.nix ];
+  imports =
+    [ ./lovelace.nix ./mystrom.nix ./netatmo.nix ./nginx.nix ./person.nix ./postgres.nix ./speedtest.nix ./unifi.nix ./yeelight.nix ];
 
   services.home-assistant = {
     enable = true;
