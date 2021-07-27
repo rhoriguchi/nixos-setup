@@ -10,6 +10,17 @@ let
 
   theme = pkgs.hs.theme.googleHome;
 
+  #̉ TODO HOME-ASSISTANT automatically apply to "custom:mini-graph-card"
+  miniGraphCardStyle = ''
+    .header span {
+      color: var(--ha-card-header-color) !important;
+      font-size: var(--ha-card-header-font-size, 24px) !important;
+      font-weight: normal !important;
+      margin-top: 10px !important;
+      opacity: 1 !important;
+    }
+  '';
+
   #̉ TODO HOME-ASSISTANT automatically apply to "custom:simple-thermostat"
   simpleThermostatStyle = ''
     .header__title {
@@ -97,6 +108,8 @@ in {
                 name = "Current temperature";
                 entity = "sensor.netatmo_current_temperature";
               }];
+
+              style = miniGraphCardStyle;
             }
             {
               type = "custom:mini-graph-card";
@@ -122,6 +135,8 @@ in {
                   entity = "sensor.speedtest_upload";
                 }
               ];
+
+              style = miniGraphCardStyle;
             }
             {
               # TODO HOME-ASSISTANT toggle is broken
