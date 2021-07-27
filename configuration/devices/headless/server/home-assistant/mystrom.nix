@@ -5,6 +5,7 @@ let
 
   mystromApiUrl = "https://mystrom.ch/api";
 
+  # TODO HOME-ASSISTANT get all values and then create separate sensor with just voltage
   createVoltageShellScript = id:
     pkgs.writeShellScript "mystrom_get_voltage_${id}" ''
       export PATH=${lib.makeBinPath [ pkgs.curl pkgs.jq ]}
