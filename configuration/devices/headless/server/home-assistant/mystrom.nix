@@ -55,18 +55,18 @@ in {
       {
         platform = "command_line";
         name = "myStrom button blue battery";
-        unit_of_measurement = "%";
         scan_interval = 60 * 60;
         command = "${pkgs.bash}/bin/bash ${createVoltageShellScript "F4CFA2E9DACB"}";
         value_template = calculateButtonBattery;
+        unit_of_measurement = "%";
       }
       {
         platform = "command_line";
         name = "myStrom button orange battery";
-        unit_of_measurement = "%";
         scan_interval = 60 * 60;
         command = "${pkgs.bash}/bin/bash ${createVoltageShellScript "F4CFA2E9DAD9"}";
         value_template = calculateButtonBattery;
+        unit_of_measurement = "%";
       }
     ];
 
