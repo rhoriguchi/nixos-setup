@@ -219,14 +219,25 @@ in {
               ];
             }
             {
-              # TODO HOME-ASSISTANT add myStrom buttons with "custom:fold-entity-row"
               type = "entities";
               title = "Battery";
-              entities = [{
-                type = "custom:battery-entity";
-                name = "Netatmo";
-                entity = "sensor.netatmo_battery";
-              }];
+              entities = [
+                {
+                  type = "custom:battery-entity";
+                  name = "Netatmo";
+                  entity = "sensor.netatmo_battery";
+                }
+                {
+                  type = "custom:battery-entity";
+                  name = "myStrom button blue";
+                  entity = "sensor.mystrom_button_blue_battery";
+                }
+                {
+                  type = "custom:battery-entity";
+                  name = "myStrom button orange";
+                  entity = "sensor.mystrom_button_orange_battery";
+                }
+              ];
             }
             {
               type = "entities";
