@@ -118,17 +118,23 @@ in {
               points_per_hour = 0.5;
               update_interval = 60;
               line_width = 3;
-              line_color = [ "var(--mdc-theme-primary)" ];
+              line_color = [ "var(--mdc-theme-primary)" "#F4B242" ];
 
               show = {
                 icon = false;
                 fill = false;
               };
 
-              entities = [{
-                name = "Current temperature";
-                entity = "sensor.netatmo_current_temperature";
-              }];
+              entities = [
+                {
+                  name = "Indoor";
+                  entity = "sensor.netatmo_current_temperature";
+                }
+                {
+                  name = "Outdoor";
+                  entity = "sensor.openweather_current_temperature";
+                }
+              ];
             }
             {
               type = "custom:mini-graph-card";
