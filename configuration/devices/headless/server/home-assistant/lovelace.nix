@@ -135,7 +135,7 @@ in {
               name = "Speedtest";
 
               hours_to_show = 24 * 7;
-              points_per_hour = 2;
+              points_per_hour = 0.5;
               update_interval = 60;
               line_width = 3;
               line_color = [ "var(--mdc-theme-primary)" "#F4B242" ];
