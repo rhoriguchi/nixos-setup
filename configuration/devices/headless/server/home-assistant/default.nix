@@ -68,8 +68,6 @@
 
       history.exclude.entities = [ "sensor.time" ];
 
-      sun = { };
-
       system_health = { };
 
       logger.default = "warning";
