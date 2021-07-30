@@ -90,6 +90,7 @@ in {
         action = [{
           service = "light.toggle";
           entity_id = "light.entrance";
+          data.brightness = 255;
         }];
       }
       {
