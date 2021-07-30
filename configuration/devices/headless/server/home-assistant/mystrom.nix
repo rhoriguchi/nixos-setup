@@ -52,6 +52,7 @@ in {
     }];
 
     sensor = [
+      # TODO HOME-ASSISTANT create function to generate button
       {
         platform = "command_line";
         name = "myStrom button blue battery";
@@ -68,15 +69,29 @@ in {
         value_template = calculateButtonBattery;
         unit_of_measurement = "%";
       }
+      {
+        platform = "command_line";
+        name = "myStrom button purple battery";
+        scan_interval = 60 * 60;
+        command = "${pkgs.bash}/bin/bash ${createVoltageShellScript "F4CFA2E9D761"}";
+        value_template = calculateButtonBattery;
+        unit_of_measurement = "%";
+      }
     ];
 
     automation = [
       {
         alias = "Turn on entrance lights";
-        trigger = [{
-          platform = "webhook";
-          webhook_id = "mystrom_button_blue";
-        }];
+        trigger = [
+          {
+            platform = "webhook";
+            webhook_id = "mystrom_button_blue";
+          }
+          {
+            platform = "webhook";
+            webhook_id = "mystrom_button_purple";
+          }
+        ];
         action = [{
           service = "light.toggle";
           entity_id = "light.entrance";

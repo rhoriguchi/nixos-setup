@@ -243,6 +243,11 @@ in {
                   name = "myStrom button orange";
                   entity = "sensor.mystrom_button_orange_battery";
                 }
+                {
+                  type = "custom:battery-entity";
+                  name = "myStrom button purple";
+                  entity = "sensor.mystrom_button_purple_battery";
+                }
               ];
             }
             {
