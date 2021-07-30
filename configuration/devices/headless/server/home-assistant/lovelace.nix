@@ -248,6 +248,11 @@ in {
                   name = "myStrom button purple";
                   entity = "sensor.mystrom_button_purple_battery";
                 }
+                {
+                  type = "custom:battery-entity";
+                  name = "Withings Body+";
+                  entity = "sensor.withings_body_battery";
+                }
               ];
             }
             {

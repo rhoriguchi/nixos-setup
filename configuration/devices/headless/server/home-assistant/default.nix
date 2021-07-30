@@ -9,6 +9,7 @@
     ./speedtest.nix
     ./unifi.nix
     ./weather.nix
+    ./withings.nix
     ./yeelight.nix
   ];
 
