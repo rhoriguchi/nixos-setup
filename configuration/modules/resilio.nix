@@ -170,6 +170,6 @@ in {
       wantedBy = [ "multi-user.target" ];
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.listeningPort ];
+    networking.firewall.allowedTCPPorts = lib.mkIf (!cfg.webUI.enable) [ cfg.listeningPort ];
   };
 }
