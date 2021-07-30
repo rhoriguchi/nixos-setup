@@ -23,10 +23,18 @@ let
       echo $VOLTAGE
     '';
 
-  calculateButtonBattery = let
-    maxVoltage = "4300";
-    minVoltage = "3700";
-  in "{{ (((value | float) * 1000 - ${minVoltage}) * 100 / (${maxVoltage} - ${minVoltage})) | round }}";
+  createButtonBatterySensors = buttons:
+    map (button: {
+      platform = "command_line";
+      name = button.name;
+      scan_interval = 60 * 60;
+      command = "${pkgs.bash}/bin/bash ${createVoltageShellScript button.id}";
+      value_template = let
+        maxVoltage = "4300";
+        minVoltage = "3700";
+      in "{{ (((value | float) * 1000 - ${minVoltage}) * 100 / (${maxVoltage} - ${minVoltage})) | round }}";
+      unit_of_measurement = "%";
+    }) buttons;
 in {
   services.home-assistant.config = {
     switch = [{
@@ -51,31 +59,18 @@ in {
       };
     }];
 
-    sensor = [
-      # TODO HOME-ASSISTANT create function to generate button
+    sensor = createButtonBatterySensors [
       {
-        platform = "command_line";
         name = "myStrom button blue battery";
-        scan_interval = 60 * 60;
-        command = "${pkgs.bash}/bin/bash ${createVoltageShellScript "F4CFA2E9DACB"}";
-        value_template = calculateButtonBattery;
-        unit_of_measurement = "%";
+        id = "F4CFA2E9DACB";
       }
       {
-        platform = "command_line";
         name = "myStrom button orange battery";
-        scan_interval = 60 * 60;
-        command = "${pkgs.bash}/bin/bash ${createVoltageShellScript "F4CFA2E9DAD9"}";
-        value_template = calculateButtonBattery;
-        unit_of_measurement = "%";
+        id = "F4CFA2E9DAD9";
       }
       {
-        platform = "command_line";
         name = "myStrom button purple battery";
-        scan_interval = 60 * 60;
-        command = "${pkgs.bash}/bin/bash ${createVoltageShellScript "F4CFA2E9D761"}";
-        value_template = calculateButtonBattery;
-        unit_of_measurement = "%";
+        id = "F4CFA2E9D761";
       }
     ];
 
