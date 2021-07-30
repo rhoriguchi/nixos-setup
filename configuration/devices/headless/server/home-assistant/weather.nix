@@ -1,11 +1,13 @@
 { pkgs, config, ... }:
 let
   apiKey = (import ../../../../secrets.nix).services.home-assistant.config.openWeather.apiKey;
-  lat = (import ../../../../secrets.nix).services.home-assistant.config.homeassistant.latitude;
-  lon = (import ../../../../secrets.nix).services.home-assistant.config.homeassistant.longitude;
+  lat = config.services.home-assistant.config.homeassistant.latitude;
+  lon = config.services.home-assistant.config.homeassistant.longitude;
   units = config.services.home-assistant.config.homeassistant.unit_system;
 
-  url = "https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&lat=${toString lat}&lon=${toString lon}&units=${units}";
+  apiUrl = "https://api.openweathermap.org/data/2.5";
+
+  url = "${apiUrl}/weather?appid=${apiKey}&lat=${toString lat}&lon=${toString lon}&units=${units}";
 in {
   services.home-assistant.config.sensor = [{
     platform = "command_line";
