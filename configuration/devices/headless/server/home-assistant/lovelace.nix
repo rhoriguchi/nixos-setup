@@ -137,32 +137,6 @@ in {
               ];
             }
             {
-              type = "custom:mini-graph-card";
-              name = "Speedtest";
-
-              hours_to_show = 24 * 7;
-              points_per_hour = 0.5;
-              update_interval = 60;
-              line_width = 3;
-              line_color = [ "var(--mdc-theme-primary)" "#F4B242" ];
-
-              show = {
-                icon = false;
-                fill = false;
-              };
-
-              entities = [
-                {
-                  name = "Download";
-                  entity = "sensor.speedtest_download";
-                }
-                {
-                  name = "Upload";
-                  entity = "sensor.speedtest_upload";
-                }
-              ];
-            }
-            {
               # TODO HOME-ASSISTANT toggle is broken
               type = "entities";
               title = "Lights";

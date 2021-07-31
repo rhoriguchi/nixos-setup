@@ -6,7 +6,6 @@
     ./nginx.nix
     ./person.nix
     ./postgres.nix
-    ./speedtest.nix
     ./unifi.nix
     ./weather.nix
     ./withings.nix
