@@ -3,6 +3,8 @@ let
   email = (import ../../../../secrets.nix).services.home-assistant.config.withings.email;
   password = (import ../../../../secrets.nix).services.home-assistant.config.withings.password;
 
+  macAddress = "00:24:e4:c3:ad:d8";
+
   getBatteryScript = pkgs.writeText "get_battery.py" ''
     import json
 
@@ -21,7 +23,7 @@ let
     })
 
     match = next(filter(
-        lambda device: device['deviceproperties']['macaddress'] == '00:24:e4:c3:ad:d8',
+        lambda device: device['deviceproperties']['macaddress'] == '${macAddress}',
         json.loads(response.content)['body']['associations']
     ))
 
