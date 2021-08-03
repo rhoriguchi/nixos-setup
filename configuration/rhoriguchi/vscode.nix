@@ -7,7 +7,7 @@
     extensions = [
       pkgs.vscode-extensions.alexdima.copy-relative-path
       pkgs.vscode-extensions.antfu.icons-carbon
-      pkgs.vscode-extensions.bbenoist.Nix
+      pkgs.vscode-extensions.bbenoist.nix
       pkgs.vscode-extensions.brettm12345.nixfmt-vscode
       pkgs.vscode-extensions.coenraads.bracket-pair-colorizer-2
       pkgs.vscode-extensions.davidanson.vscode-markdownlint
