@@ -10,17 +10,16 @@ let
 
     import requests
 
-    session = requests.session()
+    with requests.Session() as session:
+      session.post('https://account.withings.com/connectionwou/account_login', data={
+          'email': '${email}',
+          'password': '${password}'
+      })
 
-    session.post('https://account.withings.com/connectionwou/account_login', data={
-        'email': '${email}',
-        'password': '${password}'
-    })
-
-    response = session.post('https://scalews.withings.com/cgi-bin/association', data={
-        'action': 'getbyaccountid',
-        'enrich': 't',
-    })
+      response = session.post('https://scalews.withings.com/cgi-bin/association', data={
+          'action': 'getbyaccountid',
+          'enrich': 't',
+      })
 
     match = next(filter(
         lambda device: device['deviceproperties']['macaddress'] == '${macAddress}',
