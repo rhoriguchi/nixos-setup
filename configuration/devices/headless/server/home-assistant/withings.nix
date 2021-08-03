@@ -35,7 +35,9 @@ in {
     platform = "command_line";
     name = "Withings Body+ battery";
     scan_interval = 60 * 60;
-    command = "${pythonWithPackages}/bin/python ${getBatteryScript}";
+    # TODO HOME-ASSISTANT does not work
+    command = "${pkgs.coreutils}/bin/echo 0";
+    # command = "${pythonWithPackages}/bin/python ${getBatteryScript}";
     unit_of_measurement = "%";
   }];
 }
