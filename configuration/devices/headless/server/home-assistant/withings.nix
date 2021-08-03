@@ -5,7 +5,7 @@ let
 
   macAddress = "00:24:e4:c3:ad:d8";
 
-  getBatteryScript = pkgs.writeText "get_battery.py" ''
+  getBatteryScript = pkgs.writeText "get_withings_battery.py" ''
     import json
 
     import requests

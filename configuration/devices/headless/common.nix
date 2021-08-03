@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  fancyMotdConfig = pkgs.writeText "config.sh" ''
+  fancyMotdConfig = pkgs.writeText "fancy-motd-config" ''
     # Max width used for components in second column
     WIDTH=75
 

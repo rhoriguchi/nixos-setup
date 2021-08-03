@@ -28,7 +28,7 @@ let
       platform = "command_line";
       name = button.name;
       scan_interval = 60 * 60;
-      command = "${pkgs.bash}/bin/bash ${createVoltageShellScript button.id}";
+      command = "${createVoltageShellScript button.id}";
       value_template = let
         maxVoltage = "4300";
         minVoltage = "3700";
