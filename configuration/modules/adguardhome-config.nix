@@ -21,7 +21,7 @@ let
   '';
 in {
   options.services.adguardhome.config = lib.mkOption {
-    default = null;
+    default = { };
 
     type = let
       valueType = lib.types.nullOr (lib.types.oneOf [
@@ -41,6 +41,6 @@ in {
       message = "Config cannot be empty.";
     }];
 
-    systemd.services.adguardhome.serviceConfig.ExecStart = lib.mkForce execStart;
+    systemd.services.adguardhome.serviceConfig.ExecStart = lib.mkIf (cfg.config != { }) (lib.mkForce execStart);
   };
 }
