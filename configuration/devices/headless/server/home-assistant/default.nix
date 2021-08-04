@@ -60,6 +60,8 @@
         elevation = (import ../../../../secrets.nix).services.home-assistant.config.homeassistant.elevation;
         unit_system = "metric";
         temperature_unit = "C";
+        # TODO HOME-ASSISTANT uncomment when home-assistant upgraded to 2021.8.0
+        # currency = "CHF";
       };
 
       mobile_app = { };
