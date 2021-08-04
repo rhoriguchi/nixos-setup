@@ -24,17 +24,16 @@ in {
     config = lib.mkOption {
       default = null;
 
-      type = with lib.types;
-        let
-          valueType = lib.types.nullOr (lib.types.oneOf [
-            lib.types.bool
-            lib.types.float
-            lib.types.int
-            lib.types.str
-            (lib.types.lazyAttrsOf valueType)
-            (lib.types.listOf valueType)
-          ]);
-        in valueType;
+      type = let
+        valueType = lib.types.nullOr (lib.types.oneOf [
+          lib.types.bool
+          lib.types.float
+          lib.types.int
+          lib.types.str
+          (lib.types.lazyAttrsOf valueType)
+          (lib.types.listOf valueType)
+        ]);
+      in valueType;
     };
   };
 
