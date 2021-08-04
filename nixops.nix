@@ -25,7 +25,7 @@
   };
 
   Server = { ... }: {
-    deployment.targetHost = "xxlpitu-home.duckdns.org";
+    deployment.targetHost = "xxlpitu-server";
 
     imports = [ ./configuration/devices/headless/server ];
   };

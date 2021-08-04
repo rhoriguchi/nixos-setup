@@ -50,17 +50,12 @@ Run the command the service calls and authenticate the application with Google.
 
 ### Hypervisor
 
-#### Setup RAID 0
+#### Setup ZFS
 
 ```bash
-sudo mdadm --create --verbose /dev/md0 --level=mirror --raid-devices=2 /dev/sda /dev/sdb
-sudo mkfs.ext4 -F /dev/md0
-```
-
-Add output to `boot.initrd.mdadmConf`:
-
-```bash
-sudo mdadm --detail --scan
+zpool create -f -o ashift=12 -m /media/Data data raidz ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E0ZLJXFX ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E2PN4A53 ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5JNF5EA
+zfs set mountpoint=legacy data
+mount -t zfs data /media/Data
 ```
 
 ## Nixops
