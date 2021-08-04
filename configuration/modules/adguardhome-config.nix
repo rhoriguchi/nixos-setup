@@ -20,21 +20,19 @@ let
     ${pkgs.adguardhome}/bin/adguardhome ${args}
   '';
 in {
-  options.services.adguardhome = {
-    config = lib.mkOption {
-      default = null;
+  options.services.adguardhome.config = lib.mkOption {
+    default = null;
 
-      type = let
-        valueType = lib.types.nullOr (lib.types.oneOf [
-          lib.types.bool
-          lib.types.float
-          lib.types.int
-          lib.types.str
-          (lib.types.lazyAttrsOf valueType)
-          (lib.types.listOf valueType)
-        ]);
-      in valueType;
-    };
+    type = let
+      valueType = lib.types.nullOr (lib.types.oneOf [
+        lib.types.bool
+        lib.types.float
+        lib.types.int
+        lib.types.str
+        (lib.types.lazyAttrsOf valueType)
+        (lib.types.listOf valueType)
+      ]);
+    in valueType;
   };
 
   config = lib.mkIf cfg.enable {
