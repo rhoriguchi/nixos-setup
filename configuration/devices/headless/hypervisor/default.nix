@@ -21,10 +21,14 @@
     };
   };
 
-  services.duckdns = {
-    enable = true;
+  services = {
+    duckdns = {
+      enable = true;
 
-    token = (import ../../../secrets.nix).services.duckdns.token;
-    subdomains = [ "xxlpitu-home" ];
+      token = (import ../../../secrets.nix).services.duckdns.token;
+      subdomains = [ "xxlpitu-home" ];
+    };
+
+    zfs.autoScrub.enable = true;
   };
 }
