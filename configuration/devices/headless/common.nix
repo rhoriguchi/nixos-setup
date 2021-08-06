@@ -19,6 +19,7 @@ let
     services["resilio"]="Resilio Sync"
     services["sshd"]="SSH"
     services["tv_time_export.timer"]="TV Time export (Timer)"
+    services["zfs-zed"]="ZFS Event Daemon"
   '';
 in {
   nix.gc = {
