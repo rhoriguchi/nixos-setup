@@ -2,8 +2,11 @@
 let
   configFile = (formats.ini { }).generate "glances.conf" {
     connections.disable = false;
-    diskio.hide = "loop\\d+,^mmcblk\\d+p\\d+$,^sd[a-z]+\\d+$,^nvme0n\\d+pd+$,^dm-\\d+$";
-    fs.hide = "/nix/store";
+    diskio.hide = "loop\\d+,^mmcblk\\d+p\\d+$,^sd[a-z]+\\d+$,^nvme0n\\d+p\\d+$,^dm-\\d+$";
+    fs = {
+      allow = "zfs";
+      hide = "/nix/store";
+    };
     global.check_update = false;
     irq.disable = true;
     network.hide = "lo,^br.*$,^veth.*$";
