@@ -3,13 +3,13 @@ let
   cfg = config.services.resilio;
 
   secrets = let
-    secrets = lib.lists.flatten (map builtins.attrValues (builtins.attrValues cfg.secrets));
-    filteredSecrets = builtins.filter (secret: secret != null) secrets;
+    secrets = lib.lists.flatten (map lib.attrValues (lib.attrValues cfg.secrets));
+    filteredSecrets = lib.filter (secret: secret != null) secrets;
   in lib.lists.naturalSort filteredSecrets;
 
-  sharedFolders = builtins.attrValues (builtins.mapAttrs (key: value: {
-    secret = if builtins.elem key cfg.readWriteDirs then value.readWrite else value.encrypted;
-    dir = "${cfg.syncPath}/${if builtins.elem key cfg.readWriteDirs then key else builtins.hashString "sha256" key}";
+  sharedFolders = lib.attrValues (lib.mapAttrs (key: value: {
+    secret = if lib.elem key cfg.readWriteDirs then value.readWrite else value.encrypted;
+    dir = "${cfg.syncPath}/${if lib.elem key cfg.readWriteDirs then key else builtins.hashString "sha256" key}";
     use_relay_server = true;
     search_lan = true;
     use_sync_trash = false;
@@ -19,7 +19,7 @@ let
   }) cfg.secrets);
 
   configFile = (pkgs.formats.json { }).generate "config.json" ({
-    device_name = lib.strings.toUpper cfg.deviceName;
+    device_name = lib.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.storagePath;
     check_for_updates = cfg.webUI.enable;
@@ -123,8 +123,7 @@ in {
         message = "Every secret in secrets must be unique";
       }
       {
-        assertion = builtins.length (builtins.filter (readWriteDir: cfg.secrets."${readWriteDir}".readWrite == null) cfg.readWriteDirs)
-          == 0;
+        assertion = lib.length (lib.filter (readWriteDir: cfg.secrets."${readWriteDir}".readWrite == null) cfg.readWriteDirs) == 0;
         message = "All decrypted dirs need to have a readWrite secret";
       }
     ];
@@ -146,7 +145,7 @@ in {
       chown rslsync:rslsync "${cfg.syncPath}"
     '' + lib.optionalString (!cfg.webUI.enable) ''
       ${pkgs.findutils}/bin/find ${cfg.syncPath} -mindepth 1 -maxdepth 1 -type d ${
-        builtins.concatStringsSep " -and "
+        lib.concatStringsSep " -and "
         (map (sharedFolder: ''-not -name "${lib.replaceStrings [ "${cfg.syncPath}/" ] [ "" ] sharedFolder.dir}"'') sharedFolders)
       } | xargs rm -rf
     '';
@@ -155,9 +154,8 @@ in {
       after = [ "network.target" ];
       description = "Resilio Sync";
       serviceConfig = {
-        ExecStartPre = lib.mkIf (!cfg.webUI.enable) "${pkgs.coreutils}/bin/mkdir -pm 0775 ${
-            builtins.concatStringsSep " " (map (sharedFolder: ''"${sharedFolder.dir}"'') sharedFolders)
-          }";
+        ExecStartPre = lib.mkIf (!cfg.webUI.enable)
+          "${pkgs.coreutils}/bin/mkdir -pm 0775 ${lib.concatStringsSep " " (map (sharedFolder: ''"${sharedFolder.dir}"'') sharedFolders)}";
         ExecStart = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
         StandardOutput = "null";
         StandardError = "null";

@@ -14,11 +14,11 @@ in {
         message = "Token cannot be empty.";
       }
       {
-        assertion = builtins.length cfg.subdomains != 0;
+        assertion = lib.length cfg.subdomains != 0;
         message = "Subdomain list cannot be empty.";
       }
       {
-        assertion = builtins.length (builtins.filter (subdomain: subdomain == "") cfg.subdomains) == 0;
+        assertion = lib.length (lib.filter (subdomain: subdomain == "") cfg.subdomains) == 0;
         message = "Subdomain cannot be empty.";
       }
     ];
@@ -29,7 +29,7 @@ in {
       after = [ "network.target" ];
       description = "Duck DNS";
       serviceConfig = {
-        ExecStart = "${builtins.concatStringsSep " && "
+        ExecStart = "${lib.concatStringsSep " && "
           (map (subdomain: ''${pkgs.curl}/bin/curl -s "https://www.duckdns.org/update?domains=${subdomain}&token=${cfg.token}&ip="'')
             cfg.subdomains)}";
         Restart = "on-abort";

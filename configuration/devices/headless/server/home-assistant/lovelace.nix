@@ -53,7 +53,7 @@ let
   };
 
   addStyleToCards = cards:
-    map (card: (card // lib.optionalAttrs (builtins.hasAttr card.type cardStyles) { style = cardStyles."${card.type}"; })) cards;
+    map (card: (card // lib.optionalAttrs (lib.hasAttr card.type cardStyles) { style = cardStyles."${card.type}"; })) cards;
 in {
   systemd.tmpfiles.rules = [ "d /run/hass 0700 nginx nginx" ]
     ++ map (lovelaceModule: "L+ /run/hass/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js") lovelaceModules;

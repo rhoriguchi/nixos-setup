@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 let
   backupDir = "/media/Backup";
   keyPath = "/media/Data/Sync/Storage/Luks/backup.key";
@@ -53,7 +53,7 @@ let
     - /**.ssh
   '';
 
-  rsyncLongArgs = builtins.concatStringsSep " " [
+  rsyncLongArgs = lib.concatStringsSep " " [
     # rsnapshot requires these args
     "--delete-excluded"
     "--delete"

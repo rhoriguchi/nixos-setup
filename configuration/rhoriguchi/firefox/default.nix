@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, lib, config, ... }: {
   home-manager.users.rhoriguchi = {
     home.file.".mozilla/firefox/default/bookmarks.html".source = ./bookmarks.html;
 
@@ -46,7 +46,7 @@
             "browser.rights.3.shown" = true;
             "browser.search.region" = "CH";
             "browser.search.suggest.enabled.private" = true;
-            "browser.startup.homepage" = builtins.concatStringsSep "|" [
+            "browser.startup.homepage" = lib.concatStringsSep "|" [
               "https://todoist.com/app/today"
               "https://web.whatsapp.com"
               "https://mail.google.com/mail/u/0/#inbox"

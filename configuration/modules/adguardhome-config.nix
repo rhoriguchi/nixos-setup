@@ -2,7 +2,7 @@
 let
   cfg = config.services.adguardhome;
 
-  args = builtins.concatStringsSep " " ([
+  args = lib.concatStringsSep " " ([
     "--no-check-update"
     "--pidfile /run/AdGuardHome/AdGuardHome.pid"
     "--work-dir /var/lib/AdGuardHome/"

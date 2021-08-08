@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [ ../common.nix ./hardware-configuration.nix ./home-assistant ];
 
   boot = {
@@ -56,7 +56,7 @@
     enable = true;
 
     logDriver = "json-file";
-    extraOptions = builtins.concatStringsSep " " [ "--log-opt max-file=10" "--log-opt max-size=10m" ];
+    extraOptions = lib.concatStringsSep " " [ "--log-opt max-file=10" "--log-opt max-size=10m" ];
   };
 
   services = {
