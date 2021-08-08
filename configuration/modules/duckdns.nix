@@ -14,7 +14,7 @@ in {
         message = "Token cannot be empty.";
       }
       {
-        assertion = lib.length cfg.subdomains != 0;
+        assertion = lib.length cfg.subdomains >= 1;
         message = "Subdomain list cannot be empty.";
       }
       {
