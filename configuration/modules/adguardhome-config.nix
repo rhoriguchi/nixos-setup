@@ -13,6 +13,7 @@ let
 
   configFile = (pkgs.formats.yaml { }).generate "AdGuardHome.yaml" cfg.config;
 
+  # TODO figure out how to use "lib.lowPrio" so that "config.systemd.services.adguardhome.serviceConfig.ExecStart" can be used
   execStart = pkgs.writeShellScript "adguardhome-execStart" ''
     ${pkgs.coreutils}/bin/cp -f /var/lib/AdGuardHome/AdGuardHome.yaml /var/lib/AdGuardHome/AdGuardHome.old.yaml || true
     ${pkgs.coreutils}/bin/cp -f ${configFile} /var/lib/AdGuardHome/AdGuardHome.yaml
