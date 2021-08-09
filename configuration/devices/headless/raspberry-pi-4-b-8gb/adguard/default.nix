@@ -64,9 +64,9 @@ let
       parental_cache_size = 1048576;
       cache_time = 30;
       rewrites = [{
-        # TODO get hostname from "configuration/devices/headless/server/default.nix"
         domain = "xxlpitu-hs.duckdns.org";
-        answer = "192.168.1.150";
+        # TODO get hostname from "configuration/devices/headless/server/default.nix"
+        answer = "XXLPitu-Server.local";
       }];
       blocked_services = [ ];
       local_domain_name = "local";

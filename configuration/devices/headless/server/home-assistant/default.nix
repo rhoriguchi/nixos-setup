@@ -1,5 +1,6 @@
 { pkgs, config, ... }: {
   imports = [
+    ./adguard.nix
     ./lovelace.nix
     ./mystrom.nix
     ./netatmo.nix
@@ -39,6 +40,8 @@
         "netatmo"
         "person"
         "recorder"
+        "sensor"
+        "shell_command"
         "sun"
         "switch"
         "system_health"

@@ -161,6 +161,14 @@ in {
             }
             {
               type = "entities";
+              title = "AdGuard";
+              entities = [{
+                name = "Protection";
+                entity = "switch.adguard_protection";
+              }];
+            }
+            {
+              type = "entities";
               title = "Network";
               entities = [
                 {
