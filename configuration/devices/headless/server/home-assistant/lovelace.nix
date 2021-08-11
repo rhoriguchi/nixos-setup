@@ -237,11 +237,6 @@ in {
                 }
               ];
             }
-            {
-              type = "entities";
-              title = "Persons";
-              entities = [ "person.ryan" "person.giulia" ];
-            }
           ];
         }];
       };
