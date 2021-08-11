@@ -65,8 +65,7 @@ let
       cache_time = 30;
       rewrites = [{
         domain = "xxlpitu-hs.duckdns.org";
-        # TODO get hostname from "configuration/devices/headless/server/default.nix"
-        answer = "XXLPitu-Server.local";
+        answer = "192.168.1.150";
       }];
       blocked_services = [ ];
       local_domain_name = "local";
