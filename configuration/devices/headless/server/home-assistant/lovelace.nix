@@ -140,8 +140,11 @@ in {
               # TODO HOME-ASSISTANT toggle is broken
               type = "entities";
               title = "Lights";
+
               show_header_toggle = true;
+
               entities = [
+                "light.bedroom"
                 {
                   type = "custom:fold-entity-row";
                   head = "light.entrance";
@@ -156,7 +159,21 @@ in {
                     }
                   ];
                 }
-                "light.living_room"
+                {
+                  type = "custom:fold-entity-row";
+                  head = "light.kitchen_living_room";
+
+                  entities = [
+                    {
+                      name = "Kitchen";
+                      entity = "light.kitchen";
+                    }
+                    {
+                      name = "Living room";
+                      entity = "light.living_room";
+                    }
+                  ];
+                }
               ];
             }
             {
@@ -224,6 +241,11 @@ in {
                   type = "custom:battery-entity";
                   name = "myStrom button orange";
                   entity = "sensor.mystrom_button_orange_battery";
+                }
+                {
+                  type = "custom:battery-entity";
+                  name = "myStrom button gray";
+                  entity = "sensor.mystrom_button_gray_battery";
                 }
                 {
                   type = "custom:battery-entity";

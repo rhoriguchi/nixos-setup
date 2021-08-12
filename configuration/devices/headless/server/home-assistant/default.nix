@@ -42,6 +42,7 @@
         "recorder"
         "sensor"
         "shell_command"
+        "shelly"
         "sun"
         "switch"
         "system_health"

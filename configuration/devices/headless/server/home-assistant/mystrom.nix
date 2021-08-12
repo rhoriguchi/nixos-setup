@@ -43,26 +43,37 @@ in {
       host = "myStrom-Switch-8A0F50.iot";
     }];
 
-    light = [{
-      platform = "template";
-      lights.living_room = {
-        friendly_name = "Living room";
-        value_template = "{{ states('switch.mystrom_living_room_light_switch') }}";
-        turn_on = {
-          service = "switch.turn_on";
-          target.entity_id = "switch.mystrom_living_room_light_switch";
+    light = [
+      {
+        platform = "template";
+        lights.living_room = {
+          friendly_name = "Living room";
+          value_template = "{{ states('switch.mystrom_living_room_light_switch') }}";
+          turn_on = {
+            service = "switch.turn_on";
+            target.entity_id = "switch.mystrom_living_room_light_switch";
+          };
+          turn_off = {
+            service = "switch.turn_off";
+            target.entity_id = "switch.mystrom_living_room_light_switch";
+          };
         };
-        turn_off = {
-          service = "switch.turn_off";
-          target.entity_id = "switch.mystrom_living_room_light_switch";
-        };
-      };
-    }];
+      }
+      {
+        platform = "group";
+        name = "Kitchen + Living room";
+        entities = [ "light.kitchen" "light.living_room" ];
+      }
+    ];
 
     sensor = createButtonBatterySensors [
       {
         name = "myStrom button blue battery";
         id = "F4CFA2E9DACB";
+      }
+      {
+        name = "myStrom button gray battery";
+        id = "F4CFA2E9DA8E";
       }
       {
         name = "myStrom button orange battery";
@@ -75,6 +86,22 @@ in {
     ];
 
     automation = [
+       {
+        alias = "Turn on bedroom light";
+        trigger = [{
+          platform = "webhook";
+          webhook_id = "mystrom_button_gray";
+        }];
+        action = [{
+          service = "light.toggle";
+          entity_id = "light.bedroom";
+          data = {
+            # TODO HOME-ASSISTANT tweak color
+            brightness = 255;
+            transition = 0.1;
+          };
+        }];
+      }
       {
         alias = "Turn on entrance lights";
         trigger = [
@@ -94,14 +121,18 @@ in {
         }];
       }
       {
-        alias = "Turn on living room light";
+        alias = "Turn on kitchen and living room lights";
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_orange";
         }];
         action = [{
           service = "light.toggle";
-          entity_id = "light.living_room";
+          entity_id = "light.kitchen_living_room";
+          data = {
+            brightness = 255;
+            transition = 0.1;
+          };
         }];
       }
     ];
