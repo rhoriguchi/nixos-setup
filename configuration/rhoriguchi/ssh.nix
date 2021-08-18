@@ -1,5 +1,8 @@
 { config, ... }:
-let home = config.users.users.rhoriguchi.home;
+let
+  home = config.users.users.rhoriguchi.home;
+
+  dag = config.home-manager.users.rhoriguchi.lib.dag;
 in {
   home-manager.users.rhoriguchi.programs.ssh = {
     enable = true;
@@ -48,7 +51,7 @@ in {
         proxyJump = "xxlpitu-home.duckdns.org";
       };
 
-      "xxlpitu-horgen.duckdns.org" = config.home-manager.users.rhoriguchi.lib.dag.entryBefore [ "*.duckdns.org" ] { port = 1234; };
+      "xxlpitu-horgen.duckdns.org" = dag.entryBefore [ "*.duckdns.org" ] { port = 1234; };
     };
   };
 }
