@@ -11,7 +11,7 @@
     ./fzf.nix
     ./git
     ./gnome
-    ./htop
+    ./htop.nix
     ./neofetch
     ./onedrive.nix
     ./ssh.nix
