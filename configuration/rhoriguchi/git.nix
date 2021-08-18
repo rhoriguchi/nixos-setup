@@ -10,10 +10,7 @@
 
       init.defaultBranch = "master";
 
-      core = {
-        excludesfile = "${./gitignore}";
-        symlinks = true;
-      };
+      core.symlinks = true;
 
       "gitflow \"prefix\"" = {
         feature = "feature/";
@@ -36,5 +33,35 @@
         gpgPath = "${pkgs.gnupg}/bin/gpg2";
       };
     };
+
+    ignores = [
+      # Allway Sync
+      "_SYNCAPP"
+
+      # Mac files
+      ".DS_Store"
+      "[Dd]esktop.ini"
+      "._*"
+      "[Tt]humbs.db"
+
+      # Windows files
+      "[Dd]esktop.ini"
+      "Thumbs.db"
+      "Thumbs.db:encryptable"
+      "ehthumbs.db"
+      "ehthumbs_vista.db"
+
+      # Files on external disks
+      ".Spotlight-V100"
+      ".Trashes"
+
+      # Microsoft office
+      "*.tmp"
+      "~$*.doc*"
+      "~$*.xls*"
+      "*.xlk"
+      "~$*.ppt*"
+      "*.~vsd*"
+    ];
   };
 }

@@ -9,7 +9,7 @@
     ./firefox
     ./flameshot.nix
     ./fzf.nix
-    ./git
+    ./git.nix
     ./gnome
     ./htop.nix
     ./neofetch
