@@ -6,7 +6,7 @@
     userEmail = "ryan.horiguchi@gmail.com";
 
     extraConfig = {
-      alias.history = "log --pretty=oneline";
+      alias.history = ''log --date=relative --pretty=format:"%C(yellow)%H  %C(blue)%>(14)%ad %C(auto)%d %C(reset)%s"'';
 
       init.defaultBranch = "master";
 
