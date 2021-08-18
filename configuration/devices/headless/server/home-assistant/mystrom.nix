@@ -86,7 +86,7 @@ in {
     ];
 
     automation = [
-       {
+      {
         alias = "Turn on bedroom light";
         trigger = [{
           platform = "webhook";
