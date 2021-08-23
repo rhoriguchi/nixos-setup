@@ -60,7 +60,7 @@
 
     users.root = {
       hashedPassword = "*";
-      openssh.authorizedKeys.keys = (import ./authorized-keys.nix).keys;
+      openssh.authorizedKeys.keys = import ./authorized-keys.nix;
     };
   };
 

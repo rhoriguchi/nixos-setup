@@ -52,7 +52,7 @@ in {
     extraGroups = [ "wheel" ] ++ lib.optional config.virtualisation.docker.enable "docker";
     isNormalUser = true;
     password = (import ../../secrets.nix).users.users.xxlpitu.password;
-    openssh.authorizedKeys.keys = (import ../../authorized-keys.nix).keys;
+    openssh.authorizedKeys.keys = import ../../authorized-keys.nix;
   };
 
   system.activationScripts.create-zshrc = ''
