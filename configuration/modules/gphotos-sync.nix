@@ -36,19 +36,19 @@ in {
     assertions = [
       {
         assertion = cfg.exportPath != "";
-        message = "Export path cannot be empty.";
+        message = "Export path cannot be empty";
       }
       {
         assertion = cfg.projectId != "";
-        message = "ProjectId cannot be empty.";
+        message = "ProjectId cannot be empty";
       }
       {
         assertion = cfg.clientId != "";
-        message = "ClientId cannot be empty.";
+        message = "ClientId cannot be empty";
       }
       {
         assertion = cfg.clientSecret != "";
-        message = "ClientSecret cannot be empty.";
+        message = "ClientSecret cannot be empty";
       }
     ];
 

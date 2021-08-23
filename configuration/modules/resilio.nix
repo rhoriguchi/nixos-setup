@@ -100,11 +100,11 @@ in {
     assertions = [
       {
         assertion = cfg.syncPath != "";
-        message = "Sync path cannot be empty.";
+        message = "Sync path cannot be empty";
       }
       {
         assertion = cfg.deviceName != "";
-        message = "Device name cannot be empty.";
+        message = "Device name cannot be empty";
       }
       {
         assertion = cfg.webUI.enable -> cfg.webUI.username != "";

@@ -39,7 +39,7 @@ in {
   config = lib.mkIf cfg.enable {
     assertions = [{
       assertion = cfg.config != null;
-      message = "Config cannot be empty.";
+      message = "Config cannot be empty";
     }];
 
     systemd.services.adguardhome.serviceConfig.ExecStart = lib.mkIf (cfg.config != { }) (lib.mkForce execStart);

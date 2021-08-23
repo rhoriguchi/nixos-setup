@@ -19,15 +19,15 @@ in {
     assertions = [
       {
         assertion = cfg.exportPath != "";
-        message = "Export path cannot be empty.";
+        message = "Export path cannot be empty";
       }
       {
         assertion = cfg.username != "";
-        message = "Username cannot be empty.";
+        message = "Username cannot be empty";
       }
       {
         assertion = cfg.password != "";
-        message = "Password cannot be empty.";
+        message = "Password cannot be empty";
       }
     ];
 
