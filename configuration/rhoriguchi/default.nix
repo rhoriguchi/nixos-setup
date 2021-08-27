@@ -2,7 +2,6 @@
   imports = [
     ../home-manager.nix
 
-    ./accounts-service
     ./alacritty.nix
     ./autostart.nix
     ./docker.nix
@@ -11,6 +10,7 @@
     ./fzf.nix
     ./git.nix
     ./gnome
+    ./gnome-accounts-service
     ./htop.nix
     ./neofetch
     ./onedrive.nix
