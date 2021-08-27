@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "thomasloven";
     repo = "lovelace-fold-entity-row";
-    rev = "${version}";
+    rev = version;
     sha256 = "0j50j78ws9cl29pvg5782ykvrsv69mnnpmpj99qjdcfhhqgi2w5j";
   };
 
