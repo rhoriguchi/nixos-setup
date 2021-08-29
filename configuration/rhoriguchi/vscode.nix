@@ -71,7 +71,7 @@
       "gitlens.advanced.messages"."suppressShowKeyBindingsNotice" = true;
       "gitlens.defaultDateFormat" = "DD.MM.YYYY HH:MM";
       "gitlens.defaultDateShortFormat" = "DD.MM.YYYY";
-      "importCost.javascriptExtensions" = [ "\\.jsx?$" "\\.ts?$" ];
+      "importCost.javascriptExtensions" = [ "\\.jsx?$" "\\.tsx?$" ];
       "peacock.affectActivityBar" = true;
       "peacock.affectStatusBar" = true;
       "peacock.affectTitleBar" = false;
