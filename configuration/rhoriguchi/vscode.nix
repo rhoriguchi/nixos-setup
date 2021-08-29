@@ -6,7 +6,6 @@
 
     extensions = [
       pkgs.vscode-extensions.alexdima.copy-relative-path
-      pkgs.vscode-extensions.antfu.icons-carbon
       pkgs.vscode-extensions.bbenoist.nix
       pkgs.vscode-extensions.brettm12345.nixfmt-vscode
       pkgs.vscode-extensions.coenraads.bracket-pair-colorizer-2
@@ -159,7 +158,6 @@
       "workbench.editor.untitled.hint" = "hidden";
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.list.smoothScrolling" = true;
-      "workbench.productIconTheme" = "icons-carbon";
       "workbench.startupEditor" = "none";
       "[html]"."editor.defaultFormatter" = "vscode.html-language-features";
       "[json]"."editor.defaultFormatter" = "vscode.json-language-features";
