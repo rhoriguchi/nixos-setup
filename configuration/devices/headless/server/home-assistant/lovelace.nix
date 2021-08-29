@@ -5,7 +5,6 @@ let
     pkgs.hs.lovelaceModule.cardMod
     pkgs.hs.lovelaceModule.foldEntityRow
     pkgs.hs.lovelaceModule.miniGraphCard
-    pkgs.hs.lovelaceModule.simpleThermostat
   ];
 
   theme = pkgs.hs.theme.googleHome;
@@ -18,36 +17,6 @@ let
         font-weight: normal !important;
         margin-top: 10px !important;
         opacity: 1 !important;
-      }
-    '';
-
-    "custom:simple-thermostat" = ''
-      .header__title {
-        color: var(--ha-card-header-color) !important;
-      }
-
-      .mode-item.active.auto {
-        background: #E0E0E0 !important;
-      }
-
-      .mode-item.active.away {
-        background: #F7FF9D !important;
-      }
-
-      .mode-item.active.boost {
-        background: #FF8F98 !important;
-      }
-
-      .mode-item.active.Frost.Guard {
-        background: #CEFFFF !important;
-      }
-
-      .mode-item.active.heat {
-        background: #FF8F98 !important;
-      }
-
-      .mode-item.active.Schedule {
-        background: #E0E0E0 !important;
       }
     '';
   };
@@ -91,26 +60,6 @@ in {
           title = "Default";
           cards = addStyleToCards [
             {
-              type = "custom:simple-thermostat";
-              entity = "climate.netatmo_home";
-
-              header = {
-                name = "Netatmo";
-                icon = false;
-              };
-
-              control = {
-                hvac.auto.icon = "mdi:autorenew";
-
-                preset = {
-                  "Frost Guard".icon = "mdi:snowflake";
-                  Schedule.icon = "mdi:calendar-sync";
-                  away.icon = "mdi:home-export-outline";
-                  boost.icon = "mdi:thermometer-plus";
-                };
-              };
-            }
-            {
               type = "custom:mini-graph-card";
               name = "Temperature";
 
@@ -118,7 +67,6 @@ in {
               points_per_hour = 2;
               update_interval = 60;
               line_width = 3;
-              line_color = [ "var(--mdc-theme-primary)" "#F4B242" ];
 
               show = {
                 icon = false;
@@ -127,12 +75,16 @@ in {
 
               entities = [
                 {
-                  name = "Indoor";
-                  entity = "sensor.netatmo_current_temperature";
-                }
-                {
                   name = "Outdoor";
                   entity = "sensor.openweather_current_temperature";
+                }
+                {
+                  name = "Entrance";
+                  entity = "sensor.netatmo_current_temperature_entrance";
+                }
+                {
+                  name = "Living room";
+                  entity = "sensor.netatmo_current_temperature_living_room";
                 }
               ];
             }
@@ -229,8 +181,13 @@ in {
               entities = [
                 {
                   type = "custom:battery-entity";
-                  name = "Netatmo";
-                  entity = "sensor.netatmo_battery";
+                  name = "Netatmo entrance";
+                  entity = "sensor.netatmo_entrance_battery";
+                }
+                {
+                  type = "custom:battery-entity";
+                  name = "Netatmo living room";
+                  entity = "sensor.netatmo_living_room_battery";
                 }
                 {
                   type = "custom:battery-entity";
