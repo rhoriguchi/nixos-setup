@@ -189,6 +189,7 @@ in {
                   name = "Netatmo living room";
                   entity = "sensor.netatmo_living_room_battery";
                 }
+                { type = "divider"; }
                 {
                   type = "custom:battery-entity";
                   name = "myStrom button blue";
@@ -209,6 +210,7 @@ in {
                   name = "myStrom button purple";
                   entity = "sensor.mystrom_button_purple_battery";
                 }
+                { type = "divider"; }
                 {
                   type = "custom:battery-entity";
                   name = "Withings Body+";
