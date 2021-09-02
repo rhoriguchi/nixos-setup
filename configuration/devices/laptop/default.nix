@@ -126,10 +126,10 @@
       pkgs.gnome.gnome-clocks
       pkgs.gnome.gnome-contacts
       pkgs.gnome.gnome-font-viewer
+      pkgs.gnome.gnome-logs
       pkgs.gnome.gnome-maps
       pkgs.gnome.gnome-music
       pkgs.gnome.gnome-screenshot
-      pkgs.gnome.gnome-shell-extensions
       pkgs.gnome.gnome-terminal
       pkgs.gnome.gnome-weather
       pkgs.gnome.simple-scan
