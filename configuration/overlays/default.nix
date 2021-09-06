@@ -39,6 +39,9 @@
         sha256 = "1k8bmarxh1pdj9ywlpkrm9sb704r2dsrzfybn2b6lyjyvj85x637";
       };
     });
+
+    # TODO temp fix till merged https://github.com/dylanaraps/neofetch/pull/1873 and part of nixpkgs
+    neofetch = super.callPackage ./neofetch.nix { inherit (super) neofetch; };
   })
 
   # TODO add hook to set 'NoDisplay=true'
