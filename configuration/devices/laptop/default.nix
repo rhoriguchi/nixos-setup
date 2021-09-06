@@ -169,7 +169,7 @@
       pkgs.neofetch
       pkgs.nodejs
       pkgs.nodePackages."@angular/cli"
-      pkgs.ntfs3g
+      pkgs.ntfs3g # TODO can be removed with kernel 5.15
       pkgs.openssl
       pkgs.pipenv
       pkgs.postgresql_13
