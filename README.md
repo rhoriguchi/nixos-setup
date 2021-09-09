@@ -36,7 +36,7 @@ git lfs install
 
 ### Server
 
-#### Setup plex over `IP:32400/web`
+#### Setup Plex over `IP:32400/web`
 
 #### Home Assistant
 
@@ -54,7 +54,7 @@ git lfs install
 
 #### Google Photos Sync
 
-Run the command the service calls and authenticate the application with Google.
+Run the command the service `gphotos-sync.service` calls and authenticate the application with Google.
 
 ### Hypervisor
 
