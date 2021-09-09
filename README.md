@@ -28,6 +28,12 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 - Steam
 - TeamViewer
 
+#### Large File Storage (LFS)
+
+```bash
+git lfs install
+```
+
 ### Server
 
 #### Setup plex over `IP:32400/web`

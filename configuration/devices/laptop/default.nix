@@ -151,6 +151,7 @@
       pkgs.gimp
       pkgs.git
       pkgs.git-crypt
+      pkgs.git-lfs
       pkgs.gitkraken
       pkgs.glances
       pkgs.gnome.dconf-editor
