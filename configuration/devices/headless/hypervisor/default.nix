@@ -29,6 +29,9 @@
       subdomains = [ "xxlpitu-home" ];
     };
 
-    zfs.autoScrub.enable = true;
+    zfs = {
+      expandOnBoot = "all";
+      autoScrub.enable = true;
+    };
   };
 }
