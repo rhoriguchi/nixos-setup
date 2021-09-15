@@ -31,9 +31,14 @@ in {
       }
     ];
 
-    users.users.tv_time_export = {
-      isSystemUser = true;
-      extraGroups = lib.optional config.services.resilio.enable "rslsync";
+    users = {
+      users.tv_time_export = {
+        isSystemUser = true;
+        group = "tv_time_exportc";
+        extraGroups = lib.optional config.services.resilio.enable "rslsync";
+      };
+
+      groups.tv_time_export = { };
     };
 
     systemd.services.tv_time_export = {

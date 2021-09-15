@@ -23,7 +23,14 @@ in {
       }
     ];
 
-    users.users.duckdns.isSystemUser = true;
+    users = {
+      users.duckdns = {
+        isSystemUser = true;
+        group = "duckdns";
+      };
+
+      groups.duckdns = { };
+    };
 
     systemd.services.duckdns = {
       after = [ "network.target" ];

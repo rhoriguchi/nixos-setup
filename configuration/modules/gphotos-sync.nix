@@ -52,9 +52,14 @@ in {
       }
     ];
 
-    users.users.gphotos-sync = {
-      isSystemUser = true;
-      extraGroups = lib.optional config.services.resilio.enable "rslsync";
+    users = {
+      users.gphotos-sync = {
+        isSystemUser = true;
+        group = "gphotos-sync";
+        extraGroups = lib.optional config.services.resilio.enable "rslsync";
+      };
+
+      groups.gphotos-sync = { };
     };
 
     systemd.services.gphotos-sync = {
