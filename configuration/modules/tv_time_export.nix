@@ -34,7 +34,7 @@ in {
     users = {
       users.tv_time_export = {
         isSystemUser = true;
-        group = "tv_time_exportc";
+        group = "tv_time_export";
         extraGroups = lib.optional config.services.resilio.enable "rslsync";
       };
 
