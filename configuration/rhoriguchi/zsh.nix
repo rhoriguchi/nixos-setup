@@ -4,6 +4,7 @@
 
     shellAliases = {
       cls = "clear";
+      grep = "grep --color=auto";
       ls = "ls --color=tty -Ah";
       neofetch = "echo; echo; neofetch";
       nixfmt = "nixfmt --width=140";
