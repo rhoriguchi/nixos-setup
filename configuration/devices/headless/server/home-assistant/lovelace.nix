@@ -115,6 +115,8 @@ in {
                   type = "custom:fold-entity-row";
                   head = "light.kitchen_living_room";
 
+                  open = true;
+
                   entities = [
                     {
                       name = "Kitchen";
