@@ -37,7 +37,7 @@ let
       ratelimit = 20;
       ratelimit_whitelist = [ ];
       refuse_any = true;
-      upstream_dns = [ "tls://1.1.1.1" "tls://dns.google" ];
+      upstream_dns = [ "tls://1.1.1.1" ];
       upstream_dns_file = "";
       bootstrap_dns = [ "9.9.9.10" "149.112.112.10" "2620:fe::10" "2620:fe::fe:10" ];
       all_servers = false;
