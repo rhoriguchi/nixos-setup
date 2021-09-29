@@ -31,9 +31,6 @@
     # TODO temp fix till resolved or never version released https://github.com/NixOS/nixpkgs/issues/96633
     # TODO upgrade to latest version
     teamviewer = super.callPackage ./teamviewer.nix { inherit (super) teamviewer; };
-
-    # TODO temp fix till merged https://github.com/dylanaraps/neofetch/pull/1873 and part of nixpkgs
-    neofetch = super.callPackage ./neofetch.nix { inherit (super) neofetch; };
   })
 
   # TODO add hook to set 'NoDisplay=true'
