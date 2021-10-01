@@ -1,38 +1,19 @@
 { pkgs, lib, config, ... }:
-let packages = lib.unique (map (package: package.name) (config.environment.systemPackages ++ config.users.users.rhoriguchi.packages));
+let packageNames = lib.unique (map (package: package.name) (config.environment.systemPackages ++ config.users.users.rhoriguchi.packages));
 in {
   home-manager.users.rhoriguchi.xdg.configFile = {
-    "autostart/discord.desktop" = lib.mkIf (lib.elem pkgs.discord.name packages) {
-      text = ''
-        ${lib.readFile "${pkgs.discord}/share/applications/discord.desktop"}
-        X-GNOME-Autostart-enabled=true
-      '';
-    };
+    "autostart/${pkgs.discord.pname}.desktop".source =
+      lib.mkIf (lib.elem pkgs.discord.name packageNames) "${pkgs.discord}/share/applications/discord.desktop";
 
-    "autostart/flameshot.desktop" = lib.mkIf (lib.elem pkgs.flameshot.name packages) {
-      text = ''
-        [Desktop Entry]
-        Name=flameshot
-        Icon=flameshot
-        Exec=${pkgs.flameshot}/bin/flameshot
-        Terminal=false
-        Type=Application
-        X-GNOME-Autostart-enabled=true
-      '';
-    };
+    "autostart/${pkgs.flameshot.pname}.desktop".text = let
+      content = lib.readFile "${pkgs.flameshot}/share/applications/org.flameshot.Flameshot.desktop";
+      fixedContent = builtins.replaceStrings [ "/usr/bin/flameshot" ] [ "flameshot" ] content;
+    in lib.mkIf (lib.elem pkgs.flameshot.name packageNames) fixedContent;
 
-    "autostart/protonvpn-tray.desktop" = lib.mkIf (lib.elem pkgs.protonvpn-gui.name packages) {
-      text = ''
-        ${lib.readFile "${pkgs.protonvpn-gui}/share/applications/protonvpn-tray.desktop"}
-        X-GNOME-Autostart-enabled=true
-      '';
-    };
+    "autostart/${pkgs.protonvpn-gui.pname}.desktop".source =
+      lib.mkIf (lib.elem pkgs.protonvpn-gui.name packageNames) "${pkgs.protonvpn-gui}/share/applications/protonvpn-tray.desktop";
 
-    "autostart/signal-desktop.desktop" = lib.mkIf (lib.elem pkgs.signal-desktop.name packages) {
-      text = ''
-        ${lib.readFile "${pkgs.signal-desktop}/share/applications/signal-desktop.desktop"}
-        X-GNOME-Autostart-enabled=true
-      '';
-    };
+    "autostart/${pkgs.signal-desktop.pname}.desktop".source =
+      lib.mkIf (lib.elem pkgs.signal-desktop.name packageNames) "${pkgs.signal-desktop}/share/applications/signal-desktop.desktop";
   };
 }
