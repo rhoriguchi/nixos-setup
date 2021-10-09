@@ -13,7 +13,12 @@
 
       init.defaultBranch = "master";
 
-      core.symlinks = true;
+      core = {
+        pager = "less -r -F -X";
+        symlinks = true;
+      };
+
+      color.ui = true;
 
       "gitflow \"prefix\"" = {
         feature = "feature/";
