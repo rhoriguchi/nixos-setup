@@ -27,10 +27,6 @@
     hs = super.callPackage ./hs { };
     plexPlugins = super.callPackage ./plexPlugins { };
     tv_time_export = super.callPackage ./tv_time_export.nix { };
-
-    # TODO temp fix till resolved or never version released https://github.com/NixOS/nixpkgs/issues/96633
-    # TODO upgrade to latest version
-    teamviewer = super.callPackage ./teamviewer.nix { inherit (super) teamviewer; };
   })
 
   # TODO add hook to set 'NoDisplay=true'
