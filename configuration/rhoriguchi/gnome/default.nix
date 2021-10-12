@@ -4,6 +4,7 @@ let
     # TODO update to unaliased names
     pkgs.gnomeExtensions.appindicator
     pkgs.gnomeExtensions.caffeine
+    pkgs.gnomeExtensions.clock-override
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.dynamic-panel-transparency
     # pkgs.gnomeExtensions.gnome-fuzzy-app-search # TODO does not work till version 40 is released
@@ -118,6 +119,7 @@ in {
         show-notifications = true;
         user-enabled = false;
       };
+      "org/gnome/shell/extensions/clock_override".override-string = "%d.%m.%Y  %H:%M:%S";
       "org/gnome/shell/extensions/dash-to-dock" = {
         activate-single-window = true;
         animate-show-apps = true;
