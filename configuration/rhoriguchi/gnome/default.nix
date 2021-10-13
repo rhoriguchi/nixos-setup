@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 let
   extensions = [
-    # TODO update to unaliased names
     pkgs.gnomeExtensions.appindicator
     pkgs.gnomeExtensions.caffeine
     pkgs.gnomeExtensions.clock-override
