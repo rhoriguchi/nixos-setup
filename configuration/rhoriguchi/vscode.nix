@@ -22,8 +22,7 @@
       pkgs.vscode-extensions.johnpapa.vscode-peacock
       pkgs.vscode-extensions.ms-azuretools.vscode-docker
       pkgs.vscode-extensions.ms-dotnettools.csharp
-      # TODO commented till fixed
-      # pkgs.vscode-extensions.ms-python.python
+      pkgs.vscode-extensions.ms-python.python
       pkgs.vscode-extensions.naumovs.color-highlight
       pkgs.vscode-extensions.pkief.material-icon-theme
       pkgs.vscode-extensions.redhat.java
