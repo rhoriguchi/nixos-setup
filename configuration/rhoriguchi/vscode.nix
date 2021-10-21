@@ -43,7 +43,6 @@
       "cSpell.userWords" = [ "horiguchi" "rhoriguchi" ];
       "editor.fontFamily" = "JetBrains Mono";
       "editor.linkedEditing" = true;
-      "editor.renderIndentGuides" = false;
       "editor.renderWhitespace" = "trailing";
       "editor.suggestSelection" = "first";
       "editor.wordBasedSuggestionsMode" = "allDocuments";
