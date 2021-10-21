@@ -130,7 +130,7 @@
       "prettier.trailingComma" = "es5";
       "security.workspace.trust.enabled" = false;
       "svg.preview.autoShow" = true;
-      "telemetry.enableTelemetry" = false;
+      "telemetry.telemetryLevel" = "off";
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
       "terraform.languageServer" = {
         args = [ "serve" ];
