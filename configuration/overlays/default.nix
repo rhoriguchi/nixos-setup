@@ -18,6 +18,17 @@
     })).default;
   })
   (self: super: {
+    # TODO remove once merged https://github.com/NixOS/nixpkgs/pull/142527
+    displaylink = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "b510dad7a898dcf0066b6907d4b51bbbae8baf91";
+          sha256 = "0pmwf1rj41d3h7gblcjbc77rq4pjfmv176lhhsx3mkcarxjbpqzx";
+        }
+      }/pkgs/os-specific/linux/displaylink/default.nix") { inherit (super.linuxPackages) evdi; };
+  })
+  (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
     displaylink = super.callPackage ./displaylink {
       inherit (super) displaylink;
