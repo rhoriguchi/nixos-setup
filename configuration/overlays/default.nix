@@ -1,3 +1,4 @@
+# TODO restructure
 [
   (self: super: {
     firefox-addons = let nur = import (fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { pkgs = super; };
