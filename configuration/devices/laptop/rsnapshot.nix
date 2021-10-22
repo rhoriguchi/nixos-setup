@@ -39,6 +39,7 @@ let
 
     # Steam
     - /**.steam
+    - /**Steam/steamapps
 
     # Resilio Sync
     - /**.sync
