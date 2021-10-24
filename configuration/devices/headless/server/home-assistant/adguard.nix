@@ -8,29 +8,30 @@ let
 
   pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.adguardhome ]);
 
-  script = methodCall: pkgs.writeText "adguard_${methodCall}.py" ''
-    import asyncio
+  script = methodCall:
+    pkgs.writeText "adguard_${methodCall}.py" ''
+      import asyncio
 
-    from adguardhome import AdGuardHome
-
-
-    async def get_status():
-        async with AdGuardHome("${hostname}", username="${username}", password="${password}", port=80) as adguard:
-            print(await adguard.protection_enabled())
+      from adguardhome import AdGuardHome
 
 
-    async def set_status(status):
-        async with AdGuardHome("${hostname}", username="${username}", password="${password}", port=80) as adguard:
-            if status:
-                await adguard.enable_protection()
-            else:
-                await adguard.disable_protection()
+      async def get_status():
+          async with AdGuardHome("${hostname}", username="${username}", password="${password}", port=80) as adguard:
+              print(await adguard.protection_enabled())
 
 
-    if __name__ == "__main__":
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(${methodCall})
-  '';
+      async def set_status(status):
+          async with AdGuardHome("${hostname}", username="${username}", password="${password}", port=80) as adguard:
+              if status:
+                  await adguard.enable_protection()
+              else:
+                  await adguard.disable_protection()
+
+
+      if __name__ == "__main__":
+          loop = asyncio.get_event_loop()
+          loop.run_until_complete(${methodCall})
+    '';
 in {
   services.home-assistant.config = {
     shell_command = {
