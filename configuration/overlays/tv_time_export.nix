@@ -1,6 +1,7 @@
 { mach-nix, fetchFromGitHub }:
 mach-nix.buildPythonApplication rec {
   pname = "tv_time_export";
+  # TODO update to version 1.0.13 when mach-nix supports it
   version = "1.0.12";
 
   src = fetchFromGitHub {
