@@ -104,6 +104,7 @@ in {
       };
       "org/gnome/shell" = {
         app-picker-layout = [ ];
+        disable-extension-version-validation = true;
         enabled-extensions =
           [ "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" ]
           ++ map (extension: if lib.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid) extensions;
