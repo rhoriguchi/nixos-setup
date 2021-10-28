@@ -26,11 +26,6 @@
         src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
       }
       {
-        name = pkgs.zsh-git-prompt.pname;
-        file = "zshrc.sh";
-        src = "${pkgs.zsh-git-prompt}/share/${pkgs.zsh-git-prompt.pname}";
-      }
-      {
         name = pkgs.zsh-syntax-highlighting.pname;
         file = "zsh-syntax-highlighting.zsh";
         src = "${pkgs.zsh-syntax-highlighting}/share/${pkgs.zsh-syntax-highlighting.pname}";
@@ -105,7 +100,7 @@
       local prompt_string=">"
 
       PROMPT="''${user_string}@''${hostname} ''${path_string} ''${prompt_string} %{$reset_color%}"
-      RPROMPT="$(git_super_status)"
+      RPROMPT=""
     '';
   };
 }
