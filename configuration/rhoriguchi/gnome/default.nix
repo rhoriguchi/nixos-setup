@@ -21,6 +21,7 @@ in {
     settings = {
       "ca/desrt/dconf-editor/Settings".show-warning = false;
       "org/gnome/desktop/background".picture-uri = "file://${./wallpaper.jpg}";
+      "org/gnome/desktop/calendar".show-weekdate = true;
       "org/gnome/desktop/interface" = {
         clock-show-seconds = true;
         clock-show-weekday = true;
