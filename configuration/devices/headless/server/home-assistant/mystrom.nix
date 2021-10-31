@@ -27,7 +27,7 @@ let
     map (button: {
       platform = "command_line";
       name = button.name;
-      scan_interval = 6 * 60 * 60;
+      scan_interval = 5 * 60 * 60;
       command = "${createVoltageShellScript button.id}";
       value_template = let
         maxVoltage = "4300";

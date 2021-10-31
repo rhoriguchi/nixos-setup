@@ -34,7 +34,7 @@ in {
   services.home-assistant.config.sensor = [{
     platform = "command_line";
     name = "Withings Body+ battery";
-    scan_interval = 6 * 60 * 60;
+    scan_interval = 5 * 60 * 60;
     command = "${pythonWithPackages}/bin/python ${getBatteryScript}";
     unit_of_measurement = "%";
   }];
