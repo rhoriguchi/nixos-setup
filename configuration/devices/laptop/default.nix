@@ -182,7 +182,7 @@
       pkgs.signal-desktop
       pkgs.spotify
       pkgs.sshpass
-      pkgs.terraform_1_0_0
+      pkgs.terraform_1_0
       pkgs.unzip
       pkgs.virt-manager
       pkgs.vlc
