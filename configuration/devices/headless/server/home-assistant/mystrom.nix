@@ -5,30 +5,35 @@ let
 
   apiUrl = "https://mystrom.ch/api";
 
-  createVoltageShellScript = id:
-    pkgs.writeShellScript "mystrom_get_voltage_${id}" ''
-      export PATH=${lib.makeBinPath [ pkgs.curl pkgs.jq ]}
+  getVoltageScript = id:
+    pkgs.writeText "mystrom_get_voltage_${id}.py" ''
+      import json
 
-      TOKEN=$(curl --request POST "${apiUrl}/auth" \
-        --header "Content-Type: application/x-www-form-urlencoded" \
-        --data-urlencode "email=${email}" \
-        --data-urlencode "password=${password}" 2>/dev/null \
-        | jq -r ".authToken")
+      import requests
 
-      VOLTAGE=$(curl "${apiUrl}/devices" \
-        --header "Auth-Token: $TOKEN" 2>/dev/null \
-        | jq -r ".devices" \
-        | jq -r -c "map(select(any(.id; contains(\"${id}\")))|.voltage)[]")
+      response = requests.post('${apiUrl}/auth', params={
+          'email': '${email}',
+          'password': '${password}'
+      })
 
-      echo $VOLTAGE
+      response = requests.get('${apiUrl}/devices', headers={'Auth-Token': json.loads(response.content)['authToken']})
+
+      match = next(filter(
+          lambda device: device['id'] == '${id}',
+          json.loads(response.content)['devices']
+      ))
+
+      print(match['voltage'])
     '';
+
+  pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.requests ]);
 
   createButtonBatterySensors = buttons:
     map (button: {
       platform = "command_line";
       name = button.name;
       scan_interval = 60 * 60 * 60;
-      command = "${createVoltageShellScript button.id}";
+      command = "${pythonWithPackages}/bin/python ${getVoltageScript button.id}";
       value_template = let
         maxVoltage = "4300";
         minVoltage = "3700";
