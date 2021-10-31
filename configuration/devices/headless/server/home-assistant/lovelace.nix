@@ -97,6 +97,8 @@ in {
 
               entities = [
                 "light.bedroom"
+                "light.kitchen"
+                "light.living_room"
                 {
                   type = "custom:fold-entity-row";
                   head = "light.entrance";
@@ -108,23 +110,6 @@ in {
                     {
                       name = "Window";
                       entity = "light.entrance_window";
-                    }
-                  ];
-                }
-                {
-                  type = "custom:fold-entity-row";
-                  head = "light.kitchen_living_room";
-
-                  open = true;
-
-                  entities = [
-                    {
-                      name = "Kitchen";
-                      entity = "light.kitchen";
-                    }
-                    {
-                      name = "Living room";
-                      entity = "light.living_room";
                     }
                   ];
                 }
