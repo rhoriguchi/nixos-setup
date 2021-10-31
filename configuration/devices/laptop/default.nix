@@ -183,6 +183,7 @@
       pkgs.spotify
       pkgs.sshpass
       pkgs.terraform_1_0
+      pkgs.terragrunt
       pkgs.unzip
       pkgs.virt-manager
       pkgs.vlc
