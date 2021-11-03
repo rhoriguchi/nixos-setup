@@ -168,8 +168,8 @@
       pkgs.libreoffice-fresh
       pkgs.maven
       pkgs.neofetch
-      pkgs.nodejs
       pkgs.nodePackages."@angular/cli"
+      pkgs.nodejs
       pkgs.ntfs3g # TODO can be removed with kernel 5.15
       pkgs.openssl
       pkgs.pipenv
