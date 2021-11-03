@@ -184,6 +184,7 @@
       pkgs.sshpass
       pkgs.terraform_1_0
       pkgs.terragrunt
+      pkgs.tree
       pkgs.unzip
       pkgs.virt-manager
       pkgs.vlc
