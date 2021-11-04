@@ -30,7 +30,7 @@
         sha256 = "0ni1v8ppg5cf35gq7nzd50kajxzp5zkbzhf022in0fgbjcprlzr2";
       })).default;
 
-      plexPlugins = super.callPackage ./plexPlugins { };
+      plexPlugins = super.callPackage ./plex-plugins { };
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
     })

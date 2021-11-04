@@ -96,7 +96,7 @@
       enable = true;
 
       openFirewall = true;
-      extraPlugins = [ "${pkgs.plexPlugins.myAnimeList}/${pkgs.plexPlugins.myAnimeList.pname}.bundle" ];
+      extraPlugins = [ "${pkgs.plexPlugins.my-anime-list}/${pkgs.plexPlugins.my-anime-list.pname}.bundle" ];
     };
   };
 }

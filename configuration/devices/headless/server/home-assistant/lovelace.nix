@@ -1,13 +1,13 @@
 { pkgs, lib, ... }:
 let
   lovelaceModules = [
-    pkgs.hs.lovelaceModule.batteryEntity
-    pkgs.hs.lovelaceModule.cardMod
-    pkgs.hs.lovelaceModule.foldEntityRow
-    pkgs.hs.lovelaceModule.miniGraphCard
+    pkgs.hs.lovelaceModule.battery-entity
+    pkgs.hs.lovelaceModule.card-mod
+    pkgs.hs.lovelaceModule.fold-entity-row
+    pkgs.hs.lovelaceModule.mini-graph-card
   ];
 
-  theme = pkgs.hs.theme.googleHome;
+  theme = pkgs.hs.theme.google-home;
 
   cardStyles = {
     "custom:mini-graph-card" = ''

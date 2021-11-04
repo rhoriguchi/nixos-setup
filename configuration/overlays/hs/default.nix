@@ -1,4 +1,4 @@
 { callPackage }: {
-  lovelaceModule = callPackage ./lovelaceModule { };
+  lovelaceModule = callPackage ./lovelace-module { };
   theme = callPackage ./theme { };
 }
