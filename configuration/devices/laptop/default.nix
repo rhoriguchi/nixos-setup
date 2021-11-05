@@ -169,6 +169,7 @@
       pkgs.maven
       pkgs.neofetch
       pkgs.nodePackages."@angular/cli"
+      pkgs.nodePackages.cdktf-cli
       pkgs.nodejs
       pkgs.ntfs3g # TODO can be removed with kernel 5.15
       pkgs.openssl
@@ -183,7 +184,6 @@
       pkgs.spotify
       pkgs.sshpass
       pkgs.terraform_1_0
-      pkgs.terragrunt
       pkgs.tree
       pkgs.unzip
       pkgs.virt-manager
