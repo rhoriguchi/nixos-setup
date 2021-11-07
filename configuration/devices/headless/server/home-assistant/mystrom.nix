@@ -99,7 +99,7 @@ in {
           entity_id = "light.bedroom";
           data = {
             brightness = 255;
-            rgb_color = [ 255 177 110 ];
+            color_temp = 333;
             transition = 0.1;
           };
         }];
@@ -137,8 +137,7 @@ in {
           entity_id = "light.kitchen";
           data = {
             brightness = 255;
-            rgb_color = [ 255 177 110 ];
-            rgb_color = [ 255 223 197 ];
+            color_temp = 210;
             transition = 0.1;
           };
         }];
