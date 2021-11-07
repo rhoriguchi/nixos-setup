@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   pname = "hs-lovelace-module-fold-entity-row";
-  version = "20.0.4";
+  version = "20.0.8";
 
   src = fetchFromGitHub {
     owner = "thomasloven";
     repo = "lovelace-fold-entity-row";
     rev = version;
-    sha256 = "0j50j78ws9cl29pvg5782ykvrsv69mnnpmpj99qjdcfhhqgi2w5j";
+    sha256 = "0pawm1z99lamzm9z9bdgkp15cd4q4n2r3hizlr3v4kqm7xq3d1bc";
   };
 
   installPhase = ''
