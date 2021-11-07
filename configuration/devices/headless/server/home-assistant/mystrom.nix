@@ -81,6 +81,10 @@ in {
         name = "myStrom button purple battery";
         id = "F4CFA2E9D761";
       }
+      {
+        name = "myStrom button white battery";
+        id = "CC50E3F8CB7A";
+      }
     ];
 
     automation = [
@@ -118,6 +122,23 @@ in {
           data = {
             brightness = 255;
             rgb_color = [ 255 205 166 ];
+            transition = 0.1;
+          };
+        }];
+      }
+      {
+        alias = "Turn on kitchen light";
+        trigger = [{
+          platform = "webhook";
+          webhook_id = "mystrom_button_white";
+        }];
+        action = [{
+          service = "light.toggle";
+          entity_id = "light.kitchen";
+          data = {
+            brightness = 255;
+            rgb_color = [ 255 177 110 ];
+            rgb_color = [ 255 223 197 ];
             transition = 0.1;
           };
         }];
