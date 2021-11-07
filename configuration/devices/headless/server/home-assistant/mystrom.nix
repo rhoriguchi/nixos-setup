@@ -131,7 +131,6 @@ in {
         action = [{
           service = "light.toggle";
           entity_id = "light.living_room";
-          data.brightness = 255;
         }];
       }
     ];
