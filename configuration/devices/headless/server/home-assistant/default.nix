@@ -1,6 +1,7 @@
 { pkgs, config, ... }: {
   imports = [
     ./adguard.nix
+    ./automation.nix
     ./lovelace.nix
     ./mystrom.nix
     ./netatmo.nix
