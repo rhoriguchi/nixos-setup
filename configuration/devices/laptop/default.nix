@@ -145,6 +145,7 @@
       pkgs.curl
       pkgs.discord
       pkgs.docker-compose
+      pkgs.file
       pkgs.firefox
       pkgs.flameshot
       pkgs.foxitreader
