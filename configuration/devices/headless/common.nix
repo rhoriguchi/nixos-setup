@@ -41,7 +41,7 @@ in {
   console.keyMap = "de_CH-latin1";
 
   programs.zsh.shellInit = ''
-    if (( EUID != 0 )); then
+    if (( EUID != 0 )) | [ "$(whoami)" = "xxlpitu" ]; then
       ${pkgs.fancy-motd}/bin/motd ${fancyMotdConfig}
     fi
   '';

@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, config, ... }: {
   imports = [ ../common.nix ./hardware-configuration.nix ./home-assistant ];
 
   boot = {
@@ -98,5 +98,14 @@
       openFirewall = true;
       extraPlugins = [ "${pkgs.plexPlugins.my-anime-list}/${pkgs.plexPlugins.my-anime-list.pname}.bundle" ];
     };
+  };
+
+  users.users.gitlab-ci = {
+    isNormalUser = true;
+    group = "docker";
+    hashedPassword = "*";
+    openssh.authorizedKeys.keys = config.users.users.xxlpitu.openssh.authorizedKeys.keys ++ [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDws+9GVsKBTpEGCnOLRDs8meH6L2y6xJjhFWK8001JLQLyifGvbSyICTUs7ICHLHac3DeVC+S2MvItE9eQk0MweCWAiOQyjoAb029/DhJY50R44Nj1NMZ7vTwGBzYMw6tgwnV0CdC19l3wL4Y1rOMDTZB+YXy6sJrydz7nJTCaYPNQ8nA1oMKMRjrbqvy9llJMQsCrBzby8mzs/kEb3v8vKF+yuo3atOs5aj3ljUjNxzQBUunvY0QBXV6tUNm4jCPqbxy0ap3I+Q/JorFOxsObxK8IVZT8OZ4dypU10q1db/mJDuULGkTyrC46JHVOM8V0mfm9t4QMVpgRfV+iiQFL8gsl2NkvlUq65vkeTo2cDRKM7eJ9U/EXFqxNOOxNE8JVYLXrokVslB1B/iHdK+EiuKuktDbHW49Sc4aDeX9m/0qm2WeNTA41bGo6z8WiJF6F0uYB9JmbpMQar2RP4uq2S7L60uku1JiGFOQV9T1dZ+daohjWN5qxGG+ZJrNRIOSDJ2CWy+6tWcbRNXTrIfUovNozUUqQT3l4Asi92WVAdymS+Z2pmuvVd6BnK4ERMa4xD6laiZjAXpJAAUh4zoIRdzb9ICK4lS1rDhJw5M3rk1h8dw2lCRvx7TYwfA4gReYz8TXAGnVjWvlmx34TwNSWQkq8cukOvynxyiNiT2Zqkw== GitLab"
+    ];
   };
 }
