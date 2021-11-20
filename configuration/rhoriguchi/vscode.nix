@@ -8,7 +8,6 @@
       pkgs.vscode-extensions.alexdima.copy-relative-path
       pkgs.vscode-extensions.bbenoist.nix
       pkgs.vscode-extensions.brettm12345.nixfmt-vscode
-      pkgs.vscode-extensions.coenraads.bracket-pair-colorizer-2
       pkgs.vscode-extensions.davidanson.vscode-markdownlint
       pkgs.vscode-extensions.dotjoshjohnson.xml
       pkgs.vscode-extensions.eamodio.gitlens
@@ -42,6 +41,7 @@
       "cSpell.enableFiletypes" = [ "nix" "terraform" ];
       "cSpell.userWords" = [ "horiguchi" "rhoriguchi" ];
       "editor.fontFamily" = "JetBrains Mono";
+      "editor.guides.bracketPairs" = true;
       "editor.linkedEditing" = true;
       "editor.renderWhitespace" = "trailing";
       "editor.suggestSelection" = "first";
