@@ -134,10 +134,6 @@
       "svg.preview.autoShow" = true;
       "telemetry.telemetryLevel" = "off";
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
-      "terraform.languageServer" = {
-        args = [ "serve" ];
-        external = true;
-      };
       "todo-tree.highlights.customHighlight" = {
         "[ ]"."background" = "#FF413680";
         "[X]"."background" = "#2ECC4080";
