@@ -1,5 +1,5 @@
 { pkgs, utils, config, ... }: {
-  fonts.fonts = [ pkgs.jetbrains-mono ];
+  fonts.fonts = [ pkgs.roboto-mono ];
 
   home-manager.users.rhoriguchi.programs.alacritty = {
     enable = true;
@@ -16,17 +16,17 @@
 
       font = {
         normal = {
-          family = "JetBrains Mono";
+          family = "Roboto Mono";
           style = "Regular";
         };
 
         bold = {
-          family = "JetBrains Mono";
+          family = "Roboto Mono";
           style = "Bold";
         };
 
         italic = {
-          family = "JetBrains Mono";
+          family = "Roboto Mono";
           style = "Italic";
         };
       };

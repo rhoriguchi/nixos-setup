@@ -11,7 +11,7 @@ let
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
-  fonts.fonts = [ pkgs.cantarell-fonts pkgs.jetbrains-mono ];
+  fonts.fonts = [ pkgs.cantarell-fonts pkgs.jetbrains-mono pkgs.roboto-mono ];
 
   users.users.rhoriguchi.packages = extensions ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ];
 
@@ -29,7 +29,7 @@ in {
         font-name = "Cantarell 11";
         gtk-theme = "Yaru-light";
         icon-theme = "Papirus";
-        monospace-font-name = "JetBrains Mono";
+        monospace-font-name = "Roboto Mono";
         show-battery-percentage = true;
       };
       "org/gnome/desktop/notifications" = {
@@ -92,8 +92,10 @@ in {
       };
       "org/gnome/gedit/preferences/editor" = {
         display-line-numbers = true;
+        editor-font = "JetBrains Mono";
         insert-spaces = true;
         tabs-size = 4;
+        use-default-font = false;
       };
       "org/gnome/login-screen" = {
         enable-fingerprint-authentication = false;
