@@ -109,6 +109,8 @@
             "devtools.aboutdebugging.collapsibilities.processes" = false;
             "devtools.accessibility.enabled" = false;
             "devtools.application.enabled" = false;
+            "devtools.chrome.enabled" = true;
+            "devtools.debugger.remote-enabled" = true;
             "devtools.memory.enabled" = false;
             "devtools.performance.enabled" = false;
             "devtools.performance.popup.intro-displayed" = true;
