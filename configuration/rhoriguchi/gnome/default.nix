@@ -11,7 +11,7 @@ let
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
-  fonts.fonts = [ pkgs.jetbrains-mono ];
+  fonts.fonts = [ pkgs.cantarell-fonts pkgs.jetbrains-mono ];
 
   users.users.rhoriguchi.packages = extensions ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ];
 
@@ -26,6 +26,7 @@ in {
         clock-show-seconds = true;
         clock-show-weekday = true;
         enable-hot-corners = false;
+        font-name = "Cantarell 11";
         gtk-theme = "Yaru-light";
         icon-theme = "Papirus";
         monospace-font-name = "JetBrains Mono";
