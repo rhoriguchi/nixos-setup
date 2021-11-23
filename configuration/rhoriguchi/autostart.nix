@@ -10,10 +10,6 @@ in {
       in builtins.replaceStrings [ "/usr/bin/flameshot" ] [ "flameshot" ] content;
     };
 
-    "autostart/${pkgs.protonvpn-gui.pname}.desktop" = lib.mkIf (lib.elem pkgs.protonvpn-gui.name packageNames) {
-      source = "${pkgs.protonvpn-gui}/share/applications/protonvpn.desktop";
-    };
-
     "autostart/${pkgs.solaar.pname}.desktop" = lib.mkIf (lib.elem pkgs.solaar.name packageNames) {
       source = "${pkgs.solaar}/share/applications/solaar.desktop";
     };
