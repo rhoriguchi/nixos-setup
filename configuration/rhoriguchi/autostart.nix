@@ -14,6 +14,10 @@ in {
       source = "${pkgs.protonvpn-gui}/share/applications/protonvpn.desktop";
     };
 
+    "autostart/${pkgs.solaar.pname}.desktop" = lib.mkIf (lib.elem pkgs.solaar.name packageNames) {
+      source = "${pkgs.solaar}/share/applications/solaar.desktop";
+    };
+
     "autostart/${pkgs.signal-desktop.pname}.desktop" = lib.mkIf (lib.elem pkgs.signal-desktop.name packageNames) {
       source = "${pkgs.signal-desktop}/share/applications/signal-desktop.desktop";
     };
