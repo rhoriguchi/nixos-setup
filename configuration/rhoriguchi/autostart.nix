@@ -11,7 +11,7 @@ in {
     };
 
     "autostart/${pkgs.protonvpn-gui.pname}.desktop" = lib.mkIf (lib.elem pkgs.protonvpn-gui.name packageNames) {
-      source = "${pkgs.protonvpn-gui}/share/applications/protonvpn-tray.desktop";
+      source = "${pkgs.protonvpn-gui}/share/applications/protonvpn.desktop";
     };
 
     "autostart/${pkgs.signal-desktop.pname}.desktop" = lib.mkIf (lib.elem pkgs.signal-desktop.name packageNames) {
