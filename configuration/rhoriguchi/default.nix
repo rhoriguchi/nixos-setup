@@ -4,6 +4,7 @@
 
     ./alacritty.nix
     ./autostart.nix
+    ./conky.nix
     ./docker.nix
     ./firefox
     ./flameshot.nix
