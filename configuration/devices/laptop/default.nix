@@ -170,7 +170,6 @@
       pkgs.maven
       pkgs.neofetch
       pkgs.nodePackages."@angular/cli"
-      pkgs.nodePackages.cdktf-cli
       pkgs.nodejs
       pkgs.ntfs3g # TODO can be removed with kernel 5.15
       pkgs.openssl
