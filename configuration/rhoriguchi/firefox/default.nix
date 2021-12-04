@@ -51,9 +51,6 @@
               "https://web.whatsapp.com"
               "https://mail.google.com/mail/u/0/#inbox"
               "https://www.tvtime.com/en/to-watch"
-              "https://www.daydeal.ch"
-              "https://www.digitec.ch/de/LiveShopping/81"
-              "https://www.galaxus.ch/de/LiveShopping/82"
               "https://status.nixos.org"
             ];
             "browser.startup.page" = 1;
