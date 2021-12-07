@@ -73,7 +73,7 @@
       projectId = (import ../../../secrets.nix).services.gphotos-sync.projectId;
       clientId = (import ../../../secrets.nix).services.gphotos-sync.clientId;
       clientSecret = (import ../../../secrets.nix).services.gphotos-sync.clientSecret;
-      exportPath = "/media/Data/Sync/Google_Photos";
+      exportPath = "${config.services.resilio.syncPath}/Google_Photos";
     };
 
     resilio = {
@@ -89,7 +89,7 @@
 
       username = (import ../../../secrets.nix).services.tv_time_export.username;
       password = (import ../../../secrets.nix).services.tv_time_export.password;
-      exportPath = "/media/Data/Sync/tv_time_export";
+      exportPath = "${config.services.resilio.syncPath}/tv_time_export";
     };
 
     plex = {

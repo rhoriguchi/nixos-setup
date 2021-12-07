@@ -9,7 +9,7 @@ let
     paths = lib.filter (path: path != "/boot") (lib.attrNames config.fileSystems);
     lines = map (path:
       [
-        "\${goto 24}\${color1}${path}: \${color2}\${fs_used ${path}}/${fs_size ${path}} \${alignr}\${fs_used_perc ${path}}% \${color1}\${fs_bar 6, 124 ${path}}"
+        "\${goto 24}\${color1}${path}: \${color2}\${fs_used ${path}}/\${fs_size ${path}} \${alignr}\${fs_used_perc ${path}}% \${color1}\${fs_bar 6, 124 ${path}}"
       ]) paths;
   in lib.concatStringsSep "\n  " (lib.flatten lines);
 

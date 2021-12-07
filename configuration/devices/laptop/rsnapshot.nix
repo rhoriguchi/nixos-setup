@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 let
   backupDir = "/media/Backup";
-  keyPath = "/media/Data/Sync/Storage/Luks/backup.key";
+  keyPath = "${config.services.resilio.syncPath}/Storage/Luks/backup.key";
 
   preExecShellScript = pkgs.writeShellScript "rsnapshot-preExec" ''
     ${pkgs.cryptsetup}/bin/cryptsetup luksOpen --key-file ${keyPath} /dev/disk/by-uuid/28ca9d71-aec7-4b19-9fd6-ab6f7cc1b186 backup
