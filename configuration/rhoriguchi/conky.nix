@@ -14,13 +14,20 @@ let
   in lib.concatStringsSep "\n  " (lib.flatten lines);
 
   interfaceLines = let
-    interfaces = lib.sort (a: b: a < b) (lib.attrNames config.networking.interfaces);
+    interfaces =
+      lib.sort (a: b: a < b) ((lib.attrNames config.networking.interfaces) ++ lib.optional config.virtualisation.docker.enable "docker0");
     lines = map (interface: [
       "\${goto 24}\${color1}${interface}"
       "\${goto 24}\${color1}Speed Up: \${color2}\${upspeed ${interface}} \${alignr}\${color1}Speed Down: \${color2}\${downspeed ${interface}}\${voffset 8}"
       "\${goto 24}\${color1}\${upspeedgraph ${interface} 16, 175} \${alignr}\${downspeedgraph ${interface} 16, 175}"
       ""
     ]) interfaces;
+  in lib.concatStringsSep "\n  " (lib.flatten lines);
+
+  memoryLines = let
+    lines = [ "\${goto 24}\${color1}RAM: \${color2}\${mem}/\${memmax} \${alignr}\${memperc}% \${color1}\${membar 6, 124}" ]
+      ++ lib.optional (lib.length config.swapDevices > 0)
+      "\${goto 24}\${color1}Swap: \${color2}\${swap}/\${swapmax} \${alignr}$swapperc% \${color1}\${swapbar 6, 124}";
   in lib.concatStringsSep "\n  " (lib.flatten lines);
 
   configFile = pkgs.writeText "conky.conf" ''
@@ -70,7 +77,7 @@ let
     conky.text = [[
       ''${voffset 0}
       ''${goto 24}''${color1} OS ''${voffset 8}
-      ''${goto 24}''${color1}Version: ''${color2}${lib.versions.majorMinor lib.version}
+      ''${goto 24}''${color1}Version: ''${color2}NixOS ${lib.versions.majorMinor lib.version}
       ''${goto 24}''${color1}Release: ''${color2}''${exec ${releaseCommand}}
       ''${goto 24}''${color1}Kernel:  ''${color2}''${kernel}
       ''${goto 24}''${color1}Uptime:  ''${color2}''${uptime}
@@ -88,8 +95,7 @@ let
 
 
       ''${goto 24}''${color1} Memory''${voffset 8}
-      ''${goto 24}''${color1}RAM:  ''${color2}''${mem}/''${memmax} ''${alignr}''${memperc}% ''${color1}''${membar 6, 124}
-      ''${goto 24}''${color1}Swap: ''${color2}''${swap}/''${swapmax} ''${alignr}$swapperc% ''${color1}''${swapbar 6, 124}''${voffset 8}
+      ${memoryLines}''${voffset 8}
       ''${goto 24}''${color1}''${top_mem name 1}''${color2}''${top_mem mem 1}% ''${alignr}''${color1}''${top_mem name 4}''${color2}''${top_mem mem 4}%
       ''${goto 24}''${color1}''${top_mem name 2}''${color2}''${top_mem mem 2}% ''${alignr}''${color1}''${top_mem name 5}''${color2}''${top_mem mem 5}%
       ''${goto 24}''${color1}''${top_mem name 3}''${color2}''${top_mem mem 2}% ''${alignr}''${color1}''${top_mem name 6}''${color2}''${top_mem mem 6}%
