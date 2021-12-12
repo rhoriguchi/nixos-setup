@@ -45,6 +45,7 @@
       "editor.linkedEditing" = true;
       "editor.renderWhitespace" = "trailing";
       "editor.suggestSelection" = "first";
+      "editor.unicodeHighlight.includeComments" = true;
       "editor.wordBasedSuggestionsMode" = "allDocuments";
       "explorer.compactFolders" = false;
       "explorer.confirmDelete" = false;
@@ -154,6 +155,7 @@
       "window.zoomLevel" = 0;
       "workbench.colorTheme" = "Visual Studio Light";
       "workbench.editor.untitled.hint" = "hidden";
+      "workbench.editorAssociations"."*.md" = "vscode.markdown.preview.editor";
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.list.smoothScrolling" = true;
       "workbench.startupEditor" = "none";
