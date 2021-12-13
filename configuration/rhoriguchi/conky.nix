@@ -7,21 +7,24 @@ let
 
   fileSystemLines = let
     paths = lib.filter (path: path != "/boot") (lib.attrNames config.fileSystems);
+    sortedPaths = lib.sort (a: b: a < b) paths;
+
     lines = map (path:
       [
         "\${goto 24}\${color1}${path}: \${color2}\${fs_used ${path}}/\${fs_size ${path}} \${alignr}\${fs_used_perc ${path}}% \${color1}\${fs_bar 6, 124 ${path}}"
-      ]) paths;
+      ]) sortedPaths;
   in lib.concatStringsSep "\n  " (lib.flatten lines);
 
   interfaceLines = let
-    interfaces =
-      lib.sort (a: b: a < b) ((lib.attrNames config.networking.interfaces) ++ lib.optional config.virtualisation.docker.enable "docker0");
+    interfaces = lib.filter (interface: interface != "vboxnet0") (lib.attrNames config.networking.interfaces);
+    sortedInterfaces = lib.sort (a: b: a < b) interfaces;
+
     lines = map (interface: [
       "\${goto 24}\${color1}${interface}"
       "\${goto 24}\${color1}Speed Up: \${color2}\${upspeed ${interface}} \${alignr}\${color1}Speed Down: \${color2}\${downspeed ${interface}}\${voffset 8}"
       "\${goto 24}\${color1}\${upspeedgraph ${interface} 16, 175} \${alignr}\${downspeedgraph ${interface} 16, 175}"
       ""
-    ]) interfaces;
+    ]) sortedInterfaces;
   in lib.concatStringsSep "\n  " (lib.flatten lines);
 
   memoryLines = let
