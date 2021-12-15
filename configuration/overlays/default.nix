@@ -5,7 +5,13 @@
       repo = "mach-nix";
       rev = "3.3.0";
       sha256 = "105d6b6kgvn8kll639vx5adh5hp4gjcl4bs9rjzzyqz7367wbxj6";
-    }) { pkgs = super; };
+    }) {
+      pkgs = super;
+
+      # TODO remove when mach-nix updated
+      pypiDataRev = "38c55bdeb1ab0e001caec2560055f354498aa6b3";
+      pypiDataSha256 = "03ggjc5y71bw668s4binn4i3h7m17yqlhabgdz2zknm6qbwna3vv";
+    };
   })
   (self: super:
     let nur = import (fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { pkgs = super; };
