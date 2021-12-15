@@ -30,7 +30,7 @@ in glances.overrideAttrs (oldAttrs: {
     ++ [ py3nvml python3Packages.docker python3Packages.pysmart-smartx python3Packages.requests python3Packages.sparklines ]
     ++ lib.optional stdenv.isLinux python3Packages.pymdstat;
 
-  postInstall = ''
+  postInstall = (oldAttrs.postInstall or "") + ''
     wrapProgram $out/bin/glances \
       --add-flags "--config ${configFile}" \
       --add-flags "--time 1" \
