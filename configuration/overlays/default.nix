@@ -41,6 +41,8 @@
 
       plexPlugins = super.callPackage ./plex-plugins { };
 
+      solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
+
       tv_time_export = super.callPackage ./tv_time_export.nix { };
     })
 ]
