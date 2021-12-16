@@ -9,6 +9,7 @@
       pkgs = super;
 
       # TODO remove when mach-nix updated
+      # Taken from https://github.com/DavHau/pypi-deps-db/commits/master
       pypiDataRev = "38c55bdeb1ab0e001caec2560055f354498aa6b3";
       pypiDataSha256 = "03ggjc5y71bw668s4binn4i3h7m17yqlhabgdz2zknm6qbwna3vv";
     };
