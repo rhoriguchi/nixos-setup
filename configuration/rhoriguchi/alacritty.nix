@@ -1,5 +1,5 @@
 { pkgs, utils, config, ... }: {
-  fonts.fonts = [ pkgs.roboto-mono ];
+  fonts.fonts = [ pkgs.nerdfonts ];
 
   home-manager.users.rhoriguchi.programs.alacritty = {
     enable = true;
@@ -16,17 +16,17 @@
 
       font = {
         normal = {
-          family = "Roboto Mono";
+          family = "RobotoMono Nerd Font";
           style = "Regular";
         };
 
         bold = {
-          family = "Roboto Mono";
+          family = "RobotoMono Nerd Font";
           style = "Bold";
         };
 
         italic = {
-          family = "Roboto Mono";
+          family = "RobotoMono Nerd Font";
           style = "Italic";
         };
       };

@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  fonts.fonts = [ pkgs.jetbrains-mono ];
+  fonts.fonts = [ pkgs.nerdfonts ];
 
   home-manager.users.rhoriguchi.programs.vscode = {
     enable = true;
@@ -40,7 +40,7 @@
     userSettings = {
       "cSpell.enableFiletypes" = [ "nix" "terraform" ];
       "cSpell.userWords" = [ "horiguchi" "rhoriguchi" ];
-      "editor.fontFamily" = "JetBrains Mono";
+      "editor.fontFamily" = "JetBrainsMono Nerd Font";
       "editor.guides.bracketPairs" = true;
       "editor.linkedEditing" = true;
       "editor.renderWhitespace" = "trailing";
