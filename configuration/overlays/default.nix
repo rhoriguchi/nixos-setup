@@ -30,6 +30,8 @@
 
       hs = super.callPackage ./hs { };
 
+      htop = super.callPackage ./htop.nix { inherit (super) htop; };
+
       nixops = (import (super.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixops";
