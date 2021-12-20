@@ -20,6 +20,7 @@
         pkgs.firefox-addons.reddit-enhancement-suite
         pkgs.firefox-addons.tab-session-manager
         pkgs.firefox-addons.ublock-origin
+        pkgs.firefox-addons.videospeed # TODO remove when done with HSR
         pkgs.firefox-addons.view-image
         pkgs.firefox-addons.wappalyzer
       ];
