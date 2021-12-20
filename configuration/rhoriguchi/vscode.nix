@@ -160,6 +160,7 @@
       "workbench.list.smoothScrolling" = true;
       "workbench.startupEditor" = "none";
       "[html]"."editor.defaultFormatter" = "vscode.html-language-features";
+      "[javascript]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
       "[json]"."editor.defaultFormatter" = "vscode.json-language-features";
       "[jsonc]"."editor.defaultFormatter" = "vscode.json-language-features";
       "[latex]" = {
@@ -168,6 +169,8 @@
       };
       "[nix]"."editor.tabSize" = 2;
       "[terraform]"."editor.tabSize" = 2;
+      "[typescript]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
+      "[typescriptreact]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
       "[yaml]" = {
         "editor.defaultFormatter" = "redhat.vscode-yaml";
         "editor.tabSize" = 2;
