@@ -1,26 +1,96 @@
-{ ... }:
+{ pkgs, ... }:
 let
-  getBatteryState = sensorName: ''
-    {% set battery_level = state_attr('${sensorName}', 'battery_level') %}
+  email = (import ../../../../secrets.nix).services.home-assistant.config.netatmo.email;
+  password = (import ../../../../secrets.nix).services.home-assistant.config.netatmo.password;
 
-    {% if battery_level == 'full' %}
-      100
-    {% elif battery_level == 'high' %}
-      75
-    {% elif battery_level == 'medium' %}
-      50
-    {% elif battery_level == 'low' %}
-      25
-    {% elif battery_level == 'very_low' %}
-      10
-    {% endif %}
-  '';
+  authUrl = "https://auth.netatmo.com/access";
+  apiUrl = "https://app.netatmo.net/syncapi/v1";
+
+  homeId = "5dac85f0f566fa99cf3cf7e6";
+
+  getBatteryStateScript = id:
+    pkgs.writeText "netatmo_get_battery_state_${id}.py" ''
+      import json
+
+      import requests
+      from bs4 import BeautifulSoup
+
+      with requests.session() as session:
+          response = session.get('${authUrl}/login')
+          soup = BeautifulSoup(response.content, 'html.parser')
+          csrf_token = soup.find('input', attrs={'name': '_token'}).attrs['value']
+
+          session.post('${authUrl}/postlogin',
+                      data={
+                          'email': '${email}',
+                          'password': '${password}',
+                          'stay_logged': 'on',
+                          '_token': csrf_token
+                      })
+
+          response = session.post('${apiUrl}/homestatus',
+                                  headers={
+                                      'Authorization': f'Bearer {session.cookies.get("netatmocomaccess_token").replace("%7C", "|")}'
+                                  },
+                                  json={
+                                      "device_types": [
+                                          "NAPlug"
+                                      ],
+                                      "home_id": "${homeId}"
+                                  })
+
+          match = next(filter(
+              lambda module: module['id'] == '${id}',
+              json.loads(response.content)['body']['home']['modules']
+          ))
+
+          print(match['battery_state'])
+    '';
+
+  pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.beautifulsoup4 pythonPackages.requests ]);
+
+  createValveBatterySensors = valves:
+    map (valve: {
+      platform = "command_line";
+      name = valve.name;
+      scan_interval = 60 * 60 * 60;
+      command = "${pythonWithPackages}/bin/python ${getBatteryStateScript valve.id}";
+      value_template = ''
+        {% if value == 'full' %}
+          100
+        {% elif value == 'high' %}
+          75
+        {% elif value == 'medium' %}
+          50
+        {% elif value == 'low' %}
+          25
+        {% elif value == 'very_low' %}
+          10
+        {% endif %}
+      '';
+      unit_of_measurement = "%";
+    }) valves;
 in {
   services.home-assistant.config = {
     netatmo = {
       client_id = (import ../../../../secrets.nix).services.home-assistant.config.netatmo.client_id;
       client_secret = (import ../../../../secrets.nix).services.home-assistant.config.netatmo.client_secret;
     };
+
+    sensor = createValveBatterySensors [
+      {
+        name = "Netatmo valve living room battery";
+        id = "09:00:00:14:eb:85";
+      }
+      {
+        name = "Netatmo valve entrance hallway battery";
+        id = "09:00:00:01:fe:14";
+      }
+      {
+        name = "Netatmo valve entrance window battery";
+        id = "09:00:00:02:01:91";
+      }
+    ];
 
     template = [{
       sensor = [
@@ -31,22 +101,10 @@ in {
           unit_of_measurement = "°C";
         }
         {
-          name = "Netatmo entrance battery";
-          icon = "mdi:battery";
-          state = getBatteryState "climate.netatmo_entrance";
-          unit_of_measurement = "%";
-        }
-        {
           name = "Netatmo current temperature living room";
           icon = "mdi:thermometer";
           state = "{{ state_attr('climate.netatmo_living_room', 'current_temperature') }}";
           unit_of_measurement = "°C";
-        }
-        {
-          name = "Netatmo living room battery";
-          icon = "mdi:battery";
-          state = getBatteryState "climate.netatmo_living_room";
-          unit_of_measurement = "%";
         }
       ];
     }];

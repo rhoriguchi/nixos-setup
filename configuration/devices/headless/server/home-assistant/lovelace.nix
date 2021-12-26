@@ -168,13 +168,18 @@ in {
               entities = [
                 {
                   type = "custom:battery-entity";
-                  name = "Netatmo entrance";
-                  entity = "sensor.netatmo_entrance_battery";
+                  name = "Netatmo valve entrance hallway";
+                  entity = "sensor.netatmo_valve_entrance_hallway_battery";
                 }
                 {
                   type = "custom:battery-entity";
-                  name = "Netatmo living room";
-                  entity = "sensor.netatmo_living_room_battery";
+                  name = "Netatmo valve entrance window";
+                  entity = "sensor.netatmo_valve_entrance_window_battery";
+                }
+                {
+                  type = "custom:battery-entity";
+                  name = "Netatmo valve living room";
+                  entity = "sensor.netatmo_valve_living_room_battery";
                 }
                 { type = "divider"; }
                 {
