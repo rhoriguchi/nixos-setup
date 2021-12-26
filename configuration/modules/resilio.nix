@@ -27,6 +27,7 @@ let
     download_limit = 0;
     upload_limit = 0;
     directory_root = cfg.syncPath;
+    lan_encrypt_data = true;
     send_statistics = false;
     peer_expiration_days = 1;
     use_gui = false;
