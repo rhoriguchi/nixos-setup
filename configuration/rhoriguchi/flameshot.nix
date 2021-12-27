@@ -12,6 +12,7 @@
       filenamePattern = "%Y_%m_%d_%H:%M:%S";
       saveAfterCopyPath = "${config.users.users.rhoriguchi.home}/Pictures";
       showHelp = false;
+      showStartupLaunchMessage = false;
       uiColor = "#B10DC9";
     };
   };
