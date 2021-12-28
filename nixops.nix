@@ -2,6 +2,7 @@
   network = {
     description = "My Systems";
     enableRollback = true;
+    storage.legacy = { };
   };
 
   defaults.imports = [ ./configuration/common.nix ];
@@ -15,7 +16,7 @@
 
     boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-    environment.systemPackages = [ pkgs.nixops ];
+    environment.systemPackages = [ pkgs.nixopsUnstable ];
   };
 
   Hypervisor = { ... }: {

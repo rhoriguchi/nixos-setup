@@ -32,13 +32,6 @@
 
       htop = super.callPackage ./htop.nix { inherit (super) htop; };
 
-      nixops = (import (super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixops";
-        rev = "45256745cef246dabe1ae8a7d109988f190cd7ef";
-        sha256 = "0ni1v8ppg5cf35gq7nzd50kajxzp5zkbzhf022in0fgbjcprlzr2";
-      })).default;
-
       plexPlugins = super.callPackage ./plex-plugins { };
 
       solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
