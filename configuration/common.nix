@@ -6,7 +6,13 @@
     overlays = import ./overlays;
   };
 
-  nix.autoOptimiseStore = true;
+  nix = {
+    package = pkgs.nixUnstable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+    autoOptimiseStore = true;
+  };
 
   system.stateVersion = "22.05";
 
