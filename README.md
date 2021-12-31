@@ -62,9 +62,9 @@ Run the command the service `gphotos-sync.service` calls and authenticate the ap
 #### Setup ZFS
 
 ```bash
-zpool create -f -o ashift=12 -m /media/Data data raidz ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E2PN4A53 ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5JNF5EA
+zpool create -f -o ashift=12 -m /mnt/Data data raidz ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E2PN4A53 ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5JNF5EA
 zfs set mountpoint=legacy data
-mount -t zfs data /media/Data
+mount -t zfs data /mnt/Data
 ```
 
 ## Nixops

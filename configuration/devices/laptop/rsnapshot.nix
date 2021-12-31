@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  backupDir = "/media/Backup";
+  backupDir = "/mnt/Backup";
   keyPath = "${config.services.resilio.syncPath}/Storage/Luks/backup.key";
 
   preExecShellScript = pkgs.writeShellScript "rsnapshot-preExec" ''
@@ -91,8 +91,7 @@ in {
       retain	manual	5
 
       backup	${config.users.users.rhoriguchi.home}/	localhost/
-      backup	/media/Data/Downloads/	localhost/
-      backup	/media/Data/Sync/	localhost/
+      backup	${config.services.resilio.syncPath}/	localhost/
     '';
   };
 }

@@ -14,7 +14,7 @@
     fsType = "ext4";
   };
 
-  fileSystems."/media/Data" = {
+  fileSystems."/mnt/Data" = {
     device = "/dev/disk/by-uuid/ea401731-f5a9-4a6b-ae7e-a07b3662132b";
     fsType = "ext4";
     options = [ "defaults" "nofail" ];

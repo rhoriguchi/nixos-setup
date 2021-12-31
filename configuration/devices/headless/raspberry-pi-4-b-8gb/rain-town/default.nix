@@ -15,7 +15,7 @@
       enable = true;
 
       secrets = (import ../../../../secrets.nix).services.resilio.secrets;
-      syncPath = "/media/Data/Sync";
+      syncPath = "/mnt/Data/Sync";
     };
   };
 }

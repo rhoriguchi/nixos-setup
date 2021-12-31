@@ -19,7 +19,7 @@
     fsType = "vfat";
   };
 
-  fileSystems."/media/Data" = {
+  fileSystems."/mnt/Data" = {
     device = "data";
     fsType = "zfs";
   };
