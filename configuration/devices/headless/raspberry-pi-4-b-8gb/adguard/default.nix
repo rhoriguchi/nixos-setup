@@ -4,6 +4,7 @@ let
 
   # TODO test if all unmodified values are needed
   configValues = {
+    schema_version = 12;
     bind_host = config.services.adguardhome.host;
     bind_port = config.services.adguardhome.port;
     beta_bind_port = 0;
@@ -24,7 +25,7 @@ let
       statistics_interval = 1;
       querylog_enabled = true;
       querylog_file_enabled = true;
-      querylog_interval = 90;
+      querylog_interval = "2160h";
       querylog_size_memory = 1000;
       anonymize_client_ip = true;
       protection_enabled = true;
@@ -71,6 +72,7 @@ let
       local_domain_name = "local";
       resolve_clients = true;
       local_ptr_upstreams = [ ];
+      trusted_proxies = [ "127.0.0.0/8" "::1/128" ];
     };
     tls = {
       enabled = false;
@@ -137,7 +139,15 @@ let
     log_max_age = 3;
     log_file = "";
     verbose = false;
-    schema_version = 10;
+    os = {
+      group = "";
+      user = "";
+      rlimit_nofile = 0;
+    };
+    cache_optimistic = false;
+    fastest_timeout = "1s";
+    upstream_timeout = "10s";
+    use_private_ptr_resolvers = true;
   };
 in {
   imports = [ ../common.nix ./hardware-configuration.nix ];
