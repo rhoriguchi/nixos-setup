@@ -81,7 +81,7 @@
 
       readWriteDirs = [ "Google_Photos" "Series" "tv_time_export" ];
       secrets = (import ../../../secrets.nix).services.resilio.secrets;
-      syncPath = "/media/Data/Sync";
+      syncPath = "/srv/Sync";
     };
 
     tv_time_export = {
