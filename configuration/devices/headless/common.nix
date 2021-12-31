@@ -30,7 +30,7 @@ in {
 
   security.acme = {
     acceptTerms = true;
-    email = "ryan.horiguchi@gmail.com";
+    defaults.email = "ryan.horiguchi@gmail.com";
   };
 
   networking.networkmanager = {
