@@ -18,6 +18,7 @@
         pkgs.firefox-addons.rabattcorner
         pkgs.firefox-addons.reddit-comment-collapser
         pkgs.firefox-addons.reddit-enhancement-suite
+        pkgs.firefox-addons.return-youtube-dislikes
         pkgs.firefox-addons.tab-session-manager
         pkgs.firefox-addons.ublock-origin
         pkgs.firefox-addons.videospeed # TODO remove when done with HSR
