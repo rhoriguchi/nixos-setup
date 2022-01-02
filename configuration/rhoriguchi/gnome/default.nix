@@ -6,7 +6,6 @@ let
     pkgs.gnomeExtensions.clock-override
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.dynamic-panel-transparency
-    # pkgs.gnomeExtensions.gnome-fuzzy-app-search # TODO does not work till version 40 is released
     pkgs.gnomeExtensions.unite
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
