@@ -44,7 +44,7 @@ in {
         proxyJump = "xxlpitu-home.duckdns.org";
       };
 
-      "jcrk.synology.me".user = "jdh";
+      "jcrk.synology.me".user = "xxlpitu";
     };
   };
 }
