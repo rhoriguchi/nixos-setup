@@ -13,7 +13,7 @@ let
     services["gphotos-sync.timer"]="Google Photos Sync (Timer)"
     services["home-assistant"]="Home Assistant"
     services["libvirtd"]="libvirt"
-    services["nginx"]="Nginx"
+    services["nginx"]="NGINX"
     services["plex"]="Plex"
     services["postgresql"]="PostgreSQL"
     services["resilio"]="Resilio Sync"
