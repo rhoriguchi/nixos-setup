@@ -41,7 +41,7 @@ in {
   console.keyMap = "de_CH-latin1";
 
   programs.zsh.shellInit = ''
-    if (( EUID != 0 )) && [ "$(whoami)" != "root" ] && [ "$(whoami)" != "gitlab-ci" ]; then
+    if (( EUID != 0 )) && [[ $- == *i* ]]; then
       ${pkgs.fancy-motd}/bin/motd ${fancyMotdConfig}
     fi
   '';
