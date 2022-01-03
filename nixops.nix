@@ -35,16 +35,12 @@
     deployment.targetHost = "xxlpitu-adguard";
 
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard ];
-
-    nixpkgs.system = "aarch64-linux";
   };
 
   Rain-Town = { ... }: {
     deployment.targetHost = "xxlpitu-rain-town.duckdns.org";
 
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/rain-town ];
-
-    nixpkgs.system = "aarch64-linux";
   };
 
   Horgen = { ... }: {
@@ -54,7 +50,5 @@
     };
 
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/horgen ];
-
-    nixpkgs.system = "aarch64-linux";
   };
 }
