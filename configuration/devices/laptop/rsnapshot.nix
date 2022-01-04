@@ -90,8 +90,8 @@ in {
 
       retain	manual	5
 
-      backup	${config.users.users.rhoriguchi.home}/	localhost/
-      backup	${config.services.resilio.syncPath}/	localhost/
+      backup	${config.users.users.rhoriguchi.home}/	./
+      backup	${config.services.resilio.syncPath}/	./
     '';
   };
 }
