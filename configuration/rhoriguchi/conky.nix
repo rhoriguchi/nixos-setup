@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  releaseCommand = let pattern = ''.*BUILD_ID="[0-9]+\.[0-9]+(pre|\.)(\S*)".*'';
+  buildCommand = let pattern = ''.*BUILD_ID="[0-9]+\.[0-9]+(pre|\.)(\S*)".*'';
   in "cat /etc/os-release | tr '\\n' '\\r' | sed --regexp-extended 's/${pattern}/\\2/'";
 
   fileSystemLines = let
@@ -79,7 +79,7 @@ let
       ''${voffset 0}
       ''${goto 24}''${color1} OS ''${voffset 8}
       ''${goto 24}''${color1}Version: ''${color2}${lib.versions.majorMinor lib.version}
-      ''${goto 24}''${color1}Build:   ''${color2}''${exec ${releaseCommand}}
+      ''${goto 24}''${color1}Build:   ''${color2}''${exec ${buildCommand}}
       ''${goto 24}''${color1}Kernel:  ''${color2}''${kernel}
       ''${goto 24}''${color1}Uptime:  ''${color2}''${uptime}
 
