@@ -10,8 +10,8 @@
 
       # TODO remove when mach-nix updated
       # Taken from https://github.com/DavHau/pypi-deps-db/commits/master
-      pypiDataRev = "38c55bdeb1ab0e001caec2560055f354498aa6b3";
-      pypiDataSha256 = "03ggjc5y71bw668s4binn4i3h7m17yqlhabgdz2zknm6qbwna3vv";
+      pypiDataRev = "82003f187cea48a11fa4816ae2d0304725258e8d";
+      pypiDataSha256 = "0igb36riamgxj0kv8ibfryzglxc286g8c0dq2hn433sbpnz80vd3";
     };
   })
   (self: super:
