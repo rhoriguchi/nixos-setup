@@ -6,33 +6,34 @@
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 ```
 
-## Manual steps
+## Manual setup
 
 ### Laptop
 
-#### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#authorize-the-application-with-your-onedrive-account)
-
-#### Login to
-
+- SSH Keys
 - Discord
 - Gitkraken
 - JetBrains
+  - DataGrip
   - IntelliJ IDEA Ultimate
   - PyCharm Professional
   - WebStorm
-  - DataGrip
+- Firefox
+  - BitWarden
+  - MetaMask
+  - Tab Session Manager
+- Nixops
 - Postman
 - ProtonVPN Gui
+- qBittorrent
+- Resilio Sync
+- GPG Key
 - Signal
 - Spotify
 - Steam
 - TeamViewer
 
-#### Large File Storage (LFS)
-
-```bash
-git lfs install
-```
+#### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#authorize-the-application-with-your-onedrive-account)
 
 ### Server
 
@@ -84,6 +85,6 @@ nixops info
 ### Deploy
 
 ```bash
-sudo nix-channel --update
+nixops ssh-for-each --parallel "nix-channel --update"
 nixops deploy
 ```

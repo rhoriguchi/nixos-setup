@@ -1,7 +1,10 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, config, ... }: {
   imports = [
     ../../rhoriguchi
 
+    ./highdpi.nix
+    # TODO nvidia does not work
+    # ./nvidia.nix
     ./rsnapshot.nix
     ./power-management.nix
 
@@ -13,6 +16,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+
     # TODO remove when linuxKernel.packages.linux_5_10.evdi works
     kernelPackages = pkgs.linuxPackages_5_10;
   };
@@ -21,24 +25,12 @@
     hostName = "Ryan-Laptop";
 
     interfaces = {
-      eno2.useDHCP = true; # Ethernet
-      wlo1.useDHCP = true; # WiFi
+      wlp2s0.useDHCP = true; # WiFi
     };
   };
 
   hardware = {
     bluetooth.enable = true;
-
-    nvidia = {
-      modesetting.enable = true;
-
-      prime = {
-        offload.enable = true;
-
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
-    };
 
     logitech.wireless = {
       enable = true;
@@ -63,7 +55,7 @@
         password = (import ../../secrets.nix).services.resilio.webUI.password;
       };
 
-      syncPath = "/media/Data/Sync";
+      syncPath = "/srv/Sync";
     };
 
     teamviewer.enable = true;
@@ -88,7 +80,7 @@
 
       libinput.enable = true;
 
-      videoDrivers = [ "displaylink" "modesetting" "nvidia" ];
+      videoDrivers = [ "displaylink" "modesetting" ];
     };
 
     gnome = {
@@ -98,8 +90,6 @@
     };
 
     udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
-
-    power-profiles-daemon.enable = false;
 
     onedrive.enable = true;
   };
@@ -143,7 +133,6 @@
 
     systemPackages = [
       pkgs.alacritty
-      pkgs.ansible_2_10
       pkgs.curl
       pkgs.discord
       pkgs.docker-compose
@@ -167,16 +156,16 @@
       pkgs.jetbrains.idea-ultimate
       pkgs.jetbrains.pycharm-professional
       pkgs.jetbrains.webstorm
-      pkgs.keepass
+      pkgs.keepassxc
       pkgs.libreoffice-fresh
       pkgs.maven
       pkgs.neofetch
-      pkgs.nodePackages."@angular/cli"
       pkgs.nodejs
+      pkgs.nodePackages."@angular/cli"
       pkgs.ntfs3g # TODO can be removed with kernel 5.15
       pkgs.openssl
       pkgs.pipenv
-      pkgs.postgresql_13
+      pkgs.postgresql
       pkgs.postman
       pkgs.protonvpn-gui
       pkgs.python3
@@ -185,7 +174,7 @@
       pkgs.signal-desktop
       pkgs.spotify
       pkgs.sshpass
-      pkgs.terraform_1_0
+      pkgs.terraform
       pkgs.tree
       pkgs.unzip
       pkgs.virt-manager
@@ -200,4 +189,25 @@
     isNormalUser = true;
     password = (import ../../secrets.nix).users.users.rhoriguchi.password;
   };
+
+  system.activationScripts.rhoriguchiSetup = let
+    home = config.users.users.rhoriguchi.home;
+    syncPath = config.services.resilio.syncPath;
+
+    downloadDirs = map (path: ''"${home}/Downloads/${path}"'') [ "Browser" "Torrent" ];
+
+    createSymlink = source: target: ''
+      if [ -d "${source}" ] && [ ! \( -L "${target}" \) ] && [ ! \( -e "${target}" \) ]; then
+        rm -rf "${target}"
+        ln -sf "${source}" "${target}"
+      fi
+    '';
+  in ''
+    mkdir -p ${lib.concatStringsSep " " downloadDirs}
+    chown -R rhoriguchi:${config.users.users.rhoriguchi.group} ${lib.concatStringsSep " " downloadDirs}
+
+    ${createSymlink "${syncPath}/Git" "${home}/Git"}
+    ${createSymlink "${syncPath}/Storage/Inspiration" "${home}/Documents/Inspiration"}
+    ${createSymlink "${syncPath}/Storage/Recipes" "${home}/Documents/Recipes"}
+  '';
 }

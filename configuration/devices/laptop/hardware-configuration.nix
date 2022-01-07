@@ -4,28 +4,24 @@
 { config, lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "sd_mod" "rtsx_usb_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/cbff3e09-9eb3-4657-9944-2548823301c3";
+    device = "/dev/disk/by-uuid/0c3c9441-d09f-4048-9a44-14def0847022";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/733E-56C4";
+    device = "/dev/disk/by-uuid/4516-ACBE";
     fsType = "vfat";
   };
 
-  fileSystems."/media/Data" = {
-    device = "/dev/disk/by-uuid/2ef587d0-6f82-4715-a04f-2d1e6d5c7883";
-    fsType = "ext4";
-    options = [ "defaults" "nofail" ];
-  };
+  swapDevices = [ ];
 
-  swapDevices = [{ device = "/dev/disk/by-uuid/9b96f65f-fe9e-4166-8499-5589e8f723d4"; }];
-
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # high-resolution display
+  hardware.video.hidpi.enable = lib.mkDefault true;
 }
