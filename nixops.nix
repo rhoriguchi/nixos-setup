@@ -19,14 +19,8 @@
     environment.systemPackages = [ pkgs.nixopsUnstable ];
   };
 
-  Hypervisor = { ... }: {
-    deployment.targetHost = "xxlpitu-home.duckdns.org";
-
-    imports = [ ./configuration/devices/headless/hypervisor ];
-  };
-
   Server = { ... }: {
-    deployment.targetHost = "xxlpitu-server";
+    deployment.targetHost = "xxlpitu-home.duckdns.org";
 
     imports = [ ./configuration/devices/headless/server ];
   };
