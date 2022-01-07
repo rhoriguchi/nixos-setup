@@ -180,7 +180,8 @@ in {
     adguardhome = {
       enable = true;
 
-      config = configValues;
+      mutableSettings = false;
+      settings = configValues;
     };
   };
 
