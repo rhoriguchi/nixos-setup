@@ -1,6 +1,8 @@
 { lib, config, pkgs, ... }: {
   imports = [ ./modules ];
 
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+
   nixpkgs = {
     config.allowUnfree = true;
     overlays = import ./overlays;

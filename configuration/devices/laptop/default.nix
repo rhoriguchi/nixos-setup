@@ -13,6 +13,8 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+    # TODO remove when linuxKernel.packages.linux_5_10.evdi works
+    kernelPackages = pkgs.linuxPackages_5_10;
   };
 
   networking = {
