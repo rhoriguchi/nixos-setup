@@ -23,8 +23,6 @@ in {
     '';
 
     matchBlocks = {
-      "*.duckdns.org".user = "xxlpitu";
-
       "github.com" = {
         user = "git";
         identityFile = "${home}/.ssh/github_rsa";
@@ -35,7 +33,9 @@ in {
         identityFile = "${home}/.ssh/gitlab_rsa";
       };
 
-      "jcrk.synology.me".user = "jdh";
+      "*.duckdns.org".user = "xxlpitu";
+
+      "xxlpitu-horgen.duckdns.org" = dag.entryBefore [ "*.duckdns.org" ] { port = 1234; };
 
       "xxlpitu-adguard" = {
         # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/default.nix"
@@ -44,14 +44,7 @@ in {
         proxyJump = "xxlpitu-home.duckdns.org";
       };
 
-      "xxlpitu-server" = {
-        # TODO get hostname from "configuration/devices/headless/server/default.nix"
-        hostname = "XXLPitu-Server";
-        user = "xxlpitu";
-        proxyJump = "xxlpitu-home.duckdns.org";
-      };
-
-      "xxlpitu-horgen.duckdns.org" = dag.entryBefore [ "*.duckdns.org" ] { port = 1234; };
+      "jcrk.synology.me".user = "jdh";
     };
   };
 }
