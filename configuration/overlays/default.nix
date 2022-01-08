@@ -37,5 +37,15 @@
       solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=154019
+      tautulli = super.python3Packages.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "rhoriguchi";
+            repo = "nixpkgs";
+            rev = "72af5962468ca956cf6f9778545aa4a11e05b78e";
+            sha256 = "sha256-Xdlh8tMTV9cYfRVO2djdqNZiTuNqzA8WOdivjPRNlsY=";
+          }
+        }/pkgs/servers/tautulli/default.nix") { };
     })
 ]
