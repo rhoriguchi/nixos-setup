@@ -98,6 +98,12 @@
       openFirewall = true;
       extraPlugins = [ "${pkgs.plexPlugins.my-anime-list}/${pkgs.plexPlugins.my-anime-list.pname}.bundle" ];
     };
+
+    tautulli = {
+      enable = true;
+
+      openFirewall = true;
+    };
   };
 
   users.users.gitlab-ci = {
