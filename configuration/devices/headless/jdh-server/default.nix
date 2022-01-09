@@ -43,6 +43,7 @@
   };
 
   users.users.jdh = {
+    extraGroups = [ "wheel" ];
     isNormalUser = true;
     password = (import ../../../secrets.nix).users.users.jdh.password;
     openssh.authorizedKeys.keys = config.users.users.xxlpitu.openssh.authorizedKeys.keys ++ [
