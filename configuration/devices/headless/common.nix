@@ -7,7 +7,7 @@ let
     # Services to show
     declare -A services
     services["adguardhome"]="AdGuard Home"
-    services["audio-converter"]="Audio Converter (Timer)"
+    services["audio-converter.timer"]="Audio Converter (Timer)"
     services["docker"]="Docker"
     services["duckdns.timer"]="Duck DNS (Timer)"
     services["fancontrol"]="Fancontrol"
