@@ -1,6 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
+    name='audio-converter',
+    version='1.0.0',
     entry_points={
         'console_scripts': ['audio-converter = audio_converter.__main__:main'],
     },
