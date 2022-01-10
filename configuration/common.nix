@@ -3,10 +3,7 @@
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = import ./overlays;
-  };
+  nixpkgs.overlays = import ./overlays;
 
   nix = {
     package = pkgs.nixUnstable;
@@ -17,6 +14,8 @@
   };
 
   system.stateVersion = "22.05";
+
+  hardware.enableRedistributableFirmware = true;
 
   networking.useDHCP = false;
 
@@ -73,10 +72,7 @@
   };
 
   environment = {
-    variables = {
-      EDITOR = "nano";
-      NIXPKGS_ALLOW_UNFREE = "1";
-    };
+    variables.EDITOR = "nano";
 
     shellAliases = {
       l = null;

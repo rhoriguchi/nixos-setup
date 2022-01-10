@@ -20,8 +20,6 @@
     tmpOnTmpfs = true;
   };
 
-  hardware.enableRedistributableFirmware = true;
-
   networking.interfaces = {
     eth0.useDHCP = true; # Ethernet
     wlan0.useDHCP = true; # WiFi
