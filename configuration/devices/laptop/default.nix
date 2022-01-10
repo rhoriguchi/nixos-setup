@@ -11,14 +11,9 @@
     ./hardware-configuration.nix
   ];
 
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-
-    # TODO remove when linuxKernel.packages.linux_5_10.evdi works
-    kernelPackages = pkgs.linuxPackages_5_10;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
   networking = {
@@ -67,20 +62,14 @@
       xkbModel = "pc105";
       xkbVariant = "de_nodeadkeys";
 
-      displayManager = {
-        gdm = {
-          enable = true;
-          wayland = false;
-        };
-
-        sessionCommands = "${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 2 0";
+      displayManager.gdm = {
+        enable = true;
+        wayland = false;
       };
 
       desktopManager.gnome.enable = true;
 
       libinput.enable = true;
-
-      videoDrivers = [ "displaylink" "modesetting" ];
     };
 
     gnome = {
@@ -162,7 +151,6 @@
       pkgs.neofetch
       pkgs.nodejs
       pkgs.nodePackages."@angular/cli"
-      pkgs.ntfs3g # TODO can be removed with kernel 5.15
       pkgs.openssl
       pkgs.pipenv
       pkgs.postgresql
