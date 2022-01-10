@@ -5,5 +5,5 @@ python3Packages.buildPythonApplication rec {
 
   src = ./src;
 
-  nativeBuildInputs = [ mediainfo ffmpeg ];
+  propagatedBuildInputs = [ mediainfo ffmpeg ];
 }
