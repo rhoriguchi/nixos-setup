@@ -6,7 +6,7 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" "wl" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
@@ -20,4 +20,6 @@
   };
 
   swapDevices = [{ device = "/dev/disk/by-uuid/888d21b8-3146-44fc-9eb7-b61fa8a7c1ed"; }];
+
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
