@@ -25,6 +25,12 @@
     imports = [ ./configuration/devices/headless/server ];
   };
 
+  JDH-Server = { ... }: {
+    deployment.targetHost = "jcrk.synology.me";
+
+    imports = [ ./configuration/devices/headless/jdh-server ];
+  };
+
   AdGuard = { ... }: {
     deployment.targetHost = "xxlpitu-adguard";
 
@@ -44,11 +50,5 @@
     };
 
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/horgen ];
-  };
-
-  JDH-Server = { ... }: {
-    deployment.targetHost = "jcrk.synology.me";
-
-    imports = [ ./configuration/devices/headless/jdh-server ];
   };
 }
