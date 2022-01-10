@@ -128,7 +128,6 @@
       pkgs.file
       pkgs.firefox
       pkgs.flameshot
-      pkgs.foxitreader
       pkgs.gimp
       pkgs.git
       pkgs.git-crypt

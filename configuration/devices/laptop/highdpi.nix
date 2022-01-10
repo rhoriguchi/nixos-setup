@@ -4,13 +4,6 @@
 
   nixpkgs.overlays = [
     (self: super: {
-      foxitreader = super.foxitreader.overrideAttrs (oldAttrs: {
-        postInstall = (oldAttrs.postInstall or "") + ''
-          wrapProgram $out/bin/FoxitReader \
-            --set QT_AUTO_SCREEN_SCALE_FACTOR 1
-        '';
-      });
-
       gimp = super.gimp.overrideAttrs (oldAttrs: {
         postInstall = (oldAttrs.postInstall or "") + ''
           substituteInPlace $out/etc/gimp/2.0/gimprc \
