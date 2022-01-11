@@ -3,7 +3,10 @@
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
-  nixpkgs.overlays = import ./overlays;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = import ./overlays;
+  };
 
   nix = {
     package = pkgs.nixUnstable;
@@ -72,7 +75,10 @@
   };
 
   environment = {
-    variables.EDITOR = "nano";
+    variables = {
+      EDITOR = "nano";
+      NIXPKGS_ALLOW_UNFREE = "1";
+    };
 
     shellAliases = {
       l = null;
