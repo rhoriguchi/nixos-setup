@@ -3,6 +3,7 @@
     ../../rhoriguchi
 
     ./highdpi.nix
+    ./lenovo-legion-s7-15ach6.nix
     # TODO nvidia does not work
     # ./nvidia.nix
     ./rsnapshot.nix
