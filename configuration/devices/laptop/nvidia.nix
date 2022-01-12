@@ -2,9 +2,6 @@
   hardware.nvidia = {
     modesetting.enable = true;
 
-    # TODO needed?
-    # powerManagement.enable = true;
-
     prime = {
       offload.enable = true;
 
@@ -24,7 +21,4 @@
       exec -a "$0" "$@"
     '')
   ];
-
-  # TODO commented debug option, remove when works
-  # services.xserver.logFile = "/var/log/Xorg.0.log";
 }
