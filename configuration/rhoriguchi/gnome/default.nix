@@ -7,6 +7,7 @@ let
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.dynamic-panel-transparency
     pkgs.gnomeExtensions.unite
+    pkgs.gnomeExtensions.volume-mixer
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
@@ -266,6 +267,19 @@ in {
         window-buttons-theme = "yaru";
       };
       "org/gnome/shell/extensions/user-theme".name = "Yaru-light";
+      "org/gnome/shell/extensions/shell-volume-mixer" = {
+        always-show-input-streams = true;
+        debug = false;
+        pinned-profiles = [ ];
+        position = "aggregateMenu";
+        profile-switcher-hotkey = [ ];
+        remove-original = false;
+        show-detailed-sliders = false;
+        show-percentage-label = false;
+        show-system-sounds = false;
+        show-virtual-streams = false;
+        use-symbolic-icons = true;
+      };
       "org/gnome/shell/extensions/windowIsReady_Remover".prevent-disable = true;
       "org/gnome/settings-daemon/plugins/media-keys" = {
         area-screenshot = [ ];
