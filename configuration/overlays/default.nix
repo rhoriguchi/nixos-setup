@@ -52,8 +52,8 @@
           super.fetchFromGitHub {
             owner = "rhoriguchi";
             repo = "nixpkgs";
-            rev = "7534ddd788934af9c6b3164d019ade9cbc7f9c60";
-            sha256 = "sha256-ktex3liP1CykJIQNy/2U3D44UzPb3eqqd1zJXOiyacU=";
+            rev = "0f0d1cacbbba521e02dbac9bb71ef35610cb3111";
+            sha256 = "sha256-ciOzki6EfwSaZ7Sh8uXyPMYDAKboPEBGwbHLPk38aXo=";
           }
         }/pkgs/servers/plex/raw.nix") { };
     })
