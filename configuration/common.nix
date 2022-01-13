@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }: {
   imports = [ ./modules ];
 
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_16;
 
   nixpkgs = {
     config.allowUnfree = true;
