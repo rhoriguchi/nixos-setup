@@ -64,7 +64,7 @@
       enable = true;
 
       token = (import ../../../secrets.nix).services.duckdns.token;
-      subdomains = [ "xxlpitu-hs" ];
+      subdomains = [ "xxlpitu-home" "xxlpitu-hs" ];
     };
 
     gphotos-sync = {
