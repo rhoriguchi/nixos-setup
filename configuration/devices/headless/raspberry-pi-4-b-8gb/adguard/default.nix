@@ -41,6 +41,7 @@ in {
         # enableACME = true;
 
         # TODO only allow request from local network
+        # https://stackoverflow.com/questions/51801772/allowing-only-local-network-access-in-nginx
 
         listen = [{
           addr = "0.0.0.0";
