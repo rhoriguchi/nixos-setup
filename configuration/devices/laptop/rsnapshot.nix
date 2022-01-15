@@ -90,7 +90,6 @@ in {
 
       retain	manual	5
 
-      backup	/nix/store/	./
       backup	${config.users.users.rhoriguchi.home}/	./
       backup	${config.services.resilio.syncPath}/	./
     '';
