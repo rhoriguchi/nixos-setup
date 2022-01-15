@@ -35,6 +35,16 @@
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
 
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=155099
+      flameshot = super.libsForQt5.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "rhoriguchi";
+            repo = "nixpkgs";
+            rev = "499c06a14fc11ac144f5f35ec3686470d5ccf522";
+            sha256 = "sha256-oxaYMT8PG2aXK+UKPxjtcE36YyAy31dD81+Nlyp6lgg=";
+          }
+        }/pkgs/tools/misc/flameshot/default.nix") { };
+
       # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=154692
       gnomeExtensions = super.gnomeExtensions // {
         volume-mixer = super.gnomeExtensions.volume-mixer.overrideAttrs (_: {
