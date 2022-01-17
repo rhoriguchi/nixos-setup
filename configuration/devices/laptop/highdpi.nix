@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   # TODO boot selection is extremely small
-  # TODO flameshot icons are to small
 
   nixpkgs.overlays = [
     (self: super: {
