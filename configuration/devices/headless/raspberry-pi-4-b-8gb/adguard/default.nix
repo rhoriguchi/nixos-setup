@@ -40,9 +40,6 @@ in {
         # forceSSL = true;
         # enableACME = true;
 
-        # TODO only allow request from local network
-        # https://stackoverflow.com/questions/51801772/allowing-only-local-network-access-in-nginx
-
         listen = [{
           addr = "0.0.0.0";
           port = adguardhomePort;
@@ -52,6 +49,11 @@ in {
           proxyPass = "http://127.0.0.1:${toString config.services.adguardhome.port}";
           proxyWebsockets = true;
         };
+
+        extraConfig = ''
+          allow 192.168.1.0/16;
+          deny all;
+        '';
       };
     };
 
