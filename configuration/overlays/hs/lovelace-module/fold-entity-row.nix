@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
     owner = "thomasloven";
     repo = "lovelace-fold-entity-row";
     rev = version;
-    sha256 = "sha256-Ib2DjNcLucWI/pt4Z+4HVtPxXAJclpFLv+WASIoiWnw=";
+    hash = "sha256-Ib2DjNcLucWI/pt4Z+4HVtPxXAJclpFLv+WASIoiWnw=";
   };
 
   installPhase = ''

@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
     owner = "cbulock";
     repo = "lovelace-battery-entity";
     rev = version;
-    sha256 = "1njjj9q9knqv8zh8qsp3hr04f5v1jzgxl4f5vhg4dba58j5v09p0";
+    hash = "sha256-4Cawi0RFrUYe3MUR2t+XYRdHQIbjaozgRxvbmXCSUto=";
   };
 
   installPhase = ''

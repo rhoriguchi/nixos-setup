@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
     owner = "liri";
     repo = "lovelace-themes";
     rev = version;
-    sha256 = "1wx03s0d6a8604z462j1cz9na6msq9qlmmxaysymk8nvhl6q2sqx";
+    hash = "sha256-HWuBDYXbolm99qrXSnHCuhpl02dBCkM+AQYp04AeoPM=";
   };
 
   installPhase = ''

@@ -41,7 +41,7 @@
             owner = "rhoriguchi";
             repo = "nixpkgs";
             rev = "499c06a14fc11ac144f5f35ec3686470d5ccf522";
-            sha256 = "sha256-oxaYMT8PG2aXK+UKPxjtcE36YyAy31dD81+Nlyp6lgg=";
+            hash = "sha256-oxaYMT8PG2aXK+UKPxjtcE36YyAy31dD81+Nlyp6lgg=";
           }
         }/pkgs/tools/misc/flameshot/default.nix") { };
 

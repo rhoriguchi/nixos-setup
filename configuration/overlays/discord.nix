@@ -4,6 +4,6 @@ discord.overrideAttrs (_: rec {
 
   src = fetchurl {
     url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-    sha256 = "1s9qym58cjm8m8kg3zywvwai2i3adiq6sdayygk2zv72ry74ldai";
+    hash = "sha256-UTVKjs/i7C/m8141bXBsakQRFd/c//EmqqhKhkr1OOk=";
   };
 })

@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
     owner = "thomasloven";
     repo = "lovelace-card-mod";
     rev = version;
-    sha256 = "sha256-Tx9WL0mTuShjnLNSxTmVv625gPdDmNdvCluKv49WScA=";
+    hash = "sha256-Tx9WL0mTuShjnLNSxTmVv625gPdDmNdvCluKv49WScA=";
   };
 
   installPhase = ''

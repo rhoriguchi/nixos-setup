@@ -7,6 +7,6 @@ mach-nix.buildPythonApplication rec {
     owner = "rhoriguchi";
     repo = pname;
     rev = version;
-    sha256 = "sha256-ksBsqqhwKOh4C7n7+HcY0rUFEaXPtUc4Vc7+SV4Wzj8=";
+    hash = "sha256-ksBsqqhwKOh4C7n7+HcY0rUFEaXPtUc4Vc7+SV4Wzj8=";
   };
 }

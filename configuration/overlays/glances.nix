@@ -20,7 +20,7 @@ let
 
     src = python3Packages.fetchPypi {
       inherit pname version;
-      sha256 = "1jyplsmj85alwzypnd1iy40hg88p6zv6aw80lamq2sqkay5nqhcq";
+      hash = "sha256-mEFsi1cTa4GrogBxZfY3F6EHAfExNHv951QVJKum18s=";
     };
   };
 in glances.overrideAttrs (oldAttrs: {
