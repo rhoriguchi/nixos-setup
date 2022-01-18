@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Fribb";
     repo = "MyAnimeList.bundle";
-    rev = "0c7b40b488fda1dd8a0a662dad99365c8d65e701";
-    sha256 = "18pxsp50pfcf1kf6s0mmj8xvr1zvs3y7z3g5kdi8hc1nqr4xj26k";
+    rev = "6bac1c2a70b375524c6fabbd57f78ecd60c02a39";
+    hash = "sha256-UYG5XxbePYArt/TYXFK99u/gRcd9w0zKPJO5mzCQ5hM=";
   };
 
   installPhase = ''
