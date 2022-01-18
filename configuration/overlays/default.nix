@@ -4,7 +4,7 @@
       owner = "DavHau";
       repo = "mach-nix";
       rev = "3.3.0";
-      sha256 = "105d6b6kgvn8kll639vx5adh5hp4gjcl4bs9rjzzyqz7367wbxj6";
+      hash = "sha256-RvbFjxnnY/+/zEkvQpl85MICmyp9p2EoncjuN80yrYA=";
     }) {
       pkgs = super;
 
@@ -62,8 +62,8 @@
           super.fetchFromGitHub {
             owner = "rhoriguchi";
             repo = "nixpkgs";
-            rev = "0f0d1cacbbba521e02dbac9bb71ef35610cb3111";
-            sha256 = "sha256-ciOzki6EfwSaZ7Sh8uXyPMYDAKboPEBGwbHLPk38aXo=";
+            rev = "ce6f4cb53e8a91959d618777b7dc2f6dc4777340";
+            hash = "sha256-A+17eG7KiOxOsygdVijGNx7kFKSjuVlzWv62ZF+dsj8=";
           }
         }/pkgs/servers/plex/raw.nix") { };
     })
