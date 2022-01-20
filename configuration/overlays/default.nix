@@ -54,5 +54,17 @@
             hash = "sha256-A+17eG7KiOxOsygdVijGNx7kFKSjuVlzWv62ZF+dsj8=";
           }
         }/pkgs/servers/plex/raw.nix") { };
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=155905
+      vscode-extensions = super.vscode-extensions // {
+        hashicorp.terraform = super.callPackage (import "${
+            super.fetchFromGitHub {
+              owner = "rhoriguchi";
+              repo = "nixpkgs";
+              rev = "6a320d4cdc45ea6a8a3966581cdc61072d98154d";
+              hash = "sha256-6c/TeTQXHSHsqlcQmJJW9yP9fXFhmqsN1q8dQg2lADc=";
+            }
+          }/pkgs/misc/vscode-extensions/terraform/default.nix") { };
+      };
     })
 ]
