@@ -45,7 +45,16 @@ in {
         click-method = "areas";
       };
       "org/gnome/desktop/wm/keybindings" = {
+        activate-window-menu = [ ];
+        begin-move = [ "<Alt>F7" ];
+        begin-resize = [ ];
         close = [ "<Alt>F4" ];
+        cycle-group = [ ];
+        cycle-group-backward = [ ];
+        cycle-panels = [ ];
+        cycle-panels-backward = [ ];
+        cycle-windows = [ ];
+        cycle-windows-backward = [ ];
         minimize = [ ];
         move-to-monitor-down = [ ];
         move-to-monitor-left = [ ];
@@ -57,19 +66,8 @@ in {
         move-to-workspace-left = [ ];
         move-to-workspace-right = [ ];
         move-to-workspace-up = [ ];
-        show-desktop = [ "<Super>d" ];
-      };
-      "org/gnome/desktop/wm/keybindings" = {
-        activate-window-menu = [ ];
-        begin-move = [ ];
-        begin-resize = [ ];
-        cycle-group = [ ];
-        cycle-group-backward = [ ];
-        cycle-panels = [ ];
-        cycle-panels-backward = [ ];
-        cycle-windows = [ ];
-        cycle-windows-backward = [ ];
         panel-main-menu = [ ];
+        show-desktop = [ "<Super>d" ];
         switch-applications = [ "<ALT>Tab" ];
         switch-applications-backward = [ ];
         switch-group = [ ];
