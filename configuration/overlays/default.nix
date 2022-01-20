@@ -45,18 +45,6 @@
           }
         }/pkgs/tools/misc/flameshot/default.nix") { };
 
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=154692
-      gnomeExtensions = super.gnomeExtensions // {
-        volume-mixer = super.gnomeExtensions.volume-mixer.overrideAttrs (_: {
-          postPatch = ''
-            substituteInPlace "lib/utils/paHelper.js" \
-              --replace "let PYTHON;" "let PYTHON = '${super.python3}/bin/python';" \
-              --replace "const args = ['/usr/bin/env', python, paUtilPath, type];" "const args = [python, paUtilPath, type];"
-            substituteInPlace "pautils/lib/libpulse.py" --replace "lib = CDLL('libpulse.so.0')" "lib = CDLL('${super.pulseaudio}/lib/libpulse.so.0');"
-          '';
-        });
-      };
-
       # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=154756
       plexRaw = super.python3Packages.callPackage (import "${
           super.fetchFromGitHub {
