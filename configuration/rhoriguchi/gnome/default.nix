@@ -36,13 +36,13 @@ in {
         show-banners = true;
         show-in-lock-screen = false;
       };
-      "org/gnome/desktop/search-providers" = {
-        disabled = [ "org.gnome.Contacts.desktop" ];
-        sort-order = [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
-      };
       "org/gnome/desktop/peripherals/touchpad" = {
         tap-and-drag = false;
         click-method = "areas";
+      };
+      "org/gnome/desktop/search-providers" = {
+        disabled = [ "org.gnome.Contacts.desktop" ];
+        sort-order = [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
       };
       "org/gnome/desktop/wm/keybindings" = {
         activate-window-menu = [ ];
@@ -103,6 +103,20 @@ in {
       "org/gnome/mutter/keybindings" = {
         toggle-tiled-left = [ "<Super>Left" ];
         toggle-tiled-right = [ "<Super>Right" ];
+      };
+      "org/gnome/settings-daemon/plugins/media-keys" = {
+        area-screenshot = [ ];
+        area-screenshot-clip = [ ];
+        help = [ ];
+        magnifier = [ ];
+        magnifier-zoom-in = [ ];
+        magnifier-zoom-out = [ ];
+        screencast = [ ];
+        screenreader = [ ];
+        screenshot = [ ];
+        screenshot-clip = [ ];
+        window-screenshot = [ ];
+        window-screenshot-clip = [ ];
       };
       "org/gnome/shell" = {
         app-picker-layout = [ ];
@@ -245,6 +259,19 @@ in {
         unmaximized-opacity = 0;
       };
       "org/gnome/shell/extensions/gnome-fuzzy-app-search".applications = true;
+      "org/gnome/shell/extensions/shell-volume-mixer" = {
+        always-show-input-streams = true;
+        debug = false;
+        pinned-profiles = [ ];
+        position = "aggregateMenu";
+        profile-switcher-hotkey = [ ];
+        remove-original = false;
+        show-detailed-sliders = false;
+        show-percentage-label = false;
+        show-system-sounds = false;
+        show-virtual-streams = false;
+        use-symbolic-icons = true;
+      };
       "org/gnome/shell/extensions/unite" = {
         app-menu-ellipsize-mode = "end";
         app-menu-max-width = 0;
@@ -272,34 +299,7 @@ in {
         window-buttons-theme = "yaru";
       };
       "org/gnome/shell/extensions/user-theme".name = "Yaru-light";
-      "org/gnome/shell/extensions/shell-volume-mixer" = {
-        always-show-input-streams = true;
-        debug = false;
-        pinned-profiles = [ ];
-        position = "aggregateMenu";
-        profile-switcher-hotkey = [ ];
-        remove-original = false;
-        show-detailed-sliders = false;
-        show-percentage-label = false;
-        show-system-sounds = false;
-        show-virtual-streams = false;
-        use-symbolic-icons = true;
-      };
       "org/gnome/shell/extensions/windowIsReady_Remover".prevent-disable = true;
-      "org/gnome/settings-daemon/plugins/media-keys" = {
-        area-screenshot = [ ];
-        area-screenshot-clip = [ ];
-        help = [ ];
-        magnifier = [ ];
-        magnifier-zoom-in = [ ];
-        magnifier-zoom-out = [ ];
-        screencast = [ ];
-        screenreader = [ ];
-        screenshot = [ ];
-        screenshot-clip = [ ];
-        window-screenshot = [ ];
-        window-screenshot-clip = [ ];
-      };
       "org/gnome/shell/keybindings" = {
         focus-active-notification = [ ];
         switch-to-application-1 = [ ];
