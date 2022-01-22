@@ -2,15 +2,17 @@
 let
   adguardhomePort = 80;
 
+  routerIp = "192.168.1.1";
+
   settings = {
     users = [{
       name = "admin";
       password = (import ../../../../secrets.nix).services.adguardhome.admin.password;
     }];
-    dns = {
+    dns = rec {
       bind_hosts = [ config.services.adguardhome.host ];
-      upstream_dns = let routerIp = "192.168.1.1";
-      in [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" "tls://1dot1dot1dot1.cloudflare-dns.com" ];
+      bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
+      upstream_dns = bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
       rewrites = [
         {
           domain = "xxlpitu-home.duckdns.org";
