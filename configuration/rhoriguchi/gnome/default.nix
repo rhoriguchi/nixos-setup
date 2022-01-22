@@ -3,8 +3,8 @@ let
   extensions = [
     pkgs.gnomeExtensions.appindicator
     pkgs.gnomeExtensions.caffeine
-    pkgs.gnomeExtensions.clock-override
     pkgs.gnomeExtensions.dash-to-dock
+    pkgs.gnomeExtensions.date-menu-formatter
     pkgs.gnomeExtensions.dynamic-panel-transparency
     pkgs.gnomeExtensions.unite
     pkgs.gnomeExtensions.volume-mixer
@@ -121,7 +121,6 @@ in {
         show-notifications = true;
         user-enabled = false;
       };
-      "org/gnome/shell/extensions/clock_override".override-string = "%d.%m.%Y  %H:%M:%S";
       "org/gnome/shell/extensions/dash-to-dock" = {
         activate-single-window = true;
         animate-show-apps = true;
@@ -211,6 +210,14 @@ in {
         show-windows-preview = true;
         transparency-mode = "FIXED";
         unity-backlit-items = false;
+      };
+      "org/gnome/shell/extensions/date-menu-formatter" = {
+        apply-all-panels = true;
+        custom-locale = "";
+        font-size = 11;
+        pattern = "dd.MM.yyyy kk:mm:ss";
+        remove-messages-indicator = false;
+        use-default-locale = true;
       };
       "org/gnome/shell/extensions/dynamic-panel-transparency" = {
         enable-background-color = false;
