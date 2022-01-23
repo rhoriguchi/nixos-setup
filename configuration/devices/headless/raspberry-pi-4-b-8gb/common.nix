@@ -5,7 +5,6 @@
 
   boot = {
     loader = {
-      generic-extlinux-compatible.enable = true;
       grub.enable = false;
 
       raspberryPi = {
