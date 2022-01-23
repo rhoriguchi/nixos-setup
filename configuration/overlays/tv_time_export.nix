@@ -1,12 +1,12 @@
 { mach-nix, fetchFromGitHub }:
 mach-nix.buildPythonApplication rec {
   pname = "tv_time_export";
-  version = "1.0.13";
+  version = "1.0.15";
 
   src = fetchFromGitHub {
     owner = "rhoriguchi";
     repo = pname;
     rev = version;
-    hash = "sha256-ksBsqqhwKOh4C7n7+HcY0rUFEaXPtUc4Vc7+SV4Wzj8=";
+    hash = "sha256-D5u6aat/3nlMZEEDCBdDRomUnS4pmkt46S1nwsy1akI=";
   };
 }
