@@ -34,37 +34,5 @@
       solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=155099
-      flameshot = super.libsForQt5.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "rhoriguchi";
-            repo = "nixpkgs";
-            rev = "499c06a14fc11ac144f5f35ec3686470d5ccf522";
-            hash = "sha256-oxaYMT8PG2aXK+UKPxjtcE36YyAy31dD81+Nlyp6lgg=";
-          }
-        }/pkgs/tools/misc/flameshot/default.nix") { };
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=154756
-      plexRaw = super.python3Packages.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "rhoriguchi";
-            repo = "nixpkgs";
-            rev = "ce6f4cb53e8a91959d618777b7dc2f6dc4777340";
-            hash = "sha256-A+17eG7KiOxOsygdVijGNx7kFKSjuVlzWv62ZF+dsj8=";
-          }
-        }/pkgs/servers/plex/raw.nix") { };
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=155905
-      vscode-extensions = super.vscode-extensions // {
-        hashicorp.terraform = super.callPackage (import "${
-            super.fetchFromGitHub {
-              owner = "rhoriguchi";
-              repo = "nixpkgs";
-              rev = "6a320d4cdc45ea6a8a3966581cdc61072d98154d";
-              hash = "sha256-6c/TeTQXHSHsqlcQmJJW9yP9fXFhmqsN1q8dQg2lADc=";
-            }
-          }/pkgs/misc/vscode-extensions/terraform/default.nix") { };
-      };
     })
 ]
