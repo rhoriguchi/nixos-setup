@@ -61,12 +61,13 @@ in {
           cards = addStyleToCards [
             {
               type = "custom:mini-graph-card";
-              name = "Temperature";
+              name = "Outdoor temperature";
 
               hours_to_show = 24 * 7;
               points_per_hour = 2;
               update_interval = 60;
               line_width = 3;
+              hour24 = true;
 
               show = {
                 icon = false;
@@ -78,6 +79,25 @@ in {
                   name = "Outdoor";
                   entity = "sensor.openweather_current_temperature";
                 }
+              ];
+            }
+            {
+              type = "custom:mini-graph-card";
+              name = "Indoor temperature";
+
+              hours_to_show = 24 * 7;
+              points_per_hour = 2;
+              update_interval = 60;
+              line_width = 3;
+              hour24 = true;
+
+              show = {
+                icon = false;
+                state = false;
+                fill = false;
+              };
+
+              entities = [
                 {
                   name = "Entrance";
                   entity = "sensor.netatmo_current_temperature_entrance";
