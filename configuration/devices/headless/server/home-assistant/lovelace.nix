@@ -58,6 +58,7 @@ in {
 
         views = [{
           title = "Default";
+
           cards = addStyleToCards [
             {
               type = "custom:mini-graph-card";
