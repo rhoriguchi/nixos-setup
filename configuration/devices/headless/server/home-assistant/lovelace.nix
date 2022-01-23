@@ -22,7 +22,9 @@ let
   };
 
   addStyleToCards = cards:
-    map (card: (card // lib.optionalAttrs (lib.hasAttr card.type cardStyles) { style = cardStyles."${card.type}"; })) cards;
+    map (card:
+      (card // lib.optionalAttrs (lib.hasAttr card.type cardStyles) { style = cardStyles."${card.type}"; }
+        // lib.optionalAttrs (lib.hasAttr "cards" card) { cards = addStyleToCards card.cards; })) cards;
 in {
   systemd.tmpfiles.rules = [ "d /run/hass 0700 nginx nginx" ]
     ++ map (lovelaceModule: "L+ /run/hass/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js") lovelaceModules;
@@ -61,51 +63,55 @@ in {
 
           cards = addStyleToCards [
             {
-              type = "custom:mini-graph-card";
-              name = "Outdoor temperature";
+              type = "vertical-stack";
 
-              hours_to_show = 24 * 7;
-              points_per_hour = 2;
-              update_interval = 60;
-              line_width = 3;
-              hour24 = true;
-
-              show = {
-                icon = false;
-                fill = false;
-              };
-
-              entities = [
+              cards = [
                 {
-                  name = "Outdoor";
-                  entity = "sensor.openweather_current_temperature";
-                }
-              ];
-            }
-            {
-              type = "custom:mini-graph-card";
-              name = "Indoor temperature";
+                  type = "custom:mini-graph-card";
+                  name = "Outdoor temperature";
 
-              hours_to_show = 24 * 7;
-              points_per_hour = 2;
-              update_interval = 60;
-              line_width = 3;
-              hour24 = true;
+                  hours_to_show = 24 * 7;
+                  points_per_hour = 2;
+                  update_interval = 60;
+                  line_width = 3;
+                  hour24 = true;
 
-              show = {
-                icon = false;
-                state = false;
-                fill = false;
-              };
+                  show = {
+                    icon = false;
+                    fill = false;
+                  };
 
-              entities = [
-                {
-                  name = "Entrance";
-                  entity = "sensor.netatmo_current_temperature_entrance";
+                  entities = [{
+                    name = "Outdoor";
+                    entity = "sensor.openweather_current_temperature";
+                  }];
                 }
                 {
-                  name = "Living room";
-                  entity = "sensor.netatmo_current_temperature_living_room";
+                  type = "custom:mini-graph-card";
+                  name = "Indoor temperature";
+
+                  hours_to_show = 24 * 7;
+                  points_per_hour = 2;
+                  update_interval = 60;
+                  line_width = 3;
+                  hour24 = true;
+
+                  show = {
+                    icon = false;
+                    state = false;
+                    fill = false;
+                  };
+
+                  entities = [
+                    {
+                      name = "Entrance";
+                      entity = "sensor.netatmo_current_temperature_entrance";
+                    }
+                    {
+                      name = "Living room";
+                      entity = "sensor.netatmo_current_temperature_living_room";
+                    }
+                  ];
                 }
               ];
             }
