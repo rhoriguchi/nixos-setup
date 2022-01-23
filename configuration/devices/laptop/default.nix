@@ -22,6 +22,15 @@
     interfaces = {
       wlp2s0.useDHCP = true; # WiFi
     };
+
+    networkmanager.unmanaged = [ "wlp2s0" ];
+
+    wireless = {
+      enable = true;
+      userControlled.enable = true;
+
+      networks = (import ../../secrets.nix).networking.wireless.networks;
+    };
   };
 
   hardware = {
@@ -167,6 +176,7 @@
       pkgs.virt-manager
       pkgs.vlc
       pkgs.vscode
+      pkgs.wpa_supplicant_gui
       pkgs.yarn
     ];
   };

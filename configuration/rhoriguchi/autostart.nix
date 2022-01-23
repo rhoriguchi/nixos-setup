@@ -16,5 +16,9 @@ in {
     "autostart/${pkgs.signal-desktop.pname}.desktop" = lib.mkIf (lib.elem pkgs.signal-desktop.name packageNames) {
       source = "${pkgs.signal-desktop}/share/applications/signal-desktop.desktop";
     };
+
+    "autostart/${pkgs.wpa_supplicant_gui.pname}.desktop" = lib.mkIf (lib.elem pkgs.wpa_supplicant_gui.name packageNames) {
+      source = "${pkgs.wpa_supplicant_gui}/share/applications/wpa_gui.desktop";
+    };
   };
 }
