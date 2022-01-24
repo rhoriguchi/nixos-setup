@@ -9,5 +9,5 @@ in {
     description = "Open ports in the firewall for Tautulli.";
   };
 
-  config = lib.mkIf cfg.enable { networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; }; };
+  config = lib.mkIf cfg.enable { networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ]; };
 }
