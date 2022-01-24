@@ -10,7 +10,6 @@ let
       password = (import ../../../../secrets.nix).services.adguardhome.admin.password;
     }];
     dns = rec {
-      bind_hosts = [ config.services.adguardhome.host ];
       bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
       upstream_dns = bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
       rewrites = [
