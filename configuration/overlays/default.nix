@@ -34,5 +34,15 @@
       solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=156721
+      adguardhome = super.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "rhoriguchi";
+            repo = "nixpkgs";
+            rev = "aae7730128579abbd50dee81c3d3695918a6137f";
+            hash = "sha256-7IyM4g3225EfzlOrCk8pdi6WZg1JRyQN+PhfagrrlIY=";
+          }
+        }/pkgs/servers/adguardhome/default.nix") { };
     })
 ]
