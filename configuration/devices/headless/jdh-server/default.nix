@@ -1,5 +1,5 @@
 { pkgs, lib, config, ... }: {
-  imports = [ ../common.nix ./rsnapshot.nix ./synology-mounts.nix ./hardware-configuration.nix ];
+  imports = [ ../common.nix ./audio-converter ./rsnapshot.nix ./synology-mounts.nix ./hardware-configuration.nix ];
 
   boot = {
     loader = {
@@ -18,17 +18,6 @@
   };
 
   services = {
-    audio-converter = {
-      enable = true;
-
-      user = "plex";
-      group = "plex";
-
-      path = "/mnt/Media";
-      from = "eac3";
-      to = "ac3";
-    };
-
     plex = {
       enable = true;
 

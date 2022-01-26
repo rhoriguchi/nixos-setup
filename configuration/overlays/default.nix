@@ -17,8 +17,6 @@
   (self: super:
     let nur = import (fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { pkgs = super; };
     in {
-      audio-converter = super.callPackage ./audio-converter { };
-
       discord = super.callPackage ./discord.nix { inherit (super) discord; };
 
       firefox-addons = nur.repos.rycee.firefox-addons;
