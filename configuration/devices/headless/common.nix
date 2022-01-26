@@ -7,11 +7,8 @@ let
     # Services to show
     declare -A services
     services["adguardhome"]="AdGuard Home"
-    services["audio-converter.timer"]="Audio Converter (Timer)"
     services["docker"]="Docker"
-    services["duckdns.timer"]="Duck DNS (Timer)"
     services["fancontrol"]="Fancontrol"
-    services["gphotos-sync.timer"]="Google Photos Sync (Timer)"
     services["home-assistant"]="Home Assistant"
     services["libvirtd"]="libvirt"
     services["nginx"]="NGINX"
@@ -20,7 +17,6 @@ let
     services["resilio"]="Resilio Sync"
     services["sshd"]="SSH"
     services["tautulli"]="Tautulli"
-    services["tv_time_export.timer"]="TV Time export (Timer)"
     services["zfs-zed"]="ZFS Event Daemon"
   '';
 in {
