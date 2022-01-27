@@ -39,7 +39,7 @@ in {
 
       "xxlpitu-adguard" = {
         # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/default.nix"
-        hostname = "XXLPitu-AdGuard";
+        hostname = "XXLPitu-AdGuard.local";
         user = "xxlpitu";
         proxyJump = "xxlpitu-home.duckdns.org";
       };
