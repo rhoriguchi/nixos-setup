@@ -70,10 +70,6 @@ mount -t zfs data /mnt/Data
 
 ## Nixops
 
-```bash
-nix-shell shell.nix
-```
-
 ### Init
 
 ```bash
