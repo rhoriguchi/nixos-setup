@@ -88,3 +88,9 @@ nixops info
 nixops ssh-for-each --parallel "nix-channel --update"
 nixops deploy
 ```
+
+### Delete garabge
+
+```bash
+nixops ssh-for-each --parallel "nix-collect-garbage -d"
+```
