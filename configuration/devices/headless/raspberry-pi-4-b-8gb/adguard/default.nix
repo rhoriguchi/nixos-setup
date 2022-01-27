@@ -62,7 +62,7 @@ in {
       enable = true;
 
       mutableSettings = false;
-      settings = settings;
+      inherit settings;
     };
   };
 
