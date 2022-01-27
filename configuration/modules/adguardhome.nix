@@ -92,29 +92,21 @@ in {
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.settings != { }
-          -> (hasAttrByPath [ "dns" "bind_host" ] cfg.settings)
+        assertion = cfg.settings != { } -> (hasAttrByPath [ "dns" "bind_host" ] cfg.settings)
           || (hasAttrByPath [ "dns" "bind_hosts" ] cfg.settings);
-        message =
-          "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
+        message = "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
       }
       {
-        assertion = cfg.settings != { }
-          -> hasAttrByPath [ "dns" "bootstrap_dns" ] cfg.settings;
-        message =
-          "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
+        assertion = cfg.settings != { } -> hasAttrByPath [ "dns" "bootstrap_dns" ] cfg.settings;
+        message = "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
       }
       {
-        assertion = cfg.settings != { }
-          -> !(hasAttr "bind_host" cfg.settings);
-        message =
-          "AdGuard setting bind_host needs to be configured through services.adguardhome.host";
+        assertion = cfg.settings != { } -> !(hasAttr "bind_host" cfg.settings);
+        message = "AdGuard setting bind_host needs to be configured through services.adguardhome.host";
       }
       {
-        assertion = cfg.settings != { }
-          -> !(hasAttr "bind_port" cfg.settings);
-        message =
-          "AdGuard setting bind_port needs to be configured through services.adguardhome.port";
+        assertion = cfg.settings != { } -> !(hasAttr "bind_port" cfg.settings);
+        message = "AdGuard setting bind_port needs to be configured through services.adguardhome.port";
       }
     ];
 
