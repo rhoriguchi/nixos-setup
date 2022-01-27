@@ -12,19 +12,16 @@ let
     "--config /var/lib/AdGuardHome/AdGuardHome.yaml"
   ] ++ cfg.extraArgs);
 
-  baseSettings = {
+  superSettings = {
     bind_host = cfg.host;
     bind_port = cfg.port;
   };
 
-  settings = cfg.settings // baseSettings;
-
   configFile = pkgs.writeTextFile {
     name = "AdGuardHome.yaml";
-    text = builtins.toJSON settings;
+    text = builtins.toJSON (cfg.settings // superSettings);
     checkPhase = "${pkgs.adguardhome}/bin/adguardhome -c $out --check-config";
   };
-
 in {
   # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=156547
 
@@ -93,10 +90,33 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
-      assertion = hasAttrByPath [ "dns" "bootstrap_dns" ] settings;
-      message = "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
-    }];
+    assertions = [
+      {
+        assertion = cfg.settings != { }
+          -> (hasAttrByPath [ "dns" "bind_host" ] cfg.settings)
+          || (hasAttrByPath [ "dns" "bind_hosts" ] cfg.settings);
+        message =
+          "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
+      }
+      {
+        assertion = cfg.settings != { }
+          -> hasAttrByPath [ "dns" "bootstrap_dns" ] cfg.settings;
+        message =
+          "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
+      }
+      {
+        assertion = cfg.settings != { }
+          -> !(hasAttr "bind_host" cfg.settings);
+        message =
+          "AdGuard setting bind_host needs to be configured through services.adguardhome.host";
+      }
+      {
+        assertion = cfg.settings != { }
+          -> !(hasAttr "bind_port" cfg.settings);
+        message =
+          "AdGuard setting bind_port needs to be configured through services.adguardhome.port";
+      }
+    ];
 
     systemd.services.adguardhome = {
       description = "AdGuard Home: Network-level blocker";
