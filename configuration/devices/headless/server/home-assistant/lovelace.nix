@@ -144,7 +144,7 @@ in {
             }
             {
               type = "entities";
-              title = "AdGuard";
+              title = "AdGuard Home";
               entities = [{
                 name = "Protection";
                 entity = "switch.adguard_protection";
