@@ -173,7 +173,6 @@
       pkgs.terraform
       pkgs.tree
       pkgs.unzip
-      pkgs.virt-manager
       pkgs.vlc
       pkgs.vscode
       pkgs.wpa_supplicant_gui
