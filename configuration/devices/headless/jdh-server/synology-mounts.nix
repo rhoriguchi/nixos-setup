@@ -24,7 +24,7 @@ in {
     };
 
     "/mnt/Music" = {
-      device = "//192.168.1.51/JcrK - James/Music";
+      device = "//192.168.1.51/JcrK - James/Music/iTunes/iTunes Media/Music";
       fsType = "cifs";
       options = [ "${extraOptions}" ];
     };
