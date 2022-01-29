@@ -26,7 +26,7 @@ in {
 
       snapshot_root	/mnt/Backup
 
-      retain	weekly	12
+      retain	weekly	52
 
       backup	${config.services.tautulli.dataDir}/	./
       backup	${config.services.plex.dataDir}/	./
