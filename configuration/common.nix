@@ -13,7 +13,7 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    autoOptimiseStore = true;
+    settings.auto-optimise-store = true;
   };
 
   system.stateVersion = "22.05";
