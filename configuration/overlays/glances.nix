@@ -4,7 +4,7 @@ let
     connections.disable = false;
     diskio.hide = "loop\\d+,^mmcblk\\d+p\\d+$,^sd[a-z]+\\d+$,^nvme0n\\d+p\\d+$,^dm-\\d+$";
     fs = {
-      allow = "zfs";
+      allow = "cifs,zfs";
       hide = "/nix/store";
     };
     global.check_update = false;
