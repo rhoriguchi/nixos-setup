@@ -1,4 +1,6 @@
-{ pkgs, utils, config, ... }: {
+{ pkgs, utils, config, ... }:
+let colors = (import ../colors.nix);
+in {
   fonts.fonts = [ pkgs.nerdfonts ];
 
   home-manager.users.rhoriguchi.programs.alacritty = {
@@ -34,35 +36,16 @@
       colors = {
         primary = {
           background = "#303030";
-          foreground = "#FFFFFF";
+          foreground = colors.normal.white;
         };
 
         cursor = {
-          cursor = "#B10DC9";
-          text = "#FFFFFF";
+          cursor = colors.normal.magenta;
+          text = colors.normal.white;
         };
 
-        normal = {
-          black = "#000000";
-          red = "#FF4136";
-          green = "#2ECC40";
-          yellow = "#FFDC00";
-          blue = "#0074D9";
-          magenta = "#B10DC9";
-          cyan = "#7FDBFF";
-          white = "#FFFFFF";
-        };
-
-        bright = {
-          black = "#777777";
-          red = "#FF8D86";
-          green = "#81E08C";
-          yellow = "#FFEA66";
-          blue = "#66ABE8";
-          magenta = "#D06DDE";
-          cyan = "#B2E9FF";
-          white = "#FFFFFF";
-        };
+        normal = colors.normal;
+        bright = colors.bright;
       };
     };
   };

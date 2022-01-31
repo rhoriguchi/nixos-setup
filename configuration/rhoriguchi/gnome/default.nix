@@ -1,5 +1,7 @@
 { pkgs, lib, ... }:
 let
+  colors = (import ../../colors.nix);
+
   extensions = [
     pkgs.gnomeExtensions.appindicator
     pkgs.gnomeExtensions.caffeine
@@ -172,15 +174,15 @@ in {
         apply-custom-theme = false;
         autohide = false;
         autohide-in-fullscreen = false;
-        background-color = "#FFFFFF";
+        background-color = colors.normal.white;
         background-opacity = 0.0;
         bolt-support = true;
         click-action = "minimize-or-previews";
         custom-background-color = true;
         custom-theme-customize-running-dots = true;
-        custom-theme-running-dots-border-color = "#FFFFFF";
+        custom-theme-running-dots-border-color = colors.normal.white;
         custom-theme-running-dots-border-width = 0;
-        custom-theme-running-dots-color = "#D2D2D2";
+        custom-theme-running-dots-color = colors.normal.gray;
         custom-theme-shrink = true;
         customize-alphas = false;
         dash-max-icon-size = 48;

@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }:
+let colors = (import ../colors.nix);
+in {
   fonts.fonts = [ pkgs.nerdfonts ];
 
   home-manager.users.rhoriguchi.programs.vscode = {
@@ -91,40 +93,14 @@
           name = "NixOS";
           value = "#82BFE0";
         }
-
-        {
-          name = "Black";
-          value = "#000000";
-        }
-        {
-          name = "Red";
-          value = "#FF4136";
-        }
-        {
-          name = "Green";
-          value = "#2ECC40";
-        }
-        {
-          name = "Yellow";
-          value = "#FFDC00";
-        }
-        {
-          name = "Blue";
-          value = "#0074D9";
-        }
-        {
-          name = "Magenta";
-          value = "#B10DC9";
-        }
-        {
-          name = "Cyan";
-          value = "#7FDBFF";
-        }
-        {
-          name = "White";
-          value = "#FFFFFF";
-        }
-      ];
+      ] ++ lib.attrsets.mapAttrsToList (key: value: {
+        # TODO find better solution
+        name = let
+          head = lib.toUpper (lib.substring 0 1 key);
+          tail = lib.substring 1 (lib.stringLength key) key;
+        in lib.concatStrings [ head tail ];
+        inherit value;
+      }) colors.normal;
       "peacock.showColorInStatusBar" = false;
       "prettier.arrowParens" = "always";
       "prettier.printWidth" = 120;
@@ -135,8 +111,8 @@
       "telemetry.telemetryLevel" = "off";
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
       "todo-tree.highlights.customHighlight" = {
-        "[ ]"."background" = "#FF413680";
-        "[X]"."background" = "#2ECC4080";
+        "[ ]"."background" = "${colors.normal.red}80";
+        "[X]"."background" = "${colors.normal.green}80";
       };
       "todo-tree.highlights.defaultHighlight" = {
         fontWeight = "bold";

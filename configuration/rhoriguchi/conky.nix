@@ -1,5 +1,7 @@
 { pkgs, lib, config, ... }:
 let
+  colors = (import ../colors.nix);
+
   buildCommand = let pattern = ''.*BUILD_ID="[0-9]+\.[0-9]+(pre|\.)(\S*)".*'';
   in "cat /etc/os-release | tr '\\n' '\\r' | sed --regexp-extended 's/${pattern}/\\2/'";
 
@@ -45,7 +47,7 @@ let
       own_window_transparent = false,
       own_window_argb_visual = true,
       own_window_argb_value = 200,
-      own_window_colour = '#121214',
+      own_window_colour = '#121212',
       font = 'RobotoMono Nerd Font:size=10',
       default_color = 'white',
       default_outline_color = 'white',
@@ -71,8 +73,8 @@ let
       use_spacer = 'none',
       use_xft = true,
 
-      color1 = '#F3F3F3',
-      color2 = '#C8C8C8',
+      color1 = '${colors.normal.gray}',
+      color2 = '${colors.bright.gray}',
     }
 
     conky.text = [[
