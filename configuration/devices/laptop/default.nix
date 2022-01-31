@@ -28,6 +28,7 @@
     wireless = {
       enable = true;
       userControlled.enable = true;
+      extraConfig = "p2p_disabled=1";
 
       networks = (import ../../secrets.nix).networking.wireless.networks;
     };
