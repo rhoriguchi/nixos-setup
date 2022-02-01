@@ -93,14 +93,14 @@ in {
           name = "NixOS";
           value = "#82BFE0";
         }
-      ] ++ lib.attrsets.mapAttrsToList (key: value: {
+      ] ++ lib.sort (a: b: a.name < b.name) (lib.attrsets.mapAttrsToList (key: value: {
         # TODO find better solution
         name = let
           head = lib.toUpper (lib.substring 0 1 key);
           tail = lib.substring 1 (lib.stringLength key) key;
         in lib.concatStrings [ head tail ];
         inherit value;
-      }) colors.normal;
+      }) colors.normal);
       "peacock.showColorInStatusBar" = false;
       "prettier.arrowParens" = "always";
       "prettier.printWidth" = 120;
