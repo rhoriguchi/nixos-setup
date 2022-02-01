@@ -2,10 +2,8 @@
 let
   cfg = config.services.resilio;
 
-  secrets = let
-    secrets = lib.lists.flatten (map lib.attrValues (lib.attrValues cfg.secrets));
-    filteredSecrets = lib.filter (secret: secret != null) secrets;
-  in lib.lists.naturalSort filteredSecrets;
+  secrets = let secrets = lib.lists.flatten (map lib.attrValues (lib.attrValues cfg.secrets));
+  in lib.filter (secret: secret != null) secrets;
 
   sharedFolders = lib.attrValues (lib.mapAttrs (key: value: {
     secret = if lib.elem key cfg.readWriteDirs then value.readWrite else value.encrypted;
