@@ -10,7 +10,7 @@
         '';
       });
 
-      spotify = super.spotify-unwrapped.overrideAttrs (oldAttrs: {
+      spotify-unwrapped = super.spotify-unwrapped.overrideAttrs (oldAttrs: {
         postInstall = (oldAttrs.postInstall or "") + ''
           wrapProgram $out/bin/spotify \
             --add-flags "--force-device-scale-factor=2"

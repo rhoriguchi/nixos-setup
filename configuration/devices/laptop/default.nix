@@ -171,7 +171,7 @@
       pkgs.python3Packages.pip
       pkgs.qbittorrent
       pkgs.signal-desktop
-      pkgs.spotify
+      pkgs.spotify-unwrapped
       pkgs.sshpass
       pkgs.terraform
       pkgs.tree
