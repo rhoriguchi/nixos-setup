@@ -6,9 +6,13 @@ let
   preExecShellScript = pkgs.writeShellScript "rsnapshot-preExec" ''
     ${pkgs.cryptsetup}/bin/cryptsetup luksOpen --key-file ${keyPath} /dev/disk/by-uuid/28ca9d71-aec7-4b19-9fd6-ab6f7cc1b186 backup
     mountpoint -q ${backupDir} || mount /dev/disk/by-uuid/84ecadcc-4fa1-4060-ac42-d774e032db77 ${backupDir}
+
+    rm -rf ${backupDir}/.Trash-* || true
   '';
 
   postExecShellScript = pkgs.writeShellScript "rsnapshot-postExec" ''
+    rm -rf ${backupDir}/.Trash-* || true
+
     umount ${backupDir} || true
     ${pkgs.cryptsetup}/bin/cryptsetup luksClose backup || true
   '';
@@ -16,7 +20,7 @@ let
   excludeFile = pkgs.writeText "rsnapshot-default.exclude" ''
     # Trash
     - /**.local/share/Trash
-    - /**.Trash-1000
+    - /**.Trash-*
 
     # Containers
     - /**.local/share/containers
