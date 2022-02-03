@@ -28,6 +28,7 @@
     wireless = {
       enable = true;
       userControlled.enable = true;
+      fallbackToWPA2 = false; # TODO remove when issue fixed https://github.com/NixOS/nixpkgs/issues/158063
       extraConfig = ''
         p2p_disabled=1
       '';
