@@ -12,6 +12,8 @@ def main():
 
     argv = sys.argv
 
+    logger = logging.getLogger(__name__).info(f'Audio converter called with parameter "{argv[1:]}"')
+
     if len(argv) != 4:
         raise ValueError('3 parameters need to be provided')
 
