@@ -62,8 +62,6 @@ class AudioConverter():
         if not self._ffmpeg.format_supported(to_format):
             raise ValueError(f'ffmpeg does not support from "{to_format}"')
 
-        logger.info('Audio converter started')
-
         videos = self._get_videos(path)
         count = len(videos)
 
@@ -84,8 +82,6 @@ class AudioConverter():
             with ThreadPool(math.floor(os.cpu_count() / 3)) as pool:
                 pool_values = list(map(lambda value: (value, to_format), videos_that_need_converting))
                 pool.map(self._convert_video, pool_values)
-
-        logger.info('Audio converter finished')
 
     def _get_videos_that_need_converting(self, paths: List[str], from_format: str) -> List[str]:
         with ThreadPool(os.cpu_count()) as pool:
