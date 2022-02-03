@@ -7,6 +7,8 @@ let
     src = ./src;
 
     propagatedBuildInputs = [ pkgs.mediainfo pkgs.ffmpeg ];
+
+    doCheck = false;
   };
 
   getService = paths: startAt: {
