@@ -6,6 +6,7 @@ in {
   home-manager.users.rhoriguchi.programs.vscode = {
     enable = true;
 
+    immutableExtensionsDir = true;
     extensions = [
       pkgs.vscode-extensions.alexdima.copy-relative-path
       pkgs.vscode-extensions.bbenoist.nix
