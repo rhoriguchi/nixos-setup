@@ -119,7 +119,7 @@ in {
       };
       "todo-tree.highlights.defaultHighlight" = {
         fontWeight = "bold";
-        foreground = "green";
+        foreground = "${colors.normal.green}";
         type = "tag-and-comment";
       };
       "todo-tree.general.tags" = [ "[ ]" "[x]" "BUG" "FIXME" "HACK" "TODO" "XXX" ];
