@@ -114,8 +114,16 @@ in {
       "telemetry.telemetryLevel" = "off";
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
       "todo-tree.highlights.customHighlight" = {
-        "[ ]"."background" = "${colors.normal.red}80";
-        "[X]"."background" = "${colors.normal.green}80";
+        "[ ]" = {
+          "hideFromStatusBar" = true;
+          "hideFromTree" = true;
+          "type" = "none";
+        };
+        "[x]" = {
+          "hideFromStatusBar" = true;
+          "hideFromTree" = true;
+          "type" = "none";
+        };
       };
       "todo-tree.highlights.defaultHighlight" = {
         fontWeight = "bold";
