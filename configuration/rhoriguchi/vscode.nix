@@ -22,6 +22,7 @@ in {
       pkgs.vscode-extensions.ibm.output-colorizer
       pkgs.vscode-extensions.jock.svg
       pkgs.vscode-extensions.johnpapa.vscode-peacock
+      pkgs.vscode-extensions.kamikillerto.vscode-colorize
       pkgs.vscode-extensions.ms-azuretools.vscode-docker
       pkgs.vscode-extensions.ms-dotnettools.csharp
       pkgs.vscode-extensions.ms-python.python
@@ -40,6 +41,7 @@ in {
     ];
 
     userSettings = {
+      "colorize.include" = [ "*" ];
       "cSpell.enableFiletypes" = [ "nix" "terraform" ];
       "cSpell.userWords" = [ "horiguchi" "rhoriguchi" ];
       "editor.fontFamily" = "JetBrainsMono Nerd Font";
