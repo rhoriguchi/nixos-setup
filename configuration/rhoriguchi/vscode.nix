@@ -170,6 +170,11 @@ in {
         when = "editorTextFocus && !editorReadonly";
       }
       {
+        key = "ctrl+shift+c";
+        command = "-workbench.action.terminal.openNativeConsole";
+        when = "!terminalFocus";
+      }
+      {
         key = "ctrl+numpad_divide";
         command = "editor.action.commentLine";
         when = "editorTextFocus && !editorReadonly";
