@@ -25,15 +25,5 @@
       solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=157829
-      plexRaw = super.python3Packages.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "rhoriguchi";
-            repo = "nixpkgs";
-            rev = "824694e8d85aea9edb5019c6ee7fbb5a2a752ca3";
-            sha256 = "sha256-Z6X8ttc0QiUrC5B9uIG+6lfUc7BywUKYaKKpxSaQ0xQ=";
-          }
-        }/pkgs/servers/plex/raw.nix") { };
     })
 ]
