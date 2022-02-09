@@ -97,7 +97,6 @@ in {
           value = "#82BFE0";
         }
       ] ++ lib.sort (a: b: a.name < b.name) (lib.attrsets.mapAttrsToList (key: value: {
-        # TODO find better solution
         name = let
           head = lib.toUpper (lib.substring 0 1 key);
           tail = lib.substring 1 (lib.stringLength key) key;
