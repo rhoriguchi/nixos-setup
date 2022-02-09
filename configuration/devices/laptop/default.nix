@@ -1,6 +1,7 @@
 { pkgs, lib, config, ... }: {
   imports = [
     ../../rhoriguchi
+    ../../displaylink.nix
 
     ./highdpi.nix
     ./lenovo-legion-s7-15ach6.nix

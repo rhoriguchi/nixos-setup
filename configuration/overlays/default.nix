@@ -12,6 +12,11 @@
     in {
       discord = super.callPackage ./discord.nix { inherit (super) discord; };
 
+      displaylink = super.callPackage ./displaylink {
+        inherit (super) displaylink;
+        inherit (super.linuxPackages) evdi;
+      };
+
       firefox-addons = nur.repos.rycee.firefox-addons;
 
       glances = super.callPackage ./glances.nix { inherit (super) glances; };
