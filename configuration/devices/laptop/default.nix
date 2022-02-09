@@ -163,7 +163,6 @@
       pkgs.maven
       pkgs.neofetch
       pkgs.nodejs
-      pkgs.nodePackages."@angular/cli"
       pkgs.openssl
       pkgs.pipenv
       pkgs.postgresql
