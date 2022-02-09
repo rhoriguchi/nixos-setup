@@ -29,8 +29,6 @@
     wireless = {
       enable = true;
       userControlled.enable = true;
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=158085
-      fallbackToWPA2 = false;
       extraConfig = ''
         p2p_disabled=1
       '';
