@@ -20,6 +20,7 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
   - WebStorm
 - Firefox
   - BitWarden
+  - Grammarly
   - MetaMask
   - Tab Session Manager
 - Nixops
@@ -73,7 +74,7 @@ mount -t zfs data /mnt/Data
 ### Init
 
 ```bash
-nixops create nixops.nix
+nixops create
 ```
 
 ### Info
