@@ -5,7 +5,8 @@
 
     ./highdpi.nix
     ./lenovo-legion-s7-15ach6.nix
-    ./nvidia.nix
+    # TODO currently broken
+    # ./nvidia.nix
     ./rsnapshot.nix
     ./power-management.nix
 
