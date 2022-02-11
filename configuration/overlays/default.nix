@@ -31,6 +31,16 @@
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
 
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=159074
+      remarshal = super.python3Packages.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "35cd881e3f259836f034330634920aef9c303490";
+            sha256 = "sha256-h6nq9WXgP/ucMUJsgkzQxWW/OqNZf/+hE5Csg/EhctY=";
+          }
+        }/pkgs/development/python-modules/remarshal") { };
+
       # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=158792
       plexRaw = super.python3Packages.callPackage (import "${
           super.fetchFromGitHub {
