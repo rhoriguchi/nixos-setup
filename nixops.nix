@@ -19,6 +19,8 @@
     environment.systemPackages = [ pkgs.nixopsUnstable ];
   };
 
+  ######################################################################
+
   Server = { ... }: {
     deployment.targetHost = "xxlpitu-home.duckdns.org";
 
@@ -30,6 +32,8 @@
 
     imports = [ ./configuration/devices/headless/jdh-server ];
   };
+
+  ######################################################################
 
   AdGuard = { ... }: {
     deployment.targetHost = "xxlpitu-adguard";

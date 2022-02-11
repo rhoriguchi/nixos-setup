@@ -47,7 +47,8 @@ in {
   environment.systemPackages = [ pkgs.glances pkgs.htop ];
 
   users.users.xxlpitu = {
-    extraGroups = [ "wheel" ] ++ lib.optional config.virtualisation.docker.enable "docker";
+    extraGroups = [ "wheel" ] ++ (lib.optional config.virtualisation.docker.enable "docker")
+      ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd");
     isNormalUser = true;
     password = (import ../../secrets.nix).users.users.xxlpitu.password;
     openssh.authorizedKeys.keys = import ../../authorized-keys.nix;

@@ -10,16 +10,21 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/edc8265a-0844-4392-8ce4-ffc75289cc53";
+    device = "/dev/disk/by-uuid/a345a75c-1c7c-486d-8b77-8eefd8a7ce89";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/E381-6FA6";
+    device = "/dev/disk/by-uuid/7892-8EC8";
     fsType = "vfat";
   };
 
-  swapDevices = [{ device = "/dev/disk/by-uuid/888d21b8-3146-44fc-9eb7-b61fa8a7c1ed"; }];
+  fileSystems."/mnt/Data" = {
+    device = "data";
+    fsType = "zfs";
+  };
 
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  swapDevices = [ ];
+
+  hardware.video.hidpi.enable = lib.mkDefault true;
 }
