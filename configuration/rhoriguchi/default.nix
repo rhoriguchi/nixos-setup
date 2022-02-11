@@ -13,6 +13,7 @@
     ./gnome
     ./gnome-accounts-service
     ./htop.nix
+    ./nautilus.nix
     ./neofetch
     ./onedrive.nix
     ./ssh.nix
