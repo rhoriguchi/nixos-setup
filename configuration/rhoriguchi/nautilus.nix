@@ -1,5 +1,5 @@
-{ config, ... }: {
+{ config, lib, ... }: {
   home-manager.users.rhoriguchi.xdg.configFile."gtk-3.0/bookmarks".text = ''
-    file://${config.services.resilio.syncPath}
+    ${lib.optionalString config.services.resilio.enable "file://${config.services.resilio.syncPath}"}
   '';
 }
