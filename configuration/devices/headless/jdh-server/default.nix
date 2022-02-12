@@ -1,5 +1,13 @@
 { pkgs, lib, config, ... }: {
-  imports = [ ../common.nix ./audio-converter ./rsnapshot.nix ./synology-mounts.nix ./hardware-configuration.nix ];
+  imports = [
+    ../common.nix
+
+    ./audio-converter
+    ./rsnapshot.nix
+    ./synology-mounts.nix
+
+    ./hardware-configuration.nix
+  ];
 
   boot = {
     loader = {

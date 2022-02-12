@@ -7,8 +7,8 @@
     ./lenovo-legion-s7-15ach6.nix
     # TODO currently broken
     # ./nvidia.nix
-    ./rsnapshot.nix
     ./power-management.nix
+    ./rsnapshot.nix
 
     ./hardware-configuration.nix
   ];
