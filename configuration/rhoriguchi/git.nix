@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let colors = (import ../colors.nix);
+in {
   home-manager.users.rhoriguchi.programs.git = {
     enable = true;
 
@@ -8,7 +10,8 @@
     extraConfig = {
       alias = {
         changes = "diff --stat";
-        history = ''log --date=relative --pretty=format:"%C(yellow)%H  %C(blue)%>(14)%ad %C(auto)%d %C(reset)%s"'';
+        history = ''
+          log --date=relative --pretty=format:"%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%>(14)%ad %C(auto)%d %C(reset)%s"'';
       };
 
       init.defaultBranch = "master";
