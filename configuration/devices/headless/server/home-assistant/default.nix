@@ -5,7 +5,6 @@
     ./mystrom.nix
     ./netatmo.nix
     ./nginx.nix
-    ./person.nix
     ./postgres.nix
     ./unifi.nix
     ./weather.nix
@@ -38,7 +37,6 @@
         "mobile_app"
         "mystrom"
         "netatmo"
-        "person"
         "recorder"
         "sensor"
         "shell_command"
