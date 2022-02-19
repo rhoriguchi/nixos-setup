@@ -25,33 +25,10 @@
       homeAssistantExtraPackages = homeAssistant.override { extraPackages = pythonPackages: [ pythonPackages.psycopg2 ]; };
     in homeAssistantExtraPackages.override {
       extraComponents = [
-        "automation"
-        "default_config"
-        "frontend"
-        "history"
-        "homeassistant"
-        "http"
-        "light"
-        "logger"
-        "lovelace"
-        "mobile_app"
-        "mystrom"
-        "netatmo"
-        "recorder"
-        "sensor"
-        "shell_command"
         "shelly"
-        "sun"
-        "switch"
-        "system_health"
-        "template"
         "unifi"
-        "webhook"
-        "yeelight"
       ];
     };
-
-    autoExtraComponents = false;
 
     config = {
       homeassistant = {
