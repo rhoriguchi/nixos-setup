@@ -6,7 +6,7 @@
       paging = "never";
       style = lib.concatStringsSep "," [ "grid" "numbers" ];
       tabs = "4";
-      theme = "OneHalfDark";
+      theme = "ansi";
     };
   };
 }
