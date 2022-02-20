@@ -1,4 +1,4 @@
-{ ... }: {
+{
   boot.kernelModules = [ "coretemp" "cpuid" ];
 
   services = {

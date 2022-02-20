@@ -1,4 +1,4 @@
-{ ... }: {
+{
   environment.shellAliases = {
     l = null;
     ll = null;

@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [ ../common.nix ./hardware-configuration.nix ];
 
   networking.hostName = "XXLPitu-Horgen";
