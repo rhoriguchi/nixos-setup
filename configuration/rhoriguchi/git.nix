@@ -17,7 +17,7 @@ in {
       init.defaultBranch = "master";
 
       core = {
-        pager = "less -r -F -X";
+        pager = "less -FX";
         symlinks = true;
       };
 
