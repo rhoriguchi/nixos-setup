@@ -5,6 +5,6 @@
 
     cls = "clear";
     grep = "GREP_COLOR='1;35' grep --color=auto";
-    ls = "ls --color=tty -Ah";
+    ls = "ls -l --color=tty --all --human-readable";
   };
 }
