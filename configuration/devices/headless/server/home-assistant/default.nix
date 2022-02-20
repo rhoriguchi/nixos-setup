@@ -25,6 +25,8 @@
       homeAssistantExtraPackages = homeAssistant.override { extraPackages = pythonPackages: [ pythonPackages.psycopg2 ]; };
     in homeAssistantExtraPackages.override {
       extraComponents = [
+        "default_config"
+
         "shelly"
         "unifi"
       ];
