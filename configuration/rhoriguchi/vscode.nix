@@ -1,6 +1,8 @@
 { pkgs, lib, ... }:
 let colors = (import ../colors.nix);
 in {
+  environment.shellAliases.vscode = "code";
+
   fonts.fonts = [ pkgs.nerdfonts ];
 
   home-manager.users.rhoriguchi.programs.vscode = {

@@ -3,6 +3,7 @@
     ../home-manager.nix
 
     ./alacritty.nix
+    ./aliases.nix
     ./autostart.nix
     ./conky.nix
     ./docker.nix

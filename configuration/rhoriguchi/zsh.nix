@@ -2,16 +2,6 @@
   home-manager.users.rhoriguchi.programs.zsh = {
     enable = true;
 
-    shellAliases = {
-      cls = "clear";
-      grep = "GREP_COLOR='1;35' grep --color=auto";
-      ls = "ls --color=tty -Ah";
-      neofetch = "echo; echo; neofetch";
-      nixfmt = "nixfmt --width=140";
-      open = "nautilus";
-      vscode = "code";
-    };
-
     enableCompletion = true;
 
     history = {
