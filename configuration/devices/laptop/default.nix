@@ -136,6 +136,7 @@
 
     systemPackages = [
       pkgs.alacritty
+      pkgs.bat
       pkgs.curl
       pkgs.discord
       pkgs.docker-compose

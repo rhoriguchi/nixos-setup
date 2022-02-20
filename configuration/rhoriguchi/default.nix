@@ -5,6 +5,7 @@
     ./alacritty.nix
     ./aliases.nix
     ./autostart.nix
+    ./bat.nix
     ./conky.nix
     ./docker.nix
     ./firefox
