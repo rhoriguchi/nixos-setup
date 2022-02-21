@@ -10,7 +10,7 @@ let
     services["docker"]="Docker"
     services["fancontrol"]="Fancontrol"
     services["home-assistant"]="Home Assistant"
-    services["libvirtd"]="libvirt"
+    services["libvirtd"]="libvirtd"
     services["nginx"]="NGINX"
     services["plex"]="Plex"
     services["postgresql"]="PostgreSQL"
@@ -48,7 +48,7 @@ in {
 
   users.users.xxlpitu = {
     extraGroups = [ "wheel" ] ++ (lib.optional config.virtualisation.docker.enable "docker")
-      ++ (lib.optional config.virtualisation.libvirtd.enable "libvirtd");
+      ++ (lib.optionals config.virtualisation.libvirtd.enable [ "kvm" "libvirtd" ]);
     isNormalUser = true;
     password = (import ../../secrets.nix).users.users.xxlpitu.password;
     openssh.authorizedKeys.keys = import ../../authorized-keys.nix;
