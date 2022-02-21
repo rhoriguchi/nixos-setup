@@ -20,6 +20,7 @@
     ./neofetch
     ./onedrive.nix
     ./ssh.nix
+    ./virt-manager.nix
     ./vscode.nix
     ./zsh.nix
   ];

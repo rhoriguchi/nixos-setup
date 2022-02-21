@@ -4,6 +4,7 @@
 
     ./fancontrol
     ./home-assistant
+    ./libvirtd.nix
 
     ./hardware-configuration.nix
   ];

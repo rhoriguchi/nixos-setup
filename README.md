@@ -89,6 +89,14 @@ zfs set mountpoint=legacy data
 mount -t zfs data /mnt/Data
 ```
 
+#### libvirt
+
+##### Initial Windows setup
+
+Uncomment in `libvirtd.nix` the `INITIAL SETUP` block and replace `PATH_TO_ISO` with correct path. When windows installer starts make sure to load the drivers for VirtIO.
+
+Once Windows is installed install [Spice UsbDk](https://www.spice-space.org/download.html#windows-installers).
+
 ## Nixops
 
 ### Init
