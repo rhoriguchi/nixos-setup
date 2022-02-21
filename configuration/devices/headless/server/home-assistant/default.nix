@@ -15,8 +15,6 @@
   services.home-assistant = {
     enable = true;
 
-    port = 8124;
-
     package = let
       homeAssistant = pkgs.home-assistant.overrideAttrs (_: {
         tests = [ ];
@@ -33,6 +31,8 @@
     };
 
     config = {
+      http.server_port = 8124;
+
       homeassistant = {
         name = "Home";
         time_zone = config.time.timeZone;
