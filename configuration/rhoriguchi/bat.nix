@@ -1,4 +1,6 @@
 { lib, ... }: {
+  environment.shellAliases.cat = "bat";
+
   home-manager.users.rhoriguchi.programs.bat = {
     enable = true;
 
