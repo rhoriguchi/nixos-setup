@@ -78,8 +78,8 @@
       MINTEMP= hwmon2/pwm2=40                 hwmon4/pwm1=45                 hwmon4/pwm2=45                 hwmon4/pwm3=45                 hwmon4/pwm4=45                 hwmon4/pwm5=45                 hwmon4/pwm6=45
       MAXTEMP= hwmon2/pwm2=80                 hwmon4/pwm1=60                 hwmon4/pwm2=60                 hwmon4/pwm3=60                 hwmon4/pwm4=60                 hwmon4/pwm5=60                 hwmon4/pwm6=60
       MINSTART=hwmon2/pwm2=20                 hwmon4/pwm1=30                 hwmon4/pwm2=30                 hwmon4/pwm3=30                 hwmon4/pwm4=30                 hwmon4/pwm5=30                 hwmon4/pwm6=10
-      MINSTOP= hwmon2/pwm2=25                 hwmon4/pwm1=35                 hwmon4/pwm2=35                 hwmon4/pwm3=35                 hwmon4/pwm4=35                 hwmon4/pwm5=35                 hwmon4/pwm6=200
-      MINPWM=  hwmon2/pwm2=25                 hwmon4/pwm1=35                 hwmon4/pwm2=35                 hwmon4/pwm3=35                 hwmon4/pwm4=35                 hwmon4/pwm5=35                 hwmon4/pwm6=200
+      MINSTOP= hwmon2/pwm2=25                 hwmon4/pwm1=35                 hwmon4/pwm2=35                 hwmon4/pwm3=35                 hwmon4/pwm4=35                 hwmon4/pwm5=35                 hwmon4/pwm6=150
+      MINPWM=  hwmon2/pwm2=25                 hwmon4/pwm1=35                 hwmon4/pwm2=35                 hwmon4/pwm3=35                 hwmon4/pwm4=35                 hwmon4/pwm5=35                 hwmon4/pwm6=150
       MAXPWM=  hwmon2/pwm2=160                hwmon4/pwm1=160                hwmon4/pwm2=160                hwmon4/pwm3=160                hwmon4/pwm4=160                hwmon4/pwm5=160                hwmon4/pwm6=255
     '';
   };
