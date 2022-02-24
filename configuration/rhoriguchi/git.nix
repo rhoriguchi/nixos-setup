@@ -17,7 +17,7 @@ in {
       init.defaultBranch = "master";
 
       core = {
-        pager = "less -quit-if-one-screen --no-init";
+        pager = "less --raw-control-chars --quit-if-one-screen --no-init";
         symlinks = true;
       };
 
