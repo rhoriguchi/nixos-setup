@@ -15,6 +15,11 @@ let
       upstream_dns = bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
       rewrites = [
         {
+          domain = "price-tracker.duckdns.org";
+          # TODO get hostname from "configuration/devices/headless/server/default.nix"
+          answer = "XXLPitu-Server.local";
+        }
+        {
           domain = "xxlpitu-home.duckdns.org";
           # TODO get hostname from "configuration/devices/headless/server/default.nix"
           answer = "XXLPitu-Server.local";
