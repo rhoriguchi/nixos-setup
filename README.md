@@ -2,7 +2,7 @@
 
 ## Switch to unstable package channel
 
-```bash
+```console
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 ```
 
@@ -61,7 +61,7 @@ Run the command the service `gphotos-sync.service` calls and authenticate the ap
 
 #### Setup ZFS
 
-```bash
+```console
 zpool create -f -o ashift=12 -m /mnt/Data data \
   raidz \
     ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E0ZLJXFX \
@@ -75,25 +75,25 @@ mount -t zfs data /mnt/Data
 
 ### Init
 
-```bash
+```console
 nixops create
 ```
 
 ### Info
 
-```bash
+```console
 nixops info
 ```
 
 ### Deploy
 
-```bash
+```console
 nixops ssh-for-each --parallel "nix-channel --update"
 nixops deploy
 ```
 
 ### Delete garabge
 
-```bash
+```console
 nixops ssh-for-each --parallel "nix-collect-garbage -d"
 ```
