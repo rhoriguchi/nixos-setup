@@ -11,6 +11,7 @@
     ./firefox
     ./flameshot.nix
     ./fzf.nix
+    ./gedit.nix
     ./git.nix
     ./gnome
     ./gnome-accounts-service

@@ -90,13 +90,6 @@ in {
         num-workspaces = 1;
         theme = "Yaru-light";
       };
-      "org/gnome/gedit/preferences/editor" = {
-        display-line-numbers = true;
-        editor-font = "JetBrainsMono Nerd Font";
-        insert-spaces = true;
-        tabs-size = 4;
-        use-default-font = false;
-      };
       "org/gnome/login-screen" = {
         enable-fingerprint-authentication = false;
         enable-smartcard-authentication = false;
