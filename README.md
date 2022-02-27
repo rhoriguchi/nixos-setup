@@ -38,7 +38,7 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 
 ### Server
 
-#### Setup Plex over `IP:32400/web`
+#### Setup Plex over `http://IP:32400/web`
 
 #### Home Assistant
 
