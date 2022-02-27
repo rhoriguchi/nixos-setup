@@ -21,6 +21,7 @@
   };
 
   networking = {
+    hostId = "c270d3cf";
     hostName = "XXLPitu-Server";
 
     interfaces = {
