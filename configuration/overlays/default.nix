@@ -30,25 +30,5 @@
       solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=161490
-      plexRaw = super.python3Packages.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "rhoriguchi";
-            repo = "nixpkgs";
-            rev = "d3e13578acf4762a87f4efdafbbdf15ea373ad96";
-            sha256 = "sha256-KHEi8qMF4GcyoalDGVpNwjaGK6nUv+NwfFkrXhQihpA=";
-          }
-        }/pkgs/servers/plex/raw.nix") { };
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=161491
-      tautulli = super.python3Packages.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "rhoriguchi";
-            repo = "nixpkgs";
-            rev = "75508a94218612b6cd273cf48863ee6dc4e4cbd8";
-            sha256 = "sha256-hYTZ/EDYe4uNLPaEpspXxkawDSlri2fptpFnUZTGZ/s=";
-          }
-        }/pkgs/servers/tautulli/default.nix") { };
     })
 ]
