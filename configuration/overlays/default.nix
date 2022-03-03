@@ -30,5 +30,15 @@
       solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=162568
+      thermald = super.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "7ea654576d25d28af9aa765851a15b1d52bfc596";
+            sha256 = "sha256-xvQuGdA82cc1E5h9D54y2slJdtgo/rg5PGIEs3f56JM=";
+          }
+        }/pkgs/tools/system/thermald") { };
     })
 ]
