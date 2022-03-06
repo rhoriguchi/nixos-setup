@@ -70,7 +70,7 @@
     config = ''
       INTERVAL=1
 
-      DEVPATH=hwmon1=devices/pci0000:00/0000:00:18.3 hwmon2=devices/platform/nct6775.656 hwmon3=devices/pci0000:00/0000:00:01.2/0000:02:00.0/0000:03:08.0/0000:07:00.3/usb3/3-5/3-5.1/3-5.1:1.0/0003:1B1C:0C10.0002
+      DEVPATH=hwmon1=devices/pci0000:00/0000:00:18.3 hwmon2=devices/platform/nct6775.656 hwmon3=devices/pci0000:00/0000:00:01.2/0000:02:00.0/0000:03:08.0/0000:07:00.3/usb3/3-5/3-5.1/3-5.1:1.0/0003:1B1C:0C10.0005
       DEVNAME=hwmon1=k10temp                         hwmon2=nct6798                      hwmon3=corsaircpro
 
       FCTEMPS= hwmon2/pwm2=hwmon1/temp1_input hwmon3/pwm1=hwmon2/temp1_input hwmon3/pwm2=hwmon2/temp1_input hwmon3/pwm3=hwmon2/temp1_input hwmon3/pwm4=hwmon2/temp1_input hwmon3/pwm5=hwmon2/temp1_input hwmon3/pwm6=hwmon2/temp1_input
