@@ -67,7 +67,10 @@ zpool create -f -o ashift=12 -m /mnt/Data data \
     ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E0ZLJXFX \
     ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E2PN4A53 \
     ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5JNF5EA
+
+zfs set compression=on data
 zfs set mountpoint=legacy data
+
 mount -t zfs data /mnt/Data
 ```
 
