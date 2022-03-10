@@ -4,6 +4,7 @@
     ../../displaylink.nix
 
     ./highdpi.nix
+    ./keepassxc.nix
     ./lenovo-legion-s7-15ach6.nix
     # TODO currently broken
     # ./nvidia.nix
@@ -159,7 +160,6 @@
       pkgs.jetbrains.idea-ultimate
       pkgs.jetbrains.pycharm-professional
       pkgs.jetbrains.webstorm
-      pkgs.keepassxc
       pkgs.libreoffice-fresh
       pkgs.maven
       pkgs.neofetch
