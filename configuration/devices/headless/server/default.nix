@@ -9,9 +9,6 @@
   ];
 
   boot = {
-    # TODO remove when zfs not marked broken with configured common.nix kernel
-    kernelPackages = pkgs.linuxPackages_5_15;
-
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;

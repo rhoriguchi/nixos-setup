@@ -1,52 +1,10 @@
 { pkgs, ... }: {
   boot = {
-    # TODO remove with 5.17 kernel https://www.phoronix.com/scan.php?page=news_item&px=Linux-5.17-HWMON
-    # "nct6775" currently does not supports "Asus ROG STRIX X570-E"
-    kernelPatches = map (value:
-      with value; {
-        inherit name;
-        patch = pkgs.fetchpatch {
-          name = builtins.replaceStrings [ " " ":" "(" ")" "*" ] [ "_" "" "" "" "" ] value.name;
-          inherit url sha256;
-        };
-      }) [
-        {
-          name = "hwmon: (nct6775) Use superio_*() function pointers in sio_data";
-          url = "https://github.com/torvalds/linux/commit/2e7b9886968b89f0b4cbc59b8e6ed47fd4edd0dd.patch";
-          sha256 = "sha256-wir9q20ORr0iCl7Rl3dqqWB9Z2upBQmzrOf+CYC24gY=";
-
-        }
-        {
-          name = "hwmon: (nct6775) Use nct6775_*() function pointers in nct6775_data";
-          url = "https://github.com/torvalds/linux/commit/4914036eb66bdffe4cf4150c7d055c18d389d398.patch";
-          sha256 = "sha256-ro/p7RHw/h99VzycadoDcrxkUUD2ynRYDc+Ewb1SzZw=";
-
-        }
-        {
-          name = "hwmon: (nct6775) Support access via Asus WMI";
-          url = "https://github.com/torvalds/linux/commit/3fbbfc27f95530fccbcfb3a742af0bce6c59f656.patch";
-          sha256 = "sha256-3JFfQRrMTDEepOdjuh2NsRLwN26Skltpyte8VRSkXUU=";
-
-        }
-        {
-          name = "hwmon: (nct6775) mask out bank number in nct6775_wmi_read_value()";
-          url = "https://github.com/torvalds/linux/commit/214f525255069a55b4664842c68bc15b2ee049f0.patch";
-          sha256 = "sha256-tP/FOPyPjZExazSZ2+gRRw0kQ70PQ4XnBJ0/hdl/3SE=";
-        }
-        {
-          name = "hwmon: (nct6775) Additional check for ChipID before ASUS WMI usage";
-          url = "https://github.com/torvalds/linux/commit/20f2e67cbc7599217d5a764c76e9c2bbe85e3761.patch";
-          sha256 = "sha256-czjEHlKOCjh4j/7GFMPd/OyZzaBfjYMpxM1dMi/5m14=";
-        }
-        {
-          name = "hwmon: (nct6775) Fix crash in clear_caseopen";
-          url = "https://github.com/torvalds/linux/commit/79da533d3cc717ccc05ddbd3190da8a72bc2408b.patch";
-          sha256 = "sha256-UJlImYIkuYo0GKnE5qxyq7EztXZ5L+Ih8h9GkxaZoJE=";
-        }
-      ] ++ [{
-        name = "Add ROG STRIX X570-E GAMING";
-        patch = ./add_rog_strix_x570-e_gaming.patch;
-      }];
+    # TODO remove when this board is supported
+    kernelPatches = [{
+      name = "Add ROG STRIX X570-E GAMING";
+      patch = ./add_rog_strix_x570-e_gaming.patch;
+    }];
 
     kernelModules = [ "corsaircpro" "k10temp" "nct6775" ];
   };
