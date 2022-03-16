@@ -34,6 +34,7 @@ in {
 
     wireless = {
       enable = true;
+
       userControlled.enable = true;
       extraConfig = ''
         p2p_disabled=1
