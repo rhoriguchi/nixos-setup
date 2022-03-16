@@ -1,4 +1,8 @@
-{ pkgs, lib, config, ... }: {
+{ pkgs, lib, config, ... }:
+let
+  home = config.users.users.rhoriguchi.home;
+  syncPath = config.services.resilio.syncPath;
+in {
   imports = [
     ../../rhoriguchi
     ../../displaylink.nix
@@ -50,6 +54,8 @@
     openrazer.enable = true;
   };
 
+  security.pam.enableEcryptfs = true;
+
   virtualisation.docker.enable = true;
 
   console.useXkbConfig = true;
@@ -58,14 +64,17 @@
     resilio = {
       enable = true;
 
+      user = "rhoriguchi";
+      group = "users";
+      storagePath = "${syncPath}/.resilio-sync";
+      syncPath = "${home}/Sync";
+
       webUI = {
         enable = true;
 
         username = "admin";
         password = (import ../../secrets.nix).services.resilio.webUI.password;
       };
-
-      syncPath = "/srv/Sync";
     };
 
     teamviewer.enable = true;
@@ -193,9 +202,6 @@
   };
 
   system.activationScripts.rhoriguchiSetup = let
-    home = config.users.users.rhoriguchi.home;
-    syncPath = config.services.resilio.syncPath;
-
     downloadDirs = map (path: ''"${home}/Downloads/${path}"'') [ "Browser" "Torrent" ];
 
     createSymlink = source: target: ''
@@ -208,7 +214,6 @@
     mkdir -p ${lib.concatStringsSep " " downloadDirs}
     chown -R rhoriguchi:${config.users.users.rhoriguchi.group} ${lib.concatStringsSep " " downloadDirs}
 
-    ${createSymlink "${syncPath}/Git" "${home}/Git"}
     ${createSymlink "${syncPath}/Storage/Inspiration" "${home}/Documents/Inspiration"}
     ${createSymlink "${syncPath}/Storage/Recipes" "${home}/Documents/Recipes"}
   '';

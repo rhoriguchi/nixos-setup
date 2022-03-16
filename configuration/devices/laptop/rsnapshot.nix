@@ -97,7 +97,6 @@ in {
       retain	manual	5
 
       backup	${config.users.users.rhoriguchi.home}/	./
-      backup	${config.services.resilio.syncPath}/	./
     '';
   };
 }
