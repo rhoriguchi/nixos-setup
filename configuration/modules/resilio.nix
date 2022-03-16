@@ -122,7 +122,7 @@ in {
         message = "Every secret in secrets must be unique";
       }
       {
-        assertion = lib.length (lib.filter (readWriteDir: cfg.secrets."${readWriteDir}".readWrite == null) cfg.readWriteDirs) == 0;
+        assertion = lib.length (lib.filter (readWriteDir: cfg.secrets.${readWriteDir}.readWrite == null) cfg.readWriteDirs) == 0;
         message = "All decrypted dirs need to have a readWrite secret";
       }
     ];

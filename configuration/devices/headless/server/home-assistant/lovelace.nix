@@ -23,7 +23,7 @@ let
 
   addStyleToCards = cards:
     map (card:
-      (card // lib.optionalAttrs (lib.hasAttr card.type cardStyles) { style = cardStyles."${card.type}"; }
+      (card // lib.optionalAttrs (lib.hasAttr card.type cardStyles) { style = cardStyles.${card.type}; }
         // lib.optionalAttrs (lib.hasAttr "cards" card) { cards = addStyleToCards card.cards; })) cards;
 in {
   systemd.tmpfiles.rules = [ "d /run/hass 0700 nginx nginx" ]
