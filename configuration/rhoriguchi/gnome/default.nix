@@ -42,6 +42,11 @@ in {
         tap-and-drag = false;
         click-method = "areas";
       };
+      "org/gnome/desktop/privacy" = {
+        old-files-age = 30;
+        remove-old-temp-files  = true;
+        remove-old-trash-files = true;
+      };
       "org/gnome/desktop/search-providers" = {
         disabled = [ "org.gnome.Contacts.desktop" ];
         sort-order = [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
