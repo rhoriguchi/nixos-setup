@@ -3,7 +3,7 @@
 ## Switch to unstable package channel
 
 ```console
-sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 ```
 
 ## Manual setup
