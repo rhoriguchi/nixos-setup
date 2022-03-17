@@ -44,7 +44,7 @@ in {
       };
       "org/gnome/desktop/privacy" = {
         old-files-age = 30;
-        remove-old-temp-files  = true;
+        remove-old-temp-files = true;
         remove-old-trash-files = true;
         report-technical-problems = false;
         send-software-usage-stats = false;
