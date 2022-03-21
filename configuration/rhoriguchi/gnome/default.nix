@@ -29,7 +29,7 @@ in {
         clock-show-weekday = true;
         enable-hot-corners = false;
         font-name = "Cantarell 11";
-        gtk-theme = "Yaru-light";
+        gtk-theme = "Yaru-blue";
         icon-theme = "Papirus";
         monospace-font-name = "RobotoMono Nerd Font";
         show-battery-percentage = true;
@@ -95,7 +95,7 @@ in {
       "org/gnome/desktop/wm/preferences" = {
         button-layout = ":minimize,maximize,close";
         num-workspaces = 1;
-        theme = "Yaru-light";
+        theme = "Yaru-blue";
       };
       "org/gnome/login-screen" = {
         enable-fingerprint-authentication = false;
@@ -300,7 +300,7 @@ in {
         window-buttons-placement = "auto";
         window-buttons-theme = "yaru";
       };
-      "org/gnome/shell/extensions/user-theme".name = "Yaru-light";
+      "org/gnome/shell/extensions/user-theme".name = "Yaru-blue";
       "org/gnome/shell/extensions/windowIsReady_Remover".prevent-disable = true;
       "org/gnome/shell/keybindings" = {
         focus-active-notification = [ ];
