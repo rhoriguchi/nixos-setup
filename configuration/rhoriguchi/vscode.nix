@@ -12,7 +12,6 @@ in {
     extensions = [
       pkgs.vscode-extensions.alexdima.copy-relative-path
       pkgs.vscode-extensions.bbenoist.nix
-      pkgs.vscode-extensions.brettm12345.nixfmt-vscode
       pkgs.vscode-extensions.davidanson.vscode-markdownlint
       pkgs.vscode-extensions.dotjoshjohnson.xml
       pkgs.vscode-extensions.eamodio.gitlens
@@ -41,6 +40,21 @@ in {
       pkgs.vscode-extensions.wholroyd.jinja
       pkgs.vscode-extensions.wix.vscode-import-cost
     ];
+
+    userTasks = {
+      "version" = "2.0.0";
+      "tasks" = [{
+        "type" = "shell";
+        "label" = "nixfmt";
+        "command" = ''find ''${workspaceFolder} -name "*.nix" | xargs ${pkgs.haskellPackages.nixfmt}/bin/nixfmt --width=140'';
+        "presentation" = {
+          "reveal" = "silent";
+          "panel" = "dedicated";
+        };
+        "group" = "none";
+        "problemMatcher" = [ ];
+      }];
+    };
 
     userSettings = {
       "colorize.include" = [ "*" ];
