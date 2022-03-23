@@ -46,6 +46,7 @@ in {
       "colorize.include" = [ "*" ];
       "cSpell.enableFiletypes" = [ "nix" "terraform" ];
       "cSpell.userWords" = [ "horiguchi" "rhoriguchi" ];
+      "editor.bracketPairColorization.enabled" = true;
       "editor.fontFamily" = "JetBrainsMono Nerd Font";
       "editor.guides.bracketPairs" = true;
       "editor.linkedEditing" = true;
@@ -136,12 +137,14 @@ in {
       "todo-tree.regex.regexCaseSensitive" = false;
       "todo-tree.tree.expanded" = true;
       "todo-tree.tree.showCountsInTree" = true;
+      "typescript.inlayHints.parameterNames.enabled" = true;
       "update.mode" = "none";
       "window.newWindowDimensions" = "maximized";
       "window.openFoldersInNewWindow" = "on";
       "window.restoreFullscreen" = false;
       "window.zoomLevel" = 0;
       "workbench.colorTheme" = "Visual Studio Light";
+      "workbench.editor.highlightModifiedTabs" = true;
       "workbench.editor.untitled.hint" = "hidden";
       "workbench.editorAssociations"."*.md" = "vscode.markdown.preview.editor";
       "workbench.iconTheme" = "material-icon-theme";
