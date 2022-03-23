@@ -4,14 +4,13 @@ let
   syncPath = config.services.resilio.syncPath;
 in {
   imports = [
+    (import "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz"}/lenovo/legion/15ach6")
+
     ../../rhoriguchi
     ../../displaylink.nix
 
     ./highdpi.nix
     ./keepassxc.nix
-    ./lenovo-legion-s7-15ach6.nix
-    # TODO currently broken
-    # ./nvidia.nix
     ./power-management.nix
     ./rsnapshot.nix
 
@@ -45,6 +44,9 @@ in {
   };
 
   hardware = {
+    # TODO test and remove if it works
+    nvidia.prime.offload.enable = false;
+
     bluetooth.enable = true;
 
     logitech.wireless = {
