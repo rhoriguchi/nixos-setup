@@ -109,18 +109,16 @@ let
     ]]
   '';
 
-  script = pkgs.writeShellScript "conky.sh" ''
-    export PATH=${lib.makeBinPath [ pkgs.conky pkgs.coreutils pkgs.gnused ]}
-
-    sleep 5
-
-    conky --daemonize -c ${configFile}
-  '';
-
   desktopItem = pkgs.makeDesktopItem rec {
     name = "Conky";
     desktopName = name;
-    exec = "${script}";
+    exec = pkgs.writeShellScript "conky.sh" ''
+      export PATH=${lib.makeBinPath [ pkgs.conky pkgs.coreutils pkgs.gnused ]}
+
+      sleep 5
+
+      conky --daemonize -c ${configFile}
+    '';
     noDisplay = true;
     terminal = false;
   };

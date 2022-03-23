@@ -14,9 +14,9 @@ let
   getService = paths: startAt: {
     after = [ "network.target" ];
     description = "audio-converter";
+    script = let commands = map (path: ''${audio-converter}/bin/audio-converter "${path}" eac3 ac3'') paths;
+    in lib.concatStringsSep "\n" commands;
     serviceConfig = {
-      ExecStart = let commands = map (path: ''${audio-converter}/bin/audio-converter "${path}" eac3 ac3'') paths;
-      in pkgs.writeShellScript "audo-converter" (lib.concatStringsSep "\n" commands);
       Restart = "on-abort";
       User = "plex";
       Group = "plex";

@@ -35,12 +35,12 @@ in {
     systemd.services.duckdns = {
       after = [ "network.target" ];
       description = "Duck DNS";
+      script = let
+        commands =
+          map (subdomain: ''${pkgs.curl}/bin/curl -s "https://www.duckdns.org/update?domains=${subdomain}&token=${cfg.token}&ip="'')
+          cfg.subdomains;
+      in lib.concatStringsSep "\n" commands;
       serviceConfig = {
-        ExecStart = let
-          commands =
-            map (subdomain: ''${pkgs.curl}/bin/curl -s "https://www.duckdns.org/update?domains=${subdomain}&token=${cfg.token}&ip="'')
-            cfg.subdomains;
-        in pkgs.writeShellScript "duckdns" (lib.concatStringsSep "\n" commands);
         Restart = "on-abort";
         User = "duckdns";
       };
