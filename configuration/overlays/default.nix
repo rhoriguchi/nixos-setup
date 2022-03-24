@@ -31,13 +31,13 @@
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
 
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=165173
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=165687
       plexRaw = super.python3Packages.callPackage (import "${
           super.fetchFromGitHub {
             owner = "rhoriguchi";
             repo = "nixpkgs";
-            rev = "d11083e401e9ffe792616b4a4cee076b706db6c8";
-            sha256 = "sha256-IoN3VlnnIhDBrZ6Bqs8aLw/AKS6Cp9wr+Zc5/UCSuXk=";
+            rev = "8112abd5f80e1179d5920c7b39a93c0c1d03d414";
+            sha256 = "sha256-ZAEKLR0CQtZED0bcJUTPziXFGshja32LS7hb7AmEbXc=";
           }
         }/pkgs/servers/plex/raw.nix") { };
     })
