@@ -317,6 +317,16 @@ in {
         toggle-message-tray = [ ];
         toggle-overview = [ "<SUPER>" ];
       };
+      "org/gnome/TextEditor" = {
+        custom-font = "JetBrainsMono Nerd Font";
+        highlight-current-line = true;
+        show-line-numbers = true;
+        show-map = true;
+        spellcheck = false;
+        style-scheme = "tango";
+        tab-width = 4;
+        use-system-font = false;
+      };
       "org/gtk/settings/file-chooser".show-hidden = true;
     };
   };
