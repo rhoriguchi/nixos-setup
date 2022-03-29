@@ -30,5 +30,15 @@
       solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=166268
+      resilio-sync = super.python3Packages.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "rhoriguchi";
+            repo = "nixpkgs";
+            rev = "b98ecf51da6e9b96ee7bc8ea25a2337933379ee5";
+            sha256 = "sha256-UixZO2Q/do++f7tBfz3t5DXxqQzA0zWcsruHpRIpMnA=";
+          }
+        }/pkgs/applications/networking/resilio-sync/default.nix") { };
     })
 ]
