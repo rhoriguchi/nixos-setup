@@ -44,14 +44,6 @@ in {
 
   options.services.resilio = {
     enable = lib.mkEnableOption "Resilio Sync";
-    user = lib.mkOption {
-      type = lib.types.str;
-      default = "rslsync";
-    };
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = "rslsync";
-    };
     deviceName = lib.mkOption {
       type = lib.types.str;
       default = if config.networking.hostName != "" then config.networking.hostName else "";
@@ -133,65 +125,79 @@ in {
         assertion = lib.length (lib.filter (readWriteDir: cfg.secrets.${readWriteDir}.readWrite == null) cfg.readWriteDirs) == 0;
         message = "All decrypted dirs need to have a readWrite secret";
       }
-      {
-        assertion = cfg.user != "";
-        message = "User cannot be empty";
-      }
-      {
-        assertion = cfg.user != "rslsync" -> config.users.users.${cfg.user} != { };
-        message = "If user is not 'rslsync' it needs to exist";
-      }
-      {
-        assertion = cfg.group != "";
-        message = "Group cannot be empty";
-      }
-      {
-        assertion = cfg.group != "rslsync" -> config.users.groups.${cfg.group} != { };
-        message = "If group is not 'rslsync' it needs to exist";
-      }
     ];
 
-    users = {
-      users.rslsync = lib.mkIf (cfg.user == "rslsync") {
+    users = lib.mkIf (!cfg.webUI.enable) {
+      users.rslsync = {
         isSystemUser = true;
-        group = cfg.group;
+        group = "rslsync";
         uid = config.ids.uids.rslsync;
         createHome = true;
         home = cfg.storagePath;
       };
 
-      groups.rslsync = lib.mkIf (cfg.group == "rslsync") { gid = config.ids.gids.rslsync; };
+      groups.rslsync.gid = config.ids.gids.rslsync;
     };
 
-    system.activationScripts.resilio = ''
-      mkdir -pm 0775 "${cfg.syncPath}"
-      chown ${cfg.user}:${cfg.group} "${cfg.syncPath}"
-    '' + lib.optionalString (cfg.user != "rslsync") ''
+    system.activationScripts.resilio = lib.mkIf (!cfg.webUI.enable) ''
       mkdir -pm 0775 "${cfg.storagePath}"
-      chown ${cfg.user}:${cfg.group} "${cfg.storagePath}"
-    '' + lib.optionalString (!cfg.webUI.enable) ''
+      chown rslsync:rslsync "${cfg.storagePath}"
+
+      mkdir -pm 0775 "${cfg.syncPath}"
+      chown rslsync:rslsync "${cfg.syncPath}"
+
       find ${cfg.syncPath} -mindepth 1 -maxdepth 1 -type d ${
         lib.concatStringsSep " -and "
         (map (sharedFolder: ''-not -name "${lib.replaceStrings [ "${cfg.syncPath}/" ] [ "" ] sharedFolder.dir}"'') sharedFolders)
       } | xargs rm -rf
     '';
 
-    systemd.services.resilio = {
-      after = [ "network.target" ];
-      description = "Resilio Sync";
-      serviceConfig = {
-        ExecStartPre = lib.mkIf (!cfg.webUI.enable)
-          "${pkgs.coreutils}/bin/mkdir -pm 0775 ${lib.concatStringsSep " " (map (sharedFolder: ''"${sharedFolder.dir}"'') sharedFolders)}";
-        ExecStart = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
-        StandardOutput = "null";
-        StandardError = "null";
-        Restart = "on-abort";
-        UMask = "0002";
-        User = cfg.user;
-        Group = cfg.group;
+    systemd = let ExecStart = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
+    in if cfg.webUI.enable then {
+      # TODO this will cause issues if there are more than one user
+      user.services.resilio = {
+        description = "Resilio Sync";
+
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+
+        serviceConfig = {
+          inherit ExecStart;
+
+          ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.syncPath}" "${cfg.storagePath}"'';
+
+          StandardOutput = "null";
+          StandardError = "null";
+          Restart = "on-abort";
+        };
+
+        unitConfig.ConditionPathExists = [ cfg.syncPath ];
       };
-      unitConfig.ConditionPathExists = [ cfg.syncPath ];
-      wantedBy = [ "multi-user.target" ];
+    } else {
+      services.resilio = lib.mkIf (!cfg.webUI.enable) {
+        description = "Resilio Sync";
+
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+
+        serviceConfig = {
+          inherit ExecStart;
+
+          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -pm 0775 ${
+              lib.concatStringsSep " " (map (sharedFolder: ''"${sharedFolder.dir}"'') sharedFolders)
+            }";
+
+          StandardOutput = "null";
+          StandardError = "null";
+          Restart = "on-abort";
+
+          UMask = "0002";
+          User = "rslsync";
+          Group = "rslsync";
+        };
+
+        unitConfig.ConditionPathExists = [ cfg.syncPath ];
+      };
     };
 
     networking.firewall.allowedTCPPorts = lib.mkIf (!cfg.webUI.enable) [ cfg.listeningPort ];

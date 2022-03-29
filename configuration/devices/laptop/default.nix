@@ -67,9 +67,7 @@ in {
     resilio = {
       enable = true;
 
-      user = "rhoriguchi";
-      group = "users";
-      storagePath = "${syncPath}/.resilio-sync";
+      storagePath = "${home}/.resilio-sync";
       syncPath = "${home}/Sync";
 
       webUI = {
