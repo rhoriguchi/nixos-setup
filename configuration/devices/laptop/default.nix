@@ -8,6 +8,7 @@ in {
 
     ../../rhoriguchi
     ../../displaylink.nix
+    ../../printing.nix
 
     ./highdpi.nix
     ./keepassxc.nix
