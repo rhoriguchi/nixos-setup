@@ -45,9 +45,6 @@ in {
   };
 
   hardware = {
-    # TODO test and remove if it works
-    nvidia.prime.offload.enable = false;
-
     bluetooth.enable = true;
 
     logitech.wireless = {
