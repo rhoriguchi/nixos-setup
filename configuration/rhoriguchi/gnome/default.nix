@@ -321,6 +321,7 @@ in {
       "org/gnome/TextEditor" = {
         custom-font = "JetBrainsMono Nerd Font";
         highlight-current-line = true;
+        indent-style = "space";
         show-line-numbers = true;
         show-map = true;
         spellcheck = false;
