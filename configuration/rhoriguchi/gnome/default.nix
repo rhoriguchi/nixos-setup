@@ -7,8 +7,7 @@ let
     pkgs.gnomeExtensions.caffeine
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.date-menu-formatter
-    # TODO rename to "gnomeExtensions" when merged https://nixpk.gs/pr-tracker.html?pr=166089
-    pkgs.gnome40Extensions."dynamic-panel-transparency@rockon999.github.io"
+    pkgs.gnomeExtensions.dynamic-panel-transparency
     pkgs.gnomeExtensions.unite
     pkgs.gnomeExtensions.volume-mixer
     pkgs.gnomeExtensions.window-is-ready-remover
