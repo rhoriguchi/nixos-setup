@@ -17,11 +17,6 @@ let
       vendorId = "1532";
       productId = "0528";
     };
-    # TODO remove?
-    "Razer BlackWidow Ultimate 2013" = {
-      vendorId = "1532";
-      productId = "011a";
-    };
     "Razer Ouroboros 2012" = {
       vendorId = "1532";
       productId = "0032";
