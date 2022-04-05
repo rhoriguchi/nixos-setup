@@ -304,6 +304,9 @@ in {
       "org/gnome/shell/extensions/windowIsReady_Remover".prevent-disable = true;
       "org/gnome/shell/keybindings" = {
         focus-active-notification = [ ];
+        screenshot = [ ];
+        screenshot-window = [ ];
+        show-screenshot-ui = [ ];
         switch-to-application-1 = [ ];
         switch-to-application-2 = [ ];
         switch-to-application-3 = [ ];
