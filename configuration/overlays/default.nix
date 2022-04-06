@@ -40,5 +40,15 @@
             sha256 = "sha256-UixZO2Q/do++f7tBfz3t5DXxqQzA0zWcsruHpRIpMnA=";
           }
         }/pkgs/applications/networking/resilio-sync/default.nix") { };
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=167602
+      plexRaw = super.python3Packages.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "rhoriguchi";
+            repo = "nixpkgs";
+            rev = "d7a6ec66b092131ccda42d236f1eb052954f39a1";
+            sha256 = "sha256-ztaUzws50haIjwHER8358XS2Xa0mnutWhdcPXduz+7M=";
+          }
+        }/pkgs/servers/plex/raw.nix") { };
     })
 ]
