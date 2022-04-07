@@ -39,7 +39,19 @@
             rev = "b98ecf51da6e9b96ee7bc8ea25a2337933379ee5";
             sha256 = "sha256-UixZO2Q/do++f7tBfz3t5DXxqQzA0zWcsruHpRIpMnA=";
           }
-        }/pkgs/applications/networking/resilio-sync/default.nix") { };
+        }/pkgs/applications/networking/resilio-sync") { };
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=166335
+      python3Packages = super.python3Packages // {
+        pycurl = super.python3Packages.callPackage (import "${
+            super.fetchFromGitHub {
+              owner = "NixOS";
+              repo = "nixpkgs";
+              rev = "c270defab79e46b4c98039b09ab6209d1a69ffb3";
+              sha256 = "sha256-9MNVbCiD6JbLnWZWNekscqW0j2enhAOu5kdBMXOuLl4=";
+            }
+          }/pkgs/development/python-modules/pycurl") { };
+      };
 
       # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=167602
       plexRaw = super.python3Packages.callPackage (import "${
@@ -50,5 +62,15 @@
             sha256 = "sha256-ztaUzws50haIjwHER8358XS2Xa0mnutWhdcPXduz+7M=";
           }
         }/pkgs/servers/plex/raw.nix") { };
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=167693
+        yaru-theme = super.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "704a56341ca7e2ddddb8546a3e1bfe3e4ebcedc4";
+            sha256 = "sha256-PPc3o2IAUvYlbDHaSjeUDkUgsRHQqtIkwtzNF7u17Xw=";
+          }
+        }/pkgs/data/themes/yaru") { };
     })
 ]
