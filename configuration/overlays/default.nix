@@ -64,7 +64,7 @@
         }/pkgs/servers/plex/raw.nix") { };
 
       # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=167693
-        yaru-theme = super.callPackage (import "${
+      yaru-theme = super.callPackage (import "${
           super.fetchFromGitHub {
             owner = "NixOS";
             repo = "nixpkgs";
