@@ -5,10 +5,6 @@ let
       vendorId = "0d8c";
       productId = "002b";
     };
-    "HP Keyboard" = {
-      vendorId = "0461";
-      productId = "4d8a";
-    };
     "Logitech HD Webcam C510" = {
       vendorId = "046d";
       productId = "081d";
@@ -24,6 +20,10 @@ let
     "Samsung Duo Plus - 64 GB" = {
       vendorId = "090c";
       productId = "1000";
+    };
+    "WASD V3 105-Key ISO" = {
+      vendorId = "0c45";
+      productId = "7692";
     };
   };
 
