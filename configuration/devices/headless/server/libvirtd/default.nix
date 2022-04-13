@@ -285,13 +285,10 @@ let
               <model type='virtio' heads='1'/>
             </video>
 
-            ${
-              "" # TODO marks disk as SSD https://serverfault.com/a/924717
-            }
             <disk type='volume' device='disk'>
               <driver name='qemu' type='qcow2' discard='unmap'/>
               <source pool='default' volume='windows'/>
-              <target dev='vda' bus='virtio'/>
+              <target dev='vda' bus='sata' rotation_rate='1'/>
               <boot order='10'/>
             </disk>
 
