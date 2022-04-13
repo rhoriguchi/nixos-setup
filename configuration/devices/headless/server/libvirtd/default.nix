@@ -218,16 +218,23 @@ let
           <features>
             <acpi/>
             <apic/>
+            <pae/>
+            <smm state='on'/>
+
+            <kvm>
+              <hidden state='on'/>
+            </kvm>
+
             <hyperv>
               <relaxed state='on'/>
               <vapic state='on'/>
               <spinlocks state='on' retries='8191'/>
+
+              ${
+                "" # https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Video_card_driver_virtualisation_detection
+              }
+              <vendor_id state='on' value='randomid'/>
             </hyperv>
-            <kvm>
-              <hidden state='on'/>
-            </kvm>
-            <pae/>
-            <smm state='on'/>
           </features>
 
           <pm>
@@ -267,12 +274,9 @@ let
               </backend>
             </tpm>
 
-            <controller type='pci' model='pcie-root'/>
             ${
-              let controllers = map (_: "<controller type='pci' model='pcie-root-port'/>") (lib.range 0 9);
-              in lib.concatStringsSep "\n" controllers
+              "" # TODO use looking glass https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Using_Looking_Glass_to_stream_guest_screen_to_the_host
             }
-
             <graphics type='spice' autoport='yes' keymap='de-ch'>
               <listen type='address' address='127.0.0.1'/>
             </graphics>
@@ -318,6 +322,29 @@ let
             <!-- Physical hardware -->
 
             ${
+              ""
+
+              # <!-- Sapphire Radeon HD 6870 -->
+              # <hostdev mode='subsystem' type='pci' managed='yes'>
+              #   <source>
+              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='0x0'/>
+              #   </source>
+
+              #   ${
+              #     "" # https://www.techpowerup.com/vgabios
+              #   }
+              #   <rom file='${./Sapphire.HD6870.1024.101004.rom}'/>
+              # </hostdev>
+
+              # <!-- Sapphire Radeon HD 6870 Audio -->
+              # <hostdev mode='subsystem' type='pci' managed='yes'>
+              #   <source>
+              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='0x1'/>
+              #   </source>
+              # </hostdev>
+            }
+
+            ${
               let usbHostdevs = lib.attrValues (lib.mapAttrs (key: value: getUsbHostdev key value.vendorId value.productId) usbDevices);
               in lib.concatStringsSep "\n" usbHostdevs
             }
@@ -360,9 +387,6 @@ in {
     # GPU > nix-shell -p pciutils --run "lspci -nnk | grep 'NVIDIA\|Radeon'"
     kernelParams = [
       "vfio-pci.disable_vga=1"
-
-      # ZOTAC GTX 680 AMP!
-      "vfio-pci.ids=10de:1180,10de:0e0a"
 
       # Sapphire Radeon HD 6870
       "vfio-pci.ids=1002:6738,1002:aa88"
