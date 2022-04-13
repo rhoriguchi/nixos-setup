@@ -52,15 +52,5 @@
             }
           }/pkgs/development/python-modules/pycurl") { };
       };
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=167693
-      yaru-theme = super.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "NixOS";
-            repo = "nixpkgs";
-            rev = "704a56341ca7e2ddddb8546a3e1bfe3e4ebcedc4";
-            sha256 = "sha256-PPc3o2IAUvYlbDHaSjeUDkUgsRHQqtIkwtzNF7u17Xw=";
-          }
-        }/pkgs/data/themes/yaru") { };
     })
 ]
