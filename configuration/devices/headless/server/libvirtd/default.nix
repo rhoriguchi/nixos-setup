@@ -66,6 +66,8 @@ let
 
           <forward mode='nat'/>
 
+          <mac address="52:54:00:2d:33:8f"/>
+
           <ip address='172.16.1.1' netmask='255.255.255.0'>
             <dhcp>
               <range start='172.16.1.2' end='172.16.1.254'/>
