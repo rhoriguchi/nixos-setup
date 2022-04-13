@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 let cfg = config.services.tautulli;
 in {
-  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=152159
+  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=168465
 
   options.services.tautulli.openFirewall = lib.mkOption {
     type = lib.types.bool;
