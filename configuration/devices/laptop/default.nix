@@ -26,9 +26,7 @@ in {
   networking = {
     hostName = "Ryan-Laptop";
 
-    interfaces = {
-      wlp2s0.useDHCP = true; # WiFi
-    };
+    interfaces.wlp2s0.useDHCP = true; # WiFi
 
     networkmanager.unmanaged = [ "wlp2s0" ];
 
