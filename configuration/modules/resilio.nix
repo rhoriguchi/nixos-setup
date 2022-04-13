@@ -158,6 +158,9 @@ in {
       user.services.resilio = {
         description = "Resilio Sync";
 
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+
         serviceConfig = {
           inherit ExecStart;
 
