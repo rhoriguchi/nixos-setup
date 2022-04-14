@@ -36,8 +36,8 @@
           super.fetchFromGitHub {
             owner = "rhoriguchi";
             repo = "nixpkgs";
-            rev = "b98ecf51da6e9b96ee7bc8ea25a2337933379ee5";
-            sha256 = "sha256-UixZO2Q/do++f7tBfz3t5DXxqQzA0zWcsruHpRIpMnA=";
+            rev = "d5bc2dd1ee8f10b5987375ed0b048d32a4ce22da";
+            sha256 = "sha256-XvgetwbyxNx2X+vPhPzugXkD9IgfUljpGuX6fHcGnak=";
           }
         }/pkgs/applications/networking/resilio-sync") { };
 
