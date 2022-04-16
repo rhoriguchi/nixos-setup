@@ -8,6 +8,7 @@
 
     tlp = {
       enable = true;
+
       settings = {
         USB_BLACKLIST_BTUSB = "1";
         USB_BLACKLIST_PHONE = "0";
