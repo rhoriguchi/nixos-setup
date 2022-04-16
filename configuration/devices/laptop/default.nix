@@ -8,7 +8,7 @@ in {
 
     ../../configs/displaylink.nix
     ../../configs/gnome.nix
-    ../../configs/highdpi.nix
+    ../../configs/hidpi.nix
     ../../configs/printing.nix
 
     ../../rhoriguchi
