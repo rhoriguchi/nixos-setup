@@ -1,7 +1,7 @@
 [
   (self: super: {
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=166335
     python3Packages = super.python3Packages // {
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=166335
       pycurl = super.python3Packages.callPackage (import "${
           super.fetchFromGitHub {
             owner = "NixOS";
