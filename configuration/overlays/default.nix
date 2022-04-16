@@ -31,16 +31,6 @@
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
 
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=166268
-      resilio-sync = super.python3Packages.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "rhoriguchi";
-            repo = "nixpkgs";
-            rev = "d5bc2dd1ee8f10b5987375ed0b048d32a4ce22da";
-            sha256 = "sha256-XvgetwbyxNx2X+vPhPzugXkD9IgfUljpGuX6fHcGnak=";
-          }
-        }/pkgs/applications/networking/resilio-sync") { };
-
       # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=166335
       python3Packages = super.python3Packages // {
         pycurl = super.python3Packages.callPackage (import "${
