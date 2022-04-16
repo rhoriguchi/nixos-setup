@@ -38,8 +38,6 @@ in {
     wifi.macAddress = "permanent";
   };
 
-  console.keyMap = "de_CH-latin1";
-
   programs.zsh.shellInit = ''
     if (( EUID != 0 )) && [[ $- == *i* ]]; then
       ${pkgs.fancy-motd}/bin/motd ${fancyMotdConfig}

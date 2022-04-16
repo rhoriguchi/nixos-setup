@@ -59,8 +59,6 @@ in {
 
   virtualisation.docker.enable = true;
 
-  console.useXkbConfig = true;
-
   services = {
     resilio = {
       enable = true;
@@ -78,13 +76,7 @@ in {
 
     teamviewer.enable = true;
 
-    xserver = {
-      layout = "ch";
-      xkbModel = "pc105";
-      xkbVariant = "de_nodeadkeys";
-
-      libinput.enable = true;
-    };
+    xserver.libinput.enable = true;
 
     onedrive.enable = true;
   };

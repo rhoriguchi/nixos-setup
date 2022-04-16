@@ -3,6 +3,7 @@
     ./modules
 
     ./configs/i18n.nix
+    ./configs/keyboard.nix
   ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_17;
