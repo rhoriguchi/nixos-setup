@@ -8,11 +8,11 @@ in {
 
     ../../configs/displaylink.nix
     ../../configs/gnome.nix
+    ../../configs/highdpi.nix
     ../../configs/printing.nix
 
     ../../rhoriguchi
 
-    ./highdpi.nix
     ./keepassxc.nix
     ./power-management.nix
     ./rsnapshot.nix
