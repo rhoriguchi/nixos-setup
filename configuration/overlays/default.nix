@@ -22,6 +22,16 @@
         }
       }/pkgs/servers/tautulli") { };
 
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=168652
+    gitkraken = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "rhoriguchi";
+          repo = "nixpkgs";
+          rev = "e32344a937f53333ae95e7e117675dd552c29037";
+          sha256 = "sha256-dwov5mqsuUQ5P5vm7LzhPYTemUibRPpiA8OB09vyGHo=";
+        }
+      }/pkgs/applications/version-management/gitkraken/default.nix") { };
+
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=168911
     glances = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
