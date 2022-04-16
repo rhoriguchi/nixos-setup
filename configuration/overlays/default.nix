@@ -1,5 +1,28 @@
 [
   (self: super: {
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=166335
+    python3Packages = super.python3Packages // {
+      pycurl = super.python3Packages.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "c270defab79e46b4c98039b09ab6209d1a69ffb3";
+            sha256 = "sha256-9MNVbCiD6JbLnWZWNekscqW0j2enhAOu5kdBMXOuLl4=";
+          }
+        }/pkgs/development/python-modules/pycurl") { };
+    };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=168465
+    tautulli = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "rhoriguchi";
+          repo = "nixpkgs";
+          rev = "32e297d50e684bf5a70a9ee86c8110961c42320c";
+          sha256 = "sha256-LB35TkiuDa4EI1e3dY28huU0WJVTLOJfIUWjIAHIPMI=";
+        }
+      }/pkgs/servers/tautulli") { };
+  })
+  (self: super: {
     mach-nix = import (super.fetchFromGitHub {
       owner = "DavHau";
       repo = "mach-nix";
@@ -30,27 +53,5 @@
       solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
 
       tv_time_export = super.callPackage ./tv_time_export.nix { };
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=166335
-      python3Packages = super.python3Packages // {
-        pycurl = super.python3Packages.callPackage (import "${
-            super.fetchFromGitHub {
-              owner = "NixOS";
-              repo = "nixpkgs";
-              rev = "c270defab79e46b4c98039b09ab6209d1a69ffb3";
-              sha256 = "sha256-9MNVbCiD6JbLnWZWNekscqW0j2enhAOu5kdBMXOuLl4=";
-            }
-          }/pkgs/development/python-modules/pycurl") { };
-      };
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=168465
-      tautulli = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "rhoriguchi";
-          repo = "nixpkgs";
-          rev = "32e297d50e684bf5a70a9ee86c8110961c42320c";
-          sha256 = "sha256-LB35TkiuDa4EI1e3dY28huU0WJVTLOJfIUWjIAHIPMI=";
-        }
-      }/pkgs/servers/tautulli") { };
     })
 ]
