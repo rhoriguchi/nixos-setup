@@ -9,12 +9,12 @@ in {
     ../../configs/displaylink.nix
     ../../configs/gnome.nix
     ../../configs/hidpi.nix
+    ../../configs/power-management.nix
     ../../configs/printing.nix
 
     ../../rhoriguchi
 
     ./keepassxc.nix
-    ./power-management.nix
     ./rsnapshot.nix
 
     ./hardware-configuration.nix
