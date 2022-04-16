@@ -12,8 +12,6 @@
 
   system.stateVersion = "22.05";
 
-  hardware.enableRedistributableFirmware = true;
-
   networking.useDHCP = false;
 
   time.timeZone = "Europe/Zurich";

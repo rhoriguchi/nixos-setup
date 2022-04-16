@@ -7,12 +7,14 @@
     settings.auto-optimise-store = true;
   };
 
-  documentation.doc.enable = false;
-
   nixpkgs = {
     config.allowUnfree = true;
     overlays = import ../overlays;
   };
+
+  documentation.doc.enable = false;
+
+  hardware.enableRedistributableFirmware = true;
 
   environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
 }
