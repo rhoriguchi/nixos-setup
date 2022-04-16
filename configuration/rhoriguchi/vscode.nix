@@ -77,6 +77,7 @@ in {
       "editor.linkedEditing" = true;
       "editor.renderWhitespace" = "trailing";
       "editor.suggestSelection" = "first";
+      "editor.tokenColorCustomizations".comments = "#767676";
       "editor.unicodeHighlight.includeComments" = true;
       "editor.wordBasedSuggestionsMode" = "allDocuments";
       "explorer.compactFolders" = false;
