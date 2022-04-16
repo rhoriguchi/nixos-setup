@@ -7,8 +7,9 @@ in {
     (import "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz"}/lenovo/legion/15ach6")
 
     ../../rhoriguchi
-    ../../displaylink.nix
-    ../../printing.nix
+
+    ../../configs/displaylink.nix
+    ../../configs/printing.nix
 
     ./highdpi.nix
     ./keepassxc.nix
