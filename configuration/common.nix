@@ -10,8 +10,6 @@
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_17;
 
-  system.stateVersion = "22.05";
-
   networking.useDHCP = false;
 
   time.timeZone = "Europe/Zurich";
