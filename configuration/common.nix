@@ -4,6 +4,7 @@
 
     ./configs/i18n.nix
     ./configs/keyboard.nix
+    ./configs/nano.nix
   ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_17;
@@ -38,22 +39,7 @@
     passwordAuthentication = false;
   };
 
-  programs = {
-    nano = {
-      nanorc = ''
-        set constantshow
-        set linenumbers
-        set softwrap
-        set tabsize 4
-        set tabstospaces
-        unset nonewlines
-      '';
-
-      syntaxHighlight = true;
-    };
-
-    zsh.enable = true;
-  };
+  programs.zsh.enable = true;
 
   users = {
     defaultUserShell = pkgs.zsh;
@@ -66,10 +52,7 @@
   };
 
   environment = {
-    variables = {
-      EDITOR = "nano";
-      NIXPKGS_ALLOW_UNFREE = "1";
-    };
+    variables.NIXPKGS_ALLOW_UNFREE = "1";
 
     shellAliases = {
       l = null;
