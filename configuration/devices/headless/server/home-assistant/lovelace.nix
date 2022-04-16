@@ -234,12 +234,6 @@ in {
                   name = "myStrom button white";
                   entity = "sensor.mystrom_button_white_battery";
                 }
-                { type = "divider"; }
-                {
-                  type = "custom:battery-entity";
-                  name = "Withings Body+";
-                  entity = "sensor.withings_body_battery";
-                }
               ];
             }
           ];
