@@ -6,6 +6,7 @@
     ./configs/keyboard.nix
     ./configs/nano.nix
     ./configs/nix.nix
+    ./configs/peerix.nix
   ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_17;
