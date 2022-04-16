@@ -26,9 +26,14 @@ let
 in glances.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
 
-  propagatedBuildInputs = oldAttrs.propagatedBuildInputs
-    ++ [ py3nvml python3Packages.docker python3Packages.pysmart-smartx python3Packages.requests python3Packages.sparklines ]
-    ++ lib.optional stdenv.isLinux python3Packages.pymdstat;
+  propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
+    py3nvml
+    python3Packages.docker
+    python3Packages.pysmart-smartx
+    python3Packages.python-dateutil
+    python3Packages.requests
+    python3Packages.sparklines
+  ] ++ lib.optional stdenv.isLinux python3Packages.pymdstat;
 
   postInstall = (oldAttrs.postInstall or "") + ''
     wrapProgram $out/bin/glances \
