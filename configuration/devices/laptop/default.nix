@@ -86,6 +86,7 @@ in {
 
       displayManager.gdm = {
         enable = true;
+       # TODO remove once nvidia works with wayland
         wayland = false;
       };
 
