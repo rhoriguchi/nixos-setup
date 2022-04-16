@@ -52,5 +52,15 @@
             }
           }/pkgs/development/python-modules/pycurl") { };
       };
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=168465
+      tautulli = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "rhoriguchi";
+          repo = "nixpkgs";
+          rev = "32e297d50e684bf5a70a9ee86c8110961c42320c";
+          sha256 = "sha256-LB35TkiuDa4EI1e3dY28huU0WJVTLOJfIUWjIAHIPMI=";
+        }
+      }/pkgs/servers/tautulli") { };
     })
 ]
