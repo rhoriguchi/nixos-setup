@@ -60,6 +60,9 @@ in {
   virtualisation.docker.enable = true;
 
   services = {
+    # TODO remove once nvidia works with wayland
+    xserver.displayManager.gdm.wayland = false;
+
     resilio = {
       enable = true;
 

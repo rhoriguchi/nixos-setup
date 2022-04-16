@@ -3,11 +3,7 @@
     xserver = {
       enable = true;
 
-      displayManager.gdm = {
-        enable = true;
-        # TODO remove once nvidia works with wayland
-        wayland = false;
-      };
+      displayManager.gdm.enable = true;
 
       desktopManager.gnome.enable = true;
     };
