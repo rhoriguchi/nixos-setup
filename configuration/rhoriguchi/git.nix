@@ -10,8 +10,8 @@ in {
     extraConfig = {
       alias = {
         changes = "diff --stat";
-        history = ''
-          log --date=relative --pretty="%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%>(14)%ad %C(auto)%d %C(reset)%s"'';
+        history =
+          ''log --date=relative --pretty="%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%>(14)%ad %C(auto)%d %C(reset)%s"'';
       };
 
       init.defaultBranch = "master";
