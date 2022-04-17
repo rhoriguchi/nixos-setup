@@ -14,7 +14,10 @@
     overlays = import ../overlays;
   };
 
-  documentation.doc.enable = false;
+  documentation = {
+    doc.enable = false;
+    nixos.enable = false;
+  };
 
   hardware.enableRedistributableFirmware = true;
 

@@ -28,8 +28,6 @@ in {
     options = "--delete-older-than 7d";
   };
 
-  documentation.nixos.enable = false;
-
   security.acme.defaults.email = "ryan.horiguchi@gmail.com";
 
   networking.networkmanager = {
