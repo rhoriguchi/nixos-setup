@@ -14,7 +14,9 @@
     wifi.macAddress = "permanent";
   };
 
-  environment.systemPackages = [ pkgs.glances pkgs.htop ];
+  programs.htop.enable = true;
+
+  environment.systemPackages = [ pkgs.glances ];
 
   users.users.xxlpitu = {
     extraGroups = [ "wheel" ] ++ (lib.optional config.virtualisation.docker.enable "docker")

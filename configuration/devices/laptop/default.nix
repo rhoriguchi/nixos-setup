@@ -90,6 +90,8 @@ in {
       enableSSHSupport = true;
     };
 
+    htop.enable = true;
+
     java.enable = true;
 
     npm.enable = true;
@@ -117,7 +119,6 @@ in {
       pkgs.glances
       pkgs.google-chrome
       pkgs.haskellPackages.nixfmt
-      pkgs.htop
       pkgs.inkscape
       pkgs.jetbrains.datagrip
       pkgs.jetbrains.idea-ultimate
