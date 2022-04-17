@@ -56,7 +56,7 @@ let
 
   libvirtd-network = (baseService // {
     script = let
-      config = pkgs.writeText "libvirtd-network.xml" ''
+      xmlConfig = pkgs.writeText "libvirtd-network.xml" ''
         <network>
           <name>default</name>
 
@@ -85,7 +85,7 @@ let
       ${setPath}
 
       uuid="$(virsh net-uuid 'default' || true)"
-      virsh net-define <(sed "s/UUID/$uuid/" ${config})
+      virsh net-define <(sed "s/UUID/$uuid/" ${xmlConfig})
 
       virsh net-destroy "default" || true
       virsh net-start "default"
@@ -102,7 +102,7 @@ let
 
   libvirtd-pool = (baseService // {
     script = let
-      config = pkgs.writeText "libvirtd-pool.xml" ''
+      xmlConfig = pkgs.writeText "libvirtd-pool.xml" ''
         <pool type='dir'>
           <name>default</name>
 
@@ -117,7 +117,7 @@ let
       ${setPath}
 
       uuid="$(virsh pool-uuid 'default' || true)"
-      virsh pool-define <(sed "s/UUID/$uuid/" ${config})
+      virsh pool-define <(sed "s/UUID/$uuid/" ${xmlConfig})
 
       virsh pool-destroy "default" || true
       virsh pool-start "default"
@@ -137,7 +137,7 @@ let
     requires = after;
 
     script = let
-      config = pkgs.writeText "libvirtd-volume-windows.xml" ''
+      xmlConfig = pkgs.writeText "libvirtd-volume-windows.xml" ''
         <volume type='file'>
           <name>windows</name>
 
@@ -155,7 +155,7 @@ let
       ${setPath}
 
       volumeKey="$(virsh vol-key --pool default 'windows' || true)"
-      virsh vol-create --pool default <(sed "s=KEY=$volumeKey=" ${config}) || true
+      virsh vol-create --pool default <(sed "s=KEY=$volumeKey=" ${xmlConfig}) || true
     '';
   });
 
@@ -164,7 +164,7 @@ let
     requires = after;
 
     script = let
-      config = pkgs.writeText "libvirtd-guest-windows.xml" ''
+      xmlConfig = pkgs.writeText "libvirtd-guest-windows.xml" ''
         <domain type='kvm'>
           <name>windows</name>
 
@@ -348,7 +348,7 @@ let
       ${setPath}
 
       uuid="$(virsh domuuid 'windows' || true)"
-      virsh define <(sed "s/UUID/$uuid/" ${config})
+      virsh define <(sed "s/UUID/$uuid/" ${xmlConfig})
 
       virsh destroy "windows" || true
       virsh start "windows"
