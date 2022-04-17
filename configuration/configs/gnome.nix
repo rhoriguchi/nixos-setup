@@ -38,7 +38,6 @@
       pkgs.gnome.gnome-maps
       pkgs.gnome.gnome-music
       pkgs.gnome.gnome-screenshot
-      pkgs.gnome.gnome-terminal
       pkgs.gnome.gnome-weather
       pkgs.gnome.simple-scan
       pkgs.gnome.totem
