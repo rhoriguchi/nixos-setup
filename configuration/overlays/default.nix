@@ -56,8 +56,6 @@
 
       hs = super.callPackage ./hs { };
 
-      htop = super.callPackage ./htop.nix { inherit (super) htop; };
-
       plexPlugins = super.callPackage ./plex-plugins { };
 
       solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
