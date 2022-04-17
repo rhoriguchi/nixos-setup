@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   usbDevices = {
     "Antlion Audio USB Sound Card" = {
@@ -209,15 +209,10 @@ let
 
           <memory unit='GB'>32</memory>
 
-          ${
-            ""
-
-            # TODO "internal error: unable to map backing store for guest RAM: Cannot allocate memory"
-            # https://wiki.archlinux.org/title/KVM#Enabling_huge_pages
-            # <memoryBacking>
-            #   <hugepages/>
-            # </memoryBacking>
-          }
+          <memoryBacking>
+            <source type='memfd'/>
+            <access mode='shared'/>
+          </memoryBacking>
 
           <features>
             <acpi/>
@@ -311,6 +306,20 @@ let
               #   <readonly/>
               # </disk>
             }
+
+            ${
+              "" # TODO once support add '<readonly/>'
+            }
+            <filesystem type='mount' accessmode='passthrough'>
+              <driver type='virtiofs'/>
+              <source dir='${config.services.resilio.syncPath}'/>
+              <target dir='Resilio'/>
+
+              <binary path='${pkgs.qemu}/bin/virtiofsd' xattr='on'>
+                <cache mode='always'/>
+                <lock posix='on' flock='on'/>
+              </binary>
+            </filesystem>
 
             <!-- Physical hardware -->
 

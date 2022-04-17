@@ -93,9 +93,12 @@ mount -t zfs data /mnt/Data
 
 ##### Initial Windows setup
 
-Uncomment in `libvirtd.nix` the `INITIAL SETUP` block and replace `PATH_TO_ISO` with correct path to ISO.
+Uncomment in [libvirtd config](configuration/devices/headless/server/libvirtd/default.nix) the `INITIAL SETUP` block and replace `PATH_TO_ISO` with correct path.
 
-Once Windows is installed install [Spice UsbDk](https://www.spice-space.org/download.html#windows-installers).
+Once Windows is installed:
+
+- [Install Spice UsbDk](https://www.spice-space.org/download.html#windows-installers)
+- [Setup and install VirtIO FS](https://virtio-fs.gitlab.io/howto-windows.html)
 
 ## Nixops
 
