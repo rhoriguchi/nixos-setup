@@ -6,6 +6,7 @@
     ./configs/keyboard.nix
     ./configs/nano.nix
     ./configs/nix.nix
+    ./configs/zsh.nix
   ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_17;
@@ -21,10 +22,7 @@
     passwordAuthentication = false;
   };
 
-  programs.zsh.enable = true;
-
   users = {
-    defaultUserShell = pkgs.zsh;
     mutableUsers = false;
 
     users.root = {
