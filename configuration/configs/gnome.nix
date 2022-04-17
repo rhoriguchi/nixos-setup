@@ -26,6 +26,7 @@
 
     gnome.excludePackages = [
       pkgs.gnome-connections
+      pkgs.gnome-console
       pkgs.gnome-photos
       pkgs.gnome.epiphany
       pkgs.gnome.geary
