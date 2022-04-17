@@ -292,8 +292,8 @@ let
             <disk type='volume' device='disk'>
               <driver name='qemu' type='qcow2' discard='unmap'/>
               <source pool='default' volume='windows'/>
-              <target dev='vda' bus='sata' rotation_rate='1'/>
-              <boot order='10'/>
+              <target dev='vdb' bus='sata' rotation_rate='1'/>
+              <boot order='2'/>
             </disk>
 
             ${
@@ -306,16 +306,8 @@ let
               # <disk type='file' device='cdrom'>
               #   <driver name='qemu' type='raw' cache='none'/>
               #   <source file='PATH_TO_ISO'/>
-              #   <target dev='sda' bus='sata'/>
+              #   <target dev='vda' bus='sata'/>
               #   <boot order='1'/>
-              #   <readonly/>
-              # </disk>
-
-              # <!-- https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -->
-              # <disk type='file' device='cdrom'>
-              #   <driver name='qemu' type='raw' cache='none'/>
-              #   <source file='PATH_TO_ISO'/>
-              #   <target dev='sdb' bus='sata'/>
               #   <readonly/>
               # </disk>
             }
