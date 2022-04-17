@@ -20,6 +20,8 @@ let
     services["zfs-zed"]="ZFS Event Daemon"
   '';
 in {
+  imports = [ ../../configs/nginx.nix ];
+
   nix.gc = {
     automatic = true;
     dates = "05:00";
@@ -28,10 +30,7 @@ in {
 
   documentation.nixos.enable = false;
 
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "ryan.horiguchi@gmail.com";
-  };
+  security.acme.defaults.email = "ryan.horiguchi@gmail.com";
 
   networking.networkmanager = {
     ethernet.macAddress = "permanent";
@@ -58,11 +57,4 @@ in {
     normalUsers = lib.filter (user: user.isNormalUser == true) (lib.attrValues config.users.users);
     commands = map (user: "touch ${user.home}/.zshrc") normalUsers;
   in lib.concatStringsSep "\n" commands);
-
-  services.nginx = {
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-  };
 }
