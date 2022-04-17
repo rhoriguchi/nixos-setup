@@ -9,6 +9,7 @@ in {
     ../../configs/displaylink.nix
     ../../configs/gnome.nix
     ../../configs/hidpi.nix
+    ../../configs/podman.nix
     ../../configs/power-management.nix
     ../../configs/printing.nix
 
@@ -56,8 +57,6 @@ in {
   };
 
   security.pam.enableEcryptfs = true;
-
-  virtualisation.docker.enable = true;
 
   services = {
     # TODO remove once nvidia works with wayland
@@ -107,7 +106,6 @@ in {
       pkgs.bat
       pkgs.curl
       pkgs.discord
-      pkgs.docker-compose
       pkgs.file
       pkgs.firefox
       pkgs.flameshot
@@ -152,7 +150,7 @@ in {
   };
 
   users.users.rhoriguchi = {
-    extraGroups = [ "docker" "networkmanager" "plugdev" "wheel" ];
+    extraGroups = [ "networkmanager" "plugdev" "podman" "wheel" ];
     isNormalUser = true;
     password = (import ../../secrets.nix).users.users.rhoriguchi.password;
   };
