@@ -152,7 +152,7 @@ in {
   };
 
   users.users.rhoriguchi = {
-    extraGroups = [ "docker" "networkmanager" "plugdev" "rslsync" "wheel" ];
+    extraGroups = [ "docker" "networkmanager" "plugdev" "wheel" ];
     isNormalUser = true;
     password = (import ../../secrets.nix).users.users.rhoriguchi.password;
   };
