@@ -7,4 +7,9 @@
   in lib.concatStringsSep "\n" commands);
 
   users.defaultUserShell = pkgs.zsh;
+
+  environment.shellAliases = {
+    l = null;
+    ll = null;
+  };
 }

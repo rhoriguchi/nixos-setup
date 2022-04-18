@@ -30,9 +30,4 @@
       openssh.authorizedKeys.keys = import ./authorized-keys.nix;
     };
   };
-
-  environment.shellAliases = {
-    l = null;
-    ll = null;
-  };
 }
