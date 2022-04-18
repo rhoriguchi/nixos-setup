@@ -37,6 +37,12 @@
 
       openFirewall = true;
     };
+
+    wireguard-vpn = {
+      enable = true;
+
+      type = "client";
+    };
   };
 
   users.users.jdh = {

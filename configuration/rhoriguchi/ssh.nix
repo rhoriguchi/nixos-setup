@@ -3,6 +3,8 @@ let
   home = config.users.users.rhoriguchi.home;
 
   dag = config.home-manager.users.rhoriguchi.lib.dag;
+
+  wireguardIps = (import ../modules/wireguard-vpn/ips.nix);
 in {
   home-manager.users.rhoriguchi.programs.ssh = {
     enable = true;
@@ -35,16 +37,29 @@ in {
 
       "*.00a.ch".user = "xxlpitu";
 
-      "horgen.00a.ch" = dag.entryBefore [ "*.00a.ch" ] { port = 1234; };
-
-      "xxlpitu-adguard" = {
-        # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/default.nix"
-        hostname = "XXLPitu-AdGuard.local";
+      jdh-server = {
+        # TODO get hostname from "configuration/devices/headless/jdh-server/default.nix"
+        hostname = wireguardIps.JDH-Server;
         user = "xxlpitu";
-        proxyJump = "home.00a.ch";
+
+        proxyJump = "wireguard.00a.ch";
       };
 
-      "jcrk.synology.me".user = "xxlpitu";
+      xxlpitu-adguard = {
+        # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/default.nix"
+        hostname = wireguardIps.XXLPitu-AdGuard;
+        user = "xxlpitu";
+
+        proxyJump = "wireguard.00a.ch";
+      };
+
+      xxlpitu-horgen = {
+        # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/horgen/default.nix"
+        hostname = wireguardIps.XXLPitu-Horgen;
+        user = "xxlpitu";
+
+        proxyJump = "wireguard.00a.ch";
+      };
     };
   };
 }

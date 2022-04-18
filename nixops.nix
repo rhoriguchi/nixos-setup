@@ -28,7 +28,7 @@
   };
 
   JDH-Server = { ... }: {
-    deployment.targetHost = "jcrk.synology.me";
+    deployment.targetHost = "jdh-server";
 
     imports = [ ./configuration/devices/headless/jdh-server ];
   };
@@ -42,10 +42,7 @@
   };
 
   Horgen = { ... }: {
-    deployment = {
-      targetHost = "horgen.00a.ch";
-      targetPort = 1234;
-    };
+    deployment.targetHost = "xxlpitu-horgen";
 
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/horgen ];
   };

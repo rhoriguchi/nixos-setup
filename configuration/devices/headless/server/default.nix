@@ -88,6 +88,12 @@
 
       openFirewall = true;
     };
+
+    wireguard-vpn = {
+      enable = true;
+
+      type = "server";
+    };
   };
 
   users.users.gitlab-ci = {

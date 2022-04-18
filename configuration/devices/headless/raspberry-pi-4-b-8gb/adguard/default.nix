@@ -24,6 +24,11 @@ let
           # TODO get hostname from "configuration/devices/headless/server/default.nix"
           answer = "XXLPitu-Server.local";
         }
+        {
+          domain = "wireguard.00a.ch";
+          # TODO get hostname from "configuration/devices/headless/server/default.nix"
+          answer = "XXLPitu-Server.local";
+        }
 
         {
           domain = "price-tracker.duckdns.org";
@@ -67,6 +72,12 @@ in {
 
       mutableSettings = false;
       inherit settings;
+    };
+
+    wireguard-vpn = {
+      enable = true;
+
+      type = "client";
     };
   };
 
