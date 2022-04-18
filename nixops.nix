@@ -41,12 +41,6 @@
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard ];
   };
 
-  Rain-Town = { ... }: {
-    deployment.targetHost = "xxlpitu-rain-town.duckdns.org";
-
-    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/rain-town ];
-  };
-
   Horgen = { ... }: {
     deployment = {
       targetHost = "xxlpitu-horgen.duckdns.org";
