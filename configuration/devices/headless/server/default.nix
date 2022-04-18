@@ -58,12 +58,14 @@
       exportPath = "${config.services.resilio.syncPath}/Google_Photos";
     };
 
-    resilio = {
+    resilio = let secrets = (import ../../../secrets.nix).services.resilio.secrets;
+    in {
       enable = true;
 
-      readWriteDirs = [ "Google_Photos" "Series" "tv_time_export" ];
-      secrets = (import ../../../secrets.nix).services.resilio.secrets;
+      readWriteDirs = lib.attrNames secrets;
       syncPath = "/var/lib/Sync";
+
+      inherit secrets;
     };
 
     tv_time_export = {
