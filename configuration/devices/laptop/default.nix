@@ -10,6 +10,7 @@ in {
     ../../configs/gnome.nix
     ../../configs/hidpi.nix
     ../../configs/java.nix
+    ../../configs/javascript.nix
     ../../configs/podman.nix
     ../../configs/power-management.nix
     ../../configs/printing.nix
@@ -93,8 +94,6 @@ in {
 
     htop.enable = true;
 
-    npm.enable = true;
-
     steam.enable = true;
   };
 
@@ -124,7 +123,6 @@ in {
       pkgs.jetbrains.webstorm
       pkgs.libreoffice-fresh
       pkgs.neofetch
-      pkgs.nodejs
       pkgs.openssl
       pkgs.postgresql
       pkgs.postman
@@ -140,7 +138,6 @@ in {
       pkgs.vlc
       pkgs.vscode
       pkgs.wpa_supplicant_gui
-      pkgs.yarn
       pkgs.zip
     ];
   };
