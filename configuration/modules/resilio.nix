@@ -162,9 +162,8 @@ in {
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
-          inherit ExecStart;
-
           ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.syncPath}" "${cfg.storagePath}"'';
+          inherit ExecStart;
 
           Type = "simple";
 
@@ -183,11 +182,10 @@ in {
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
-          inherit ExecStart;
-
           ExecStartPre = "${pkgs.coreutils}/bin/mkdir -pm 0775 ${
               lib.concatStringsSep " " (map (sharedFolder: ''"${sharedFolder.dir}"'') sharedFolders)
             }";
+          inherit ExecStart;
 
           StandardOutput = "null";
           StandardError = "null";
