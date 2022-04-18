@@ -9,6 +9,7 @@ in {
     ../../configs/displaylink.nix
     ../../configs/gnome.nix
     ../../configs/hidpi.nix
+    ../../configs/java.nix
     ../../configs/podman.nix
     ../../configs/power-management.nix
     ../../configs/printing.nix
@@ -92,8 +93,6 @@ in {
 
     htop.enable = true;
 
-    java.enable = true;
-
     npm.enable = true;
 
     steam.enable = true;
@@ -124,7 +123,6 @@ in {
       pkgs.jetbrains.pycharm-professional
       pkgs.jetbrains.webstorm
       pkgs.libreoffice-fresh
-      pkgs.maven
       pkgs.neofetch
       pkgs.nodejs
       pkgs.openssl
