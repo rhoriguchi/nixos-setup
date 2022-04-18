@@ -7,7 +7,7 @@ in {
 
     "autostart/${pkgs.flameshot.pname}.desktop" = lib.mkIf (lib.elem pkgs.flameshot.name packageNames) {
       text = let content = lib.readFile "${pkgs.flameshot}/share/applications/org.flameshot.Flameshot.desktop";
-      in builtins.replaceStrings [ "/usr/bin/flameshot" ] [ "flameshot" ] content;
+      in lib.replaceStrings [ "/usr/bin/flameshot" ] [ "flameshot" ] content;
     };
 
     "autostart/${pkgs.solaar.pname}.desktop" =
