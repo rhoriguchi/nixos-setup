@@ -12,6 +12,7 @@ in {
     ../../configs/podman.nix
     ../../configs/power-management.nix
     ../../configs/printing.nix
+    ../../configs/python.nix
 
     ../../rhoriguchi
 
@@ -127,12 +128,9 @@ in {
       pkgs.neofetch
       pkgs.nodejs
       pkgs.openssl
-      pkgs.pipenv
       pkgs.postgresql
       pkgs.postman
       pkgs.protonvpn-gui
-      pkgs.python310 # TODO remove once python 3.10 is default python3
-      pkgs.python3Packages.pip
       pkgs.qbittorrent
       pkgs.signal-desktop
       pkgs.spotify-unwrapped
