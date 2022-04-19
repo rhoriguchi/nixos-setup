@@ -11,7 +11,7 @@ in {
         # enableACME = true;
 
         # TODO HOME-ASSISTANT needed?
-        serverAliases = [ "xxlpitu-hs.duckdns.org" ];
+        serverAliases = [ "hs.00a.ch" ];
 
         extraConfig = ''
           proxy_buffering off;

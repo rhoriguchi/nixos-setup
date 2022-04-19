@@ -22,7 +22,7 @@
   ######################################################################
 
   Server = { ... }: {
-    deployment.targetHost = "xxlpitu-home.duckdns.org";
+    deployment.targetHost = "home.00a.ch";
 
     imports = [ ./configuration/devices/headless/server ];
   };
@@ -43,7 +43,7 @@
 
   Horgen = { ... }: {
     deployment = {
-      targetHost = "xxlpitu-horgen.duckdns.org";
+      targetHost = "horgen.00a.ch";
       targetPort = 1234;
     };
 

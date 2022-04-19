@@ -33,15 +33,15 @@ in {
         identityFile = "${home}/.ssh/gitlab_rsa";
       };
 
-      "*.duckdns.org".user = "xxlpitu";
+      "*.00a.ch".user = "xxlpitu";
 
-      "xxlpitu-horgen.duckdns.org" = dag.entryBefore [ "*.duckdns.org" ] { port = 1234; };
+      "horgen.00a.ch" = dag.entryBefore [ "*.00a.ch" ] { port = 1234; };
 
       "xxlpitu-adguard" = {
         # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/default.nix"
         hostname = "XXLPitu-AdGuard.local";
         user = "xxlpitu";
-        proxyJump = "xxlpitu-home.duckdns.org";
+        proxyJump = "home.00a.ch";
       };
 
       "jcrk.synology.me".user = "xxlpitu";

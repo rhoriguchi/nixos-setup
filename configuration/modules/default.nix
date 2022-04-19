@@ -1,1 +1,1 @@
-{ imports = [ ./duckdns.nix ./gphotos-sync.nix ./resilio.nix ./tautulli.nix ./tv_time_export.nix ]; }
+{ imports = [ ./gphotos-sync.nix ./infomaniak.nix ./resilio.nix ./tautulli.nix ./tv_time_export.nix ]; }

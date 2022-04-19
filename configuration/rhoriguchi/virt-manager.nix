@@ -16,8 +16,8 @@
         unapplied-dev = true;
       };
       "org/virt-manager/virt-manager/connections" = {
-        autoconnect = [ "qemu+ssh://xxlpitu-home.duckdns.org/system" ];
-        uris = [ "qemu+ssh://xxlpitu-home.duckdns.org/system" ];
+        autoconnect = [ "qemu+ssh://home.00a.ch/system" ];
+        uris = [ "qemu+ssh://home.00a.ch/system" ];
       };
       "org/virt-manager/virt-manager/details".show-toolbar = true;
       "org/virt-manager/virt-manager/new-vm" = {

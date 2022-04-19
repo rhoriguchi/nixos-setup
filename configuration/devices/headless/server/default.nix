@@ -37,11 +37,12 @@
   };
 
   services = {
-    duckdns = {
+    infomaniak = {
       enable = true;
 
-      token = (import ../../../secrets.nix).services.duckdns.token;
-      subdomains = [ "xxlpitu-home" "xxlpitu-hs" ];
+      username = (import ../../../secrets.nix).services.infomaniak.username;
+      password = (import ../../../secrets.nix).services.infomaniak.password;
+      hostnames = [ "home.00a.ch" "hs.00a.ch" ];
     };
 
     zfs = {

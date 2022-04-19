@@ -4,11 +4,12 @@
   networking.hostName = "XXLPitu-Horgen";
 
   services = {
-    duckdns = {
+    infomaniak = {
       enable = true;
 
-      token = (import ../../../../secrets.nix).services.duckdns.token;
-      subdomains = [ "xxlpitu-horgen" ];
+      username = (import ../../../../secrets.nix).services.infomaniak.username;
+      password = (import ../../../../secrets.nix).services.infomaniak.password;
+      hostnames = [ "horgen.00a.ch" ];
     };
 
     resilio = {

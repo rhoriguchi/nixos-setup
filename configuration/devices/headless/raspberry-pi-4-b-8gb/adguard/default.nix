@@ -15,17 +15,18 @@ let
       upstream_dns = bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
       rewrites = [
         {
+          domain = "home.00a.ch";
+          # TODO get hostname from "configuration/devices/headless/server/default.nix"
+          answer = "XXLPitu-Server.local";
+        }
+        {
+          domain = "hs.00a.ch";
+          # TODO get hostname from "configuration/devices/headless/server/default.nix"
+          answer = "XXLPitu-Server.local";
+        }
+
+        {
           domain = "price-tracker.duckdns.org";
-          # TODO get hostname from "configuration/devices/headless/server/default.nix"
-          answer = "XXLPitu-Server.local";
-        }
-        {
-          domain = "xxlpitu-home.duckdns.org";
-          # TODO get hostname from "configuration/devices/headless/server/default.nix"
-          answer = "XXLPitu-Server.local";
-        }
-        {
-          domain = "xxlpitu-hs.duckdns.org";
           # TODO get hostname from "configuration/devices/headless/server/default.nix"
           answer = "XXLPitu-Server.local";
         }
