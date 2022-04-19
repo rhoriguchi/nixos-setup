@@ -44,7 +44,7 @@ in {
         Restart = "on-abort";
         User = "duckdns";
       };
-      startAt = "*:0/5";
+      startAt = "*:*:0/5";
     };
   };
 }
