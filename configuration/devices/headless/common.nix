@@ -7,8 +7,6 @@
     options = "--delete-older-than 7d";
   };
 
-  security.acme.defaults.email = "ryan.horiguchi@gmail.com";
-
   networking.networkmanager = {
     ethernet.macAddress = "permanent";
     wifi.macAddress = "permanent";
