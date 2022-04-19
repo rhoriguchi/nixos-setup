@@ -380,8 +380,7 @@ let
     '';
   });
 in {
-  # TODO share resilio dir with guest
-  # https://unix.stackexchange.com/questions/86071/use-virt-manager-to-share-files-between-linux-host-and-windows-guest/86083#86083
+  # TODO share rgb controller with vm so ram rgb can be changed
 
   boot = {
     kernelModules = [ "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" "vfio" ];
