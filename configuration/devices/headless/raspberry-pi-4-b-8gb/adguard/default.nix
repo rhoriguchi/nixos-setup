@@ -15,12 +15,12 @@ let
       upstream_dns = bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
       rewrites = [
         {
-          domain = "home.00a.ch";
+          domain = "home-assistant.00a.ch";
           # TODO get hostname from "configuration/devices/headless/server/default.nix"
           answer = "XXLPitu-Server.local";
         }
         {
-          domain = "hs.00a.ch";
+          domain = "home.00a.ch";
           # TODO get hostname from "configuration/devices/headless/server/default.nix"
           answer = "XXLPitu-Server.local";
         }

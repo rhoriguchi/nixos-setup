@@ -11,7 +11,7 @@ in {
         # enableACME = true;
 
         # TODO HOME-ASSISTANT needed?
-        serverAliases = [ "hs.00a.ch" ];
+        serverAliases = [ "home-assistant.00a.ch" ];
 
         extraConfig = ''
           proxy_buffering off;

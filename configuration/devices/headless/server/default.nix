@@ -42,7 +42,7 @@
 
       username = (import ../../../secrets.nix).services.infomaniak.username;
       password = (import ../../../secrets.nix).services.infomaniak.password;
-      hostnames = [ "home.00a.ch" "hs.00a.ch" ];
+      hostnames = [ "home-assistant.00a.ch" "home.00a.ch" ];
     };
 
     zfs = {
