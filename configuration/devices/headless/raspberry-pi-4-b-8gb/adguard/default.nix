@@ -43,11 +43,8 @@ in {
     nginx = {
       enable = true;
 
+      # TODO add certificate
       virtualHosts."adguardhome" = {
-        # TODO commented
-        # forceSSL = true;
-        # enableACME = true;
-
         listen = [{
           addr = "0.0.0.0";
           port = adguardhomePort;

@@ -30,7 +30,7 @@ in {
     ++ map (lovelaceModule: "L+ /run/hass/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js") lovelaceModules;
 
   services = {
-    nginx.virtualHosts."home-assistant" = { locations."/local/" = { alias = "/run/hass/"; }; };
+    nginx.virtualHosts."home-assistant.00a.ch" = { locations."/local/" = { alias = "/run/hass/"; }; };
 
     home-assistant = {
       config = {

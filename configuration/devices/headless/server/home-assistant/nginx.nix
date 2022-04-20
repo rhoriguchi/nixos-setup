@@ -5,13 +5,12 @@ in {
     nginx = {
       enable = true;
 
-      virtualHosts."home-assistant" = {
+      virtualHosts."home-assistant.00a.ch" = {
         # TODO HOME-ASSISTANT commented
-        # forceSSL = true;
-        # enableACME = true;
+        # useACMEHost = null;
 
-        # TODO HOME-ASSISTANT needed?
-        serverAliases = [ "home-assistant.00a.ch" ];
+        # enableSSL = true;
+        # forceSSL = true;
 
         extraConfig = ''
           proxy_buffering off;
@@ -34,6 +33,9 @@ in {
       use_x_forwarded_for = true;
     };
   };
+
+  # TODO HOME-ASSISTANT commented
+  # security.acme.certs."home-assistant.00a.ch".dnsProvider = "XXXXXX";
 
   networking.firewall.allowedTCPPorts = [ homeAssistantPort ];
 }
