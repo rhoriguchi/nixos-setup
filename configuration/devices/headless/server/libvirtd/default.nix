@@ -323,28 +323,38 @@ let
 
             <!-- Physical hardware -->
 
-            ${
-              ""
+            <!-- PNY Quadro RTX 5000 - VGA compatible controller -->
+            <hostdev mode='subsystem' type='pci' managed='yes'>
+              <source>
+                <address domain='0x0000' bus='0x0a' slot='0x00' function='0'/>
+              </source>
 
-              # <!-- Sapphire Radeon HD 6870 -->
-              # <hostdev mode='subsystem' type='pci' managed='yes'>
-              #   <source>
-              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='0x0'/>
-              #   </source>
+              ${
+                "" # Dumped with https://github.com/SpaceinvaderOne/Dump_GPU_vBIOS
+              }
+              <rom file='${./PNY_Quadro_RTX_5000.rom}'/>
+            </hostdev>
 
-              #   ${
-              #     "" # https://www.techpowerup.com/vgabios
-              #   }
-              #   <rom file='${./Sapphire.HD6870.1024.101004.rom}'/>
-              # </hostdev>
+            <!-- PNY Quadro RTX 5000 - Audio device -->
+            <hostdev mode='subsystem' type='pci' managed='yes'>
+              <source>
+                <address domain='0x0000' bus='0x0a' slot='0x00' function='1'/>
+              </source>
+            </hostdev>
 
-              # <!-- Sapphire Radeon HD 6870 Audio -->
-              # <hostdev mode='subsystem' type='pci' managed='yes'>
-              #   <source>
-              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='0x1'/>
-              #   </source>
-              # </hostdev>
-            }
+            <!-- PNY Quadro RTX 5000 - USB controller -->
+            <hostdev mode='subsystem' type='pci' managed='yes'>
+              <source>
+                <address domain='0x0000' bus='0x0a' slot='0x00' function='2'/>
+              </source>
+            </hostdev>
+
+            <!-- PNY Quadro RTX 5000 - Serial bus controller -->
+            <hostdev mode='subsystem' type='pci' managed='yes'>
+              <source>
+                <address domain='0x0000' bus='0x0a' slot='0x00' function='3'/>
+              </source>
+            </hostdev>
 
             ${
               let usbHostdevs = lib.attrValues (lib.mapAttrs (key: value: getUsbHostdev key value.vendorId value.productId) usbDevices);
@@ -381,18 +391,6 @@ let
   });
 in {
   # TODO share rgb controller with vm so ram rgb can be changed
-
-  boot = {
-    kernelModules = [ "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" "vfio" ];
-
-    # GPU > nix-shell -p pciutils --run "lspci -nnk | grep 'NVIDIA\|Radeon'"
-    kernelParams = [
-      "vfio-pci.disable_vga=1"
-
-      # Sapphire Radeon HD 6870
-      "vfio-pci.ids=1002:6738,1002:aa88"
-    ];
-  };
 
   virtualisation.libvirtd = {
     enable = true;
