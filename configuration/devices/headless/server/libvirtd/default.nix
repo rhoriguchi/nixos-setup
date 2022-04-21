@@ -395,7 +395,7 @@ let
     '';
   });
 in {
-  # TODO share rgb controller with vm so ram rgb can be changed
+  # TODO pass through audio http://www.draeath.net/blog/it/2021/08/18/libvirt-spice-audio/
 
   virtualisation.libvirtd = {
     enable = true;
