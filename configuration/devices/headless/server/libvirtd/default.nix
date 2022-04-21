@@ -296,6 +296,11 @@ let
               <address type="virtio-serial"/>
             </channel>
 
+            <channel type='spiceport'>
+              <source channel='org.spice-space.webdav.0'/>
+              <target type='virtio' name='org.spice-space.webdav.0'/>
+            </channel>
+
             <video>
               <model type='virtio' heads='1'/>
             </video>

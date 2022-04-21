@@ -99,6 +99,7 @@ Once Windows is installed:
 
 - Install [SPICE Guest Tools](https://www.spice-space.org/download.html)
 - Install [SPICE UsbDk](https://www.spice-space.org/download.html)
+- Install [SPICE WebDAV](https://www.spice-space.org/download.html)
 - Setup and install [VirtIO FS](https://virtio-fs.gitlab.io/howto-windows.html)
 
 ## Nixops
