@@ -221,6 +221,9 @@ let
           <memory unit='GB'>32</memory>
 
           <memoryBacking>
+            ${
+              "" # TODO use hugepages https://access.redhat.com/solutions/36741
+            }
             <source type='memfd'/>
             <access mode='shared'/>
           </memoryBacking>
