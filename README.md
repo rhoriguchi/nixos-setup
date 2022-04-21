@@ -97,6 +97,7 @@ Uncomment in [libvirtd config](configuration/devices/headless/server/libvirtd/de
 
 Once Windows is installed:
 
+- Install [Spice guest tools](https://www.spice-space.org/download.html#windows-binaries)
 - Install [Spice UsbDk](https://www.spice-space.org/download.html#windows-installers)
 - Setup and install [VirtIO FS](https://virtio-fs.gitlab.io/howto-windows.html)
 

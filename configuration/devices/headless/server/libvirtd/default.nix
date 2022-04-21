@@ -280,6 +280,11 @@ let
               <listen type='address' address='127.0.0.1'/>
             </graphics>
 
+            <channel type="spicevmc">
+              <target type="virtio" name="com.redhat.spice.0"/>
+              <address type="virtio-serial"/>
+            </channel>
+
             <video>
               <model type='virtio' heads='1'/>
             </video>
