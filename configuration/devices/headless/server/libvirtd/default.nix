@@ -41,6 +41,19 @@ let
     </hostdev>
   '';
 
+  getShellScriptToWaitForWindowsShutdown = command:
+    pkgs.writeShellScript "wait-for-windows-shutdown.sh" ''
+      let "timeout = $(date +%s) + ${toString (2 * 60)}"
+
+      while [ "$(virsh list --name | grep --count '^windows$')" -gt 0 ]; do
+        if [ "$(date +%s)" -ge "$timeout" ]; then
+          ${command}
+        else
+          sleep 0.5
+        fi
+      done
+    '';
+
   setPath = "export PATH=${lib.makeBinPath [ pkgs.coreutils-full pkgs.gnugrep pkgs.gnused pkgs.libvirt ]}";
 
   baseService = rec {
@@ -92,11 +105,10 @@ let
       virsh net-autostart --disable "default"
     '';
 
-    # TODO wait till all guests are stopped
     preStop = ''
       ${setPath}
 
-      virsh net-destroy "default"
+      ${getShellScriptToWaitForWindowsShutdown ''virsh net-destroy "default"''}
     '';
   });
 
@@ -124,11 +136,10 @@ let
       virsh pool-autostart --disable "default"
     '';
 
-    # TODO wait till all guests are stopped
     preStop = ''
       ${setPath}
 
-      virsh pool-destroy "default"
+      ${getShellScriptToWaitForWindowsShutdown ''virsh pool-destroy "default"''}
     '';
   });
 
@@ -274,7 +285,7 @@ let
             </tpm>
 
             ${
-              "" # TODO use looking glass https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Using_Looking_Glass_to_stream_guest_screen_to_the_host
+              "" # TODO switch to https://looking-glass.io/docs
             }
             <graphics type='spice' autoport='yes' keymap='de-ch'>
               <listen type='address' address='127.0.0.1'/>
@@ -383,15 +394,8 @@ let
       ${setPath}
 
       virsh shutdown "windows"
-      let "timeout = $(date +%s) + ${toString (2 * 60)}"
-      while [ "$(virsh list --name | grep --count '^windows$')" -gt 0 ]; do
-        if [ "$(date +%s)" -ge "$timeout" ]; then
-          virsh destroy "windows"
-        else
-          # The machine is still running, let's give it some time to shut down
-          sleep 0.5
-        fi
-      done
+
+      ${getShellScriptToWaitForWindowsShutdown ''virsh destroy "windows"''}
     '';
   });
 in {
