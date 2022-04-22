@@ -15,7 +15,7 @@
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=168465
     tautulli = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
-          owner = "rhoriguchi";
+          owner = "NixOS";
           repo = "nixpkgs";
           rev = "32e297d50e684bf5a70a9ee86c8110961c42320c";
           sha256 = "sha256-LB35TkiuDa4EI1e3dY28huU0WJVTLOJfIUWjIAHIPMI=";
@@ -25,7 +25,7 @@
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=168911
     glances = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
-          owner = "rhoriguchi";
+          owner = "NixOS";
           repo = "nixpkgs";
           rev = "b328c99d10acfff3532c3a12651422238d0de9a2";
           sha256 = "sha256-o4zTwnHmgIDgbGEe83dmtYs/J1TPTaN3MGe3qWQnv/4=";
