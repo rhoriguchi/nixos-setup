@@ -1,8 +1,8 @@
 {
   imports = [
     (let
-      commit = "7add9ce2e5c517fcc4b25b3ed13e7e28cd325034";
-      sha256 = "12wzr6f7xvyzgami0lbr3xsncg6jryabkgl59qc2fg79s951hins";
+      commit = "93a69d07389311ffd6ce1f4d01836bbc2faec644";
+      sha256 = "0z1jzn1923g2q376z4268b4cdif96i7l6lm7bd06z19qqgciqkyz";
     in "${
       fetchTarball {
         url = "https://github.com/nix-community/home-manager/archive/${commit}.tar.gz";
