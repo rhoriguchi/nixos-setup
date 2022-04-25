@@ -37,19 +37,16 @@ in {
       groups.infomaniak = { };
     };
 
-    systemd.services.infomaniak = {
-      after = [ "network.target" ];
-      description = "Infomaniak DDNS updater";
-      script = let
-        commands = map
-          (hostname: ''${pkgs.curl}/bin/curl -s "https://${cfg.username}:${cfg.password}@infomaniak.com/nic/update?hostname=${hostname}"'')
-          cfg.hostnames;
-      in lib.concatStringsSep "\n" commands;
-      serviceConfig = {
-        Restart = "on-abort";
-        User = "infomaniak";
-      };
-      startAt = "*:*:0/5";
-    };
+    systemd.services = lib.listToAttrs (map (hostname:
+      lib.nameValuePair "infomaniak-${lib.replaceStrings [ "." ] [ "-" ] hostname}" {
+        after = [ "network.target" ];
+        description = "Infomaniak DDNS updater";
+        serviceConfig = {
+          ExecStart = ''${pkgs.curl}/bin/curl -s "https://${cfg.username}:${cfg.password}@infomaniak.com/nic/update?hostname=${hostname}"'';
+          Restart = "on-abort";
+          User = "infomaniak";
+        };
+        startAt = "*:*:0/5";
+      }) cfg.hostnames);
   };
 }
