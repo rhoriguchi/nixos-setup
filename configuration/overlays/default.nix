@@ -18,7 +18,7 @@
           rev = "b328c99d10acfff3532c3a12651422238d0de9a2";
           sha256 = "sha256-o4zTwnHmgIDgbGEe83dmtYs/J1TPTaN3MGe3qWQnv/4=";
         }
-      }/pkgs/applications/system/glances/default.nix") { };
+      }/pkgs/applications/system/glances") { };
   })
   (self: super: {
     mach-nix = import (super.fetchFromGitHub {
