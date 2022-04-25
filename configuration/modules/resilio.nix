@@ -159,7 +159,7 @@ in {
         description = "Resilio Sync";
 
         after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = [ "default.target" ];
 
         serviceConfig = {
           ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.syncPath}" "${cfg.storagePath}"'';
