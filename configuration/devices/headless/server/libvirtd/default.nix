@@ -407,7 +407,8 @@ let
     '';
   });
 in {
-  # TODO pass through audio http://www.draeath.net/blog/it/2021/08/18/libvirt-spice-audio/
+  # TODO pass through audio http://www.draeath.net/blog/it/2021/08/18/libvirt-spice-audio
+  # TODO pass through bluetooth
 
   virtualisation.libvirtd = {
     enable = true;
