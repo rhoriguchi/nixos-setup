@@ -408,7 +408,11 @@ let
   });
 in {
   # TODO pass through audio http://www.draeath.net/blog/it/2021/08/18/libvirt-spice-audio
+
   # TODO pass through bluetooth
+
+  # TODO create periodic snapshots [20.39.1. Creating Snapshots]
+  # https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-managing_guest_virtual_machines_with_virsh-managing_snapshots
 
   virtualisation.libvirtd = {
     enable = true;
