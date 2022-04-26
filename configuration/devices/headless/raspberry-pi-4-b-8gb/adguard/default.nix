@@ -16,23 +16,19 @@ let
       rewrites = [
         {
           domain = "home-assistant.00a.ch";
-          # TODO get hostname from "configuration/devices/headless/server/default.nix"
           answer = "XXLPitu-Server.local";
         }
         {
           domain = "home.00a.ch";
-          # TODO get hostname from "configuration/devices/headless/server/default.nix"
           answer = "XXLPitu-Server.local";
         }
         {
           domain = "wireguard.00a.ch";
-          # TODO get hostname from "configuration/devices/headless/server/default.nix"
           answer = "XXLPitu-Server.local";
         }
 
         {
           domain = "price-tracker.duckdns.org";
-          # TODO get hostname from "configuration/devices/headless/server/default.nix"
           answer = "XXLPitu-Server.local";
         }
       ];
@@ -81,7 +77,6 @@ in {
     };
   };
 
-  # TODO more ports needed? https://i.imgur.com/zFYaiyp.png
   networking.firewall = {
     allowedTCPPorts = [ 53 adguardhomePort ];
     allowedUDPPorts = [ 53 ];

@@ -3,7 +3,6 @@ let
   username = (import ../../../../secrets.nix).services.home-assistant.config.adguard.username;
   password = (import ../../../../secrets.nix).services.home-assistant.config.adguard.password;
 
-  # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/default.nix"
   hostname = "XXLPitu-AdGuard.local";
 
   pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.adguardhome ]);

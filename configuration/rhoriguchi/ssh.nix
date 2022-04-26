@@ -38,7 +38,6 @@ in {
       "*.00a.ch".user = "xxlpitu";
 
       jdh-server = {
-        # TODO get hostname from "configuration/devices/headless/jdh-server/default.nix"
         hostname = wireguardIps.JDH-Server;
         user = "xxlpitu";
 
@@ -46,7 +45,6 @@ in {
       };
 
       xxlpitu-adguard = {
-        # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/default.nix"
         hostname = wireguardIps.XXLPitu-AdGuard;
         user = "xxlpitu";
 
@@ -54,7 +52,6 @@ in {
       };
 
       xxlpitu-horgen = {
-        # TODO get hostname from "configuration/devices/headless/raspberry-pi-4-b-8gb/horgen/default.nix"
         hostname = wireguardIps.XXLPitu-Horgen;
         user = "xxlpitu";
 
