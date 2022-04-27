@@ -1,10 +1,8 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   home = config.users.users.rhoriguchi.home;
 
   dag = config.home-manager.users.rhoriguchi.lib.dag;
-
-  wireguardIps = (import ../modules/wireguard-vpn/ips.nix);
 in {
   home-manager.users.rhoriguchi.programs.ssh = {
     enable = true;
@@ -36,27 +34,15 @@ in {
       };
 
       "*.00a.ch".user = "xxlpitu";
-
-      jdh-server = {
-        hostname = wireguardIps.JDH-Server;
+    } // (let
+      ips = (import ../modules/wireguard-vpn/ips.nix);
+      clientIps = lib.filterAttrs (key: _: key != "server") ips;
+    in lib.mapAttrs' (key: value:
+      lib.nameValuePair (lib.toLower key) {
+        hostname = value;
         user = "xxlpitu";
 
         proxyJump = "wireguard.00a.ch";
-      };
-
-      xxlpitu-adguard = {
-        hostname = wireguardIps.XXLPitu-AdGuard;
-        user = "xxlpitu";
-
-        proxyJump = "wireguard.00a.ch";
-      };
-
-      xxlpitu-horgen = {
-        hostname = wireguardIps.XXLPitu-Horgen;
-        user = "xxlpitu";
-
-        proxyJump = "wireguard.00a.ch";
-      };
-    };
+      }) clientIps);
   };
 }
