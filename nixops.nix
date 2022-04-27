@@ -27,6 +27,12 @@
     imports = [ ./configuration/devices/headless/server ];
   };
 
+  AdGuard = { ... }: {
+    deployment.targetHost = "xxlpitu-adguard";
+
+    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard ];
+  };
+
   JDH-Server = { ... }: {
     deployment.targetHost = "jdh-server";
 
@@ -34,12 +40,6 @@
   };
 
   ######################################################################
-
-  AdGuard = { ... }: {
-    deployment.targetHost = "xxlpitu-adguard";
-
-    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard ];
-  };
 
   Horgen = { ... }: {
     deployment.targetHost = "xxlpitu-horgen";
