@@ -42,14 +42,14 @@
   ######################################################################
 
   Horgen = { ... }: {
-    deployment.targetHost = "xxlpitu-horgen";
+    deployment.targetHost = "xxlpitu-grimmjow";
 
-    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/horgen ];
+    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow ];
   };
 
   Placeholder = { ... }: {
-    deployment.targetHost = "xxlpitu-placeholder";
+    deployment.targetHost = "xxlpitu-ulquiorra";
 
-    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/placeholder ];
+    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra ];
   };
 }

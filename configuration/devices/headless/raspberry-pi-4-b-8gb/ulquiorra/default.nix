@@ -1,7 +1,7 @@
 {
   imports = [ ../common.nix ./hardware-configuration.nix ];
 
-  networking.hostName = "XXLPitu-PLACEHOLDER";
+  networking.hostName = "XXLPitu-Ulquiorra";
 
   services = {
     resilio = {
