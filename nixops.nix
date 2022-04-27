@@ -46,4 +46,10 @@
 
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/horgen ];
   };
+
+  Placeholder = { ... }: {
+    deployment.targetHost = "xxlpitu-placeholder";
+
+    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/placeholder ];
+  };
 }

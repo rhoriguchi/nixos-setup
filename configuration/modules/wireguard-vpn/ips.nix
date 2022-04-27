@@ -6,4 +6,6 @@
   JDH-Server = "10.123.123.2";
   XXLPitu-AdGuard = "10.123.123.3";
   XXLPitu-Horgen = "10.123.123.4";
+
+  XXLPitu-PLACEHOLDER = "10.123.123.10";
 }
