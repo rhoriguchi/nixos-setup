@@ -47,9 +47,10 @@
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow ];
   };
 
-  Placeholder = { ... }: {
-    deployment.targetHost = "xxlpitu-ulquiorra";
+  # TODO commented
+  # Placeholder = { ... }: {
+  #   deployment.targetHost = "xxlpitu-ulquiorra";
 
-    imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra ];
-  };
+  #   imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra ];
+  # };
 }
