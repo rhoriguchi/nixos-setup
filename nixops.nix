@@ -21,19 +21,19 @@
 
   ######################################################################
 
-  Server = { ... }: {
+  Server = {
     deployment.targetHost = "home.00a.ch";
 
     imports = [ ./configuration/devices/headless/server ];
   };
 
-  AdGuard = { ... }: {
+  AdGuard = {
     deployment.targetHost = "xxlpitu-adguard";
 
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard ];
   };
 
-  JDH-Server = { ... }: {
+  JDH-Server = {
     deployment.targetHost = "jdh-server";
 
     imports = [ ./configuration/devices/headless/jdh-server ];
@@ -41,14 +41,14 @@
 
   ######################################################################
 
-  Horgen = { ... }: {
+  Horgen = {
     deployment.targetHost = "xxlpitu-grimmjow";
 
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow ];
   };
 
   # TODO commented
-  # Placeholder = { ... }: {
+  # Placeholder = {
   #   deployment.targetHost = "xxlpitu-ulquiorra";
 
   #   imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra ];
