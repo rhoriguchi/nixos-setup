@@ -12,7 +12,7 @@
       show-line-numbers = true;
       show-map = true;
       spellcheck = false;
-      style-scheme = "tango";
+      style-scheme = "Adwaita";
       tab-width = 4;
       use-system-font = false;
     };
