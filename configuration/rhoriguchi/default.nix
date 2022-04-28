@@ -23,6 +23,7 @@
     ./git.nix
     ./gnome
     ./gnome-accounts-service
+    ./gnome-text-editor.nix
     ./htop.nix
     ./nautilus.nix
     ./neofetch
