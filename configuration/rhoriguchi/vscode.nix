@@ -10,17 +10,7 @@ in {
 
     mutableExtensionsDir = false;
     extensions = [
-      # TODO use package when merged https://nixpk.gs/pr-tracker.html?pr=167038
-      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          name = "codesnap";
-          publisher = "adpyke";
-          version = "1.3.4";
-          sha256 = "sha256-dR6qODSTK377OJpmUqG9R85l1sf9fvJJACjrYhSRWgQ=";
-        };
-        meta = { license = lib.licenses.mit; };
-      })
-
+      pkgs.vscode-extensions.adpyke.codesnap
       pkgs.vscode-extensions.alexdima.copy-relative-path
       pkgs.vscode-extensions.bbenoist.nix
       pkgs.vscode-extensions.davidanson.vscode-markdownlint
