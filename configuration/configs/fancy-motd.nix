@@ -8,6 +8,7 @@ let
     declare -A services
     services["adguardhome"]="AdGuard Home"
     services["docker"]="Docker"
+    services["factorio"]="Factorio"
     services["fancontrol"]="Fancontrol"
     services["home-assistant"]="Home Assistant"
     services["libvirtd"]="libvirtd"
