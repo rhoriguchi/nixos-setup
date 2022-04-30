@@ -11,6 +11,7 @@ in {
     ../../configs/hidpi.nix
     ../../configs/java.nix
     ../../configs/javascript.nix
+    ../../configs/kotlin.nix
     ../../configs/podman.nix
     ../../configs/power-management.nix
     ../../configs/printing.nix
