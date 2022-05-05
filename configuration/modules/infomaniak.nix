@@ -28,23 +28,14 @@ in {
       }
     ];
 
-    users = {
-      users.infomaniak = {
-        isSystemUser = true;
-        group = "infomaniak";
-      };
-
-      groups.infomaniak = { };
-    };
-
     systemd.services = lib.listToAttrs (map (hostname:
       lib.nameValuePair "infomaniak-${lib.replaceStrings [ "." ] [ "-" ] hostname}" {
         after = [ "network.target" ];
         description = "Infomaniak DDNS updater";
         serviceConfig = {
+          DynamicUser = true;
           ExecStart = ''${pkgs.curl}/bin/curl -s "https://${cfg.username}:${cfg.password}@infomaniak.com/nic/update?hostname=${hostname}"'';
           Restart = "on-abort";
-          User = "infomaniak";
         };
         startAt = "*:*:0/5";
       }) cfg.hostnames);
