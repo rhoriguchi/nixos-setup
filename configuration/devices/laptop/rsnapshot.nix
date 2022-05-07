@@ -20,6 +20,10 @@ let
   '';
 
   excludeFile = pkgs.writeText "rsnapshot-default.exclude" ''
+    # eCryptfs
+    - /**.ecryptfs
+    - /**.Private
+
     # Trash
     - /**.local/share/Trash
     - /**.Trash-*
