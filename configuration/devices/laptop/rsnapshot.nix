@@ -19,50 +19,53 @@ let
     ${pkgs.cryptsetup}/bin/cryptsetup luksClose backup || true
   '';
 
-  excludeFile = pkgs.writeText "rsnapshot-default.exclude" ''
-    # eCryptfs
-    - /**.ecryptfs
-    - /**.Private
+  excludeFile = pkgs.writeText "rsnapshot-default.exclude" (let
+    excludedDirs = [
+      # eCryptfs
+      ".ecryptfs"
+      ".Private"
 
-    # Trash
-    - /**.local/share/Trash
-    - /**.Trash-*
+      # Trash
+      ".local/share/Trash"
+      ".Trash-*"
 
-    # Containers
-    - /**.local/share/containers
+      # Containers
+      ".local/share/containers"
 
-    # Cache
-    - /**.cache
+      # Cache
+      ".cache"
 
-    # Nix
-    - /**.nix-defexpr
+      # Nix
+      ".nix-defexpr"
 
-    # Node
-    - /**node_modules
+      # Node
+      "node_modules"
 
-    # Maven
-    - /**.m2
-    - /**target/classes
-    - /**target/generated-sources
-    - /**target/generated-test-sources
-    - /**target/test-classes
+      # Maven
+      ".m2"
+      "target/classes"
+      "target/generated-sources"
+      "target/generated-test-sources"
+      "target/test-classes"
 
-    # Steam
-    - /**.steam
-    - /**Steam/steamapps
+      # Steam
+      ".steam"
+      "Steam/steamapps"
 
-    # Resilio Sync
-    - /**.sync
+      # Resilio Sync
+      ".sync"
 
-    # Wine
-    - /**.wine
+      # Wine
+      ".wine"
 
-    # Security
-    - /**.docker/config.json
-    - /**.git-credentials
-    - /**.gnupg
-    - /**.ssh
-  '';
+      # Security
+      ".docker/config.json"
+      ".git-credentials"
+      ".gnupg"
+      ".ssh"
+    ];
+
+  in lib.concatStringsSep "\n" (map (dir: "- /**${dir}") excludedDirs));
 
   rsyncLongArgs = lib.concatStringsSep " " [
     # rsnapshot requires these args
