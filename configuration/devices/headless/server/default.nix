@@ -6,6 +6,7 @@
     ./fancontrol
     ./home-assistant
     ./libvirtd
+    ./rsnapshot.nix
 
     ./hardware-configuration.nix
   ];
