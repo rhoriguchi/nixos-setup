@@ -20,6 +20,7 @@ in {
     enable = true;
 
     cronIntervals.weekly = "0 9 * * 3";
+
     extraConfig = ''
       verbose	1
       rsync_long_args	${rsyncLongArgs}
