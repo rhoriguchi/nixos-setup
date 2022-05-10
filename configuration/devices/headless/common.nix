@@ -1,5 +1,5 @@
 { pkgs, lib, config, ... }: {
-  imports = [ ../../configs/fancy-motd.nix ../../configs/nginx.nix ];
+  imports = [ ../../configs/doas.nix ../../configs/fancy-motd.nix ../../configs/nginx.nix ];
 
   nix.gc = {
     automatic = true;
