@@ -64,7 +64,6 @@ let
       ".gnupg"
       ".ssh"
     ];
-
   in lib.concatStringsSep "\n" (map (dir: "- /**${dir}") excludedDirs));
 
   rsyncLongArgs = lib.concatStringsSep " " [
