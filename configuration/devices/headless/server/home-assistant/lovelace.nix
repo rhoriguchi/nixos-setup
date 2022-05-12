@@ -72,7 +72,6 @@ in {
 
                   hours_to_show = 24 * 7;
                   points_per_hour = 2;
-                  update_interval = 60;
                   line_width = 3;
                   hour24 = true;
 
@@ -92,7 +91,6 @@ in {
 
                   hours_to_show = 24 * 7;
                   points_per_hour = 2;
-                  update_interval = 60;
                   line_width = 3;
                   hour24 = true;
 
