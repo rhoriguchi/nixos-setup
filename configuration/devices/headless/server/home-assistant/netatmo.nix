@@ -13,30 +13,28 @@ let
       import json
 
       import requests
-      from bs4 import BeautifulSoup
 
       with requests.session() as session:
-          response = session.get('${authUrl}/login')
-          soup = BeautifulSoup(response.content, 'html.parser')
-          csrf_token = soup.find('input', attrs={'name': '_token'}).attrs['value']
+          response = session.get('${authUrl}/csrf')
+          csrf_token = json.loads(response.content)['token']
 
           session.post('${authUrl}/postlogin',
-                      data={
-                          'email': '${email}',
-                          'password': '${password}',
-                          'stay_logged': 'on',
-                          '_token': csrf_token
-                      })
+                       data={
+                           'email': '${email}',
+                           'password': '${password}',
+                           'stay_logged': 'on',
+                           '_token': csrf_token
+                       })
 
           response = session.post('${apiUrl}/homestatus',
                                   headers={
                                       'Authorization': f'Bearer {session.cookies.get("netatmocomaccess_token").replace("%7C", "|")}'
                                   },
                                   json={
-                                      "device_types": [
-                                          "NAPlug"
+                                      'device_types': [
+                                          'NAPlug'
                                       ],
-                                      "home_id": "${homeId}"
+                                      'home_id': '${homeId}'
                                   })
 
           match = next(filter(
@@ -47,7 +45,7 @@ let
           print(match['battery_state'])
     '';
 
-  pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.beautifulsoup4 pythonPackages.requests ]);
+  pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.requests ]);
 
   createValveBatterySensors = valves:
     map (valve: {
