@@ -5,8 +5,8 @@ let
 
   apiUrl = "https://mystrom.ch/api";
 
-  getVoltageScript = id:
-    pkgs.writeText "mystrom_get_voltage_${id}.py" ''
+  getXScript = id: key:
+    pkgs.writeText "mystrom_get_${key}_${id}.py" ''
       import json
 
       import requests
@@ -23,8 +23,11 @@ let
           json.loads(response.content)['devices']
       ))
 
-      print(match['voltage'])
+      print(match['${key}'])
     '';
+
+  getVoltageScript = id: getXScript id "voltage";
+  getPowerScript = id: getXScript id "power";
 
   pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.requests ]);
 
@@ -85,7 +88,14 @@ in {
         name = "myStrom button white battery";
         id = "CC50E3F8CB7A";
       }
-    ];
+    ] ++ [{
+      platform = "command_line";
+      name = "myStrom Desk Monitor power consumption";
+      scan_interval = 60;
+      command = "${pythonWithPackages}/bin/python ${getPowerScript "083AF2A56094"}";
+      value_template = "{{ value | round }}";
+      unit_of_measurement = "W";
+    }];
 
     automation = [
       {

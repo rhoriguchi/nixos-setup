@@ -114,6 +114,25 @@ in {
               ];
             }
             {
+              type = "custom:mini-graph-card";
+              name = "Desk power consumption";
+
+              hours_to_show = 24 * 7;
+              points_per_hour = 5;
+              line_width = 3;
+              hour24 = true;
+
+              show = {
+                icon = false;
+                fill = false;
+              };
+
+              entities = [{
+                name = "Desk";
+                entity = "sensor.mystrom_desk_monitor_power_consumption";
+              }];
+            }
+            {
               # TODO HOME-ASSISTANT toggle is broken
               type = "entities";
               title = "Lights";
