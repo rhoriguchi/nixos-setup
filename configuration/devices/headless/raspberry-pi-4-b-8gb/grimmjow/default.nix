@@ -1,7 +1,13 @@
 {
-  imports = [ ../common.nix ./hardware-configuration.nix ];
+  imports = [ ../common.nix ];
 
   networking.hostName = "XXLPitu-Grimmjow";
+
+  fileSystems."/mnt/Data" = {
+    device = "/dev/disk/by-uuid/ea401731-f5a9-4a6b-ae7e-a07b3662132b";
+    fsType = "ext4";
+    options = [ "defaults" "nofail" ];
+  };
 
   services = {
     resilio = {

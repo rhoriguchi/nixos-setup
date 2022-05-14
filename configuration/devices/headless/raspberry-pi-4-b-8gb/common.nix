@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  imports = [ ../common.nix ];
+  imports = [ ../common.nix ./hardware-configuration.nix ];
 
   nixpkgs.system = "aarch64-linux";
 

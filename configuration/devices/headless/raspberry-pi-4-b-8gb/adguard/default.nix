@@ -40,7 +40,7 @@ let
     schema_version = 12;
   };
 in {
-  imports = [ ../common.nix ./hardware-configuration.nix ];
+  imports = [ ../common.nix ];
 
   networking.hostName = "XXLPitu-AdGuard";
 
