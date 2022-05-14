@@ -36,7 +36,7 @@ nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 
 #### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#authorize-the-application-with-your-onedrive-account)
 
-### [Encrypting a home directory](https://wiki.archlinux.org/title/ECryptfs#Encrypting_a_home_directory)
+### [Encrypting home directory](https://wiki.archlinux.org/title/ECryptfs#Encrypting_a_home_directory)
 
 Temporarily add password to root user and make sure `users.users.root.hashedPassword` is not set.
 
