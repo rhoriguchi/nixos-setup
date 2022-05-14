@@ -414,18 +414,6 @@ in {
   # TODO create periodic snapshots [20.39.1. Creating Snapshots]
   # https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-managing_guest_virtual_machines_with_virsh-managing_snapshots
 
-  boot = {
-    kernelModules = [ "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" "vfio" ];
-
-    # nix-shell -p pciutils --run "lspci -nnk | grep 'NVIDIA\|Radeon'"
-    kernelParams = [
-      "vfio-pci.disable_vga=1"
-
-      # PNY Quadro RTX 5000
-      "vfio-pci.ids=${lib.concatStringsSep "," [ "10de:1eb0" "10de:10f8" "10de:1ad8" "10de:1ad9" ]}"
-    ];
-  };
-
   virtualisation.libvirtd = {
     enable = true;
 
