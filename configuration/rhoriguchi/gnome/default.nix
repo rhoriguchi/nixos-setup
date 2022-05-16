@@ -3,6 +3,7 @@ let
   colors = (import ../../colors.nix);
 
   extensions = [
+    pkgs.gnomeExtensions.alphabetical-app-grid
     pkgs.gnomeExtensions.appindicator
     pkgs.gnomeExtensions.caffeine
     pkgs.gnomeExtensions.dash-to-dock
@@ -130,6 +131,12 @@ in {
           [ "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" ]
           ++ map (extension: if lib.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid) extensions;
         favorite-apps = [ ];
+      };
+      "org/gnome/shell/extensions/alphabetical-app-grid" = {
+        folder-order-position = "alphabetical";
+        logging-enabled = false;
+        show-favourite-apps = false;
+        sort-folder-contents = true;
       };
       "org/gnome/shell/extensions/caffeine" = {
         control-nightlight = "never";
