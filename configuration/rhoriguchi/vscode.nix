@@ -72,6 +72,8 @@ in {
       "editor.wordBasedSuggestionsMode" = "allDocuments";
       "explorer.compactFolders" = false;
       "explorer.confirmDelete" = false;
+      "explorer.fileNesting.enabled" = true;
+      "explorer.fileNesting.expand" = false;
       "extensions.autoUpdate" = false;
       "files.associations" = {
         "*.hcl" = "terraform";
