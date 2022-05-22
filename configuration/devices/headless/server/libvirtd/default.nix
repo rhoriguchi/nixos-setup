@@ -442,7 +442,7 @@ in {
 
   system.activationScripts.libvirtd = ''
     mkdir -p ${poolDir} ${nvramDir}
-    chown -R qemu-libvirtd:qemu-libvirtd ${baseDir}
+    chown -R qemu-libvirtd:qemu-libvirtd ${poolDir} ${nvramDir}
   '';
 
   systemd.services = { inherit libvirtd-network libvirtd-pool libvirtd-volume-windows libvirtd-guest-windows; };
