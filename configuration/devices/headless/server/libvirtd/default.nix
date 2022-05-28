@@ -54,12 +54,12 @@ let
       done
     '';
 
-  setPath = "export PATH=${lib.makeBinPath [ pkgs.coreutils-full pkgs.gnugrep pkgs.gnused pkgs.libvirt ]}";
-
   baseService = rec {
     after = [ "libvirtd.service" ];
     requires = after;
     wantedBy = [ "multi-user.target" ];
+
+    path = [ pkgs.coreutils-full pkgs.gnugrep pkgs.gnused pkgs.libvirt ];
 
     serviceConfig = {
       Type = "oneshot";
@@ -95,8 +95,6 @@ let
 
       # TODO improve virsh net-start "${network}" || virsh net-update "${network}" modify SECTION <(sed "s/UUID/$uuid/" ${xmlFile}) --live
     in ''
-      ${setPath}
-
       uuid="$(virsh net-uuid 'default' || true)"
       virsh net-define <(sed "s/UUID/$uuid/" ${xmlConfig})
 
@@ -106,8 +104,6 @@ let
     '';
 
     preStop = ''
-      ${setPath}
-
       ${getShellScriptToWaitForWindowsShutdown ''virsh net-destroy "default"''}
     '';
   });
@@ -126,8 +122,6 @@ let
         </pool>
       '';
     in ''
-      ${setPath}
-
       uuid="$(virsh pool-uuid 'default' || true)"
       virsh pool-define <(sed "s/UUID/$uuid/" ${xmlConfig})
 
@@ -137,8 +131,6 @@ let
     '';
 
     preStop = ''
-      ${setPath}
-
       ${getShellScriptToWaitForWindowsShutdown ''virsh pool-destroy "default"''}
     '';
   });
@@ -163,8 +155,6 @@ let
         </volume>
       '';
     in ''
-      ${setPath}
-
       volumeKey="$(virsh vol-key --pool default 'windows' || true)"
       virsh vol-create --pool default <(sed "s=KEY=$volumeKey=" ${xmlConfig}) || true
     '';
@@ -388,8 +378,6 @@ let
         </domain>
       '';
     in ''
-      ${setPath}
-
       uuid="$(virsh domuuid 'windows' || true)"
       virsh define <(sed "s/UUID/$uuid/" ${xmlConfig})
 
@@ -399,8 +387,6 @@ let
     '';
 
     preStop = ''
-      ${setPath}
-
       virsh shutdown "windows"
 
       ${getShellScriptToWaitForWindowsShutdown ''virsh destroy "windows"''}

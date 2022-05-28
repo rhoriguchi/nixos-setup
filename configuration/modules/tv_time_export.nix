@@ -44,15 +44,18 @@ in {
     systemd.services.tv_time_export = {
       after = [ "network.target" ];
       description = "tv_time_export";
+
+      preStart = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.exportPath}"'';
+      script = "${pkgs.tv_time_export}/bin/tv_time_export ${configFile}";
+
+      startAt = "06:00";
+
       serviceConfig = {
-        ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.exportPath}"'';
-        ExecStart = "${pkgs.tv_time_export}/bin/tv_time_export ${configFile}";
         Restart = "on-abort";
         UMask = "0002";
         User = "tv_time_export";
         Group = if config.services.resilio.enable then "rslsync" else "tv_time_export";
       };
-      startAt = "06:00";
     };
   };
 }

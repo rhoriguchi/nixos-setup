@@ -63,17 +63,21 @@ in {
     };
 
     systemd.services.gphotos-sync = {
-      after = [ "network.target" ];
       description = "gphotos-sync";
+
+      after = [ "network.target" ];
+
+      preStart = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.exportPath}"'';
+      script = ''${pkgs.gphotos-sync}/bin/gphotos-sync ${args} "${cfg.exportPath}"'';
+
+      startAt = "04:00";
+
       serviceConfig = {
-        ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.exportPath}"'';
-        ExecStart = ''${pkgs.gphotos-sync}/bin/gphotos-sync ${args} "${cfg.exportPath}"'';
         Restart = "on-abort";
         UMask = "0002";
         User = "gphotos-sync";
         Group = if config.services.resilio.enable then "rslsync" else "gphotos-sync";
       };
-      startAt = "04:00";
     };
   };
 }

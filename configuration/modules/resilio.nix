@@ -152,7 +152,7 @@ in {
       } | xargs rm -rf
     '';
 
-    systemd = let ExecStart = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
+    systemd = let script = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
     in if cfg.webUI.enable then {
       # TODO this will cause issues if there are more than one user
       user.services.resilio = {
@@ -161,12 +161,11 @@ in {
         after = [ "network.target" ];
         wantedBy = [ "default.target" ];
 
+        preStart = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.syncPath}" "${cfg.storagePath}"'';
+        inherit script;
+
         serviceConfig = {
-          ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.syncPath}" "${cfg.storagePath}"'';
-          inherit ExecStart;
-
           Type = "simple";
-
           StandardOutput = "null";
           StandardError = "null";
           Restart = "on-abort";
@@ -181,12 +180,11 @@ in {
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 
-        serviceConfig = {
-          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -pm 0775 ${
-              lib.concatStringsSep " " (map (sharedFolder: ''"${sharedFolder.dir}"'') sharedFolders)
-            }";
-          inherit ExecStart;
+        preStart =
+          "${pkgs.coreutils}/bin/mkdir -pm 0775 ${lib.concatStringsSep " " (map (sharedFolder: ''"${sharedFolder.dir}"'') sharedFolders)}";
+        inherit script;
 
+        serviceConfig = {
           StandardOutput = "null";
           StandardError = "null";
           Restart = "on-abort";

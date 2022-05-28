@@ -30,14 +30,18 @@ in {
 
     systemd.services = lib.listToAttrs (map (hostname:
       lib.nameValuePair "infomaniak-${lib.replaceStrings [ "." ] [ "-" ] hostname}" {
-        after = [ "network.target" ];
         description = "Infomaniak DDNS updater";
+
+        after = [ "network.target" ];
+
+        script = ''${pkgs.curl}/bin/curl -s "https://${cfg.username}:${cfg.password}@infomaniak.com/nic/update?hostname=${hostname}"'';
+
+        startAt = "*:*:0/5";
+
         serviceConfig = {
           DynamicUser = true;
-          ExecStart = ''${pkgs.curl}/bin/curl -s "https://${cfg.username}:${cfg.password}@infomaniak.com/nic/update?hostname=${hostname}"'';
           Restart = "on-abort";
         };
-        startAt = "*:*:0/5";
       }) cfg.hostnames);
   };
 }

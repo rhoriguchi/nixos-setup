@@ -12,16 +12,20 @@ let
   };
 
   getService = paths: startAt: {
-    after = [ "network.target" ];
     description = "audio-converter";
+
+    after = [ "network.target" ];
+
     script = let commands = map (path: ''${audio-converter}/bin/audio-converter "${path}" eac3 ac3'') paths;
     in lib.concatStringsSep "\n" commands;
+
+    inherit startAt;
+
     serviceConfig = {
       Restart = "on-abort";
       User = "plex";
       Group = "plex";
     };
-    inherit startAt;
   };
 in {
   systemd.services = {
