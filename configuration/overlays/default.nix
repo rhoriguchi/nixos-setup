@@ -30,15 +30,15 @@
         }
       }/pkgs/servers/plex/raw.nix") { };
 
-    # TODO remove when merged https://github.com/bcyran/fancy-motd/pull/11
-    fancy-motd = super.fancy-motd.overrideAttrs (oldAttrs: {
-      patches = (oldAttrs.patches or [ ]) ++ [
-        (super.fetchpatch {
-          url = "https://patch-diff.githubusercontent.com/raw/bcyran/fancy-motd/pull/11.patch";
-          sha256 = "sha256-Uu4IR1NTP8oMb5IbmkgEdrVoUFNrbko9hMTdO0MfkWw=";
-        })
-      ];
-    });
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=175497
+    fancy-motd = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "4aec3b1e27b797f77d3091f14fb3eab69123d50c";
+          sha256 = "sha256-yXPVCaxAv4eXvPIXThNwL4F/pzbzo2r38lC9asnhpic=";
+        }
+      }/pkgs/tools/system/fancy-motd/default.nix") { };
   })
   (self: super: {
     mach-nix = import (super.fetchFromGitHub {
