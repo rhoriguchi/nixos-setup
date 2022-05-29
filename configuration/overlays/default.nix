@@ -29,6 +29,16 @@
           sha256 = "sha256-lzfXwDv15EQg2rzLGqYq01plbemMMk6PNxUxlnq4514=";
         }
       }/pkgs/servers/plex/raw.nix") { };
+
+    # TODO remove when merged https://github.com/bcyran/fancy-motd/pull/11
+    fancy-motd = super.fancy-motd.overrideAttrs (oldAttrs: {
+      patches = (oldAttrs.patches or [ ]) ++ [
+        (super.fetchpatch {
+          url = "https://patch-diff.githubusercontent.com/raw/bcyran/fancy-motd/pull/11.patch";
+          sha256 = "sha256-Uu4IR1NTP8oMb5IbmkgEdrVoUFNrbko9hMTdO0MfkWw=";
+        })
+      ];
+    });
   })
   (self: super: {
     mach-nix = import (super.fetchFromGitHub {
