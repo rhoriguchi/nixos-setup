@@ -93,6 +93,14 @@
           };
         })
       ];
+      extraScanners = [
+        (pkgs.fetchFromGitHub {
+          owner = "ZeroQI";
+          repo = "Absolute-Series-Scanner";
+          rev = "7a76fa0c7486c311599dcc5488926afe8183fbdc";
+          hash = "sha256-WOrKPwNvk5+sNE4eYiizvJohhmMNlHjW/E+q/dsCfwU=";
+        })
+      ];
     };
 
     tautulli = {
