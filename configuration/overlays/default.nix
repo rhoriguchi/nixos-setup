@@ -1,15 +1,5 @@
 [
   (self: super: {
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=168465
-    tautulli = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "32e297d50e684bf5a70a9ee86c8110961c42320c";
-          sha256 = "sha256-LB35TkiuDa4EI1e3dY28huU0WJVTLOJfIUWjIAHIPMI=";
-        }
-      }/pkgs/servers/tautulli") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=168911
     glances = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
@@ -29,6 +19,16 @@
           sha256 = "sha256-yXPVCaxAv4eXvPIXThNwL4F/pzbzo2r38lC9asnhpic=";
         }
       }/pkgs/tools/system/fancy-motd/default.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=175504
+    tautulli = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "8660898de1ed9fef30da3ea41ceadd58a055b560";
+          sha256 = "sha256-7RBHDjQy7R9vaoMmWyhVOGJFCV2KgkzJ2vJLREiA4qY=";
+        }
+      }/pkgs/servers/tautulli/default.nix") { };
   })
   (self: super: {
     mach-nix = import (super.fetchFromGitHub {
