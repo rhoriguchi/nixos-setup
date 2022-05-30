@@ -82,7 +82,17 @@
       enable = true;
 
       openFirewall = true;
-      extraPlugins = [ "${pkgs.plexPlugins.my-anime-list}/${pkgs.plexPlugins.my-anime-list.pname}.bundle" ];
+      extraPlugins = [
+        (builtins.path {
+          name = "MyAnimeList.bundle";
+          path = pkgs.fetchFromGitHub {
+            owner = "Fribb";
+            repo = "MyAnimeList.bundle";
+            rev = "v7.2.0";
+            hash = "sha256-Q8M0V02hRvxZH+onJe5B4pkVgO0QnaJIwxzzVaZ95Pg=";
+          };
+        })
+      ];
     };
 
     tautulli = {
