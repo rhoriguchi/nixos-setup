@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   pname = "hs-lovelace-module-card-mod";
-  version = "3.1.4";
+  version = "3.1.5";
 
   src = fetchFromGitHub {
     owner = "thomasloven";
     repo = "lovelace-card-mod";
     rev = version;
-    hash = "sha256-rojFGJjAJn5BC6S71O1qTUEl5jgMLdss8tU4WxP6F1c=";
+    hash = "sha256-BrNGWWTe+tg7yonqIk5h6qndFMt57q2vq66G9n38sUk=";
   };
 
   installPhase = ''
