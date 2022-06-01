@@ -34,8 +34,8 @@
     mach-nix = import (super.fetchFromGitHub {
       owner = "DavHau";
       repo = "mach-nix";
-      rev = "3.4.0";
-      hash = "sha256-CJDg/RpZdUVyI3QIAXUqIoYDl7VkxFtNE4JWih0ucKc=";
+      rev = "3.5.0";
+      hash = "sha256-j/XrVVistvM+Ua+0tNFvO5z83isL+LBgmBi9XppxuKA=";
     }) { pkgs = super; };
   })
   (self: super:
