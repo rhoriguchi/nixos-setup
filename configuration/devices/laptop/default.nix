@@ -162,6 +162,7 @@ in {
     mkdir -p ${lib.concatStringsSep " " downloadDirs}
     chown -R rhoriguchi:${config.users.users.rhoriguchi.group} ${lib.concatStringsSep " " downloadDirs}
 
+    ${createSymlink "${syncPath}/KeePass" "${home}/Documents/KeePass"}
     ${createSymlink "${syncPath}/Storage/Inspiration" "${home}/Documents/Inspiration"}
     ${createSymlink "${syncPath}/Storage/Recipes" "${home}/Documents/Recipes"}
   '';
