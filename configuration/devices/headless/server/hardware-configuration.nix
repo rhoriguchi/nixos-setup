@@ -24,6 +24,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/mnt/Data/Backup" = {
+    device = "data/backup";
+    fsType = "zfs";
+  };
+
   swapDevices = [ ];
 
   hardware.video.hidpi.enable = lib.mkDefault true;
