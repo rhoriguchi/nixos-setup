@@ -37,7 +37,7 @@ let
         }
       ];
     };
-    schema_version = 12;
+    schema_version = 14;
   };
 in {
   imports = [ ../common.nix ];
