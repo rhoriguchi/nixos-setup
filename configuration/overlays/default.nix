@@ -15,8 +15,8 @@
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "4aec3b1e27b797f77d3091f14fb3eab69123d50c";
-          sha256 = "sha256-yXPVCaxAv4eXvPIXThNwL4F/pzbzo2r38lC9asnhpic=";
+          rev = "43629f3d2e57da46b403b681909c324a7614aa1d";
+          sha256 = "sha256-fqelKP+5oXcMLvdQmXluW8738IZqHups0GezqkgHncs=";
         }
       }/pkgs/tools/system/fancy-motd") { };
 
