@@ -91,6 +91,9 @@ zpool create \
 zfs create \
   -o compression=zstd \
   data/backup
+
+zfs create \
+  data/sync
 ```
 
 #### libvirt

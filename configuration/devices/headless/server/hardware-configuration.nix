@@ -29,6 +29,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/mnt/Data/Sync" = {
+    device = "data/sync";
+    fsType = "zfs";
+  };
+
   swapDevices = [ ];
 
   hardware.video.hidpi.enable = lib.mkDefault true;

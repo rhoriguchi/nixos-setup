@@ -67,7 +67,7 @@
 
       readWriteDirs = lib.attrNames secrets;
       inherit secrets;
-      syncPath = "/var/lib/Sync";
+      syncPath = "/mnt/Data/Sync";
     };
 
     tv_time_export = {
