@@ -51,6 +51,8 @@ modprobe ecryptfs
 nix-shell -p ecryptfs --run "ecryptfs-migrate-home -u rhoriguchi"
 ```
 
+Remove `users.users.root.password` option and delete copy of home `/home/rhoriguchi.random_characters`.
+
 ### Server
 
 #### Setup Plex over `http://IP:32400/web`
@@ -126,8 +128,13 @@ nixops info
 ### Deploy
 
 ```console
-nixops ssh-for-each --parallel "nix-channel --update"
 nixops deploy
+```
+
+### Update channel
+
+```console
+nixops ssh-for-each --parallel "nix-channel --update"
 ```
 
 ### Delete garabge
