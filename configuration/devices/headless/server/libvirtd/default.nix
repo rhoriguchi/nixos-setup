@@ -325,7 +325,7 @@ let
               "" # TODO once support add '<readonly/>'
             }
             <filesystem type='mount' accessmode='passthrough'>
-              <driver type='virtiofs'/>
+              <driver type='virtiofs' queue='1024'/>
               <source dir='${config.services.resilio.syncPath}'/>
               <target dir='Resilio'/>
 
