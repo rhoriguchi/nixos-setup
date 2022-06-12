@@ -322,7 +322,7 @@ let
             }
 
             ${
-              "" # TODO once support add '<readonly/>'
+              "" # TODO once supported add '<readonly/>'
             }
             <filesystem type='mount' accessmode='passthrough'>
               <driver type='virtiofs' queue='1024'/>
