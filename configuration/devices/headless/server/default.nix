@@ -89,7 +89,7 @@
             owner = "Fribb";
             repo = "MyAnimeList.bundle";
             rev = "v7.2.1";
-            hash = "sha256-XDtfnis9svemP/M9SKgDYX4iVeQ+koBzOjWOWHKIJHQ=";
+            hash = "sha256-5F/ILQpvgEEDGFGcxyNkVv9teDT8DEBXSjcFNf1Bdpo=";
           };
         })
       ];
