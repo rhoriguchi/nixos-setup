@@ -28,8 +28,11 @@
       pkgs.gnome-connections
       pkgs.gnome-console
       pkgs.gnome-photos
+      pkgs.gnome-tour
+      pkgs.gnome.adwaita-icon-theme
       pkgs.gnome.epiphany
       pkgs.gnome.geary
+      pkgs.gnome.gnome-backgrounds
       pkgs.gnome.gnome-calendar
       pkgs.gnome.gnome-characters
       pkgs.gnome.gnome-clocks
@@ -39,10 +42,12 @@
       pkgs.gnome.gnome-maps
       pkgs.gnome.gnome-music
       pkgs.gnome.gnome-screenshot
+      pkgs.gnome.gnome-themes-extra
       pkgs.gnome.gnome-weather
       pkgs.gnome.simple-scan
       pkgs.gnome.totem
       pkgs.gnome.yelp
+      pkgs.orca
     ];
   };
 }
