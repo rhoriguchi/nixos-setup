@@ -43,7 +43,6 @@ in {
       retain	weekly	4
       retain	monthly	3
 
-      backup	/var/lib/${config.services.factorio.stateDirName}/	./
       backup	${config.services.plex.dataDir}/	./
       backup	${config.services.resilio.syncPath}/	./
       backup	${config.services.tautulli.dataDir}/	./

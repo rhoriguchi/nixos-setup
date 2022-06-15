@@ -19,10 +19,6 @@ let
           answer = "XXLPitu-Server.local";
         }
         {
-          domain = "factorio.00a.ch";
-          answer = "XXLPitu-Server.local";
-        }
-        {
           domain = "home.00a.ch";
           answer = "XXLPitu-Server.local";
         }

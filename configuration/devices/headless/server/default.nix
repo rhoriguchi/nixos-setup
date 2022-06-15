@@ -2,7 +2,6 @@
   imports = [
     ../common.nix
 
-    ./factorio
     ./fancontrol
     ./home-assistant
     ./libvirtd
