@@ -20,13 +20,13 @@
         }
       }/pkgs/servers/tautulli") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=177730
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=177727
     plexRaw = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "a43b7ee335745afe669816c21c80c6b685bbd42b";
-          sha256 = "sha256-FBR1c4ufSzXDKpqeQ2dgO4HoQzsRVSmyyHLmO39d6Xw=";
+          rev = "84a70844bb18fa5542511a73992e589b8c58e04f";
+          sha256 = "sha256-OnTORG0aL/fBqQKdjYbyEV/BjR9eab5yI7c3hycJUss=";
         }
       }/pkgs/servers/plex/raw.nix") { };
   })
