@@ -41,9 +41,9 @@ let
     </hostdev>
   '';
 
-  getShellScriptToWaitForWindowsShutdown = command:
+  getShellScriptToWaitForWindowsShutdown = command: timeout:
     pkgs.writeShellScript "wait-for-windows-shutdown.sh" ''
-      let "timeout = $(date +%s) + ${toString (2 * 60)}"
+      let "timeout = $(date +%s) + ${toString timeout}"
 
       while [ "$(virsh list --name | grep --count '^windows$')" -gt 0 ]; do
         if [ "$(date +%s)" -ge "$timeout" ]; then
@@ -104,7 +104,7 @@ let
     '';
 
     preStop = ''
-      ${getShellScriptToWaitForWindowsShutdown ''virsh net-destroy "default"''}
+      ${getShellScriptToWaitForWindowsShutdown ''virsh net-destroy "default"'' ((5 * 60))}
     '';
   });
 
@@ -131,7 +131,7 @@ let
     '';
 
     preStop = ''
-      ${getShellScriptToWaitForWindowsShutdown ''virsh pool-destroy "default"''}
+      ${getShellScriptToWaitForWindowsShutdown ''virsh pool-destroy "default"'' ((5 * 60))}
     '';
   });
 
@@ -389,7 +389,7 @@ let
     preStop = ''
       virsh shutdown "windows"
 
-      ${getShellScriptToWaitForWindowsShutdown ''virsh destroy "windows"''}
+      ${getShellScriptToWaitForWindowsShutdown ''virsh destroy "windows"'' 60}
     '';
   });
 in {
@@ -404,7 +404,7 @@ in {
     enable = true;
 
     qemu = {
-      # TODO this option seems to not work, since it's not automatically picked up
+      # TODO this option seems to not work, since it's not automatically picked up (remove pkgs.OVMF.fd)
       # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/libvirtd.nix#L306-L309
       # https://libvirt.org/formatdomain.html#bios-bootloader
       ovmf.enable = true;
