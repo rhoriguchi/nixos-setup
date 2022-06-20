@@ -119,7 +119,7 @@
     isNormalUser = true;
     group = "docker";
     hashedPassword = "*";
-    openssh.authorizedKeys.keys = config.users.users.xxlpitu.openssh.authorizedKeys.keys ++ [
+    openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDNyfENbLnYf0R+ATrU4zMFHsa87gWDPDH4PLwsm3Qkz67c2T6trCnxmqdIWqXPSu8CN3sHAE0hXHYxUkYNwkDFf2eIEG1BiOXGbYyktXHVjJFDcmZ8uvc1UPlp0m1qcp1g6ZUduroG12H8ltUEkaE5aZomISzalRWQ0Uh8qoWWJsgY7AQXJII+JBLLTx9q3IPYAxXFGjgCJnra8odSx2EmZL9L9A/R0LIQ+BFWjDmjCQ/xxdcMGgYJ0UiAlvour8UZFkhtg9afTTKRZAGpV8FFsp9f2lszpS+1iT9yQaGjCK/xUbuLNn5aKRaOsOlBl+a0kM9/1/O5GsfuniTjJqEr0G5P6VOF3cLDGst4Xbe0TVu9cBYMEsnxkX7Za8XR09hyqGQhpj9WbTOmQNolWjxmJRx4zfaQrlnAJAvEUUTs1y/pxviLGmeSK7nK2N91qlsqHnVWj3ZQexVAOzVGzBaKdnvRndNDeYcpbREvuLhl8itzBpG5+tYlhfJ386f3O4j4+exK9VsOzNBvP+E60bofEwI9T+1PHXO/4RAmrmGoU7UGuSXR96Z+ZgtfTJeetAiH9agTfexo7ncI8Qurzv/emsveLyOGIYut+F5K7qs9MKIvzZaIuOt3QjioGq2/TYVGrpf9TuyV3JcLMz2NPVwwLDuIzHYI5faVkF6figu79w== GitLab"
     ];
   };
