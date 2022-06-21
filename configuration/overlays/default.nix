@@ -19,16 +19,6 @@
           sha256 = "sha256-21iV/lNT5l14HhjqHtiuQvNtV8k6L1EiafBLmYHxczM=";
         }
       }/pkgs/servers/tautulli") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=177727
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "84a70844bb18fa5542511a73992e589b8c58e04f";
-          sha256 = "sha256-OnTORG0aL/fBqQKdjYbyEV/BjR9eab5yI7c3hycJUss=";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
   })
   (self: super: {
     mach-nix = import (super.fetchFromGitHub {
