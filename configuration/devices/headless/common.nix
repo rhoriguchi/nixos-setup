@@ -18,6 +18,7 @@
 
   users.users.xxlpitu = {
     extraGroups = [ "wheel" ] ++ (lib.optional config.virtualisation.docker.enable "docker")
+      ++ (lib.optional config.virtualisation.podman.enable "podman")
       ++ (lib.optionals config.virtualisation.libvirtd.enable [ "kvm" "libvirtd" ]);
     isNormalUser = true;
     password = (import ../../secrets.nix).users.users.xxlpitu.password;
