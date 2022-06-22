@@ -11,5 +11,9 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.docker-compose ];
+  environment = {
+    systemPackages = [ pkgs.podman-compose ];
+
+    shellAliases."docker-compose" = "podman-compose";
+  };
 }
