@@ -20,6 +20,16 @@
         }
       }/pkgs/servers/tautulli") { };
 
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=178522
+    flameshot = super.libsForQt5.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "ddeb50d445e65fc7d6bedd2dd347439e62fc4450";
+          sha256 = "sha256-FP/wg/B/Ghf1YPVJ22u71/mr1LzNGyE9zThV7/pcdIM=";
+        }
+      }/pkgs/tools/misc/flameshot") { };
+
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=178629
     onedrive = super.callPackage (import "${
         super.fetchFromGitHub {
