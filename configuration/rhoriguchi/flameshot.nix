@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 let colors = (import ../colors.nix);
 in {
   home-manager.users.rhoriguchi.xdg.configFile."flameshot/flameshot.ini".source = (pkgs.formats.ini { }).generate "flameshot.ini" {
@@ -16,6 +16,7 @@ in {
       showHelp = false;
       showStartupLaunchMessage = false;
       uiColor = colors.normal.magenta;
+      userColors =  "picker, ${lib.concatStringsSep ", " (lib.attrsets.mapAttrsToList (_: value: value) colors.normal)}";
     };
   };
 }
