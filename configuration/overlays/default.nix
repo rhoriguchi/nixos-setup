@@ -1,25 +1,5 @@
 [
   (self: super: {
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=178522
-    flameshot = super.libsForQt5.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "ddeb50d445e65fc7d6bedd2dd347439e62fc4450";
-          sha256 = "sha256-FP/wg/B/Ghf1YPVJ22u71/mr1LzNGyE9zThV7/pcdIM=";
-        }
-      }/pkgs/tools/misc/flameshot") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=178629
-    onedrive = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "5a606bc7b9c3b831177036b04910c924f25ddf6f";
-          sha256 = "sha256-JLMti3Y4dW7RFif+BgbYI1Q/wYLEHuw9Xs8d14xbktE=";
-        }
-      }/pkgs/applications/networking/sync/onedrive") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=178811
     nixopsUnstable = super.callPackage (import "${
         super.fetchFromGitHub {
