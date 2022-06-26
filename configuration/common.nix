@@ -9,8 +9,7 @@
     ./configs/zsh.nix
   ];
 
-  # TODO upgrade to 5.18 when merged https://nixpk.gs/pr-tracker.html?pr=178632
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_17;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_18;
 
   networking.useDHCP = false;
 
