@@ -19,6 +19,18 @@
           sha256 = "sha256-FdKmtAgt99U0NzkEf9QfroeaQ5DGTwgONQl83TeZovY=";
         }
       }/pkgs/servers/plex/raw.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=174107
+    linuxPackages_5_18 = super.linuxPackages_5_18.extend (_: _: {
+      evdi = super.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "78ce6f9f0146d25356740567dd3891a12766e698";
+            sha256 = "sha256-tsH3IXw//MflNXdYsVzQQDYrWnv1yzatx9JRCEizawk=";
+          }
+        }/pkgs/os-specific/linux/evdi") { inherit (super.linuxPackages_5_18) kernel; };
+    });
   })
   (self: super: {
     mach-nix = import (super.fetchFromGitHub {
