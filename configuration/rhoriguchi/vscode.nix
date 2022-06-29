@@ -190,19 +190,19 @@ in {
 
     keybindings = [
       {
-        key = "ctrl+d";
-        command = "editor.action.copyLinesDownAction";
-        when = "editorTextFocus && !editorReadonly";
-      }
-      {
-        key = "ctrl+shift+c";
-        command = "-workbench.action.terminal.openNativeConsole";
-        when = "!terminalFocus";
-      }
-      {
-        key = "ctrl+numpad_divide";
         command = "editor.action.commentLine";
+        key = "ctrl+numpad_divide";
         when = "editorTextFocus && !editorReadonly";
+      }
+      {
+        command = "editor.action.copyLinesDownAction";
+        key = "ctrl+d";
+        when = "editorTextFocus && !editorReadonly";
+      }
+
+      {
+        command = "-workbench.action.terminal.openNativeConsole";
+        key = "";
       }
     ];
   };
