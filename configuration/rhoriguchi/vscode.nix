@@ -133,7 +133,6 @@ in {
       "svg.preview.autoShow" = true;
       "telemetry.telemetryLevel" = "off";
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
-      "terminal.integrated.enableShellIntegration" = true;
       "todo-tree.highlights.customHighlight" = {
         "[ ]" = {
           "hideFromStatusBar" = true;
@@ -155,7 +154,7 @@ in {
       "todo-tree.regex.regexCaseSensitive" = false;
       "todo-tree.tree.expanded" = true;
       "todo-tree.tree.showCountsInTree" = true;
-      "typescript.inlayHints.parameterNames.enabled" = true;
+      "typescript.inlayHints.parameterNames.enabled" = "all";
       "update.mode" = "none";
       "window.autoDetectColorScheme" = true;
       "window.newWindowDimensions" = "maximized";
