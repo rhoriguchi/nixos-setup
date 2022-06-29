@@ -199,6 +199,43 @@ in {
         key = "ctrl+d";
         when = "editorTextFocus && !editorReadonly";
       }
+      {
+        command = "workbench.action.terminal.focusFind";
+        key = "ctrl+shift+f";
+        when =
+          "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported";
+      }
+      {
+        command = "workbench.action.terminal.focusNext";
+        key = "ctrl+shift+down";
+        when =
+          "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus";
+      }
+      {
+        command = "workbench.action.terminal.focusNextPane";
+        key = "ctrl+shift+right";
+        when = "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported";
+      }
+      {
+        command = "workbench.action.terminal.focusPrevious";
+        key = "ctrl+shift+up";
+        when =
+          "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus";
+      }
+      {
+        command = "workbench.action.terminal.focusPreviousPane";
+        key = "ctrl+shift+left";
+        when = "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported";
+      }
+      {
+        command = "workbench.action.terminal.new";
+        key = "ctrl+shift+t";
+      }
+      {
+        command = "workbench.action.terminal.split";
+        key = "ctrl+shift+t";
+        when = "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile";
+      }
 
       {
         command = "-workbench.action.terminal.openNativeConsole";
