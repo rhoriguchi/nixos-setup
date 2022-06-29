@@ -196,6 +196,11 @@ in {
         when = "editorTextFocus && !editorReadonly";
       }
       {
+        command = "editor.action.commentLine";
+        key = "ctrl+/";
+        when = "editorTextFocus && !editorReadonly";
+      }
+      {
         command = "editor.action.copyLinesDownAction";
         key = "ctrl+d";
         when = "editorTextFocus && !editorReadonly";
