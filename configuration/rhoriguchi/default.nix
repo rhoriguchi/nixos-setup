@@ -1,8 +1,8 @@
-{
+{ config, ... }: {
   imports = [
     (let
-      commit = "1de492f6f8e9937c822333739c5d5b20d93bf49f";
-      sha256 = "0awlcj827vx3za3k93676v7713wn0iyqhli87ai3z8gii1hx52nq";
+      commit = "8160b3b45b8457d58d2b3af2aeb2eb6f47042e0f";
+      sha256 = "0ddbq4ddq9pv787i8qdpzpjlgbsyl1jxhgdwgxbxai6scakpg8zx";
     in "${
       fetchTarball {
         url = "https://github.com/nix-community/home-manager/archive/${commit}.tar.gz";
@@ -39,6 +39,8 @@
     useUserPackages = true;
 
     users.rhoriguchi = {
+      home.stateVersion = config.system.stateVersion;
+
       news.display = "silent";
 
       manual = {
