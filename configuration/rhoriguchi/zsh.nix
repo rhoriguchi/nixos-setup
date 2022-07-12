@@ -1,96 +1,104 @@
 { pkgs, ... }: {
-  home-manager.users.rhoriguchi.programs.zsh = {
-    enable = true;
+  home-manager.users.rhoriguchi.programs = {
+    fzf = {
+      enable = true;
 
-    enableCompletion = true;
-
-    history = {
-      size = 10000;
-      extended = true;
+      enableZshIntegration = true;
     };
 
-    plugins = [
-      {
-        name = pkgs.zsh-autosuggestions.pname;
-        file = "zsh-autosuggestions.zsh";
-        src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
-      }
-      {
-        name = pkgs.zsh-syntax-highlighting.pname;
-        file = "zsh-syntax-highlighting.zsh";
-        src = "${pkgs.zsh-syntax-highlighting}/share/${pkgs.zsh-syntax-highlighting.pname}";
-      }
-    ];
+    zsh = {
+      enable = true;
 
-    localVariables.ZSH_AUTOSUGGEST_STRATEGY = [ "completion" ];
+      enableCompletion = true;
 
-    initExtra = ''
-      autoload -U colors && colors
+      history = {
+        size = 10000;
+        extended = true;
+      };
 
-      # Disable mail checking
-      MAILCHECK=0
+      plugins = [
+        {
+          name = pkgs.zsh-autosuggestions.pname;
+          file = "zsh-autosuggestions.zsh";
+          src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
+        }
+        {
+          name = pkgs.zsh-syntax-highlighting.pname;
+          file = "zsh-syntax-highlighting.zsh";
+          src = "${pkgs.zsh-syntax-highlighting}/share/${pkgs.zsh-syntax-highlighting.pname}";
+        }
+      ];
 
-      # Needed to use #, ~ and ^ in regexing filenames
-      setopt extended_glob
+      localVariables.ZSH_AUTOSUGGEST_STRATEGY = [ "completion" ];
 
-      # Report status of background jobs immediately
-      setopt NOTIFY
+      initExtra = ''
+        autoload -U colors && colors
 
-      # Disable beeping
-      setopt NOBEEP
+        # Disable mail checking
+        MAILCHECK=0
 
-      # Increase stack size of dirs
-      DIRSTACKSIZE=20
+        # Needed to use #, ~ and ^ in regexing filenames
+        setopt extended_glob
 
-      # Push old directory onto the directory stack automatically
-      setopt AUTO_PUSHD
+        # Report status of background jobs immediately
+        setopt NOTIFY
 
-      # Do not push the same dir twice
-      setopt PUSHD_IGNORE_DUPS
+        # Disable beeping
+        setopt NOBEEP
 
-      # Enable completion of aliases
-      setopt COMPLETEALIASES
+        # Increase stack size of dirs
+        DIRSTACKSIZE=20
 
-      # No matching for dotfiles (e.g. * does not expand to .dotfiles but .* does)
-      setopt NOGLOBDOTS
+        # Push old directory onto the directory stack automatically
+        setopt AUTO_PUSHD
 
-      # Enable completion from within a word
-      setopt COMPLETE_IN_WORD
+        # Do not push the same dir twice
+        setopt PUSHD_IGNORE_DUPS
 
-      # Move cursor to the end on completing a word
-      setopt ALWAYS_TO_END
+        # Enable completion of aliases
+        setopt COMPLETEALIASES
 
-      # Make sure entire command is hashed before completion
-      setopt HASH_LIST_ALL
+        # No matching for dotfiles (e.g. * does not expand to .dotfiles but .* does)
+        setopt NOGLOBDOTS
 
-      zstyle ':completion:*' auto-description 'specify: %d'
-      zstyle ':completion:*' completer _expand _complete _correct _approximate
-      zstyle ':completion:*' format 'Completing %d'
-      zstyle ':completion:*' group-name '''
-      zstyle ':completion:*' menu select=2
-      eval "$(dircolors -b)"
-      zstyle ':completion:*:default' list-colors ''${(s.:.)LS_COLORS}
-      zstyle ':completion:*' list-colors '''
-      zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-      zstyle ':completion:*' matcher-list ''' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-      zstyle ':completion:*' menu select=long
-      zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-      zstyle ':completion:*' use-compctl false
-      zstyle ':completion:*' verbose true
+        # Enable completion from within a word
+        setopt COMPLETE_IN_WORD
 
-      zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-      zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+        # Move cursor to the end on completing a word
+        setopt ALWAYS_TO_END
 
-      local current_user="%{$fg[magenta]%}$USER%{$reset_color%}"
-      local root="%{$fg[red]%}root%{$reset_color%}"
-      local user_string="%(!.''${root}.''${current_user})"
+        # Make sure entire command is hashed before completion
+        setopt HASH_LIST_ALL
 
-      local hostname="%{$fg[magenta]%}%M%{$reset_color%}"
-      local path_string="%{$fg[green]%}%~%{$reset_color%}"
-      local prompt_string=">"
+        zstyle ':completion:*' auto-description 'specify: %d'
+        zstyle ':completion:*' completer _expand _complete _correct _approximate
+        zstyle ':completion:*' format 'Completing %d'
+        zstyle ':completion:*' group-name '''
+        zstyle ':completion:*' menu select=2
+        eval "$(dircolors -b)"
+        zstyle ':completion:*:default' list-colors ''${(s.:.)LS_COLORS}
+        zstyle ':completion:*' list-colors '''
+        zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+        zstyle ':completion:*' matcher-list ''' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+        zstyle ':completion:*' menu select=long
+        zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+        zstyle ':completion:*' use-compctl false
+        zstyle ':completion:*' verbose true
 
-      PROMPT="''${user_string}@''${hostname} ''${path_string} ''${prompt_string} %{$reset_color%}"
-      RPROMPT=""
-    '';
+        zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+        zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+        local current_user="%{$fg[magenta]%}$USER%{$reset_color%}"
+        local root="%{$fg[red]%}root%{$reset_color%}"
+        local user_string="%(!.''${root}.''${current_user})"
+
+        local hostname="%{$fg[magenta]%}%M%{$reset_color%}"
+        local path_string="%{$fg[green]%}%~%{$reset_color%}"
+        local prompt_string=">"
+
+        PROMPT="''${user_string}@''${hostname} ''${path_string} ''${prompt_string} %{$reset_color%}"
+        RPROMPT=""
+      '';
+    };
   };
 }

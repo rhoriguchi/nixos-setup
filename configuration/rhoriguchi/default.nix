@@ -18,7 +18,6 @@
     ./docker.nix
     ./firefox
     ./flameshot.nix
-    ./fzf.nix
     ./gedit.nix
     ./git.nix
     ./gnome
