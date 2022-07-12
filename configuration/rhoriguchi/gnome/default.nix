@@ -143,7 +143,7 @@ in {
         inhibit-apps = [ ];
         restore-state = false;
         show-indicator = true;
-        show-notifications = true;
+        show-notifications = false;
         user-enabled = false;
       };
       "org/gnome/shell/extensions/dash-to-dock" = {
