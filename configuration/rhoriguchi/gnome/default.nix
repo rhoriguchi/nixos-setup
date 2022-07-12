@@ -8,7 +8,6 @@ let
     pkgs.gnomeExtensions.caffeine
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.date-menu-formatter
-    pkgs.gnomeExtensions.dynamic-panel-transparency
     pkgs.gnomeExtensions.unite
     pkgs.gnomeExtensions.volume-mixer
     pkgs.gnomeExtensions.window-is-ready-remover
