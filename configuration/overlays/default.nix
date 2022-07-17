@@ -1,5 +1,16 @@
 [
   (self: super: {
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=181856
+    gitkraken = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "57321e6b14fdbefbe0c107625b6b22a823845dd9";
+          sha256 = "sha256-dt7oqbcjbKbqpItMFgPabBLNYNpMaWde5Iyyu2N3YBw=";
+        }
+      }/pkgs/applications/version-management/gitkraken/default.nix") { };
+  })
+  (self: super: {
     mach-nix = import (super.fetchFromGitHub {
       owner = "DavHau";
       repo = "mach-nix";
