@@ -5,10 +5,10 @@
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "57321e6b14fdbefbe0c107625b6b22a823845dd9";
-          sha256 = "sha256-dt7oqbcjbKbqpItMFgPabBLNYNpMaWde5Iyyu2N3YBw=";
+          rev = "e12aa0bb9e0d9392cb9d6158e2cea36611bb38a8";
+          sha256 = "sha256-6AicdbFzWft4c6rCjm2XJ8KCvrnZM0/lGi8csFoSN7w=";
         }
-      }/pkgs/applications/version-management/gitkraken/default.nix") { };
+      }/pkgs/applications/version-management/gitkraken") { };
   })
   (self: super: {
     mach-nix = import (super.fetchFromGitHub {
