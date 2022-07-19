@@ -1,6 +1,16 @@
 { pkgs, config, ... }: {
-  imports =
-    [ ./adguard.nix ./lovelace.nix ./mystrom.nix ./netatmo.nix ./nginx.nix ./postgres.nix ./unifi.nix ./weather.nix ./yeelight.nix ];
+  imports = [
+    ./adguard.nix
+    ./generate-wifi-guest-qr.nix
+    ./lovelace.nix
+    ./mystrom.nix
+    ./netatmo.nix
+    ./nginx.nix
+    ./postgres.nix
+    ./unifi.nix
+    ./weather.nix
+    ./yeelight.nix
+  ];
 
   services.home-assistant = {
     enable = true;

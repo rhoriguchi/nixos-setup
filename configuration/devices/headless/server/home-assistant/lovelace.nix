@@ -30,7 +30,7 @@ in {
     ++ map (lovelaceModule: "L+ /run/hass/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js") lovelaceModules;
 
   services = {
-    nginx.virtualHosts."home-assistant.00a.ch" = { locations."/local/" = { alias = "/run/hass/"; }; };
+    nginx.virtualHosts."home-assistant.00a.ch".locations."/local/".alias = "/run/hass/";
 
     home-assistant = {
       config = {
@@ -168,41 +168,51 @@ in {
               }];
             }
             {
-              type = "entities";
-              title = "Network";
-              entities = [
-                {
-                  name = "Total";
-                  entity = "sensor.unifi_total";
-                }
-                { type = "divider"; }
-                {
-                  name = "Wired";
-                  entity = "sensor.unifi_wired";
-                }
-                {
-                  type = "custom:fold-entity-row";
-                  head = {
-                    name = "WiFi";
-                    entity = "sensor.unifi_wifi";
-                  };
+              type = "vertical-stack";
 
-                  open = true;
-
+              cards = [
+                {
+                  type = "entities";
+                  title = "Network";
                   entities = [
                     {
-                      name = "63466727";
-                      entity = "sensor.unifi_wifi_default";
+                      name = "Total";
+                      entity = "sensor.unifi_total";
+                    }
+                    { type = "divider"; }
+                    {
+                      name = "Wired";
+                      entity = "sensor.unifi_wired";
                     }
                     {
-                      name = "63466727-Guest";
-                      entity = "sensor.unifi_wifi_guest";
-                    }
-                    {
-                      name = "63466727-IoT";
-                      entity = "sensor.unifi_wifi_iot";
+                      type = "custom:fold-entity-row";
+                      head = {
+                        name = "WiFi";
+                        entity = "sensor.unifi_wifi";
+                      };
+
+                      open = true;
+
+                      entities = [
+                        {
+                          name = "63466727";
+                          entity = "sensor.unifi_wifi_default";
+                        }
+                        {
+                          name = "63466727-Guest";
+                          entity = "sensor.unifi_wifi_guest";
+                        }
+                        {
+                          name = "63466727-IoT";
+                          entity = "sensor.unifi_wifi_iot";
+                        }
+                      ];
                     }
                   ];
+                }
+                {
+                  type = "picture";
+                  image = "/local/img/wifi-guest-qr.png";
                 }
               ];
             }
