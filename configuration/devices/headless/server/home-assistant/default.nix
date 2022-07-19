@@ -25,8 +25,12 @@
       extraComponents = [
         "default_config"
 
+        # Manual added integrations
+        "mobile_app"
+        "netatmo"
         "shelly"
         "unifi"
+        "yeelight"
       ];
     };
 
