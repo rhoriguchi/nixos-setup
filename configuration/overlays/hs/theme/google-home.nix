@@ -12,6 +12,6 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out
-    cp themes/google-home.yaml  $out/${pname}.yaml
+    cp themes/google-home.yaml $out/${pname}.yaml
   '';
 }
