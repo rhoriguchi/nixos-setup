@@ -9,6 +9,16 @@
           sha256 = "sha256-6AicdbFzWft4c6rCjm2XJ8KCvrnZM0/lGi8csFoSN7w=";
         }
       }/pkgs/applications/version-management/gitkraken") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=182258
+    onedrive = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "3934afb8b1bd478e2355f9a6937288fb9ec0c192";
+          sha256 = "sha256-ZrheRJfHDa7j/rPalUnrGrxz2uctS5/XHztLCZHun4w=";
+        }
+      }/pkgs/applications/networking/sync/onedrive") { };
   })
   (self: super: {
     mach-nix = import (super.fetchFromGitHub {
