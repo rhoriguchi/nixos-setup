@@ -257,6 +257,10 @@ let
           </clock>
 
           <devices>
+            <channel type='unix'>
+              <target type='virtio' name='org.qemu.guest_agent.0'/>
+            </channel>
+
             <interface type='network'>
               <source network='default'/>
               <mac type='static'/>
