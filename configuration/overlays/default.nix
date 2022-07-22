@@ -1,5 +1,15 @@
 [
   (self: super: {
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=181189
+    tautulli = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "cecee2a6d90c2147d3b60f06f6b26a3c133bbabf";
+          sha256 = "sha256-3x2PVMKssU59Ih7hqEnNbP68sJSpQMRhDsVfMbiTSd8=";
+        }
+      }/pkgs/servers/tautulli") { };
+
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=181856
     gitkraken = super.callPackage (import "${
         super.fetchFromGitHub {
