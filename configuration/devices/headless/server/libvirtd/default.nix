@@ -155,8 +155,8 @@ let
         </volume>
       '';
     in ''
-      volumeKey="$(virsh vol-key --pool default 'windows' || true)"
-      virsh vol-create --pool default <(sed "s=KEY=$volumeKey=" ${xmlConfig}) || true
+      volumeKey="$(virsh vol-key --pool 'default' 'windows' || true)"
+      virsh vol-create --pool "default" <(sed "s=KEY=$volumeKey=" ${xmlConfig}) || true
     '';
   });
 
