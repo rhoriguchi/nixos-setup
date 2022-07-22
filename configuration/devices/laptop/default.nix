@@ -4,7 +4,15 @@ let
   syncPath = config.services.resilio.syncPath;
 in {
   imports = [
-    (import "${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz"}/lenovo/legion/15ach6")
+    (let
+      commit = "83009edccc2e24afe3d0165ed98b60ff7471a5f8";
+      sha256 = "0w8ddazwx81l0k1r4mfjgflwgn088gy1knfr7f6qafh57dzh7yyg";
+    in "${
+      fetchTarball {
+        url = "https://github.com/NixOS/nixos-hardware/archive/${commit}.tar.gz";
+        inherit sha256;
+      }
+    }/lenovo/legion/15ach6")
 
     ../../configs/displaylink.nix
     ../../configs/gnome.nix
