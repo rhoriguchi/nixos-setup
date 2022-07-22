@@ -104,12 +104,35 @@ zfs create \
 
 Uncomment in [libvirtd config](configuration/devices/headless/server/libvirtd/default.nix) the `INITIAL SETUP` block and replace `PATH_TO_ISO` with correct path.
 
-Once Windows is installed:
+Once Windows is installed run in an elevated cmd.
 
-- Install [SPICE Guest Tools](https://www.spice-space.org/download.html)
-- Install [SPICE UsbDk](https://www.spice-space.org/download.html)
-- Install [SPICE WebDAV](https://www.spice-space.org/download.html)
-- Setup and install [VirtIO FS](https://virtio-fs.gitlab.io/howto-windows.html)
+```txt
+cd %userprofile%/Downloads
+```
+
+`SPICE Guest Tools` need to be installed manually.
+
+```txt
+curl --output spice-guest-tools-latest.exe --url https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe
+spice-guest-tools-latest.exe
+```
+
+After `SPICE Guest Tools` is installed.
+
+```txt
+REM SPICE UsbDk
+curl --output UsbDk_1.0.22_x64.msi --url https://www.spice-space.org/download/windows/usbdk/UsbDk_1.0.22_x64.msi
+msiexec /i UsbDk_1.0.22_x64.msi /quiet /qn /norestart
+
+REM SPICE WebDAV
+curl --output spice-webdavd-x64-latest.msi --url https://www.spice-space.org/download/windows/spice-webdavd/spice-webdavd-x64-latest.msi
+msiexec /i spice-webdavd-x64-latest.msi /quiet /qn /norestart
+
+REM VirtIO FS
+curl --output winfsp-1.11.22176.msi --url https://github.com/winfsp/winfsp/releases/download/v1.11/winfsp-1.11.22176.msi
+msiexec /i winfsp-1.11.22176.msi /quiet /qn /norestart
+sc start VirtioFsSvc
+```
 
 ## Nixops
 
