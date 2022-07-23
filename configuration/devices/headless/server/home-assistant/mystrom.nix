@@ -35,7 +35,7 @@ let
     map (button: {
       platform = "command_line";
       name = button.name;
-      scan_interval = 60 * 60 * 60;
+      scan_interval = 60 * 60;
       command = "${pythonWithPackages}/bin/python ${getVoltageScript button.id}";
       value_template = let
         maxVoltage = "4300";

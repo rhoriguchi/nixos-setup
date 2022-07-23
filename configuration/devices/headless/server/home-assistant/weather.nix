@@ -10,7 +10,7 @@ in {
   services.home-assistant.config.sensor = [{
     platform = "command_line";
     name = "OpenWeather current temperature";
-    scan_interval = 60 * 5;
+    scan_interval = 5 * 60;
     command = ''${pkgs.curl}/bin/curl "${apiUrl}/weather?appid=${apiKey}&lat=${toString lat}&lon=${toString lon}&units=${units}"'';
     value_template = "{{ value_json.main.temp }}";
     unit_of_measurement = "°C";

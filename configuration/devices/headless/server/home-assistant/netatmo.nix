@@ -51,7 +51,7 @@ let
     map (valve: {
       platform = "command_line";
       name = valve.name;
-      scan_interval = 60 * 60 * 60;
+      scan_interval = 60 * 60;
       command = "${pythonWithPackages}/bin/python ${getBatteryStateScript valve.id}";
       value_template = ''
         {% if value == 'full' %}
