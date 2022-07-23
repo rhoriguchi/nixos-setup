@@ -45,7 +45,7 @@ let
     pkgs.writeShellScript "wait-for-windows-shutdown.sh" ''
       let "timeout = $(date +%s) + ${toString timeout}"
 
-      while [ "$(virsh list --name | grep --count '^windows$')" -gt 0 ]; do
+      while [ "$(virsh list --name | grep --count "^windows$")" -gt 0 ]; do
         if [ "$(date +%s)" -ge "$timeout" ]; then
           ${command}
         else
@@ -95,7 +95,7 @@ let
 
       # TODO improve virsh net-start "${network}" || virsh net-update "${network}" modify SECTION <(sed "s/UUID/$uuid/" ${xmlFile}) --live
     in ''
-      uuid="$(virsh net-uuid 'default' || true)"
+      uuid="$(virsh net-uuid "default" || true)"
       virsh net-define <(sed "s/UUID/$uuid/" ${xmlConfig})
 
       virsh net-destroy "default" || true
@@ -122,7 +122,7 @@ let
         </pool>
       '';
     in ''
-      uuid="$(virsh pool-uuid 'default' || true)"
+      uuid="$(virsh pool-uuid "default" || true)"
       virsh pool-define <(sed "s/UUID/$uuid/" ${xmlConfig})
 
       virsh pool-destroy "default" || true
@@ -155,7 +155,7 @@ let
         </volume>
       '';
     in ''
-      volumeKey="$(virsh vol-key --pool 'default' 'windows' || true)"
+      volumeKey="$(virsh vol-key --pool "default" "windows" || true)"
       virsh vol-create --pool "default" <(sed "s=KEY=$volumeKey=" ${xmlConfig}) || true
     '';
   });
@@ -382,7 +382,7 @@ let
         </domain>
       '';
     in ''
-      uuid="$(virsh domuuid 'windows' || true)"
+      uuid="$(virsh domuuid "windows" || true)"
       virsh define <(sed "s/UUID/$uuid/" ${xmlConfig})
 
       virsh destroy "windows" || true
