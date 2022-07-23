@@ -29,6 +29,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/mnt/Data/Snapshots" = {
+    device = "data/snapshots";
+    fsType = "zfs";
+  };
+
   fileSystems."/mnt/Data/Sync" = {
     device = "data/sync";
     fsType = "zfs";

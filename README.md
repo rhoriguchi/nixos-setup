@@ -95,6 +95,10 @@ zfs create \
   data/backup
 
 zfs create \
+  -o compression=zstd \
+  data/snapshots
+
+zfs create \
   data/sync
 ```
 

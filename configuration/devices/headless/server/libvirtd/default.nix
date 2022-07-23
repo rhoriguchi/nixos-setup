@@ -31,6 +31,8 @@ let
   poolDir = "${baseDir}/images";
   nvramDir = "${baseDir}/nvram";
 
+  snapshotsDir = "/mnt/Data/Snapshots";
+
   getUsbHostdev = name: vendorId: productId: ''
     <!-- ${name} -->
     <hostdev mode='subsystem' type='usb' managed='yes'>
@@ -396,6 +398,50 @@ let
       ${getShellScriptToWaitForWindowsShutdown ''virsh destroy "windows"'' 60}
     '';
   });
+
+  backup-windows-guest = rec {
+    after = [ "libvirtd.service" "libvirtd-guest-windows.service" ];
+    requires = after;
+    wantedBy = [ "multi-user.target" ];
+
+    path = [ pkgs.coreutils-full pkgs.libvirt ];
+
+    preStart = "mkdir -p ${snapshotsDir}/windows";
+
+    script = ''
+      volumePath="$(virsh vol-path --pool "default" "windows")"
+
+      virsh snapshot-create-as "windows" --no-metadata --disk-only --quiesce --atomic --diskspec vdb,file="$volumePath.temp"
+
+      cp "$volumePath" "${snapshotsDir}/windows/$(date +"%Y%m%dT%H%M%S")"
+
+      virsh blockcommit "windows" vdb --wait --active --pivot --delete
+    '';
+
+    preStop = let
+      script = pkgs.writeText "cleanup_windows_snapshots.py" ''
+        from datetime import datetime
+        from pathlib import Path
+
+        files_to_delete = sorted(
+            Path('${snapshotsDir}/windows').iterdir(),
+            key=lambda file: datetime.fromtimestamp(file.lstat().st_mtime)
+        )[:-7]
+
+        for file in files_to_delete:
+            file.unlink()
+      '';
+    in "${pkgs.python3}/bin/python ${script}";
+
+    startAt = "05:00";
+
+    serviceConfig = {
+      Restart = "on-abort";
+      # TODO get this to work with qemu-libvirtd:qemu-libvirtd
+      User = "root";
+      Group = "root";
+    };
+  };
 in {
   # TODO pass through audio http://www.draeath.net/blog/it/2021/08/18/libvirt-spice-audio
 
@@ -435,5 +481,5 @@ in {
     chown -R qemu-libvirtd:qemu-libvirtd ${poolDir} ${nvramDir}
   '';
 
-  systemd.services = { inherit libvirtd-network libvirtd-pool libvirtd-volume-windows libvirtd-guest-windows; };
+  systemd.services = { inherit backup-windows-guest libvirtd-network libvirtd-pool libvirtd-volume-windows libvirtd-guest-windows; };
 }
