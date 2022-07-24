@@ -18,7 +18,5 @@ let
 
   pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.qrcode ]);
 
-  qrCode = pkgs.runCommand "wifi_guest_qr" { } ''
-    ${pythonWithPackages}/bin/python ${script} "$out"
-  '';
+  qrCode = pkgs.runCommand "wifi_guest_qr" { } ''${pythonWithPackages}/bin/python ${script} "$out"'';
 in { systemd.tmpfiles.rules = [ "L+ /run/hass/img/wifi-guest-qr.png - - - - ${qrCode}" ]; }

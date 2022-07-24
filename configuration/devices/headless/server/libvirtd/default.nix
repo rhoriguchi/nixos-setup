@@ -105,9 +105,7 @@ let
       virsh net-autostart --disable "default"
     '';
 
-    preStop = ''
-      ${getShellScriptToWaitForWindowsShutdown ''virsh net-destroy "default"'' ((5 * 60))}
-    '';
+    preStop = "${getShellScriptToWaitForWindowsShutdown ''virsh net-destroy "default"'' ((5 * 60))}";
   });
 
   libvirtd-pool = (baseService // {
@@ -132,9 +130,7 @@ let
       virsh pool-autostart --disable "default"
     '';
 
-    preStop = ''
-      ${getShellScriptToWaitForWindowsShutdown ''virsh pool-destroy "default"'' ((5 * 60))}
-    '';
+    preStop = "${getShellScriptToWaitForWindowsShutdown ''virsh pool-destroy "default"'' ((5 * 60))}";
   });
 
   libvirtd-volume-windows = (baseService // rec {
