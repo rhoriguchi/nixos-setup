@@ -1,8 +1,8 @@
 { config, ... }: {
   imports = [
     (let
-      commit = "70d5929885ccec8dde8585894dd3ebe606e75f41";
-      sha256 = "1n03v5p8822hmx94sn31w16a11grx8f6dj2rnl8qccgxmssi5alx";
+      commit = "d86c189158cb345e351190e362672a8485a52117";
+      sha256 = "1851x4pn2y5b0x9a6jj8xqdbycxwj7nqd9b0v977zh4g4wlpq97a";
     in "${
       fetchTarball {
         url = "https://github.com/nix-community/home-manager/archive/${commit}.tar.gz";
@@ -16,7 +16,7 @@
     ./bat.nix
     ./conky.nix
     ./docker.nix
-    ./firefox
+    ./firefox.nix
     ./flameshot.nix
     ./gedit.nix
     ./git.nix
