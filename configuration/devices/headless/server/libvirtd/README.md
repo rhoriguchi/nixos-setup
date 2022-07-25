@@ -11,10 +11,12 @@ These tools need to be installed manually.
 ```txt
 cd %userprofile%/Downloads
 
+REM SPICE Guest Tools
 curl --location --output spice-guest-tools.exe --url "https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe"
 start /wait spice-guest-tools.exe
 del /f spice-guest-tools.exe
 
+REM Nvidia GeForce Experience
 curl --location --output GeForce_Experience.exe --url "https://us.download.nvidia.com/GFE/GFEClient/3.25.1.27/GeForce_Experience_v3.25.1.27.exe"
 start /wait GeForce_Experience.exe
 del /f GeForce_Experience.exe
