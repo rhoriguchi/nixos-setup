@@ -312,8 +312,6 @@ let
 
               # INITIAL SETUP
 
-              # <!-- https://www.microsoft.com/software-download/windows10 -->
-              # <!-- https://www.microsoft.com/software-download/windows11 -->
               # <disk type='file' device='cdrom'>
               #   <driver name='qemu' type='raw' cache='none'/>
               #   <source file='PATH_TO_ISO'/>

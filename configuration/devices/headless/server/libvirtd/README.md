@@ -2,11 +2,16 @@
 
 ## Initial Windows setup
 
-Uncomment in [libvirtd config](configuration/devices/headless/server/libvirtd/default.nix) the `INITIAL SETUP` block and replace `PATH_TO_ISO` with correct path.
+Uncomment in [libvirtd config](default.nix) the `INITIAL SETUP` block and replace `PATH_TO_ISO` with correct path.
+
+- Windows 10: <https://www.microsoft.com/software-download/windows10>
+- Windows 11: <https://www.microsoft.com/software-download/windows11>
+
+### Install drivers
 
 Once Windows is installed run in an elevated cmd.
 
-These tools need to be installed manually.
+Some tools need to be installed manually.
 
 ```txt
 cd %userprofile%/Downloads
@@ -22,7 +27,7 @@ start /wait GeForce_Experience.exe
 del /f GeForce_Experience.exe
 ```
 
-After manual installation.
+After the manual installation.
 
 ```txt
 cd %userprofile%/Downloads
@@ -67,6 +72,8 @@ powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows
 Restart VM.
 
 ## Other Software to install
+
+Run in an elevated cmd.
 
 ```txt
 cd %userprofile%/Downloads
