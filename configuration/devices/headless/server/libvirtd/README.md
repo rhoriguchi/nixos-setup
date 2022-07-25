@@ -36,4 +36,21 @@ REM VirtIO FS
 curl --output winfsp-1.11.22176.msi --url https://github.com/winfsp/winfsp/releases/download/v1.11/winfsp-1.11.22176.msi
 start /wait msiexec /i winfsp-1.11.22176.msi /quiet /qn /norestart
 sc start VirtioFsSvc
+
+REM Power tuning
+powercfg /hibernate off
+powercfg -h off
+powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+
+REM Cleanup Windows with https://github.com/Sycnex/Windows10Debloater
+powershell -command "iwr -useb https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Debloat%20Windows | iex"
+powershell -command "iwr -useb https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Debloat%20Windows | iex"
+powershell -command "iwr -useb https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Disable%20Cortana | iex"
+powershell -command "iwr -useb https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Protect%20Privacy | iex"
+powershell -command "iwr -useb https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Remove%20Bloatware%20RegKeys | iex"
+powershell -command "iwr -useb https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Stop%20Edge%20PDF | iex"
+powershell -command "iwr -useb https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Uninstall%20OneDrive | iex"
+powershell -command "iwr -useb https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Unpin%20Start | iex"
+
+shutdown /r
 ```
