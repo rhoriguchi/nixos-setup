@@ -63,3 +63,21 @@ powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows
 ```
 
 Restart VM.
+
+## Other Software to install
+
+```txt
+cd %userprofile%/Downloads
+
+curl --location --output Firefox.msi --url "hhttps://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US"
+start /wait msiexec /i Firefox.msi /quiet /qn /norestart
+del /f Firefox.msi
+
+curl --location --output Discord.exe --url "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86"
+curl --location --output Driver_Booster.exe --url "https://cdn.iobit.com/dl/driver_booster_setup.exe"
+curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.euw.exe"
+curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
+curl --location --output Steam.exe --url "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe"
+
+start %userprofile%/Downloads
+```
