@@ -40,6 +40,16 @@ in {
       pkgs.vscode-extensions.vincaslt.highlight-matching-tag
       pkgs.vscode-extensions.wholroyd.jinja
       pkgs.vscode-extensions.wix.vscode-import-cost
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=182817
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "PowerShell";
+          publisher = "ms-vscode";
+          version = "2022.6.3";
+          sha256 = "sha256-P8kakmpT3yAkKFroKttiLOV7PneOIoQOEtwImPIDHQY=";
+        };
+      })
     ];
 
     userTasks = {
