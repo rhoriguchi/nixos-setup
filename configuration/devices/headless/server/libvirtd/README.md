@@ -82,6 +82,10 @@ curl --location --output Firefox.msi --url "hhttps://download.mozilla.org/?produ
 start /wait msiexec /i Firefox.msi /quiet /qn /norestart
 del /f Firefox.msi
 
+curl --location --output VLC.msi --url "https://mirror.init7.net/videolan/vlc/3.0.17.4/win64/vlc-3.0.17.4-win64.msi"
+start /wait msiexec /i VLC.msi /quiet /qn /norestart
+del /f VLC.msi
+
 curl --location --output Discord.exe --url "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86"
 curl --location --output Driver_Booster.exe --url "https://cdn.iobit.com/dl/driver_booster_setup.exe"
 curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.euw.exe"
