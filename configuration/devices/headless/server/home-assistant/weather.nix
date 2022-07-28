@@ -1,6 +1,6 @@
-{ pkgs, config, ... }:
+{ pkgs, config, secrets, ... }:
 let
-  apiKey = (import ../../../../secrets.nix).services.home-assistant.config.openWeather.apiKey;
+  apiKey = secrets.services.home-assistant.config.openWeather.apiKey;
   lat = config.services.home-assistant.config.homeassistant.latitude;
   lon = config.services.home-assistant.config.homeassistant.longitude;
   units = config.services.home-assistant.config.homeassistant.unit_system;

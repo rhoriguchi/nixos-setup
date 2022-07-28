@@ -1,7 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, colors, ... }:
 let
-  colors = (import ../../colors.nix);
-
   extensions = [
     pkgs.gnomeExtensions.alphabetical-app-grid
     pkgs.gnomeExtensions.appindicator

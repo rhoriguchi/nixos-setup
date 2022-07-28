@@ -1,8 +1,8 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, secrets, ... }:
 let
   credentialsFile = pkgs.writeText "smb-secrets" ''
-    username=${(import ../../../secrets.nix).synology.username}
-    password=${(import ../../../secrets.nix).synology.password}
+    username=${secrets.synology.username}
+    password=${secrets.synology.password}
   '';
 
   extraOptions = let

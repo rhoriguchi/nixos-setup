@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-let colors = (import ../colors.nix);
-in {
+{ pkgs, colors, ... }: {
   home-manager.users.rhoriguchi.programs.git = {
     enable = true;
 

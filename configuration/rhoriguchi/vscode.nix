@@ -1,6 +1,4 @@
-{ pkgs, lib, ... }:
-let colors = (import ../colors.nix);
-in {
+{ pkgs, lib, colors, ... }: {
   environment.shellAliases.vscode = "code";
 
   fonts.fonts = [ pkgs.nerdfonts ];

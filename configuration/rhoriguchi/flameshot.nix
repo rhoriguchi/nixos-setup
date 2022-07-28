@@ -1,6 +1,4 @@
-{ pkgs, config, lib, ... }:
-let colors = (import ../colors.nix);
-in {
+{ pkgs, config, lib, colors, ... }: {
   home-manager.users.rhoriguchi.xdg.configFile."flameshot/flameshot.ini".source = (pkgs.formats.ini { }).generate "flameshot.ini" {
     General = {
       buttons = ''

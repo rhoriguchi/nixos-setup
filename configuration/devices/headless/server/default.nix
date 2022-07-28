@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }: {
+{ pkgs, config, lib, secrets, ... }: {
   imports = [
     ../common.nix
 
@@ -41,8 +41,8 @@
     infomaniak = {
       enable = true;
 
-      username = (import ../../../secrets.nix).services.infomaniak.username;
-      password = (import ../../../secrets.nix).services.infomaniak.password;
+      username = secrets.services.infomaniak.username;
+      password = secrets.services.infomaniak.password;
       hostnames = [ "home-assistant.00a.ch" "home.00a.ch" ];
     };
 
@@ -54,26 +54,25 @@
     gphotos-sync = {
       enable = true;
 
-      projectId = (import ../../../secrets.nix).services.gphotos-sync.projectId;
-      clientId = (import ../../../secrets.nix).services.gphotos-sync.clientId;
-      clientSecret = (import ../../../secrets.nix).services.gphotos-sync.clientSecret;
+      projectId = secrets.services.gphotos-sync.projectId;
+      clientId = secrets.services.gphotos-sync.clientId;
+      clientSecret = secrets.services.gphotos-sync.clientSecret;
       exportPath = "${config.services.resilio.syncPath}/Google_Photos";
     };
 
-    resilio = let secrets = (import ../../../secrets.nix).services.resilio.secrets;
-    in {
+    resilio = {
       enable = true;
 
-      readWriteDirs = lib.attrNames secrets;
-      inherit secrets;
+      readWriteDirs = lib.attrNames secrets.services.resilio.secrets;
+      secrets = secrets.services.resilio.secrets;
       syncPath = "/mnt/Data/Sync";
     };
 
     tv_time_export = {
       enable = true;
 
-      username = (import ../../../secrets.nix).services.tv_time_export.username;
-      password = (import ../../../secrets.nix).services.tv_time_export.password;
+      username = secrets.services.tv_time_export.username;
+      password = secrets.services.tv_time_export.password;
       exportPath = "${config.services.resilio.syncPath}/tv_time_export";
     };
 

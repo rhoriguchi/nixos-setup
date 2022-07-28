@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, secrets, ... }:
 let
   home = config.users.users.rhoriguchi.home;
   syncPath = config.services.resilio.syncPath;
@@ -53,7 +53,7 @@ in {
         p2p_disabled=1
       '';
 
-      networks = (import ../../secrets.nix).networking.wireless.networks;
+      networks = secrets.networking.wireless.networks;
     };
   };
 
@@ -84,7 +84,7 @@ in {
         enable = true;
 
         username = "admin";
-        password = (import ../../secrets.nix).services.resilio.webUI.password;
+        password = secrets.services.resilio.webUI.password;
       };
     };
 
@@ -154,7 +154,7 @@ in {
   users.users.rhoriguchi = {
     extraGroups = [ "networkmanager" "plugdev" "podman" "wheel" ];
     isNormalUser = true;
-    password = (import ../../secrets.nix).users.users.rhoriguchi.password;
+    password = secrets.users.users.rhoriguchi.password;
   };
 
   system.activationScripts.rhoriguchiSetup = let

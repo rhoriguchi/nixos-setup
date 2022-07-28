@@ -1,4 +1,4 @@
-{
+{ secrets, ... }: {
   imports = [ ../common.nix ];
 
   networking.hostName = "XXLPitu-Ulquiorra";
@@ -13,7 +13,7 @@
     resilio = {
       enable = true;
 
-      secrets = (import ../../../../secrets.nix).services.resilio.secrets;
+      secrets = secrets.services.resilio.secrets;
       syncPath = "/mnt/Data/Sync";
     };
 

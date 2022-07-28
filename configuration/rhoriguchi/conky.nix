@@ -1,7 +1,5 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, colors, ... }:
 let
-  colors = (import ../colors.nix);
-
   buildCommand = let pattern = ''.*BUILD_ID="[0-9]+\.[0-9]+(pre|\.)(\S*)".*'';
   in "cat /etc/os-release | tr '\\n' '\\r' | sed --regexp-extended 's/${pattern}/\\2/'";
 

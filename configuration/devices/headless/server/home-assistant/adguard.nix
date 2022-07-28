@@ -1,7 +1,7 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, secrets, ... }:
 let
-  username = (import ../../../../secrets.nix).services.home-assistant.config.adguard.username;
-  password = (import ../../../../secrets.nix).services.home-assistant.config.adguard.password;
+  username = secrets.services.home-assistant.config.adguard.username;
+  password = secrets.services.home-assistant.config.adguard.password;
 
   hostname = "XXLPitu-AdGuard.local";
 

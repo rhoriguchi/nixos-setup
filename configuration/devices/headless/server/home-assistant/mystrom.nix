@@ -1,8 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, secrets, ... }:
 let
-  email = (import ../../../../secrets.nix).services.home-assistant.config.mystrom.email;
-  password = (import ../../../../secrets.nix).services.home-assistant.config.mystrom.password;
-
   apiUrl = "https://mystrom.ch/api";
 
   getXScript = id: key:
@@ -12,8 +9,8 @@ let
       import requests
 
       response = requests.post('${apiUrl}/auth', params={
-          'email': '${email}',
-          'password': '${password}'
+          'email': '${secrets.services.home-assistant.config.mystrom.email}',
+          'password': '${secrets.services.home-assistant.config.mystrom.password}'
       })
 
       response = requests.get('${apiUrl}/devices', headers={'Auth-Token': json.loads(response.content)['authToken']})

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, secrets, ... }:
 let
   adguardhomePort = 80;
 
@@ -7,7 +7,7 @@ let
   settings = {
     users = [{
       name = "admin";
-      password = (import ../../../../secrets.nix).services.adguardhome.admin.password;
+      password = secrets.services.adguardhome.admin.password;
     }];
     dns = rec {
       bind_host = "0.0.0.0";

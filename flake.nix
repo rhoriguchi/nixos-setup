@@ -18,7 +18,15 @@
           storage.legacy = { };
         };
 
-        defaults.imports = [ ./configuration/common.nix ];
+        defaults = {
+          imports = [ ./configuration/common.nix ];
+
+          _module.args = {
+            authorized-keys = import ./configuration/authorized-keys.nix;
+            colors = import ./configuration/colors.nix;
+            secrets = import ./configuration/secrets.nix;
+          };
+        };
 
         # TODO extract devices to network.nix https://releases.nixos.org/nixops/nixops-1.3.1/manual/manual.html#idm140737318969936
 

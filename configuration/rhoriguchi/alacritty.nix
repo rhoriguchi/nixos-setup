@@ -1,6 +1,4 @@
-{ pkgs, utils, config, ... }:
-let colors = (import ../colors.nix);
-in {
+{ pkgs, utils, config, colors, ... }: {
   fonts.fonts = [ pkgs.nerdfonts ];
 
   home-manager.users.rhoriguchi.programs.alacritty = {

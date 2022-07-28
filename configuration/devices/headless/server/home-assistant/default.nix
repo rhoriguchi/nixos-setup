@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, secrets, ... }: {
   imports = [
     ./adguard.nix
     ./generate-wifi-guest-qr.nix
@@ -40,9 +40,9 @@
       homeassistant = {
         name = "Home";
         time_zone = config.time.timeZone;
-        latitude = (import ../../../../secrets.nix).services.home-assistant.config.homeassistant.latitude;
-        longitude = (import ../../../../secrets.nix).services.home-assistant.config.homeassistant.longitude;
-        elevation = (import ../../../../secrets.nix).services.home-assistant.config.homeassistant.elevation;
+        latitude = secrets.services.home-assistant.config.homeassistant.latitude;
+        longitude = secrets.services.home-assistant.config.homeassistant.longitude;
+        elevation = secrets.services.home-assistant.config.homeassistant.elevation;
         unit_system = "metric";
         temperature_unit = "C";
         currency = "CHF";

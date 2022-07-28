@@ -1,8 +1,5 @@
-{ pkgs, ... }:
+{ pkgs, secrets, ... }:
 let
-  email = (import ../../../../secrets.nix).services.home-assistant.config.netatmo.email;
-  password = (import ../../../../secrets.nix).services.home-assistant.config.netatmo.password;
-
   authUrl = "https://auth.netatmo.com/access";
   apiUrl = "https://app.netatmo.net/syncapi/v1";
 
@@ -20,8 +17,8 @@ let
 
           session.post('${authUrl}/postlogin',
                        data={
-                           'email': '${email}',
-                           'password': '${password}',
+                           'email': '${secrets.services.home-assistant.config.netatmo.email}',
+                           'password': '${secrets.services.home-assistant.config.netatmo.password}',
                            'stay_logged': 'on',
                            '_token': csrf_token
                        })
@@ -71,8 +68,8 @@ let
 in {
   services.home-assistant.config = {
     netatmo = {
-      client_id = (import ../../../../secrets.nix).services.home-assistant.config.netatmo.client_id;
-      client_secret = (import ../../../../secrets.nix).services.home-assistant.config.netatmo.client_secret;
+      client_id = secrets.services.home-assistant.config.netatmo.client_id;
+      client_secret = secrets.services.home-assistant.config.netatmo.client_secret;
     };
 
     sensor = createValveBatterySensors [
