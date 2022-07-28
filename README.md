@@ -126,16 +126,23 @@ nix flake update
 nixops create
 ```
 
-### Info
+### Deploy
+
+```console
+nixops deploy
+```
+
+### List devices
 
 ```console
 nixops info
 ```
 
-### Deploy
+### Update devices
 
 ```console
-nixops deploy
+nixops modify
+nixops deploy --kill-obsolete --create-only
 ```
 
 ### Update channel
