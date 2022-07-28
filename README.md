@@ -23,7 +23,7 @@ nix-channel --add https://nixos.org/channels/nixos-unstable nixos
   - Grammarly
   - MetaMask
   - Tab Session Manager
-- Nixops
+- NixOps
 - Postman
 - ProtonVPN Gui
 - qBittorrent
@@ -104,7 +104,21 @@ zfs create \
 
 #### [libvirt](configuration/devices/headless/server/libvirtd/README.md)
 
-## Nixops
+## Flake
+
+### Load shell with `nix` and `NixOps`
+
+```console
+nix develop
+```
+
+### Update
+
+```console
+nix flake update
+```
+
+## NixOps
 
 ### Init
 
