@@ -70,11 +70,12 @@
           imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow ];
         };
 
-        Placeholder = {
-          deployment.targetHost = "192.168.1.128";
+        # TODO commented
+        # Placeholder = {
+        #   deployment.targetHost = "192.168.1.128";
 
-          imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra ];
-        };
+        #   imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra ];
+        # };
       };
     } // utils.lib.eachDefaultSystem
     (system: let pkgs = pkgsFor system; in { devShell = pkgs.mkShell { buildInputs = [ pkgs.nix pkgs.nixopsUnstable ]; }; });
