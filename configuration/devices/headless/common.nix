@@ -1,4 +1,4 @@
-{ pkgs, lib, config, authorized-keys, secrets, ... }: {
+{ pkgs, lib, config, public-keys, secrets, ... }: {
   imports = [ ../../configs/doas.nix ../../configs/fancy-motd.nix ../../configs/nginx.nix ];
 
   nix.gc = {
@@ -22,6 +22,6 @@
       ++ (lib.optionals config.virtualisation.libvirtd.enable [ "kvm" "libvirtd" ]);
     isNormalUser = true;
     password = secrets.users.users.xxlpitu.password;
-    openssh.authorizedKeys.keys = authorized-keys;
+    openssh.authorizedKeys.keys = [ public-keys.default ];
   };
 }

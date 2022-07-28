@@ -22,8 +22,8 @@
           imports = [ ./configuration/common.nix ];
 
           _module.args = {
-            authorized-keys = import ./configuration/authorized-keys.nix;
             colors = import ./configuration/colors.nix;
+            public-keys = import ./configuration/public-keys.nix;
             secrets = import ./configuration/secrets.nix;
           };
         };

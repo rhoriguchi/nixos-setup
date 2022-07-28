@@ -1,4 +1,4 @@
-{ lib, config, pkgs, authorized-keys, ... }: {
+{ lib, config, pkgs, public-keys, ... }: {
   imports = [
     ./modules
 
@@ -27,7 +27,7 @@
 
     users.root = {
       hashedPassword = "*";
-      openssh.authorizedKeys.keys = authorized-keys;
+      openssh.authorizedKeys.keys = [ public-keys.default ];
     };
   };
 }
