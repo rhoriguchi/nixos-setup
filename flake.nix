@@ -11,6 +11,7 @@
     };
     nur.url = "github:nix-community/NUR";
   };
+
   outputs = { self, nixpkgs, flake-utils, mach-nix, nur, ... }:
     let
       pkgsFor = system: import nixpkgs { inherit system; };
