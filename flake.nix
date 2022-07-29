@@ -58,6 +58,6 @@
         };
       } // import ./devices.nix;
     } // flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixpkgs { inherit system; };
+      let pkgs = import nixpkgs { inherit system ; inherit (self) overlays; };
       in { devShell = pkgs.mkShell { buildInputs = [ pkgs.nix pkgs.nixopsUnstable ]; }; });
 }
