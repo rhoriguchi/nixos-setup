@@ -23,7 +23,7 @@
           nur = { };
           inherit (super.nur.repos.rycee) firefox-addons;
         })
-      ];
+      ] ++ import ./configuration/overlays;
     in {
       inherit overlays;
 

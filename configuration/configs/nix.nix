@@ -9,10 +9,7 @@
     settings.auto-optimise-store = true;
   };
 
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = import ../overlays;
-  };
+  nixpkgs.config.allowUnfree = true;
 
   documentation = {
     doc.enable = false;
