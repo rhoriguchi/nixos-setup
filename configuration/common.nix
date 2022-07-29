@@ -1,6 +1,6 @@
 { lib, pkgs, public-keys, ... }: {
   imports = [
-    ./modules
+    ./../modules
 
     ./configs/i18n.nix
     ./configs/keyboard.nix

@@ -32,7 +32,7 @@ in {
 
       "*.00a.ch".user = "xxlpitu";
     } // (let
-      ips = import ../modules/wireguard-vpn/ips.nix;
+      ips = import ../../modules/wireguard-vpn/ips.nix;
       clientIps = lib.filterAttrs (key: _: key != "server") ips;
     in lib.mapAttrs' (key: value:
       lib.nameValuePair (lib.toLower key) {

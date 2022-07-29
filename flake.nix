@@ -22,6 +22,8 @@
 
   outputs = { self, nixpkgs, flake-utils, mach-nix, nur, ... }:
     rec {
+      modules = import ./modules;
+
       overlays = [
         nur.overlay
         (self: super: {
@@ -30,7 +32,7 @@
           nur = { };
           inherit (super.nur.repos.rycee) firefox-addons;
         })
-      ] ++ import ./configuration/overlays;
+      ] ++ import ./overlays;
 
       nixopsConfigurations.default = {
         inherit nixpkgs;
