@@ -21,7 +21,9 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, mach-nix, nur, ... }:
-    rec {
+    {
+      # TODO find out how to make this compliant https://nixos.wiki/wiki/Flakes#Output_schema
+
       modules = import ./modules;
 
       overlays = [
@@ -46,7 +48,7 @@
         defaults = {
           imports = [ ./configuration/common.nix ];
 
-          nixpkgs.overlays = overlays;
+          nixpkgs.overlays = self.overlays;
 
           _module.args = {
             colors = import ./configuration/colors.nix;
