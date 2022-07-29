@@ -4,16 +4,29 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-  };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
+    mach-nix = {
+      url = "github:DavHau/mach-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nur.url = "github:nix-community/NUR";
+  };
+  outputs = { self, nixpkgs, flake-utils, mach-nix, nur, ... }:
     let
-      pkgsFor = system:
-        import nixpkgs {
-          inherit system;
-          # overlays = [ self.overlay ];
-        };
+      pkgsFor = system: import nixpkgs { inherit system; };
+
+      overlays = [
+        nur.overlay
+        (self: super: {
+          mach-nix = import mach-nix;
+
+          nur = { };
+          inherit (super.nur.repos.rycee) firefox-addons;
+        })
+      ];
     in {
+      inherit overlays;
+
       nixopsConfigurations.default = {
         inherit nixpkgs;
 
@@ -25,6 +38,8 @@
 
         defaults = {
           imports = [ ./configuration/common.nix ];
+
+          nixpkgs = { inherit overlays; };
 
           _module.args = {
             colors = import ./configuration/colors.nix;
