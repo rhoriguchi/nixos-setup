@@ -1,4 +1,4 @@
-{ pkgs, lib, config, public-keys, secrets, ... }: {
+{ public-keys, secrets, ... }: {
   imports = [
     ../common.nix
 

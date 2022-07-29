@@ -1,4 +1,4 @@
-{ lib, config, pkgs, public-keys, ... }: {
+{ lib, pkgs, public-keys, ... }: {
   imports = [
     ./modules
 

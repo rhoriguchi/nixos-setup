@@ -1,8 +1,5 @@
 { config, lib, ... }:
-let
-  home = config.users.users.rhoriguchi.home;
-
-  dag = config.home-manager.users.rhoriguchi.lib.dag;
+let home = config.users.users.rhoriguchi.home;
 in {
   home-manager.users.rhoriguchi.programs.ssh = {
     enable = true;

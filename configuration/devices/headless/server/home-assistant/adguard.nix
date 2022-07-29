@@ -1,4 +1,4 @@
-{ pkgs, lib, secrets, ... }:
+{ pkgs, secrets, ... }:
 let
   username = secrets.services.home-assistant.config.adguard.username;
   password = secrets.services.home-assistant.config.adguard.password;

@@ -2,8 +2,6 @@
 let
   cfg = config.services.wireguard-vpn;
 
-  subnet = "10.123.123.0/24";
-
   ips = (import ./ips.nix);
   clientIps = lib.filterAttrs (key: _: key != "server") ips;
 

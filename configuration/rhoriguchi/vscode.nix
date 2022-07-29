@@ -52,18 +52,33 @@
 
     userTasks = {
       "version" = "2.0.0";
-      "tasks" = [{
-        "type" = "shell";
-        "label" = "nixfmt";
-        "command" = ''find ''${workspaceFolder} -name "*.nix" | xargs ${pkgs.haskellPackages.nixfmt}/bin/nixfmt --width=140'';
-        "presentation" = {
-          "close" = true;
-          "panel" = "dedicated";
-          "reveal" = "silent";
-        };
-        "group" = "none";
-        "problemMatcher" = [ ];
-      }];
+      "tasks" = [
+        {
+          "type" = "shell";
+          "label" = "deadnix";
+          "command" = ''
+            find ''${workspaceFolder} -name "*.nix" -and ! -name "hardware-configuration.nix" | xargs ${pkgs.deadnix}/bin/deadnix --no-lambda-pattern-names'';
+          "presentation" = {
+            "clear" = true;
+            "panel" = "dedicated";
+            "reveal" = "always";
+          };
+          "group" = "none";
+          "problemMatcher" = [ ];
+        }
+        {
+          "type" = "shell";
+          "label" = "nixfmt";
+          "command" = ''find ''${workspaceFolder} -name "*.nix" | xargs ${pkgs.haskellPackages.nixfmt}/bin/nixfmt --width=140'';
+          "presentation" = {
+            "close" = true;
+            "panel" = "dedicated";
+            "reveal" = "silent";
+          };
+          "group" = "none";
+          "problemMatcher" = [ ];
+        }
+      ];
     };
 
     userSettings = {

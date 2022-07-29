@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   boot = {
     # TODO remove when this board is supported
     kernelPatches = [{

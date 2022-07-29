@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 let htop = config.home-manager.users.rhoriguchi.lib.htop;
 in {
   home-manager.users.rhoriguchi.programs.htop = {
