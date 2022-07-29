@@ -71,6 +71,7 @@
           "label" = "nixfmt";
           "command" = ''find ''${workspaceFolder} -name "*.nix" | xargs ${pkgs.haskellPackages.nixfmt}/bin/nixfmt --width=140'';
           "presentation" = {
+            "clear" = true;
             "close" = true;
             "panel" = "dedicated";
             "reveal" = "silent";
