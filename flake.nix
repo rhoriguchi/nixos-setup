@@ -7,8 +7,16 @@
 
     mach-nix = {
       url = "github:DavHau/mach-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pypi-deps-db.follows = "pypi-deps-db";
+      };
     };
+    pypi-deps-db = {
+      url = "github:DavHau/pypi-deps-db";
+      flake = false;
+    };
+
     nur.url = "github:nix-community/NUR";
   };
 
