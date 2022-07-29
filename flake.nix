@@ -20,16 +20,16 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, flake-utils, mach-nix, nur, ... }:
+  outputs = { self, nixpkgs, flake-utils, mach-nix, nur, ... }@inputs:
     {
       # TODO find out how to make this compliant https://nixos.wiki/wiki/Flakes#Output_schema
 
       modules = import ./modules;
 
       overlays = [
-        nur.overlay
+        inputs.nur.overlay
         (self: super: {
-          mach-nix = mach-nix.lib.${super.stdenv.hostPlatform.system};
+          mach-nix = inputs.mach-nix.lib.${super.stdenv.hostPlatform.system};
 
           nur = { };
           inherit (super.nur.repos.rycee) firefox-addons;
@@ -37,7 +37,7 @@
       ] ++ import ./overlays;
 
       nixopsConfigurations.default = {
-        inherit nixpkgs;
+        inherit (inputs) nixpkgs;
 
         network = {
           description = "My Systems";
@@ -57,7 +57,11 @@
           };
         };
       } // import ./devices.nix;
-    } // flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixpkgs { inherit system ; inherit (self) overlays; };
+    } // inputs.flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          inherit (self) overlays;
+        };
       in { devShell = pkgs.mkShell { buildInputs = [ pkgs.nix pkgs.nixopsUnstable ]; }; });
 }
