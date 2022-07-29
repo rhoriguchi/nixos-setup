@@ -44,7 +44,7 @@
         defaults = {
           imports = [ ./configuration/common.nix ];
 
-          nixpkgs = { inherit overlays; };
+          nixpkgs.overlays = overlays;
 
           _module.args = {
             colors = import ./configuration/colors.nix;
