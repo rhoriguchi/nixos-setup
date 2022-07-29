@@ -17,10 +17,10 @@
       overlays = [
         nur.overlay
         (self: super: {
+          mach-nix = mach-nix.lib.${super.stdenv.hostPlatform.system};
+
           nur = { };
           inherit (super.nur.repos.rycee) firefox-addons;
-
-          mach-nix = mach-nix.lib.${super.stdenv.hostPlatform.system};
         })
       ] ++ import ./configuration/overlays;
 
