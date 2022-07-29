@@ -44,7 +44,7 @@
             secrets = import ./configuration/secrets.nix;
           };
         };
-      } // import ./network.nix;
+      } // import ./devices.nix;
     } // flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system; };
       in { devShell = pkgs.mkShell { buildInputs = [ pkgs.nix pkgs.nixopsUnstable ]; }; });
