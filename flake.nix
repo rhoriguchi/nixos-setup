@@ -13,9 +13,7 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, mach-nix, nur, ... }:
-    let
-      pkgsFor = system: import nixpkgs { inherit system; };
-
+    rec {
       overlays = [
         nur.overlay
         (self: super: {
@@ -25,8 +23,6 @@
           mach-nix = mach-nix.lib.${super.stdenv.hostPlatform.system};
         })
       ] ++ import ./configuration/overlays;
-    in {
-      inherit overlays;
 
       nixopsConfigurations.default = {
         inherit nixpkgs;
@@ -49,6 +45,7 @@
           };
         };
       } // import ./network.nix;
-    } // flake-utils.lib.eachDefaultSystem
-    (system: let pkgs = pkgsFor system; in { devShell = pkgs.mkShell { buildInputs = [ pkgs.nix pkgs.nixopsUnstable ]; }; });
+    } // flake-utils.lib.eachDefaultSystem (system:
+      let pkgs = import nixpkgs { inherit system; };
+      in { devShell = pkgs.mkShell { buildInputs = [ pkgs.nix pkgs.nixopsUnstable ]; }; });
 }
