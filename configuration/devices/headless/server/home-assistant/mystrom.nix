@@ -28,18 +28,17 @@ let
 
   pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.requests ]);
 
-  createButtonBatterySensors = buttons:
-    map (button: {
-      platform = "command_line";
-      name = button.name;
-      scan_interval = 60 * 60;
-      command = "${pythonWithPackages}/bin/python ${getVoltageScript button.id}";
-      value_template = let
-        maxVoltage = "4300";
-        minVoltage = "3700";
-      in "{{ (((value | float) * 1000 - ${minVoltage}) * 100 / (${maxVoltage} - ${minVoltage})) | round }}";
-      unit_of_measurement = "%";
-    }) buttons;
+  createButtonBatterySensors = map (button: {
+    platform = "command_line";
+    name = button.name;
+    scan_interval = 60 * 60;
+    command = "${pythonWithPackages}/bin/python ${getVoltageScript button.id}";
+    value_template = let
+      maxVoltage = "4300";
+      minVoltage = "3700";
+    in "{{ (((value | float) * 1000 - ${minVoltage}) * 100 / (${maxVoltage} - ${minVoltage})) | round }}";
+    unit_of_measurement = "%";
+  });
 in {
   services.home-assistant.config = {
     switch = [{

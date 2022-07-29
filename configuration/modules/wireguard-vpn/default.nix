@@ -2,10 +2,10 @@
 let
   cfg = config.services.wireguard-vpn;
 
-  ips = (import ./ips.nix);
+  ips = import ./ips.nix;
   clientIps = lib.filterAttrs (key: _: key != "server") ips;
 
-  keys = (import ./secrets.nix);
+  keys = import ./secrets.nix;
   clientKeys = lib.filterAttrs (key: _: key != "server") keys;
 
   serverAddress = "wireguard.00a.ch";

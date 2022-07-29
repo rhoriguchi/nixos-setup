@@ -69,7 +69,7 @@ let
     };
   };
 
-  libvirtd-network = (baseService // {
+  libvirtd-network = baseService // {
     script = let
       xmlConfig = pkgs.writeText "libvirtd-network.xml" ''
         <network>
@@ -105,10 +105,10 @@ let
       virsh net-autostart --disable "default"
     '';
 
-    preStop = "${getShellScriptToWaitForWindowsShutdown ''virsh net-destroy "default"'' ((5 * 60))}";
-  });
+    preStop = "${getShellScriptToWaitForWindowsShutdown ''virsh net-destroy "default"'' (5 * 60)}";
+  };
 
-  libvirtd-pool = (baseService // {
+  libvirtd-pool = baseService // {
     script = let
       xmlConfig = pkgs.writeText "libvirtd-pool.xml" ''
         <pool type='dir'>
@@ -130,10 +130,10 @@ let
       virsh pool-autostart --disable "default"
     '';
 
-    preStop = "${getShellScriptToWaitForWindowsShutdown ''virsh pool-destroy "default"'' ((5 * 60))}";
-  });
+    preStop = "${getShellScriptToWaitForWindowsShutdown ''virsh pool-destroy "default"'' (5 * 60)}";
+  };
 
-  libvirtd-volume-windows = (baseService // rec {
+  libvirtd-volume-windows = baseService // rec {
     after = baseService.after ++ [ "libvirtd-pool.service" ];
     requires = after;
 
@@ -156,9 +156,9 @@ let
       volumeKey="$(virsh vol-key --pool "default" "windows" || true)"
       virsh vol-create --pool "default" <(sed "s=KEY=$volumeKey=" ${xmlConfig}) || true
     '';
-  });
+  };
 
-  libvirtd-guest-windows = (baseService // rec {
+  libvirtd-guest-windows = baseService // rec {
     after = baseService.after ++ [ "libvirtd-network.service" "libvirtd-volume-windows.service" ];
     requires = after;
 
@@ -391,7 +391,7 @@ let
 
       ${getShellScriptToWaitForWindowsShutdown ''virsh destroy "windows"'' 60}
     '';
-  });
+  };
 
   backup-windows-guest = rec {
     after = [ "libvirtd.service" "libvirtd-guest-windows.service" ];
