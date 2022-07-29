@@ -19,10 +19,10 @@
       overlays = [
         nur.overlay
         (self: super: {
-          mach-nix = import mach-nix;
-
           nur = { };
           inherit (super.nur.repos.rycee) firefox-addons;
+
+          mach-nix = mach-nix.lib.${super.stdenv.hostPlatform.system};
         })
       ] ++ import ./configuration/overlays;
     in {
@@ -48,7 +48,7 @@
             secrets = import ./configuration/secrets.nix;
           };
         };
-      } // (import ./network.nix);
+      } // import ./network.nix;
     } // flake-utils.lib.eachDefaultSystem
     (system: let pkgs = pkgsFor system; in { devShell = pkgs.mkShell { buildInputs = [ pkgs.nix pkgs.nixopsUnstable ]; }; });
 }
