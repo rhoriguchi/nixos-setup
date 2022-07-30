@@ -60,6 +60,7 @@
             find ''${workspaceFolder} -name "*.nix" -and ! -name "hardware-configuration.nix" | xargs ${pkgs.deadnix}/bin/deadnix --no-lambda-pattern-names'';
           "presentation" = {
             "clear" = true;
+            "focus" = true;
             "panel" = "dedicated";
             "reveal" = "always";
           };
