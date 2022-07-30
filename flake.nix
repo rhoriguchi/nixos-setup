@@ -26,10 +26,9 @@
   outputs = { self, nixpkgs, flake-utils, mach-nix, nur-rycee, ... }@inputs:
     {
       # TODO find out how to make this compliant https://nixos.wiki/wiki/Flakes#Output_schema
-
       modules = import ./modules;
 
-      overlays = [
+      overlay = inputs.nixpkgs.lib.composeManyExtensions ([
         (self: super:
           let nur-rycee = import inputs.nur-rycee { pkgs = super; };
           in {
@@ -37,7 +36,7 @@
 
             inherit (nur-rycee) firefox-addons;
           })
-      ] ++ import ./overlays;
+      ] ++ import ./overlays);
 
       nixopsConfigurations.default = {
         inherit (inputs) nixpkgs;
@@ -51,7 +50,7 @@
         defaults = {
           imports = [ ./configuration/common.nix ];
 
-          nixpkgs.overlays = self.overlays;
+          nixpkgs.overlays = [ self.overlay ];
 
           _module.args = {
             colors = import ./configuration/colors.nix;
@@ -61,10 +60,6 @@
         };
       } // import ./devices.nix;
     } // inputs.flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import inputs.nixpkgs {
-          inherit system;
-          inherit (self) overlays;
-        };
+      let pkgs = import inputs.nixpkgs { inherit system; };
       in { devShell = pkgs.mkShell { buildInputs = [ pkgs.nix pkgs.nixopsUnstable ]; }; });
 }
