@@ -69,19 +69,20 @@
         "type": "indirect"
       }
     },
-    "nur": {
+    "nur-rycee": {
+      "flake": false,
       "locked": {
-        "lastModified": 1659081716,
-        "narHash": "sha256-sbBdVFMQvid6JqaSF1uwpoaQfsW0mnHIpzvtiKYBuQc=",
-        "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "edd68f941e0a7c98ee88b57fbe6e1aad06d6e05c",
-        "type": "github"
+        "lastModified": 1659137263,
+        "narHash": "sha256-6XH3Ad+k4gQDzJYrEwU1k1+YmrVsYSOFu33Z9Cc8XO0=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "d3ac7cefaf18a41ae6655f21065f4c6e566a96bd",
+        "type": "gitlab"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "NUR",
-        "type": "github"
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
       }
     },
     "pypi-deps-db": {
@@ -105,7 +106,7 @@
         "flake-utils": "flake-utils",
         "mach-nix": "mach-nix",
         "nixpkgs": "nixpkgs",
-        "nur": "nur",
+        "nur-rycee": "nur-rycee",
         "pypi-deps-db": "pypi-deps-db"
       }
     }

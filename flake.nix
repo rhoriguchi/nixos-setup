@@ -17,23 +17,26 @@
       flake = false;
     };
 
-    nur.url = "github:nix-community/NUR";
+    nur-rycee = {
+      url = "gitlab:rycee/nur-expressions";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, mach-nix, nur, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, mach-nix, nur-rycee, ... }@inputs:
     {
       # TODO find out how to make this compliant https://nixos.wiki/wiki/Flakes#Output_schema
 
       modules = import ./modules;
 
       overlays = [
-        inputs.nur.overlay
-        (self: super: {
-          mach-nix = inputs.mach-nix.lib.${super.stdenv.hostPlatform.system};
+        (self: super:
+          let nur-rycee = import inputs.nur-rycee { pkgs = super; };
+          in {
+            mach-nix = inputs.mach-nix.lib.${super.stdenv.hostPlatform.system};
 
-          nur = { };
-          inherit (super.nur.repos.rycee) firefox-addons;
-        })
+            inherit (nur-rycee) firefox-addons;
+          })
       ] ++ import ./overlays;
 
       nixopsConfigurations.default = {
