@@ -100,10 +100,18 @@
     };
   };
 
-  users.users.gitlab-ci = {
-    isNormalUser = true;
-    group = "docker";
-    hashedPassword = "*";
-    openssh.authorizedKeys.keys = [ public-keys.gitlab ];
+  users.users = {
+    phh = {
+      isNormalUser = true;
+      hashedPassword = "*";
+      openssh.authorizedKeys.keys = [ public-keys.phh ];
+    };
+
+    gitlab-ci = {
+      isNormalUser = true;
+      group = "docker";
+      hashedPassword = "*";
+      openssh.authorizedKeys.keys = [ public-keys.gitlab ];
+    };
   };
 }
