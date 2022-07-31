@@ -1,13 +1,5 @@
 { lib, pkgs, public-keys, ... }: {
-  imports = [
-    ./../modules
-
-    ./configs/i18n.nix
-    ./configs/keyboard.nix
-    ./configs/nano.nix
-    ./configs/nix.nix
-    ./configs/zsh.nix
-  ];
+  imports = [ ./configs/i18n.nix ./configs/keyboard.nix ./configs/nano.nix ./configs/nix.nix ./configs/zsh.nix ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_18;
 
