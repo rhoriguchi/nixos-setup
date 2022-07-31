@@ -9,6 +9,18 @@
           sha256 = "sha256-6AicdbFzWft4c6rCjm2XJ8KCvrnZM0/lGi8csFoSN7w=";
         }
       }/pkgs/applications/version-management/gitkraken") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=182817
+    vscode-extensions = super.vscode-extensions // {
+      ms-vscode.PowerShell = super.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "PowerShell";
+          publisher = "ms-vscode";
+          version = "2022.6.3";
+          sha256 = "sha256-P8kakmpT3yAkKFroKttiLOV7PneOIoQOEtwImPIDHQY=";
+        };
+      };
+    };
   })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
