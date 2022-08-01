@@ -15,13 +15,12 @@
   services.home-assistant = {
     enable = true;
 
-    package = let
-      homeAssistant = pkgs.home-assistant.overrideAttrs (_: {
-        tests = [ ];
-        doInstallCheck = false;
-      });
-      homeAssistantExtraPackages = homeAssistant.override { extraPackages = pythonPackages: [ pythonPackages.psycopg2 ]; };
-    in homeAssistantExtraPackages.override {
+    package = (pkgs.home-assistant.overrideAttrs (_: {
+      doCheck = false;
+      doInstallCheck = false;
+    })).override {
+      extraPackages = pythonPackages: [ pythonPackages.psycopg2 ];
+
       extraComponents = [
         "default_config"
 
