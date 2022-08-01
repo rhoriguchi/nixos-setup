@@ -66,11 +66,6 @@ let
   });
 in {
   services.home-assistant.config = {
-    netatmo = {
-      client_id = secrets.services.home-assistant.config.netatmo.client_id;
-      client_secret = secrets.services.home-assistant.config.netatmo.client_secret;
-    };
-
     sensor = createValveBatterySensors [
       {
         name = "Netatmo valve living room battery";
