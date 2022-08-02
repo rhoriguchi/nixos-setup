@@ -32,6 +32,15 @@
         }
       }/pkgs/applications/system/glances") { };
 
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=184897
+    plexRaw = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "rhoriguchi";
+          repo = "nixpkgs";
+          rev = "3daef5163eac9c8ef1aeb5eef1160398a18296d1";
+          sha256 = "sha256-svRve+90LkLH0hbVvts4PS/GhSVqBNs8u/P0826MGF4=";
+        }
+      }/pkgs/servers/plex/raw.nix") { };
   })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
