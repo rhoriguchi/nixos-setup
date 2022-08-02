@@ -31,7 +31,7 @@
 
   #####################################################
 
-  Horgen = {
+  Grimmjow = {
     deployment.targetHost = "xxlpitu-grimmjow";
 
     imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow ];
