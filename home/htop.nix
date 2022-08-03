@@ -1,7 +1,7 @@
 { config, ... }:
-let htop = config.home-manager.users.rhoriguchi.lib.htop;
+let htop = config.lib.htop;
 in {
-  home-manager.users.rhoriguchi.programs.htop = {
+  programs.htop = {
     enable = true;
 
     settings = {

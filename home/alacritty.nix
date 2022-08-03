@@ -1,12 +1,13 @@
 { pkgs, utils, config, colors, ... }: {
-  fonts.fonts = [ pkgs.nerdfonts ];
+  fonts.fontconfig.enable = true;
+  home.packages = [ pkgs.nerdfonts ];
 
-  home-manager.users.rhoriguchi.programs.alacritty = {
+  programs.alacritty = {
     enable = true;
 
     settings = {
-      shell.program = "${utils.toShellPath config.users.defaultUserShell}";
-      working_directory = config.users.users.rhoriguchi.home;
+      shell.program = "/run/current-system/sw${pkgs.zsh.shellPath}";
+      working_directory = config.home.homeDirectory;
       window.startup_mode = "Maximized";
 
       scrolling = {

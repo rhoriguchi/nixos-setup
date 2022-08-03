@@ -1,11 +1,10 @@
-{ pkgs, lib, config, colors, ... }:
+{ pkgs, lib, colors, conky, ... }:
 let
   buildCommand = let pattern = ''.*BUILD_ID="[0-9]+\.[0-9]+(pre|\.)(\S*)".*'';
   in "cat /etc/os-release | tr '\\n' '\\r' | sed --regexp-extended 's/${pattern}/\\2/'";
 
   fileSystemLines = let
-    paths = lib.filter (path: path != "/boot") (lib.attrNames config.fileSystems);
-    sortedPaths = lib.sort (a: b: a < b) paths;
+    sortedPaths = lib.sort (a: b: a < b) conky.fileSystems;
 
     lines = map (path:
       [
@@ -14,8 +13,7 @@ let
   in lib.concatStringsSep "\n  " (lib.flatten lines);
 
   interfaceLines = let
-    interfaces = lib.filter (interface: interface != "vboxnet0") (lib.attrNames config.networking.interfaces);
-    sortedInterfaces = lib.sort (a: b: a < b) interfaces;
+    sortedInterfaces = lib.sort (a: b: a < b) conky.interfaces;
 
     lines = map (interface: [
       "\${goto 24}\${color1}${interface}"
@@ -23,12 +21,6 @@ let
       "\${goto 24}\${color1}\${upspeedgraph ${interface} 16, 175} \${alignr}\${downspeedgraph ${interface} 16, 175}"
       ""
     ]) sortedInterfaces;
-  in lib.concatStringsSep "\n  " (lib.flatten lines);
-
-  memoryLines = let
-    lines = [ "\${goto 24}\${color1}RAM: \${color2}\${mem}/\${memmax} \${alignr}\${memperc}% \${color1}\${membar 6, 124}" ]
-      ++ lib.optional (lib.length config.swapDevices > 0)
-      "\${goto 24}\${color1}Swap: \${color2}\${swap}/\${swapmax} \${alignr}$swapperc% \${color1}\${swapbar 6, 124}";
   in lib.concatStringsSep "\n  " (lib.flatten lines);
 
   configFile = pkgs.writeText "conky.conf" ''
@@ -96,7 +88,7 @@ let
 
 
       ''${goto 24}''${color1} Memory''${voffset 8}
-      ${memoryLines}''${voffset 8}
+      ''${goto 24}''${color1}RAM: ''${color2}''${mem}/''${memmax} ''${alignr}''${memperc}% ''${color1}''${membar 6, 124}''${voffset 8}
       ''${goto 24}''${color1}''${top_mem name 1}''${color2}''${top_mem mem 1}% ''${alignr}''${color1}''${top_mem name 4}''${color2}''${top_mem mem 4}%
       ''${goto 24}''${color1}''${top_mem name 2}''${color2}''${top_mem mem 2}% ''${alignr}''${color1}''${top_mem name 5}''${color2}''${top_mem mem 5}%
       ''${goto 24}''${color1}''${top_mem name 3}''${color2}''${top_mem mem 2}% ''${alignr}''${color1}''${top_mem name 6}''${color2}''${top_mem mem 6}%
@@ -121,7 +113,8 @@ let
     terminal = false;
   };
 in {
-  fonts.fonts = [ pkgs.nerdfonts ];
+  fonts.fontconfig.enable = true;
+  home.packages = [ pkgs.nerdfonts ];
 
-  home-manager.users.rhoriguchi.xdg.configFile."autostart/conky.desktop".source = "${desktopItem}/share/applications/Conky.desktop";
+  xdg.configFile."autostart/conky.desktop".source = "${desktopItem}/share/applications/Conky.desktop";
 }

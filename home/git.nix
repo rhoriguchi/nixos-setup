@@ -1,5 +1,5 @@
 { pkgs, colors, ... }: {
-  home-manager.users.rhoriguchi.programs.git = {
+  programs.git = {
     enable = true;
 
     userName = "Ryan Horiguchi";

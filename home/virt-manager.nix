@@ -1,5 +1,5 @@
 {
-  home-manager.users.rhoriguchi.dconf = {
+  dconf = {
     enable = true;
 
     settings = {

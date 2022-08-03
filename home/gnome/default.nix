@@ -11,11 +11,10 @@ let
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
-  fonts.fonts = [ pkgs.cantarell-fonts pkgs.nerdfonts ];
+  fonts.fontconfig.enable = true;
+  home.packages = [ pkgs.cantarell-fonts pkgs.nerdfonts ] ++ extensions ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ];
 
-  users.users.rhoriguchi.packages = extensions ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ];
-
-  home-manager.users.rhoriguchi.dconf = {
+  dconf = {
     enable = true;
 
     settings = {

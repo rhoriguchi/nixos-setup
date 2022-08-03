@@ -1,7 +1,8 @@
 { pkgs, ... }: {
-  fonts.fonts = [ pkgs.nerdfonts ];
+  fonts.fontconfig.enable = true;
+  home.packages = [ pkgs.nerdfonts ];
 
-  home-manager.users.rhoriguchi.dconf = {
+  dconf = {
     enable = true;
 
     settings."org/gnome/gedit/preferences/editor" = {

@@ -1,7 +1,7 @@
 { config, lib, ... }:
-let home = config.users.users.rhoriguchi.home;
+let home = config.home.homeDirectory;
 in {
-  home-manager.users.rhoriguchi.programs.ssh = {
+  programs.ssh = {
     enable = true;
 
     compression = true;
@@ -33,7 +33,7 @@ in {
       "*.00a.ch".user = "xxlpitu";
     } // (let
       # TODO get this somehow through "nixosModules.default" so no relative path needs to be imported
-      ips = import ../../modules/wireguard-vpn/ips.nix;
+      ips = import ../modules/wireguard-vpn/ips.nix;
       clientIps = lib.filterAttrs (key: _: key != "server") ips;
     in lib.mapAttrs' (key: value:
       lib.nameValuePair (lib.toLower key) {

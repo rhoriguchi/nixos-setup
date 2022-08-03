@@ -1,7 +1,7 @@
 { lib, ... }: {
-  environment.shellAliases.cat = "bat";
+  programs.zsh.shellAliases.cat = "bat";
 
-  home-manager.users.rhoriguchi.programs.bat = {
+  programs.bat = {
     enable = true;
 
     config = {

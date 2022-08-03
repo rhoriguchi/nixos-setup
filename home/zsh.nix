@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  home-manager.users.rhoriguchi.programs = {
+  programs = {
     fzf = {
       enable = true;
 

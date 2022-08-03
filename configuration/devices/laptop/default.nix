@@ -25,8 +25,6 @@ in {
     ../../configs/printing.nix
     ../../configs/python.nix
 
-    ../../rhoriguchi
-
     ./keepassxc.nix
     ./rsnapshot.nix
 

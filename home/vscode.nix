@@ -1,9 +1,10 @@
 { pkgs, lib, colors, ... }: {
-  environment.shellAliases.vscode = "code";
+  fonts.fontconfig.enable = true;
+  home.packages = [ pkgs.nerdfonts ];
 
-  fonts.fonts = [ pkgs.nerdfonts ];
+  programs.zsh.shellAliases.vscode = "code";
 
-  home-manager.users.rhoriguchi.programs.vscode = {
+  programs.vscode = {
     enable = true;
 
     mutableExtensionsDir = false;

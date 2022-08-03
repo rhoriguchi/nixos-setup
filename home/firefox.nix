@@ -1,5 +1,5 @@
 { pkgs, lib, config, ... }: {
-  home-manager.users.rhoriguchi.programs.firefox = {
+  programs.firefox = {
     enable = true;
 
     extensions = [
@@ -88,7 +88,7 @@
         "browser.contentblocking.category" = "standard";
         "browser.discovery.enabled" = false;
         "browser.download.autohideButton" = false;
-        "browser.download.dir" = "${config.users.users.rhoriguchi.home}/Downloads/Browser";
+        "browser.download.dir" = "${config.home.homeDirectory}/Downloads/Browser";
         "browser.download.folderList" = 2;
         "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
         "browser.newtabpage.activity-stream.feeds.snippets" = false;
