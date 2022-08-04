@@ -85,7 +85,7 @@
                 useUserPackages = true;
 
                 extraSpecialArgs = {
-                  colors = self.nixosModules.colors;
+                  inherit (self.nixosModules) colors;
                   conky = {
                     fileSystems = [ "/" ];
                     interfaces = [ "wlp2s0" ];
