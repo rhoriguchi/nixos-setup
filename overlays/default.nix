@@ -10,18 +10,6 @@
         }
       }/pkgs/applications/version-management/gitkraken") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=182817
-    vscode-extensions = super.vscode-extensions // {
-      ms-vscode.PowerShell = super.vscode-utils.buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          name = "PowerShell";
-          publisher = "ms-vscode";
-          version = "2022.6.3";
-          sha256 = "sha256-P8kakmpT3yAkKFroKttiLOV7PneOIoQOEtwImPIDHQY=";
-        };
-      };
-    };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=184196
     glances = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
@@ -31,16 +19,6 @@
           sha256 = "sha256-diiqvBX/p9hlra6t80MaTNN+DajBd/ahwwx9A0GuKbs=";
         }
       }/pkgs/applications/system/glances") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=184897
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "rhoriguchi";
-          repo = "nixpkgs";
-          rev = "3daef5163eac9c8ef1aeb5eef1160398a18296d1";
-          sha256 = "sha256-svRve+90LkLH0hbVvts4PS/GhSVqBNs8u/P0826MGF4=";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
   })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
