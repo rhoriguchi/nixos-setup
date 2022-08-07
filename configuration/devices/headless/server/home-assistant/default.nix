@@ -23,6 +23,7 @@
 
       extraComponents = [
         "default_config"
+        "repairs"
 
         # Manual added integrations
         "mobile_app"
@@ -50,6 +51,8 @@
       mobile_app = { };
 
       frontend = { };
+
+      bluetooth = { };
 
       history.exclude.entities = [ "sensor.time" ];
 
