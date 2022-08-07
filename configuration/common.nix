@@ -1,5 +1,5 @@
 { lib, pkgs, public-keys, ... }: {
-  imports = [ ./configs/i18n.nix ./configs/keyboard.nix ./configs/nano.nix ./configs/nix.nix ./configs/zsh.nix ];
+  imports = [ ./configs/flake.nix ./configs/i18n.nix ./configs/keyboard.nix ./configs/nano.nix ./configs/nix.nix ./configs/zsh.nix ];
 
   # TODO upgrade to 5.19 once zfs supports it
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_18;

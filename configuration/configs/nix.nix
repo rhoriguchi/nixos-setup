@@ -3,9 +3,6 @@
 
   nix = {
     package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
     settings.auto-optimise-store = true;
   };
 
