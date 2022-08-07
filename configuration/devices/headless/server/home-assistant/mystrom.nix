@@ -1,4 +1,4 @@
-{ pkgs, lib, secrets, ... }:
+{ pkgs, secrets, ... }:
 let
   apiUrl = "https://mystrom.ch/api";
 

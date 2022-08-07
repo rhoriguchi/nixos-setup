@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, ... }:
 let homeDirectory = config.home.homeDirectory;
 in {
   programs.zsh.shellAliases.open = "nautilus";

@@ -1,4 +1,4 @@
-{ pkgs, utils, config, colors, ... }: {
+{ pkgs, config, colors, ... }: {
   fonts.fontconfig.enable = true;
   home.packages = [ pkgs.nerdfonts ];
 

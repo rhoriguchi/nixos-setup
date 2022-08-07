@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 let
   rsyncLongArgs = lib.concatStringsSep " " [
     # rsnapshot requires these args

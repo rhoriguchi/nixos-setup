@@ -1,4 +1,4 @@
-{ pkgs, lib, colors, ... }:
+{ pkgs, colors, ... }:
 let
   extensions = [
     pkgs.gnomeExtensions.alphabetical-app-grid
