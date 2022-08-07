@@ -14,17 +14,6 @@ in {
       }
     }/lenovo/legion/15ach6")
 
-    ../../configs/displaylink.nix
-    ../../configs/gnome.nix
-    ../../configs/hidpi.nix
-    ../../configs/java.nix
-    ../../configs/javascript.nix
-    ../../configs/kotlin.nix
-    ../../configs/podman.nix
-    ../../configs/power-management.nix
-    ../../configs/printing.nix
-    ../../configs/python.nix
-
     ./keepassxc.nix
     ./rsnapshot.nix
 

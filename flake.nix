@@ -35,6 +35,7 @@
 
         colors = import ./colors.nix;
         home = import ./home;
+        templates = import ./templates;
       };
 
       overlays.default = inputs.nixpkgs.lib.composeManyExtensions ([
@@ -60,6 +61,13 @@
           imports = [
             self.nixosModules.default
 
+            self.nixosModules.templates.flakes
+            self.nixosModules.templates.i18n
+            self.nixosModules.templates.keyboard
+            self.nixosModules.templates.nano
+            self.nixosModules.templates.nix
+            self.nixosModules.templates.zsh
+
             ./configuration/common.nix
           ];
 
@@ -76,6 +84,17 @@
           deployment.targetHost = "127.0.0.1";
 
           imports = [
+            self.nixosModules.templates.displaylink
+            self.nixosModules.templates.gnome
+            self.nixosModules.templates.hidpi
+            self.nixosModules.templates.java
+            self.nixosModules.templates.javascript
+            self.nixosModules.templates.kotlin
+            self.nixosModules.templates.podman
+            self.nixosModules.templates.power-management
+            self.nixosModules.templates.printing
+            self.nixosModules.templates.python
+
             ./configuration/devices/laptop
 
             (inputs.home-manager.nixosModule)
@@ -107,19 +126,37 @@
         Server = {
           deployment.targetHost = "home.00a.ch";
 
-          imports = [ ./configuration/devices/headless/server ];
+          imports = [
+            self.nixosModules.templates.doas
+            self.nixosModules.templates.fancy-motd
+            self.nixosModules.templates.nginx
+
+            ./configuration/devices/headless/server
+          ];
         };
 
         AdGuard = {
           deployment.targetHost = "xxlpitu-adguard";
 
-          imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard ];
+          imports = [
+            self.nixosModules.templates.doas
+            self.nixosModules.templates.fancy-motd
+            self.nixosModules.templates.nginx
+
+            ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard
+          ];
         };
 
         JDH-Server = {
           deployment.targetHost = "jdh-server";
 
-          imports = [ ./configuration/devices/headless/jdh-server ];
+          imports = [
+            self.nixosModules.templates.doas
+            self.nixosModules.templates.fancy-motd
+            self.nixosModules.templates.nginx
+
+            ./configuration/devices/headless/jdh-server
+          ];
         };
 
         #####################################################
@@ -127,14 +164,26 @@
         Grimmjow = {
           deployment.targetHost = "xxlpitu-grimmjow";
 
-          imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow ];
+          imports = [
+            self.nixosModules.templates.doas
+            self.nixosModules.templates.fancy-motd
+            self.nixosModules.templates.nginx
+
+            ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow
+          ];
         };
 
         # TODO commented
         # Ulquiorra = {
         #   deployment.targetHost = "192.168.1.128";
 
-        #   imports = [ ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra ];
+        #   imports = [
+        #     self.nixosModules.templates.doas
+        #     self.nixosModules.templates.fancy-motd
+        #     self.nixosModules.templates.nginx
+
+        #     ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra
+        #   ];
         # };
       };
     } // inputs.flake-utils.lib.eachDefaultSystem (system:

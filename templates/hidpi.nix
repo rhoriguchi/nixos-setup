@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ lib, ... }: {
   # TODO boot selection is extremely small
 
   hardware.video.hidpi.enable = true;

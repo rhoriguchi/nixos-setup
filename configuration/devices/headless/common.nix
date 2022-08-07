@@ -1,6 +1,4 @@
 { pkgs, lib, config, public-keys, secrets, ... }: {
-  imports = [ ../../configs/doas.nix ../../configs/fancy-motd.nix ../../configs/nginx.nix ];
-
   nix.gc = {
     automatic = true;
     dates = "05:00";
