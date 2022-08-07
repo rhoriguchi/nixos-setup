@@ -111,6 +111,7 @@ in {
       pkgs.alacritty
       pkgs.bat
       pkgs.curl
+      pkgs.deadnix
       pkgs.discord
       pkgs.file
       pkgs.firefox
@@ -130,6 +131,7 @@ in {
       pkgs.jetbrains.webstorm
       pkgs.libreoffice-fresh
       pkgs.neofetch
+      pkgs.nixfmt
       pkgs.openssl
       pkgs.postgresql
       pkgs.postman
