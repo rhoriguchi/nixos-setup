@@ -22,13 +22,15 @@
       flake = false;
     };
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+
     nur-rycee = {
       url = "gitlab:rycee/nur-expressions";
       flake = false;
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, mach-nix, nur-rycee, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, home-manager, mach-nix, nixos-hardware, nur-rycee, ... }@inputs:
     {
       nixosModules = {
         default = import ./modules;
@@ -84,6 +86,8 @@
           deployment.targetHost = "127.0.0.1";
 
           imports = [
+            inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6
+
             self.nixosModules.templates.displaylink
             self.nixosModules.templates.gnome
             self.nixosModules.templates.hidpi
