@@ -21,12 +21,7 @@
     ./zsh.nix
   ];
 
-  home = {
-    # TODO needed?
-    # username = user;
-    # homeDirectory = config.users.users.${user}.home;
-    stateVersion = "22.11";
-  };
+  home.stateVersion = "22.11";
 
   news.display = "silent";
 
