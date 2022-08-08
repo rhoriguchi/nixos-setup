@@ -48,8 +48,8 @@
         {
           "type" = "shell";
           "label" = "deadnix";
-          "command" = ''
-            find ''${workspaceFolder} -name "*.nix" -and ! -name "hardware-configuration.nix" | xargs ${pkgs.deadnix}/bin/deadnix'';
+          "command" =
+            ''find ''${workspaceFolder} -name "*.nix" -and ! -name "hardware-configuration.nix" | xargs ${pkgs.deadnix}/bin/deadnix'';
           "presentation" = {
             "clear" = true;
             "focus" = true;
