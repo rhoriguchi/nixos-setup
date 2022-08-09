@@ -25,8 +25,8 @@
         super.fetchFromGitHub {
           owner = "rhoriguchi";
           repo = "nixpkgs";
-          rev = "2ab97a70bbb0f7c5c79e3a52dac4cd910ef093d0";
-          sha256 = "sha256-iQd1gYbARvaJRaunOCRT+7HMUiPmt7nYUzVmX6DzcYY=";
+          rev = "e153ea34065a3c9108c8878a7d57a5d148ca7f19";
+          sha256 = "sha256-LmZbmbuYt6SOclXj7VkEMzRQQsObyZYj/nx10AT55BM=";
         }
       }/pkgs/tools/system/fancy-motd") { };
   })
