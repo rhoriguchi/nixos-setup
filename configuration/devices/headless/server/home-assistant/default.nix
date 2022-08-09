@@ -23,7 +23,9 @@
 
       extraComponents = [
         "default_config"
+
         "repairs"
+        "update"
 
         # Manual added integrations
         "mobile_app"
