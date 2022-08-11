@@ -19,6 +19,16 @@
           sha256 = "sha256-LmZbmbuYt6SOclXj7VkEMzRQQsObyZYj/nx10AT55BM=";
         }
       }/pkgs/tools/system/fancy-motd") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=186139
+    tautulli = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "rhoriguchi";
+          repo = "nixpkgs";
+          rev = "a57873ddab8b21b1734b610bce0433043c848f7d";
+          sha256 = "sha256-uavyvQT4QpH73SjWB1tPCiM9nYKczyyV7Aohyu9tOyg=";
+        }
+      }/pkgs/servers/tautulli") { };
   })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
