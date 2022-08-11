@@ -143,6 +143,8 @@
           deployment.targetHost = "xxlpitu-adguard";
 
           imports = [
+            inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
             self.nixosModules.templates.doas
             self.nixosModules.templates.fancy-motd
             self.nixosModules.templates.nginx
@@ -169,6 +171,8 @@
           deployment.targetHost = "xxlpitu-grimmjow";
 
           imports = [
+            inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
             self.nixosModules.templates.doas
             self.nixosModules.templates.fancy-motd
             self.nixosModules.templates.nginx
@@ -182,6 +186,8 @@
         #   deployment.targetHost = "192.168.1.128";
 
         #   imports = [
+        #     inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
         #     self.nixosModules.templates.doas
         #     self.nixosModules.templates.fancy-motd
         #     self.nixosModules.templates.nginx
