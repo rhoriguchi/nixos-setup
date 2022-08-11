@@ -5,8 +5,8 @@
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "e12aa0bb9e0d9392cb9d6158e2cea36611bb38a8";
-          sha256 = "sha256-6AicdbFzWft4c6rCjm2XJ8KCvrnZM0/lGi8csFoSN7w=";
+          rev = "b57098835729f0117f84a31294dfb78b6fbe263b";
+          sha256 = "sha256-8tTBX4LpRKQbl3Sy20Tm8/qdgzDOLZ3YM203IzAftVI=";
         }
       }/pkgs/applications/version-management/gitkraken") { };
 
