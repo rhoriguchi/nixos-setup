@@ -109,7 +109,7 @@
 
                 extraSpecialArgs = {
                   inherit (self.nixosModules) colors;
-                  conky = {
+                  conkyConfig = {
                     fileSystems = [ "/" ];
                     interfaces = [ "wlp2s0" ];
                   };

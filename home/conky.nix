@@ -1,10 +1,10 @@
-{ pkgs, lib, colors, conky, ... }:
+{ pkgs, lib, colors, conkyConfig, ... }:
 let
   buildCommand = let pattern = ''.*BUILD_ID="[0-9]+\.[0-9]+(pre|\.)(\S*)".*'';
   in "cat /etc/os-release | tr '\\n' '\\r' | sed --regexp-extended 's/${pattern}/\\2/'";
 
   fileSystemLines = let
-    sortedPaths = lib.sort (a: b: a < b) conky.fileSystems;
+    sortedPaths = lib.sort (a: b: a < b) conkyConfig.fileSystems;
 
     lines = map (path:
       [
@@ -13,7 +13,7 @@ let
   in lib.concatStringsSep "\n  " (lib.flatten lines);
 
   interfaceLines = let
-    sortedInterfaces = lib.sort (a: b: a < b) conky.interfaces;
+    sortedInterfaces = lib.sort (a: b: a < b) conkyConfig.interfaces;
 
     lines = map (interface: [
       "\${goto 24}\${color1}${interface}"
