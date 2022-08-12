@@ -48,7 +48,7 @@
   users.users.jdh = {
     extraGroups = [ "wheel" ];
     isNormalUser = true;
-    password = secrets.users.users.jdh.password;
+    password = secrets.users.jdh.password;
     openssh.authorizedKeys.keys = [ public-keys.jdh ];
   };
 }

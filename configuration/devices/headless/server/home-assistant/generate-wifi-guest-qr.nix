@@ -1,7 +1,7 @@
 { pkgs, secrets, ... }:
 let
-  ssid = secrets.services.home-assistant.config.wifi-guest.ssid;
-  password = secrets.services.home-assistant.config.wifi-guest.password;
+  ssid = secrets.wifiGuestSsid;
+  password = secrets.wifis.${ssid}.psk;
 
   script = pkgs.writeText "generate_wifi_guest_qr.py" ''
     import sys

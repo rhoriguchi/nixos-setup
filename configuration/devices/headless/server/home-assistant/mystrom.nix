@@ -9,8 +9,8 @@ let
       import requests
 
       response = requests.post('${apiUrl}/auth', params={
-          'email': '${secrets.services.home-assistant.config.mystrom.email}',
-          'password': '${secrets.services.home-assistant.config.mystrom.password}'
+          'email': '${secrets.mystrom.email}',
+          'password': '${secrets.mystrom.password}'
       })
 
       response = requests.get('${apiUrl}/devices', headers={'Auth-Token': json.loads(response.content)['authToken']})

@@ -1,7 +1,7 @@
 { pkgs, secrets, ... }:
 let
-  username = secrets.services.home-assistant.config.adguard.username;
-  password = secrets.services.home-assistant.config.adguard.password;
+  username = secrets.adguard.username;
+  password = secrets.adguard.password;
 
   hostname = "XXLPitu-AdGuard.local";
 

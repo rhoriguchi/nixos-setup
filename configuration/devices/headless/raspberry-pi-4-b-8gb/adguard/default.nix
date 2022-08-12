@@ -6,8 +6,8 @@ let
 
   settings = {
     users = [{
-      name = "admin";
-      password = secrets.services.adguardhome.admin.password;
+      name = secrets.adguard.username;
+      password = secrets.adguard.encryptedUsernamePassword;
     }];
     dns = rec {
       bind_host = "0.0.0.0";

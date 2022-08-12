@@ -13,7 +13,7 @@
     resilio = {
       enable = true;
 
-      secrets = secrets.services.resilio.secrets;
+      secrets = secrets.resilio.secrets;
       syncPath = "/mnt/Data/Sync";
     };
 

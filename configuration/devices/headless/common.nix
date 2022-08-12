@@ -19,7 +19,7 @@
       ++ (lib.optional config.virtualisation.podman.enable "podman")
       ++ (lib.optionals config.virtualisation.libvirtd.enable [ "kvm" "libvirtd" ]);
     isNormalUser = true;
-    password = secrets.users.users.xxlpitu.password;
+    password = secrets.users.xxlpitu.password;
     openssh.authorizedKeys.keys = [ public-keys.default ];
   };
 }

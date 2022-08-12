@@ -41,8 +41,8 @@
     infomaniak = {
       enable = true;
 
-      username = secrets.services.infomaniak.username;
-      password = secrets.services.infomaniak.password;
+      username = secrets.infomaniak.username;
+      password = secrets.infomaniak.password;
       hostnames = [ "home-assistant.00a.ch" "home.00a.ch" ];
     };
 
@@ -54,25 +54,25 @@
     gphotos-sync = {
       enable = true;
 
-      projectId = secrets.services.gphotos-sync.projectId;
-      clientId = secrets.services.gphotos-sync.clientId;
-      clientSecret = secrets.services.gphotos-sync.clientSecret;
+      projectId = secrets.gphotosSync.projectId;
+      clientId = secrets.gphotosSync.clientId;
+      clientSecret = secrets.gphotosSync.clientSecret;
       exportPath = "${config.services.resilio.syncPath}/Google_Photos";
     };
 
     resilio = {
       enable = true;
 
-      readWriteDirs = lib.attrNames secrets.services.resilio.secrets;
-      secrets = secrets.services.resilio.secrets;
+      readWriteDirs = lib.attrNames secrets.resilio.secrets;
+      secrets = secrets.resilio.secrets;
       syncPath = "/mnt/Data/Sync";
     };
 
     tv_time_export = {
       enable = true;
 
-      username = secrets.services.tv_time_export.username;
-      password = secrets.services.tv_time_export.password;
+      username = secrets.tvTime.username;
+      password = secrets.tvTime.password;
       exportPath = "${config.services.resilio.syncPath}/tv_time_export";
     };
 

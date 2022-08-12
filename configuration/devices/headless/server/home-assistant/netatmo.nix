@@ -17,8 +17,8 @@ let
 
           session.post('${authUrl}/postlogin',
                        data={
-                           'email': '${secrets.services.home-assistant.config.netatmo.email}',
-                           'password': '${secrets.services.home-assistant.config.netatmo.password}',
+                           'email': '${secrets.netatmo.email}',
+                           'password': '${secrets.netatmo.password}',
                            'stay_logged': 'on',
                            '_token': csrf_token
                        })

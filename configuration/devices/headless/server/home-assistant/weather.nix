@@ -1,6 +1,6 @@
 { pkgs, config, secrets, ... }:
 let
-  apiKey = secrets.services.home-assistant.config.openWeather.apiKey;
+  apiKey = secrets.openWeatherMap.apiKey;
   lat = config.services.home-assistant.config.homeassistant.latitude;
   lon = config.services.home-assistant.config.homeassistant.longitude;
   units = config.services.home-assistant.config.homeassistant.unit_system;

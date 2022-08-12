@@ -30,7 +30,7 @@ in {
         p2p_disabled=1
       '';
 
-      networks = secrets.networking.wireless.networks;
+      networks = secrets.wifis;
     };
   };
 
@@ -61,7 +61,7 @@ in {
         enable = true;
 
         username = "admin";
-        password = secrets.services.resilio.webUI.password;
+        password = secrets.resilio.webUI.password;
       };
     };
 
@@ -133,7 +133,7 @@ in {
   users.users.rhoriguchi = {
     extraGroups = [ "networkmanager" "plugdev" "podman" "wheel" ];
     isNormalUser = true;
-    password = secrets.users.users.rhoriguchi.password;
+    password = secrets.users.rhoriguchi.password;
   };
 
   system.activationScripts.rhoriguchiSetup = let

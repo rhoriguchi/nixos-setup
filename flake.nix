@@ -78,7 +78,7 @@
           _module.args = {
             inherit (self.nixosModules) colors;
             public-keys = import ./configuration/public-keys.nix;
-            secrets = import ./configuration/secrets.nix;
+            secrets = import ./secrets.nix;
           };
         };
 

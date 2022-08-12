@@ -42,9 +42,9 @@
       homeassistant = {
         name = "Home";
         time_zone = config.time.timeZone;
-        latitude = secrets.services.home-assistant.config.homeassistant.latitude;
-        longitude = secrets.services.home-assistant.config.homeassistant.longitude;
-        elevation = secrets.services.home-assistant.config.homeassistant.elevation;
+        latitude = secrets.homeassistant.latitude;
+        longitude = secrets.homeassistant.longitude;
+        elevation = secrets.homeassistant.elevation;
         unit_system = "metric";
         temperature_unit = "C";
         currency = "CHF";
