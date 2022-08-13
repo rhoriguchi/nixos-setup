@@ -1,1 +1,1 @@
-{ imports = [ ./gphotos-sync.nix ./infomaniak.nix ./resilio.nix ./tautulli.nix ./tv_time_export.nix ./wireguard-vpn ]; }
+{ imports = [ ./gphotos-sync.nix ./infomaniak.nix ./resilio.nix ./tv_time_export.nix ./wireguard-vpn ]; }
