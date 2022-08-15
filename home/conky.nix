@@ -114,7 +114,7 @@ let
   };
 in {
   fonts.fontconfig.enable = true;
-  home.packages = [ pkgs.nerdfonts ];
+  home.packages = [ (pkgs.nerdfonts.override { fonts = [ "RobotoMono" ]; }) ];
 
   xdg.configFile."autostart/conky.desktop".source = "${desktopItem}/share/applications/Conky.desktop";
 }

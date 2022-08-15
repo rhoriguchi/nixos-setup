@@ -1,6 +1,6 @@
 { pkgs, lib, colors, ... }: {
   fonts.fontconfig.enable = true;
-  home.packages = [ pkgs.nerdfonts ];
+  home.packages = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   programs.zsh.shellAliases.vscode = "code";
 

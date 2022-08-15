@@ -1,6 +1,6 @@
 { pkgs, config, colors, ... }: {
   fonts.fontconfig.enable = true;
-  home.packages = [ pkgs.nerdfonts ];
+  home.packages = [ (pkgs.nerdfonts.override { fonts = [ "RobotoMono" ]; }) ];
 
   programs.alacritty = {
     enable = true;

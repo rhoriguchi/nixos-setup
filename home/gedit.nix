@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   fonts.fontconfig.enable = true;
-  home.packages = [ pkgs.nerdfonts ];
+  home.packages = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   dconf = {
     enable = true;

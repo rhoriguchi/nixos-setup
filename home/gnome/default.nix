@@ -12,7 +12,8 @@ let
   ];
 in {
   fonts.fontconfig.enable = true;
-  home.packages = [ pkgs.cantarell-fonts pkgs.nerdfonts ] ++ extensions ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ];
+  home.packages = [ pkgs.cantarell-fonts (pkgs.nerdfonts.override { fonts = [ "RobotoMono" ]; }) ] ++ extensions
+    ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ];
 
   dconf = {
     enable = true;
