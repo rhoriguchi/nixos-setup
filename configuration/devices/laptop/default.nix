@@ -108,6 +108,7 @@ in {
       pkgs.jetbrains.idea-ultimate
       pkgs.jetbrains.pycharm-professional
       pkgs.jetbrains.webstorm
+      pkgs.jq
       pkgs.libreoffice-fresh
       pkgs.neofetch
       pkgs.nixfmt
