@@ -5,8 +5,6 @@ let
 
   hostname = "XXLPitu-AdGuard.local";
 
-  pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.adguardhome ]);
-
   script = methodCall:
     pkgs.writeText "adguard_${methodCall}.py" ''
       import asyncio
@@ -31,6 +29,8 @@ let
           loop = asyncio.get_event_loop()
           loop.run_until_complete(${methodCall})
     '';
+
+  pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.adguardhome ]);
 in {
   services.home-assistant.config = {
     shell_command = {
