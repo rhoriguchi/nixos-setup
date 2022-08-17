@@ -17,5 +17,5 @@
   power-management = import ./power-management.nix;
   printing = import ./printing.nix;
   python = import ./python.nix;
-  zsh = import ./zsh.nix;
+  terminal = import ./terminal.nix;
 }

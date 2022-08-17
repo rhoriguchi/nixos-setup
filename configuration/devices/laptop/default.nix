@@ -85,52 +85,47 @@ in {
     steam.enable = true;
   };
 
-  environment = {
-    variables.TERMINAL = "alacritty";
-
-    systemPackages = [
-      pkgs.alacritty
-      pkgs.curl
-      pkgs.deadnix
-      pkgs.discord
-      pkgs.file
-      pkgs.firefox
-      pkgs.flameshot
-      pkgs.gimp
-      pkgs.git
-      pkgs.git-crypt
-      pkgs.git-lfs
-      pkgs.gitkraken
-      pkgs.glances
-      pkgs.google-chrome
-      pkgs.haskellPackages.nixfmt
-      pkgs.inkscape
-      pkgs.jetbrains.datagrip
-      pkgs.jetbrains.idea-ultimate
-      pkgs.jetbrains.pycharm-professional
-      pkgs.jetbrains.webstorm
-      pkgs.jq
-      pkgs.libreoffice-fresh
-      pkgs.neofetch
-      pkgs.nixfmt
-      pkgs.openssl
-      pkgs.postgresql
-      pkgs.postman
-      pkgs.protonvpn-gui
-      pkgs.qbittorrent
-      pkgs.signal-desktop
-      pkgs.spotify-unwrapped
-      pkgs.sshpass
-      pkgs.terraform
-      pkgs.tree
-      pkgs.unzip
-      pkgs.virt-manager
-      pkgs.vlc
-      pkgs.vscode
-      pkgs.wpa_supplicant_gui
-      pkgs.zip
-    ];
-  };
+  environment.systemPackages = [
+    pkgs.curl
+    pkgs.deadnix
+    pkgs.discord
+    pkgs.file
+    pkgs.firefox
+    pkgs.flameshot
+    pkgs.gimp
+    pkgs.git
+    pkgs.git-crypt
+    pkgs.git-lfs
+    pkgs.gitkraken
+    pkgs.glances
+    pkgs.google-chrome
+    pkgs.haskellPackages.nixfmt
+    pkgs.inkscape
+    pkgs.jetbrains.datagrip
+    pkgs.jetbrains.idea-ultimate
+    pkgs.jetbrains.pycharm-professional
+    pkgs.jetbrains.webstorm
+    pkgs.jq
+    pkgs.libreoffice-fresh
+    pkgs.neofetch
+    pkgs.nixfmt
+    pkgs.openssl
+    pkgs.postgresql
+    pkgs.postman
+    pkgs.protonvpn-gui
+    pkgs.qbittorrent
+    pkgs.signal-desktop
+    pkgs.spotify-unwrapped
+    pkgs.sshpass
+    pkgs.terraform
+    pkgs.tree
+    pkgs.unzip
+    pkgs.virt-manager
+    pkgs.vlc
+    pkgs.vscode
+    pkgs.wpa_supplicant_gui
+    pkgs.zip
+  ];
 
   users.users.rhoriguchi = {
     extraGroups = [ "networkmanager" "plugdev" "podman" "wheel" ];

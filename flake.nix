@@ -68,7 +68,7 @@
             self.nixosModules.templates.keyboard
             self.nixosModules.templates.nano
             self.nixosModules.templates.nix
-            self.nixosModules.templates.zsh
+            self.nixosModules.templates.terminal
 
             ./configuration/common.nix
           ];
@@ -98,6 +98,7 @@
             self.nixosModules.templates.power-management
             self.nixosModules.templates.printing
             self.nixosModules.templates.python
+            self.nixosModules.templates.terminal
 
             ./configuration/devices/laptop
 
