@@ -48,8 +48,12 @@ in {
   security.pam.enableEcryptfs = true;
 
   services = {
-    # TODO remove once nvidia works with wayland
-    xserver.displayManager.gdm.wayland = false;
+    xserver = {
+      # TODO remove once nvidia works with wayland
+      displayManager.gdm.wayland = false;
+
+      libinput.enable = true;
+    };
 
     resilio = {
       enable = true;
@@ -66,8 +70,6 @@ in {
     };
 
     teamviewer.enable = true;
-
-    xserver.libinput.enable = true;
 
     onedrive.enable = true;
   };
