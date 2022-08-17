@@ -100,6 +100,7 @@
             self.nixosModules.templates.printing
             self.nixosModules.templates.python
             self.nixosModules.templates.terminal
+            self.nixosModules.templates.util
 
             ./configuration/devices/laptop
 
