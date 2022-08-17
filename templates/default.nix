@@ -3,6 +3,7 @@
   doas = import ./doas.nix;
   fancy-motd = import ./fancy-motd.nix;
   flakes = import ./flakes.nix;
+  git = import ./git.nix;
   gnome = import ./gnome.nix;
   hidpi = import ./hidpi.nix;
   i18n = import ./i18n.nix;

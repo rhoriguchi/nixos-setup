@@ -75,11 +75,6 @@ in {
   };
 
   programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-
     htop.enable = true;
 
     steam.enable = true;
@@ -93,10 +88,6 @@ in {
     pkgs.firefox
     pkgs.flameshot
     pkgs.gimp
-    pkgs.git
-    pkgs.git-crypt
-    pkgs.git-lfs
-    pkgs.gitkraken
     pkgs.glances
     pkgs.google-chrome
     pkgs.haskellPackages.nixfmt

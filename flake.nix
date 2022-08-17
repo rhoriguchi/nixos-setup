@@ -89,6 +89,7 @@
             inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6
 
             self.nixosModules.templates.displaylink
+            self.nixosModules.templates.git
             self.nixosModules.templates.gnome
             self.nixosModules.templates.hidpi
             self.nixosModules.templates.java
