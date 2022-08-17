@@ -68,7 +68,7 @@
             self.nixosModules.templates.keyboard
             self.nixosModules.templates.nano
             self.nixosModules.templates.nix
-            self.nixosModules.templates.terminal
+            self.nixosModules.templates.zsh
 
             ./configuration/common.nix
           ];
