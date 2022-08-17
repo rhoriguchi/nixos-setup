@@ -90,7 +90,6 @@ in {
 
     systemPackages = [
       pkgs.alacritty
-      pkgs.bat
       pkgs.curl
       pkgs.deadnix
       pkgs.discord

@@ -1,4 +1,6 @@
-{ lib, ... }: {
+{ pkgs, lib, ... }: {
+  home.packages = [ pkgs.bat ];
+
   programs.zsh.shellAliases.cat = "bat";
 
   programs.bat = {
