@@ -150,6 +150,7 @@
       "svg.preview.autoShow" = true;
       "telemetry.telemetryLevel" = "off";
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
+      "terminal.integrated.enableMultiLinePasteWarning" = false;
       "todo-tree.highlights.customHighlight" = {
         "[ ]" = {
           "hideFromStatusBar" = true;
