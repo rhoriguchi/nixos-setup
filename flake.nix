@@ -186,7 +186,7 @@
 
         # TODO commented
         # Ulquiorra = {
-        #   deployment.targetHost = "192.168.1.128";
+        #   deployment.targetHost = "xxlpitu-ulquiorra";
 
         #   imports = [
         #     inputs.nixos-hardware.nixosModules.raspberry-pi-4
