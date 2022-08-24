@@ -106,10 +106,12 @@ zfs create \
 
 ## Flake
 
-### Load shell with `nix` and `NixOps`
+### Setup direnv
+
+Navigate to directory and run command
 
 ```console
-nix develop
+direnv allow .
 ```
 
 ### Update

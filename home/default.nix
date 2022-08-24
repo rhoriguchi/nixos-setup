@@ -5,6 +5,7 @@
     ./autostart.nix
     ./bat.nix
     ./conky.nix
+    ./direnv.nix
     ./firefox.nix
     ./flameshot.nix
     ./gedit.nix
