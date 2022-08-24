@@ -109,7 +109,6 @@
         "**/.project" = true;
         "**/.settings" = true;
         "**/.svn" = true;
-        "**/.vscode" = true;
         "**/CVS" = true;
       };
       "files.insertFinalNewline" = true;
