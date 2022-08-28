@@ -22,7 +22,7 @@
   programs.dconf.enable = true;
 
   environment = {
-    systemPackages = [ pkgs.gnome.dconf-editor pkgs.gnome.networkmanager-openconnect ];
+    systemPackages = [ pkgs.flameshot pkgs.gnome.dconf-editor pkgs.gnome.networkmanager-openconnect ];
 
     gnome.excludePackages = [
       pkgs.gnome-connections

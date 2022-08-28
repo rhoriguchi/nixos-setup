@@ -83,7 +83,6 @@ in {
   environment.systemPackages = [
     pkgs.discord
     pkgs.firefox
-    pkgs.flameshot
     pkgs.gimp
     pkgs.glances
     pkgs.google-chrome
