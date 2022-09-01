@@ -222,6 +222,15 @@
         when = "editorTextFocus && !editorReadonly";
       }
       {
+        command = "editor.action.startFindReplaceAction";
+        key = "ctrl+r";
+        when = "editorFocus || editorIsOpen";
+      }
+      {
+        command = "workbench.action.replaceInFiles";
+        key = "ctrl+shift+r";
+      }
+      {
         command = "workbench.action.terminal.focusFind";
         key = "ctrl+shift+f";
         when =
