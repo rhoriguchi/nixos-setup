@@ -149,7 +149,14 @@
       "svg.preview.autoShow" = true;
       "telemetry.telemetryLevel" = "off";
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
+      "terminal.integrated.defaultProfile.linux" = "zsh";
       "terminal.integrated.enableMultiLinePasteWarning" = false;
+      "terminal.integrated.profiles.linux" = {
+        bash.path = "${pkgs.bash}/bin/bash";
+        fish.path = "${pkgs.fish}/bin/fish";
+        sh.path = "${pkgs.bashInteractive}/bin/sh";
+        zsh.path = "${pkgs.zsh}/bin/zsh";
+      };
       "todo-tree.highlights.customHighlight" = {
         "[ ]" = {
           "hideFromStatusBar" = true;
