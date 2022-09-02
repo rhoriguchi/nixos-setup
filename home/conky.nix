@@ -1,8 +1,5 @@
 { pkgs, lib, colors, conkyConfig, ... }:
 let
-  buildCommand = let pattern = ''.*BUILD_ID="[0-9]+\.[0-9]+(pre|\.)(\S*)".*'';
-  in "cat /etc/os-release | tr '\\n' '\\r' | sed --regexp-extended 's/${pattern}/\\2/'";
-
   fileSystemLines = let
     sortedPaths = lib.sort (a: b: a < b) conkyConfig.fileSystems;
 
@@ -70,8 +67,8 @@ let
     conky.text = [[
       ''${voffset 0}
       ''${goto 24}''${color1} OS ''${voffset 8}
-      ''${goto 24}''${color1}Version: ''${color2}${lib.versions.majorMinor lib.version}
-      ''${goto 24}''${color1}Build:   ''${color2}''${exec ${buildCommand}}
+      ''${goto 24}''${color1}Name:    ''${color2}''${exec lsb_release --id --short | sed 's/"//g'}
+      ''${goto 24}''${color1}Version: ''${color2}''${exec lsb_release --release --short | sed 's/"//g'}
       ''${goto 24}''${color1}Kernel:  ''${color2}''${kernel}
       ''${goto 24}''${color1}Uptime:  ''${color2}''${uptime}
 
@@ -103,7 +100,7 @@ let
     name = "Conky";
     desktopName = name;
     exec = pkgs.writeShellScript "conky.sh" ''
-      export PATH=${lib.makeBinPath [ pkgs.conky pkgs.coreutils pkgs.gnused ]}
+      export PATH=${lib.makeBinPath [ pkgs.conky pkgs.gnused pkgs.lsb-release ]}
 
       sleep 5
 
