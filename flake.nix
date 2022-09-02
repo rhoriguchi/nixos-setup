@@ -108,7 +108,7 @@
             {
               home-manager = {
                 useGlobalPkgs = true;
-                useUserPackages = true;
+                useUserPackages = false;
 
                 extraSpecialArgs = {
                   inherit (self.nixosModules) colors;
