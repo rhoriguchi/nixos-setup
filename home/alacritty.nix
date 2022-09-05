@@ -6,7 +6,7 @@
     enable = true;
 
     settings = {
-      shell.program = "/run/current-system/sw${pkgs.zsh.shellPath}";
+      shell.program = "${pkgs.zsh}/bin/zsh";
       working_directory = config.home.homeDirectory;
       window.startup_mode = "Maximized";
 
