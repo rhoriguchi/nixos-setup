@@ -11,6 +11,7 @@
     ./gedit.nix
     ./git.nix
     ./gnome
+    ./gnome-terminal.nix
     ./gnome-text-editor.nix
     ./htop.nix
     ./nautilus.nix
