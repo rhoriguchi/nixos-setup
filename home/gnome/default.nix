@@ -6,6 +6,7 @@ let
     pkgs.gnomeExtensions.caffeine
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.date-menu-formatter
+    pkgs.gnomeExtensions.emoji-selector
     pkgs.gnomeExtensions.unite
     pkgs.gnomeExtensions.volume-mixer
     pkgs.gnomeExtensions.window-is-ready-remover
@@ -266,6 +267,17 @@ in {
         transition-windows-touch = false;
         transition-with-overview = true;
         unmaximized-opacity = 0;
+      };
+      "org/gnome/shell/extensions/emoji-selector" = {
+        always-show = true;
+        emoji-keybinding = [ "<Super>period>" ];
+        emojisize = 20;
+        gender = 2;
+        nbcols = 15;
+        position = "top";
+        recently-used = [ "🤔" "😂" "😊" "😜" "😬" "😭" "😕" "😘" "🤗" "🤮" "👍🏻" "👎🏻" "💁🏻‍♂️" "🤦🏻‍♂️" "🤷🏻‍♂️" ];
+        skin-tone = 1;
+        use-keybinding = false;
       };
       "org/gnome/shell/extensions/gnome-fuzzy-app-search".applications = true;
       "org/gnome/shell/extensions/shell-volume-mixer" = {
