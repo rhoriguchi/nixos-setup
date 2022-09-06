@@ -1,7 +1,8 @@
-{ pkgs, ... }: {
+{ pkgs, nixpkgs, ... }: {
   system.stateVersion = "22.11";
 
   nix = {
+    nixPath = [ "nixpkgs=${nixpkgs}" ];
     package = pkgs.nixUnstable;
     settings.auto-optimise-store = true;
   };

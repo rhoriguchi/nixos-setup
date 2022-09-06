@@ -76,6 +76,7 @@
           nixpkgs.overlays = [ self.overlays.default ];
 
           _module.args = {
+            inherit (inputs) nixpkgs;
             inherit (self.nixosModules) colors;
             public-keys = import ./configuration/public-keys.nix;
             secrets = import ./secrets.nix;
@@ -184,20 +185,19 @@
           ];
         };
 
-        # TODO commented
-        # Ulquiorra = {
-        #   deployment.targetHost = "xxlpitu-ulquiorra";
+        Ulquiorra = {
+          deployment.targetHost = "xxlpitu-ulquiorra";
 
-        #   imports = [
-        #     inputs.nixos-hardware.nixosModules.raspberry-pi-4
+          imports = [
+            inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-        #     self.nixosModules.templates.doas
-        #     self.nixosModules.templates.fancy-motd
-        #     self.nixosModules.templates.nginx
+            self.nixosModules.templates.doas
+            self.nixosModules.templates.fancy-motd
+            self.nixosModules.templates.nginx
 
-        #     ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra
-        #   ];
-        # };
+            ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra
+          ];
+        };
       };
     } // inputs.flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import inputs.nixpkgs { inherit system; };
