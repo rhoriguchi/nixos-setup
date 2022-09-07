@@ -14,7 +14,7 @@
       showHelp = false;
       showStartupLaunchMessage = false;
       uiColor = colors.normal.magenta;
-      userColors = "picker, ${lib.concatStringsSep ", " (lib.attrsets.mapAttrsToList (_: value: value) colors.normal)}";
+      userColors = "picker, ${lib.concatStringsSep ", " (lib.mapAttrsToList (_: value: value) colors.normal)}";
     };
   };
 }
