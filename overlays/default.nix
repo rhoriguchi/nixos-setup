@@ -53,6 +53,16 @@
         };
       });
     };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=190397
+    gitkraken = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "9a3a4af44c8d61f81d22ddd87248a231fb677973";
+          sha256 = "sha256-DkUflXex1ZhhEv3+7z/vimsEpTrhrnbaTpDesYR2Kho=";
+        }
+      }/pkgs/applications/version-management/gitkraken") { };
   })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
