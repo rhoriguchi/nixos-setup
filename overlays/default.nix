@@ -33,7 +33,7 @@
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=190191
     adguardhome = super.callPackage (import "${
         super.fetchFromGitHub {
-          owner = "rhoriguchi";
+          owner = "NixOS";
           repo = "nixpkgs";
           rev = "889069b8b3433895f1a84b8f5ebb2751d867cf32";
           sha256 = "sha256-6h1ebTteIDN+XXsQXYYnfFV46Oa8keBZeN9RG0YWlGw=";
