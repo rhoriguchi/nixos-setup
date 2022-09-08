@@ -1,1 +1,5 @@
-{ imports = [ ./gphotos-sync.nix ./infomaniak.nix ./resilio.nix ./tv_time_export.nix ./wireguard-vpn ]; }
+{ lib, ... }:
+let
+  getFiles = dir: lib.attrNames (builtins.readDir dir);
+  getImports = dir: map (file: dir + "/${file}") (lib.filter (file: file != "default.nix") (getFiles dir));
+in { imports = getImports ./.; }

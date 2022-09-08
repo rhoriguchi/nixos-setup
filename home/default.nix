@@ -1,27 +1,9 @@
-{
-  imports = [
-    ./alacritty.nix
-    ./aliases.nix
-    ./autostart.nix
-    ./bat.nix
-    ./conky.nix
-    ./direnv.nix
-    ./firefox.nix
-    ./flameshot.nix
-    ./gedit.nix
-    ./git.nix
-    ./gnome
-    ./gnome-terminal.nix
-    ./gnome-text-editor.nix
-    ./htop.nix
-    ./nautilus.nix
-    ./neofetch
-    ./onedrive.nix
-    ./ssh.nix
-    ./virt-manager.nix
-    ./vscode.nix
-    ./zsh.nix
-  ];
+{ lib, ... }:
+let
+  getFiles = dir: lib.attrNames (builtins.readDir dir);
+  getImports = dir: map (file: dir + "/${file}") (lib.filter (file: file != "default.nix") (getFiles dir));
+in {
+  imports = getImports ./.;
 
   home.stateVersion = "22.11";
 
