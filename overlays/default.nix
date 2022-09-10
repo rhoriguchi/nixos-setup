@@ -20,40 +20,6 @@
         }
       }/pkgs/servers/tautulli") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=189875
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "4a77588c79aef32fa10cbecb77c7bad122f068e8";
-          sha256 = "sha256-jDM7KM1RP81Y4qkONM9wcNN8/1vr3zXM9ylr8H1O4QA==";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=190191
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "889069b8b3433895f1a84b8f5ebb2751d867cf32";
-          sha256 = "sha256-6h1ebTteIDN+XXsQXYYnfFV46Oa8keBZeN9RG0YWlGw=";
-        }
-      }/pkgs/servers/adguardhome") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=190258
-    gnomeExtensions = super.gnomeExtensions // {
-      dash-to-dock = super.gnomeExtensions.dash-to-dock.overrideAttrs (_: rec {
-        version = "73";
-
-        src = super.fetchFromGitHub {
-          owner = "micheleg";
-          repo = "dash-to-dock";
-          rev = "extensions.gnome.org-v${version}";
-          sha256 = "/NOJWjotfYPujS5G7/zv1OLzfSW0MB+oIRsx9/LSEdA=";
-        };
-      });
-    };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=190397
     gitkraken = super.callPackage (import "${
         super.fetchFromGitHub {
