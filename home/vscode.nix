@@ -157,6 +157,7 @@
         sh.path = "${pkgs.bashInteractive}/bin/sh";
         zsh.path = "${pkgs.zsh}/bin/zsh";
       };
+      "terminal.integrated.smoothScrolling" = true;
       "todo-tree.highlights.customHighlight" = {
         "[ ]" = {
           "hideFromStatusBar" = true;
