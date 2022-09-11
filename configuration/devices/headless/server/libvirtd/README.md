@@ -93,6 +93,7 @@ curl --location --output Notepad-plus-plus.exe --url "https://github.com/notepad
 curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
 curl --location --output Spotify.exe --url "https://download.scdn.co/SpotifySetup.exe"
 curl --location --output Steam.exe --url "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe"
+curl --location --output TeamViewer.exe --url "https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe"
 
 start %userprofile%/Downloads
 ```
