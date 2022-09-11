@@ -2,7 +2,7 @@
   imports = [
     ../common.nix
 
-    ./fancontrol
+    ./fancontrol.nix
     ./home-assistant
     ./libvirtd
     ./rsnapshot.nix

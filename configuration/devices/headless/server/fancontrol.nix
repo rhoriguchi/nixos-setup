@@ -1,13 +1,5 @@
 {
-  boot = {
-    # TODO remove when this board is supported
-    kernelPatches = [{
-      name = "Add ROG STRIX X570-E GAMING";
-      patch = ./add_rog_strix_x570-e_gaming.patch;
-    }];
-
-    kernelModules = [ "corsaircpro" "k10temp" "nct6775" ];
-  };
+  boot.kernelModules = [ "corsaircpro" "k10temp" "nct6775" ];
 
   # TODO pin ids so they don't change anymore
 
