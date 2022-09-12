@@ -91,7 +91,11 @@ let
             </dhcp>
           </ip>
 
-          <ip family='ipv6' address='2001:db8:ca2:2::1' prefix='64'/>
+          <ip family='ipv6' address='2001:db8:ca2:2::1' prefix='64'>
+            <dhcp>
+              <range start='2001:db8:ca2:2::2' end='2001:db8:ca2:2::ff'/>
+            </dhcp>
+          </ip>
         </network>
       '';
 
