@@ -7,6 +7,7 @@ let
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.date-menu-formatter
     pkgs.gnomeExtensions.emoji-selector
+    pkgs.gnomeExtensions.transparent-top-bar-adjustable-transparency
     pkgs.gnomeExtensions.unite
     pkgs.gnomeExtensions.volume-mixer
     pkgs.gnomeExtensions.window-is-ready-remover
@@ -21,6 +22,10 @@ in {
 
     settings = {
       "ca/desrt/dconf-editor/Settings".show-warning = false;
+      "com/ftpix/transparentbar" = {
+        dark-full-screen = true;
+        transparency = 0;
+      };
       "org/gnome/desktop/background" = rec {
         picture-uri = "file://${./wallpaper.jpg}";
         picture-uri-dark = picture-uri;
