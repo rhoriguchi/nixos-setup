@@ -16,6 +16,9 @@
       efi.canTouchEfiVariables = true;
     };
 
+    # TODO upgrade to 5.19 once zfs supports it
+    kernelPackages = pkgs.linuxPackages_5_18;
+
     supportedFilesystems = [ "zfs" ];
   };
 

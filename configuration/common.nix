@@ -1,6 +1,5 @@
 { lib, pkgs, public-keys, ... }: {
-  # TODO upgrade to 5.19 once zfs supports it
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_18;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_19;
 
   networking.useDHCP = false;
 
