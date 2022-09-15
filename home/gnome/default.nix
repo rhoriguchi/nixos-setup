@@ -275,14 +275,14 @@ in {
       };
       "org/gnome/shell/extensions/emoji-selector" = {
         always-show = true;
-        emoji-keybinding = [ "<Super>period>" ];
+        emoji-keybinding = [ "<Super>period" ];
         emojisize = 20;
         gender = 2;
         nbcols = 15;
         position = "top";
         recently-used = [ "🤔" "😂" "😊" "😜" "😬" "😭" "😕" "😘" "🤗" "🤮" "👍🏻" "👎🏻" "💁🏻‍♂️" "🤦🏻‍♂️" "🤷🏻‍♂️" ];
         skin-tone = 1;
-        use-keybinding = false;
+        use-keybinding = true;
       };
       "org/gnome/shell/extensions/gnome-fuzzy-app-search".applications = true;
       "org/gnome/shell/extensions/shell-volume-mixer" = {
