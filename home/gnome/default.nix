@@ -243,7 +243,7 @@ in {
       "org/gnome/shell/extensions/date-menu-formatter" = {
         apply-all-panels = true;
         custom-locale = "";
-        font-size = 11;
+        font-size = 12;
         pattern = "dd.MM.yyyy kk:mm:ss";
         remove-messages-indicator = false;
         use-default-locale = true;
