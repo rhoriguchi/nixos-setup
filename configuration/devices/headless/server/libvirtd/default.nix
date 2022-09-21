@@ -431,7 +431,7 @@ let
       '';
     in "${pkgs.python3}/bin/python ${script}";
 
-    startAt = "05:00";
+    startAt = "Sun *-*-* 05:00:00";
 
     serviceConfig = {
       Restart = "on-abort";
