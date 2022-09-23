@@ -1,4 +1,4 @@
-{ pkgs, colors, ... }:
+{ pkgs, lib, colors, ... }:
 let
   extensions = [
     pkgs.gnomeExtensions.alphabetical-app-grid
@@ -273,14 +273,14 @@ in {
         transition-with-overview = true;
         unmaximized-opacity = 0;
       };
-      "org/gnome/shell/extensions/emoji-selector" = {
+      "org/gnome/shell/extensions/emoji-selector" = rec {
         always-show = true;
         emoji-keybinding = [ "<Super>period" ];
         emojisize = 20;
         gender = 2;
-        nbcols = 15;
+        nbcols = lib.length recently-used;
         position = "top";
-        recently-used = [ "🤔" "😂" "😊" "😜" "😬" "😭" "😕" "😘" "🤗" "🤮" "👍🏻" "👎🏻" "💁🏻‍♂️" "🤦🏻‍♂️" "🤷🏻‍♂️" ];
+        recently-used = [ "🤔" "😂" "😊" "😜" "😬" "😭" "😕" "😘" "🤗" "🤮" "👍🏻" "👎🏻" "🙈" "💁🏻‍♂️" "🤦🏻‍♂️" "🤷🏻‍♂️" ];
         skin-tone = 1;
         use-keybinding = true;
       };
