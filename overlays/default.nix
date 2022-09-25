@@ -10,16 +10,6 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=186139
-    tautulli = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "509541c7a735db6346da0f75eda9e7870c078ecc";
-          sha256 = "sha256-bfVTqsKII0DaewAUwnGnG8m4cfP+g8Sa4aDZr5myJXg=";
-        }
-      }/pkgs/servers/tautulli") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=190397
     gitkraken = super.callPackage (import "${
         super.fetchFromGitHub {
