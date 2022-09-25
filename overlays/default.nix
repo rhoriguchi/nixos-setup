@@ -39,6 +39,20 @@
           sha256 = "sha256-j9DeLkebtGPkh+248wHLwjAkMpW6m7GE4gZQsz9ew/o=";
         }
       }/pkgs/servers/adguardhome") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=192920
+    gnomeExtensions = super.gnomeExtensions // {
+      dash-to-dock = super.gnomeExtensions.dash-to-dock.overrideAttrs (_: rec {
+        version = "74";
+
+        src = super.fetchFromGitHub {
+          owner = "micheleg";
+          repo = "dash-to-dock";
+          rev = "extensions.gnome.org-v${version}";
+          sha256 = "sha256-3WNm9kX76+qmn9KWLSKwxmHHpc21kWHrBW9266TOKZ0=";
+        };
+      });
+    };
   })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
