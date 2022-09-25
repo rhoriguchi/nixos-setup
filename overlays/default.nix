@@ -30,7 +30,7 @@
         }
       }/pkgs/servers/adguardhome") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=192920
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=192929
     gnomeExtensions = super.gnomeExtensions // {
       dash-to-dock = super.gnomeExtensions.dash-to-dock.overrideAttrs (_: rec {
         version = "74";
