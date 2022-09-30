@@ -8,8 +8,7 @@
     extraConfig = {
       alias = {
         changes = "diff --stat";
-        history =
-          ''log --date=iso --pretty="%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ad %C(auto)%d %C(reset)%s"'';
+        history = ''log --date=iso --pretty="%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ad %C(auto)%d %C(reset)%s"'';
       };
 
       init.defaultBranch = "master";
