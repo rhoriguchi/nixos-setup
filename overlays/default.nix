@@ -20,17 +20,7 @@
         }
       }/pkgs/applications/version-management/gitkraken") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=191214
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "70cfa0d6ae54489e8af35032b9ef80ef43ff0952";
-          sha256 = "sha256-j9DeLkebtGPkh+248wHLwjAkMpW6m7GE4gZQsz9ew/o=";
-        }
-      }/pkgs/servers/adguardhome") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=192929
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=182618
     gnomeExtensions = super.gnomeExtensions // {
       dash-to-dock = super.gnomeExtensions.dash-to-dock.overrideAttrs (_: rec {
         version = "74";
@@ -43,6 +33,16 @@
         };
       });
     };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=193660
+    adguardhome = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "b335bb07922525ea3a17149d0fb66d1d99306a10";
+          sha256 = "sha256-O66lDzwhy6upi99XhX+bJaIYaD5hzXlzT3FdyhhryG8=";
+        }
+      }/pkgs/servers/adguardhome") { };
   })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
