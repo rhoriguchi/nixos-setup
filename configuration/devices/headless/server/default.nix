@@ -16,7 +16,7 @@
       efi.canTouchEfiVariables = true;
     };
 
-    # TODO upgrade to 5.19 once zfs supports it
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=194405
     kernelPackages = pkgs.linuxPackages_5_15;
 
     supportedFilesystems = [ "zfs" ];
