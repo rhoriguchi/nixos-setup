@@ -60,6 +60,8 @@
 
       system_health = { };
 
+      hardware = { };
+
       logger.default = "warning";
     };
   };
