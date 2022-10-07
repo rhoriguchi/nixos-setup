@@ -34,16 +34,6 @@
       });
     };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=193660
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "b335bb07922525ea3a17149d0fb66d1d99306a10";
-          sha256 = "sha256-O66lDzwhy6upi99XhX+bJaIYaD5hzXlzT3FdyhhryG8=";
-        }
-      }/pkgs/servers/adguardhome") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=193963
     plexRaw = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
@@ -63,6 +53,16 @@
           sha256 = "sha256-YfgUaMM7WdXCRI8NjTdVCouS3GNbDh1Vf9sU9m5YksA=";
         }
       }/pkgs/development/web/postman") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=194528
+    adguardhome = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "3f8636ceb49528dad526ea5399ffcfc8a1dc515a";
+          sha256 = "sha256-odIanYefn3V96gMoh9y/qDNw0cmgvXRYmSXEVOHDkUs=";
+        }
+      }/pkgs/servers/adguardhome") { };
   })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
