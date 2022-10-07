@@ -1,1 +1,1 @@
-{ pkgs, ... }: { environment.systemPackages = [ pkgs.pipenv pkgs.python3 pkgs.python3Packages.pip ]; }
+{ pkgs, ... }: { environment.systemPackages = [ pkgs.pipenv pkgs.poetry pkgs.python3 pkgs.python3Packages.pip ]; }
