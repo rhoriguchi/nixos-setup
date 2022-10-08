@@ -1,6 +1,7 @@
 {
   displaylink = import ./displaylink.nix;
   doas = import ./doas.nix;
+  docker = import ./docker.nix;
   fancy-motd = import ./fancy-motd.nix;
   flakes = import ./flakes.nix;
   git = import ./git.nix;

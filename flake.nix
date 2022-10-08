@@ -136,6 +136,7 @@
 
           imports = [
             self.nixosModules.templates.doas
+            self.nixosModules.templates.docker
             self.nixosModules.templates.fancy-motd
             self.nixosModules.templates.nginx
 
