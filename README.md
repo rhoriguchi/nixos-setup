@@ -63,6 +63,7 @@ Remove `users.users.root.password` option and delete copy of home `/home/rhorigu
 - Delete all areas
 - Add integrations
   - Netatmo
+    - Get credentials from <https://dev.netatmo.com>
   - Shelly
     - shellycolorbulb-98CDAC1F031E.iot
     - shellycolorbulb-98CDAC1F68BC.iot
