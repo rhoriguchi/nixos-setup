@@ -192,7 +192,7 @@ let
 
           ${
             let
-              cores = 6;
+              cores = 9;
               threads = 2;
 
               vcpupins = map (count: "<vcpupin vcpu='${toString count}' cpuset='0-${toString (cores * threads - 1)}'/>")
