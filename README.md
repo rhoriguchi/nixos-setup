@@ -59,11 +59,13 @@ Remove `users.users.root.password` option and delete copy of home `/home/rhorigu
 
 #### Home Assistant
 
-- Create default user
+- Create default user `admin`
 - Delete all areas
 - Add integrations
   - Netatmo
   - Shelly
+    - shellycolorbulb-98CDAC1F031E.iot
+    - shellycolorbulb-98CDAC1F68BC.iot
   - Ubiquiti UniFi
 - Configure myStrom buttons
   - `curl -d "single=post://XXLPitu-Server.local:8123/api/webhook/mystrom_button_blue" "http://myStrom-Button-E9DACB.iot/api/v1/device/F4CFA2E9DACB"`
