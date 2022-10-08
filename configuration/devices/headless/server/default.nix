@@ -91,8 +91,8 @@
         (pkgs.fetchFromGitHub {
           owner = "ZeroQI";
           repo = "Absolute-Series-Scanner";
-          rev = "4ef18a738c6263a8b96ab6f83ae391d4550b9cc9";
-          hash = "sha256-2bdp0e5XES/phLLUP2mngwITUWdZIE6Y6ness86xSNI=";
+          rev = "9c8ce030d3251951880cd03b925018a475eae2ae";
+            hash = "sha256-BQED6Axg1hJU50eLKZzjcyXb1DY4S/W1dzqWt44YPBk=";
         })
       ];
     };
