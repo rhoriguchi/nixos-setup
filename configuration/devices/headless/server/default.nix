@@ -16,9 +16,6 @@
       efi.canTouchEfiVariables = true;
     };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=194405
-    kernelPackages = pkgs.linuxPackages_5_15;
-
     supportedFilesystems = [ "zfs" ];
   };
 
