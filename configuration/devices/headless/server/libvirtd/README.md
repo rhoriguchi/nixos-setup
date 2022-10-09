@@ -57,6 +57,7 @@ REM Power tuning
 powercfg /hibernate off
 powercfg -h off
 powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+powercfg -change -monitor-timeout-ac 15
 
 REM Cleanup Windows with https://github.com/Sycnex/Windows10Debloater
 powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Debloat%20Windows' | iex"
