@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   lovelaceModules = [
     pkgs.hs.lovelaceModule.battery-entity
@@ -58,213 +58,283 @@ in {
           type = "module";
         }) lovelaceModules;
 
-        views = [{
-          title = "Default";
+        views = [
+          {
+            title = "Home";
+            icon = "mdi:home";
 
-          cards = addStyleToCards [
-            {
-              type = "vertical-stack";
+            cards = addStyleToCards [
+              {
+                type = "vertical-stack";
 
-              cards = [
-                {
-                  type = "custom:mini-graph-card";
-                  name = "Outdoor temperature";
+                cards = [
+                  {
+                    type = "custom:mini-graph-card";
+                    name = "Outdoor temperature";
 
-                  hours_to_show = 24 * 7;
-                  points_per_hour = 2;
-                  line_width = 3;
-                  hour24 = true;
+                    hours_to_show = 24 * 7;
+                    points_per_hour = 2;
+                    line_width = 3;
+                    hour24 = true;
 
-                  show = {
-                    icon = false;
-                    fill = false;
-                  };
+                    show = {
+                      icon = false;
+                      fill = false;
+                    };
 
-                  entities = [{
-                    name = "Outdoor";
-                    entity = "sensor.openweather_current_temperature";
-                  }];
-                }
-                {
-                  type = "custom:mini-graph-card";
-                  name = "Indoor temperature";
+                    entities = [{
+                      name = "Outdoor";
+                      entity = "sensor.openweather_current_temperature";
+                    }];
+                  }
+                  {
+                    type = "custom:mini-graph-card";
+                    name = "Indoor temperature";
 
-                  hours_to_show = 24 * 7;
-                  points_per_hour = 2;
-                  line_width = 3;
-                  hour24 = true;
+                    hours_to_show = 24 * 7;
+                    points_per_hour = 2;
+                    line_width = 3;
+                    hour24 = true;
 
-                  show = {
-                    icon = false;
-                    state = false;
-                    fill = false;
-                  };
+                    show = {
+                      icon = false;
+                      state = false;
+                      fill = false;
+                    };
 
-                  entities = [
-                    {
-                      name = "Entrance";
-                      entity = "sensor.netatmo_current_temperature_entrance";
-                    }
-                    {
-                      name = "Living room";
-                      entity = "sensor.netatmo_current_temperature_living_room";
-                    }
-                  ];
-                }
-              ];
-            }
-            {
-              type = "custom:mini-graph-card";
-              name = "Desk power consumption";
+                    entities = [
+                      {
+                        name = "Entrance";
+                        entity = "sensor.netatmo_current_temperature_entrance";
+                      }
+                      {
+                        name = "Living room";
+                        entity = "sensor.netatmo_current_temperature_living_room";
+                      }
+                    ];
+                  }
+                ];
+              }
+              {
+                type = "custom:mini-graph-card";
+                name = "Desk power consumption";
 
-              hours_to_show = 24 * 7;
-              points_per_hour = 5;
-              line_width = 3;
-              hour24 = true;
+                hours_to_show = 24 * 7;
+                points_per_hour = 5;
+                line_width = 3;
+                hour24 = true;
 
-              show = {
-                icon = false;
-                fill = false;
-              };
+                show = {
+                  icon = false;
+                  fill = false;
+                };
 
-              entities = [{
-                name = "Desk";
-                entity = "sensor.mystrom_desk_monitor_power_consumption";
-              }];
-            }
-            {
-              # TODO HOME-ASSISTANT toggle is broken
-              type = "entities";
-              title = "Lights";
+                entities = [{
+                  name = "Desk";
+                  entity = "sensor.mystrom_desk_monitor_power_consumption";
+                }];
+              }
+              {
+                # TODO HOME-ASSISTANT toggle is broken
+                type = "entities";
+                title = "Lights";
 
-              show_header_toggle = true;
+                show_header_toggle = true;
 
-              entities = [
-                "light.bedroom"
-                "light.kitchen"
-                "light.living_room"
-                {
+                entities = [
+                  "light.bedroom"
+                  "light.kitchen"
+                  "light.living_room"
+                  {
+                    type = "custom:fold-entity-row";
+                    head = "light.entrance";
+                    entities = [
+                      {
+                        name = "Hallway";
+                        entity = "light.entrance_hallway";
+                      }
+                      {
+                        name = "Window";
+                        entity = "light.entrance_window";
+                      }
+                    ];
+                  }
+                ];
+              }
+              {
+                type = "entities";
+                title = "AdGuard Home";
+                entities = [{
+                  name = "Protection";
+                  entity = "switch.adguard_protection";
+                }];
+              }
+              {
+                type = "vertical-stack";
+
+                cards = [
+                  {
+                    type = "entities";
+                    title = "Network";
+                    entities = [
+                      {
+                        name = "Total";
+                        entity = "sensor.unifi_total";
+                      }
+                      { type = "divider"; }
+                      {
+                        name = "Wired";
+                        entity = "sensor.unifi_wired";
+                      }
+                      {
+                        type = "custom:fold-entity-row";
+                        head = {
+                          name = "WiFi";
+                          entity = "sensor.unifi_wifi";
+                        };
+
+                        open = true;
+
+                        entities = [
+                          {
+                            name = "63466727";
+                            entity = "sensor.unifi_wifi_default";
+                          }
+                          {
+                            name = "63466727-Guest";
+                            entity = "sensor.unifi_wifi_guest";
+                          }
+                          {
+                            name = "63466727-IoT";
+                            entity = "sensor.unifi_wifi_iot";
+                          }
+                        ];
+                      }
+                    ];
+                  }
+                  {
+                    type = "picture";
+                    image = "/local/img/wifi-guest-qr.png";
+                  }
+                ];
+              }
+              {
+                type = "entities";
+                title = "Battery";
+                entities = [
+                  {
+                    type = "custom:battery-entity";
+                    name = "Netatmo valve entrance hallway";
+                    entity = "sensor.netatmo_valve_entrance_hallway_battery";
+                  }
+                  {
+                    type = "custom:battery-entity";
+                    name = "Netatmo valve entrance window";
+                    entity = "sensor.netatmo_valve_entrance_window_battery";
+                  }
+                  {
+                    type = "custom:battery-entity";
+                    name = "Netatmo valve living room";
+                    entity = "sensor.netatmo_valve_living_room_battery";
+                  }
+                  { type = "divider"; }
+                  {
+                    type = "custom:battery-entity";
+                    name = "myStrom button blue";
+                    entity = "sensor.mystrom_button_blue_battery";
+                  }
+                  {
+                    type = "custom:battery-entity";
+                    name = "myStrom button orange";
+                    entity = "sensor.mystrom_button_orange_battery";
+                  }
+                  {
+                    type = "custom:battery-entity";
+                    name = "myStrom button gray";
+                    entity = "sensor.mystrom_button_gray_battery";
+                  }
+                  {
+                    type = "custom:battery-entity";
+                    name = "myStrom button purple";
+                    entity = "sensor.mystrom_button_purple_battery";
+                  }
+                  {
+                    type = "custom:battery-entity";
+                    name = "myStrom button white";
+                    entity = "sensor.mystrom_button_white_battery";
+                  }
+                ];
+              }
+            ];
+          }
+          {
+            title = "Server";
+            icon = "mdi:server";
+
+            cards = addStyleToCards [
+              {
+                type = "entity";
+                title = "Uptime";
+                icon = "mdi:server";
+                entity = "sensor.uptime";
+              }
+              {
+                type = "entity";
+                name = "CPU";
+                entity = "sensor.processor_use";
+              }
+              {
+                type = "entity";
+                name = "RAM";
+                entity = "sensor.memory_use_percent";
+              }
+              {
+                type = "entities";
+                title = "Storage";
+                entities = let
+                  a = string: lib.toLower string;
+                  b = string: (lib.replaceStrings [ "/" ] [ "_" ]) (a string);
+                  c = string: (lib.replaceStrings [ "__" ] [ "_" ]) (b string);
+                  d = string: (lib.strings.removeSuffix "_") (c string);
+
+                  format = string: d string;
+                in lib.mapAttrsToList (key: _: {
+                  name = key;
+                  entity = format "sensor.disk_use_percent_${key}";
+                }) (lib.filterAttrs (key: _: key != "/boot") config.fileSystems);
+              }
+              {
+                type = "entities";
+                title = "Network";
+                entities = lib.mapAttrsToList (key: _: {
                   type = "custom:fold-entity-row";
-                  head = "light.entrance";
+                  head = {
+                    name = key;
+                    entity = "sensor.ipv4_address_${key}";
+                    icon = "mdi:web";
+                  };
+
+                  open = true;
+                  # TODO use this when resolved https://github.com/thomasloven/lovelace-fold-entity-row/issues/232
+                  # open = "{{ not is_state('sensor.ipv4_address_${key}', 'unknown') }}";
+
                   entities = [
                     {
-                      name = "Hallway";
-                      entity = "light.entrance_hallway";
+                      name = "Down";
+                      entity = "sensor.network_throughput_in_${key}";
+                      icon = "mdi:download";
                     }
                     {
-                      name = "Window";
-                      entity = "light.entrance_window";
+                      name = "Up";
+                      entity = "sensor.network_throughput_out_${key}";
+                      icon = "mdi:upload";
                     }
                   ];
-                }
-              ];
-            }
-            {
-              type = "entities";
-              title = "AdGuard Home";
-              entities = [{
-                name = "Protection";
-                entity = "switch.adguard_protection";
-              }];
-            }
-            {
-              type = "vertical-stack";
-
-              cards = [
-                {
-                  type = "entities";
-                  title = "Network";
-                  entities = [
-                    {
-                      name = "Total";
-                      entity = "sensor.unifi_total";
-                    }
-                    { type = "divider"; }
-                    {
-                      name = "Wired";
-                      entity = "sensor.unifi_wired";
-                    }
-                    {
-                      type = "custom:fold-entity-row";
-                      head = {
-                        name = "WiFi";
-                        entity = "sensor.unifi_wifi";
-                      };
-
-                      open = true;
-
-                      entities = [
-                        {
-                          name = "63466727";
-                          entity = "sensor.unifi_wifi_default";
-                        }
-                        {
-                          name = "63466727-Guest";
-                          entity = "sensor.unifi_wifi_guest";
-                        }
-                        {
-                          name = "63466727-IoT";
-                          entity = "sensor.unifi_wifi_iot";
-                        }
-                      ];
-                    }
-                  ];
-                }
-                {
-                  type = "picture";
-                  image = "/local/img/wifi-guest-qr.png";
-                }
-              ];
-            }
-            {
-              type = "entities";
-              title = "Battery";
-              entities = [
-                {
-                  type = "custom:battery-entity";
-                  name = "Netatmo valve entrance hallway";
-                  entity = "sensor.netatmo_valve_entrance_hallway_battery";
-                }
-                {
-                  type = "custom:battery-entity";
-                  name = "Netatmo valve entrance window";
-                  entity = "sensor.netatmo_valve_entrance_window_battery";
-                }
-                {
-                  type = "custom:battery-entity";
-                  name = "Netatmo valve living room";
-                  entity = "sensor.netatmo_valve_living_room_battery";
-                }
-                { type = "divider"; }
-                {
-                  type = "custom:battery-entity";
-                  name = "myStrom button blue";
-                  entity = "sensor.mystrom_button_blue_battery";
-                }
-                {
-                  type = "custom:battery-entity";
-                  name = "myStrom button orange";
-                  entity = "sensor.mystrom_button_orange_battery";
-                }
-                {
-                  type = "custom:battery-entity";
-                  name = "myStrom button gray";
-                  entity = "sensor.mystrom_button_gray_battery";
-                }
-                {
-                  type = "custom:battery-entity";
-                  name = "myStrom button purple";
-                  entity = "sensor.mystrom_button_purple_battery";
-                }
-                {
-                  type = "custom:battery-entity";
-                  name = "myStrom button white";
-                  entity = "sensor.mystrom_button_white_battery";
-                }
-              ];
-            }
-          ];
-        }];
+                }) config.networking.interfaces;
+              }
+            ];
+          }
+        ];
       };
     };
   };
