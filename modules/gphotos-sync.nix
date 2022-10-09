@@ -10,7 +10,7 @@ let
       auth_uri = "https://accounts.google.com/o/oauth2/auth";
       token_uri = "https://oauth2.googleapis.com/token";
       auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs";
-      redirect_uris = [ "http://localhost" "urn:ietf:wg:oauth:2.0:oob" ];
+      redirect_uris = [ "http://127.0.0.1" "urn:ietf:wg:oauth:2.0:oob" ];
     };
   };
 
