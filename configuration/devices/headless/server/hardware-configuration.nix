@@ -24,6 +24,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/mnt/Data/Deluge" = {
+    device = "data/deluge";
+    fsType = "zfs";
+  };
+
   fileSystems."/mnt/Data/Snapshots" = {
     device = "data/snapshots";
     fsType = "zfs";

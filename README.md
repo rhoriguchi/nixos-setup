@@ -98,6 +98,9 @@ zfs create \
   data/backup
 
 zfs create \
+  data/deluge
+
+zfs create \
   -o compression=zstd \
   data/snapshots
 

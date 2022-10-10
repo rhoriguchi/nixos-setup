@@ -6,6 +6,7 @@
     ./home-assistant
     ./libvirtd
     ./rsnapshot.nix
+    ./sonarr
 
     ./hardware-configuration.nix
   ];
@@ -89,7 +90,7 @@
           owner = "ZeroQI";
           repo = "Absolute-Series-Scanner";
           rev = "9c8ce030d3251951880cd03b925018a475eae2ae";
-            hash = "sha256-BQED6Axg1hJU50eLKZzjcyXb1DY4S/W1dzqWt44YPBk=";
+          hash = "sha256-BQED6Axg1hJU50eLKZzjcyXb1DY4S/W1dzqWt44YPBk=";
         })
       ];
     };

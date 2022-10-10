@@ -44,7 +44,9 @@ in {
       retain	monthly	3
 
       backup	${config.services.plex.dataDir}/	./
+      backup	${config.services.prowlarr.dataDir}/	./
       backup	${config.services.resilio.syncPath}/	./
+      backup	${config.services.sonarr.dataDir}/	./
       backup	${config.services.tautulli.dataDir}/	./
     '';
   };
