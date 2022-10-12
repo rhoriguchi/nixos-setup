@@ -44,7 +44,7 @@
 
         max_active_downloading = 10;
         max_active_limit = 10;
-        max_active_seeding = 0;
+        max_active_seeding = 1;
         max_connections_global = 250;
         max_half_open_connections = 40;
       };
