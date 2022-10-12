@@ -30,7 +30,10 @@
       in pkgs.writeText "deluge-auth" text;
 
       config = {
-        download_location = "/mnt/Data/Deluge";
+        download_location = "/mnt/Data/Deluge/Downloads";
+
+        copy_torrent_file = true;
+        torrentfiles_location = "/mnt/Data/Deluge/Torrents";
 
         allow_remote = true;
         daemon_port = 58846;
@@ -49,6 +52,15 @@
         max_half_open_connections = 40;
       };
     };
+
+    # openvpn.servers.sonarrVPN = {
+    #   config = "config ${./nl.protonvpn.net.udp.ovpn}";
+
+    #   authUserPass = {
+    #     username = "PJDW8BQLyl_loNHR1Q63lYwz";
+    #     password = "ngoZQhs/R589ssqdcg/1i8Is";
+    #   };
+    # };
   };
 
   systemd.services.sonarr-update-tracked-series = {
