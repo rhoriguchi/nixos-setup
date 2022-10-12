@@ -164,7 +164,7 @@ class SonarrHelper(object):
         })
 
     def _delete_series(self, id):
-        self._session.delete(f'{self._base_url}/series/{id}', params={'deleteFiles': False})
+        self._session.delete(f'{self._base_url}/series/{id}', params={'deleteFiles': True})
 
     def _get_episodes(self, id):
         return self._session.get(f'{self._base_url}/episode', params={'seriesId': id}) \
@@ -181,9 +181,7 @@ class SonarrHelper(object):
 
     def delete_all_missing_series(self, tvdb_ids):
         for series in self._get_all_series():
-            if self._tag_id in series['tags'] \
-                    and series['statistics']['episodeFileCount'] == 0 \
-                    and series['tvdbId'] not in tvdb_ids:
+            if self._tag_id in series['tags'] and series['tvdbId'] not in tvdb_ids:
                 print(f'Removing "{series["title"]}"')
                 self._delete_series(series['id'])
 
