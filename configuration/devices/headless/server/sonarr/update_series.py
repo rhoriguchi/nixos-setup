@@ -81,6 +81,7 @@ class SonarrHelper(object):
 
         self._quality_profile_id = self.get_quality_profile_id('Any')
         self._language_profile_id = self.get_language_profile_id('English')
+        self._tag_id = self._get_tag_id('tv_time')
 
     @staticmethod
     def _get_session(api_key):
@@ -134,6 +135,10 @@ class SonarrHelper(object):
     def _add_root_dir(self, root_dir):
         self._session.post(f'{self._base_url}/rootFolder', json={'path': root_dir})
 
+    def _get_tag_id(self, tag):
+        return self._session.post(f'{self._base_url}/tag', json={'label': tag}) \
+            .json()['id']
+
     def _get_series(self, tvdb_id):
         series = self._lookup_series(tvdb_id)
 
@@ -147,13 +152,16 @@ class SonarrHelper(object):
             'rootFolderPath': self._root_dir,
             'qualityProfileId': self._quality_profile_id,
             'languageProfileId': self._language_profile_id,
+            'tags': [self._tag_id]
         })
 
     def _update_series(self, series):
         if 'id' not in series:
             raise ValueError(f'Series with tvdb_id "{series["tvdbId"]}" not added')
 
-        self._session.put(f'{self._base_url}/series', json=series)
+        self._session.put(f'{self._base_url}/series', json=series | {
+            'tags': list(set(series['tags'] + [self._tag_id]))
+        })
 
     def _delete_series(self, id):
         self._session.delete(f'{self._base_url}/series/{id}', params={'deleteFiles': False})
@@ -173,7 +181,9 @@ class SonarrHelper(object):
 
     def delete_all_missing_series(self, tvdb_ids):
         for series in self._get_all_series():
-            if series['statistics']['episodeFileCount'] == 0 and series['tvdbId'] not in tvdb_ids:
+            if self._tag_id in series['tags'] \
+                    and series['statistics']['episodeFileCount'] == 0 \
+                    and series['tvdbId'] not in tvdb_ids:
                 print(f'Removing "{series["title"]}"')
                 self._delete_series(series['id'])
 
@@ -191,7 +201,7 @@ class SonarrHelper(object):
         self._update_series(series | {
             'monitored': True,
             'seasons': list(map(lambda season: season | {'monitored': True}, series['seasons'])),
-            'seasonFolder': len(unwatched.keys()) > 1,
+            'seasonFolder': len(unwatched.keys()) > 1
         })
 
         for episode in self._get_episodes(series['id']):
