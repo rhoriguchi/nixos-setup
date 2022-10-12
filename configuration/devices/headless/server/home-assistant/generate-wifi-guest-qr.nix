@@ -1,6 +1,6 @@
 { pkgs, secrets, ... }:
 let
-  ssid = secrets.wifiGuestSsid;
+  ssid = "63466727-Guest";
   password = secrets.wifis.${ssid}.psk;
 
   script = pkgs.writeText "generate_wifi_guest_qr.py" ''
