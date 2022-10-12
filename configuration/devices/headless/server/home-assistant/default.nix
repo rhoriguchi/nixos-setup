@@ -29,6 +29,7 @@
         "update"
 
         # Manual added integrations
+        "deluge"
         "mobile_app"
         "netatmo"
         "shelly"

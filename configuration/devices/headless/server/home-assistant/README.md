@@ -3,6 +3,8 @@
 - Create default user `admin`
 - Delete all areas
 - Add integrations
+  - Deluge
+    - Get credentials from [secret.nix](../../../../../secrets.nix)
   - Netatmo
     - Get credentials from <https://dev.netatmo.com>
   - Shelly
