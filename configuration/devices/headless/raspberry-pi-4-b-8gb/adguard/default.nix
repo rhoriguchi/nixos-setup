@@ -46,6 +46,12 @@ in {
 
       # TODO add certificate
       virtualHosts."adguardhome" = {
+        # TODO commented
+        # useACMEHost = null;
+
+        # enableSSL = true;
+        # forceSSL = true;
+
         listen = [{
           addr = "0.0.0.0";
           port = adguardhomePort;

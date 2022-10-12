@@ -5,16 +5,13 @@ in {
     nginx = {
       enable = true;
 
+      # TODO add certificate
       virtualHosts."home-assistant.00a.ch" = {
         # TODO HOME-ASSISTANT commented
         # useACMEHost = null;
 
         # enableSSL = true;
         # forceSSL = true;
-
-        extraConfig = ''
-          proxy_buffering off;
-        '';
 
         listen = [{
           addr = "0.0.0.0";
@@ -25,10 +22,15 @@ in {
           proxyPass = "http://127.0.0.1:${toString config.services.home-assistant.config.http.server_port}";
           proxyWebsockets = true;
         };
+
+        extraConfig = ''
+          proxy_buffering off;
+        '';
       };
     };
 
     home-assistant.config.http = {
+      server_port = 8124;
       trusted_proxies = "127.0.0.1";
       use_x_forwarded_for = true;
     };

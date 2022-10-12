@@ -38,8 +38,6 @@
     };
 
     config = {
-      http.server_port = 8124;
-
       homeassistant = {
         name = "Home";
         time_zone = config.time.timeZone;
