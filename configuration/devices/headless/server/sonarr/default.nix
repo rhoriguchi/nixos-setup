@@ -16,13 +16,10 @@
       enable = true;
       openFirewall = true;
 
+      web.enable = true;
+
       declarative = true;
       group = if config.services.resilio.enable then "rslsync" else "sonarr";
-
-      web = {
-        enable = true;
-        openFirewall = true;
-      };
 
       authFile = let
         text = lib.concatStringsSep "\n"
