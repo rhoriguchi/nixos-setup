@@ -10,6 +10,7 @@
   i18n = import ./i18n.nix;
   java = import ./java.nix;
   javascript = import ./javascript.nix;
+  k8s = import ./k8s.nix;
   keyboard = import ./keyboard.nix;
   kotlin = import ./kotlin.nix;
   nano = import ./nano.nix;
