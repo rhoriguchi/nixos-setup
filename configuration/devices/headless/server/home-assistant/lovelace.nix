@@ -163,7 +163,7 @@ in {
               }
               {
                 type = "entities";
-                title = "AdGuard Home";
+                title = "AdGuard";
                 entities = [{
                   name = "Protection";
                   entity = "switch.adguard_protection";
@@ -175,7 +175,7 @@ in {
                 cards = [
                   {
                     type = "entities";
-                    title = "Network";
+                    title = "Interfaces";
                     entities = [
                       {
                         name = "Total";
@@ -275,7 +275,7 @@ in {
               {
                 type = "entity";
                 title = "Uptime";
-                icon = "mdi:server";
+                icon = "mdi:clock";
                 entity = "sensor.uptime";
               }
               {
