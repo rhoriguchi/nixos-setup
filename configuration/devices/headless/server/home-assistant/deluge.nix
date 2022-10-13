@@ -1,10 +1,10 @@
 let
   createFormatFunction = sensor: ''
-    {% set value = states('${sensor}') | replace("'", ''') | float %}
+    {% set value = states('${sensor}') | float %}
     {% if value < 0 %}
       0
     {% else %}
-      {{ value * 1000 / 1024 / 1024 | round(3)  }}
+      {{ (value * 1000 / 1024 / 1024) | round(3) }}
     {% endif %}
   '';
 in {
