@@ -18,6 +18,26 @@ in {
     }
     {
       platform = "command_line";
+      name = "OS";
+      scan_interval = 60 * 60;
+      command = "${pkgs.lsb-release}/bin/lsb_release --id --short";
+      value_template = "{{ value | replace('\"', '') }}";
+    }
+    {
+      platform = "command_line";
+      name = "Version";
+      scan_interval = 60 * 60;
+      command = "${pkgs.lsb-release}/bin/lsb_release --release --short";
+      value_template = "{{ value | replace('\"', '') }}";
+    }
+    {
+      platform = "command_line";
+      name = "Kernel";
+      scan_interval = 60 * 60;
+      command = "${pkgs.coreutils}/bin/uname -r";
+    }
+    {
+      platform = "command_line";
       name = "Uptime";
       scan_interval = 60;
       command =

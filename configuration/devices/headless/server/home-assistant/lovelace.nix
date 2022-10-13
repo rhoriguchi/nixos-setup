@@ -273,10 +273,27 @@ in {
 
             cards = addStyleToCards [
               {
-                type = "entity";
-                title = "Uptime";
-                icon = "mdi:clock";
-                entity = "sensor.uptime";
+                type = "entities";
+                title = "Info";
+                entities = [
+                  {
+                    name = "Uptime";
+                    icon = "mdi:clock";
+                    entity = "sensor.uptime";
+                  }
+                  {
+                    name = "OS";
+                    entity = "sensor.os";
+                  }
+                  {
+                    name = "Version";
+                    entity = "sensor.version";
+                  }
+                  {
+                    name = "Kernel";
+                    entity = "sensor.kernel";
+                  }
+                ];
               }
               {
                 type = "entities";
