@@ -279,14 +279,20 @@ in {
                 entity = "sensor.uptime";
               }
               {
-                type = "entity";
-                name = "CPU";
-                entity = "sensor.processor_use";
+                type = "entities";
+                title = "CPU";
+                entities = [{
+                  name = "Load";
+                  entity = "sensor.processor_use";
+                }];
               }
               {
-                type = "entity";
-                name = "RAM";
-                entity = "sensor.memory_use_percent";
+                type = "entities";
+                title = "RAM";
+                entities = [{
+                  name = "Used";
+                  entity = "sensor.memory_use_percent";
+                }];
               }
               {
                 type = "entities";
