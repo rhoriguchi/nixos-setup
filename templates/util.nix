@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-   programs.htop.enable = true;
+  programs.htop.enable = true;
 
   environment.systemPackages = [
     pkgs.curl
