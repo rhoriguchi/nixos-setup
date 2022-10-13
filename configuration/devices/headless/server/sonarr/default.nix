@@ -60,6 +60,8 @@
     # };
   };
 
+  # TODO add proxy
+
   systemd.services.sonarr-update-tracked-series = {
     description = "Update tracked tv time series in Sonarr";
 
