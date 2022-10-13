@@ -340,24 +340,21 @@ in {
                   type = "custom:fold-entity-row";
                   head = {
                     name = "State";
-                    entity = "sensor.deluge_status";
-                    icon = "mdi:file-arrow-up-down";
+                    entity = "sensor.deluge_status_formatted";
                   };
 
                   open = true;
                   # TODO use this when resolved https://github.com/thomasloven/lovelace-fold-entity-row/issues/232
-                  # open = "{{ not is_state('sensor.deluge_status', 'idle') }}";
+                  # open = "{{ not is_state('sensor.deluge_status', 'Idle') }}";
 
                   entities = [
                     {
                       name = "Download";
-                      entity = "sensor.deluge_down_speed";
-                      icon = "mdi:file-download";
+                      entity = "sensor.deluge_down_speed_formatted";
                     }
                     {
                       name = "Upload";
-                      entity = "sensor.deluge_up_speed";
-                      icon = "mdi:file-upload";
+                      entity = "sensor.deluge_up_speed_formatted";
                     }
                   ];
                 }];

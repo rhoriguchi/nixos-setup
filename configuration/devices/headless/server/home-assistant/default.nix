@@ -1,6 +1,7 @@
 { pkgs, config, secrets, ... }: {
   imports = [
     ./adguard.nix
+    ./deluge.nix
     ./generate-wifi-guest-qr.nix
     ./lovelace.nix
     ./mystrom.nix
