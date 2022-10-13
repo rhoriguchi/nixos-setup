@@ -74,11 +74,7 @@ in {
     onedrive.enable = true;
   };
 
-  programs = {
-    htop.enable = true;
-
-    steam.enable = true;
-  };
+  programs.steam.enable = true;
 
   environment.systemPackages = [
     pkgs.discord

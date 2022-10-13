@@ -10,8 +10,6 @@
     wifi.macAddress = "permanent";
   };
 
-  programs.htop.enable = true;
-
   users.users.xxlpitu = {
     extraGroups = [ "wheel" ] ++ (lib.optional config.virtualisation.docker.enable "docker")
       ++ (lib.optional config.virtualisation.podman.enable "podman")
