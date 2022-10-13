@@ -23,7 +23,7 @@ let
 
   addStyleToCards = cards:
     map (card:
-      (card // lib.optionalAttrs (lib.hasAttr card.type cardStyles ) { style = cardStyles.${card.type}; }
+      (card // lib.optionalAttrs (lib.hasAttr card.type cardStyles) { style = cardStyles.${card.type}; }
         // lib.optionalAttrs (lib.hasAttr "cards" card) { cards = addStyleToCards card.cards; })) cards;
 in {
   systemd.tmpfiles.rules = [ "d /run/hass 0700 nginx nginx" ]
@@ -336,33 +336,31 @@ in {
                 type = "entities";
                 title = "Deluge";
 
-                entities = [
-                  {
-                    type = "custom:fold-entity-row";
-                    head = {
-                      name = "State";
-                      entity = "sensor.deluge_status";
-                      icon = "mdi:file-arrow-up-down";
-                    };
+                entities = [{
+                  type = "custom:fold-entity-row";
+                  head = {
+                    name = "State";
+                    entity = "sensor.deluge_status";
+                    icon = "mdi:file-arrow-up-down";
+                  };
 
-                    open = true;
-                    # TODO use this when resolved https://github.com/thomasloven/lovelace-fold-entity-row/issues/232
-                    # open = "{{ not is_state('sensor.deluge_status', 'idle') }}";
+                  open = true;
+                  # TODO use this when resolved https://github.com/thomasloven/lovelace-fold-entity-row/issues/232
+                  # open = "{{ not is_state('sensor.deluge_status', 'idle') }}";
 
-                    entities = [
-                      {
-                        name = "Download";
-                        entity = "sensor.deluge_down_speed";
-                        icon = "mdi:file-download";
-                      }
-                      {
-                        name = "Upload";
-                        entity = "sensor.deluge_up_speed";
-                        icon = "mdi:file-upload";
-                      }
-                    ];
-                  }
-                ];
+                  entities = [
+                    {
+                      name = "Download";
+                      entity = "sensor.deluge_down_speed";
+                      icon = "mdi:file-download";
+                    }
+                    {
+                      name = "Upload";
+                      entity = "sensor.deluge_up_speed";
+                      icon = "mdi:file-upload";
+                    }
+                  ];
+                }];
               }
             ];
           }
