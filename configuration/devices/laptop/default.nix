@@ -84,7 +84,6 @@ in {
     pkgs.discord
     pkgs.firefox
     pkgs.gimp
-    pkgs.glances
     pkgs.google-chrome
     pkgs.inkscape
     pkgs.jetbrains.datagrip

@@ -139,6 +139,7 @@
             self.nixosModules.templates.docker
             self.nixosModules.templates.fancy-motd
             self.nixosModules.templates.nginx
+            self.nixosModules.templates.util
 
             ./configuration/devices/headless/server
           ];
@@ -153,6 +154,7 @@
             self.nixosModules.templates.doas
             self.nixosModules.templates.fancy-motd
             self.nixosModules.templates.nginx
+            self.nixosModules.templates.util
 
             ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard
           ];
@@ -165,6 +167,7 @@
             self.nixosModules.templates.doas
             self.nixosModules.templates.fancy-motd
             self.nixosModules.templates.nginx
+            self.nixosModules.templates.util
 
             ./configuration/devices/headless/jdh-server
           ];
@@ -181,6 +184,7 @@
             self.nixosModules.templates.doas
             self.nixosModules.templates.fancy-motd
             self.nixosModules.templates.nginx
+            self.nixosModules.templates.util
 
             ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow
           ];
@@ -195,6 +199,7 @@
             self.nixosModules.templates.doas
             self.nixosModules.templates.fancy-motd
             self.nixosModules.templates.nginx
+            self.nixosModules.templates.util
 
             ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra
           ];

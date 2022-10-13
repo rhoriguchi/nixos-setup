@@ -3,6 +3,7 @@
     pkgs.curl
     pkgs.deadnix
     pkgs.file
+    pkgs.glances
     pkgs.jq
     pkgs.nixfmt
     pkgs.nmap

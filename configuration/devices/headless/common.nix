@@ -12,8 +12,6 @@
 
   programs.htop.enable = true;
 
-  environment.systemPackages = [ pkgs.file pkgs.glances ];
-
   users.users.xxlpitu = {
     extraGroups = [ "wheel" ] ++ (lib.optional config.virtualisation.docker.enable "docker")
       ++ (lib.optional config.virtualisation.podman.enable "podman")
