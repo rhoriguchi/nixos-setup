@@ -175,7 +175,7 @@ in {
                 cards = [
                   {
                     type = "entities";
-                    title = "Interfaces";
+                    title = "Network";
                     entities = [
                       {
                         name = "Total";
@@ -305,7 +305,7 @@ in {
               }
               {
                 type = "entities";
-                title = "Network";
+                title = "Interfaces";
                 entities = lib.mapAttrsToList (key: _: {
                   type = "custom:fold-entity-row";
                   head = {
