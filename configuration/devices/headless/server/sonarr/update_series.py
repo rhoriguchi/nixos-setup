@@ -215,6 +215,7 @@ class SonarrHelper(object):
         self._command('RefreshSeries')
         self._command('missingEpisodeSearch')
 
+        # TODO use https://github.com/Sonarr/Sonarr/wiki/Command#episodesearch
 
 tv_time_request_handler = TVTimeRequestHandler('TV_TIME_USERNAME', 'TV_TIME_PASSWORD')
 sonar_helper = SonarrHelper('SONAR_API_URL', 'SONARR_API_KEY', 'SONARR_ROOT_DIR')
