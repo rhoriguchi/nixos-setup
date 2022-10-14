@@ -166,8 +166,11 @@ class SonarrHelper(object):
     def _delete_series(self, id):
         self._session.delete(f'{self._base_url}/series/{id}', params={'deleteFiles': True})
 
-    def _get_episodes(self, id):
-        return self._session.get(f'{self._base_url}/episode', params={'seriesId': id}) \
+    def _delete_episode_file(self, id):
+        return self._session.delete(f'{self._base_url}/episodefile/${id}')
+
+    def _get_episodes(self, series_id):
+        return self._session.get(f'{self._base_url}/episode', params={'seriesId': series_id}) \
             .json()
 
     def _set_episode_monitored(self, id, monitored):
@@ -176,8 +179,14 @@ class SonarrHelper(object):
             'monitored': monitored
         })
 
-    def _command(self, name):
-        self._session.post(f'{self._base_url}/command', json={'name': name})
+    def _command_refresh_series(self):
+        self._session.post(f'{self._base_url}/command', json={'name': 'RefreshSeries'})
+
+    def _command_episode_search(self, episode_id):
+        self._session.post(f'{self._base_url}/command', json={
+            'name': 'EpisodeSearch',
+            'episodeIds': [episode_id]
+        })
 
     def delete_all_missing_series(self, tvdb_ids):
         for series in self._get_all_series():
@@ -211,11 +220,14 @@ class SonarrHelper(object):
             if episode['monitored'] != monitored:
                 self._set_episode_monitored(episode['id'], monitored)
 
-    def refresh(self):
-        self._command('RefreshSeries')
-        self._command('missingEpisodeSearch')
+                if monitored:
+                    self._command_episode_search(episode['id'])
 
-        # TODO use https://github.com/Sonarr/Sonarr/wiki/Command#episodesearch
+                if not monitored and episode['episodeFileId'] != 0:
+                    self._delete_episode_file(episode['episodeFileId'])
+
+    def refresh_series(self):
+        self._command_refresh_series()
 
 
 tv_time_request_handler = TVTimeRequestHandler('@tvTimeUsername@', '@tvTimePassword@')
@@ -231,4 +243,4 @@ for tvdb_id in tvdb_ids:
     unwatched = tv_time_request_handler.get_unwatched_episodes(tvdb_id)
     sonar_helper.set_series_monitored(tvdb_id, unwatched)
 
-sonar_helper.refresh()
+sonar_helper.refresh_series()
