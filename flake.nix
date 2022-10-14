@@ -135,11 +135,8 @@
           deployment.targetHost = "home.00a.ch";
 
           imports = [
-            self.nixosModules.templates.doas
             self.nixosModules.templates.docker
-            self.nixosModules.templates.fancy-motd
-            self.nixosModules.templates.nginx
-            self.nixosModules.templates.util
+            self.nixosModules.templates.headless
 
             ./configuration/devices/headless/server
           ];
@@ -151,10 +148,7 @@
           imports = [
             inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-            self.nixosModules.templates.doas
-            self.nixosModules.templates.fancy-motd
-            self.nixosModules.templates.nginx
-            self.nixosModules.templates.util
+            self.nixosModules.templates.headless
 
             ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard
           ];
@@ -164,10 +158,7 @@
           deployment.targetHost = "jdh-server";
 
           imports = [
-            self.nixosModules.templates.doas
-            self.nixosModules.templates.fancy-motd
-            self.nixosModules.templates.nginx
-            self.nixosModules.templates.util
+            self.nixosModules.templates.headless
 
             ./configuration/devices/headless/jdh-server
           ];
@@ -181,10 +172,7 @@
           imports = [
             inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-            self.nixosModules.templates.doas
-            self.nixosModules.templates.fancy-motd
-            self.nixosModules.templates.nginx
-            self.nixosModules.templates.util
+            self.nixosModules.templates.headless
 
             ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow
           ];
@@ -196,10 +184,7 @@
           imports = [
             inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-            self.nixosModules.templates.doas
-            self.nixosModules.templates.fancy-motd
-            self.nixosModules.templates.nginx
-            self.nixosModules.templates.util
+            self.nixosModules.templates.headless
 
             ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra
           ];

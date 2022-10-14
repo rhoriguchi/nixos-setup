@@ -6,6 +6,7 @@
   flakes = import ./flakes.nix;
   git = import ./git.nix;
   gnome = import ./gnome.nix;
+  headless = import ./headless.nix;
   hidpi = import ./hidpi.nix;
   i18n = import ./i18n.nix;
   java = import ./java.nix;
