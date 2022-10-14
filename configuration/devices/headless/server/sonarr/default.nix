@@ -71,14 +71,16 @@
     script = let
       pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.beautifulsoup4 pythonPackages.requests ]);
 
-      script = pkgs.writeText "sonar_update_series.py"
-        (lib.replaceStrings [ "SONAR_API_URL" "SONARR_API_KEY" "SONARR_ROOT_DIR" "TV_TIME_USERNAME" "TV_TIME_PASSWORD" ] [
-          "http://127.0.0.1:8989"
-          secrets.sonarr.apiKey
-          "${config.services.resilio.syncPath}/Series/Tv Shows"
-          secrets.tvTime.username
-          secrets.tvTime.password
-        ] (lib.readFile ./update_series.py));
+      script = pkgs.substituteAll {
+        src = ./update_series.py;
+
+        sonarApiUrl = "http://127.0.0.1:8989";
+        sonarApiKey = secrets.sonarr.apiKey;
+        sonarrRootDir = "${config.services.resilio.syncPath}/Series/Tv Shows";
+
+        tvTimeUsername = secrets.tvTime.username;
+        tvTimePassword = secrets.tvTime.password;
+      };
     in "${pythonWithPackages}/bin/python ${script}";
 
     startAt = "*:0/15";

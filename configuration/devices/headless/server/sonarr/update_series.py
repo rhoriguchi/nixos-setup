@@ -217,8 +217,9 @@ class SonarrHelper(object):
 
         # TODO use https://github.com/Sonarr/Sonarr/wiki/Command#episodesearch
 
-tv_time_request_handler = TVTimeRequestHandler('TV_TIME_USERNAME', 'TV_TIME_PASSWORD')
-sonar_helper = SonarrHelper('SONAR_API_URL', 'SONARR_API_KEY', 'SONARR_ROOT_DIR')
+
+tv_time_request_handler = TVTimeRequestHandler('@tvTimeUsername@', '@tvTimePassword@')
+sonar_helper = SonarrHelper('@sonarApiUrl@', '@sonarApiKey@', '@sonarrRootDir@')
 
 tvdb_ids = tv_time_request_handler.get_tvdb_ids()
 
