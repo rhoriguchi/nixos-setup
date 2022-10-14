@@ -26,7 +26,7 @@
           (lib.mapAttrsToList (key: value: "${key}:${value.password}:${toString value.level}") secrets.deluge.users);
       in pkgs.writeText "deluge-auth" text;
 
-      config = {
+      config = rec {
         download_location = "/mnt/Data/Deluge/Downloads";
 
         copy_torrent_file = true;
@@ -43,8 +43,9 @@
         max_upload_speed = 1000 * 10;
 
         max_active_downloading = 10;
-        max_active_limit = 10;
         max_active_seeding = 1;
+        max_active_limit = max_active_downloading + max_active_seeding;
+
         max_connections_global = 250;
         max_half_open_connections = 40;
       };
