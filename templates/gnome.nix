@@ -11,7 +11,7 @@
     };
 
     gnome = {
-      chrome-gnome-shell.enable = false;
+      gnome-browser-connector.enable = false;
       gnome-initial-setup.enable = false;
       gnome-online-accounts.enable = false;
     };
