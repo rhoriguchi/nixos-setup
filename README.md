@@ -88,7 +88,8 @@ zfs create \
   -o compression=zstd \
   data/snapshots
 
-zfs create \
+zfs set \
+  -o quota=465GB \
   data/sync
 ```
 
