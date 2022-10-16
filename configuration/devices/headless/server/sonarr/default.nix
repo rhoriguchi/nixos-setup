@@ -47,6 +47,7 @@
         max_active_downloading = 10;
         max_active_seeding = 1;
         max_active_limit = max_active_downloading + max_active_seeding;
+        dont_count_slow_torrents = false;
 
         max_connections_global = 250;
         max_half_open_connections = 40;
