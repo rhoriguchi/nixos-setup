@@ -37,7 +37,18 @@
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "home-assistant.00a.ch" "home.00a.ch" ];
+      hostnames = [ "home.00a.ch" "tautulli.00a.ch" ];
+    };
+
+    nginx = {
+      enable = true;
+
+      virtualHosts."tautulli.00a.ch" = {
+        enableACME = true;
+        forceSSL = true;
+
+        locations."/".proxyPass = "http://127.0.0.1:${toString config.services.tautulli.port}";
+      };
     };
 
     zfs = {
@@ -95,11 +106,7 @@
       ];
     };
 
-    tautulli = {
-      enable = true;
-
-      openFirewall = true;
-    };
+    tautulli.enable = true;
 
     wireguard-vpn = {
       enable = true;

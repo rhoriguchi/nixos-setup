@@ -6,8 +6,8 @@
     ./lovelace.nix
     ./mystrom.nix
     ./netatmo.nix
-    ./nginx.nix
     ./postgres.nix
+    ./proxy.nix
     ./systemmonitor.nix
     ./unifi.nix
     ./weather.nix

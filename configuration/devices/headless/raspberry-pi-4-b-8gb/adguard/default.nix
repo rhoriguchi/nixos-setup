@@ -13,24 +13,19 @@ let
       bind_host = "0.0.0.0";
       bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
       upstream_dns = bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
-      rewrites = [
-        {
-          domain = "home-assistant.00a.ch";
-          answer = "XXLPitu-Server.local";
-        }
-        {
-          domain = "home.00a.ch";
-          answer = "XXLPitu-Server.local";
-        }
-        {
-          domain = "wireguard.00a.ch";
-          answer = "XXLPitu-Server.local";
-        }
+      rewrites = map (domain: {
+        inherit domain;
+        answer = "XXLPitu-Server.local";
+      }) [
+        "deluge.00a.ch"
+        "home-assistant.00a.ch"
+        "home.00a.ch"
+        "prowlarr.00a.ch"
+        "sonarr.00a.ch"
+        "tautulli.00a.ch"
+        "wireguard.00a.ch"
 
-        {
-          domain = "price-tracker.duckdns.org";
-          answer = "XXLPitu-Server.local";
-        }
+        "price-tracker.duckdns.org"
       ];
     };
     schema_version = 14;

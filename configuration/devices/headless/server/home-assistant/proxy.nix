@@ -1,7 +1,15 @@
-{ config, ... }:
+{ config, secrets, ... }:
 let homeAssistantPort = 8123;
 in {
   services = {
+    infomaniak = {
+      enable = true;
+
+      username = secrets.infomaniak.username;
+      password = secrets.infomaniak.password;
+      hostnames = [ "home-assistant.00a.ch" ];
+    };
+
     nginx = {
       enable = true;
 

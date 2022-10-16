@@ -1,18 +1,5 @@
 { lib, pkgs, config, secrets, ... }: {
   services = {
-    prowlarr = {
-      enable = true;
-
-      openFirewall = true;
-    };
-
-    sonarr = {
-      enable = true;
-
-      openFirewall = true;
-      group = if config.services.resilio.enable then "rslsync" else "sonarr";
-    };
-
     deluge = {
       enable = true;
 
@@ -54,6 +41,58 @@
       };
     };
 
+    prowlarr.enable = true;
+
+    sonarr = {
+      enable = true;
+
+      group = if config.services.resilio.enable then "rslsync" else "sonarr";
+    };
+
+    infomaniak = {
+      enable = true;
+
+      username = secrets.infomaniak.username;
+      password = secrets.infomaniak.password;
+      hostnames = [ "deluge.00a.ch" "prowlarr.00a.ch" "sonarr.00a.ch" ];
+    };
+
+    nginx = {
+      enable = true;
+
+      virtualHosts = {
+        "deluge.00a.ch" = {
+          enableACME = true;
+          forceSSL = true;
+
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.deluge.web.port}";
+            basicAuth = secrets.nginx.basicAuth."deluge.00a.ch";
+          };
+        };
+
+        "sonarr.00a.ch" = {
+          enableACME = true;
+          forceSSL = true;
+
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:8989";
+            basicAuth = secrets.nginx.basicAuth."sonarr.00a.ch";
+          };
+        };
+
+        "prowlarr.00a.ch" = {
+          enableACME = true;
+          forceSSL = true;
+
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:9696";
+            basicAuth = secrets.nginx.basicAuth."prowlarr.00a.ch";
+          };
+        };
+      };
+    };
+
     # TODO WIP and commented
     # openvpn.servers.sonarrVPN = {
     #   config = "config ${./nl.protonvpn.net.udp.ovpn}";
@@ -64,8 +103,6 @@
     #   };
     # };
   };
-
-  # TODO add proxy
 
   systemd.services.sonarr-update-tracked-series = {
     description = "Update tracked tv time series in Sonarr";
