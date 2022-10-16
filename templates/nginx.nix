@@ -1,7 +1,7 @@
 {
   security.acme = {
     acceptTerms = true;
-    defaults.email = "mail.00a.ch";
+    defaults.email = "contact@00a.ch";
   };
 
   services.nginx = {
