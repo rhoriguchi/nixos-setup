@@ -2,18 +2,20 @@
   services = {
     prowlarr = {
       enable = true;
+
       openFirewall = true;
     };
 
     sonarr = {
       enable = true;
-      openFirewall = true;
 
+      openFirewall = true;
       group = if config.services.resilio.enable then "rslsync" else "sonarr";
     };
 
     deluge = {
       enable = true;
+
       openFirewall = true;
 
       web.enable = true;
