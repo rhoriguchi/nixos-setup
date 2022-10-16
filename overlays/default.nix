@@ -20,20 +20,6 @@
         }
       }/pkgs/applications/version-management/gitkraken") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=182618
-    gnomeExtensions = super.gnomeExtensions // {
-      dash-to-dock = super.gnomeExtensions.dash-to-dock.overrideAttrs (_: rec {
-        version = "74";
-
-        src = super.fetchFromGitHub {
-          owner = "micheleg";
-          repo = "dash-to-dock";
-          rev = "extensions.gnome.org-v${version}";
-          sha256 = "sha256-3WNm9kX76+qmn9KWLSKwxmHHpc21kWHrBW9266TOKZ0=";
-        };
-      });
-    };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=194505
     postman = super.callPackage (import "${
         super.fetchFromGitHub {
