@@ -318,7 +318,7 @@ in {
                   a = string: lib.toLower string;
                   b = string: (lib.replaceStrings [ "/" ] [ "_" ]) (a string);
                   c = string: (lib.replaceStrings [ "__" ] [ "_" ]) (b string);
-                  d = string: (lib.strings.removeSuffix "_") (c string);
+                  d = string: (lib.removeSuffix "_") (c string);
 
                   format = string: d string;
                 in lib.mapAttrsToList (key: _: {
