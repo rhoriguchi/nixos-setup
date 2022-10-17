@@ -48,6 +48,9 @@ class TVTimeRequestHandler(object):
 
         soup = BeautifulSoup(response.content, 'html.parser')
 
+        if not soup.find(id='show-details'):
+            raise ValueError('Probably failed to load page correctly, no id with value "show-details"')
+
         unwatched = {}
 
         season_number = 1
