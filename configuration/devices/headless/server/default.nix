@@ -4,6 +4,7 @@
 
     ./fancontrol.nix
     ./home-assistant
+    ./home-page.nix
     ./libvirtd
     ./rsnapshot.nix
     ./sonarr
