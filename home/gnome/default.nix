@@ -9,7 +9,6 @@ let
     pkgs.gnomeExtensions.emoji-selector
     pkgs.gnomeExtensions.transparent-top-bar-adjustable-transparency
     pkgs.gnomeExtensions.unite
-    pkgs.gnomeExtensions.volume-mixer
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
@@ -285,19 +284,6 @@ in {
         use-keybinding = true;
       };
       "org/gnome/shell/extensions/gnome-fuzzy-app-search".applications = true;
-      "org/gnome/shell/extensions/shell-volume-mixer" = {
-        always-show-input-streams = true;
-        debug = false;
-        pinned-profiles = [ ];
-        position = "aggregateMenu";
-        profile-switcher-hotkey = [ ];
-        remove-original = false;
-        show-detailed-sliders = false;
-        show-percentage-label = false;
-        show-system-sounds = false;
-        show-virtual-streams = false;
-        use-symbolic-icons = true;
-      };
       "org/gnome/shell/extensions/unite" = {
         app-menu-ellipsize-mode = "end";
         app-menu-max-width = 0;
