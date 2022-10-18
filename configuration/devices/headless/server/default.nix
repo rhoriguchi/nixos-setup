@@ -2,6 +2,7 @@
   imports = [
     ../common.nix
 
+    ./docker-price-tracker.nix
     ./fancontrol.nix
     ./home-assistant
     ./home-page.nix

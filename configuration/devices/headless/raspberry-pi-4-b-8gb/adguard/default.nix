@@ -25,7 +25,8 @@ let
         "tautulli.00a.ch"
         "wireguard.00a.ch"
 
-        "price-tracker.duckdns.org"
+        "price-tracker.00a.ch"
+        "*.price-tracker.00a.ch"
       ];
     };
     schema_version = 14;
