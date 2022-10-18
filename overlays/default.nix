@@ -19,26 +19,6 @@
           sha256 = "sha256-ZQmcblr5LqSFigX+4aOWV6L+MLLEAbvRAk0pxB0BLig=";
         }
       }/pkgs/applications/version-management/gitkraken") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=194505
-    postman = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "d71a0b97b18a86afc937e9e3860cef73ca019b2f";
-          sha256 = "sha256-YfgUaMM7WdXCRI8NjTdVCouS3GNbDh1Vf9sU9m5YksA=";
-        }
-      }/pkgs/development/web/postman") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=196202
-    yaru-theme = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "6e7982faec3b664add1549cb5024247fb6ad12bd";
-          sha256 = "sha256-kWLGWxSN7RhE85gm0bfyqoohjsT0chWclhnfyQiwPMI=";
-        }
-      }/pkgs/data/themes/yaru") { };
   })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
