@@ -3,8 +3,6 @@ let
   authUrl = "https://auth.netatmo.com/access";
   apiUrl = "https://app.netatmo.net/syncapi/v1";
 
-  homeId = "5dac85f0f566fa99cf3cf7e6";
-
   getBatteryStateScript = id:
     pkgs.writeText "netatmo_get_battery_state_${id}.py" ''
       import json
@@ -31,7 +29,7 @@ let
                                       'device_types': [
                                           'NAPlug'
                                       ],
-                                      'home_id': '${homeId}'
+                                      'home_id': '${secrets.netatmo.homeId}'
                                   })
 
           match = next(filter(
