@@ -98,11 +98,14 @@
     #   config = "config ${./nl.protonvpn.net.udp.ovpn}";
 
     #   authUserPass = {
-    #     username = "PJDW8BQLyl_loNHR1Q63lYwz";
-    #     password = "ngoZQhs/R589ssqdcg/1i8Is";
+    #     username = secrets.protonvpn.username;
+    #     password = secrets.protonvpn.password;
     #   };
     # };
   };
+
+  # TODO define global or extend "openvpn.servers" module?
+  environment.etc.openvpn.source = "${pkgs.update-resolv-conf}/libexec/openvpn";
 
   systemd.services.sonarr-update-tracked-series = {
     description = "Update tracked tv time series in Sonarr";
