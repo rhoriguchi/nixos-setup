@@ -185,12 +185,6 @@ class SonarrHelper(object):
     def _command_refresh_series(self):
         self._session.post(f'{self._base_url}/command', json={'name': 'RefreshSeries'})
 
-    def _command_episode_search(self, episode_id):
-        self._session.post(f'{self._base_url}/command', json={
-            'name': 'EpisodeSearch',
-            'episodeIds': [episode_id]
-        })
-
     def delete_all_missing_series(self, tvdb_ids):
         for series in self._get_all_series():
             if self._tag_id in series['tags'] and series['tvdbId'] not in tvdb_ids:
@@ -222,9 +216,6 @@ class SonarrHelper(object):
 
             if episode['monitored'] != monitored:
                 self._set_episode_monitored(episode['id'], monitored)
-
-                if monitored:
-                    self._command_episode_search(episode['id'])
 
                 if not monitored and episode['episodeFileId'] != 0:
                     self._delete_episode_file(episode['episodeFileId'])
