@@ -1,47 +1,10 @@
 { pkgs, lib, config, ... }:
 let
-  usbDevices = {
-    "Antlion Audio USB Sound Card" = {
-      vendorId = "0d8c";
-      productId = "002b";
-    };
-    "Logitech HD Webcam C510" = {
-      vendorId = "046d";
-      productId = "081d";
-    };
-    "Razer BlackShark V2 Pro" = {
-      vendorId = "1532";
-      productId = "0528";
-    };
-    "Razer Ouroboros 2012" = {
-      vendorId = "1532";
-      productId = "0032";
-    };
-    "Samsung Duo Plus - 64 GB" = {
-      vendorId = "090c";
-      productId = "1000";
-    };
-    "WASD V3 105-Key ISO" = {
-      vendorId = "0c45";
-      productId = "7692";
-    };
-  };
-
   baseDir = "/var/lib/virt";
   poolDir = "${baseDir}/images";
   nvramDir = "${baseDir}/nvram";
 
   snapshotsDir = "/mnt/Data/Snapshots";
-
-  getUsbHostdev = name: vendorId: productId: ''
-    <!-- ${name} -->
-    <hostdev mode='subsystem' type='usb' managed='yes'>
-      <source startupPolicy='optional'>
-        <vendor id='0x${vendorId}'/>
-        <product id='0x${productId}'/>
-      </source>
-    </hostdev>
-  '';
 
   getShellScriptToWaitForWindowsShutdown = command: timeout:
     pkgs.writeShellScript "wait-for-windows-shutdown.sh" ''
@@ -341,42 +304,48 @@ let
 
             <!-- Physical hardware -->
 
-            <!-- PNY Quadro RTX 5000 - VGA compatible controller -->
-            <hostdev mode='subsystem' type='pci' managed='yes'>
-              <source>
-                <address domain='0x0000' bus='0x0a' slot='0x00' function='0'/>
-              </source>
-
-              ${
-                "" # Dumped with https://github.com/SpaceinvaderOne/Dump_GPU_vBIOS
-              }
-              <rom file='${./PNY_Quadro_RTX_5000.rom}'/>
-            </hostdev>
-
-            <!-- PNY Quadro RTX 5000 - Audio device -->
-            <hostdev mode='subsystem' type='pci' managed='yes'>
-              <source>
-                <address domain='0x0000' bus='0x0a' slot='0x00' function='1'/>
-              </source>
-            </hostdev>
-
-            <!-- PNY Quadro RTX 5000 - USB controller -->
-            <hostdev mode='subsystem' type='pci' managed='yes'>
-              <source>
-                <address domain='0x0000' bus='0x0a' slot='0x00' function='2'/>
-              </source>
-            </hostdev>
-
-            <!-- PNY Quadro RTX 5000 - Serial bus controller -->
-            <hostdev mode='subsystem' type='pci' managed='yes'>
-              <source>
-                <address domain='0x0000' bus='0x0a' slot='0x00' function='3'/>
-              </source>
-            </hostdev>
-
             ${
-              let usbHostdevs = lib.attrValues (lib.mapAttrs (key: value: getUsbHostdev key value.vendorId value.productId) usbDevices);
-              in lib.concatStringsSep "\n" usbHostdevs
+              "" # TODO update bus addresses
+
+              # <!-- PNY Quadro RTX 5000 - VGA compatible controller -->
+              # <hostdev mode='subsystem' type='pci' managed='yes'>
+              #   <source>
+              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='0'/>
+              #   </source>
+
+              #   ${
+              #     "" # Dumped with https://github.com/SpaceinvaderOne/Dump_GPU_vBIOS
+              #   }
+              #   <rom file='${./PNY_Quadro_RTX_5000.rom}'/>
+              # </hostdev>
+
+              # <!-- PNY Quadro RTX 5000 - Audio device -->
+              # <hostdev mode='subsystem' type='pci' managed='yes'>
+              #   <source>
+              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='1'/>
+              #   </source>
+              # </hostdev>
+
+              # <!-- PNY Quadro RTX 5000 - USB controller -->
+              # <hostdev mode='subsystem' type='pci' managed='yes'>
+              #   <source>
+              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='2'/>
+              #   </source>
+              # </hostdev>
+
+              # <!-- PNY Quadro RTX 5000 - Serial bus controller -->
+              # <hostdev mode='subsystem' type='pci' managed='yes'>
+              #   <source>
+              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='3'/>
+              #   </source>
+              # </hostdev>
+
+              # <!-- Delock PCI Express x4 Card to 1 x USB Type-C™ + 4 x USB Type-A - SuperSpeed USB 10 Gbps - 89026 -->
+              # <hostdev mode='subsystem' type='pci' managed='yes'>
+              #   <source>
+              #     <address domain='0x0000' bus='XXXXXXXXXXXXXXXXXXXXXXXX' slot='0x00' function='0'/>
+              #   </source>
+              # </hostdev>
             }
           </devices>
         </domain>
@@ -460,18 +429,6 @@ in {
       runAsRoot = false;
     };
   };
-
-  services.udev.extraRules = let
-    getUsbHotplugRule = action: name: vendorId: productId:
-      let hostdev = pkgs.writeText "hostdev-${vendorId}-${productId}.xml" (getUsbHostdev name vendorId productId);
-      in ''
-        ACTION=="${action}", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="${vendorId}", ENV{ID_MODEL_ID}=="${productId}", RUN+="${pkgs.libvirt}/bin/virsh attach-device 'windows' ${hostdev}"'';
-
-    usbHotplugRules = lib.attrValues (lib.mapAttrs (key: value: [
-      (getUsbHotplugRule "add" key value.vendorId value.productId)
-      (getUsbHotplugRule "remove" key value.vendorId value.productId)
-    ]) usbDevices);
-  in lib.concatStringsSep "\n" (lib.flatten usbHotplugRules);
 
   system.activationScripts.libvirtd = ''
     mkdir -p ${poolDir} ${nvramDir}
