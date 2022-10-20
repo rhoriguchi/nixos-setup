@@ -32,9 +32,9 @@
         max_upload_speed = 1000 * 10;
 
         max_active_downloading = 10;
-        max_active_seeding = 1;
+        max_active_seeding = 10;
         max_active_limit = max_active_downloading + max_active_seeding;
-        dont_count_slow_torrents = false;
+        dont_count_slow_torrents = true;
 
         max_connections_global = 250;
         max_half_open_connections = 40;
