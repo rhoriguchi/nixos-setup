@@ -19,6 +19,20 @@
           sha256 = "sha256-ZQmcblr5LqSFigX+4aOWV6L+MLLEAbvRAk0pxB0BLig=";
         }
       }/pkgs/applications/version-management/gitkraken") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=196971
+    gnomeExtensions = super.gnomeExtensions // {
+      dash-to-dock = super.gnomeExtensions.dash-to-dock.overrideAttrs (_: rec {
+        version = "75";
+
+        src = super.fetchFromGitHub {
+          owner = "micheleg";
+          repo = "dash-to-dock";
+          rev = "extensions.gnome.org-v${version}";
+          sha256 = "sha256-vHXNhJgty7x4Ef6jxUI29KYpadC3jtUqE1Nt1dWYr24=";
+        };
+      });
+    };
   })
   (self: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
