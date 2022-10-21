@@ -304,46 +304,46 @@ let
 
             <!-- Physical hardware -->
 
+            <!-- PNY Quadro RTX 5000 - VGA compatible controller -->
+            <hostdev mode='subsystem' type='pci' managed='yes'>
+              <source>
+                <address domain='0x0000' bus='0x0b' slot='0x00' function='0'/>
+              </source>
+
+              ${
+                "" # Dumped with https://github.com/SpaceinvaderOne/Dump_GPU_vBIOS
+              }
+              <rom file='${./PNY_Quadro_RTX_5000.rom}'/>
+            </hostdev>
+
+            <!-- PNY Quadro RTX 5000 - Audio device -->
+            <hostdev mode='subsystem' type='pci' managed='yes'>
+              <source>
+                <address domain='0x0000' bus='0x0b' slot='0x00' function='1'/>
+              </source>
+            </hostdev>
+
+            <!-- PNY Quadro RTX 5000 - USB controller -->
+            <hostdev mode='subsystem' type='pci' managed='yes'>
+              <source>
+                <address domain='0x0000' bus='0x0b' slot='0x00' function='2'/>
+              </source>
+            </hostdev>
+
+            <!-- PNY Quadro RTX 5000 - Serial bus controller -->
+            <hostdev mode='subsystem' type='pci' managed='yes'>
+              <source>
+                <address domain='0x0000' bus='0x0b' slot='0x00' function='3'/>
+              </source>
+            </hostdev>
+
             ${
               "" # TODO update bus addresses
-
-              # <!-- PNY Quadro RTX 5000 - VGA compatible controller -->
-              # <hostdev mode='subsystem' type='pci' managed='yes'>
-              #   <source>
-              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='0'/>
-              #   </source>
-
-              #   ${
-              #     "" # Dumped with https://github.com/SpaceinvaderOne/Dump_GPU_vBIOS
-              #   }
-              #   <rom file='${./PNY_Quadro_RTX_5000.rom}'/>
-              # </hostdev>
-
-              # <!-- PNY Quadro RTX 5000 - Audio device -->
-              # <hostdev mode='subsystem' type='pci' managed='yes'>
-              #   <source>
-              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='1'/>
-              #   </source>
-              # </hostdev>
-
-              # <!-- PNY Quadro RTX 5000 - USB controller -->
-              # <hostdev mode='subsystem' type='pci' managed='yes'>
-              #   <source>
-              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='2'/>
-              #   </source>
-              # </hostdev>
-
-              # <!-- PNY Quadro RTX 5000 - Serial bus controller -->
-              # <hostdev mode='subsystem' type='pci' managed='yes'>
-              #   <source>
-              #     <address domain='0x0000' bus='0x0a' slot='0x00' function='3'/>
-              #   </source>
-              # </hostdev>
 
               # <!-- Delock PCI Express x4 Card to 1 x USB Type-C™ + 4 x USB Type-A - SuperSpeed USB 10 Gbps - 89026 -->
               # <hostdev mode='subsystem' type='pci' managed='yes'>
               #   <source>
-              #     <address domain='0x0000' bus='XXXXXXXXXXXXXXXXXXXXXXXX' slot='0x00' function='0'/>
+              #     <address domain='0x0000' bus='0x0d' slot='0x00' function='3'/>
               #   </source>
               # </hostdev>
             }
