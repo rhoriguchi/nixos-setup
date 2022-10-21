@@ -10,16 +10,6 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=190397
-    gitkraken = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "27a0edfd6065e8421dd390071d956b2ce76903ef";
-          sha256 = "sha256-ZQmcblr5LqSFigX+4aOWV6L+MLLEAbvRAk0pxB0BLig=";
-        }
-      }/pkgs/applications/version-management/gitkraken") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=196971
     gnomeExtensions = super.gnomeExtensions // {
       dash-to-dock = super.gnomeExtensions.dash-to-dock.overrideAttrs (_: rec {
