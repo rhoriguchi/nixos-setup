@@ -66,16 +66,18 @@ Run the command the service `gphotos-sync.service` calls and authenticate the ap
 #### Setup ZFS
 
 ```console
-zpool create \
+zpool create -f \
   -o ashift=12 \
   -o autotrim=on \
   -O compression=off \
   -O mountpoint=legacy \
   data \
-  raidz \
+  raidz2 \
     ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E0ZLJXFX \
     ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E2PN4A53 \
-    ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5JNF5EA
+    ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5JNF5EA \
+    ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5YF8SST \
+    ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E7UEJZDP
 
 zfs create \
   -o compression=zstd \
