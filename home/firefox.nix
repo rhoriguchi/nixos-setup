@@ -25,6 +25,21 @@
     profiles.default = {
       id = 0;
 
+      search = {
+        force = true;
+
+        default = "Google";
+        order = [ "Google" "Wikipedia" ];
+        engines = {
+          "Amazon.de".metaData.hidden = true;
+          Bing.metaData.hidden = true;
+          DuckDuckGo.metaData.hidden = true;
+          eBay.metaData.hidden = true;
+          Google.metaData.alias = "g";
+          "Wikipedia (en)".metaData.alias = "w";
+        };
+      };
+
       bookmarks = [{
         toolbar = true;
         bookmarks = [
