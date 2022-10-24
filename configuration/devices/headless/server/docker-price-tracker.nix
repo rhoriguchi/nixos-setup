@@ -1,13 +1,4 @@
 { secrets, ... }: {
-  security.acme.certs = let email = "contact@price-tracker.00a.ch";
-  in {
-    "api.price-tracker.00a.ch".email = email;
-    "grafana.price-tracker.00a.ch".email = email;
-    "price-tracker.00a.ch".email = email;
-    "traefik.price-tracker.00a.ch".email = email;
-    "www.price-tracker.00a.ch".email = email;
-  };
-
   services = {
     infomaniak = {
       enable = true;
