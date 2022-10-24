@@ -179,7 +179,7 @@
           ];
           "dirtyAreaCache" = [ "nav-bar" "toolbar-menubar" "TabsToolbar" "PersonalToolbar" ];
 
-          "currentVersion" = 17;
+          "currentVersion" = 18;
           "newElementCount" = 0;
         });
         "browser.urlbar.openViewOnFocus" = false;
