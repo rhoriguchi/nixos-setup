@@ -3,8 +3,8 @@
     ../common.nix
 
     ./audio-converter
+    ./mounts.nix
     ./rsnapshot.nix
-    ./synology-mounts.nix
 
     ./hardware-configuration.nix
   ];
