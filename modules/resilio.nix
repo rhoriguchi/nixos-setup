@@ -77,6 +77,10 @@ in {
       default = "/var/lib/resilio-sync";
       type = lib.types.path;
     };
+    logFilePath = lib.mkOption {
+      default = "/var/log/resilio-sync/sync.log";
+      type = lib.types.path;
+    };
     readWriteDirs = lib.mkOption {
       default = [ ];
       type = lib.types.listOf lib.types.str;
@@ -140,6 +144,15 @@ in {
     };
 
     system.activationScripts.resilio = lib.mkIf (!cfg.webUI.enable) ''
+      cat > "${cfg.storagePath}/debug.txt" <<- END
+      FFFFFFFF
+      0
+
+      END
+
+      mkdir -pm 0711 $(dirname "${cfg.logFilePath}")
+      chown rslsync:rslsync $(dirname "${cfg.logFilePath}")
+
       mkdir -pm 0775 "${cfg.storagePath}"
       chown rslsync:rslsync "${cfg.storagePath}"
 
@@ -152,7 +165,7 @@ in {
       } | xargs rm -rf
     '';
 
-    systemd = let script = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --nodaemon";
+    systemd = let script = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --log ${cfg.logFilePath} --nodaemon";
     in if cfg.webUI.enable then {
       # TODO this will cause issues if there are more than one user
       user.services.resilio = {
