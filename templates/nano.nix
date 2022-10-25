@@ -1,5 +1,9 @@
-{
-  environment.variables.EDITOR = "nano";
+{ pkgs, ... }: {
+  environment = {
+    systemPackages = [ pkgs.nano ];
+
+    variables.EDITOR = "nano";
+  };
 
   programs.nano = {
     nanorc = ''
