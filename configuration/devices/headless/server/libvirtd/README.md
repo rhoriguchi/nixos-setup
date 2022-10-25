@@ -59,6 +59,10 @@ powercfg -h off
 powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 powercfg -change -monitor-timeout-ac 15
 
+REM Windows Explorer tuning
+reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Hidden /t REG_DWORD /d 1 /f
+reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v HideFileExt /t REG_DWORD /d 0 /f
+
 REM Cleanup Windows with https://github.com/Sycnex/Windows10Debloater
 powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Debloat%20Windows' | iex"
 powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Disable%20Cortana' | iex"
@@ -90,8 +94,9 @@ curl --location --output Blitz.exe --url "https://blitz-stable.blitz.gg/Blitz-1.
 curl --location --output Discord.exe --url "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86"
 curl --location --output Driver_Booster.exe --url "https://cdn.iobit.com/dl/driver_booster_setup.exe"
 curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.euw.exe"
-curl --location --output Notepad-plus-plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.4.4/npp.8.4.4.Installer.x64.exe"
+curl --location --output Notepad-plus-plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.4.6/npp.8.4.6.Installer.x64.exe"
 curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
+curl --location --output Razer_Synapse.exe --url "https://rzr.to/synapse-3-pc-download"
 curl --location --output Spotify.exe --url "https://download.scdn.co/SpotifySetup.exe"
 curl --location --output Steam.exe --url "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe"
 curl --location --output TeamViewer.exe --url "https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe"
