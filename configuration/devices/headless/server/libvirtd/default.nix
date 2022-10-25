@@ -337,16 +337,13 @@ let
               </source>
             </hostdev>
 
-            ${
-              "" # TODO update bus addresses
-
-              # <!-- Delock PCI Express x4 Card to 1 x USB Type-C™ + 4 x USB Type-A - SuperSpeed USB 10 Gbps - 89026 -->
-              # <hostdev mode='subsystem' type='pci' managed='yes'>
-              #   <source>
-              #     <address domain='0x0000' bus='0x0d' slot='0x00' function='3'/>
-              #   </source>
-              # </hostdev>
-            }
+            <!-- Delock PCI Express x4 Card to 1 x USB Type-C™ + 4 x USB Type-A - SuperSpeed USB 10 Gbps - 89026 -->
+            <!-- USB controller: ASMedia Technology Inc. ASM2142 USB 3.1 Host Controller -->
+            <hostdev mode='subsystem' type='pci' managed='yes'>
+              <source>
+                <address domain='0x0000' bus='0x04' slot='0x00' function='0'/>
+              </source>
+            </hostdev>
           </devices>
         </domain>
       '';
