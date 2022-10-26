@@ -12,6 +12,7 @@
   services = {
     resilio = {
       enable = true;
+      logging.enable = true;
 
       secrets = secrets.resilio.secrets;
       syncPath = "/mnt/Data/Sync";
