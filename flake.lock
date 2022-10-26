@@ -109,11 +109,11 @@
     "nur-rycee": {
       "flake": false,
       "locked": {
-        "lastModified": 1666650522,
-        "narHash": "sha256-YIzu+HaclWkwu6yW5YiVzato4XQeZi3v1XkMoy0Yet0=",
+        "lastModified": 1666756969,
+        "narHash": "sha256-aWHPb2ZIxs+ZLENpURWKeGtnTMWwhoYtU+J/R7b5m4w=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "e4a0c26bad6f8d4aa8531c58f833b51134ec7137",
+        "rev": "2fc11d6418ff93c4df9229f6ccf62d3778908e6a",
         "type": "gitlab"
       },
       "original": {
@@ -125,11 +125,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1666644125,
-        "narHash": "sha256-IGcL/jbq/08lKxLkoKc8qP+LwnkrgaP3DTcE6qR4c80=",
+        "lastModified": 1666731703,
+        "narHash": "sha256-0c68QM8APhJSKO9XVJiil/vvjAap0fpqdY1Q6H+vVWM=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "9f996cd5458cd9a8f9d8b062b25fb4a3716388b5",
+        "rev": "96c8fd6f03be02cd1280a3cad83021518182811f",
         "type": "github"
       },
       "original": {
