@@ -5,6 +5,7 @@
     ./audio-converter
     ./mounts.nix
     ./rsnapshot.nix
+    ./wd-backup.nix
 
     ./hardware-configuration.nix
   ];

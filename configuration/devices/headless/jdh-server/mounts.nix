@@ -12,7 +12,7 @@ let
     password=${secrets.wdMycloud.password}
   '';
 
-  getExtraOptions = credentialsFile:
+  getExtraOptions = credentialsFile: plexOwner:
     let
       options = [
         "credentials=${credentialsFile}"
@@ -21,7 +21,7 @@ let
         "x-systemd.device-timeout=5s"
         "x-systemd.idle-timeout=60"
         "x-systemd.mount-timeout=5s"
-      ] ++ lib.optionals config.services.plex.enable [ "gid=plex" "uid=plex" ];
+      ] ++ lib.optionals plexOwner [ "gid=plex" "uid=plex" ];
     in lib.concatStringsSep "," options;
 in {
   system.activationScripts.rhoriguchiSetup = ''
@@ -32,19 +32,25 @@ in {
     "/mnt/Media/Videos/Movies" = {
       device = "//${synologyIp}/JcrK - Shared Media/Videos/Movies";
       fsType = "cifs";
-      options = [ "${getExtraOptions synologyCredentialsFile}" ];
+      options = [ "${getExtraOptions synologyCredentialsFile config.services.plex.enable}" ];
     };
 
     "/mnt/Media/Videos/TV Shows" = {
       device = "//${wdMyCloudIp}/Data/Media/TV Shows";
       fsType = "cifs";
-      options = [ "${getExtraOptions wdMyCloudCredentialsFile}" ];
+      options = [ "${getExtraOptions wdMyCloudCredentialsFile config.services.plex.enable}" ];
     };
 
     "/mnt/Music" = {
       device = "//${synologyIp}/JcrK - James/Music/iTunes/iTunes Media/Music";
       fsType = "cifs";
-      options = [ "${getExtraOptions synologyCredentialsFile}" ];
+      options = [ "${getExtraOptions synologyCredentialsFile config.services.plex.enable}" ];
+    };
+
+    "/mnt/WD_Backup" = {
+      device = "//${wdMyCloudIp}/Backup";
+      fsType = "cifs";
+      options = [ "${getExtraOptions wdMyCloudCredentialsFile false}" ];
     };
   };
 }
