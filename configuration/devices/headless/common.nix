@@ -1,4 +1,4 @@
-{ pkgs, lib, config, public-keys, secrets, ... }: {
+{ lib, config, public-keys, secrets, ... }: {
   nix.gc = {
     automatic = true;
     dates = "05:00";
