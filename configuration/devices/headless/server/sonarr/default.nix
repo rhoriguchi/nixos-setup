@@ -108,8 +108,6 @@
   environment.etc.openvpn.source = "${pkgs.update-resolv-conf}/libexec/openvpn";
 
   systemd.services.sonarr-update-tracked-series = {
-    description = "Update tracked tv time series in Sonarr";
-
     after = [ "network.target" "sonarr.service" ];
 
     script = let
