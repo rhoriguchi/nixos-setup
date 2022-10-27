@@ -119,6 +119,7 @@
         "**/.git" = true;
         "**/.hg" = true;
         "**/.idea" = true;
+        "**/.pre-commit-config.yaml" = true;
         "**/.project" = true;
         "**/.settings" = true;
         "**/.svn" = true;

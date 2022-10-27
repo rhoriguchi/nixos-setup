@@ -29,10 +29,16 @@
       url = "gitlab:rycee/nur-expressions";
       flake = false;
     };
+
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, mach-nix, nixos-hardware, nur-rycee, ... }@inputs:
-    {
+  outputs = { self, nixpkgs, flake-utils, home-manager, mach-nix, nixos-hardware, nur-rycee, pre-commit-hooks, ... }@inputs:
+    let inherit (inputs.nixpkgs) lib;
+    in {
       nixosModules = {
         default = import ./modules;
 
@@ -41,7 +47,7 @@
         templates = import ./templates;
       };
 
-      overlays.default = inputs.nixpkgs.lib.composeManyExtensions ([
+      overlays.default = lib.composeManyExtensions ([
         (self: super:
           let nur-rycee = import inputs.nur-rycee { pkgs = super; };
           in {
@@ -193,5 +199,24 @@
       };
     } // inputs.flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import inputs.nixpkgs { inherit system; };
-      in { devShells.default = pkgs.mkShell { buildInputs = [ pkgs.nix pkgs.nixopsUnstable ]; }; });
+      in {
+        checks.pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            deadnix = {
+              enable = true;
+              excludes = [ "flake\\.nix" "hardware-configuration\\.nix" ];
+            };
+            nixfmt = {
+              enable = true;
+              entry = lib.mkForce "${pkgs.nixfmt}/bin/nixfmt --width=140";
+            };
+          };
+        };
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = [ pkgs.nix pkgs.nixopsUnstable ];
+          shellHook = self.checks.${system}.pre-commit.shellHook;
+        };
+      });
 }
