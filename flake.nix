@@ -198,7 +198,11 @@
         };
       };
     } // inputs.flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import inputs.nixpkgs { inherit system; };
+      let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [ self.overlays.default ];
+        };
       in {
         checks.pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
           src = ./.;
