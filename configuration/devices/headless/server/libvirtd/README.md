@@ -48,7 +48,7 @@ start /wait msiexec /i virtio-win-gt.msi /quiet /qn /norestart
 del /f virtio-win-gt.msi
 
 REM VirtIO FS
-curl --location --output winfsp.msi --url "https://github.com/winfsp/winfsp/releases/download/v1.11/winfsp-1.11.22176.msi"
+curl --location --output winfsp.msi --url "https://github.com/winfsp/winfsp/releases/download/v1.12/winfsp-1.12.22301.msi"
 start /wait msiexec /i winfsp.msi /quiet /qn /norestart
 del /f winfsp.msi
 sc start VirtioFsSvc
