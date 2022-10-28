@@ -206,14 +206,15 @@
       in {
         checks.pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
           src = ./.;
-          hooks = {
+          hooks = let tools = inputs.pre-commit-hooks.packages.${system};
+          in {
             deadnix = {
               enable = true;
               excludes = [ "flake\\.nix" "hardware-configuration\\.nix" ];
             };
             nixfmt = {
               enable = true;
-              entry = lib.mkForce "${inputs.pre-commit-hooks.packages.${system}.nixfmt}/bin/nixfmt --width=140";
+              entry = lib.mkForce "${tools.nixfmt}/bin/nixfmt --width=140";
             };
           };
         };
