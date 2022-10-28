@@ -48,12 +48,12 @@
       };
 
       overlays.default = lib.composeManyExtensions ([
-        (self: super:
-          let nur-rycee = import inputs.nur-rycee { pkgs = super; };
+        (_: super:
+          let nur-rycee-pkgs = import inputs.nur-rycee { pkgs = super; };
           in {
             mach-nix = inputs.mach-nix.lib.${super.stdenv.hostPlatform.system};
 
-            inherit (nur-rycee) firefox-addons;
+            inherit (nur-rycee-pkgs) firefox-addons;
           })
       ] ++ import ./overlays);
 
@@ -210,7 +210,7 @@
           in {
             deadnix = {
               enable = true;
-              excludes = [ "flake\\.nix" "hardware-configuration\\.nix" ];
+              excludes = [ "hardware-configuration\\.nix" ];
             };
             markdownlint = {
               enable = true;

@@ -1,5 +1,5 @@
 [
-  (self: super: {
+  (_: super: {
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=185611
     fancy-motd = super.callPackage (import "${
         super.fetchFromGitHub {
@@ -34,7 +34,7 @@
         }
       }/pkgs/servers/plex/raw.nix") { };
   })
-  (self: super: {
+  (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
 
     displaylink = super.callPackage ./displaylink {

@@ -4,7 +4,7 @@
   hardware.video.hidpi.enable = true;
 
   nixpkgs.overlays = [
-    (self: super: {
+    (_: super: {
       gimp = lib.lowPrio (super.gimp.overrideAttrs (oldAttrs: {
         postInstall = (oldAttrs.postInstall or "") + ''
           substituteInPlace $out/etc/gimp/2.0/gimprc \
