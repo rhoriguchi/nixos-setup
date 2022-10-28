@@ -197,7 +197,7 @@
           ];
         };
       };
-    } // inputs.flake-utils.lib.eachDefaultSystem (system:
+    } // inputs.flake-utils.lib.eachSystem [ inputs.flake-utils.lib.system.x86_64-linux ] (system:
       let
         pkgs = import inputs.nixpkgs {
           inherit system;
@@ -213,7 +213,7 @@
             };
             nixfmt = {
               enable = true;
-              entry = lib.mkForce "${pkgs.nixfmt}/bin/nixfmt --width=140";
+              entry = lib.mkForce "${inputs.pre-commit-hooks.packages.${system}.nixfmt}/bin/nixfmt --width=140";
             };
           };
         };
