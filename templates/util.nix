@@ -7,6 +7,7 @@
     systemPackages = [
       pkgs.curl
       pkgs.deadnix
+      pkgs.dmidecode
       pkgs.file
       pkgs.glances
       pkgs.jq
