@@ -7,6 +7,9 @@
   programs.vscode = {
     enable = true;
 
+    enableUpdateCheck = false;
+    enableExtensionUpdateCheck = false;
+
     mutableExtensionsDir = false;
     extensions = [
       pkgs.vscode-extensions.adpyke.codesnap
@@ -105,7 +108,6 @@
       "explorer.confirmDelete" = false;
       "explorer.fileNesting.enabled" = true;
       "explorer.fileNesting.expand" = false;
-      "extensions.autoUpdate" = false;
       "files.associations" = {
         "*.hcl" = "terraform";
         "*.jinja2" = "jinja";
@@ -194,7 +196,6 @@
       "todo-tree.tree.expanded" = true;
       "todo-tree.tree.showCountsInTree" = true;
       "typescript.inlayHints.parameterNames.enabled" = "all";
-      "update.mode" = "none";
       "window.autoDetectColorScheme" = true;
       "window.newWindowDimensions" = "maximized";
       "window.openFoldersInNewWindow" = "on";
