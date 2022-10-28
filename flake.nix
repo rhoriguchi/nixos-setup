@@ -197,7 +197,8 @@
           ];
         };
       };
-    } // inputs.flake-utils.lib.eachSystem [ inputs.flake-utils.lib.system.x86_64-linux ] (system:
+    } // inputs.flake-utils.lib.eachSystem (let inherit (inputs.flake-utils.lib) system; in [ system.aarch64-linux system.x86_64-linux ])
+    (system:
       let
         pkgs = import inputs.nixpkgs {
           inherit system;
