@@ -212,6 +212,10 @@
               enable = true;
               excludes = [ "flake\\.nix" "hardware-configuration\\.nix" ];
             };
+            markdownlint = {
+              enable = true;
+              entry = lib.mkForce "${tools.markdownlint-cli}/bin/markdownlint --disable MD013";
+            };
             nixfmt = {
               enable = true;
               entry = lib.mkForce "${tools.nixfmt}/bin/nixfmt --width=140";
