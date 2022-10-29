@@ -70,13 +70,6 @@
           imports = [
             self.nixosModules.default
 
-            self.nixosModules.templates.flakes
-            self.nixosModules.templates.i18n
-            self.nixosModules.templates.keyboard
-            self.nixosModules.templates.nano
-            self.nixosModules.templates.nix
-            self.nixosModules.templates.zsh
-
             ./configuration/common.nix
           ];
 
@@ -97,18 +90,24 @@
             inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6
 
             self.nixosModules.templates.displaylink
+            self.nixosModules.templates.flakes
             self.nixosModules.templates.git
             self.nixosModules.templates.gnome
             self.nixosModules.templates.hidpi
+            self.nixosModules.templates.i18n
             self.nixosModules.templates.java
             self.nixosModules.templates.javascript
+            self.nixosModules.templates.keyboard
             self.nixosModules.templates.kotlin
+            self.nixosModules.templates.nano
+            self.nixosModules.templates.nix
             self.nixosModules.templates.podman
             self.nixosModules.templates.power-management
             self.nixosModules.templates.printing
             self.nixosModules.templates.python
             self.nixosModules.templates.terminal
             self.nixosModules.templates.util
+            self.nixosModules.templates.zsh
 
             ./configuration/devices/laptop
 
