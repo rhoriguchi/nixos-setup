@@ -99,10 +99,10 @@
             self.nixosModules.templates.javascript
             self.nixosModules.templates.keyboard
             self.nixosModules.templates.kotlin
+            self.nixosModules.templates.laptop-power-management
             self.nixosModules.templates.nano
             self.nixosModules.templates.nix
             self.nixosModules.templates.podman
-            self.nixosModules.templates.power-management
             self.nixosModules.templates.printing
             self.nixosModules.templates.python
             self.nixosModules.templates.terminal
