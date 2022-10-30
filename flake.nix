@@ -140,7 +140,7 @@
         };
 
         AdGuard = {
-          deployment.targetHost = "xxlpitu-adguard";
+          deployment.targetHost = "adguard";
 
           imports = [
             inputs.nixos-hardware.nixosModules.raspberry-pi-4

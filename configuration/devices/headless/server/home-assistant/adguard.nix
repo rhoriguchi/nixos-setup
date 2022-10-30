@@ -3,7 +3,7 @@ let
   username = secrets.adguard.username;
   password = secrets.adguard.password;
 
-  hostname = "XXLPitu-AdGuard.local";
+  hostname = "AdGuard.local";
 
   script = methodCall:
     pkgs.writeText "adguard_${methodCall}.py" ''

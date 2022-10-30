@@ -34,7 +34,7 @@ let
 in {
   imports = [ ../common.nix ];
 
-  networking.hostName = "XXLPitu-AdGuard";
+  networking.hostName = "AdGuard";
 
   services = {
     nginx = {
