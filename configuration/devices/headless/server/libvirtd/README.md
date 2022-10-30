@@ -82,7 +82,7 @@ Run in an elevated cmd.
 ```txt
 cd %userprofile%/Downloads
 
-curl --location --output Firefox.msi --url "hhttps://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US"
+curl --location --output Firefox.msi --url "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US"
 start /wait msiexec /i Firefox.msi /quiet /qn /norestart
 del /f Firefox.msi
 
