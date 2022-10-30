@@ -72,7 +72,7 @@ in {
       default = 5555;
       type = lib.types.port;
     };
-    syncPath = lib.mkOption { type = lib.types.str; };
+    syncPath = lib.mkOption { type = lib.types.path; };
     storagePath = lib.mkOption {
       default = "/var/lib/resilio-sync";
       type = lib.types.path;

@@ -26,7 +26,7 @@ let
 in {
   options.services.gphotos-sync = {
     enable = lib.mkEnableOption "Google Photos Sync";
-    exportPath = lib.mkOption { type = lib.types.str; };
+    exportPath = lib.mkOption { type = lib.types.path; };
     projectId = lib.mkOption { type = lib.types.str; };
     clientId = lib.mkOption { type = lib.types.str; };
     clientSecret = lib.mkOption { type = lib.types.str; };

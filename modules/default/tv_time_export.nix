@@ -10,7 +10,7 @@ let
 in {
   options.services.tv_time_export = {
     enable = lib.mkEnableOption "tv_time_export";
-    exportPath = lib.mkOption { type = lib.types.str; };
+    exportPath = lib.mkOption { type = lib.types.path; };
     username = lib.mkOption { type = lib.types.str; };
     password = lib.mkOption { type = lib.types.str; };
   };
