@@ -40,11 +40,11 @@
     let inherit (inputs.nixpkgs) lib;
     in {
       nixosModules = {
-        default = import ./modules;
+        default = import ./modules/default;
 
-        colors = import ./colors.nix;
-        home = import ./home;
-        templates = import ./templates;
+        profiles = import ./modules/profiles;
+        colors = import ./modules/colors.nix;
+        home-manager = import ./modules/home-manager;
       };
 
       overlays.default = lib.composeManyExtensions ([
@@ -89,15 +89,15 @@
           imports = [
             inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6
 
-            self.nixosModules.templates.headful
+            self.nixosModules.profiles.headful
 
-            self.nixosModules.templates.hidpi
-            self.nixosModules.templates.java
-            self.nixosModules.templates.javascript
-            self.nixosModules.templates.kotlin
-            self.nixosModules.templates.laptop-power-management
-            self.nixosModules.templates.podman
-            self.nixosModules.templates.python
+            self.nixosModules.profiles.hidpi
+            self.nixosModules.profiles.java
+            self.nixosModules.profiles.javascript
+            self.nixosModules.profiles.kotlin
+            self.nixosModules.profiles.laptop-power-management
+            self.nixosModules.profiles.podman
+            self.nixosModules.profiles.python
 
             ./configuration/devices/laptop
 
@@ -115,7 +115,7 @@
                   };
                 };
 
-                users.rhoriguchi = self.nixosModules.home;
+                users.rhoriguchi = self.nixosModules.home-manager;
               };
             }
           ];
@@ -131,9 +131,9 @@
           deployment.targetHost = "home.00a.ch";
 
           imports = [
-            self.nixosModules.templates.headless
+            self.nixosModules.profiles.headless
 
-            self.nixosModules.templates.docker
+            self.nixosModules.profiles.docker
 
             ./configuration/devices/headless/server
           ];
@@ -145,7 +145,7 @@
           imports = [
             inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-            self.nixosModules.templates.headless
+            self.nixosModules.profiles.headless
 
             ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard
           ];
@@ -155,7 +155,7 @@
           deployment.targetHost = "jdh-server";
 
           imports = [
-            self.nixosModules.templates.headless
+            self.nixosModules.profiles.headless
 
             ./configuration/devices/headless/jdh-server
           ];
@@ -169,7 +169,7 @@
           imports = [
             inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-            self.nixosModules.templates.headless
+            self.nixosModules.profiles.headless
 
             ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow
           ];
@@ -181,7 +181,7 @@
           imports = [
             inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-            self.nixosModules.templates.headless
+            self.nixosModules.profiles.headless
 
             ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra
           ];
