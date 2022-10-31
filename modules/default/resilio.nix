@@ -170,10 +170,12 @@ in {
       mkdir -pm 0775 "${cfg.syncPath}"
       chown rslsync:rslsync "${cfg.syncPath}"
 
-      find ${cfg.syncPath} -mindepth 1 -maxdepth 1 -type d ${
-        lib.concatStringsSep " -and "
-        (map (sharedFolder: ''-not -name "${lib.replaceStrings [ "${cfg.syncPath}/" ] [ "" ] sharedFolder.dir}"'') sharedFolders)
-      } | xargs rm -rf
+      ${lib.optionalString (lib.length sharedFolders > 0) ''
+        find ${cfg.syncPath} -mindepth 1 -maxdepth 1 -type d ${
+          lib.concatStringsSep " -and "
+          (map (sharedFolder: ''-not -name "${lib.replaceStrings [ "${cfg.syncPath}/" ] [ "" ] sharedFolder.dir}"'') sharedFolders)
+        } | xargs rm -rf
+      ''}
     '';
 
     systemd = let script = "${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --log ${cfg.logging.filePath} --nodaemon";
@@ -185,7 +187,8 @@ in {
         after = [ "network.target" ];
         wantedBy = [ "default.target" ];
 
-        preStart = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.syncPath}" "${cfg.storagePath}"'';
+        preStart =
+          lib.optionalString (lib.length sharedFolders > 0) ''${pkgs.coreutils}/bin/mkdir -p "${cfg.syncPath}" "${cfg.storagePath}"'';
         inherit script;
 
         serviceConfig = {
@@ -204,7 +207,7 @@ in {
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 
-        preStart =
+        preStart = lib.optionalString (lib.length sharedFolders > 0)
           "${pkgs.coreutils}/bin/mkdir -pm 0775 ${lib.concatStringsSep " " (map (sharedFolder: ''"${sharedFolder.dir}"'') sharedFolders)}";
         inherit script;
 
