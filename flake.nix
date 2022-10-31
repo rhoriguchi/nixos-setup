@@ -192,24 +192,27 @@
       let
         pkgs = import inputs.nixpkgs {
           inherit system;
+          config.allowUnfree = true;
           overlays = [ self.overlays.default ];
         };
       in {
-        checks.pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-          hooks = let tools = inputs.pre-commit-hooks.packages.${system};
-          in {
-            deadnix = {
-              enable = true;
-              excludes = [ "hardware-configuration\\.nix" ];
-            };
-            markdownlint = {
-              enable = true;
-              entry = lib.mkForce "${tools.markdownlint-cli}/bin/markdownlint --disable MD013";
-            };
-            nixfmt = {
-              enable = true;
-              entry = lib.mkForce "${tools.nixfmt}/bin/nixfmt --width=140";
+        checks = (import ./checks { inherit pkgs; }) // {
+          pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = let tools = inputs.pre-commit-hooks.packages.${system};
+            in {
+              deadnix = {
+                enable = true;
+                excludes = [ "hardware-configuration\\.nix" ];
+              };
+              markdownlint = {
+                enable = true;
+                entry = lib.mkForce "${tools.markdownlint-cli}/bin/markdownlint --disable MD013";
+              };
+              nixfmt = {
+                enable = true;
+                entry = lib.mkForce "${tools.nixfmt}/bin/nixfmt --width=140";
+              };
             };
           };
         };
