@@ -217,8 +217,9 @@ class SonarrHelper(object):
             if episode['monitored'] != monitored:
                 self._set_episode_monitored(episode['id'], monitored)
 
-                if not monitored and episode['episodeFileId'] != 0:
-                    self._delete_episode_file(episode['episodeFileId'])
+                # TODO commented
+                # if not monitored and episode['episodeFileId'] != 0:
+                #     self._delete_episode_file(episode['episodeFileId'])
 
     def refresh_series(self):
         self._command_refresh_series()
