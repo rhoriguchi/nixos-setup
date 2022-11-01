@@ -10,29 +10,15 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=196971
-    gnomeExtensions = super.gnomeExtensions // {
-      dash-to-dock = super.gnomeExtensions.dash-to-dock.overrideAttrs (_: rec {
-        version = "75";
-
-        src = super.fetchFromGitHub {
-          owner = "micheleg";
-          repo = "dash-to-dock";
-          rev = "extensions.gnome.org-v${version}";
-          sha256 = "sha256-vHXNhJgty7x4Ef6jxUI29KYpadC3jtUqE1Nt1dWYr24=";
-        };
-      });
-    };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=196978
-    plexRaw = super.python3Packages.callPackage (import "${
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=199065
+    resilio-sync = super.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "a50504c96a070c3ceb845967533c626e0622089d";
-          sha256 = "sha256-IfcNw8TgqhxBVfRDm/lqGxUIi3rFhF4rtkkR+7+S+Dw=";
+          rev = "23669ce100c940d250e73ae3eb1a1c73bbbb056f";
+          sha256 = "sha256-ATtIqwX+ojQg8YWkniEjZ8ITswdAmZyHNHq/RUeAcuc=";
         }
-      }/pkgs/servers/plex/raw.nix") { };
+      }/pkgs/applications/networking/resilio-sync") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
