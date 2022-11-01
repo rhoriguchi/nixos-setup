@@ -1,4 +1,7 @@
-{ pkgs ? import <nixpkgs> { config.allowUnfree = true; }, ... }:
+{ pkgs ? import <nixpkgs> {
+  config.allowUnfree = true;
+  overlays = import ../overlays;
+}, ... }:
 pkgs.nixosTest {
   name = "resilio-test";
 
