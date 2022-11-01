@@ -1,7 +1,6 @@
 {
   imports = [
     ./displaylink.nix
-    ./flakes.nix
     ./git.nix
     ./gnome.nix
     ./i18n.nix

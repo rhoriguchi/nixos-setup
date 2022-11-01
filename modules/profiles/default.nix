@@ -6,7 +6,6 @@
   doas = import ./doas.nix;
   docker = import ./docker.nix;
   fancy-motd = import ./fancy-motd.nix;
-  flakes = import ./flakes.nix;
   git = import ./git.nix;
   gnome = import ./gnome.nix;
   hidpi = import ./hidpi.nix;

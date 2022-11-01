@@ -2,6 +2,9 @@
   system.stateVersion = "22.11";
 
   nix = {
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
     nixPath = [ "nixpkgs=${nixpkgs}" ];
     package = pkgs.nixUnstable;
     settings.auto-optimise-store = true;
