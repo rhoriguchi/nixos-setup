@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { overlays = import ../overlays; }, ... }:
 pkgs.nixosTest {
-  name = "home-assistant.nix";
+  name = "home-assistant-test";
 
   nodes.machine = {
     imports = [
