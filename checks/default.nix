@@ -1,4 +1,4 @@
 { pkgs }: {
-  home-assistant = import ./home-assistant.nix { inherit pkgs; };
-  resilio = import ./resilio.nix { inherit pkgs; };
+  home-assistant = pkgs.callPackage ./home-assistant.nix { };
+  resilio = pkgs.callPackage ./resilio.nix { };
 }
