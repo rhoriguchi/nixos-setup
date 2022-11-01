@@ -2,9 +2,6 @@
 let
   cfg = config.services.resilio;
 
-  secrets = let secrets = lib.lists.flatten (map lib.attrValues (lib.attrValues cfg.secrets));
-  in lib.filter (secret: secret != null) secrets;
-
   sharedFolders = lib.attrValues (lib.mapAttrs (key: value: {
     secret = if lib.elem key cfg.readWriteDirs then value.readWrite else value.encrypted;
     dir = "${cfg.syncPath}/${if lib.elem key cfg.readWriteDirs then key else builtins.hashString "sha256" key}";
@@ -16,7 +13,7 @@ let
     known_hosts = [ ];
   }) cfg.secrets);
 
-  configFile = (pkgs.formats.json { }).generate "config.json" ({
+  resilioConfig = {
     device_name = lib.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.storagePath;
@@ -36,9 +33,10 @@ let
       password = cfg.webUI.password;
       listen = "0.0.0.0:${toString cfg.webUI.port}";
     };
-  } else {
-    shared_folders = sharedFolders;
-  }));
+  } else
+    lib.optionalAttrs (lib.length sharedFolders > 0) { shared_folders = sharedFolders; });
+
+  configFile = (pkgs.formats.json { }).generate "config.json" resilioConfig;
 in {
   disabledModules = [ "services/networking/resilio.nix" ];
 
@@ -133,7 +131,10 @@ in {
         message = "Secrets cannot be empty";
       }
       {
-        assertion = secrets == lib.lists.unique secrets;
+        assertion = let
+          flattenedSecrets = lib.lists.flatten (map lib.attrValues (lib.attrValues cfg.secrets));
+          secrets = lib.filter (secret: secret != null) flattenedSecrets;
+        in secrets == lib.lists.unique secrets;
         message = "Every secret in secrets must be unique";
       }
       {
