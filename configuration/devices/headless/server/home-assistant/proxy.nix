@@ -35,7 +35,7 @@ in {
             port = homeAssistantPort;
           }];
 
-          locations."/".proxyPass = proxyPass;
+          locations."/api/webhook".proxyPass = proxyPass;
         };
       };
     };
