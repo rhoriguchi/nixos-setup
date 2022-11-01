@@ -196,7 +196,7 @@
           overlays = [ self.overlays.default ];
         };
       in {
-        checks = (import ./checks { inherit pkgs; }) // {
+        checks = {
           pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = let tools = inputs.pre-commit-hooks.packages.${system};
@@ -215,7 +215,7 @@
               };
             };
           };
-        };
+        } // (import ./checks { inherit pkgs; });
 
         devShells.default = pkgs.mkShell {
           buildInputs = [ pkgs.nix pkgs.nixopsUnstable ];
