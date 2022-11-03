@@ -1,8 +1,8 @@
 { pkgs, lib, config, ... }:
 let
-  createResources = types: map (type: { inherit type; }) types;
+  createResources = map (type: { inherit type; });
 
-  createResourcesWithArg = arg: types: map (type: { inherit type arg; }) types;
+  createResourcesWithArg = arg: map (type: { inherit type arg; });
   createResourcesWithArgs = args: types: lib.flatten (map (arg: createResourcesWithArg arg types) args);
 in {
   services.home-assistant.config.sensor = [
