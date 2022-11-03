@@ -1,16 +1,19 @@
-{ config, secrets, ... }:
+{ pkgs, config, secrets, ... }:
 let
   adguardhomePort = 80;
 
   routerIp = "192.168.1.1";
 
-  settings = {
+  settings = assert pkgs.adguardhome.schema_version == 14; {
     users = [{
       name = secrets.adguard.username;
       password = secrets.adguard.encryptedUsernamePassword;
     }];
+
     dns = rec {
       bind_host = "0.0.0.0";
+      bind_port = 80;
+
       bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
       upstream_dns = bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
       rewrites = map (domain: {
@@ -29,7 +32,6 @@ let
         "*.price-tracker.00a.ch"
       ];
     };
-    schema_version = 14;
   };
 in {
   imports = [ ../common.nix ];
@@ -54,7 +56,7 @@ in {
         }];
 
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.adguardhome.port}";
+          proxyPass = "http://127.0.0.1:${toString config.services.adguardhome.settings.bind_port}";
           proxyWebsockets = true;
         };
 
