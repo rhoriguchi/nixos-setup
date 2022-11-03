@@ -33,6 +33,9 @@ class TVTimeRequestHandler(object):
 
         soup = BeautifulSoup(response.content, 'html.parser')
 
+        if not soup.find('body'):
+            raise ValueError('TV Time returned empty body')
+
         ids = set()
         for section in soup.find_all('section', id='to-watch'):
             text = section.find('h1').text.strip()
