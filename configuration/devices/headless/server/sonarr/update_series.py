@@ -170,10 +170,7 @@ class SonarrHelper(object):
         })
 
     def _delete_series(self, id):
-        self._session.delete(f'{self._base_url}/series/{id}', params={'deleteFiles': True})
-
-    def _delete_episode_file(self, id):
-        return self._session.delete(f'{self._base_url}/episodefile/${id}')
+        self._session.delete(f'{self._base_url}/series/{id}', params={'deleteFiles': False})
 
     def _get_episodes(self, series_id):
         return self._session.get(f'{self._base_url}/episode', params={'seriesId': series_id}) \
@@ -219,9 +216,6 @@ class SonarrHelper(object):
 
             if episode['monitored'] != monitored:
                 self._set_episode_monitored(episode['id'], monitored)
-
-                if not monitored and episode['episodeFileId'] != 0:
-                    self._delete_episode_file(episode['episodeFileId'])
 
     def refresh_series(self):
         self._command_refresh_series()
