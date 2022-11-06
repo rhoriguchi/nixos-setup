@@ -200,20 +200,19 @@
           pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
             src = ./.;
 
-            hooks = let tools = inputs.pre-commit-hooks.packages.${system};
-            in {
+            hooks = {
               deadnix = {
                 enable = true;
                 excludes = [ "hardware-configuration\\.nix" ];
               };
               markdownlint.enable = true;
-              nixfmt = {
-                enable = true;
-                entry = lib.mkForce "${tools.nixfmt}/bin/nixfmt --width=140";
-              };
+              nixfmt.enable = true;
             };
 
-            settings.markdownlint.config.MD013 = false;
+            settings = {
+              markdownlint.config.MD013 = false;
+              nixfmt.width = 140;
+            };
           };
         } // (import ./checks { inherit pkgs; });
 
