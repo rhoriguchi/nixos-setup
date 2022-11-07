@@ -1,19 +1,21 @@
 { pkgs, lib, config, ... }:
 let
   backupDir = "/mnt/Backup";
+  snapshotDir = "${backupDir}/snapshot/Laptop";
   keyPath = "${config.services.resilio.syncPath}/Storage/Luks/backup.key";
 
   preExecShellScript = pkgs.writeShellScript "rsnapshot-preExec" ''
-    mkdir -p ${backupDir}
+    mkdir -p "${backupDir}"
 
-    ${pkgs.cryptsetup}/bin/cryptsetup luksOpen --key-file ${keyPath} /dev/disk/by-uuid/28ca9d71-aec7-4b19-9fd6-ab6f7cc1b186 backup
-    mountpoint -q ${backupDir} || mount /dev/disk/by-uuid/84ecadcc-4fa1-4060-ac42-d774e032db77 ${backupDir}
+    ${pkgs.cryptsetup}/bin/cryptsetup luksOpen --key-file "${keyPath}" /dev/disk/by-uuid/792d67dc-3de4-4790-9e51-ec281e28b0d1 backup
+    mountpoint -q "${backupDir}" || mount "/dev/mapper/backup" "${backupDir}"
 
-    rm -rf ${backupDir}/.Trash-* || true
+    rm -rf "${backupDir}/.Trash-*" || true
+    mkdir -p "${snapshotDir}"
   '';
 
   postExecShellScript = pkgs.writeShellScript "rsnapshot-postExec" ''
-    rm -rf ${backupDir}/.Trash-* || true
+    rm -rf "${backupDir}/.Trash-*" || true
 
     umount ${backupDir} || true
     ${pkgs.cryptsetup}/bin/cryptsetup luksClose backup || true
@@ -96,7 +98,7 @@ in {
       cmd_preexec	${preExecShellScript}
       cmd_postexec	${postExecShellScript}
 
-      snapshot_root	${backupDir}/snapshot/Laptop
+      snapshot_root	${snapshotDir}
 
       exclude_file	${excludeFile}
 

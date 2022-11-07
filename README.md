@@ -147,3 +147,16 @@ nixops ssh-for-each --parallel "nix-channel --update"
 ```console
 nixops ssh-for-each --parallel "nix-collect-garbage -d"
 ```
+
+## Encrypt backup drive
+
+```console
+cryptsetup luksFormat --type luks2 /dev/sdX
+
+dd if=/dev/random bs=256 count=1 of=/PATH_TO_KEY_FILE
+cryptsetup luksAddKey /dev/sdX /PATH_TO_KEY_FILE
+
+cryptsetup luksOpen --key-file /PATH_TO_KEY_FILE /dev/disk/by-uuid/792d67dc-3de4-4790-9e51-ec281e28b0d1 backup
+
+mkfs.ext4 -L backup /dev/mapper/backup
+```
