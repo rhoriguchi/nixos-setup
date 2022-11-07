@@ -5,6 +5,7 @@
     defaultPackages = [ ];
 
     systemPackages = [
+      pkgs.cryptsetup
       pkgs.curl
       pkgs.deadnix
       pkgs.dmidecode
