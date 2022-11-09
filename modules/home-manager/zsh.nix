@@ -1,9 +1,21 @@
-{ pkgs, ... }: {
+{ pkgs, lib, colors, ... }: {
   programs = {
     fzf = {
       enable = true;
-
       enableZshIntegration = true;
+
+      historyWidgetOptions = [
+        "--color='${
+          lib.concatStringsSep "," [
+            "hl:${colors.bright.magenta}"
+            "hl+:${colors.normal.magenta}"
+            "info:${colors.normal.green}"
+            "prompt:${colors.normal.white}"
+            "pointer:${colors.normal.magenta}"
+          ]
+        }'"
+        "--no-multi"
+      ];
     };
 
     zsh = {
