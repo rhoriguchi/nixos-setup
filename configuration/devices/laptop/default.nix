@@ -10,9 +10,15 @@ in {
     ./hardware-configuration.nix
   ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    # TODO remove once evdi builds 6.0
+    # https://github.com/NixOS/nixpkgs/issues/200414
+    kernelPackages = pkgs.linuxPackages_5_15;
+
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
   };
 
   networking = {

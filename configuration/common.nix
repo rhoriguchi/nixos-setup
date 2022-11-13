@@ -1,5 +1,5 @@
 { lib, pkgs, public-keys, ... }: {
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_19;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   networking.useDHCP = false;
 
