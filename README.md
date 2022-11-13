@@ -93,20 +93,18 @@ zfs create \
 
 #### [libvirt](configuration/devices/headless/server/libvirtd/README.md)
 
-## Flake
+## Update flake
 
-### Setup direnv
+```console
+nix flake update
+```
+
+## Setup direnv
 
 Navigate to directory and run command
 
 ```console
 direnv allow .
-```
-
-### Update
-
-```console
-nix flake update
 ```
 
 ## NixOps
