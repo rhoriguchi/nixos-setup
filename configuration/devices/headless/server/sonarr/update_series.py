@@ -169,7 +169,18 @@ class SonarrHelper(object):
             'tags': list(set(series['tags'] + [self._tag_id]))
         })
 
+    def _delete_tag(self, id):
+        series = self._session.get(f'{self._base_url}/series/{id}').json()
+
+        series['tags'] = list(filter(
+            lambda tag: tag != self._tag_id,
+            series['tags']
+        ))
+
+        self._session.put(f'{self._base_url}/series', json=series)
+
     def _delete_series(self, id):
+        self._delete_tag(id)
         self._session.delete(f'{self._base_url}/series/{id}', params={'deleteFiles': False})
 
     def _get_episodes(self, series_id):
