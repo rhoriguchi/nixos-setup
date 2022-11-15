@@ -12,8 +12,6 @@ let
   };
 
   getService = paths: startAt: {
-    description = "audio-converter";
-
     after = [ "network.target" ];
 
     script = let commands = map (path: ''${audio-converter}/bin/audio-converter "${path}" eac3 ac3'') paths;

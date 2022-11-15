@@ -43,7 +43,6 @@ in {
 
     systemd.services.tv_time_export = {
       after = [ "network.target" ];
-      description = "tv_time_export";
 
       preStart = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.exportPath}"'';
       script = "${pkgs.tv_time_export}/bin/tv_time_export ${configFile}";

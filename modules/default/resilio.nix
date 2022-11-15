@@ -183,8 +183,6 @@ in {
     in if cfg.webUI.enable then {
       # TODO this will cause issues if there are more than one user
       user.services.resilio = {
-        description = "Resilio Sync";
-
         after = [ "network.target" ];
         wantedBy = [ "default.target" ];
 
@@ -203,8 +201,6 @@ in {
       };
     } else {
       services.resilio = lib.mkIf (!cfg.webUI.enable) {
-        description = "Resilio Sync";
-
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 

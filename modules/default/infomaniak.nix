@@ -30,8 +30,6 @@ in {
 
     systemd.services = lib.listToAttrs (map (hostname:
       lib.nameValuePair "infomaniak-${lib.replaceStrings [ "." ] [ "-" ] hostname}" {
-        description = "Infomaniak DDNS updater";
-
         after = [ "network.target" ];
 
         script = ''${pkgs.curl}/bin/curl -s "https://${cfg.username}:${cfg.password}@infomaniak.com/nic/update?hostname=${hostname}"'';

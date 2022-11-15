@@ -63,8 +63,6 @@ in {
     };
 
     systemd.services.gphotos-sync = {
-      description = "gphotos-sync";
-
       after = [ "network.target" ];
 
       preStart = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.exportPath}"'';
