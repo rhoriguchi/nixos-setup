@@ -16,7 +16,7 @@ let
     img.save(sys.argv[1])
   '';
 
-  pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.qrcode ]);
+  pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.qrcode ]);
 
   qrCode = pkgs.runCommand "wifi_guest_qr.png" { } ''${pythonWithPackages}/bin/python ${script} "$out"'';
 in { systemd.tmpfiles.rules = [ "L+ /run/hass/img/wifi-guest-qr.png - - - - ${qrCode}" ]; }

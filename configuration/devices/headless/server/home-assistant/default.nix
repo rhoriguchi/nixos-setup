@@ -21,7 +21,7 @@
       doCheck = false;
       doInstallCheck = false;
     })).override {
-      extraPackages = pythonPackages: [ pythonPackages.psycopg2 ];
+      extraPackages = ps: [ ps.psycopg2 ];
 
       extraComponents = [
         "default_config"

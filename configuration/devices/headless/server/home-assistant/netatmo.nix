@@ -40,7 +40,7 @@ let
           print(match['battery_state'])
     '';
 
-  pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.requests ]);
+  pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.requests ]);
 
   createValveBatterySensors = map (valve: {
     platform = "command_line";

@@ -26,7 +26,7 @@ let
   getVoltageScript = id: getXScript id "voltage";
   getPowerScript = id: getXScript id "power";
 
-  pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.requests ]);
+  pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.requests ]);
 
   createButtonBatterySensors = map (button: {
     platform = "command_line";

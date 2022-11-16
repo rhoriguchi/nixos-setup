@@ -30,7 +30,7 @@ let
           loop.run_until_complete(${methodCall})
     '';
 
-  pythonWithPackages = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.adguardhome ]);
+  pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.adguardhome ]);
 in {
   services.home-assistant.config = {
     shell_command = {
