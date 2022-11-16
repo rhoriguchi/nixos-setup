@@ -162,8 +162,8 @@ in {
 
       END
 
-      mkdir -pm 0711 $(dirname "${cfg.logging.filePath}")
-      chown rslsync:rslsync $(dirname "${cfg.logging.filePath}")
+      mkdir -pm 0711 "$(dirname "${cfg.logging.filePath}")"
+      chown rslsync:rslsync "$(dirname "${cfg.logging.filePath}")"
 
       mkdir -pm 0775 "${cfg.storagePath}"
       chown rslsync:rslsync "${cfg.storagePath}"
