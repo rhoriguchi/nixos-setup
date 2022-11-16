@@ -433,4 +433,6 @@ in {
   '';
 
   systemd.services = { inherit backup-windows-guest libvirtd-network libvirtd-pool libvirtd-volume-windows libvirtd-guest-windows; };
+
+  services.py-kms.enable = true;
 }

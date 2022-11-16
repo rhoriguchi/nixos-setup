@@ -62,6 +62,8 @@
 
     hs = super.callPackage ./hs { };
 
+    py-kms = super.callPackage ./py-kms.nix { };
+
     solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
 
     tv_time_export = super.callPackage ./tv_time_export.nix { };
