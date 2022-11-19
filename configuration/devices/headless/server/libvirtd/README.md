@@ -2,10 +2,9 @@
 
 ## Initial Windows setup
 
-Uncomment in [libvirtd config](default.nix) the `INITIAL SETUP` block and replace `PATH_TO_ISO` with correct path.
+Uncomment in [guest config](guest.nix) the `INITIAL SETUP` block.
 
-- Windows 10: <https://www.microsoft.com/software-download/windows10>
-- Windows 11: <https://www.microsoft.com/software-download/windows11>
+In installer enter product key `3PMKQ-YNVGT-HFJGG-2F4FQ-9D6T7`, more info under <https://py-kms.readthedocs.io/en/latest/Keys.html>
 
 ### Install drivers
 
@@ -36,11 +35,6 @@ REM SPICE UsbDk
 curl --location --output UsbDk.msi --url "https://www.spice-space.org/download/windows/usbdk/UsbDk_1.0.22_x64.msi"
 start /wait msiexec /i UsbDk.msi /quiet /qn /norestart
 del /f UsbDk.msi
-
-REM SPICE WebDAV
-curl --location --output spice-webdavd.msi --url "https://www.spice-space.org/download/windows/spice-webdavd/spice-webdavd-x64-latest.msi"
-start /wait msiexec /i spice-webdavd.msi /quiet /qn /norestart
-del /f spice-webdavd.msi
 
 REM VirtIO Drivers
 curl --location --output virtio-win-gt.msi --url "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.217-2/virtio-win-gt-x64.msi"
@@ -73,6 +67,8 @@ powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows
 powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Unpin%20Start' | iex"
 ```
 
+Install [NVIDIA Control Panel](https://apps.microsoft.com/store/detail/nvidia-control-panel/9NF8H0H7WMLT) from Microsoft Store.
+
 Restart VM.
 
 ## Other Software to install
@@ -90,7 +86,7 @@ curl --location --output VLC.msi --url "https://mirror.init7.net/videolan/vlc/3.
 start /wait msiexec /i VLC.msi /quiet /qn /norestart
 del /f VLC.msi
 
-curl --location --output Blitz.exe --url "https://blitz-stable.blitz.gg/Blitz-1.17.18.exe"
+curl --location --output Blitz_installer.exe --url "https://blitz.gg/download/win"
 curl --location --output Discord.exe --url "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86"
 curl --location --output Driver_Booster.exe --url "https://cdn.iobit.com/dl/driver_booster_setup.exe"
 curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.euw.exe"
@@ -98,7 +94,7 @@ curl --location --output Notepad-plus-plus.exe --url "https://github.com/notepad
 curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
 curl --location --output Razer_Synapse.exe --url "https://rzr.to/synapse-3-pc-download"
 curl --location --output Spotify.exe --url "https://download.scdn.co/SpotifySetup.exe"
-curl --location --output SteamInstaller.exe --url "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe"
+curl --location --output Steam_installer.exe --url "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe"
 curl --location --output TeamViewer.exe --url "https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe"
 
 start %userprofile%/Downloads
