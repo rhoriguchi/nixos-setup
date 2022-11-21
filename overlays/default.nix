@@ -39,6 +39,16 @@
           sha256 = "sha256-F2MS8HKv4nOOj+fICyLS869ljb8cluUpxEAIYjnzDOo=";
         }
       }/pkgs/servers/tautulli") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=202024
+    teamviewer = super.libsForQt515.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "b9a8eae2a4068c05c253508e2063fd0d3d193311";
+          sha256 = "sha256-xqlq27e8g94aWkzs8pXT7BeWznZSzdSfdUTPTWdzdY4=";
+        }
+      }/pkgs/applications/networking/remote/teamviewer") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
