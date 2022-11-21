@@ -120,11 +120,11 @@ in {
       script = ''
         volumePath="$(virsh vol-path --pool "default" "windows")"
 
-        virsh snapshot-create-as "windows" --no-metadata --disk-only --quiesce --atomic --diskspec vdb,file="$volumePath.temp"
+        virsh snapshot-create-as "windows" --no-metadata --disk-only --quiesce --atomic --diskspec vda,file="$volumePath.temp"
 
         cp "$volumePath" "${snapshotsDir}/windows/$(date +"%Y%m%dT%H%M%S")"
 
-        virsh blockcommit "windows" vdb --wait --active --pivot --delete
+        virsh blockcommit "windows" vda --wait --active --pivot --delete
       '';
 
       preStop = let
