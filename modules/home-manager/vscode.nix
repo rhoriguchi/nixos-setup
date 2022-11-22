@@ -196,6 +196,7 @@
       "todo-tree.tree.expanded" = true;
       "todo-tree.tree.showCountsInTree" = true;
       "typescript.inlayHints.parameterNames.enabled" = "all";
+      "typescript.updateImportsOnFileMove.enabled" = "always";
       "window.autoDetectColorScheme" = true;
       "window.newWindowDimensions" = "maximized";
       "window.openFoldersInNewWindow" = "on";
