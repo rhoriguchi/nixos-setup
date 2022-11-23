@@ -14,8 +14,6 @@ in {
     chown -R qemu-libvirtd:qemu-libvirtd ${nvramDir}
   '';
 
-  services.py-kms.enable = true;
-
   # TODO pass through audio http://www.draeath.net/blog/it/2021/08/18/libvirt-spice-audio
   # TODO pass through bluetooth
 
