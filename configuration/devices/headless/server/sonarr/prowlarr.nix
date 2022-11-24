@@ -1,4 +1,4 @@
-{ secrets, ... }: {
+{ config, secrets, ... }: {
   services = {
     prowlarr.enable = true;
 
@@ -23,5 +23,13 @@
         };
       };
     };
+  };
+
+  virtualisation.oci-containers.containers.flaresolverr = {
+    image = "flaresolverr/flaresolverr:v2.2.10";
+
+    ports = [ "8191:8191" ];
+
+    environment.TZ = config.time.timeZone;
   };
 }
