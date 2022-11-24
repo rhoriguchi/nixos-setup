@@ -1,48 +1,7 @@
-{ lib, pkgs, config, secrets, ... }: {
+{ pkgs, config, secrets, ... }: {
+  imports = [ ./deluge.nix ./prowlarr.nix ];
+
   services = {
-    deluge = {
-      enable = true;
-
-      openFirewall = true;
-
-      web.enable = true;
-
-      declarative = true;
-      group = if config.services.resilio.enable then "rslsync" else "sonarr";
-
-      authFile = let
-        text = lib.concatStringsSep "\n"
-          (lib.mapAttrsToList (key: value: "${key}:${value.password}:${toString value.level}") secrets.deluge.users);
-      in pkgs.writeText "deluge-auth" text;
-
-      config = rec {
-        download_location = "/mnt/Data/Deluge/Downloads";
-
-        copy_torrent_file = true;
-        torrentfiles_location = "/mnt/Data/Deluge/Torrents";
-
-        allow_remote = true;
-        daemon_port = 58846;
-        listen_ports = [ 6881 6889 ];
-
-        stop_seed_at_ratio = true;
-        stop_seed_ratio = 0.0;
-
-        max_download_speed = 1000 * 80;
-        max_upload_speed = 1000 * 10;
-
-        max_active_downloading = 10;
-        max_active_seeding = 10;
-        max_active_limit = max_active_downloading + max_active_seeding;
-        dont_count_slow_torrents = true;
-
-        max_connections_global = 250;
-        max_half_open_connections = 40;
-      };
-    };
-
-    prowlarr.enable = true;
-
     sonarr = {
       enable = true;
 
@@ -54,58 +13,23 @@
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "deluge.00a.ch" "prowlarr.00a.ch" "sonarr.00a.ch" ];
+      hostnames = [ "sonarr.00a.ch" ];
     };
 
     nginx = {
       enable = true;
 
-      virtualHosts = {
-        "deluge.00a.ch" = {
-          enableACME = true;
-          forceSSL = true;
+      virtualHosts."sonarr.00a.ch" = {
+        enableACME = true;
+        forceSSL = true;
 
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:${toString config.services.deluge.web.port}";
-            basicAuth = secrets.nginx.basicAuth."deluge.00a.ch";
-          };
-        };
-
-        "sonarr.00a.ch" = {
-          enableACME = true;
-          forceSSL = true;
-
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:8989";
-            basicAuth = secrets.nginx.basicAuth."sonarr.00a.ch";
-          };
-        };
-
-        "prowlarr.00a.ch" = {
-          enableACME = true;
-          forceSSL = true;
-
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:9696";
-            basicAuth = secrets.nginx.basicAuth."prowlarr.00a.ch";
-          };
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8989";
+          basicAuth = secrets.nginx.basicAuth."sonarr.00a.ch";
         };
       };
     };
-
-    # TODO WIP and commented
-    # openvpn.servers.sonarrVPN = {
-    #   config = "config ${./nl.protonvpn.net.udp.ovpn}";
-
-    #   authUserPass = {
-    #     username = secrets.protonvpn.username;
-    #     password = secrets.protonvpn.password;
-    #   };
-    # };
   };
-
-  # TODO define global or extend "openvpn.servers" module?
-  environment.etc.openvpn.source = "${pkgs.update-resolv-conf}/libexec/openvpn";
 
   systemd.services.sonarr-update-tracked-series = {
     after = [ "network.target" "sonarr.service" ];
