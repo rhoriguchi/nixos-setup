@@ -6,5 +6,6 @@ in {
   xdg.configFile."gtk-3.0/bookmarks".text = ''
     file://${homeDirectory}/Downloads/Browser
     file://${homeDirectory}/Sync
+    file://${homeDirectory}/Sync/Series
   '';
 }
