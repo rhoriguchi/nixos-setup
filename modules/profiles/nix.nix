@@ -1,5 +1,5 @@
 { pkgs, nixpkgs, ... }: {
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.05";
 
   nix = {
     extraOptions = ''
