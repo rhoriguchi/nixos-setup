@@ -28,6 +28,7 @@ in glances.overrideAttrs (oldAttrs: {
 
   propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
     py3nvml
+    python3Packages.batinfo
     python3Packages.docker
     python3Packages.pysmart-smartx
     python3Packages.python-dateutil
