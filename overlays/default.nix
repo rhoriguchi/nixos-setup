@@ -19,26 +19,6 @@
           sha256 = "sha256-ATtIqwX+ojQg8YWkniEjZ8ITswdAmZyHNHq/RUeAcuc=";
         }
       }/pkgs/applications/networking/resilio-sync") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=202024
-    teamviewer = super.libsForQt515.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "b9a8eae2a4068c05c253508e2063fd0d3d193311";
-          sha256 = "sha256-xqlq27e8g94aWkzs8pXT7BeWznZSzdSfdUTPTWdzdY4=";
-        }
-      }/pkgs/applications/networking/remote/teamviewer") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=202752
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "f6921a3307079c9e1d34fd03ae0454d9dd7d885b";
-          sha256 = "sha256-vTMNR6Y3wnf+pyaLzJ5CR3+edxfrz6SSnJIGOpCclC8=";
-        }
-      }/pkgs/servers/adguardhome") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };

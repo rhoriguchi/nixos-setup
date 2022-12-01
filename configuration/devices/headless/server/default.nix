@@ -14,9 +14,6 @@
   ];
 
   boot = {
-    # TODO remove once zfs supports 6.0
-    kernelPackages = pkgs.linuxPackages_5_15;
-
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
