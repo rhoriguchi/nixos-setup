@@ -7,6 +7,7 @@
     ./keyboard.nix
     ./nano.nix
     ./nix.nix
+    ./nvd.nix
     ./printing.nix
     ./terminal.nix
     ./util.nix

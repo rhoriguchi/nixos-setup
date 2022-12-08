@@ -19,6 +19,7 @@
   nano = import ./nano.nix;
   nginx = import ./nginx.nix;
   nix = import ./nix.nix;
+  nvd = import ./nvd.nix;
   podman = import ./podman.nix;
   printing = import ./printing.nix;
   python = import ./python.nix;
