@@ -46,9 +46,8 @@
         latitude = secrets.homeassistant.latitude;
         longitude = secrets.homeassistant.longitude;
         elevation = secrets.homeassistant.elevation;
-        # TODO uncomment once 2022.12 is available
-        # country = "CH";
-        # language = "en-GB";
+        country = "CH";
+        language = "en-GB";
         unit_system = "metric";
         temperature_unit = "C";
         currency = "CHF";
