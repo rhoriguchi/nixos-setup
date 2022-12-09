@@ -3,7 +3,6 @@ mach-nix.buildPythonApplication rec {
   pname = "tv_time_export";
   version = "1.0.19";
 
-  # TODO remove when mach-nix works again with updated nixpkgs
   ignoreDataOutdated = true;
 
   src = fetchFromGitHub {
