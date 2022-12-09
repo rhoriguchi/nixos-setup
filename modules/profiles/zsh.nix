@@ -6,5 +6,7 @@
   environment.shellAliases = {
     l = null;
     ll = null;
+    run-help = null;
+    which-command = null;
   };
 }
