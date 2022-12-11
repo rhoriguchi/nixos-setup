@@ -60,8 +60,8 @@
             url = "https://www.youtube.com";
           }
           {
-            name = "NWAnime";
-            url = "https://www.nwanime.tv/home";
+            name = "Gogoanime";
+            url = "https://gogoanime.lu";
           }
           {
             name = "TV Time";
@@ -83,10 +83,6 @@
           {
             name = "The Pirate Bay";
             url = "https://thepiratebay10.org";
-          }
-          {
-            name = "Zooqle";
-            url = "https://zooqle.com";
           }
           {
             name = "Keep";
