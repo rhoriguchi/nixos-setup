@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  cfg = config.services.wireguard-vpn;
+  cfg = config.services.wireguard-network;
 
   ips = import ./ips.nix;
   clientIps = lib.filterAttrs (key: _: key != "server") ips;
@@ -14,7 +14,7 @@ let
   isClient = cfg.type == "client";
   isServer = cfg.type == "server";
 in {
-  options.services.wireguard-vpn = {
+  options.services.wireguard-network = {
     enable = lib.mkEnableOption "Private VPN";
     type = lib.mkOption { type = lib.types.nullOr (lib.types.enum [ "client" "server" ]); };
   };
@@ -36,7 +36,7 @@ in {
     ];
 
     networking.wireguard.interfaces = {
-      wg0 = {
+      wg-management = {
         server = {
           listenPort = serverPort;
 

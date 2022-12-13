@@ -18,7 +18,7 @@
       syncPath = "/mnt/Data/Sync";
     };
 
-    wireguard-vpn = {
+    wireguard-network = {
       enable = true;
 
       type = "client";

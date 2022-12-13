@@ -74,7 +74,7 @@ in {
       inherit settings;
     };
 
-    wireguard-vpn = {
+    wireguard-network = {
       enable = true;
 
       type = "client";

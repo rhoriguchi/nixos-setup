@@ -39,7 +39,7 @@
       openFirewall = true;
     };
 
-    wireguard-vpn = {
+    wireguard-network = {
       enable = true;
 
       type = "client";

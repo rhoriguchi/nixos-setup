@@ -112,7 +112,7 @@
 
     tautulli.enable = true;
 
-    wireguard-vpn = {
+    wireguard-network = {
       enable = true;
 
       type = "server";
