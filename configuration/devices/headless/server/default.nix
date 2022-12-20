@@ -13,6 +13,9 @@
     ./hardware-configuration.nix
   ];
 
+  # TODO remove when zfs is fixed
+  nixpkgs.config.allowBroken = true;
+
   boot = {
     loader = {
       systemd-boot.enable = true;
