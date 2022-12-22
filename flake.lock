@@ -177,11 +177,11 @@
     "nur-rycee": {
       "flake": false,
       "locked": {
-        "lastModified": 1671595406,
-        "narHash": "sha256-8uPycMxPZwabkKpR15vU8WVo4zY5R6j9SiuvNaiEWXc=",
+        "lastModified": 1671681815,
+        "narHash": "sha256-MN7uW2Q9VGZ5ENojwAftfX2QiaLBV7NxY5daomeMJ/k=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "760b980782f77a380dab32b45b9448d59ef11b71",
+        "rev": "b87544ab9ce0d2d13409daea76ba4614a7fdee7c",
         "type": "gitlab"
       },
       "original": {
