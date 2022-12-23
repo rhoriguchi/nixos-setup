@@ -49,6 +49,16 @@
           sha256 = "sha256-H4DEnDxyNGz5gCnyHHebr9pc7W1RwG3VZJx0WJw7FZE=";
         }
       }/pkgs/servers/tautulli") { };
+
+    # TODO remove when fixed https://github.com/nix-community/home-manager/issues/3507
+    vscode = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "3c603ddf321480716ced0b084f1132e63ea7f405";
+          sha256 = "sha256-4nvaY+iIrvIBiVEPWV+k8jTsgC+dD0sHIDVcNRO5M0w=";
+        }
+      }/pkgs/applications/editors/vscode/vscode.nix") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
