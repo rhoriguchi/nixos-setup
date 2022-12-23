@@ -45,8 +45,8 @@
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "3dbd460bb85bfa8c3043d58f9d60d5c40353f9c8";
-          sha256 = "sha256-tJrbmhI18oFCYprDSXVaAID/pBRdxBHKlV7zcleoCIQ=";
+          rev = "0adbfe53763f70b1ae34d65ceaef1076a689ac45";
+          sha256 = "sha256-H4DEnDxyNGz5gCnyHHebr9pc7W1RwG3VZJx0WJw7FZE=";
         }
       }/pkgs/servers/tautulli") { };
   })
