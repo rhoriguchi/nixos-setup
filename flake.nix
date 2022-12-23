@@ -195,7 +195,7 @@
           config = {
             allowUnfree = true;
             # TODO remove when nixops works without
-            permittedInsecurePackages = [ "python3.10-certifi-2022.9.24" ];
+            permittedInsecurePackages = [ "python3.10-certifi-2022.12.7" ];
           };
           overlays = [ self.overlays.default ];
         };
