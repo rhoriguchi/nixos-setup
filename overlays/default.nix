@@ -20,16 +20,6 @@
         }
       }/pkgs/applications/networking/resilio-sync") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=204805
-    onedrive = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "6a5deafce97258e69c922fd27dabeeb7e52fd957";
-          sha256 = "sha256-cawlG1XR37aHdCt1r4xKeuMYiYlqLz8V3kw1k6kxGEE=";
-        }
-      }/pkgs/applications/networking/sync/onedrive") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=207309
     prowlarr = super.callPackage (import "${
         super.fetchFromGitHub {
