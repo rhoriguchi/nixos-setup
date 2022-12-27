@@ -10,6 +10,7 @@
       pkgs.deadnix
       pkgs.dmidecode
       pkgs.file
+      pkgs.git
       pkgs.glances
       pkgs.jq
       pkgs.nixfmt
