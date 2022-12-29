@@ -20,13 +20,13 @@
         }
       }/pkgs/applications/networking/resilio-sync") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=207309
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=207813
     prowlarr = super.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "eca68109ee51b5a27fd1aba1c6681b3d88d30ce6";
-          sha256 = "sha256-hXvOKIeY6Ua8rJjeDElEPCbQ5reE+sFcyfcQdxzFCAE=";
+          rev = "0a4fa3fdc37a71cf4201caea62c1755fb9a973ee";
+          sha256 = "sha256-OmG8cXR/m4g3WDbyjdEb2PkYdbF0X94dD5pqb1pbXs4=";
         }
       }/pkgs/servers/prowlarr") { };
 
