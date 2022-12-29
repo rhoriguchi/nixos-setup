@@ -41,8 +41,9 @@ in {
             <os>
               ${
                 "" # qemu-kvm -machine help
+                # TODO revert back to q35 once pc-q35-7.2 or higher works
               }
-              <type machine='q35'>hvm</type>
+              <type machine='pc-q35-7.1'>hvm</type>
 
               ${
                 "" # TODO secure boot not detected by "PC Health Check"
