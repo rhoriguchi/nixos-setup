@@ -20,16 +20,6 @@
         }
       }/pkgs/applications/networking/resilio-sync") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=207334
-    tautulli = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "0adbfe53763f70b1ae34d65ceaef1076a689ac45";
-          sha256 = "sha256-H4DEnDxyNGz5gCnyHHebr9pc7W1RwG3VZJx0WJw7FZE=";
-        }
-      }/pkgs/servers/tautulli") { };
-
     # TODO remove when fixed https://github.com/nix-community/home-manager/issues/3507
     vscode = super.callPackage (import "${
         super.fetchFromGitHub {
