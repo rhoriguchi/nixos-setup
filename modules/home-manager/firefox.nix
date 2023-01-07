@@ -8,7 +8,6 @@
       pkgs.firefox-addons.export-tabs-urls-and-titles
       pkgs.firefox-addons.facebook-container
       pkgs.firefox-addons.grammarly
-      pkgs.firefox-addons.https-everywhere
       pkgs.firefox-addons.metamask
       pkgs.firefox-addons.octolinker
       pkgs.firefox-addons.open-in-browser
@@ -127,7 +126,6 @@
           export-tabs-urls-and-titles = "_17165bd9-9b71-4323-99a5-3d4ce49f3d75_-browser-action";
           facebook-container = "_contain-facebook-browser-action";
           grammarly = "87677a2c52b84ad3a151a4a72f5bd3c4_jetpack-browser-action";
-          https-everywhere = "https-everywhere_eff_org-browser-action";
           metamask = "webextension_metamask_io-browser-action";
           privacy-badger = "jid1-mnnxcxisbpnsxq_jetpack-browser-action";
           tab-session-manager = "tab-session-manager_sienori-browser-action";
@@ -163,7 +161,6 @@
             export-tabs-urls-and-titles
             facebook-container
             grammarly
-            https-everywhere
             metamask
             privacy-badger
             tab-session-manager
