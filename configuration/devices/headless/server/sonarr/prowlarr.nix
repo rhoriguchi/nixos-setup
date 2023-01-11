@@ -26,7 +26,7 @@
   };
 
   virtualisation.oci-containers.containers.flaresolverr = {
-    image = "flaresolverr/flaresolverr:v3.0.1";
+    image = "flaresolverr/flaresolverr:v3.0.2";
 
     ports = [ "8191:8191" ];
 
