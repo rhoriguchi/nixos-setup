@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   pname = "hs-theme-google-home";
-  version = "1.0.3";
+  version = "1.0.4";
 
   src = fetchFromGitHub {
     owner = "liri";
     repo = "lovelace-themes";
     rev = version;
-    hash = "sha256-HWuBDYXbolm99qrXSnHCuhpl02dBCkM+AQYp04AeoPM=";
+    hash = "sha256-T3ZDL/L21J8OEIv4otZ2LAQPa8sgdaY8eTqWygFdY7s=";
   };
 
   installPhase = ''
