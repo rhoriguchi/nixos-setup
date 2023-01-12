@@ -75,8 +75,9 @@
 
           nixpkgs.overlays = [ self.overlays.default ];
 
+          nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
+
           _module.args = {
-            inherit (inputs) nixpkgs;
             inherit (self.nixosModules) colors;
             public-keys = import ./configuration/public-keys.nix;
             secrets = import ./secrets.nix;
