@@ -20,6 +20,7 @@
       pkgs.rsync
       pkgs.speedtest-cli
       pkgs.sshpass
+      pkgs.strace
       pkgs.traceroute
       pkgs.tree
       pkgs.unzip
