@@ -80,14 +80,6 @@
       syncPath = "/var/lib/Sync";
     };
 
-    tv_time_export = {
-      enable = true;
-
-      username = secrets.tvTime.username;
-      password = secrets.tvTime.password;
-      exportPath = "${config.services.resilio.syncPath}/tv_time_export";
-    };
-
     plex = {
       enable = true;
 

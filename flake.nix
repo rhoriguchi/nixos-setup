@@ -11,18 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mach-nix = {
-      url = "github:DavHau/mach-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pypi-deps-db.follows = "pypi-deps-db";
-      };
-    };
-    pypi-deps-db = {
-      url = "github:DavHau/pypi-deps-db";
-      flake = false;
-    };
-
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nur-rycee = {
@@ -36,7 +24,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, mach-nix, nixos-hardware, nur-rycee, pre-commit-hooks, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, home-manager, nixos-hardware, nur-rycee, pre-commit-hooks, ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
       nixosModules = {
@@ -47,15 +35,9 @@
         home-manager = import ./modules/home-manager;
       };
 
-      overlays.default = lib.composeManyExtensions ([
-        (_: super:
-          let nur-rycee-pkgs = import inputs.nur-rycee { pkgs = super; };
-          in {
-            mach-nix = inputs.mach-nix.lib.${super.stdenv.hostPlatform.system};
-
-            inherit (nur-rycee-pkgs) firefox-addons;
-          })
-      ] ++ import ./overlays);
+      overlays.default = lib.composeManyExtensions
+        ([ (_: super: let nur-rycee-pkgs = import inputs.nur-rycee { pkgs = super; }; in { inherit (nur-rycee-pkgs) firefox-addons; }) ]
+          ++ import ./overlays);
 
       nixopsConfigurations.default = {
         inherit (inputs) nixpkgs;
