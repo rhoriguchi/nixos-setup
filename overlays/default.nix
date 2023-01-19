@@ -30,7 +30,8 @@
         }
       }/pkgs/applications/editors/vscode/vscode.nix") { };
 
-    # TODO remove once fixed
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=209844
+    # TODO wrap with gitkraken --disable-gpu
     gitkraken = super.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
