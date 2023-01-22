@@ -29,7 +29,8 @@
       pkgs.vscode-extensions.kamikillerto.vscode-colorize
       pkgs.vscode-extensions.ms-azuretools.vscode-docker
       pkgs.vscode-extensions.ms-dotnettools.csharp
-      pkgs.vscode-extensions.ms-python.python
+      # TODO currently commented, does not build https://github.com/NixOS/nixpkgs/issues/211807
+      # pkgs.vscode-extensions.ms-python.python
       pkgs.vscode-extensions.ms-vscode.PowerShell
       pkgs.vscode-extensions.pkief.material-icon-theme
       pkgs.vscode-extensions.redhat.java

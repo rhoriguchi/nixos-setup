@@ -175,11 +175,7 @@
       let
         pkgs = import inputs.nixpkgs {
           inherit system;
-          config = {
-            allowUnfree = true;
-            # TODO remove when nixops works without
-            permittedInsecurePackages = [ "python3.10-certifi-2022.12.7" ];
-          };
+          config.allowUnfree = true;
           overlays = [ self.overlays.default ];
         };
       in {
