@@ -84,7 +84,6 @@ in {
 
   environment.systemPackages = [
     pkgs.discord
-    pkgs.firefox
     pkgs.gimp
     pkgs.google-chrome
     pkgs.inkscape
