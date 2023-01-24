@@ -36,6 +36,12 @@ nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 
 #### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#authorize-the-application-with-your-onedrive-account)
 
+### Add KeePass password to keyring
+
+```console
+nix-shell -p libsecret --run "secret-tool store --label=KeePass KeePass 2FA"
+```
+
 ### [Encrypting home directory](https://wiki.archlinux.org/title/ECryptfs#Encrypting_a_home_directory)
 
 Temporarily add password to root user and make sure `users.users.root.hashedPassword` is not set.
