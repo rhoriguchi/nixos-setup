@@ -1,11 +1,18 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   services = {
     xserver = {
       enable = true;
 
       displayManager.gdm.enable = true;
 
-      desktopManager.gnome.enable = true;
+      desktopManager.gnome = {
+        enable = true;
+
+        extraGSettingsOverrides = ''
+          [org.gnome.desktop.input-sources]
+          sources=[ ('xkb', '${config.services.xserver.layout}+${config.services.xserver.xkbVariant}') ]
+        '';
+      };
 
       excludePackages = [ pkgs.xterm ];
     };
