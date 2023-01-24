@@ -207,6 +207,7 @@
         "network.trr.mode" = 2;
         "pref.downloads.disable_button.edit_actions" = false;
         "privacy.donottrackheader.enabled" = true;
+        "privacy.query_stripping.enabled" = true;
         "privacy.trackingprotection.enabled" = true;
         "privacy.userContext.enabled" = true;
         "privacy.userContext.extension" = "@contain-facebook";
