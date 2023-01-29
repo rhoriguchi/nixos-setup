@@ -6,6 +6,11 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,18 +18,13 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    nur-rycee = {
-      url = "gitlab:rycee/nur-expressions";
-      flake = false;
-    };
-
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, nixos-hardware, nur-rycee, pre-commit-hooks, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, firefox-addons, home-manager, nixos-hardware, pre-commit-hooks, ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
       nixosModules = {
@@ -36,8 +36,7 @@
       };
 
       overlays.default = lib.composeManyExtensions
-        ([ (_: super: let nur-rycee-pkgs = import inputs.nur-rycee { pkgs = super; }; in { inherit (nur-rycee-pkgs) firefox-addons; }) ]
-          ++ import ./overlays);
+        ([ (_: super: { firefox-addons = inputs.firefox-addons.packages.${super.stdenv.hostPlatform.system}; }) ] ++ import ./overlays);
 
       nixopsConfigurations.default = {
         inherit (inputs) nixpkgs;
