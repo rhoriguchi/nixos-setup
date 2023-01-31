@@ -29,8 +29,7 @@
       pkgs.vscode-extensions.kamikillerto.vscode-colorize
       pkgs.vscode-extensions.ms-azuretools.vscode-docker
       pkgs.vscode-extensions.ms-dotnettools.csharp
-      # TODO uncomment when merged https://nixpk.gs/pr-tracker.html?pr=211901
-      # pkgs.vscode-extensions.ms-python.python
+      pkgs.vscode-extensions.ms-python.python
       pkgs.vscode-extensions.ms-vscode.PowerShell
       pkgs.vscode-extensions.pkief.material-icon-theme
       pkgs.vscode-extensions.redhat.java
