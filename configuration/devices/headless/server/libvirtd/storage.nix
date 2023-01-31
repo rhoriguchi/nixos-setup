@@ -1,7 +1,8 @@
 { pkgs, ... }:
 let
   poolDir = "/var/lib/virt/images";
-  snapshotsDir = "/mnt/Data/Snapshots";
+  # TODO commented, use rsync instead of cp so if it get's canceled it can continue
+  # snapshotsDir = "/mnt/Data/Snapshots";
 in {
   system.activationScripts.libvirtd-pool = ''
     mkdir -p ${poolDir}
@@ -99,48 +100,49 @@ in {
       '';
     };
 
-    backup-windows-guest = rec {
-      after = [ "libvirtd.service" "libvirtd-guest-windows.service" ];
-      requires = after;
-      wantedBy = [ "multi-user.target" ];
+    # TODO commented, use rsync instead of cp so if it get's canceled it can continue
+    # backup-windows-guest = rec {
+    #   after = [ "libvirtd.service" "libvirtd-guest-windows.service" ];
+    #   requires = after;
+    #   wantedBy = [ "multi-user.target" ];
 
-      path = [ pkgs.coreutils-full pkgs.libvirt ];
+    #   path = [ pkgs.coreutils-full pkgs.libvirt ];
 
-      startAt = "Sun *-*-* 05:00:00";
+    #   startAt = "Sun *-*-* 05:00:00";
 
-      serviceConfig = {
-        Restart = "on-abort";
-        # TODO get this to work with qemu-libvirtd:qemu-libvirtd
-        User = "root";
-        Group = "root";
-      };
+    #   serviceConfig = {
+    #     Restart = "on-abort";
+    #     # TODO get this to work with qemu-libvirtd:qemu-libvirtd
+    #     User = "root";
+    #     Group = "root";
+    #   };
 
-      preStart = "mkdir -p ${snapshotsDir}/windows";
+    #   preStart = "mkdir -p ${snapshotsDir}/windows";
 
-      script = ''
-        volumePath="$(virsh vol-path --pool "default" "windows")"
+    #   script = ''
+    #     volumePath="$(virsh vol-path --pool "default" "windows")"
 
-        virsh snapshot-create-as "windows" --no-metadata --disk-only --quiesce --atomic --diskspec vda,file="$volumePath.temp"
+    #     virsh snapshot-create-as "windows" --no-metadata --disk-only --quiesce --atomic --diskspec vda,file="$volumePath.temp"
 
-        cp "$volumePath" "${snapshotsDir}/windows/$(date +"%Y%m%dT%H%M%S")"
+    #     cp "$volumePath" "${snapshotsDir}/windows/$(date +"%Y%m%dT%H%M%S")"
 
-        virsh blockcommit "windows" vda --wait --active --pivot --delete
-      '';
+    #     virsh blockcommit "windows" vda --wait --active --pivot --delete
+    #   '';
 
-      preStop = let
-        script = pkgs.writeText "cleanup_windows_snapshots.py" ''
-          from datetime import datetime
-          from pathlib import Path
+    #   preStop = let
+    #     script = pkgs.writeText "cleanup_windows_snapshots.py" ''
+    #       from datetime import datetime
+    #       from pathlib import Path
 
-          files_to_delete = sorted(
-              Path('${snapshotsDir}/windows').iterdir(),
-              key=lambda file: datetime.fromtimestamp(file.lstat().st_mtime)
-          )[:-7]
+    #       files_to_delete = sorted(
+    #           Path('${snapshotsDir}/windows').iterdir(),
+    #           key=lambda file: datetime.fromtimestamp(file.lstat().st_mtime)
+    #       )[:-7]
 
-          for file in files_to_delete:
-              file.unlink()
-        '';
-      in "${pkgs.python3}/bin/python ${script}";
-    };
+    #       for file in files_to_delete:
+    #           file.unlink()
+    #     '';
+    #   in "${pkgs.python3}/bin/python ${script}";
+    # };
   };
 }
