@@ -164,3 +164,29 @@ cryptsetup luksOpen --key-file /PATH_TO_KEY_FILE /dev/disk/by-uuid/792d67dc-3de4
 
 mkfs.ext4 -L backup /dev/mapper/backup
 ```
+
+## Upgrade firmware
+
+### Hardware
+
+#### List hardware
+
+```console
+fwupdmgr get-devices
+```
+
+#### Upgrade hardware
+
+```console
+fwupdmgr refresh
+fwupdmgr get-updates
+fwupdmgr update
+```
+
+### Raspberry Pi
+
+```console
+mkdir -p /mnt/FIRMWARE && mount /dev/disk/by-label/FIRMWARE /mnt/FIRMWARE
+BOOTFS=/mnt/FIRMWARE FIRMWARE_RELEASE_STATUS=stable rpi-eeprom-update -d -a
+umount /mnt/FIRMWARE && rm -rf /mnt/FIRMWARE
+```
