@@ -27,4 +27,6 @@
       pkgs.zip
     ];
   };
+
+  services.fwupd.enable = true;
 }

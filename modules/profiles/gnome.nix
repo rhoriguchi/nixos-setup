@@ -24,8 +24,6 @@
     };
 
     udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
-
-    fwupd.enable = true;
   };
 
   programs.dconf.enable = true;
