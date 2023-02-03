@@ -112,6 +112,7 @@ in {
         toggle-tiled-left = [ "<Super>Left" ];
         toggle-tiled-right = [ "<Super>Right" ];
       };
+      "org/gnome/nautilus/preferences".open-folder-on-dnd-hover = true;
       "org/gnome/settings-daemon/plugins/media-keys" = {
         area-screenshot = [ ];
         area-screenshot-clip = [ ];
