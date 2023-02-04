@@ -78,12 +78,11 @@ zpool create -f \
   -O compression=off \
   -O mountpoint=legacy \
   data \
-  raidz2 \
-    ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E0ZLJXFX \
-    ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E2PN4A53 \
-    ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5JNF5EA \
-    ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5YF8SST \
-    ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E7UEJZDP
+  raidz \
+    ata-Samsung_SSD_870_EVO_2TB_S6PPNM0TB02114B \
+    ata-Samsung_SSD_870_EVO_2TB_S6PPNM0TB02182K \
+    ata-Samsung_SSD_870_EVO_2TB_S6PPNM0TB06008F \
+    ata-Samsung_SSD_870_EVO_2TB_S6PPNM0TB06013H
 
 zfs create \
   -o compression=zstd \
