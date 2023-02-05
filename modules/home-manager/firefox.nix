@@ -121,7 +121,7 @@
         "browser.tabs.warnOnClose" = false;
         "browser.toolbars.bookmarks.showOtherBookmarks" = false;
         "browser.toolbars.bookmarks.visibility" = "always";
-        "browser.uiCustomization.state" = builtins.toJSON (let
+        "browser.uiCustomization.state" = let
           bitwarden = "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action";
           bypass-paywalls-clean = "_d133e097-46d9-4ecc-9903-fa6a722a6e0e_-browser-action";
           export-tabs-urls-and-titles = "_17165bd9-9b71-4323-99a5-3d4ce49f3d75_-browser-action";
@@ -175,7 +175,7 @@
 
           "currentVersion" = 18;
           "newElementCount" = 0;
-        });
+        };
         "browser.urlbar.openViewOnFocus" = false;
         "browser.urlbar.placeholderName" = "Google";
         "browser.urlbar.placeholderName.private" = "Google";
