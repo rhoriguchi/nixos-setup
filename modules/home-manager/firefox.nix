@@ -2,27 +2,27 @@
   programs.firefox = {
     enable = true;
 
-    extensions = [
-      pkgs.firefox-addons.bitwarden
-      pkgs.firefox-addons.bypass-paywalls-clean
-      pkgs.firefox-addons.export-tabs-urls-and-titles
-      pkgs.firefox-addons.facebook-container
-      pkgs.firefox-addons.grammarly
-      pkgs.firefox-addons.metamask
-      pkgs.firefox-addons.octolinker
-      pkgs.firefox-addons.open-in-browser
-      pkgs.firefox-addons.privacy-badger
-      pkgs.firefox-addons.rabattcorner
-      pkgs.firefox-addons.reddit-comment-collapser
-      pkgs.firefox-addons.reddit-enhancement-suite
-      pkgs.firefox-addons.tab-session-manager
-      pkgs.firefox-addons.ublock-origin
-      pkgs.firefox-addons.view-image
-      pkgs.firefox-addons.wappalyzer
-    ];
-
     profiles.default = {
       id = 0;
+
+      extensions = [
+        pkgs.firefox-addons.bitwarden
+        pkgs.firefox-addons.bypass-paywalls-clean
+        pkgs.firefox-addons.export-tabs-urls-and-titles
+        pkgs.firefox-addons.facebook-container
+        pkgs.firefox-addons.grammarly
+        pkgs.firefox-addons.metamask
+        pkgs.firefox-addons.octolinker
+        pkgs.firefox-addons.open-in-browser
+        pkgs.firefox-addons.privacy-badger
+        pkgs.firefox-addons.rabattcorner
+        pkgs.firefox-addons.reddit-comment-collapser
+        pkgs.firefox-addons.reddit-enhancement-suite
+        pkgs.firefox-addons.tab-session-manager
+        pkgs.firefox-addons.ublock-origin
+        pkgs.firefox-addons.view-image
+        pkgs.firefox-addons.wappalyzer
+      ];
 
       search = {
         force = true;
