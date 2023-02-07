@@ -19,26 +19,6 @@
           sha256 = "sha256-ATtIqwX+ojQg8YWkniEjZ8ITswdAmZyHNHq/RUeAcuc=";
         }
       }/pkgs/applications/networking/resilio-sync") { };
-
-    # TODO remove when fixed https://github.com/nix-community/home-manager/issues/3507
-    vscode = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "3c603ddf321480716ced0b084f1132e63ea7f405";
-          sha256 = "sha256-4nvaY+iIrvIBiVEPWV+k8jTsgC+dD0sHIDVcNRO5M0w=";
-        }
-      }/pkgs/applications/editors/vscode/vscode.nix") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=215009
-    prowlarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "91c5117c1b5d220ca6e5cebb3ab513fe647f6b43";
-          sha256 = "sha256-ScI+cvB02XTi/heZOmX7TWliaAzdwCr+NiCTs0PX/lY=";
-        }
-      }/pkgs/servers/prowlarr") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
