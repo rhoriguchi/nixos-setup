@@ -142,12 +142,21 @@ in {
         sort-folder-contents = true;
       };
       "org/gnome/shell/extensions/caffeine" = {
-        control-nightlight = "never";
         enable-fullscreen = false;
+        indicator-position = 0;
+        indicator-position-index = 0;
+        indicator-position-max = 1;
         inhibit-apps = [ ];
+        nightlight-control = "never";
+        prefs-default-height = 600;
+        prefs-default-width = 700;
         restore-state = false;
-        show-indicator = true;
+        screen-blank = "never";
+        show-indicator = "only-active";
         show-notifications = false;
+        show-timer = true;
+        toggle-shortcut = [ ];
+        trigger-apps-mode = "on-running";
         user-enabled = false;
       };
       "org/gnome/shell/extensions/dash-to-dock" = {
