@@ -1,4 +1,4 @@
-# TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=195273
+# TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=215817
 
 { pkgs, lib, config, ... }:
 let cfg = config.services.prowlarr;
