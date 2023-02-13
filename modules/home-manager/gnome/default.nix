@@ -134,6 +134,7 @@ in {
           [ "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" ]
           ++ map (extension: if lib.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid) extensions;
         favorite-apps = [ ];
+        welcome-dialog-last-shown-version = "9999999999";
       };
       "org/gnome/shell/extensions/alphabetical-app-grid" = {
         folder-order-position = "alphabetical";
