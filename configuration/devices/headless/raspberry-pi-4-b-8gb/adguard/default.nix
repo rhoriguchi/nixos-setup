@@ -4,7 +4,9 @@ let
 
   routerIp = "192.168.1.1";
 
-  settings = assert pkgs.adguardhome.schema_version == 14; {
+  ignored = [ "adguard.local" "infomaniak.com.local" "infomaniak.com" "unifi.local" "wireguard.00a.ch" ];
+
+  settings = assert pkgs.adguardhome.schema_version == 16; {
     users = [{
       name = secrets.adguard.username;
       password = secrets.adguard.encryptedUsernamePassword;
@@ -32,6 +34,9 @@ let
         "*.price-tracker.00a.ch"
       ];
     };
+
+    querylog.ignored = ignored;
+    statistics.ignored = ignored;
   };
 in {
   imports = [ ../common.nix ];
