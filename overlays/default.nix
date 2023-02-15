@@ -39,6 +39,16 @@
           sha256 = "sha256-y/k+6gvRX3jl6oGCDnksNsd5Yi1Fjd7v+wVyFNrZ7KQ=";
         }
       }/pkgs/servers/adguardhome") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=216547
+    plexRaw = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "3cbf66ca1d5243e7bff7ca42a8610cb040abc750";
+          sha256 = "sha256-OH8rmwzHEWBu7bF1/fjpauJR5x/y1PyhqVP7iod3h1U=";
+        }
+      }/pkgs/servers/plex/raw.nix") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
