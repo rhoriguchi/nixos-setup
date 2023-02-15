@@ -19,6 +19,7 @@
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:9696";
+          proxyWebsockets = true;
           basicAuth = secrets.nginx.basicAuth."prowlarr.00a.ch";
 
           recommendedProxySettings = false;
