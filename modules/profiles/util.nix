@@ -5,10 +5,12 @@
     defaultPackages = [ ];
 
     systemPackages = [
+      pkgs.bind
       pkgs.cryptsetup
       pkgs.curl
       pkgs.deadnix
       pkgs.dmidecode
+      pkgs.dnsutils
       pkgs.file
       pkgs.git
       pkgs.glances
