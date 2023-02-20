@@ -19,36 +19,6 @@
           sha256 = "sha256-ATtIqwX+ojQg8YWkniEjZ8ITswdAmZyHNHq/RUeAcuc=";
         }
       }/pkgs/applications/networking/resilio-sync") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=216042
-    prowlarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "771e70507bb0df402049fc39955da0985e7e8c49";
-          sha256 = "sha256-JJEpfBkeA6HN2tzdbh6KFPHhsgwDUx9XpxQa59XJzGI=";
-        }
-      }/pkgs/servers/prowlarr") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=216512
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "858e6cb6ed3d094cbac5a9a75155e430dca4bded";
-          sha256 = "sha256-y/k+6gvRX3jl6oGCDnksNsd5Yi1Fjd7v+wVyFNrZ7KQ=";
-        }
-      }/pkgs/servers/adguardhome") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=216547
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "3cbf66ca1d5243e7bff7ca42a8610cb040abc750";
-          sha256 = "sha256-OH8rmwzHEWBu7bF1/fjpauJR5x/y1PyhqVP7iod3h1U=";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
