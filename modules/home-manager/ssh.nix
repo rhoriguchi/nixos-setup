@@ -5,7 +5,6 @@ in {
     enable = true;
 
     compression = true;
-    controlMaster = "auto";
     controlPath = "${home}/.ssh/master-%r@%n:%p";
     hashKnownHosts = false;
     serverAliveCountMax = 3;
