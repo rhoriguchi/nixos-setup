@@ -9,6 +9,17 @@
       alias = {
         changes = "diff --stat";
         history = ''log --date=iso --pretty="%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ad %C(auto)%d %C(reset)%s"'';
+        tracked = let
+          colorize = color: text: "${color}${text}\\e[0m";
+
+          red = colorize "\\e[1;31m";
+          green = colorize "\\e[1;32m";
+        in ''
+          !f() { if [ $# -eq 0 ]; then echo -e '${
+            red "Missing file or directory"
+          }'; else tracked=$(git ls-files ''${1}); if [[ -z ''${tracked} ]]; then echo -e "${red "Not tracked"} ''${1}"; else echo -e "${
+            green "Tracked"
+          } ''${1}"; fi; fi; }; f'';
       };
 
       init.defaultBranch = "master";
