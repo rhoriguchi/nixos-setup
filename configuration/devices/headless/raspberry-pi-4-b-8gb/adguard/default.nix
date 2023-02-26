@@ -66,6 +66,7 @@ in {
         };
 
         extraConfig = ''
+          allow ${(import ../../../../../modules/default/wireguard-network/ips.nix).server};
           allow 192.168.1.0/24;
           deny all;
         '';
