@@ -94,6 +94,10 @@ zfs create \
 zfs create \
   -o compression=zstd \
   data/snapshots
+
+zfs create \
+  -o quota=465GB \
+  data/sync
 ```
 
 #### [libvirt](configuration/devices/headless/server/libvirtd/README.md)

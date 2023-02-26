@@ -77,7 +77,7 @@
 
       readWriteDirs = lib.attrNames secrets.resilio.secrets;
       secrets = secrets.resilio.secrets;
-      syncPath = "/var/lib/Sync";
+      syncPath = "/mnt/Data/Sync";
     };
 
     plex = {
