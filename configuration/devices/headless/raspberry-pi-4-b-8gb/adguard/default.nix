@@ -1,4 +1,4 @@
-{ pkgs, config, secrets, ... }:
+{ pkgs, lib, config, secrets, ... }:
 let
   adguardhomePort = 80;
 
@@ -65,8 +65,10 @@ in {
           proxyWebsockets = true;
         };
 
-        extraConfig = ''
-          allow ${(import ../../../../../modules/default/wireguard-network/ips.nix).server};
+        extraConfig = let
+          ips = import ../../../../../modules/default/wireguard-network/ips.nix;
+          allowedIps = lib.mapAttrsToList (_: value: "allow ${value};") (lib.filterAttrs (key: _: key != config.networking.hostName) ips);
+        in (lib.concatStringsSep "\n" allowedIps) + ''
           allow 192.168.1.0/24;
           deny all;
         '';
