@@ -7,6 +7,7 @@ let
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.date-menu-formatter
     pkgs.gnomeExtensions.emoji-selector
+    pkgs.gnomeExtensions.tophat
     pkgs.gnomeExtensions.transparent-top-bar-adjustable-transparency
     pkgs.gnomeExtensions.unite
     pkgs.gnomeExtensions.window-is-ready-remover
@@ -295,6 +296,20 @@ in {
         use-keybinding = true;
       };
       "org/gnome/shell/extensions/gnome-fuzzy-app-search".applications = true;
+      "org/gnome/shell/extensions/tophat" = {
+        cpu-show-cores = true;
+        meter-bar-width = 0.6;
+        meter-fg-color = colors.normal.white;
+        mount-to-monitor = "";
+        network-usage-unit = "bytes";
+        position-in-panel = "right";
+        show-animations = true;
+        show-cpu = true;
+        show-disk = false;
+        show-icons = true;
+        show-mem = true;
+        show-net = true;
+      };
       "org/gnome/shell/extensions/unite" = {
         app-menu-ellipsize-mode = "end";
         app-menu-max-width = 0;

@@ -93,13 +93,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = false;
 
-                extraSpecialArgs = {
-                  inherit (self.nixosModules) colors;
-                  conkyConfig = {
-                    fileSystems = [ "/" ];
-                    interfaces = [ "wlp2s0" ];
-                  };
-                };
+                extraSpecialArgs.colors = self.nixosModules.colors;
 
                 users.rhoriguchi = self.nixosModules.home-manager;
               };
