@@ -32,7 +32,6 @@ in {
 
       "*.00a.ch".user = "xxlpitu";
     } // (let
-      # TODO get this somehow through "nixosModules.default" so no relative path needs to be imported
       ips = import ../default/wireguard-network/ips.nix;
       clientIps = lib.filterAttrs (key: _: key != "server") ips;
     in lib.mapAttrs' (key: value:
