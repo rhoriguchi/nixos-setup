@@ -25,6 +25,8 @@
     deluge = {
       enable = true;
 
+      package = pkgs.deluge.overrideAttrs (_: { patches = [ ./remove-web-login.patch ]; });
+
       openFirewall = true;
 
       web.enable = true;

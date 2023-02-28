@@ -1,5 +1,5 @@
 { pkgs, config, secrets, ... }: {
-  imports = [ ./deluge.nix ./prowlarr.nix ];
+  imports = [ ./deluge ./prowlarr.nix ];
 
   services = {
     sonarr = {

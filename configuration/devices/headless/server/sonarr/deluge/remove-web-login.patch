@@ -1,0 +1,58 @@
+diff --git a/deluge/ui/web/js/deluge-all-debug.js b/deluge/ui/web/js/deluge-all-debug.js
+index 67bb83a..826a5a1 100644
+--- a/deluge/ui/web/js/deluge-all-debug.js
++++ b/deluge/ui/web/js/deluge-all-debug.js
+@@ -7449,7 +7449,7 @@ Deluge.LoginWindow = Ext.extend(Ext.Window, {
+
+     onLogin: function () {
+         var passwordField = this.passwordField;
+-        deluge.client.auth.login(passwordField.getValue(), {
++        deluge.client.auth.login('deluge', {
+             success: function (result) {
+                 if (result) {
+                     deluge.events.fire('login');
+@@ -7481,7 +7481,8 @@ Deluge.LoginWindow = Ext.extend(Ext.Window, {
+     },
+
+     onShow: function () {
+-        this.passwordField.focus(true, 300);
++        this.hide();
++        this.onLogin();
+     },
+ });
+ /**
+diff --git a/deluge/ui/web/js/deluge-all/LoginWindow.js b/deluge/ui/web/js/deluge-all/LoginWindow.js
+index a055a69..54b44ea 100644
+--- a/deluge/ui/web/js/deluge-all/LoginWindow.js
++++ b/deluge/ui/web/js/deluge-all/LoginWindow.js
+@@ -97,7 +97,7 @@ Deluge.LoginWindow = Ext.extend(Ext.Window, {
+
+     onLogin: function () {
+         var passwordField = this.passwordField;
+-        deluge.client.auth.login(passwordField.getValue(), {
++        deluge.client.auth.login('deluge', {
+             success: function (result) {
+                 if (result) {
+                     deluge.events.fire('login');
+@@ -129,6 +129,7 @@ Deluge.LoginWindow = Ext.extend(Ext.Window, {
+     },
+
+     onShow: function () {
+-        this.passwordField.focus(true, 300);
++        this.hide();
++        this.onLogin();
+     },
+ });
+diff --git a/deluge/ui/web/server.py b/deluge/ui/web/server.py
+index f391a78..6162782 100644
+--- a/deluge/ui/web/server.py
++++ b/deluge/ui/web/server.py
+@@ -45,7 +45,7 @@ CONFIG_DEFAULTS = {
+     'show_session_speed': False,
+     'show_sidebar': True,
+     'theme': 'gray',
+-    'first_login': True,
++    'first_login': False,
+     'language': '',
+     # Server Settings
+     'base': '/',
