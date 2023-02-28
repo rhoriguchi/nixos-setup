@@ -26,6 +26,11 @@ let
 in {
   system.activationScripts.rhoriguchiSetup = ''
     mkdir -p /mnt/Media/Videos
+
+    chown plex:plex "/mnt/Media/Videos/Movies"
+    chown plex:plex "/mnt/Media/Videos/TV Shows - Synology"
+    chown plex:plex "/mnt/Media/Videos/TV Shows"
+    chown plex:plex "/mnt/Music"
   '';
 
   fileSystems = {
