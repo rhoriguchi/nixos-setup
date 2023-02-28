@@ -35,6 +35,12 @@ in {
       options = [ "${getExtraOptions synologyCredentialsFile config.services.plex.enable}" ];
     };
 
+    "/mnt/Media/Videos/TV Shows - Synology" = {
+      device = "//${synologyIp}/JcrK - Shared Media/Videos/TV Shows";
+      fsType = "cifs";
+      options = [ "${getExtraOptions synologyCredentialsFile config.services.plex.enable}" ];
+    };
+
     "/mnt/Media/Videos/TV Shows" = {
       device = "//${wdMyCloudIp}/Data/Media/TV Shows";
       fsType = "cifs";
