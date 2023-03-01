@@ -30,10 +30,10 @@ in {
         };
 
         "${config.networking.hostName}.local" = {
-          listen = [{
-            addr = "0.0.0.0";
+          listen = map (addr: {
+            inherit addr;
             port = homeAssistantPort;
-          }];
+          }) config.services.nginx.defaultListenAddresses;
 
           locations."/api/webhook".proxyPass = proxyPass;
         };
