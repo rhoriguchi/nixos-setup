@@ -36,7 +36,7 @@
       };
 
       overlays.default = lib.composeManyExtensions
-        ([ (_: super: { firefox-addons = inputs.firefox-addons.packages.${super.stdenv.hostPlatform.system}; }) ] ++ import ./overlays);
+        ([ (_: super: { firefox-addons = inputs.firefox-addons.packages.${super.system}; }) ] ++ import ./overlays);
 
       nixopsConfigurations.default = {
         inherit (inputs) nixpkgs;
