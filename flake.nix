@@ -35,12 +35,8 @@
         home-manager = import ./modules/home-manager;
       };
 
-      overlays.default = lib.composeManyExtensions ([
-        (_: super: {
-          firefox-addons = inputs.firefox-addons.packages.${super.stdenv.hostPlatform.system};
-          nixopsUnstable = super.nixopsUnstable.withPlugins (_: [ ]);
-        })
-      ] ++ import ./overlays);
+      overlays.default = lib.composeManyExtensions
+        ([ (_: super: { firefox-addons = inputs.firefox-addons.packages.${super.stdenv.hostPlatform.system}; }) ] ++ import ./overlays);
 
       nixopsConfigurations.default = {
         inherit (inputs) nixpkgs;
