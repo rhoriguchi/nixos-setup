@@ -92,7 +92,7 @@ in {
     pkgs.protonvpn-gui
     pkgs.qbittorrent
     pkgs.signal-desktop
-    pkgs.spotify-unwrapped
+    pkgs.spotify
     pkgs.virt-manager
     pkgs.vlc
     pkgs.vscode

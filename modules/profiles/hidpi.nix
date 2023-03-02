@@ -16,9 +16,9 @@
         '';
       };
 
-      spotify-unwrapped = super.symlinkJoin {
-        inherit (super.spotify-unwrapped) name;
-        paths = [ super.spotify-unwrapped ];
+      spotify = super.symlinkJoin {
+        inherit (super.spotify) name;
+        paths = [ super.spotify ];
         nativeBuildInputs = [ super.makeWrapper ];
 
         postBuild = ''
