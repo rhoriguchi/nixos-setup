@@ -1,4 +1,6 @@
 {
+  accent = "magenta";
+
   normal = {
     black = "#000000";
     blue = "#0074D9";

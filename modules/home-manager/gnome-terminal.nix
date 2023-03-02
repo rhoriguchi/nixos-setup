@@ -23,13 +23,13 @@
           backgroundColor = "#303030";
 
           cursor = {
-            background = colors.normal.magenta;
+            background = colors.normal.${colors.accent};
             foreground = colors.normal.white;
           };
 
           highlight = {
             background = colors.normal.white;
-            foreground = colors.normal.magenta;
+            foreground = colors.normal.${colors.accent};
           };
 
           foregroundColor = colors.normal.white;

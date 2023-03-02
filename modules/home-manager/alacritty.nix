@@ -39,7 +39,7 @@
         };
 
         cursor = {
-          cursor = colors.normal.magenta;
+          cursor = colors.normal.${colors.accent};
           text = colors.normal.white;
         };
 
