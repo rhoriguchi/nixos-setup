@@ -20,37 +20,6 @@
         }
       }/pkgs/applications/networking/resilio-sync") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=217306
-    prowlarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "7bae9f8f6e1d74b2a19adf705d2efcc16cedd2c2";
-          sha256 = "sha256-i0Xho7dWSMeGH91o0m5unV6GndulW/pWdr/7a/cXfkA=";
-        }
-      }/pkgs/servers/prowlarr") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=217761
-    gitkraken = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "da14312c42bd6f5211afa25882322c78d3782968";
-
-          sha256 = "sha256-8wKyABjCxs4cuDkbketj3+OjTStU5XqbcmHpO5AkHGc=";
-        }
-      }/pkgs/applications/version-management/gitkraken") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=1314428302
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "265f28525596f9c60ac32b90ace78bb1fd8d0ff4";
-          sha256 = "sha256-wnTpBMXjgoU1TPMxKDfPfwSBdvcxQtewdBU3mowtcIM=";
-        }
-      }/pkgs/servers/adguardhome") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=218867
     plexRaw = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
