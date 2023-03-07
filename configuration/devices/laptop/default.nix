@@ -92,6 +92,7 @@ in {
     pkgs.jetbrains.webstorm
     pkgs.libreoffice-fresh
     pkgs.neofetch
+    pkgs.obsidian
     pkgs.postgresql
     pkgs.postman
     pkgs.protonvpn-gui
