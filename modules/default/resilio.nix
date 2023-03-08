@@ -67,13 +67,13 @@ in {
       default = { };
     };
     listeningPort = lib.mkOption {
-      default = 5555;
       type = lib.types.port;
+      default = 5555;
     };
     syncPath = lib.mkOption { type = lib.types.path; };
     storagePath = lib.mkOption {
-      default = "/var/lib/resilio-sync";
       type = lib.types.path;
+      default = "/var/lib/resilio-sync";
     };
     logging = lib.mkOption {
       type = lib.types.submodule {
@@ -83,16 +83,16 @@ in {
             default = true;
           };
           filePath = lib.mkOption {
-            default = "/var/log/resilio-sync/sync.log";
             type = lib.types.path;
+            default = "/var/log/resilio-sync/sync.log";
           };
         };
       };
       default = { };
     };
     readWriteDirs = lib.mkOption {
-      default = [ ];
       type = lib.types.listOf lib.types.str;
+      default = [ ];
     };
     secrets = lib.mkOption {
       default = { };
