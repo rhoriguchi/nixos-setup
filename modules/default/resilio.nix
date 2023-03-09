@@ -107,13 +107,13 @@ in {
       default = { };
       type = lib.types.attrsOf (lib.types.submodule {
         options = {
-          readWrite = lib.mkOption {
-            default = null;
-            type = lib.types.nullOr (lib.types.strMatching "^[0-9A-Z]{33}$");
-          };
           encrypted = lib.mkOption {
             default = null;
-            type = lib.types.nullOr (lib.types.strMatching "^[0-9A-Z]{33}$");
+            type = lib.types.nullOr (lib.types.strMatching "^F[0-9A-Z]{32}$");
+          };
+          readWrite = lib.mkOption {
+            default = null;
+            type = lib.types.nullOr (lib.types.strMatching "^D[0-9A-Z]{32}$");
           };
         };
       });
