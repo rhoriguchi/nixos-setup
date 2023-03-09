@@ -1,7 +1,7 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 let
   script = pkgs.writeShellScript "keepassxc.sh" ''
-    ${pkgs.libsecret}/bin/secret-tool lookup KeePass 2FA | keepassxc --pw-stdin "${config.services.resilio.syncPath}/KeePass/2FA.kdbx"
+    ${pkgs.libsecret}/bin/secret-tool lookup KeePass 2FA | keepassxc --pw-stdin "$HOME/Sync/KeePass/2FA.kdbx"
   '';
 
   keepassxc = pkgs.symlinkJoin {

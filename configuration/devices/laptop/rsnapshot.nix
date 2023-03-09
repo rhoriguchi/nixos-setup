@@ -2,7 +2,7 @@
 let
   backupDir = "/mnt/Backup";
   snapshotDir = "${backupDir}/snapshot/Laptop";
-  keyPath = "${config.services.resilio.syncPath}/Storage/Luks/backup.key";
+  keyPath = "${config.users.users.rhoriguchi.home}/Sync/Storage/Luks/backup.key";
 
   preExecShellScript = pkgs.writeShellScript "rsnapshot-preExec" ''
     mkdir -p "${backupDir}"

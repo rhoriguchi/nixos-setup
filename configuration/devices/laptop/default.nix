@@ -1,8 +1,4 @@
-{ pkgs, lib, config, secrets, ... }:
-let
-  home = config.users.users.rhoriguchi.home;
-  syncPath = config.services.resilio.syncPath;
-in {
+{ pkgs, lib, config, secrets, ... }: {
   imports = [
     ./keepassxc.nix
     ./rsnapshot.nix
@@ -63,9 +59,6 @@ in {
     resilio = {
       enable = true;
 
-      storagePath = "${home}/.resilio-sync";
-      syncPath = "${home}/Sync";
-
       webUI = {
         enable = true;
 
@@ -112,6 +105,9 @@ in {
   };
 
   system.activationScripts.rhoriguchiSetup = let
+    home = config.users.users.rhoriguchi.home;
+    syncPath = "${home}/Sync";
+
     downloadDirs = map (path: ''"${home}/Downloads/${path}"'') [ "Browser" "Torrent" ];
 
     createSymlink = source: target: ''
