@@ -83,10 +83,6 @@
             name = "The Pirate Bay";
             url = "https://thepiratebay10.org";
           }
-          {
-            name = "Keep";
-            url = "https://keep.google.com";
-          }
         ];
       }];
 
