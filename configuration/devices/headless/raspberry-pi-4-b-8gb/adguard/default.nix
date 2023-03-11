@@ -6,7 +6,7 @@ let
 
   ignored = [ "adguard.local" "infomaniak.com.local" "infomaniak.com" "unifi.local" "wireguard.00a.ch" ];
 
-  settings = assert pkgs.adguardhome.schema_version == 16; {
+  settings = assert pkgs.adguardhome.schema_version == 17; {
     users = [{
       name = secrets.adguard.username;
       password = secrets.adguard.encryptedUsernamePassword;
