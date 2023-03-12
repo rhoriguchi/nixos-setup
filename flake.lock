@@ -84,6 +84,21 @@
         "type": "github"
       }
     },
+    "flake-utils_4": {
+      "locked": {
+        "lastModified": 1676283394,
+        "narHash": "sha256-XX2f9c3iySLCw54rJ/CZs+ZK6IQy7GXNY4nSOyu2QG4=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "3db36a8b464d0c4532ba1c7dda728f4576d6d073",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -204,7 +219,50 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "pre-commit-hooks": "pre-commit-hooks"
+        "pre-commit-hooks": "pre-commit-hooks",
+        "spicetify-cli": "spicetify-cli",
+        "spicetify-nix": "spicetify-nix"
+      }
+    },
+    "spicetify-cli": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678363075,
+        "narHash": "sha256-3aRXrqVwfUmeoT6V/XZ2EK0COpAwXofK+D/MV9y2WKM=",
+        "owner": "spicetify",
+        "repo": "spicetify-cli",
+        "rev": "bdf89dd17451c06556830a4d5b35cbcdf38400fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "spicetify",
+        "repo": "spicetify-cli",
+        "type": "github"
+      }
+    },
+    "spicetify-nix": {
+      "inputs": {
+        "flake-utils": "flake-utils_4",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "spicetify-cli": [
+          "spicetify-cli"
+        ]
+      },
+      "locked": {
+        "lastModified": 1678664732,
+        "narHash": "sha256-6SC+u0FQAQfjm/cjta1T+yYBNkIC/irjs7APEqSXdfQ=",
+        "owner": "rhoriguchi",
+        "repo": "spicetify-nix",
+        "rev": "8fe5fc9addcf4894e479417f1b1aec02acaee5cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rhoriguchi",
+        "ref": "nixos-setup",
+        "repo": "spicetify-nix",
+        "type": "github"
       }
     },
     "utils": {

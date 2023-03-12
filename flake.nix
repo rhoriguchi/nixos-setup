@@ -22,9 +22,22 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    spicetify-nix = {
+      # TODO use upstrema once everything is merged
+      url = "github:rhoriguchi/spicetify-nix?ref=nixos-setup";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        spicetify-cli.follows = "spicetify-cli";
+      };
+    };
+    spicetify-cli = {
+      url = "github:spicetify/spicetify-cli";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, firefox-addons, home-manager, nixos-hardware, pre-commit-hooks, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, firefox-addons, home-manager, nixos-hardware, pre-commit-hooks, spicetify-nix, ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
       nixosModules = {
@@ -32,11 +45,15 @@
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
-        home-manager = import ./modules/home-manager;
+        home-manager = { imports = [ inputs.spicetify-nix.homeManagerModule ./modules/home-manager ]; };
       };
 
-      overlays.default = lib.composeManyExtensions
-        ([ (_: super: { firefox-addons = inputs.firefox-addons.packages.${super.system}; }) ] ++ import ./overlays);
+      overlays.default = lib.composeManyExtensions ([
+        (_: super: {
+          firefox-addons = inputs.firefox-addons.packages.${super.system};
+          spicetify = inputs.spicetify-nix.packages.${super.system}.default;
+        })
+      ] ++ import ./overlays);
 
       nixopsConfigurations.default = {
         inherit (inputs) nixpkgs;
