@@ -127,6 +127,7 @@
             self.nixosModules.profiles.headless
 
             self.nixosModules.profiles.docker
+            self.nixosModules.profiles.zfs
 
             ./configuration/devices/headless/server
           ];

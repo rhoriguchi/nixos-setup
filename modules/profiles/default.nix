@@ -25,5 +25,6 @@
   python = import ./python.nix;
   terminal = import ./terminal.nix;
   util = import ./util.nix;
+  zfs = import ./zfs.nix;
   zsh = import ./zsh.nix;
 }

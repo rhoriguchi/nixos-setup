@@ -21,8 +21,6 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-
-    supportedFilesystems = [ "zfs" ];
   };
 
   networking = {
@@ -56,11 +54,6 @@
 
         locations."/".proxyPass = "http://127.0.0.1:${toString config.services.tautulli.port}";
       };
-    };
-
-    zfs = {
-      expandOnBoot = "all";
-      autoScrub.enable = true;
     };
 
     gphotos-sync = {
