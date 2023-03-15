@@ -20,16 +20,6 @@
         }
       }/pkgs/applications/networking/resilio-sync") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=220632
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "df45c5266de4a2e4445474d1b59d50ba044ae5d7";
-          sha256 = "sha256-HPRzDhXdmSGh4Z4+S1zOAKrccmngSC3up+VdEdAxs0s=";
-        }
-      }/pkgs/servers/adguardhome") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=220674
     gitkraken = super.callPackage (import "${
         super.fetchFromGitHub {
