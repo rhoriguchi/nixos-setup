@@ -35,7 +35,7 @@ start /wait spice-guest-tools.exe
 del /f spice-guest-tools.exe
 
 REM Nvidia GeForce Experience
-curl --location --output GeForce_Experience.exe --url "https://us.download.nvidia.com/GFE/GFEClient/3.25.1.27/GeForce_Experience_v3.25.1.27.exe"
+curl --location --output GeForce_Experience.exe --url "https://de.download.nvidia.com/GFE/GFEClient/3.27.0.112/GeForce_Experience_v3.27.0.112.exe"
 start /wait GeForce_Experience.exe
 del /f GeForce_Experience.exe
 ```
@@ -56,7 +56,7 @@ start /wait msiexec /i virtio-win-gt.msi /quiet /qn /norestart
 del /f virtio-win-gt.msi
 
 REM VirtIO FS
-curl --location --output winfsp.msi --url "https://github.com/winfsp/winfsp/releases/download/v1.12.22339/winfsp-1.12.22339.msi"
+curl --location --output winfsp.msi --url "https://github.com/winfsp/winfsp/releases/download/v2.0/winfsp-2.0.23075.msi"
 start /wait msiexec /i winfsp.msi /quiet /qn /norestart
 del /f winfsp.msi
 sc create VirtioFsSvc binpath="C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" start=auto depend="WinFsp.Launcher/VirtioFsDrv" DisplayName="Virtio FS Service"
@@ -96,7 +96,7 @@ curl --location --output Firefox.msi --url "https://download.mozilla.org/?produc
 start /wait msiexec /i Firefox.msi /quiet /qn /norestart
 del /f Firefox.msi
 
-curl --location --output VLC.msi --url "https://mirror.init7.net/videolan/vlc/3.0.17.4/win64/vlc-3.0.17.4-win64.msi"
+curl --location --output VLC.msi --url "https://get.videolan.org/vlc/3.0.18/win64/vlc-3.0.18-win64.msi"
 start /wait msiexec /i VLC.msi /quiet /qn /norestart
 del /f VLC.msi
 
@@ -104,7 +104,7 @@ curl --location --output Blitz_installer.exe --url "https://blitz.gg/download/wi
 curl --location --output Discord.exe --url "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86"
 curl --location --output Driver_Booster.exe --url "https://cdn.iobit.com/dl/driver_booster_setup.exe"
 curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.euw.exe"
-curl --location --output Notepad-plus-plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.4.6/npp.8.4.6.Installer.x64.exe"
+curl --location --output Notepad-plus-plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.5/npp.8.5.Installer.x64.exe"
 curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
 curl --location --output Razer_Synapse.exe --url "https://rzr.to/synapse-3-pc-download"
 curl --location --output Spotify.exe --url "https://download.scdn.co/SpotifySetup.exe"
