@@ -30,7 +30,7 @@ in glances.overrideAttrs (oldAttrs: {
     py3nvml
     python3Packages.batinfo
     python3Packages.docker
-    python3Packages.pysmart-smartx
+    python3Packages.pysmart
     python3Packages.python-dateutil
     python3Packages.requests
     python3Packages.sparklines
