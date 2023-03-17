@@ -33,6 +33,8 @@ let
         "price-tracker.00a.ch"
         "*.price-tracker.00a.ch"
       ];
+
+      ratelimit = 0;
     };
 
     querylog.ignored = ignored;
