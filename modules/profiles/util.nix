@@ -12,6 +12,7 @@
       pkgs.dmidecode
       pkgs.dnsutils
       pkgs.file
+      pkgs.gdb
       pkgs.git
       pkgs.glances
       pkgs.jq
