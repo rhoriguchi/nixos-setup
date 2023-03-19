@@ -30,17 +30,7 @@
         }
       }/pkgs/applications/version-management/gitkraken") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=221362
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "2559d29bf5eb4a5805717b6bd45997afce80e2f0";
-          sha256 = "sha256-MXrbshGzeLAhKH8XrmWhZcZkl1QEITXnyzqr7u0Apeo=";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=XXXXXXXXXXXX
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=221542
     tautulli = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
