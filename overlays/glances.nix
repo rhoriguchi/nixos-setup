@@ -53,4 +53,12 @@ in glances.overrideAttrs (oldAttrs: {
       --add-flags "--disable-irix" \
       --add-flags "--byte"
   '';
+
+  patches = [
+    # TODO remove when merged and fixed in nixpkgs
+    (fetchpatch {
+      url = "https://github.com/nicolargo/glances/pull/2299.patch";
+      sha256 = "sha256-FDG7X9OphwT9uQPo8UW85+CrblzOXP6w/XpyH2UW/ms=";
+    })
+  ];
 })
