@@ -1,4 +1,4 @@
-{ glances, formats, lib, stdenv, python3Packages, makeWrapper }:
+{ glances, formats, lib, stdenv, python3Packages, makeWrapper, fetchpatch }:
 let
   configFile = (formats.ini { }).generate "glances.conf" {
     connections.disable = false;
@@ -23,14 +23,24 @@ let
       hash = "sha256-mEFsi1cTa4GrogBxZfY3F6EHAfExNHv951QVJKum18s=";
     };
   };
+
+  pysmart = python3Packages.pysmart.overrideAttrs (_: {
+    patches = [
+      # TODO remove when merged and fixed in nixpkgs
+      (fetchpatch {
+        url = "https://patch-diff.githubusercontent.com/raw/truenas/py-SMART/pull/63.patch";
+        sha256 = "sha256-oMPYZE3a171xohk10I1IdHdkw7WtnO3/BFHIu6Cc+8Q=";
+      })
+    ];
+  });
 in glances.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
 
   propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
     py3nvml
+    pysmart
     python3Packages.batinfo
     python3Packages.docker
-    python3Packages.pysmart
     python3Packages.python-dateutil
     python3Packages.requests
     python3Packages.sparklines
