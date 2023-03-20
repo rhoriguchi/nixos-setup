@@ -251,16 +251,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1678664732,
-        "narHash": "sha256-6SC+u0FQAQfjm/cjta1T+yYBNkIC/irjs7APEqSXdfQ=",
-        "owner": "rhoriguchi",
+        "lastModified": 1679341592,
+        "narHash": "sha256-OcGvl8or6R9kn/atpRcQK9Svi30IVkWEdgo2abRFkHo=",
+        "owner": "the-argus",
         "repo": "spicetify-nix",
-        "rev": "8fe5fc9addcf4894e479417f1b1aec02acaee5cb",
+        "rev": "624c1070948b2bfbfcc4c9bcf9a940a6bd565293",
         "type": "github"
       },
       "original": {
-        "owner": "rhoriguchi",
-        "ref": "nixos-setup",
+        "owner": "the-argus",
         "repo": "spicetify-nix",
         "type": "github"
       }

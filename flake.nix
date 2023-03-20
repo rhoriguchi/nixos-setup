@@ -24,8 +24,7 @@
     };
 
     spicetify-nix = {
-      # TODO use upstrema once everything is merged
-      url = "github:rhoriguchi/spicetify-nix?ref=nixos-setup";
+      url = "github:the-argus/spicetify-nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         spicetify-cli.follows = "spicetify-cli";
