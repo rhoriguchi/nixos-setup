@@ -1,4 +1,4 @@
-{ pkgs, colors, ... }: {
+{ colors, ... }: {
   programs.git = {
     enable = true;
 
@@ -49,7 +49,6 @@
       signing = {
         key = "5CC220FFA648E8A6C3D21D96CA7EE98D45A1132A";
         signByDefault = true;
-        gpgPath = "${pkgs.gnupg}/bin/gpg2";
       };
     };
 
