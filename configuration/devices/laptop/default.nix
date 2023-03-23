@@ -54,6 +54,9 @@
       displayManager.gdm.wayland = false;
 
       libinput.enable = true;
+
+      # Required for "fonts.optimizeForVeryHighDPI" setting
+      dpi = 96;
     };
 
     resilio = {

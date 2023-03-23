@@ -1,8 +1,6 @@
 {
   # TODO boot selection is extremely small
 
-  hardware.video.hidpi.enable = true;
-
   nixpkgs.overlays = [
     (_: super: {
       gimp = super.gimp.overrideAttrs (oldAttrs: {
