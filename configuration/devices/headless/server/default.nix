@@ -28,11 +28,9 @@
     hostName = "XXLPitu-Server";
 
     interfaces = {
-      # TODO commented
-      # enp5s0.useDHCP = true;
       enp6s0.useDHCP = true;
-      # TODO commented
-      # wlp4s0.useDHCP = true;
+      enp7s0.useDHCP = true;
+      wlp5s0.useDHCP = true;
     };
   };
 

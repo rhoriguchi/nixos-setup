@@ -16,7 +16,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware.url = "github:rhoriguchi/nixos-hardware?ref=hidpi";
+    # TODO revert when merged https://github.com/NixOS/nixos-hardware/pull/593
+    # nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";

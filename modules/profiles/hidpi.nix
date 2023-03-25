@@ -1,6 +1,4 @@
 {
-  # TODO boot selection is extremely small
-
   nixpkgs.overlays = [
     (_: super: {
       gimp = super.gimp.overrideAttrs (oldAttrs: {
