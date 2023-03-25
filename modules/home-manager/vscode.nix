@@ -50,9 +50,24 @@
       "tasks" = [
         {
           "type" = "shell";
-          "label" = "deadnix";
-          "command" =
-            ''find "''${workspaceFolder}" -name "*.nix" -and ! -name "hardware-configuration.nix" | xargs ${pkgs.deadnix}/bin/deadnix'';
+          "label" = "deadnix file";
+          "command" = ''${pkgs.deadnix}/bin/deadnix "''${file}"'';
+          "presentation" = {
+            "clear" = true;
+            "focus" = true;
+            "panel" = "dedicated";
+            "reveal" = "always";
+          };
+          "group" = "none";
+          "problemMatcher" = [ ];
+        }
+        {
+          "type" = "shell";
+          "label" = "deadnix workspace";
+          "command" = lib.concatStringsSep " | " [
+            ''${pkgs.findutils}/bin/find "''${workspaceFolder}" -name "*.nix" -and ! -name "hardware-configuration.nix"''
+            "${pkgs.findutils}/bin/xargs ${pkgs.deadnix}/bin/deadnix"
+          ];
           "presentation" = {
             "clear" = true;
             "focus" = true;
@@ -78,7 +93,10 @@
         {
           "type" = "shell";
           "label" = "nixfmt workspace";
-          "command" = ''find "''${workspaceFolder}" -name "*.nix" | xargs ${pkgs.haskellPackages.nixfmt}/bin/nixfmt --width=140'';
+          "command" = lib.concatStringsSep " | " [
+            ''${pkgs.findutils}/bin/find "''${workspaceFolder}" -name "*.nix"''
+            "${pkgs.findutils}/bin/xargs ${pkgs.haskellPackages.nixfmt}/bin/nixfmt --width=140"
+          ];
           "presentation" = {
             "clear" = true;
             "close" = true;
