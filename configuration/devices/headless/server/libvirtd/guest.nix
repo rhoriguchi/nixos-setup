@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let nvramDir = "/var/lib/virt/nvram";
 in {
   virtualisation.libvirtd.qemu = {
@@ -39,20 +39,11 @@ in {
             <uuid>UUID</uuid>
 
             <os>
-              ${
-                "" # qemu-kvm -machine help
-                # TODO revert back to q35 once pc-q35-7.2 or higher works
-              }
+              <!-- qemu-kvm -machine help -->
               <type machine='pc-q35-7.1'>hvm</type>
-
-              ${
-                "" # TODO secure boot not detected by "PC Health Check"
-              }
-              <loader readonly='yes' secure='yes' type='pflash'>${pkgs.OVMF.fd}/FV/OVMF_CODE.fd</loader>
-              <nvram template='${pkgs.OVMF.fd}/FV/OVMF_VARS.fd'>${nvramDir}/windows_VARS.fd</nvram>
             </os>
 
-            <on_poweroff>restart</on_poweroff>
+            <on_poweroff>destroy</on_poweroff>
             <on_reboot>restart</on_reboot>
             <on_crash>restart</on_crash>
 
@@ -101,9 +92,7 @@ in {
                 <vapic state='on'/>
                 <spinlocks state='on' retries='8191'/>
 
-                ${
-                  "" # https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Video_card_driver_virtualisation_detection
-                }
+                <!-- https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Video_card_driver_virtualisation_detection -->
                 <vendor_id state='on' value='randomid'/>
               </hyperv>
             </features>
@@ -138,19 +127,15 @@ in {
               </rng>
 
               ${
-                ""
-
-                # TODO tpm not detected by "PC Health Check"
-                # TODO not working with libvirt - error: unsupported configuration: TPM version '2.0' is not supported
-
-                # <tpm model='tpm-tis'>
-                #   <backend type='emulator' version='2.0' persistent_state='yes'>
-                #     <active_pcr_banks>
-                #         <sha512/>
-                #     </active_pcr_banks>
-                #   </backend>
-                # </tpm>
+                "" # TODO tpm not detected by "PC Health Check"
               }
+              <tpm model='tpm-tis'>
+                <backend type='emulator' version='2.0' persistent_state='yes'>
+                  <active_pcr_banks>
+                      <sha512/>
+                  </active_pcr_banks>
+                </backend>
+              </tpm>
 
               ${
                 "" # TODO switch to https://looking-glass.io/docs
@@ -195,22 +180,18 @@ in {
               </disk>
 
               ${
-                ""
-
-                # TODO once supported add '<readonly/>'
-                # TODO currently not working https://virtio-fs.gitlab.io/
-
-                # <filesystem type='mount' accessmode='passthrough'>
-                #   <driver type='virtiofs' queue='1024'/>
-                #   <source dir='${config.services.resilio.syncPath}'/>
-                #   <target dir='Resilio'/>
-
-                #   <binary path='${pkgs.qemu}/bin/virtiofsd' xattr='on'>
-                #     <cache mode='always'/>
-                #     <lock posix='on' flock='on'/>
-                #   </binary>
-                # </filesystem>
+                "" # TODO once supported add '<readonly/>'
               }
+              <filesystem type='mount' accessmode='passthrough'>
+                <driver type='virtiofs' queue='1024'/>
+                <source dir='${config.services.resilio.syncPath}'/>
+                <target dir='Resilio'/>
+
+                <binary path='${pkgs.qemu}/bin/virtiofsd' xattr='on'>
+                  <cache mode='always'/>
+                  <lock posix='on' flock='on'/>
+                </binary>
+              </filesystem>
 
               <!-- Physical hardware -->
 
@@ -220,9 +201,7 @@ in {
                   <address domain='0x0000' bus='0x0b' slot='0x00' function='0'/>
                 </source>
 
-                ${
-                  "" # Dumped with https://github.com/SpaceinvaderOne/Dump_GPU_vBIOS
-                }
+                <!-- Dumped with https://github.com/SpaceinvaderOne/Dump_GPU_vBIOS -->
                 <rom file='${./PNY_Quadro_RTX_5000.rom}'/>
               </hostdev>
 

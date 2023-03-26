@@ -59,7 +59,7 @@ REM VirtIO FS
 curl --location --output winfsp.msi --url "https://github.com/winfsp/winfsp/releases/download/v2.0/winfsp-2.0.23075.msi"
 start /wait msiexec /i winfsp.msi /quiet /qn /norestart
 del /f winfsp.msi
-sc create VirtioFsSvc binpath="C:\Program Files\Virtio-Win\VioFS\virtiofs.exe" start=auto depend="WinFsp.Launcher/VirtioFsDrv" DisplayName="Virtio FS Service"
+sc config VirtioFsSvc start=auto
 
 REM Power tuning
 powercfg /hibernate off
