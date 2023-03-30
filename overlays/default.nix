@@ -10,16 +10,6 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=199065
-    resilio-sync = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "23669ce100c940d250e73ae3eb1a1c73bbbb056f";
-          sha256 = "sha256-ATtIqwX+ojQg8YWkniEjZ8ITswdAmZyHNHq/RUeAcuc=";
-        }
-      }/pkgs/applications/networking/resilio-sync") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=223794
     plexRaw = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
@@ -29,6 +19,16 @@
           sha256 = "sha256-ytemADSikE5KNuaCkRnQ0d0vsYEQ1XIZM15Iw2pAX8c=";
         }
       }/pkgs/servers/plex/raw.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=224539
+    resilio-sync = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "11bda4f70d98bb59c2920195caf69addae711c9e";
+          sha256 = "sha256-u/m0E6r62pm8lC4ftt9yvSx7u5VlvZTvw+3y7r3YMm0=";
+        }
+      }/pkgs/applications/networking/resilio-sync") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
