@@ -9,11 +9,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1680667357,
-        "narHash": "sha256-ZCzqwjynu5HoYgnRZOIrWciShehwl+PEqHdG/KmrSAY=",
+        "lastModified": 1680869241,
+        "narHash": "sha256-ZuI6yKkIbfD5Ptd0t9REphmLPdeenDYJOoblDFsV4Nc=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "13ccec3a300613365b4437b9b7a1806ebae5707f",
+        "rev": "3039fe7935fee324e0d267a6b34e975d32ff95b2",
         "type": "gitlab"
       },
       "original": {
@@ -55,12 +55,15 @@
       }
     },
     "flake-utils_2": {
+      "inputs": {
+        "systems": "systems"
+      },
       "locked": {
-        "lastModified": 1678901627,
-        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
+        "lastModified": 1681037374,
+        "narHash": "sha256-XL6X3VGbEFJZDUouv2xpKg2Aljzu/etPLv5e1FPt1q0=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
+        "rev": "033b9f258ca96a10e543d4442071f614dc3f8412",
         "type": "github"
       },
       "original": {
@@ -128,11 +131,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1680597706,
-        "narHash": "sha256-ZqJ3T+BxzjPH9TnmeUwS4Uu9ZQPeBXAFC9sUWlharT4=",
+        "lastModified": 1680667162,
+        "narHash": "sha256-2vgxK4j42y73S3XB2cThz1dSEyK9J9tfu4mhuEfAw68=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ec06f419af79207b33d797064dfb3fc9dbe1df4a",
+        "rev": "440faf5ae472657ef2d8cc7756d77b6ab0ace68d",
         "type": "github"
       },
       "original": {
@@ -143,11 +146,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1680070330,
-        "narHash": "sha256-aoT2YZCd9LEtiEULFLIF0ykKydgE72X8gw/k9/pRS5I=",
+        "lastModified": 1680876084,
+        "narHash": "sha256-eP9yxP0wc7XuVaODugh+ajgbFGaile2O1ihxiLxOuvU=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "a6aa8174fa61e55bd7e62d35464d3092aefe0421",
+        "rev": "3006d2860a6ed5e01b0c3e7ffb730e9b293116e2",
         "type": "github"
       },
       "original": {
@@ -158,11 +161,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1680487167,
-        "narHash": "sha256-9FNIqrxDZgSliGGN2XJJSvcDYmQbgOANaZA4UWnTdg4=",
+        "lastModified": 1680945546,
+        "narHash": "sha256-8FuaH5t/aVi/pR1XxnF0qi4WwMYC+YxlfdsA0V+TEuQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "53dad94e874c9586e71decf82d972dfb640ef044",
+        "rev": "d9f759f2ea8d265d974a6e1259bd510ac5844c5d",
         "type": "github"
       },
       "original": {
@@ -199,11 +202,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1680599552,
-        "narHash": "sha256-rQQJFGvWQ3Sr+m/r5KGIFN0iVaVKr6u9uraCz6jSKj4=",
+        "lastModified": 1680981441,
+        "narHash": "sha256-Tqr2mCVssUVp1ZXXMpgYs9+ZonaWrZGPGltJz94FYi4=",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "3342d7c51119030490fdcd07351b53b10806891c",
+        "rev": "2144d9ddcb550d6dce64a2b44facdc8c5ea2e28a",
         "type": "github"
       },
       "original": {
@@ -227,11 +230,11 @@
     "spicetify-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1680529390,
-        "narHash": "sha256-ACDNUxhrHcHXFf9nGmc9FzgNbsV5vvlmrNuuIPMsPJg=",
+        "lastModified": 1681041990,
+        "narHash": "sha256-DgjBWbzGENPz2aPdDnek92byX3WS9Lte2dUFtSdOet4=",
         "owner": "spicetify",
         "repo": "spicetify-cli",
-        "rev": "395daabd31d064ac7d2f0521fb4e6b6fa076ac5d",
+        "rev": "c9bc8fd80200655ae76cfd4f0b1c1a0659d525a0",
         "type": "github"
       },
       "original": {
@@ -261,6 +264,21 @@
       "original": {
         "owner": "the-argus",
         "repo": "spicetify-nix",
+        "type": "github"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
         "type": "github"
       }
     },

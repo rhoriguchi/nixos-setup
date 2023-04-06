@@ -13,14 +13,9 @@
     ./hardware-configuration.nix
   ];
 
-  boot = {
-    # TODO remove when zfs is not marked broken
-    kernelPackages = pkgs.linuxPackages_5_15;
-
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
   networking = {
