@@ -62,8 +62,7 @@ del /f winfsp.msi
 sc config VirtioFsSvc start=auto
 
 REM Power tuning
-powercfg /hibernate off
-powercfg -h off
+powercfg -hibernate off
 powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 powercfg -change -monitor-timeout-ac 15
 
