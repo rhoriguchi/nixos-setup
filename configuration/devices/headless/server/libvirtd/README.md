@@ -103,7 +103,7 @@ curl --location --output Blitz_installer.exe --url "https://blitz.gg/download/wi
 curl --location --output Discord.exe --url "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86"
 curl --location --output Driver_Booster.exe --url "https://cdn.iobit.com/dl/driver_booster_setup.exe"
 curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.euw.exe"
-curl --location --output Notepad-plus-plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.5/npp.8.5.Installer.x64.exe"
+curl --location --output Notepad_plus_plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.5/npp.8.5.Installer.x64.exe"
 curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
 curl --location --output Razer_Synapse.exe --url "https://rzr.to/synapse-3-pc-download"
 curl --location --output Spotify.exe --url "https://download.scdn.co/SpotifySetup.exe"
