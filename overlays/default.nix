@@ -39,7 +39,6 @@
           sha256 = "sha256-tN2U3LXmsqbb2U65scaoAXkzdDfeVjlr7ZWqjuCI/ug=";
         }
       }/pkgs/servers/adguardhome") { };
-
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
