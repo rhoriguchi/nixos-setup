@@ -41,12 +41,14 @@
     openrazer.enable = true;
   };
 
-  security.pam.enableEcryptfs = true;
-
   services = {
     xserver = {
       # TODO remove once nvidia works with wayland
-      displayManager.gdm.wayland = false;
+      displayManager = {
+        gdm.wayland = false;
+
+        autoLogin.user = "rhoriguchi";
+      };
 
       libinput.enable = true;
     };
@@ -82,7 +84,6 @@
     pkgs.neofetch
     pkgs.obsidian
     pkgs.postgresql
-    pkgs.postman
     pkgs.protonvpn-gui
     pkgs.qbittorrent
     pkgs.signal-desktop

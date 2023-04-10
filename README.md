@@ -24,7 +24,6 @@ nix-channel --add https://nixos.org/channels/nixos-unstable nixos
   - MetaMask
   - Tab Session Manager
 - NixOps
-- Postman
 - ProtonVPN Gui
 - qBittorrent
 - Resilio Sync
@@ -41,23 +40,6 @@ nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 ```console
 nix-shell -p libsecret --run "secret-tool store --label=KeePass KeePass 2FA"
 ```
-
-### [Encrypting home directory](https://wiki.archlinux.org/title/ECryptfs#Encrypting_a_home_directory)
-
-Temporarily add password to root user and make sure `users.users.root.hashedPassword` is not set.
-
-```nix
-users.users.root.password = "asdf1234";
-```
-
-Log out of user and open console `CTRL` + `ALT` + `F1` and login to root user.
-
-```console
-modprobe ecryptfs
-nix-shell -p ecryptfs --run "ecryptfs-migrate-home -u rhoriguchi"
-```
-
-Remove `users.users.root.password` option and delete copy of home `/home/rhoriguchi.random_characters`.
 
 ### Server
 

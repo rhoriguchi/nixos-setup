@@ -4,18 +4,20 @@
 { config, lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e95e733c-0865-4b35-a013-fe27052e4bb1";
+    device = "/dev/disk/by-uuid/41876dc1-3692-42de-a1df-9875a140b57b";
     fsType = "ext4";
   };
 
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/ca20abb8-e49d-4a9f-b485-a1c47b36b50d";
+
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/2FFC-225F";
+    device = "/dev/disk/by-uuid/DBAE-B85D";
     fsType = "vfat";
   };
 
