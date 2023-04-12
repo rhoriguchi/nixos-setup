@@ -95,6 +95,10 @@ curl --location --output Firefox.msi --url "https://download.mozilla.org/?produc
 start /wait msiexec /i Firefox.msi /quiet /qn /norestart
 del /f Firefox.msi
 
+curl --location --output Hextech_Repair_tool.msi --url "https://lolstatic-a.akamaihd.net/player-support/tools/hextech-repair-tool/latest/Hextech%20Repair%20Tool.msi"
+start /wait msiexec /i Hextech_Repair_tool.msi /quiet /qn /norestart
+del /f Hextech_Repair_tool.msi
+
 curl --location --output VLC.msi --url "https://get.videolan.org/vlc/3.0.18/win64/vlc-3.0.18-win64.msi"
 start /wait msiexec /i VLC.msi /quiet /qn /norestart
 del /f VLC.msi
