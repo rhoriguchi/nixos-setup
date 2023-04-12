@@ -29,6 +29,16 @@
           sha256 = "sha256-u/m0E6r62pm8lC4ftt9yvSx7u5VlvZTvw+3y7r3YMm0=";
         }
       }/pkgs/applications/networking/resilio-sync") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=225923
+    gitkraken = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "847dbc3d6da7a21850ddce3e221b8871273197d3";
+          sha256 = "sha256-nj/OyZzsETVOtbwKUMq+oEX9sVLEkbCy0yzPxOs3ShY=";
+        }
+      }/pkgs/applications/version-management/gitkraken") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
