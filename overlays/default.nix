@@ -10,16 +10,6 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=223794
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "daa658fca955a078125d085631772f9fb879915e";
-          sha256 = "sha256-Q3dozyk6//74eewtrBZ+645YxAWi0p1CSV4WbD0mVgQ=";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=224539
     resilio-sync = super.callPackage (import "${
         super.fetchFromGitHub {
@@ -29,46 +19,6 @@
           sha256 = "sha256-u/m0E6r62pm8lC4ftt9yvSx7u5VlvZTvw+3y7r3YMm0=";
         }
       }/pkgs/applications/networking/resilio-sync") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=225536
-    prowlarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "d02b6446416ebf4f5560e81c0af3c5b1783e224c";
-          sha256 = "sha256-mtFP/CbBew4DIOlup6TvV/vRGvAIORlyUaFZPukCcR4=";
-        }
-      }/pkgs/servers/prowlarr") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=225923
-    gitkraken = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "847dbc3d6da7a21850ddce3e221b8871273197d3";
-          sha256 = "sha256-nj/OyZzsETVOtbwKUMq+oEX9sVLEkbCy0yzPxOs3ShY=";
-        }
-      }/pkgs/applications/version-management/gitkraken") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=226368
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "a16b9991da41df76f484f583c0756378f96a4e10";
-          sha256 = "sha256-hWY2sGFaa90y4KhL1G+SUzAY9ZAi334L62xSOLntISU=";
-        }
-      }/pkgs/servers/adguardhome") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=226372
-    tautulli = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "634ddbd6a1deb47c61a6fc426095fa1fefc3f1da";
-          sha256 = "sha256-JNU2Z/XE44kp/04XQgQqhiz/ubxes4W5hypkXvULSVg=";
-        }
-      }/pkgs/servers/tautulli") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
