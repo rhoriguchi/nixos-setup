@@ -29,9 +29,11 @@ let
       # TODO remove when merged and fixed in nixpkgs
       (fetchpatch {
         url = "https://patch-diff.githubusercontent.com/raw/truenas/py-SMART/pull/63.patch";
-        sha256 = "sha256-oMPYZE3a171xohk10I1IdHdkw7WtnO3/BFHIu6Cc+8Q=";
+        sha256 = "sha256-+iDDUukwFMy5dSmDvq1AvGXHDUktwGuHdOkBj9zKGPg=";
       })
     ];
+
+    doInstallCheck = false;
   });
 in glances.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
