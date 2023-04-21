@@ -60,7 +60,7 @@
           }
           {
             name = "Gogoanime";
-            url = "https://gogoanime.bid";
+            url = "https://gogoanime.cl";
           }
           {
             name = "TV Time";
