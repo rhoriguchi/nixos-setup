@@ -17,6 +17,7 @@ pkgs.nixosTest {
     start_all()
 
     machine.wait_for_unit("home-assistant.service")
+    machine.wait_for_unit("nginx.service")
     machine.wait_for_unit("postgresql.service")
 
     machine.wait_for_open_port(8123)

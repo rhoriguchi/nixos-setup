@@ -16,6 +16,7 @@ pkgs.nixosTest {
     start_all()
 
     machine.wait_for_unit("adguardhome.service")
+    machine.wait_for_unit("nginx.service")
 
     machine.wait_for_open_port(53)
     machine.wait_for_open_port(80)
