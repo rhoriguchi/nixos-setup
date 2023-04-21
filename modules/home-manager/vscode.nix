@@ -218,10 +218,11 @@
       "window.autoDetectColorScheme" = true;
       "window.newWindowDimensions" = "maximized";
       "window.openFoldersInNewWindow" = "on";
-      "window.restoreFullscreen" = false;
+      "window.restoreFullscreen" = true;
       "window.zoomLevel" = 0;
       "workbench.colorTheme" = "Default Light+";
       "workbench.editor.highlightModifiedTabs" = true;
+      "workbench.editor.restoreViewState" = true;
       "workbench.editor.untitled.hint" = "hidden";
       "workbench.editorAssociations"."*.md" = "vscode.markdown.preview.editor";
       "workbench.iconTheme" = "material-icon-theme";
