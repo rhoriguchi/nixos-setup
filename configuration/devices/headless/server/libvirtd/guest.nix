@@ -187,7 +187,7 @@ in {
                 <source dir='${config.services.resilio.syncPath}'/>
                 <target dir='Resilio'/>
 
-                <binary path='${pkgs.qemu}/bin/virtiofsd' xattr='on'>
+                <binary path='${pkgs.virtiofsd}/bin/virtiofsd' xattr='on'>
                   <cache mode='always'/>
                   <lock posix='on' flock='on'/>
                 </binary>
