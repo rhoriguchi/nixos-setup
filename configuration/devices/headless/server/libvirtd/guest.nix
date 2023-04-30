@@ -40,7 +40,7 @@ in {
 
             <os>
               <!-- qemu-kvm -machine help -->
-              <type machine='pc-q35-7.1'>hvm</type>
+              <type machine='pc-q35-7.2'>hvm</type>
             </os>
 
             <on_poweroff>destroy</on_poweroff>
