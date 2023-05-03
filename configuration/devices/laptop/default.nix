@@ -6,6 +6,8 @@
     ./rsnapshot.nix
 
     ./hardware-configuration.nix
+
+    ./vpn.nix
   ];
 
   boot.loader = {

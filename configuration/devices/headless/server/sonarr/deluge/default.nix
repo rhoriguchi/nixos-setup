@@ -33,61 +33,61 @@ in {
       };
     };
 
-    openvpn.servers.deluge = {
-      config = let
-        ips = [
-          # Netherlands
-          "138.199.7.129"
-          "146.70.86.114"
-          "185.107.56.224"
-          "185.107.56.229"
-          "185.107.57.49"
-          "185.107.80.190"
-          "190.2.131.156"
-          "190.2.132.124"
-          "190.2.132.139"
-          "62.112.9.164"
-        ];
-        ports = [ 1194 4569 51820 5060 80 ];
+    # openvpn.servers.deluge = {
+    #   config = let
+    #     ips = [
+    #       # Netherlands
+    #       "138.199.7.129"
+    #       "146.70.86.114"
+    #       "185.107.56.224"
+    #       "185.107.56.229"
+    #       "185.107.57.49"
+    #       "185.107.80.190"
+    #       "190.2.131.156"
+    #       "190.2.132.124"
+    #       "190.2.132.139"
+    #       "62.112.9.164"
+    #     ];
+    #     ports = [ 1194 4569 51820 5060 80 ];
 
-        remotes = lib.flatten (map (ip: map (port: "remote ${ip} ${toString port}") ports) ips);
-      in ''
-        auth SHA512
-        verb 3
+    #     remotes = lib.flatten (map (ip: map (port: "remote ${ip} ${toString port}") ports) ips);
+    #   in ''
+    #     auth SHA512
+    #     verb 3
 
-        client
-        dev ${vpnInterface}
-        proto udp
-        persist-tun
+    #     client
+    #     dev ${vpnInterface}
+    #     proto udp
+    #     persist-tun
 
-        pull
-        route-nopull
+    #     pull
+    #     route-nopull
 
-        ${lib.concatStringsSep "\n" remotes}
-        server-poll-timeout 20
-        remote-random
-        resolv-retry infinite
-        nobind
+    #     ${lib.concatStringsSep "\n" remotes}
+    #     server-poll-timeout 20
+    #     remote-random
+    #     resolv-retry infinite
+    #     nobind
 
-        fast-io
-        tun-mtu 1500
-        tun-mtu-extra 32
-        mssfix 1450
-        reneg-sec 0
+    #     fast-io
+    #     tun-mtu 1500
+    #     tun-mtu-extra 32
+    #     mssfix 1450
+    #     reneg-sec 0
 
-        persist-key
-        ca ${./ca.pem}
+    #     persist-key
+    #     ca ${./ca.pem}
 
-        setenv CLIENT_CERT 0
-        remote-cert-tls server
-        tls-auth ${./server.key} 1
-      '';
+    #     setenv CLIENT_CERT 0
+    #     remote-cert-tls server
+    #     tls-auth ${./server.key} 1
+    #   '';
 
-      authUserPass = {
-        username = secrets.protonvpn.username;
-        password = secrets.protonvpn.password;
-      };
-    };
+    #   authUserPass = {
+    #     username = secrets.protonvpn.username;
+    #     password = secrets.protonvpn.password;
+    #   };
+    # };
 
     deluge = {
       enable = true;
