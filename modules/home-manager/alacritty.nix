@@ -16,6 +16,8 @@
       };
 
       font = {
+        size = 10;
+
         normal = {
           family = "RobotoMono Nerd Font";
           style = "Regular";
