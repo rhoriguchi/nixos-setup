@@ -6,7 +6,6 @@
       if hash tmux 2>/dev/null && ! pgrep tmux >/dev/null; then
         if [ "$TERM_PROGRAM" != "vscode" ] && [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]; then
           tmux new-session -n ""
-          echo "Tmux session started"
         fi
       fi
     '';
@@ -25,13 +24,16 @@
       extraConfig = ''
         bind h split-window -h
         unbind %
+
         bind v split-window
         unbind '"'
 
         set -g clock-mode-colour ${colors.accent}
+        set -g mode-style 'reverse'
         set -g pane-active-border-style fg=${colors.accent}
         set -g status-bg ${colors.accent}
         set -g status-fg black
+        set -g status-interval 1
         set -g status-right ""
       '';
     };
