@@ -29,6 +29,8 @@
         unbind '"'
 
         set -g clock-mode-colour ${colors.accent}
+        set -g message-command-style bg=black,fg=green
+        set -g message-style bg=green,fg=black
         set -g mode-style 'reverse'
         set -g pane-active-border-style fg=${colors.accent}
         set -g status-bg ${colors.accent}
