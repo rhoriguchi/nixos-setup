@@ -25,14 +25,7 @@
 
     spicetify-nix = {
       url = "github:the-argus/spicetify-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        spicetify-cli.follows = "spicetify-cli";
-      };
-    };
-    spicetify-cli = {
-      url = "github:spicetify/spicetify-cli";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
