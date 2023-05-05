@@ -2,13 +2,17 @@
   programs = {
     fzf.tmux.enableShellIntegration = true;
 
-    zsh.initExtra = ''
-      if hash tmux 2>/dev/null && ! pgrep tmux >/dev/null; then
-        if [ "$TERM_PROGRAM" != "vscode" ] && [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]; then
-          tmux new-session -n ""
+    zsh = {
+      shellAliases.clear = "clear && tmux clear-history 2> /dev/null";
+
+      initExtra = ''
+        if hash tmux 2>/dev/null && ! pgrep tmux >/dev/null; then
+          if [ "$TERM_PROGRAM" != "vscode" ] && [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]; then
+            tmux new-session -n ""
+          fi
         fi
-      fi
-    '';
+      '';
+    };
 
     tmux = {
       enable = true;
