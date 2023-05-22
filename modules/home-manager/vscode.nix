@@ -27,7 +27,6 @@
       pkgs.vscode-extensions.ibm.output-colorizer
       pkgs.vscode-extensions.jock.svg
       pkgs.vscode-extensions.johnpapa.vscode-peacock
-      pkgs.vscode-extensions.kamikillerto.vscode-colorize
       pkgs.vscode-extensions.ms-azuretools.vscode-docker
       pkgs.vscode-extensions.ms-dotnettools.csharp
       pkgs.vscode-extensions.ms-python.python
@@ -111,7 +110,6 @@
     };
 
     userSettings = {
-      "colorize.include" = [ "*" ];
       "cSpell.enableFiletypes" = [ "nix" "terraform" ];
       "cSpell.userWords" = [ "horiguchi" "rhoriguchi" ];
       "editor.bracketPairColorization.enabled" = true;
@@ -123,6 +121,7 @@
       "editor.tokenColorCustomizations".comments = "#767676";
       "editor.unicodeHighlight.includeComments" = true;
       "editor.wordBasedSuggestionsMode" = "allDocuments";
+      "editor.defaultColorDecorators" = true;
       "explorer.compactFolders" = false;
       "explorer.confirmDelete" = false;
       "explorer.fileNesting.enabled" = true;
