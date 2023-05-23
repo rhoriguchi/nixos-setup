@@ -24,9 +24,7 @@
     };
 
     spicetify-nix = {
-      # TODO remove when merged https://github.com/the-argus/spicetify-nix/pull/25
-      url = "github:rhoriguchi/spicetify-nix?ref=fix-theme";
-      # url = "github:the-argus/spicetify-nix";
+      url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
