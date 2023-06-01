@@ -1,4 +1,4 @@
-{ glances, formats, lib, stdenv, python3Packages, makeWrapper, fetchpatch }:
+{ glances, fetchFromGitHub, formats, lib, stdenv, python3Packages, makeWrapper }:
 let
   configFile = (formats.ini { }).generate "glances.conf" {
     connections.disable = false;
@@ -24,17 +24,15 @@ let
     };
   };
 
-  pysmart = python3Packages.pysmart.overrideAttrs (_: {
-    patches = [
-      # TODO remove when merged and fixed in nixpkgs
-      (fetchpatch {
-        url = "https://patch-diff.githubusercontent.com/raw/truenas/py-SMART/pull/63.patch";
-        sha256 = "sha256-+iDDUukwFMy5dSmDvq1AvGXHDUktwGuHdOkBj9zKGPg=";
-      })
-    ];
-
-    doInstallCheck = false;
-  });
+  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=235477
+  pysmart = python3Packages.callPackage (import "${
+      fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "238a26ab0bbc32a0523a71b010fd4ddd23ac3856";
+        sha256 = "sha256-JvE8gR221DmNYo8PT7SA3/fQVLu6Fmg0IU8w1XS9TOs=";
+      }
+    }/pkgs/development/python-modules/pysmart") { };
 in glances.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
 
