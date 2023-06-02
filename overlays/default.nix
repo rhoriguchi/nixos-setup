@@ -10,16 +10,6 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=224539
-    resilio-sync = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "11bda4f70d98bb59c2920195caf69addae711c9e";
-          sha256 = "sha256-u/m0E6r62pm8lC4ftt9yvSx7u5VlvZTvw+3y7r3YMm0=";
-        }
-      }/pkgs/applications/networking/resilio-sync") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=233653
     glances = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
