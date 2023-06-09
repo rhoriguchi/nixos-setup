@@ -203,7 +203,11 @@
         } // (import ./checks { inherit pkgs; });
 
         devShells.default = pkgs.mkShell {
-          buildInputs = [ pkgs.nix (pkgs.nixopsUnstable.withPlugins (_: [ ])) ];
+          buildInputs = [
+            # TODO remove version pinning when nixops works with nix 2.15
+            pkgs.nixVersions.nix_2_14
+            (pkgs.nixopsUnstable.withPlugins (_: [ ]))
+          ];
           shellHook = self.checks.${system}.pre-commit.shellHook;
         };
       });
