@@ -30,8 +30,6 @@
 
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
 
-    nixopsUnstable = super.nixopsUnstable.withPlugins (_: [ ]);
-
     hs = super.callPackage ./hs { };
 
     py-kms = super.callPackage ./py-kms.nix { };

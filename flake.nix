@@ -203,7 +203,7 @@
         } // (import ./checks { inherit pkgs; });
 
         devShells.default = pkgs.mkShell {
-          buildInputs = [ pkgs.nix pkgs.nixopsUnstable ];
+          buildInputs = [ pkgs.nix (pkgs.nixopsUnstable.withPlugins (_: [ ])) ];
           shellHook = self.checks.${system}.pre-commit.shellHook;
         };
       });
