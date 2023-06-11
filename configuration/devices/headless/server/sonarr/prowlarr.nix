@@ -1,4 +1,4 @@
-{ config, secrets, ... }: {
+{ config, pkgs, secrets, ... }: {
   services = {
     prowlarr.enable = true;
 
@@ -37,7 +37,15 @@
   };
 
   virtualisation.oci-containers.containers.flaresolverr = {
-    image = "flaresolverr/flaresolverr:v3.2.0";
+    image = "flaresolverr/flaresolverr:v3.2.1";
+
+    imageFile = pkgs.dockerTools.pullImage {
+      imageName = "flaresolverr/flaresolverr";
+      imageDigest = "sha256:648960c5a4118a085594aea0faf8d44bc08650c030c62805571c2ff2e4533982";
+      sha256 = "sha256-esAQkugOUEnpNwMLNU6pVzB47ERBGcHVuKn4P1fd7nI=";
+
+      finalImageTag = "v3.2.1";
+    };
 
     ports = [ "8191:8191" ];
 
