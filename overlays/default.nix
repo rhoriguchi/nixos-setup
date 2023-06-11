@@ -19,6 +19,16 @@
           sha256 = "sha256-giBX9hOfD/Pnz0gOwNBswIpRbumqjzfgegwHmzLXgzM=";
         }
       }/pkgs/applications/system/glances") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=237258
+    adguardhome = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "1f9be6a55c7ff8bc2e1f21f1ee29815053b3defc";
+          sha256 = "sha256-nGcohDWUoVjamM/uXp9Kf8Ecn2REwj6+HeXPAB5LGuA=";
+        }
+      }/pkgs/servers/adguardhome") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
