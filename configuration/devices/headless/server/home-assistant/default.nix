@@ -59,7 +59,9 @@
 
       bluetooth = { };
 
-      history.exclude.entities = [ "sensor.time" ];
+      history = { };
+
+      recorder.exclude.entities = [ "sensor.time" ];
 
       system_health = { };
 

@@ -38,11 +38,12 @@ in {
       enable_adguard_protection = "${pythonWithPackages}/bin/python ${script "set_status(True)"}";
     };
 
-    sensor = [{
-      platform = "command_line";
-      name = "AdGuard protection";
-      scan_interval = 5;
-      command = "${pythonWithPackages}/bin/python ${script "get_status()"}";
+    command_line = [{
+      sensor = {
+        name = "AdGuard protection";
+        scan_interval = 5;
+        command = "${pythonWithPackages}/bin/python ${script "get_status()"}";
+      };
     }];
 
     switch = [{

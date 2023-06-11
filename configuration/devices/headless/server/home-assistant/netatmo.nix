@@ -43,28 +43,29 @@ let
   pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.requests ]);
 
   createValveBatterySensors = map (valve: {
-    platform = "command_line";
-    name = valve.name;
-    scan_interval = 60 * 60;
-    command = "${pythonWithPackages}/bin/python ${getBatteryStateScript valve.id}";
-    value_template = ''
-      {% if value == 'full' %}
-        100
-      {% elif value == 'high' %}
-        75
-      {% elif value == 'medium' %}
-        50
-      {% elif value == 'low' %}
-        25
-      {% elif value == 'very_low' %}
-        10
-      {% endif %}
-    '';
-    unit_of_measurement = "%";
+    sensor = {
+      name = valve.name;
+      scan_interval = 60 * 60;
+      command = "${pythonWithPackages}/bin/python ${getBatteryStateScript valve.id}";
+      value_template = ''
+        {% if value == 'full' %}
+          100
+        {% elif value == 'high' %}
+          75
+        {% elif value == 'medium' %}
+          50
+        {% elif value == 'low' %}
+          25
+        {% elif value == 'very_low' %}
+          10
+        {% endif %}
+      '';
+      unit_of_measurement = "%";
+    };
   });
 in {
   services.home-assistant.config = {
-    sensor = createValveBatterySensors [
+    command_line = createValveBatterySensors [
       {
         name = "Netatmo valve living room battery";
         id = "09:00:00:14:eb:85";

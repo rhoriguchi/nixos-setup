@@ -29,15 +29,16 @@ let
   pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.requests ]);
 
   createButtonBatterySensors = map (button: {
-    platform = "command_line";
-    name = button.name;
-    scan_interval = 60 * 60;
-    command = "${pythonWithPackages}/bin/python ${getVoltageScript button.id}";
-    value_template = let
-      maxVoltage = "4300";
-      minVoltage = "3700";
-    in "{{ (((value | float) * 1000 - ${minVoltage}) * 100 / (${maxVoltage} - ${minVoltage})) | round }}";
-    unit_of_measurement = "%";
+    sensor = {
+      name = button.name;
+      scan_interval = 60 * 60;
+      command = "${pythonWithPackages}/bin/python ${getVoltageScript button.id}";
+      value_template = let
+        maxVoltage = "4300";
+        minVoltage = "3700";
+      in "{{ (((value | float) * 1000 - ${minVoltage}) * 100 / (${maxVoltage} - ${minVoltage})) | round }}";
+      unit_of_measurement = "%";
+    };
   });
 in {
   services.home-assistant.config = {
@@ -63,7 +64,7 @@ in {
       };
     }];
 
-    sensor = createButtonBatterySensors [
+    command_line = createButtonBatterySensors [
       {
         name = "myStrom button blue battery";
         id = "F4CFA2E9DACB";
@@ -85,12 +86,13 @@ in {
         id = "CC50E3F8CB7A";
       }
     ] ++ [{
-      platform = "command_line";
-      name = "myStrom Desk Monitor power consumption";
-      scan_interval = 60;
-      command = "${pythonWithPackages}/bin/python ${getPowerScript "083AF2A56094"}";
-      value_template = "{{ value | round }}";
-      unit_of_measurement = "W";
+      sensor = {
+        name = "myStrom Desk Monitor power consumption";
+        scan_interval = 60;
+        command = "${pythonWithPackages}/bin/python ${getPowerScript "083AF2A56094"}";
+        value_template = "{{ value | round }}";
+        unit_of_measurement = "W";
+      };
     }];
 
     automation = [
@@ -99,6 +101,7 @@ in {
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_gray";
+          local_only = true;
         }];
         action = [{
           service = "light.toggle";
@@ -116,10 +119,12 @@ in {
           {
             platform = "webhook";
             webhook_id = "mystrom_button_blue";
+            local_only = true;
           }
           {
             platform = "webhook";
             webhook_id = "mystrom_button_purple";
+            local_only = true;
           }
         ];
         action = [{
@@ -137,6 +142,7 @@ in {
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_white";
+          local_only = true;
         }];
         action = [{
           service = "light.toggle";
@@ -153,6 +159,7 @@ in {
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_orange";
+          local_only = true;
         }];
         action = [{
           service = "light.toggle";

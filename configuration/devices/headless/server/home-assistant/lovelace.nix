@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 let
   lovelaceModules = [
-    pkgs.hs.lovelaceModule.battery-entity
+    pkgs.hs.lovelaceModule.battery-state-card
     pkgs.hs.lovelaceModule.card-mod
     pkgs.hs.lovelaceModule.fold-entity-row
     pkgs.hs.lovelaceModule.mini-graph-card
@@ -224,43 +224,43 @@ in {
                 title = "Battery";
                 entities = [
                   {
-                    type = "custom:battery-entity";
+                    type = "custom:battery-state-entity";
                     name = "Netatmo valve entrance hallway";
                     entity = "sensor.netatmo_valve_entrance_hallway_battery";
                   }
                   {
-                    type = "custom:battery-entity";
+                    type = "custom:battery-state-entity";
                     name = "Netatmo valve entrance window";
                     entity = "sensor.netatmo_valve_entrance_window_battery";
                   }
                   {
-                    type = "custom:battery-entity";
+                    type = "custom:battery-state-entity";
                     name = "Netatmo valve living room";
                     entity = "sensor.netatmo_valve_living_room_battery";
                   }
                   { type = "divider"; }
                   {
-                    type = "custom:battery-entity";
+                    type = "custom:battery-state-entity";
                     name = "myStrom button blue";
                     entity = "sensor.mystrom_button_blue_battery";
                   }
                   {
-                    type = "custom:battery-entity";
+                    type = "custom:battery-state-entity";
                     name = "myStrom button orange";
                     entity = "sensor.mystrom_button_orange_battery";
                   }
                   {
-                    type = "custom:battery-entity";
+                    type = "custom:battery-state-entity";
                     name = "myStrom button gray";
                     entity = "sensor.mystrom_button_gray_battery";
                   }
                   {
-                    type = "custom:battery-entity";
+                    type = "custom:battery-state-entity";
                     name = "myStrom button purple";
                     entity = "sensor.mystrom_button_purple_battery";
                   }
                   {
-                    type = "custom:battery-entity";
+                    type = "custom:battery-state-entity";
                     name = "myStrom button white";
                     entity = "sensor.mystrom_button_white_battery";
                   }

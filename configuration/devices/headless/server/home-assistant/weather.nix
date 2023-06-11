@@ -7,12 +7,13 @@ let
 
   apiUrl = "https://api.openweathermap.org/data/2.5";
 in {
-  services.home-assistant.config.sensor = [{
-    platform = "command_line";
-    name = "OpenWeather current temperature";
-    scan_interval = 5 * 60;
-    command = ''${pkgs.curl}/bin/curl "${apiUrl}/weather?appid=${apiKey}&lat=${toString lat}&lon=${toString lon}&units=${units}"'';
-    value_template = "{{ value_json.main.temp }}";
-    unit_of_measurement = "°C";
+  services.home-assistant.config.command_line = [{
+    sensor = {
+      name = "OpenWeather current temperature";
+      scan_interval = 5 * 60;
+      command = ''${pkgs.curl}/bin/curl "${apiUrl}/weather?appid=${apiKey}&lat=${toString lat}&lon=${toString lon}&units=${units}"'';
+      value_template = "{{ value_json.main.temp }}";
+      unit_of_measurement = "°C";
+    };
   }];
 }
