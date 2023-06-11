@@ -42,15 +42,11 @@
   };
 
   services = {
-    xserver = {
-      # TODO remove once nvidia works with wayland
-      displayManager = {
-        gdm.wayland = false;
+    # TODO remove once nvidia works with wayland
+    xserver.displayManager = {
+      gdm.wayland = false;
 
-        autoLogin.user = "rhoriguchi";
-      };
-
-      libinput.enable = true;
+      autoLogin.user = "rhoriguchi";
     };
 
     resilio = {
