@@ -19,7 +19,7 @@ let
     device_name = lib.toUpper cfg.deviceName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.storagePath;
-    check_for_updates = !cfg.systemWide;
+    check_for_updates = cfg.webUI.enable;
     use_upnp = true;
     download_limit = 0;
     upload_limit = 0;
