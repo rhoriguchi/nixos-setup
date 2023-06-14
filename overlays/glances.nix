@@ -1,4 +1,4 @@
-{ glances, fetchFromGitHub, formats, lib, stdenv, python3Packages, makeWrapper }:
+{ glances, formats, lib, stdenv, python3Packages, makeWrapper }:
 let
   configFile = (formats.ini { }).generate "glances.conf" {
     connections.disable = false;
@@ -23,24 +23,14 @@ let
       hash = "sha256-mEFsi1cTa4GrogBxZfY3F6EHAfExNHv951QVJKum18s=";
     };
   };
-
-  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=235477
-  pysmart = python3Packages.callPackage (import "${
-      fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "238a26ab0bbc32a0523a71b010fd4ddd23ac3856";
-        sha256 = "sha256-JvE8gR221DmNYo8PT7SA3/fQVLu6Fmg0IU8w1XS9TOs=";
-      }
-    }/pkgs/development/python-modules/pysmart") { };
 in glances.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
 
   propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [
     py3nvml
-    pysmart
     python3Packages.batinfo
     python3Packages.docker
+    python3Packages.pysmart
     python3Packages.python-dateutil
     python3Packages.requests
     python3Packages.sparklines
