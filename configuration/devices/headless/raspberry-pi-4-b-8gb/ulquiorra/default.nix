@@ -1,5 +1,9 @@
 { secrets, ... }: {
-  imports = [ ../common.nix ];
+  imports = [
+    ../common.nix
+
+    ./wifi.nix
+  ];
 
   networking.hostName = "XXLPitu-Ulquiorra";
 

@@ -9,26 +9,6 @@
           sha256 = "sha256-VlvxAWOKZ/ih7bxKxD2qfp2S8skGABS90hfmP8aV2w0=";
         }
       }/pkgs/tools/system/fancy-motd") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=233653
-    glances = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "6e3500fdd0d762d2fe4bf42a307aa1b8f608fa76";
-          sha256 = "sha256-giBX9hOfD/Pnz0gOwNBswIpRbumqjzfgegwHmzLXgzM=";
-        }
-      }/pkgs/applications/system/glances") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=237597
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "97cc99c5afb7ab2c57cfb855efdacc6c401d6a1d";
-          sha256 = "sha256-pAWAdGUzxHz0KQ7ZmwDyuYZMysU256lAvDvRjDLVQPY=";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
