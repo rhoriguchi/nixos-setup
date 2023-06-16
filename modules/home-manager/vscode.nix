@@ -146,6 +146,13 @@
         "**/CVS" = true;
       };
       "files.insertFinalNewline" = true;
+      "files.readonlyInclude" = {
+        "**/.gen" = true;
+        "**/flake.lock" = true;
+        "**/node_modules" = true;
+        "**/package-lock.json" = true;
+        "**/target" = true;
+      };
       "files.trimTrailingWhitespace" = true;
       "gitlens.defaultDateFormat" = "DD.MM.YYYY HH:MM";
       "gitlens.defaultDateShortFormat" = "DD.MM.YYYY";
