@@ -1,98 +1,80 @@
 { pkgs, ... }: {
-  programs = {
-    zsh = {
-      enable = true;
+  programs.zsh = {
+    enable = true;
 
-      enableCompletion = true;
+    enableCompletion = true;
 
-      history = {
-        size = 10000;
-        extended = true;
-      };
-
-      plugins = [
-        {
-          name = pkgs.zsh-autosuggestions.pname;
-          file = "zsh-autosuggestions.zsh";
-          src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
-        }
-        {
-          name = pkgs.zsh-syntax-highlighting.pname;
-          file = "zsh-syntax-highlighting.zsh";
-          src = "${pkgs.zsh-syntax-highlighting}/share/${pkgs.zsh-syntax-highlighting.pname}";
-        }
-      ];
-
-      localVariables.ZSH_AUTOSUGGEST_STRATEGY = [ "completion" ];
-
-      initExtra = ''
-        autoload -U colors && colors
-
-        # Disable mail checking
-        MAILCHECK=0
-
-        # Needed to use #, ~ and ^ in regexing filenames
-        setopt extended_glob
-
-        # Report status of background jobs immediately
-        setopt NOTIFY
-
-        # Disable beeping
-        setopt NOBEEP
-
-        # Increase stack size of dirs
-        DIRSTACKSIZE=20
-
-        # Push old directory onto the directory stack automatically
-        setopt AUTO_PUSHD
-
-        # Do not push the same dir twice
-        setopt PUSHD_IGNORE_DUPS
-
-        # Enable completion of aliases
-        setopt COMPLETEALIASES
-
-        # No matching for dotfiles (e.g. * does not expand to .dotfiles but .* does)
-        setopt NOGLOBDOTS
-
-        # Enable completion from within a word
-        setopt COMPLETE_IN_WORD
-
-        # Move cursor to the end on completing a word
-        setopt ALWAYS_TO_END
-
-        # Make sure entire command is hashed before completion
-        setopt HASH_LIST_ALL
-
-        zstyle ':completion:*' auto-description 'specify: %d'
-        zstyle ':completion:*' completer _expand _complete _correct _approximate
-        zstyle ':completion:*' format 'Completing %d'
-        zstyle ':completion:*' group-name '''
-        zstyle ':completion:*' menu select=2
-        eval "$(dircolors -b)"
-        zstyle ':completion:*:default' list-colors ''${(s.:.)LS_COLORS}
-        zstyle ':completion:*' list-colors '''
-        zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-        zstyle ':completion:*' matcher-list ''' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-        zstyle ':completion:*' menu select=long
-        zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-        zstyle ':completion:*' use-compctl false
-        zstyle ':completion:*' verbose true
-
-        zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-        zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-        local current_user="%{$fg[magenta]%}$USER%{$reset_color%}"
-        local root="%{$fg[red]%}root%{$reset_color%}"
-        local user_string="%(!.''${root}.''${current_user})"
-
-        local hostname="%{$fg[magenta]%}%M%{$reset_color%}"
-        local path_string="%{$fg[green]%}%~%{$reset_color%}"
-        local prompt_string=">"
-
-        PROMPT="''${user_string}@''${hostname} ''${path_string} ''${prompt_string} %{$reset_color%}"
-        RPROMPT=""
-      '';
+    history = {
+      size = 10000;
+      extended = true;
     };
+
+    plugins = [
+      {
+        name = pkgs.zsh-autosuggestions.pname;
+        file = "zsh-autosuggestions.zsh";
+        src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
+      }
+      {
+        name = pkgs.zsh-syntax-highlighting.pname;
+        file = "zsh-syntax-highlighting.zsh";
+        src = "${pkgs.zsh-syntax-highlighting}/share/${pkgs.zsh-syntax-highlighting.pname}";
+      }
+    ];
+
+    localVariables.ZSH_AUTOSUGGEST_STRATEGY = [ "completion" ];
+
+    shellAliases = {
+      DIRSTACKSIZE = "20";
+      MAILCHECK = "0";
+    };
+
+    initExtra = ''
+      # https://zsh.sourceforge.io/Doc/Release/Options.html
+
+      # Treat the '#', '~' and '^' characters as part of patterns for filename generation, etc. (An initial unquoted '~' always produces
+      #  named directory expansion.)
+      setopt EXTENDED_GLOB
+
+      # Report the status of background jobs immediately, rather than waiting until just before printing a prompt.
+      setopt NOTIFY
+
+      # Beep on error in ZLE.
+      unsetopt BEEP
+
+      # Beep on an ambiguous completion. More accurately, this forces the completion widgets to return status 1 on an ambiguous completion
+      #  which causes the shell to beep if the option BEEP is also set; this may be modified if completion is called from a user-defined
+      #  widget.
+      unsetopt LIST_BEEP
+
+      # Make cd push the old directory onto the directory stack.
+      setopt AUTO_PUSHD
+
+      # Do not print the directory stack after pushd or popd.
+      setopt PUSHD_SILENT
+
+      # Don't push multiple copies of the same directory onto the directory stack.
+      setopt PUSHD_IGNORE_DUPS
+
+      # Prevents aliases on the command line from being internally substituted before completion is attempted. The effect is to make the
+      #  alias a distinct command for completion purposes.
+      setopt COMPLETE_ALIASES
+
+      # Do not require a leading '.' in a filename to be matched explicitly.
+      unsetopt GLOB_DOTS
+
+      # If unset, the cursor is set to the end of the word if completion is started. Otherwise it stays there and completion is done from
+      #  both ends.
+      setopt COMPLETE_IN_WORD
+
+      # If a completion is performed with the cursor within a word, and a full completion is inserted, the cursor is moved to the end of
+      #  the word. That is, the cursor is moved to the end of the word if either a single match is inserted or menu completion is
+      #  performed.
+      setopt ALWAYS_TO_END
+
+      # Whenever a command completion or spelling correction is attempted, make sure the entire command path is hashed first. This makes
+      #  the first completion slower but avoids false reports of spelling errors.
+      setopt HASH_LIST_ALL
+    '';
   };
 }
