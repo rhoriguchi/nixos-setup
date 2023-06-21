@@ -18,6 +18,8 @@ in {
         truncation_length = 999;
       };
 
+      git_branch.style = "${accentColor} bold";
+
       character = {
         success_symbol = "[❯](white bold)";
         error_symbol = "[❯](white bold)";
