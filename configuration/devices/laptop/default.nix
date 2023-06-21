@@ -79,15 +79,12 @@
     pkgs.jetbrains.pycharm-professional
     pkgs.jetbrains.webstorm
     pkgs.libreoffice-fresh
-    pkgs.neofetch
     pkgs.obsidian
     pkgs.postgresql
     pkgs.protonvpn-gui
     pkgs.qbittorrent
     pkgs.signal-desktop
-    pkgs.virt-manager
     pkgs.vlc
-    pkgs.vscode
     pkgs.wpa_supplicant_gui
   ];
 
