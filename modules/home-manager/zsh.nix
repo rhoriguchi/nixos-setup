@@ -5,7 +5,7 @@
     enableCompletion = true;
 
     history = {
-      size = 10000;
+      size = 10 * 1000;
       extended = true;
     };
 

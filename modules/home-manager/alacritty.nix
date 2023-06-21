@@ -11,7 +11,7 @@
       window.startup_mode = "Maximized";
 
       scrolling = {
-        history = 10000;
+        history = 10 * 1000;
         multiplier = 3;
       };
 

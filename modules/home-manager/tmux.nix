@@ -21,7 +21,7 @@
       keyMode = "emacs";
       mouse = true;
       clock24 = true;
-      historyLimit = 10000;
+      historyLimit = 10 * 1000;
       shell = "${pkgs.zsh}/bin/zsh";
       terminal = "screen-256color";
 
