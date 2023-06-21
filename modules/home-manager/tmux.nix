@@ -6,9 +6,9 @@
       shellAliases.clear = "clear && tmux clear-history 2> /dev/null";
 
       initExtra = ''
-        if hash tmux 2>/dev/null && ! pgrep tmux >/dev/null; then
-          if [ "$TERM_PROGRAM" != "vscode" ] && [ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]; then
-            tmux new-session -n ""
+        if [ "$TMUX" = ''' ]; then
+          if [ "$TERM_PROGRAM" != 'vscode' ] && [ "$TERMINAL_EMULATOR" != 'JetBrains-JediTerm' ]; then
+            tmux attach-session -t 'default' || tmux new-session -s 'default'
           fi
         fi
       '';
