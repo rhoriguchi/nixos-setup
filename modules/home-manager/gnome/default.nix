@@ -13,6 +13,8 @@ let
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
+  imports = [ ./autostart.nix ];
+
   fonts.fontconfig.enable = true;
   home.packages = [ pkgs.cantarell-fonts (pkgs.nerdfonts.override { fonts = [ "RobotoMono" ]; }) ]
     ++ [ pkgs.papirus-icon-theme pkgs.yaru-theme ] ++ extensions;
