@@ -17,6 +17,7 @@ let
       options = [
         "credentials=${credentialsFile}"
         "noauto"
+        "x-systemd.after=network-online.target"
         "x-systemd.automount"
         "x-systemd.device-timeout=5s"
         "x-systemd.idle-timeout=60"
