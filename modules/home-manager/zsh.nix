@@ -24,7 +24,7 @@
 
     localVariables.ZSH_AUTOSUGGEST_STRATEGY = [ "completion" ];
 
-    shellAliases = {
+    sessionVariables = {
       DIRSTACKSIZE = "20";
       MAILCHECK = "0";
     };
