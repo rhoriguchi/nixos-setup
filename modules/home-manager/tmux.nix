@@ -3,11 +3,16 @@
     fzf.tmux.enableShellIntegration = true;
 
     zsh = {
-      shellAliases.clear = "clear && tmux clear-history 2> /dev/null";
+      shellAliases = {
+        attach = "tmux attach-session -t 'default' || tmux new-session -s 'default'";
+        clear = "clear && tmux clear-history 2> /dev/null";
+      };
 
       initExtra = ''
         if [ "$TMUX" = ''' ]; then
-          if [ "$TERM_PROGRAM" != 'vscode' ] && [ "$TERMINAL_EMULATOR" != 'JetBrains-JediTerm' ]; then
+          if [ "$XDG_SESSION_TYPE" = 'tty' ]; then
+            tmux attach-session -t "$(basename $(tty))" || tmux new-session -s "$(basename $(tty))"
+          elif [ "$TERM_PROGRAM" != 'vscode' ] && [ "$TERMINAL_EMULATOR" != 'JetBrains-JediTerm' ]; then
             tmux attach-session -t 'default' || tmux new-session -s 'default'
           fi
         fi
