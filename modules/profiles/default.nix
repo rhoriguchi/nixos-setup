@@ -7,8 +7,8 @@
   docker = import ./docker.nix;
   fancy-motd = import ./fancy-motd.nix;
   git = import ./git.nix;
-  gnome = import ./gnome.nix;
   hidpi = import ./hidpi.nix;
+  hyprland = import ./hyprland.nix;
   i18n = import ./i18n.nix;
   java = import ./java.nix;
   javascript = import ./javascript.nix;

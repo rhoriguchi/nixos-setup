@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,20 +44,31 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, firefox-addons, home-manager, nix-minecraft, nix-index-database, nixos-hardware, pre-commit-hooks
-    , spicetify-nix, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, firefox-addons, home-manager, hyprland, nix-minecraft, nix-index-database, nixos-hardware
+    , pre-commit-hooks, spicetify-nix, ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
       nixosModules = {
-        default.imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
+        default.imports = [
+          inputs.hyprland.nixosModules.default
+          inputs.nix-minecraft.nixosModules.minecraft-servers
+
+          ./modules/default
+        ];
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
-        home-manager.imports =
-          [ inputs.nix-index-database.hmModules.nix-index inputs.spicetify-nix.homeManagerModule ./modules/home-manager ];
+        home-manager.imports = [
+          inputs.hyprland.homeManagerModules.default
+          inputs.nix-index-database.hmModules.nix-index
+          inputs.spicetify-nix.homeManagerModule
+
+          ./modules/home-manager
+        ];
       };
 
       overlays.default = lib.composeManyExtensions ([
+        inputs.hyprland.overlays.default
         inputs.nix-minecraft.overlay
 
         (_: super: {

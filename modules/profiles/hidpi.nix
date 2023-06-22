@@ -18,4 +18,9 @@
       });
     })
   ];
+
+  # TODO option was remove, replace with http://wiki.hyprland.org/Configuring/XWayland/#hidpi-xwayland
+  # programs.hyprland.xwayland.hidpi = true;
+
+  services.xserver.displayManager.sddm.enableHidpi = true;
 }

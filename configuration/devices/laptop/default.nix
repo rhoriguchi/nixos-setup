@@ -40,7 +40,8 @@
       enableGraphical = true;
     };
 
-    openrazer.enable = true;
+    # TODO does not work with hyprland
+    # openrazer.enable = true;
   };
 
   services = {
