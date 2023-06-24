@@ -19,6 +19,8 @@
     udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
   };
 
+  systemd.services."display-manager".after = [ "network-online.target" "systemd-resolved.service" ];
+
   programs.dconf.enable = true;
 
   environment = {
