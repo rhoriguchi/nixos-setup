@@ -37,7 +37,7 @@
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
-        home-manager = { imports = [ inputs.spicetify-nix.homeManagerModule ./modules/home-manager ]; };
+        home-manager.imports = [ inputs.spicetify-nix.homeManagerModule ./modules/home-manager ];
       };
 
       overlays.default = lib.composeManyExtensions ([
