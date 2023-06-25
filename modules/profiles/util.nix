@@ -15,6 +15,7 @@
       pkgs.gdb
       pkgs.git
       pkgs.glances
+      pkgs.gnutar
       pkgs.jq
       pkgs.nixfmt
       pkgs.nmap
@@ -24,7 +25,6 @@
       pkgs.speedtest-cli
       pkgs.sshpass
       pkgs.strace
-      pkgs.gnutar
       pkgs.traceroute
       pkgs.tree
       pkgs.unzip
