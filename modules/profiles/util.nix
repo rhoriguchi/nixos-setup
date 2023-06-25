@@ -24,6 +24,7 @@
       pkgs.speedtest-cli
       pkgs.sshpass
       pkgs.strace
+      pkgs.gnutar
       pkgs.traceroute
       pkgs.tree
       pkgs.unzip

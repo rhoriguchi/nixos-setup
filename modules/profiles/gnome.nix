@@ -35,6 +35,7 @@
       pkgs.gnome-tour
       pkgs.gnome.adwaita-icon-theme
       pkgs.gnome.epiphany
+      pkgs.gnome.file-roller
       pkgs.gnome.geary
       pkgs.gnome.gnome-backgrounds
       pkgs.gnome.gnome-calendar
@@ -48,7 +49,9 @@
       pkgs.gnome.gnome-screenshot
       pkgs.gnome.gnome-themes-extra
       pkgs.gnome.gnome-weather
+      pkgs.gnome.nautilus
       pkgs.gnome.simple-scan
+      pkgs.gnome.sushi
       pkgs.gnome.totem
       pkgs.gnome.yelp
       pkgs.orca
