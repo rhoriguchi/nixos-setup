@@ -17,6 +17,7 @@
       pkgs.glances
       pkgs.gnutar
       pkgs.jq
+      pkgs.killall
       pkgs.nixfmt
       pkgs.nmap
       pkgs.openssl
