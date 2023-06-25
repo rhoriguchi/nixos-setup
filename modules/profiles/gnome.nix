@@ -24,7 +24,7 @@
   programs.dconf.enable = true;
 
   environment = {
-    systemPackages = [ pkgs.gnome.dconf-editor pkgs.gnome.gnome-software pkgs.gnome.networkmanager-openconnect ] ++ [
+    systemPackages = [ pkgs.gnome.dconf-editor pkgs.gnome.networkmanager-openconnect ] ++ [
       pkgs.firefox # pkgs.gnome.epiphany
       pkgs.flameshot # pkgs.gnome.gnome-screenshot
     ];

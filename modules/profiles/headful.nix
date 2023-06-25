@@ -1,6 +1,7 @@
 {
   imports = [
     ./displaylink.nix
+    ./fwupd.nix
     ./git.nix
     ./gnome.nix
     ./i18n.nix
