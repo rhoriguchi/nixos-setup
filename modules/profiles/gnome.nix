@@ -35,6 +35,7 @@
       pkgs.gnome-tour
       pkgs.gnome.adwaita-icon-theme
       pkgs.gnome.epiphany
+      pkgs.gnome.evince
       pkgs.gnome.file-roller
       pkgs.gnome.geary
       pkgs.gnome.gnome-backgrounds
