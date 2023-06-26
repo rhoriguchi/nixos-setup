@@ -1,6 +1,10 @@
 { pkgs, ... }: {
   fonts.fontconfig.enable = true;
-  home.packages = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+  home.packages = [
+    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+
+    pkgs.gnome-text-editor
+  ];
 
   dconf = {
     enable = true;
