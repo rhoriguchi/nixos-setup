@@ -1,6 +1,8 @@
 { lib, config, pkgs, secrets, ... }:
 let
-  synologyIp = "192.168.1.51";
+  synologyMediaIp = "192.168.1.51";
+  synologyBackupIp = "192.168.1.52";
+
   synologyCredentialsFile = pkgs.writeText "smb-secrets" ''
     username=${secrets.synology.username}
     password=${secrets.synology.password}
@@ -29,32 +31,25 @@ in {
     mkdir -p /mnt/Media/Videos
 
     chown plex:plex "/mnt/Media/Videos/Movies"
-    chown plex:plex "/mnt/Media/Videos/TV Shows - Synology"
     chown plex:plex "/mnt/Media/Videos/TV Shows"
     chown plex:plex "/mnt/Music"
   '';
 
   fileSystems = {
     "/mnt/Media/Videos/Movies" = {
-      device = "//${synologyIp}/JcrK - Shared Media/Videos/Movies";
-      fsType = "cifs";
-      options = [ "${getExtraOptions synologyCredentialsFile config.services.plex.enable}" ];
-    };
-
-    "/mnt/Media/Videos/TV Shows - Synology" = {
-      device = "//${synologyIp}/JcrK - Shared Media/Videos/TV Shows";
+      device = "//${synologyMediaIp}/JcrK - Shared Media/Videos/Movies";
       fsType = "cifs";
       options = [ "${getExtraOptions synologyCredentialsFile config.services.plex.enable}" ];
     };
 
     "/mnt/Media/Videos/TV Shows" = {
-      device = "//${wdMyCloudIp}/Data/Media/TV Shows";
+      device = "//${synologyBackupIp}/JcrK - Shared Media 2/TV Shows";
       fsType = "cifs";
-      options = [ "${getExtraOptions wdMyCloudCredentialsFile config.services.plex.enable}" ];
+      options = [ "${getExtraOptions synologyCredentialsFile config.services.plex.enable}" ];
     };
 
     "/mnt/Music" = {
-      device = "//${synologyIp}/JcrK - James/Music/iTunes/iTunes Media/Music";
+      device = "//${synologyMediaIp}/JcrK - James/Music/iTunes/iTunes Media/Music";
       fsType = "cifs";
       options = [ "${getExtraOptions synologyCredentialsFile config.services.plex.enable}" ];
     };
