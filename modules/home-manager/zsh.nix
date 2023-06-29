@@ -4,23 +4,18 @@
 
     enableCompletion = true;
 
+    syntaxHighlighting.enable = true;
+
     history = {
       size = 10 * 1000;
       extended = true;
     };
 
-    plugins = [
-      {
-        name = pkgs.zsh-autosuggestions.pname;
-        file = "zsh-autosuggestions.zsh";
-        src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
-      }
-      {
-        name = pkgs.zsh-syntax-highlighting.pname;
-        file = "zsh-syntax-highlighting.zsh";
-        src = "${pkgs.zsh-syntax-highlighting}/share/${pkgs.zsh-syntax-highlighting.pname}";
-      }
-    ];
+    plugins = [{
+      name = pkgs.zsh-autosuggestions.pname;
+      file = "zsh-autosuggestions.zsh";
+      src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
+    }];
 
     localVariables.ZSH_AUTOSUGGEST_STRATEGY = [ "completion" ];
 
