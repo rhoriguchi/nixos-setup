@@ -22,6 +22,7 @@
       pkgs.nmap
       pkgs.openssl
       pkgs.pciutils
+      pkgs.procps
       pkgs.rsync
       pkgs.speedtest-cli
       pkgs.sshpass
