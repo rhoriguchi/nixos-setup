@@ -24,6 +24,11 @@
       MAILCHECK = "0";
     };
 
+    shellAliases = {
+      grep = "GREP_COLORS='mt=1;35' grep --color=auto";
+      ls = "ls --color=tty";
+    };
+
     initExtra = ''
       # https://zsh.sourceforge.io/Doc/Release/Options.html
 
