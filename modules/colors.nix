@@ -1,7 +1,7 @@
 {
-  accent = "magenta";
+  normal = rec {
+    accent = magenta;
 
-  normal = {
     black = "#000000";
     blue = "#0074D9";
     cyan = "#7FDBFF";
@@ -13,7 +13,9 @@
     yellow = "#FFDC00";
   };
 
-  bright = {
+  bright = rec {
+    accent = magenta;
+
     black = "#777777";
     blue = "#66ABE8";
     cyan = "#B2E9FF";

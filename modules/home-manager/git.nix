@@ -12,8 +12,9 @@
         tracked = let
           colorize = color: text: "${color}${text}\\e[0m";
 
-          red = colorize "\\e[1;31m";
-          green = colorize "\\e[1;32m";
+          # Figure out how to use hex colors variable
+          red = colorize "\\x1b[1;38;5;203m";
+          green = colorize "\\x1b[1;38;5;41m";
         in ''
           !f() { if [ $# -eq 0 ]; then echo -e '${
             red "Missing file or directory"

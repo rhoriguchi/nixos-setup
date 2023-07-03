@@ -7,11 +7,11 @@
     enableZshIntegration = true;
 
     colors = {
-      hl = colors.bright.${colors.accent};
-      "hl+" = colors.normal.${colors.accent};
+      hl = colors.bright.accent;
+      "hl+" = colors.normal.accent;
       info = colors.normal.green;
       prompt = colors.normal.white;
-      pointer = colors.normal.${colors.accent};
+      pointer = colors.normal.accent;
     };
 
     historyWidgetOptions = [ "--no-multi" ];

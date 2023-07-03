@@ -1,6 +1,4 @@
-{ lib, colors, ... }:
-let accentColor = if colors.accent == "magenta" then "purple" else colors.accent;
-in {
+{ lib, colors, ... }: {
   programs.starship = {
     enable = true;
 
@@ -12,13 +10,13 @@ in {
 
       directory = {
         format = "[$path]($style) ";
-        style = "${accentColor} bold";
+        style = "${colors.normal.accent} bold";
 
         truncate_to_repo = false;
         truncation_length = 999;
       };
 
-      git_branch.style = "${accentColor} bold";
+      git_branch.style = "${colors.normal.accent} bold";
 
       character = {
         success_symbol = "[❯](white bold)";

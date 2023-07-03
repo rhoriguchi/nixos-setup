@@ -41,7 +41,7 @@
         };
 
         cursor = {
-          cursor = colors.normal.${colors.accent};
+          cursor = colors.normal.accent;
           text = colors.normal.white;
         };
 

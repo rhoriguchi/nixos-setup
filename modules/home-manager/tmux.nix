@@ -37,12 +37,12 @@
         bind v split-window
         unbind '"'
 
-        set -g clock-mode-colour ${colors.accent}
+        set -g clock-mode-colour "${colors.normal.accent}"
         set -g message-command-style bg=black,fg=green
         set -g message-style bg=green,fg=black
         set -g mode-style 'reverse'
-        set -g pane-active-border-style fg=${colors.accent}
-        set -g status-bg ${colors.accent}
+        set -g pane-active-border-style fg="${colors.normal.accent}"
+        set -g status-bg "${colors.normal.accent}"
         set -g status-fg black
         set -g status-interval 1
         set -g status-right ""

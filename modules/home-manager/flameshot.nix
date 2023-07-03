@@ -6,7 +6,7 @@
       buttons = ''
         @Variant(\0\0\0\x7f\0\0\0\vQList<int>\0\0\0\0\x12\0\0\0\0\0\0\0\x1\0\0\0\x2\0\0\0\x3\0\0\0\x4\0\0\0\x5\0\0\0\x6\0\0\0\x12\0\0\0\xf\0\0\0\x16\0\0\0\x13\0\0\0\a\0\0\0\b\0\0\0\t\0\0\0\x10\0\0\0\n\0\0\0\v\0\0\0\r)
       '';
-      contrastUiColor = colors.bright.${colors.accent};
+      contrastUiColor = colors.bright.accent;
       copyAndCloseAfterUpload = true;
       disabledTrayIcon = false;
       drawColor = colors.normal.red;
@@ -15,7 +15,7 @@
       savePath = "${config.home.homeDirectory}/Pictures";
       showHelp = false;
       showStartupLaunchMessage = false;
-      uiColor = colors.normal.${colors.accent};
+      uiColor = colors.normal.accent;
       userColors = "picker, ${lib.concatStringsSep ", " (lib.mapAttrsToList (_: value: value) colors.normal)}";
     };
   };

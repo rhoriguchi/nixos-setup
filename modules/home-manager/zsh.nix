@@ -25,7 +25,8 @@
     };
 
     shellAliases = {
-      grep = "GREP_COLORS='mt=1;35' grep --color=auto";
+      # Figure out how to use hex colors variable
+      grep = "GREP_COLORS='mt=1;38;5;127' grep --color=auto";
       ls = "ls --color=tty";
     };
 
