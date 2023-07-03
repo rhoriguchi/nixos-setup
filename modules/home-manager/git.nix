@@ -12,7 +12,7 @@
         tracked = let
           colorize = color: text: "${color}${text}\\e[0m";
 
-          # Figure out how to use hex colors variable
+          # TODO figure out how to use hex colors variable
           red = colorize "\\x1b[1;38;5;203m";
           green = colorize "\\x1b[1;38;5;41m";
         in ''
