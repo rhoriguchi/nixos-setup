@@ -24,11 +24,7 @@
       MAILCHECK = "0";
     };
 
-    shellAliases = {
-      # Figure out how to use hex colors variable
-      grep = "GREP_COLORS='mt=1;38;5;127' grep --color=auto";
-      ls = "ls --color=tty";
-    };
+    shellAliases.ls = "ls --color=tty";
 
     initExtra = ''
       # https://zsh.sourceforge.io/Doc/Release/Options.html
