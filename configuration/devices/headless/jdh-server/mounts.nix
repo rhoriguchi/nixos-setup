@@ -31,6 +31,7 @@ in {
     mkdir -p /mnt/Media/Videos
 
     chown plex:plex "/mnt/Media/Videos/Movies"
+    chown plex:plex "/mnt/Media/Videos/TV Shows WD"
     chown plex:plex "/mnt/Media/Videos/TV Shows"
     chown plex:plex "/mnt/Music"
   '';
@@ -40,6 +41,12 @@ in {
       device = "//${synologyMediaIp}/JcrK - Shared Media/Videos/Movies";
       fsType = "cifs";
       options = [ "${getExtraOptions synologyCredentialsFile config.services.plex.enable}" ];
+    };
+
+    "/mnt/Media/Videos/TV Shows WD" = {
+      device = "//${wdMyCloudIp}/Data/Media/TV Shows";
+      fsType = "cifs";
+      options = [ "${getExtraOptions wdMyCloudCredentialsFile config.services.plex.enable}" ];
     };
 
     "/mnt/Media/Videos/TV Shows" = {

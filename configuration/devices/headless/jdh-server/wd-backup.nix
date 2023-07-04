@@ -14,7 +14,7 @@
         "--recursive"
         "--times"
       ];
-    in ''${pkgs.rsync}/bin/rsync ${args} "/mnt/Media/Videos/TV Shows/" "/mnt/WD_Backup/TV Shows"'';
+    in ''${pkgs.rsync}/bin/rsync ${args} "/mnt/Media/Videos/TV Shows WD/" "/mnt/WD_Backup/TV Shows"'';
 
     startAt = "Wed *-*-* 13:00:00";
 
