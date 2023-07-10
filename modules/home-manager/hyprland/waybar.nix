@@ -1,4 +1,4 @@
-{ pkgs, colors, ... }: {
+{ pkgs, config, colors, ... }: {
   fonts.fontconfig.enable = true;
   home.packages = [
     (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
@@ -29,7 +29,7 @@
       position = "top";
 
       modules-left = [ "wlr/workspaces" ];
-      modules-center = [ "clock" ];
+      modules-center = [ "clock" "custom/notification" ];
       modules-right = [
         "cpu"
         "memory"
@@ -84,6 +84,30 @@
         # TODO spacing, probably use for every icon span with padding - icon wrapper function?
         format = " {icon}";
         format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+      };
+
+      "custom/notification" = let inherit (config.services.swaync) package;
+      in {
+        tooltip = false;
+        # TODO maybe add notification count?
+        #  Alternatively, the number of notifications can be shown by adding `{}` anywhere in the `format` field in the Waybar config
+        # format = "{} {icon}";
+        format = "{icon}";
+        format-icons = {
+          notification = "<span color='${colors.normal.accent}'><sup></sup></span>";
+          none = "";
+          dnd-notification = "<span color='${colors.normal.accent}'><sup></sup></span>";
+          dnd-none = "";
+          inhibited-notification = "<span color='${colors.normal.accent}'><sup></sup></span>";
+          inhibited-none = "";
+          dnd-inhibited-notification = "<span color='${colors.normal.accent}'><sup></sup></span>";
+          dnd-inhibited-none = "";
+        };
+        return-type = "json";
+        exec = "${package}/bin/swaync-client -swb";
+        on-click = "${package}/bin/swaync-client -t -sw";
+        on-click-right = "${package}/bin/swaync-client -d -sw";
+        escape = true;
       };
 
       idle_inhibitor = {

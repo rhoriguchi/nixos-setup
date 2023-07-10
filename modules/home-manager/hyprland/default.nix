@@ -3,7 +3,7 @@
     ./app-launcher.nix
     ./background.nix
     ./binds.nix
-    ./notification.nix
+    ./notification
     ./screenshot.nix
     ./session-handling.nix
     ./theme.nix
