@@ -208,6 +208,8 @@
         "privacy.userContext.enabled" = true;
         "privacy.userContext.extension" = "@contain-facebook";
         "privacy.userContext.ui.enabled" = true;
+        "privacy.webrtc.hideGlobalIndicator" = true;
+        "privacy.webrtc.legacyGlobalIndicator" = false;
         "services.sync.engine.addons" = false;
         "services.sync.engine.bookmarks" = true;
         "services.sync.engine.creditcards" = false;
