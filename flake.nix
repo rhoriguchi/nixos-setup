@@ -137,16 +137,6 @@
           ];
         };
 
-        JDH-Server = {
-          deployment.targetHost = "jdh-server";
-
-          imports = [
-            self.nixosModules.profiles.headless
-
-            ./configuration/devices/headless/jdh-server
-          ];
-        };
-
         #####################################################
 
         Grimmjow = {
