@@ -2,7 +2,6 @@
 let
   synologyMediaIp = "192.168.1.51";
   synologyBackupIp = "192.168.1.52";
-
   synologyCredentialsFile = pkgs.writeText "smb-secrets" ''
     username=${secrets.synology.username}
     password=${secrets.synology.password}
