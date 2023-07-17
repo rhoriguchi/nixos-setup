@@ -36,13 +36,14 @@
     };
   };
 
+  # https://hub.docker.com/r/flaresolverr/flaresolverr
   virtualisation.oci-containers.containers.flaresolverr = {
-    image = "flaresolverr/flaresolverr:v3.2.1";
+    image = "flaresolverr/flaresolverr:v3.2.3";
 
     imageFile = pkgs.dockerTools.pullImage {
       imageName = "flaresolverr/flaresolverr";
-      imageDigest = "sha256:648960c5a4118a085594aea0faf8d44bc08650c030c62805571c2ff2e4533982";
-      sha256 = "sha256-esAQkugOUEnpNwMLNU6pVzB47ERBGcHVuKn4P1fd7nI=";
+      imageDigest = "sha256:89773209b92c2ab83102281e72f8c386a9d1559c9385512e3f2da92756b4bfed";
+      sha256 = "sha256-c50Nfj6a7jfpL6q4uorlUDF+TUD+lhSEABR763099eQ=";
 
       finalImageTag = "v3.2.1";
     };
