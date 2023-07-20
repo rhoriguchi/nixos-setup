@@ -8,7 +8,7 @@
   networking.hostName = "XXLPitu-Ulquiorra";
 
   fileSystems."/mnt/Data" = {
-    device = "/dev/disk/by-uuid/ed1abb92-8c16-4916-9504-af4c3fc6ec5d";
+    device = "/dev/disk/by-uuid/eada9514-002c-4b43-875d-bac35eb033ae";
     fsType = "ext4";
     options = [ "defaults" "errors=continue" "nofail" ];
   };
