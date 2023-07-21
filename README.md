@@ -76,6 +76,9 @@ zfs create \
 zfs create \
   -o compression=zstd \
   data/snapshots
+
+zfs create \
+  data/sync
 ```
 
 #### [libvirt](configuration/devices/headless/server/libvirtd/README.md)
