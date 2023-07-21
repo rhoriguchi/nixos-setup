@@ -130,7 +130,7 @@ nixops deploy --kill-obsolete --create-only
 nixops ssh-for-each --parallel "nix-channel --update"
 ```
 
-### Delete garabge
+### Delete garbage
 
 ```console
 nixops ssh-for-each --parallel "nix-collect-garbage -d"
