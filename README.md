@@ -78,6 +78,7 @@ zfs create \
   data/snapshots
 
 zfs create \
+  -o quota=512G \
   data/sync
 ```
 
