@@ -195,7 +195,7 @@ in {
               <!-- PNY Quadro RTX 5000 - VGA compatible controller -->
               <hostdev mode='subsystem' type='pci' managed='yes'>
                 <source>
-                  <address domain='0x0000' bus='0x0b' slot='0x00' function='0'/>
+                  <address domain='0x0000' bus='0x01' slot='0x00' function='0'/>
                 </source>
 
                 <!-- Dumped with https://github.com/SpaceinvaderOne/Dump_GPU_vBIOS -->
@@ -205,31 +205,35 @@ in {
               <!-- PNY Quadro RTX 5000 - Audio device -->
               <hostdev mode='subsystem' type='pci' managed='yes'>
                 <source>
-                  <address domain='0x0000' bus='0x0b' slot='0x00' function='1'/>
+                  <address domain='0x0000' bus='0x01' slot='0x00' function='1'/>
                 </source>
               </hostdev>
 
               <!-- PNY Quadro RTX 5000 - USB controller -->
               <hostdev mode='subsystem' type='pci' managed='yes'>
                 <source>
-                  <address domain='0x0000' bus='0x0b' slot='0x00' function='2'/>
+                  <address domain='0x0000' bus='0x01' slot='0x00' function='2'/>
                 </source>
               </hostdev>
 
               <!-- PNY Quadro RTX 5000 - Serial bus controller -->
               <hostdev mode='subsystem' type='pci' managed='yes'>
                 <source>
-                  <address domain='0x0000' bus='0x0b' slot='0x00' function='3'/>
+                  <address domain='0x0000' bus='0x01' slot='0x00' function='3'/>
                 </source>
               </hostdev>
 
-              <!-- Delock PCI Express x4 Card to 1 x USB Type-C™ + 4 x USB Type-A - SuperSpeed USB 10 Gbps - 89026 -->
-              <!-- USB controller: ASMedia Technology Inc. ASM2142 USB 3.1 Host Controller -->
-              <hostdev mode='subsystem' type='pci' managed='yes'>
-                <source>
-                  <address domain='0x0000' bus='0x04' slot='0x00' function='0'/>
-                </source>
-              </hostdev>
+              ${
+                "" # TODO currently does not work
+
+                # <!-- Delock PCI Express x4 Card to 1 x USB Type-C™ + 4 x USB Type-A - SuperSpeed USB 10 Gbps - 89026 -->
+                # <!-- USB controller: ASMedia Technology Inc. ASM2142 USB 3.1 Host Controller -->
+                # <hostdev mode='subsystem' type='pci' managed='yes'>
+                #   <source>
+                #     <address domain='0x0000' bus='0x04' slot='0x00' function='0'/>
+                #   </source>
+                # </hostdev>
+              }
             </devices>
           </domain>
         '';

@@ -20,7 +20,7 @@ Run till it activates.
 cscript //nologo slmgr.vbs /ato
 ```
 
-### Install drivers
+### Install drivers and OS tweaks
 
 Once Windows is installed run in an elevated cmd.
 
