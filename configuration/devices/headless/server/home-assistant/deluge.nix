@@ -24,13 +24,13 @@ in {
       {
         name = "Deluge Down speed formatted";
         icon = "mdi:file-download";
-        state = createFormatFunction "sensor.deluge_down_speed";
+        state = createFormatFunction "sensor.deluge_download_speed";
         unit_of_measurement = "MB/s";
       }
       {
         name = "Deluge Up speed formatted";
         icon = "mdi:file-upload";
-        state = createFormatFunction "sensor.deluge_up_speed";
+        state = createFormatFunction "sensor.deluge_upload_speed";
         unit_of_measurement = "MB/s";
       }
     ];
