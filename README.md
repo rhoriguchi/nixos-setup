@@ -75,6 +75,7 @@ zfs create \
 
 zfs create \
   -o compression=zstd \
+  -o copies=2 \
   data/snapshots
 
 zfs create \
