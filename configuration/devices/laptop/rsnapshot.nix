@@ -39,6 +39,7 @@ let
 
       # Nix
       ".nix-defexpr"
+      ".local/state/nix/profiles"
 
       # Node
       "node_modules"
