@@ -10,26 +10,6 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=244911
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "1e08418a13d502e838c1d90bcd279f45f2381229";
-          sha256 = "sha256-TmupzO+gEitbm7STwtmJmc6eO5pWbXzlXfiBBqRrKbk=";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=244913
-    tautulli = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "37339c7b7a39cca951234852e216e2b7fa468612";
-          sha256 = "sha256-bQtQukHOJUzPtVEn6kxdiZn5ObjJn6c6+eX16OQowGc=";
-        }
-      }/pkgs/servers/tautulli") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=247828
     adguardhome = super.callPackage (import "${
         super.fetchFromGitHub {
