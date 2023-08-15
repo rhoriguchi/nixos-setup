@@ -9,6 +9,7 @@
     history = {
       size = 10 * 1000;
       extended = true;
+      ignoreAllDups = true;
     };
 
     plugins = [{
