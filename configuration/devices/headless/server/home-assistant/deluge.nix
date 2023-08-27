@@ -16,6 +16,8 @@ in {
         state = ''
           {% if is_state('sensor.deluge_status', 'idle') %}
             Idle
+          {% elif is_state('sensor.deluge_status', 'seeding_and_downloading') %}
+            Seeding and Downloading
           {% else %}
             {{ states('sensor.deluge_status') }}
           {% endif %}
