@@ -42,12 +42,6 @@ let
   });
 in {
   services.home-assistant.config = {
-    switch = [{
-      platform = "mystrom";
-      name = "myStrom living room light switch";
-      host = "myStrom-Switch-8A0F50.iot";
-    }];
-
     light = [{
       platform = "template";
       lights.living_room = {

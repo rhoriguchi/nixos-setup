@@ -4,11 +4,13 @@
 - Add integrations
   - Deluge
     - Get credentials from [secret.nix](../../../../../secrets.nix)
+  - myStrom
+    - Set Name `myStrom living room light switch` and Host `myStrom-Switch-8A0F50.iot`
   - Netatmo
     - Get credentials from <https://dev.netatmo.com>
   - Shelly
-    - shellycolorbulb-98CDAC1F031E.iot
-    - shellycolorbulb-98CDAC1F68BC.iot
+    - `shellycolorbulb-98CDAC1F031E.iot`
+    - `shellycolorbulb-98CDAC1F68BC.iot`
   - UniFi Network
 
 ## Configure myStrom buttons

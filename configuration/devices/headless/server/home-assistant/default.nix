@@ -32,6 +32,7 @@
         # Manual added integrations
         "deluge"
         "mobile_app"
+        "mystrom"
         "netatmo"
         "shelly"
         "unifi"
