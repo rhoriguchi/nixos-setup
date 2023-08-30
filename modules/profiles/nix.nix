@@ -2,6 +2,7 @@
   system.stateVersion = "23.11";
 
   nix = {
+    settings.trusted-users = [ "@wheel" "root" ];
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
