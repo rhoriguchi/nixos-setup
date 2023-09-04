@@ -9,9 +9,9 @@
         pkgs.firefox-addons.bitwarden
         pkgs.firefox-addons.bypass-paywalls-clean
         pkgs.firefox-addons.export-tabs-urls-and-titles
-        pkgs.firefox-addons.facebook-container
         pkgs.firefox-addons.grammarly
         pkgs.firefox-addons.metamask
+        pkgs.firefox-addons.multi-account-containers
         pkgs.firefox-addons.octolinker
         pkgs.firefox-addons.open-in-browser
         pkgs.firefox-addons.privacy-badger
@@ -121,7 +121,6 @@
           bitwarden = "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action";
           bypass-paywalls-clean = "_d133e097-46d9-4ecc-9903-fa6a722a6e0e_-browser-action";
           export-tabs-urls-and-titles = "_17165bd9-9b71-4323-99a5-3d4ce49f3d75_-browser-action";
-          facebook-container = "_contain-facebook-browser-action";
           grammarly = "87677a2c52b84ad3a151a4a72f5bd3c4_jetpack-browser-action";
           metamask = "webextension_metamask_io-browser-action";
           privacy-badger = "jid1-mnnxcxisbpnsxq_jetpack-browser-action";
@@ -156,7 +155,6 @@
             bitwarden
             bypass-paywalls-clean
             export-tabs-urls-and-titles
-            facebook-container
             grammarly
             metamask
             privacy-badger
