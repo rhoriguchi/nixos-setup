@@ -16,13 +16,14 @@ in {
   imports = [ ./autostart.nix ];
 
   fonts.fontconfig.enable = true;
-  home.packages = [
+  # TODO remove when `pkgs.cantarell-fonts` is no more broken on darwin
+  home.packages = lib.optionals pkgs.stdenv.isLinux ([
     pkgs.cantarell-fonts
     (pkgs.nerdfonts.override { fonts = [ "RobotoMono" ]; })
 
     pkgs.papirus-icon-theme
     pkgs.yaru-theme
-  ] ++ extensions;
+  ] ++ extensions);
 
   dconf = {
     enable = true;
