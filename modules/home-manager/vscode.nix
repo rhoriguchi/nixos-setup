@@ -124,6 +124,7 @@
       "editor.defaultColorDecorators" = true;
       "explorer.compactFolders" = false;
       "explorer.confirmDelete" = false;
+      "explorer.confirmDragAndDrop" = false;
       "explorer.fileNesting.enabled" = true;
       "explorer.fileNesting.expand" = false;
       "files.associations" = {
