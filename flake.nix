@@ -94,6 +94,8 @@
 
             inputs.home-manager.nixosModule
             {
+              nixpkgs.overlays = [ self.overlays.default ];
+
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = false;
