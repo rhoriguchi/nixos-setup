@@ -15,6 +15,7 @@
       pkgs.gdb
       pkgs.git
       pkgs.glances
+      pkgs.gnugrep
       pkgs.gnutar
       pkgs.jq
       pkgs.killall

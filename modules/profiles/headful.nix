@@ -4,7 +4,6 @@
     ./fwupd.nix
     ./git.nix
     ./gnome.nix
-    ./grep.nix
     ./i18n.nix
     ./keyboard.nix
     ./nano.nix

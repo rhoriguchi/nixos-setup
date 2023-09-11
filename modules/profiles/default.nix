@@ -8,7 +8,6 @@
   fancy-motd = import ./fancy-motd.nix;
   git = import ./git.nix;
   gnome = import ./gnome.nix;
-  grep = import ./grep.nix;
   hidpi = import ./hidpi.nix;
   i18n = import ./i18n.nix;
   java = import ./java.nix;
