@@ -1,12 +1,12 @@
 { pkgs, ... }: {
-  environment = {
-    systemPackages = [ pkgs.nano ];
+  home = {
+    packages = [ pkgs.nano ];
 
-    variables.EDITOR = "nano";
-  };
+    sessionVariables.EDITOR = "nano";
 
-  programs.nano = {
-    nanorc = ''
+    file.".nanorc".text = ''
+      include "${pkgs.nano}/share/nano/*.nanorc"
+
       set constantshow
       set linenumbers
       set softwrap
@@ -14,7 +14,5 @@
       set tabstospaces
       unset nonewlines
     '';
-
-    syntaxHighlight = true;
   };
 }

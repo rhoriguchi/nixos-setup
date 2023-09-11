@@ -16,7 +16,6 @@
   keyboard = import ./keyboard.nix;
   kotlin = import ./kotlin.nix;
   laptop-power-management = import ./laptop-power-management.nix;
-  nano = import ./nano.nix;
   nginx = import ./nginx.nix;
   nix = import ./nix.nix;
   nvd = import ./nvd.nix;

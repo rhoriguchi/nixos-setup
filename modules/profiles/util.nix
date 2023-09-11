@@ -19,6 +19,7 @@
       pkgs.gnutar
       pkgs.jq
       pkgs.killall
+      pkgs.nano
       pkgs.nixfmt
       pkgs.nmap
       pkgs.openssl

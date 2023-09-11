@@ -6,7 +6,6 @@
     ./gnome.nix
     ./i18n.nix
     ./keyboard.nix
-    ./nano.nix
     ./nautilus.nix
     ./nix.nix
     ./nvd.nix

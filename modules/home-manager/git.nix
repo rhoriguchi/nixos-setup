@@ -1,4 +1,6 @@
-{ colors, ... }: {
+{ pkgs, colors, ... }: {
+  home.packages = [ pkgs.nano ];
+
   programs.git = {
     enable = true;
 
@@ -26,6 +28,7 @@
       init.defaultBranch = "master";
 
       core = {
+        editor = "nano";
         pager = "less --raw-control-chars --quit-if-one-screen --no-init";
         symlinks = true;
       };

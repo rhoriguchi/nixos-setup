@@ -1,4 +1,4 @@
-{ lib, config, public-keys, secrets, ... }: {
+{ pkgs, lib, config, public-keys, secrets, ... }: {
   nix.gc = {
     automatic = true;
     dates = "05:00";
@@ -8,6 +8,12 @@
   networking.networkmanager = {
     ethernet.macAddress = "permanent";
     wifi.macAddress = "permanent";
+  };
+
+  environment = {
+    systemPackages = [ pkgs.nano ];
+
+    variables.EDITOR = "nano";
   };
 
   users.users.xxlpitu = {
