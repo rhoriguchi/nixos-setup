@@ -25,12 +25,14 @@
 
   environment = {
     systemPackages = [ pkgs.gnome.dconf-editor pkgs.gnome.networkmanager-openconnect ] ++ [
+      pkgs.alacritty # pkgs.gnome-console
       pkgs.firefox # pkgs.gnome.epiphany
       pkgs.flameshot # pkgs.gnome.gnome-screenshot
     ];
 
     gnome.excludePackages = [
       pkgs.gnome-connections
+      pkgs.gnome-console
       pkgs.gnome-photos
       pkgs.gnome-text-editor
       pkgs.gnome-tour

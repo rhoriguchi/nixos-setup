@@ -2,6 +2,8 @@
   fonts.fontconfig.enable = true;
   home.packages = [ (pkgs.nerdfonts.override { fonts = [ "RobotoMono" ]; }) ];
 
+  home.sessionVariables.TERMINAL = "alacritty";
+
   programs.alacritty = {
     enable = true;
 

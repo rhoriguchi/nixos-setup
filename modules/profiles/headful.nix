@@ -12,7 +12,6 @@
     ./nix.nix
     ./nvd.nix
     ./printing.nix
-    ./terminal.nix
     ./util.nix
     ./zsh.nix
   ];
