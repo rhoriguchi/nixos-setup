@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     pre-commit-hooks = {
@@ -29,7 +34,8 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, firefox-addons, home-manager, nixos-hardware, pre-commit-hooks, spicetify-nix, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, firefox-addons, home-manager, nix-index-database, nixos-hardware, pre-commit-hooks, spicetify-nix
+    , ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
       nixosModules = {
@@ -37,7 +43,8 @@
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
-        home-manager.imports = [ inputs.spicetify-nix.homeManagerModule ./modules/home-manager ];
+        home-manager.imports =
+          [ inputs.nix-index-database.hmModules.nix-index inputs.spicetify-nix.homeManagerModule ./modules/home-manager ];
       };
 
       overlays.default = lib.composeManyExtensions ([
