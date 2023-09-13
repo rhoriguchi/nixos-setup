@@ -25,8 +25,6 @@
       MAILCHECK = "0";
     };
 
-    shellAliases.ls = "ls --color=tty";
-
     initExtra = ''
       # https://zsh.sourceforge.io/Doc/Release/Options.html
 
