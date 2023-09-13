@@ -42,6 +42,9 @@
         support = "support/";
       };
 
+      # TODO remove when https://github.com/libgit2/libgit2/issues/6531 fixed
+      index.skipHash = false;
+
       pull.ff = "only";
 
       push.default = "simple";
