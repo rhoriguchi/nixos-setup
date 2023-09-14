@@ -176,7 +176,22 @@
       let
         pkgs = import inputs.nixpkgs {
           inherit system;
-          config.allowUnfree = true;
+          config = {
+            allowUnfree = true;
+
+            # TODO temp fix for CVEs
+            permittedInsecurePackages = [
+              # CVE-2023-32681
+              "python3.10-requests-2.29.0"
+
+              # CVE-2023-2650
+              # CVE-2023-2975
+              # CVE-2023-3446
+              # CVE-2023-3817
+              # CVE-2023-38325
+              "python3.10-cryptography-40.0.2"
+            ];
+          };
           overlays = [ self.overlays.default ];
         };
       in {
