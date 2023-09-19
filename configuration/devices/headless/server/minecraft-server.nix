@@ -24,6 +24,7 @@
 
         white-list = true;
         difficulty = "normal";
+        view-distance = 16;
       };
 
       # https://mcuuid.net
