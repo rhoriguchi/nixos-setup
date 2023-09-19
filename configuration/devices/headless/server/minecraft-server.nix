@@ -21,8 +21,8 @@
       # https://minecraft.fandom.com/wiki/Server.properties
       serverProperties = rec {
         motd = "Pingu Land";
-
         white-list = true;
+
         difficulty = "normal";
         view-distance = 16;
       };
