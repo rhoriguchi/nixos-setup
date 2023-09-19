@@ -28,9 +28,10 @@
 
       # https://mcuuid.net
       whitelist = {
-        nielsx3 = "a2d4ac95-9a30-4f88-946c-05b60cfaf28b";
-        Sirkii = "5e14c507-16cd-4a0d-84bd-ec82c1792e03";
-        XXLPitu = "91469f95-dded-484b-acde-1da375f88aed";
+        nielsx3 = "a2d4ac95-9a30-4f88-946c-05b60cfaf28b"; # Niels
+        Sirkii = "5e14c507-16cd-4a0d-84bd-ec82c1792e03"; # Keanu
+        ThatOneSlave = "ee4c4772-23d4-4cc9-9f70-092aa1ddc7c2"; # Janik
+        XXLPitu = "91469f95-dded-484b-acde-1da375f88aed"; # Ryan
       };
     };
   };
