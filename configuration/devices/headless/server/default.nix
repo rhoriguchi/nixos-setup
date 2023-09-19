@@ -69,6 +69,7 @@
       enable = true;
 
       openFirewall = true;
+
       extraPlugins = [
         (builtins.path {
           name = "MyAnimeList.bundle";
