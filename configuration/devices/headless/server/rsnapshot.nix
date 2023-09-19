@@ -44,6 +44,7 @@ in {
       retain	monthly	3
 
       backup	${config.services.deluge.config.torrentfiles_location}/	./
+      backup	${config.services.minecraft-server.dataDir}/	./
       backup	${config.services.plex.dataDir}/	./
       backup	${config.services.prowlarr.dataDir}/	./
       backup	${config.services.resilio.syncPath}/	./

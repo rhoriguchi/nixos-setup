@@ -25,6 +25,7 @@ let
         "deluge.00a.ch"
         "home-assistant.00a.ch"
         "home.00a.ch"
+        "minecraft.00a.ch"
         "prowlarr.00a.ch"
         "sonarr.00a.ch"
         "tautulli.00a.ch"

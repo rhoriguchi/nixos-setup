@@ -6,6 +6,7 @@
     ./home-assistant
     ./home-page.nix
     ./libvirtd
+    ./minecraft-server.nix
     ./price-tracker-proxy.nix
     ./rsnapshot.nix
     ./sonarr
