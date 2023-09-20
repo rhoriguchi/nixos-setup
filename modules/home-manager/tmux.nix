@@ -6,6 +6,7 @@
       shellAliases = {
         attach = "tmux attach-session -t 'default' || tmux new-session -s 'default'";
         clear = "clear && tmux clear-history 2> /dev/null";
+        detach = "tmux detach-client";
       };
 
       initExtra = ''

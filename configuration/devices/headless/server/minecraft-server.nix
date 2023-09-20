@@ -24,7 +24,7 @@
         white-list = true;
 
         difficulty = "normal";
-        view-distance = 16;
+        view-distance = 32;
 
         enable-rcon = true;
         "rcon.password" = secrets.minecraft-server.rconPassword;
