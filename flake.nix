@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,12 +39,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, firefox-addons, home-manager, nix-index-database, nixos-hardware, pre-commit-hooks, spicetify-nix
-    , ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, firefox-addons, home-manager, nix-minecraft, nix-index-database, nixos-hardware, pre-commit-hooks
+    , spicetify-nix, ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
       nixosModules = {
-        default = import ./modules/default;
+        default.imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
@@ -48,6 +53,8 @@
       };
 
       overlays.default = lib.composeManyExtensions ([
+        inputs.nix-minecraft.overlay
+
         (_: super: {
           firefox-addons = inputs.firefox-addons.packages.${super.system};
           spicetify = inputs.spicetify-nix.packages.${super.system}.default;
