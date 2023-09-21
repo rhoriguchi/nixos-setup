@@ -1,5 +1,5 @@
-{ lib, ... }: {
-  programs.zsh.shellAliases.cat = "bat";
+{ pkgs, lib, ... }: {
+  programs.zsh.shellAliases.cat = "${pkgs.bat}/bin/bat";
 
   programs.bat = {
     enable = true;

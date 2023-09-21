@@ -1,12 +1,13 @@
-{ pkgs, colors, ... }: {
+{ config, pkgs, colors, ... }: {
   programs = {
     fzf.tmux.enableShellIntegration = true;
 
     zsh = {
-      shellAliases = {
-        attach = "tmux attach-session -t 'default' || tmux new-session -s 'default'";
-        clear = "clear && tmux clear-history 2> /dev/null";
-        detach = "tmux detach-client";
+      shellAliases = let inherit (config.programs.tmux) package;
+      in {
+        attach = "${package}/bin/tmux attach-session -t 'default' || ${package}/bin/tmux new-session -s 'default'";
+        clear = "clear && ${package}/bin/tmux clear-history 2> /dev/null";
+        detach = "${package}/bin/tmux detach-client";
       };
 
       initExtra = ''

@@ -6,5 +6,5 @@
     sessionVariables.GREP_COLORS = "mt=1;38;5;127";
   };
 
-  programs.zsh.shellAliases.grep = "grep --color=auto";
+  programs.zsh.shellAliases.grep = "${pkgs.gnugrep}/bin/grep --color=auto";
 }
