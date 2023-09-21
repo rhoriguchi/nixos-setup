@@ -1,5 +1,11 @@
-{ pkgs, colors, ... }: {
-  home.packages = [ pkgs.nano ];
+{ pkgs, config, lib, colors, ... }: {
+  home = {
+    packages = [ pkgs.nano ];
+
+    activation.deleteGitconfig = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+      rm -f ${config.home.homeDirectory}/.gitconfig
+    '';
+  };
 
   programs.git = {
     enable = true;
