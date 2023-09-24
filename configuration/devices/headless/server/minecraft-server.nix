@@ -25,7 +25,8 @@
 
         # https://minecraft.fandom.com/wiki/Server.properties
         serverProperties = rec {
-          motd = "Pingu Land";
+          #https://mctools.org/motd-creator?text=%26d%26lPingu+Land
+          motd = "\\u00A7d\\u00A7lPingu Land";
           white-list = true;
 
           difficulty = "normal";
