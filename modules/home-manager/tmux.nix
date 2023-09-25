@@ -1,4 +1,4 @@
-{ config, pkgs, colors, ... }: {
+{ config, lib, pkgs, colors, ... }: {
   programs = {
     fzf.tmux.enableShellIntegration = true;
 
@@ -21,7 +21,18 @@
       '';
     };
 
-    tmux = {
+    tmux = let
+      clockCommand = "${pkgs.tty-clock}/bin/tty-clock ${
+          lib.concatStringsSep " " [
+            "-C 5" # Set the clock color
+            "-c" # Set the clock at the center of the terminal
+            "-D" # Hide date
+            "-s" # Show seconds
+          ]
+        }";
+
+      clearTerminalLine = command: "tput cuu 1; tput sc; ${command}; tput rc; tput ed";
+    in {
       enable = true;
 
       shortcut = "a";
@@ -33,13 +44,15 @@
       terminal = "screen-256color";
 
       extraConfig = ''
-        bind h split-window -h
-        unbind %
-
-        bind v split-window
         unbind '"'
+        bind v split-window
 
-        set -g clock-mode-colour "${colors.normal.accent}"
+        unbind %
+        bind h split-window -h
+
+        unbind t
+        bind t send-keys '${clearTerminalLine clockCommand}' Enter
+
         set -g message-command-style bg=black,fg=green
         set -g message-style bg=green,fg=black
         set -g mode-style 'reverse'
