@@ -1,8 +1,8 @@
-{
+{ pkgs, ... }: {
   security = {
     doas.enable = true;
     sudo.enable = false;
   };
 
-  environment.shellAliases.sudo = "doas";
+  environment.shellAliases.test-sudo = "${pkgs.doas-sudo-shim}/bin/sudo";
 }
