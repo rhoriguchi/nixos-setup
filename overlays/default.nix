@@ -42,6 +42,8 @@
 
     hs = super.callPackage ./hs { };
 
+    nodePackages = super.nodePackages // super.callPackage ./node-packages { pkgs = super; };
+
     py-kms = super.callPackage ./py-kms.nix { };
 
     solaar = super.callPackage ./solaar.nix { inherit (super) solaar; };
