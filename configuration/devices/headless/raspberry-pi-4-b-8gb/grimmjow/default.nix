@@ -20,7 +20,6 @@
 
     wireguard-network = {
       enable = true;
-
       type = "client";
     };
   };

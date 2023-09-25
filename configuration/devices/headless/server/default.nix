@@ -96,7 +96,6 @@
 
     wireguard-network = {
       enable = true;
-
       type = "server";
     };
   };
