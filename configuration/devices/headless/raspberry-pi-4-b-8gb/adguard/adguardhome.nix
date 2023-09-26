@@ -1,46 +1,5 @@
 { pkgs, lib, config, secrets, ... }:
-let
-  adguardhomePort = 80;
-
-  routerIp = "192.168.1.1";
-
-  ignored = [ "adguard.local" "infomaniak.com.local" "infomaniak.com" "unifi.local" "wireguard.00a.ch" ];
-
-  settings = assert pkgs.adguardhome.schema_version == 20; {
-    users = [{
-      name = secrets.adguard.username;
-      password = secrets.adguard.encryptedUsernamePassword;
-    }];
-
-    dns = rec {
-      bind_host = "0.0.0.0";
-      bind_port = 80;
-
-      bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
-      upstream_dns = bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
-      rewrites = map (domain: {
-        inherit domain;
-        answer = "XXLPitu-Server.local";
-      }) [
-        "deluge.00a.ch"
-        "home-assistant.00a.ch"
-        "home.00a.ch"
-        "minecraft.00a.ch"
-        "prowlarr.00a.ch"
-        "sonarr.00a.ch"
-        "tautulli.00a.ch"
-        "wireguard.00a.ch"
-
-        "price-tracker.00a.ch"
-        "*.price-tracker.00a.ch"
-      ];
-
-      ratelimit = 0;
-    };
-
-    querylog.ignored = ignored;
-    statistics.ignored = ignored;
-  };
+let adguardhomePort = 80;
 in {
   services = {
     nginx = {
@@ -78,7 +37,45 @@ in {
       enable = true;
 
       mutableSettings = false;
-      inherit settings;
+      settings = assert pkgs.adguardhome.schema_version == 20;
+        let
+          routerIp = "192.168.1.1";
+          ignored = [ "adguard.local" "infomaniak.com.local" "infomaniak.com" "unifi.local" "wireguard.00a.ch" ];
+        in {
+          users = [{
+            name = secrets.adguard.username;
+            password = secrets.adguard.encryptedUsernamePassword;
+          }];
+
+          dns = rec {
+            bind_host = "127.0.0.1";
+            bind_port = adguardhomePort + 1;
+
+            bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
+            upstream_dns = bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
+            rewrites = map (domain: {
+              inherit domain;
+              answer = "XXLPitu-Server.local";
+            }) [
+              "deluge.00a.ch"
+              "home-assistant.00a.ch"
+              "home.00a.ch"
+              "minecraft.00a.ch"
+              "prowlarr.00a.ch"
+              "sonarr.00a.ch"
+              "tautulli.00a.ch"
+              "wireguard.00a.ch"
+
+              "price-tracker.00a.ch"
+              "*.price-tracker.00a.ch"
+            ];
+
+            ratelimit = 0;
+          };
+
+          querylog.ignored = ignored;
+          statistics.ignored = ignored;
+        };
     };
   };
 
