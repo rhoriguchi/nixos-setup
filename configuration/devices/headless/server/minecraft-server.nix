@@ -42,6 +42,7 @@
           sanlitun = "9c645c2c-1a1b-4207-ab9e-1ea0ca75a127"; # Isler
           Sirkii = "5e14c507-16cd-4a0d-84bd-ec82c1792e03"; # Keanu
           ThatOneSlave = "ee4c4772-23d4-4cc9-9f70-092aa1ddc7c2"; # Janik
+          XD3NNY_ = "844269e7-d1f0-4a22-8067-f1d89fe8dd25"; # Denny
           XXLPitu = "91469f95-dded-484b-acde-1da375f88aed"; # Ryan
         };
       };
