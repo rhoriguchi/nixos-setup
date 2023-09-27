@@ -4,5 +4,5 @@
     sudo.enable = false;
   };
 
-  environment.shellAliases.test-sudo = "${pkgs.doas-sudo-shim}/bin/sudo";
+  environment.shellAliases.sudo = "${pkgs.doas-sudo-shim}/bin/sudo";
 }
