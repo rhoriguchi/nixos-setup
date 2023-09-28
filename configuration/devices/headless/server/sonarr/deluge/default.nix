@@ -23,7 +23,8 @@
     };
 
     deluge = {
-      enable = false;
+      # TODO commended
+      # enable = true;
 
       package = pkgs.deluge.overrideAttrs (_: { patches = [ ./remove-web-login.patch ]; });
 
