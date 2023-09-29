@@ -35,6 +35,7 @@
 
         # https://mcuuid.net
         whitelist = {
+          Ice3ider = "375fd1d3-f816-43ab-813d-19e907f4769f"; # Matteo
           Jeum = "f9fbd9b1-bb8b-4aa6-8e40-b6cc67905487"; # Jessy
           nielsx3 = "a2d4ac95-9a30-4f88-946c-05b60cfaf28b"; # Niels
           Papierschorle = "fd048705-cb86-4e31-a251-1a99d5d2483f"; # Ramon
