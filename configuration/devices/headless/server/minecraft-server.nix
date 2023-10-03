@@ -31,6 +31,7 @@
 
           difficulty = "normal";
           view-distance = 32;
+          enable-command-block = true;
         };
 
         # https://mcuuid.net
