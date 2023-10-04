@@ -35,7 +35,6 @@
 
       core = {
         editor = "nano";
-        pager = "less --raw-control-chars --quit-if-one-screen --no-init";
         symlinks = true;
       };
 
