@@ -84,10 +84,18 @@
     pkgs.wpa_supplicant_gui
   ];
 
-  users.users.rhoriguchi = {
-    extraGroups = [ "networkmanager" "plugdev" "podman" "wheel" ];
-    isNormalUser = true;
-    password = secrets.users.rhoriguchi.password;
+  users.users = {
+    rhoriguchi = {
+      extraGroups = [ "networkmanager" "plugdev" "podman" "wheel" ];
+      isNormalUser = true;
+      password = secrets.users.rhoriguchi.password;
+    };
+
+    sillert = {
+      extraGroups = [ "networkmanager" "plugdev" ];
+      isNormalUser = true;
+      password = secrets.users.sillert.password;
+    };
   };
 
   system.activationScripts.rhoriguchiSetup = let
