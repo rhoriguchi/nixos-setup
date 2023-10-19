@@ -30,7 +30,7 @@ in {
         sensor = {
           name = "Version";
           scan_interval = 60 * 60;
-          command = "${pkgs.lsb-release}/bin/lsb_release --release --short";
+          command = "${pkgs.gnugrep}/bin/grep 'BUILD_ID=' /etc/os-release | ${pkgs.coreutils}/bin/cut -d'=' -f2";
           value_template = "{{ value | replace('\"', '') }}";
         };
       }
