@@ -21,18 +21,7 @@
       '';
     };
 
-    tmux = let
-      clockCommand = "${pkgs.tty-clock}/bin/tty-clock ${
-          lib.concatStringsSep " " [
-            "-C 5" # Set the clock color
-            "-c" # Set the clock at the center of the terminal
-            "-D" # Hide date
-            "-s" # Show seconds
-          ]
-        }";
-
-      clearTerminalLine = command: "tput cuu 1; tput sc; ${command}; tput rc; tput ed";
-    in {
+    tmux = {
       enable = true;
 
       shortcut = "a";
@@ -43,7 +32,18 @@
       shell = "${pkgs.zsh}/bin/zsh";
       terminal = "screen-256color";
 
-      extraConfig = ''
+      extraConfig = let
+        clockCommand = "${pkgs.tty-clock}/bin/tty-clock ${
+            lib.concatStringsSep " " [
+              "-C 5" # Set the clock color
+              "-c" # Set the clock at the center of the terminal
+              "-D" # Hide date
+              "-s" # Show seconds
+            ]
+          }";
+
+        clearTerminalLine = command: "tput cuu 1; tput sc; ${command}; tput rc; tput ed";
+      in ''
         unbind '"'
         bind v split-window
 
