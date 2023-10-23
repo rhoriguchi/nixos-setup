@@ -30,7 +30,7 @@ in {
         sensor = {
           name = "Version";
           scan_interval = 60 * 60;
-          command = "${pkgs.gnugrep}/bin/grep 'BUILD_ID=' /etc/os-release | ${pkgs.coreutils}/bin/cut -d'=' -f2";
+          command = "${pkgs.gnugrep}/bin/grep 'BUILD_ID=' /etc/os-release | cut -d'=' -f2";
           value_template = "{{ value | replace('\"', '') }}";
         };
       }
@@ -38,7 +38,7 @@ in {
         sensor = {
           name = "Kernel";
           scan_interval = 60 * 60;
-          command = "${pkgs.coreutils}/bin/uname -r";
+          command = "uname -r";
         };
       }
       {
@@ -46,7 +46,7 @@ in {
           name = "Uptime";
           scan_interval = 60;
           command =
-            "${pkgs.coreutils}/bin/uptime | ${pkgs.gawk}/bin/awk -F '( |,|:)+' '{d=h=m=0; if ($7==\"min\") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print d+0,\"days\",h+0,\"hours\",m+0,\"minutes\"}'";
+            "uptime | ${pkgs.gawk}/bin/awk -F '( |,|:)+' '{d=h=m=0; if ($7==\"min\") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print d+0,\"days\",h+0,\"hours\",m+0,\"minutes\"}'";
         };
       }
     ];

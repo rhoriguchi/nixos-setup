@@ -255,7 +255,7 @@ in {
                 command = "${pkgs.jq}/bin/jq '${lib.concatStringsSep " | " operations}' ${configFile} > ${runConfigPath}";
               in ''${pkgs.bashInteractive}/bin/sh -c "${command}"'')
 
-              ''${pkgs.coreutils}/bin/mkdir -p "%h/${userSyncPath}" "%h/${userStoragePath}"''
+              ''mkdir -p "%h/${userSyncPath}" "%h/${userStoragePath}"''
             ];
           };
         };

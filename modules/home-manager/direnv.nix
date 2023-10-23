@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   programs.direnv = {
     enable = true;
 
@@ -11,7 +11,7 @@
       direnv_layout_dir() {
         echo "''${direnv_layout_dirs[$PWD]:=$(
           echo -n "$XDG_CACHE_HOME"/direnv/layouts/
-          echo -n "$PWD" | ${pkgs.coreutils}/bin/sha1sum | cut -d ' ' -f 1
+          echo -n "$PWD" | sha1sum | cut -d ' ' -f 1
         )}"
       }
     '';
