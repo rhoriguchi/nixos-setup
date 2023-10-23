@@ -15,8 +15,10 @@
 
     extraConfig = {
       alias = {
-        changes = "diff --stat";
-        history = ''log --date=iso --pretty="%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ad %C(auto)%d %C(reset)%s"'';
+        alias = "! git config --get-regexp '^alias.' | sort | ${pkgs.gnused}/bin/sed -e 's/^alias\\.//' -e 's/\\ /\\ =\\ /'";
+        changes = "! git diff --stat";
+        graph = "! git history --graph --all --decorate";
+        history = "! git log --pretty='%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ar %C(auto)%d %C(reset)%s'";
         tracked = let
           colorize = color: text: "${color}${text}\\e[0m";
 
@@ -24,7 +26,7 @@
           red = colorize "\\x1b[1;38;5;203m";
           green = colorize "\\x1b[1;38;5;41m";
         in ''
-          !f() { if [ $# -eq 0 ]; then echo -e '${
+          ! f() { if [ $# -eq 0 ]; then echo -e '${
             red "Missing file or directory"
           }'; else tracked=$(git ls-files ''${1}); if [[ -z ''${tracked} ]]; then echo -e "${red "Not tracked"} ''${1}"; else echo -e "${
             green "Tracked"
