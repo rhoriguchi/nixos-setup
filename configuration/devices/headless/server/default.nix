@@ -97,5 +97,13 @@
       enable = true;
       type = "server";
     };
+
+    monitoring = {
+      enable = true;
+
+      type = "parent";
+      apiKey = secrets.monitoring.apiKey;
+      basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
+    };
   };
 }

@@ -22,5 +22,12 @@
       enable = true;
       type = "client";
     };
+
+    monitoring = {
+      enable = true;
+
+      type = "child";
+      apiKey = secrets.monitoring.apiKey;
+    };
   };
 }

@@ -1,0 +1,122 @@
+{ config, pkgs, lib, ... }:
+let
+  cfg = config.services.monitoring;
+
+  serverAddress = "monitoring.00a.ch";
+  streamPort = 19996;
+
+  isParent = cfg.type == "parent";
+in {
+  options.services.monitoring = {
+    enable = lib.mkEnableOption "Monitoring with Netdata";
+    type = lib.mkOption { type = lib.types.nullOr (lib.types.enum [ "parent" "child" ]); };
+    basicAuth = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
+      default = { };
+    };
+    apiKey = lib.mkOption { type = lib.types.str; };
+  };
+
+  config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = isParent -> config.services.infomaniak.enable;
+        message = "When type is server infomaniak service must be enabled";
+      }
+      {
+        assertion = isParent -> config.services.nginx.enable;
+        message = "When type is server nginx service must be enabled";
+      }
+      {
+        assertion = isParent -> cfg.basicAuth != { };
+        message = "When type is server basicAuth must be set";
+      }
+    ];
+
+    services = {
+      nginx.virtualHosts.${serverAddress} = lib.attrsets.optionalAttrs isParent {
+        enableACME = true;
+        forceSSL = true;
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:19999";
+          inherit (cfg) basicAuth;
+        };
+      };
+
+      infomaniak.hostnames = lib.mkIf isParent [ serverAddress ];
+
+      netdata = {
+        enable = true;
+
+        package = pkgs.netdata.override { withCloudUi = isParent; };
+
+        # TODO monitor
+        # HDD temperature
+        # Minecraft
+        # NGINX https://learn.netdata.cloud/docs/data-collection/web-servers-and-web-proxies/nginx
+        # Nvidia GPU
+        # S.M.A.R.T.
+
+        # TODO install on windows (Plugin: go.d.plugin Module: windows)
+
+        config = {
+          parent.web = {
+            "bind to" = lib.concatStringsSep " " [
+              "127.0.0.1=dashboard|registry|badges|management|netdata.conf"
+              "0.0.0.0:${toString streamPort}=streaming^SSL=force"
+            ];
+            "ssl certificate" = "/run/monitoring/cert.pem";
+            "ssl ssl key" = "/run/monitoring/key.pem";
+
+            "enable gzip compression" = "no";
+          };
+
+          child = {
+            global = {
+              "access log" = "none";
+
+              "memory mode" = "ram";
+            };
+
+            web.node = "none";
+          };
+        }.${cfg.type};
+
+        configDir."stream.conf" = (pkgs.formats.ini { }).generate "stream.conf" {
+          parent.${cfg.apiKey} = {
+            enabled = "yes";
+
+            "default memory mode" = "dbengine";
+          };
+
+          child.stream = {
+            enabled = "yes";
+
+            "api key" = cfg.apiKey;
+            destination = "${serverAddress}:${toString streamPort}:SSL";
+          };
+        }.${cfg.type};
+      };
+    };
+
+    systemd.tmpfiles.rules = let certDir = config.security.acme.certs.${serverAddress}.directory;
+    in lib.mkIf isParent [
+      "d /run/monitoring 0700 ${config.services.netdata.user} ${config.services.netdata.group}"
+      "L+ /run/monitoring/cert.pem - - - - ${certDir}/cert.pem"
+      "L+ /run/monitoring/key.pem - - - - ${certDir}/key.pem"
+    ];
+
+    networking.firewall = {
+      allowedTCPPorts = lib.mkIf isParent [ streamPort ];
+      allowedUDPPorts = lib.mkIf isParent [ streamPort ];
+    };
+
+    # TODO cause `error: The option `services.monitoring.type' is used but not defined.`
+    # networking.firewall = lib.optionalAttrs isParent {
+    #   allowedTCPPorts = [ streamPort ];
+    #   allowedUDPPorts = [ streamPort ];
+    # };
+  };
+}
+
