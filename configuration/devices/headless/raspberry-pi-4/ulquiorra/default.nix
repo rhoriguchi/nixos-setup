@@ -22,10 +22,19 @@
     };
   };
 
-  services.wireguard-network = {
-    enable = true;
+  services = {
+    wireguard-network = {
+      enable = true;
+      type = "client";
+      serverHostname = "XXLPitu-Server";
+    };
 
-    type = "client";
-    serverHostname = "XXLPitu-Server";
+    monitoring = {
+      enable = true;
+
+      type = "child";
+      parentHostname = "XXLPitu-Server";
+      apiKey = secrets.monitoring.apiKey;
+    };
   };
 }

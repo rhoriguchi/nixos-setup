@@ -15,6 +15,10 @@ in {
     enable = lib.mkEnableOption "Private VPN";
     type = lib.mkOption { type = lib.types.nullOr (lib.types.enum [ "client" "server" ]); };
     serverHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
+    interfaceName = lib.mkOption {
+      type = lib.types.str;
+      default = "wg-management";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -46,7 +50,7 @@ in {
     ];
 
     networking.wireguard.interfaces = {
-      wg-management = {
+      "${cfg.interfaceName}" = {
         server = let
 
         in {
