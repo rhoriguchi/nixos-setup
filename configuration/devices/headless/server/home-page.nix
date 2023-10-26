@@ -11,7 +11,7 @@ let
     in lib.concatStringsSep "\n" (lib.sort (a: b: a < b) line)}
   '';
 
-  indexFile = pkgs.runCommand "index.html" { } ''${pkgs.nodePackages.showdown}/bin/showdown makehtml -i ${markdownFile} -o "$out"'';
+  indexFile = pkgs.runCommand "index.html" { } "${pkgs.nodePackages.showdown}/bin/showdown makehtml -i ${markdownFile} -o $out";
 in {
   systemd.tmpfiles.rules = [ "d /run/home-page 0700 nginx nginx" "L+ /run/home-page/index.html - - - - ${indexFile}" ];
 
