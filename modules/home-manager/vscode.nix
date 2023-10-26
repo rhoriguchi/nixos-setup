@@ -54,6 +54,7 @@
       pkgs.vscode-extensions.ryu1kn.partial-diff
       pkgs.vscode-extensions.spywhere.guides
       pkgs.vscode-extensions.streetsidesoftware.code-spell-checker
+      pkgs.vscode-extensions.timonwong.shellcheck
       pkgs.vscode-extensions.tomoki1207.pdf
       pkgs.vscode-extensions.tyriar.sort-lines
       pkgs.vscode-extensions.vincaslt.highlight-matching-tag
