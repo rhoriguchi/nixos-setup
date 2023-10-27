@@ -185,6 +185,7 @@
       "files.trimTrailingWhitespace" = true;
       "git.autofetch" = "all";
       "importCost.javascriptExtensions" = [ "\\.jsx?$" "\\.tsx?$" ];
+      "javascript.updateImportsOnFileMove.enabled" = "always";
       "peacock.affectActivityBar" = true;
       "peacock.affectStatusBar" = true;
       "peacock.affectTitleBar" = false;
