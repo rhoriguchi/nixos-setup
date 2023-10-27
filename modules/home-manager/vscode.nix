@@ -183,6 +183,7 @@
         "**/target" = true;
       };
       "files.trimTrailingWhitespace" = true;
+      "git.autofetch" = "all";
       "importCost.javascriptExtensions" = [ "\\.jsx?$" "\\.tsx?$" ];
       "peacock.affectActivityBar" = true;
       "peacock.affectStatusBar" = true;
