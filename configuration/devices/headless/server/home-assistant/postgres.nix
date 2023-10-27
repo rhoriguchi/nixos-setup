@@ -5,8 +5,6 @@
     postgresql = {
       enable = true;
 
-      port = 5433;
-
       ensureDatabases = [ "hass" ];
       ensureUsers = [{
         name = "hass";
