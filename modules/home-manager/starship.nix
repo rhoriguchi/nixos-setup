@@ -6,7 +6,7 @@
       add_newline = false;
       scan_timeout = 10;
 
-      format = lib.concatStrings [ "$directory" "$git_branch" "$character" ];
+      format = lib.concatStrings [ "$directory" "$git_state" "$git_branch" "$character" ];
 
       directory = {
         format = "[$path]($style) ";
@@ -16,11 +16,13 @@
         truncation_length = 999;
       };
 
+      git_state.style = "${colors.normal.green} bold";
+
       git_branch.style = "${colors.normal.accent} bold";
 
       character = {
-        success_symbol = "[❯](white bold)";
-        error_symbol = "[❯](white bold)";
+        success_symbol = "[❯](${colors.normal.white} bold)";
+        error_symbol = "[❯](${colors.normal.white} bold)";
       };
     };
   };
