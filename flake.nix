@@ -21,6 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-github-actions = {
+      url = "github:nix-community/nix-github-actions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,10 +49,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, deploy-rs, flake-utils, firefox-addons, home-manager, nix-minecraft, nix-index-database, nixos-hardware
-    , pre-commit-hooks, spicetify-nix, ... }@inputs:
+  outputs = { self, nixpkgs, deploy-rs, flake-utils, firefox-addons, home-manager, nix-github-actions, nix-minecraft, nix-index-database
+    , nixos-hardware, pre-commit-hooks, spicetify-nix, ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
+      githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
+        checks = inputs.nixpkgs.lib.getAttrs [ inputs.flake-utils.lib.system.x86_64-linux ] self.checks;
+      };
+
       nixosModules = {
         default.imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
 
