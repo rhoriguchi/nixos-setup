@@ -35,6 +35,7 @@
       pkgs.vscode-extensions.formulahendry.auto-close-tag
       pkgs.vscode-extensions.formulahendry.auto-rename-tag
       pkgs.vscode-extensions.foxundermoon.shell-format
+      pkgs.vscode-extensions.github.vscode-github-actions
       pkgs.vscode-extensions.github.vscode-pull-request-github
       pkgs.vscode-extensions.gruntfuggly.todo-tree
       pkgs.vscode-extensions.hashicorp.terraform

@@ -207,12 +207,16 @@
             src = ./.;
 
             hooks = {
+              actionlint.enable = true;
               deadnix = {
                 enable = true;
                 excludes = [ "hardware-configuration\\.nix" ];
               };
               markdownlint.enable = true;
-              nixfmt.enable = true;
+              nixfmt = {
+                enable = true;
+                excludes = [ "secrets\\.nix" ];
+              };
             };
 
             settings = {
