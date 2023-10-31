@@ -44,8 +44,7 @@
       pkgs.vscode-extensions.johnpapa.vscode-peacock
       pkgs.vscode-extensions.ms-azuretools.vscode-docker
       pkgs.vscode-extensions.ms-python.isort
-      # TODO fails to build
-      # pkgs.vscode-extensions.ms-python.python
+      pkgs.vscode-extensions.ms-python.python
       pkgs.vscode-extensions.ms-python.vscode-pylance
       pkgs.vscode-extensions.ms-vscode-remote.remote-containers
       pkgs.vscode-extensions.pkief.material-icon-theme
