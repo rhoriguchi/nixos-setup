@@ -50,6 +50,8 @@ in pkgs.nixosTest {
             prefixLength = 24;
           }];
         };
+
+        boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
       };
     };
 
