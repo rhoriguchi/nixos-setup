@@ -10,7 +10,38 @@ pkgs.nixosTest {
       ../configuration/devices/headless/server/home-assistant
     ];
 
-    _module.args.secrets = import ../secrets.nix;
+    _module.args.secrets = {
+      adguard = {
+        username = "test";
+        password = "password";
+      };
+
+      infomaniak = {
+        username = "test";
+        password = "password";
+      };
+
+      mystrom = {
+        email = "test@example.com";
+        password = "password";
+      };
+
+      netatmo = {
+        homeId = "000000000000000000000000";
+        email = "test@example.com";
+        password = "password";
+      };
+
+      openWeatherMap.apiKey = "00000000000000000000000000000000";
+
+      homeassistant = {
+        latitude = 0.0;
+        longitude = 0.0;
+        elevation = 0;
+      };
+
+      wifis."63466727-Guest".psk = "psk";
+    };
   };
 
   testScript = ''

@@ -9,7 +9,10 @@ pkgs.nixosTest {
       ../configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/adguardhome.nix
     ];
 
-    _module.args.secrets = import ../secrets.nix;
+    _module.args.secrets.adguard = {
+      username = "test";
+      encryptedUsernamePassword = "$2y$05$gjHEFr9yo.y/8a8DV5jGievJzKzE2IhxPibxmg4QbE3H8mIfVRxbu"; # test:password
+    };
   };
 
   testScript = ''
