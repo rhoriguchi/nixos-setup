@@ -37,6 +37,7 @@
         # https://mcuuid.net
         whitelist = {
           DrGolden = "f3cc5386-5866-4e39-b73e-ffd63abc5bec"; # Jeremy
+          GhostMoon = "0da68ac3-aa82-442b-b12e-42d864c629b7"; # Pollux
           Ice3ider = "375fd1d3-f816-43ab-813d-19e907f4769f"; # Matteo
           Jeum = "f9fbd9b1-bb8b-4aa6-8e40-b6cc67905487"; # Jessy
           nielsx3 = "a2d4ac95-9a30-4f88-946c-05b60cfaf28b"; # Niels
