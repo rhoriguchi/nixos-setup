@@ -1,18 +1,9 @@
-{ pkgs, config, secrets, ... }: {
-  imports = [
-    ./adguard.nix
-    ./deluge.nix
-    ./generate-wifi-guest-qr.nix
-    ./lovelace.nix
-    ./mystrom.nix
-    ./netatmo.nix
-    ./postgres.nix
-    ./proxy.nix
-    ./systemmonitor.nix
-    ./unifi.nix
-    ./weather.nix
-    ./yeelight.nix
-  ];
+{ pkgs, lib, config, secrets, ... }:
+let
+  getFiles = dir: lib.attrNames (builtins.readDir dir);
+  getImports = dir: map (file: dir + "/${file}") (lib.filter (file: !(lib.hasSuffix ".md" file) && file != "default.nix") (getFiles dir));
+in {
+  imports = getImports ./.;
 
   services.home-assistant = {
     enable = true;
