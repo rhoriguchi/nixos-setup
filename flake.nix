@@ -88,6 +88,7 @@
           };
         };
 
+        # Lenovo Legion 5 15ACH6
         Laptop = {
           deployment.targetHost = "127.0.0.1";
 
@@ -126,8 +127,6 @@
           boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
         };
 
-        #####################################################
-
         Server = {
           deployment.targetHost = "home.00a.ch";
 
@@ -141,6 +140,7 @@
           ];
         };
 
+        # Raspberry Pi 4 Model B - 8GB
         AdGuard = {
           deployment.targetHost = "adguard";
 
@@ -149,12 +149,11 @@
 
             self.nixosModules.profiles.headless
 
-            ./configuration/devices/headless/raspberry-pi-4-b-8gb/adguard
+            ./configuration/devices/headless/raspberry-pi-4/adguard
           ];
         };
 
-        #####################################################
-
+        # Raspberry Pi 4 Model B - 8GB
         Grimmjow = {
           deployment.targetHost = "xxlpitu-grimmjow";
 
@@ -163,10 +162,11 @@
 
             self.nixosModules.profiles.headless
 
-            ./configuration/devices/headless/raspberry-pi-4-b-8gb/grimmjow
+            ./configuration/devices/headless/raspberry-pi-4/grimmjow
           ];
         };
 
+        # Raspberry Pi 4 Model B - 8GB
         Ulquiorra = {
           deployment.targetHost = "xxlpitu-ulquiorra";
 
@@ -175,7 +175,7 @@
 
             self.nixosModules.profiles.headless
 
-            ./configuration/devices/headless/raspberry-pi-4-b-8gb/ulquiorra
+            ./configuration/devices/headless/raspberry-pi-4/ulquiorra
           ];
         };
       };
