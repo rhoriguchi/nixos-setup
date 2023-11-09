@@ -1,4 +1,6 @@
 { pkgs, config, lib, colors, ... }: {
+  imports = [ ./template.nix ];
+
   home = {
     packages = [ pkgs.nano ];
 
