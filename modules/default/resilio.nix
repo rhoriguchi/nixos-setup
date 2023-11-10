@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, modulesPath, ... }:
 let
   cfg = config.services.resilio;
 
@@ -40,7 +40,7 @@ let
 
   configFile = (pkgs.formats.json { }).generate "config.json" resilioConfig;
 in {
-  disabledModules = [ "services/networking/resilio.nix" ];
+  disabledModules = [ "${modulesPath}/services/networking/resilio.nix" ];
 
   options.services.resilio = {
     enable = lib.mkEnableOption "Resilio Sync";
