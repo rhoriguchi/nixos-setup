@@ -31,29 +31,33 @@
     };
   };
 
-  systemd.services.sonarr-update-tracked-series = {
-    after = [ "network.target" "sonarr.service" ];
+  systemd.services = {
+    sonarr.serviceConfig.UMask = "0002";
 
-    script = let
-      pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.beautifulsoup4 ps.requests ]);
+    sonarr-update-tracked-series = {
+      after = [ "network.target" "sonarr.service" ];
 
-      script = pkgs.substituteAll {
-        src = ./update_series.py;
+      script = let
+        pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.beautifulsoup4 ps.requests ]);
 
-        sonarApiUrl = "http://127.0.0.1:8989";
-        sonarApiKey = secrets.sonarr.apiKey;
-        sonarrRootDir = "${config.services.resilio.syncPath}/Series/Tv Shows";
+        script = pkgs.substituteAll {
+          src = ./update_series.py;
 
-        tvTimeUsername = secrets.tvTime.username;
-        tvTimePassword = secrets.tvTime.password;
+          sonarApiUrl = "http://127.0.0.1:8989";
+          sonarApiKey = secrets.sonarr.apiKey;
+          sonarrRootDir = "${config.services.resilio.syncPath}/Series/Tv Shows";
+
+          tvTimeUsername = secrets.tvTime.username;
+          tvTimePassword = secrets.tvTime.password;
+        };
+      in "${pythonWithPackages}/bin/python ${script}";
+
+      startAt = "*:0/15";
+
+      serviceConfig = {
+        DynamicUser = true;
+        Restart = "on-abort";
       };
-    in "${pythonWithPackages}/bin/python ${script}";
-
-    startAt = "*:0/15";
-
-    serviceConfig = {
-      DynamicUser = true;
-      Restart = "on-abort";
     };
   };
 }
