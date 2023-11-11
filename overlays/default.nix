@@ -6,7 +6,7 @@
           owner = "NixOS";
           repo = "nixpkgs";
           rev = "4fd5da3781ed6d12a139bee1c84d17772edf130c";
-          sha256 = "sha256-VlvxAWOKZ/ih7bxKxD2qfp2S8skGABS90hfmP8aV2w0=";
+          hash = "sha256-VlvxAWOKZ/ih7bxKxD2qfp2S8skGABS90hfmP8aV2w0=";
         }
       }/pkgs/tools/system/fancy-motd") { };
 
@@ -16,7 +16,7 @@
           owner = "NixOS";
           repo = "nixpkgs";
           rev = "c6ce4bc05172e47b36b5c4a4e410834f9c91b904";
-          sha256 = "sha256-sU2juheULfXZxGVQC6UFwaA2mE6zul0DCQp+AssbyHY=";
+          hash = "sha256-sU2juheULfXZxGVQC6UFwaA2mE6zul0DCQp+AssbyHY=";
         }
       }/pkgs/servers/plex/raw.nix") { };
   })

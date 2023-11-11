@@ -159,7 +159,7 @@ in {
                 # + (let
                 #   windowsInstallerIso = pkgs.fetchurl {
                 #     url = "https://go.microsoft.com/fwlink/p/?LinkID=2208844&clcid=0x809&culture=en-gb&country=GB";
-                #     sha256 = "sha256-o4rMBXqBTK7kl1NTViA2KvIO7ULdjsra1p96z0FK8sU=";
+                #     hash = "sha256-o4rMBXqBTK7kl1NTViA2KvIO7ULdjsra1p96z0FK8sU=";
                 #   };
                 # in ''
                 #   <disk type='file' device='cdrom'>
