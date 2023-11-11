@@ -19,7 +19,7 @@ in {
         }];
 
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.adguardhome.settings.bind_port}";
+          proxyPass = "http://127.0.0.1:${toString config.services.adguardhome.port}";
           proxyWebsockets = true;
         };
 
@@ -36,8 +36,11 @@ in {
     adguardhome = {
       enable = true;
 
+      host = "127.0.0.1";
+      port = adguardhomePort + 1;
+
       mutableSettings = false;
-      settings = assert pkgs.adguardhome.schema_version == 20;
+      settings = assert pkgs.adguardhome.schema_version == 27;
         let
           routerIp = "192.168.1.1";
           ignored = [ "adguard.local" "infomaniak.com.local" "infomaniak.com" "unifi.local" "wireguard.00a.ch" ];
@@ -48,9 +51,6 @@ in {
           }];
 
           dns = rec {
-            bind_host = "127.0.0.1";
-            bind_port = adguardhomePort + 1;
-
             bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
             upstream_dns = bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
             rewrites = map (domain: {
