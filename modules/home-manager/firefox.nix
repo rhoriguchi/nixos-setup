@@ -173,8 +173,8 @@
           "newElementCount" = 0;
         };
         "browser.urlbar.openViewOnFocus" = false;
-        "browser.urlbar.placeholderName" = "Google";
         "browser.urlbar.placeholderName.private" = "Google";
+        "browser.urlbar.placeholderName" = "Google";
         "browser.urlbar.showSearchSuggestionsFirst" = false;
         "browser.urlbar.suggest.openpage" = false;
         "devtools.aboutdebugging.collapsibilities.processes" = false;
