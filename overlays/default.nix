@@ -19,6 +19,18 @@
           hash = "sha256-sU2juheULfXZxGVQC6UFwaA2mE6zul0DCQp+AssbyHY=";
         }
       }/pkgs/servers/plex/raw.nix") { };
+
+    nodePackages = super.nodePackages // {
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=267127
+      showdown = super.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "731aa7f177991e992a15367fd32cb0a536dfec4b";
+            hash = "sha256-pP+eZ1wXfsycfgnHajuvPssDCFbo0obPihl5BIpXuJ4=";
+          }
+        }/pkgs/tools/text/showdown") { };
+    };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
@@ -31,7 +43,5 @@
     glances = super.callPackage ./glances.nix { inherit (super) glances; };
 
     hs = super.callPackage ./hs { };
-
-    nodePackages = super.nodePackages // super.callPackage ./node-packages { pkgs = super; };
   })
 ]
