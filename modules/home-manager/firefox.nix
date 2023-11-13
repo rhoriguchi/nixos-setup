@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }: {
+{ pkgs, lib, config, colors, ... }: {
   home.sessionVariables.BROWSER = "${config.programs.firefox.package}/bin/firefox";
 
   programs.firefox = {
@@ -220,6 +220,13 @@
         "signon.rememberSignons" = false;
         "toolkit.telemetry.reportingpolicy.firstRun" = false;
         "trailhead.firstrun.didSeeAboutWelcome" = true;
+        "ui.textHighlightBackground" = colors.normal.accent;
+        "ui.textHighlightForeground" = colors.normal.white;
+        "ui.textSelectAttentionBackground" = colors.normal.green;
+        "ui.textSelectAttentionForeground" = colors.normal.white;
+        "ui.textSelectBackground" = colors.normal.blue;
+        "ui.textSelectDisabledBackground" = colors.normal.gray;
+        "ui.textSelectForeground" = colors.normal.white;
       };
     };
   };
