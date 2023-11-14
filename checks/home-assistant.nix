@@ -1,12 +1,15 @@
-{ pkgs ? import <nixpkgs> { overlays = import ../overlays; }, ... }:
+{ pkgs ? import <nixpkgs> {
+  config.allowUnfree = true;
+  overlays = import ../overlays;
+}, ... }:
 pkgs.nixosTest {
   name = "home-assistant-test";
 
   nodes.machine = {
     imports = [
-      ../modules/default/infomaniak.nix
-      ../modules/profiles/nginx.nix
+      ../modules/default
 
+      ../modules/profiles/nginx.nix
       ../configuration/devices/headless/server/home-assistant
     ];
 

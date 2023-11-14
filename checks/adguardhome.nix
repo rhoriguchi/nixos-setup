@@ -1,12 +1,16 @@
-{ pkgs ? import <nixpkgs> { overlays = import ../overlays; }, ... }:
+{ pkgs ? import <nixpkgs> {
+  config.allowUnfree = true;
+  overlays = import ../overlays;
+}, ... }:
 pkgs.nixosTest {
   name = "adguardhome-test";
 
   nodes.machine = {
     imports = [
-      ../modules/profiles/nginx.nix
+      ../modules/default
 
-      ../configuration/devices/headless/raspberry-pi-4-b-8gb/adguard/adguardhome.nix
+      ../modules/profiles/nginx.nix
+      ../configuration/devices/headless/raspberry-pi-4/adguard/adguardhome.nix
     ];
 
     _module.args.secrets.adguard = {

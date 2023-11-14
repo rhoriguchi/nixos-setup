@@ -7,7 +7,7 @@ pkgs.nixosTest {
 
   nodes = {
     machine = {
-      imports = [ ../modules/default/resilio.nix ];
+      imports = [ ../modules/default ];
 
       services.resilio = {
         enable = true;
