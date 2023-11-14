@@ -119,6 +119,7 @@
         "browser.tabs.warnOnClose" = false;
         "browser.toolbars.bookmarks.showOtherBookmarks" = false;
         "browser.toolbars.bookmarks.visibility" = "always";
+        "browser.translations.automaticallyPopup" = false;
         "browser.uiCustomization.state" = let
           bitwarden = "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action";
           bypass-paywalls-clean = "_d133e097-46d9-4ecc-9903-fa6a722a6e0e_-browser-action";
