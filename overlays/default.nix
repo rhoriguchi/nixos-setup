@@ -10,16 +10,6 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=265227
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "c6ce4bc05172e47b36b5c4a4e410834f9c91b904";
-          hash = "sha256-sU2juheULfXZxGVQC6UFwaA2mE6zul0DCQp+AssbyHY=";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
-
     nodePackages = super.nodePackages // {
       # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=267127
       showdown = super.callPackage (import "${
