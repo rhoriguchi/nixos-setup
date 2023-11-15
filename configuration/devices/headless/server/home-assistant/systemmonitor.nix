@@ -17,6 +17,19 @@ in {
         ]);
     }];
 
+    template = [{
+      sensor = [
+        {
+          name = "Uptime";
+          state = "{{ states('sensor.last_boot') | as_datetime | relative_time }}";
+        }
+        {
+          name = "Booted";
+          state = "{{ states('sensor.last_boot') | as_timestamp | timestamp_custom('%d.%m.%Y %H:%M:%S') }}";
+        }
+      ];
+    }];
+
     command_line = [
       {
         sensor = {
@@ -39,14 +52,6 @@ in {
           name = "Kernel";
           scan_interval = 60 * 60;
           command = "${pkgs.coreutils}/bin/uname -r";
-        };
-      }
-      {
-        sensor = {
-          name = "Uptime";
-          scan_interval = 60;
-          command =
-            "${pkgs.coreutils}/bin/uptime | ${pkgs.gawk}/bin/awk -F '( |,|:)+' '{d=h=m=0; if ($7==\"min\") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print d+0,\"days\",h+0,\"hours\",m+0,\"minutes\"}'";
         };
       }
     ];

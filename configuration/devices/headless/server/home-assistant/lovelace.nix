@@ -278,8 +278,11 @@ in {
                 title = "Info";
                 entities = [
                   {
+                    name = "Booted";
+                    entity = "sensor.booted";
+                  }
+                  {
                     name = "Uptime";
-                    icon = "mdi:clock";
                     entity = "sensor.uptime";
                   }
                   {
