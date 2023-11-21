@@ -4,22 +4,6 @@
 
 Uncomment in [guest config](guest.nix) the `INITIAL SETUP` block.
 
-In installer enter product key `NPPR9-FWDCX-D2C8J-H872K-2YT43`, more info at <https://py-kms.readthedocs.io/en/latest/Keys.html>
-
-### Activate Windows
-
-```txt
-cscript //nologo slmgr.vbs /upk
-cscript //nologo slmgr.vbs /ipk NPPR9-FWDCX-D2C8J-H872K-2YT43
-cscript //nologo slmgr.vbs /skms kms.00a.ch:1688
-```
-
-Run till it activates.
-
-```txt
-cscript //nologo slmgr.vbs /ato
-```
-
 ### Install drivers and OS tweaks
 
 Once Windows is installed run in an elevated cmd.
