@@ -80,13 +80,11 @@ powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows
 powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Unpin%20Start' | iex"
 ```
 
-Install [NVIDIA Control Panel](https://apps.microsoft.com/store/detail/nvidia-control-panel/9NF8H0H7WMLT) from Microsoft Store.
-
 Restart VM.
 
 ## Other Software to install
 
-Run in an elevated cmd.
+### Run in an elevated cmd
 
 ```txt
 cd %userprofile%/Downloads
@@ -110,6 +108,7 @@ curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.rio
 curl --location --output mcrcon.zip --url "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.2/mcrcon-0.7.2-windows-x86-64.zip"
 curl --location --output Minecraft_Launcher.exe --url "https://aka.ms/minecraftClientGameCoreWindows"
 curl --location --output Notepad_plus_plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.5/npp.8.5.Installer.x64.exe"
+curl --location --output Plex.exe --url "https://downloads.plex.tv/plex-desktop/1.82.1.4022-2e4fdbb9/windows/Plex-1.82.1.4022-2e4fdbb9-x86_64.exe"
 curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
 curl --location --output Razer_Synapse.exe --url "https://rzr.to/synapse-3-pc-download"
 curl --location --output Spotify.exe --url "https://download.scdn.co/SpotifySetup.exe"
@@ -118,3 +117,8 @@ curl --location --output TeamViewer.exe --url "https://download.teamviewer.com/d
 
 start %userprofile%/Downloads
 ```
+
+### From Microsoft store
+
+- [NVIDIA Control Panel](ms-windows-store://pdp/?productid=9NF8H0H7WMLT&mode=mini)
+- [WhatsApp](ms-windows-store://pdp/?productid=9NKSQGP7F2NH&mode=mini)
