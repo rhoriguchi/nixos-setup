@@ -1,21 +1,22 @@
-{ config, pkgs, colors, ... }: {
+{ config, pkgs, colors, ... }:
+let tmux = "${config.programs.tmux.package}/bin/tmux";
+in {
   programs = {
     fzf.tmux.enableShellIntegration = true;
 
     zsh = {
-      shellAliases = let inherit (config.programs.tmux) package;
-      in {
-        attach = "${package}/bin/tmux attach-session -t 'Default' || ${package}/bin/tmux new-session -s 'Default'";
-        clear = "clear && ${package}/bin/tmux clear-history 2> /dev/null";
-        detach = "${package}/bin/tmux detach-client";
+      shellAliases = {
+        attach = "${tmux} attach-session -t 'Default' || ${tmux} new-session -s 'Default'";
+        clear = "clear && ${tmux} clear-history 2> /dev/null";
+        detach = "${tmux} detach-client";
       };
 
       initExtra = ''
         if [ "$TMUX" = ''' ]; then
           if [ "$XDG_SESSION_TYPE" = 'tty' ]; then
-            tmux attach-session -t "TTY $(basename $(tty))" || tmux new-session -s "TTY $(basename $(tty))"
+            ${tmux} attach-session -t "TTY $(basename $(tty))" || ${tmux} new-session -s "TTY $(basename $(tty))"
           elif [ "$TERM_PROGRAM" != 'vscode' ] && [ "$TERMINAL_EMULATOR" != 'JetBrains-JediTerm' ]; then
-            tmux attach-session -t 'Default' || tmux new-session -s 'Default'
+            ${tmux} attach-session -t 'Default' || ${tmux} new-session -s 'Default'
           fi
         fi
       '';
