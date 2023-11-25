@@ -61,8 +61,9 @@
             url = "https://www.youtube.com";
           }
           {
+            # Check https://gogotaku.info for latest active domain
             name = "Gogoanime";
-            url = "https://gogoanimehd.io";
+            url = "https://gogoanime3.net";
           }
           {
             name = "TV Time";
