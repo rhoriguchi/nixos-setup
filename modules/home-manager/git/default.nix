@@ -22,6 +22,7 @@
         changes = "! git diff --stat";
         graph = "! git history --graph --all --decorate";
         history = "! git log --pretty='%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ar %C(auto)%d %C(reset)%s'";
+        last = "! git history -1";
         own-history = ''! git history --all --decorate --author="$(git config user.name)"'';
         tracked = let
           colorize = color: text: "${color}${text}\\e[0m";
