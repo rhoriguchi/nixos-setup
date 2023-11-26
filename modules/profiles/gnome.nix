@@ -33,7 +33,6 @@
     gnome.excludePackages = [
       pkgs.gnome-connections
       pkgs.gnome-console
-      pkgs.gnome-photos
       pkgs.gnome-text-editor
       pkgs.gnome-tour
       pkgs.gnome.adwaita-icon-theme
