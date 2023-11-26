@@ -21,20 +21,6 @@
           }
         }/pkgs/tools/text/showdown") { };
     };
-
-    python3 = super.python3.override {
-      packageOverrides = _: _: {
-        # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=269189
-        plum-py = super.python3Packages.callPackage (import "${
-            super.fetchFromGitHub {
-              owner = "NixOS";
-              repo = "nixpkgs";
-              rev = "eb7e8003be23b12b41c458ca2a4cc43248c214c7";
-              hash = "sha256-JGutp+G0Faka3ue/8sctbCyJAHjIDtk9VwRNnUjCAm8=";
-            }
-          }/pkgs/development/python-modules/plum-py") { };
-      };
-    };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
