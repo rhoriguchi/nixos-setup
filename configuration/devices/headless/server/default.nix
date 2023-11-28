@@ -1,4 +1,4 @@
-{ pkgs, config, lib, public-keys, secrets, ... }: {
+{ pkgs, config, lib, secrets, ... }: {
   imports = [
     ../common.nix
 
@@ -7,7 +7,6 @@
     ./home-page.nix
     ./libvirtd
     ./minecraft-server.nix
-    ./price-tracker-proxy.nix
     ./rsnapshot.nix
     ./sonarr
 
@@ -98,12 +97,5 @@
       enable = true;
       type = "server";
     };
-  };
-
-  users.users.gitlab-ci = {
-    isNormalUser = true;
-    group = "docker";
-    hashedPassword = "*";
-    openssh.authorizedKeys.keys = [ public-keys.gitlab ];
   };
 }

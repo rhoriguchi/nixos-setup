@@ -65,9 +65,6 @@ in {
               "sonarr.00a.ch"
               "tautulli.00a.ch"
               "wireguard.00a.ch"
-
-              "price-tracker.00a.ch"
-              "*.price-tracker.00a.ch"
             ];
 
             ratelimit = 0;
