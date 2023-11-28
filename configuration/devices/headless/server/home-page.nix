@@ -13,7 +13,10 @@ let
 
   indexFile = pkgs.runCommand "index.html" { } "${pkgs.nodePackages.showdown}/bin/showdown makehtml -i ${markdownFile} -o $out";
 in {
-  systemd.tmpfiles.rules = [ "d /run/home-page 0700 nginx nginx" "L+ /run/home-page/index.html - - - - ${indexFile}" ];
+  systemd.tmpfiles.rules = [
+    "d /run/home-page 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
+    "L+ /run/home-page/index.html - - - - ${indexFile}"
+  ];
 
   services.nginx = {
     enable = true;

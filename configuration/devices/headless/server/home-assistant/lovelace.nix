@@ -26,8 +26,10 @@ let
       (card // lib.optionalAttrs (lib.hasAttr card.type cardStyles) { style = cardStyles.${card.type}; }
         // lib.optionalAttrs (lib.hasAttr "cards" card) { cards = addStyleToCards card.cards; })) cards;
 in {
-  systemd.tmpfiles.rules = [ "d /run/hass 0700 nginx nginx" "d /run/hass/js 0700 nginx nginx" ]
-    ++ map (lovelaceModule: "L+ /run/hass/js/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js")
+  systemd.tmpfiles.rules = [
+    "d /run/hass 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
+    "d /run/hass/js 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
+  ] ++ map (lovelaceModule: "L+ /run/hass/js/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js")
     lovelaceModules;
 
   services = {
