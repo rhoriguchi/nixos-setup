@@ -58,13 +58,17 @@ in {
         # Nvidia GPU
         # S.M.A.R.T.
 
+        # TODO fix ssl issue
+        # https://community.netdata.cloud/t/streaming-not-working-when-activating-ssl/764/7
+        # https://github.com/netdata/netdata/issues/6457#issuecomment-511430698
+
         # TODO install on windows (Plugin: go.d.plugin Module: windows)
 
         config = {
           parent.web = {
             "bind to" = lib.concatStringsSep " " [
               "127.0.0.1=dashboard|registry|badges|management|netdata.conf"
-              "0.0.0.0:${toString streamPort}=streaming^SSL=force"
+              "0.0.0.0:${toString streamPort}=streaming"
             ];
             "ssl certificate" = "/run/monitoring/cert.pem";
             "ssl ssl key" = "/run/monitoring/key.pem";
@@ -73,11 +77,7 @@ in {
           };
 
           child = {
-            global = {
-              "access log" = "none";
-
-              "memory mode" = "ram";
-            };
+            global."memory mode" = "ram";
 
             web.node = "none";
           };
@@ -94,7 +94,9 @@ in {
             enabled = "yes";
 
             "api key" = cfg.apiKey;
-            destination = "${serverAddress}:${toString streamPort}:SSL";
+            destination = "${serverAddress}:${toString streamPort}";
+
+            "ssl skip certificate verification" = "yes";
           };
         }.${cfg.type};
       };
