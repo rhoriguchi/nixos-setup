@@ -60,7 +60,7 @@
     resilio = {
       enable = true;
 
-      readWriteDirs = lib.attrNames secrets.resilio.secrets;
+      readWriteDirs = lib.remove "Obsidian_Work" (lib.attrNames secrets.resilio.secrets);
       secrets = secrets.resilio.secrets;
       syncPath = "/mnt/Data/Sync";
     };
