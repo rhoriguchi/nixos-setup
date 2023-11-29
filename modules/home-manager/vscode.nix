@@ -194,16 +194,10 @@
         statusBar = "darken";
         titleBar = "none";
       };
-      "peacock.favoriteColors" = [
-        {
-          name = "GitLab";
-          value = "#FA7035";
-        }
-        {
-          name = "NixOS";
-          value = "#82BFE0";
-        }
-      ] ++ lib.sort (a: b: a.name < b.name) (lib.mapAttrsToList (key: value: {
+      "peacock.favoriteColors" = [{
+        name = "NixOS";
+        value = "#82BFE0";
+      }] ++ lib.sort (a: b: a.name < b.name) (lib.mapAttrsToList (key: value: {
         name = let
           head = lib.toUpper (lib.substring 0 1 key);
           tail = lib.substring 1 (lib.stringLength key) key;
