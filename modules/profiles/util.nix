@@ -26,12 +26,14 @@
       pkgs.pciutils
       pkgs.procps
       pkgs.rsync
+      pkgs.smartmontools
       pkgs.speedtest-cli
       pkgs.sshpass
       pkgs.strace
       pkgs.traceroute
       pkgs.tree
       pkgs.unzip
+      pkgs.usbutils
       pkgs.zip
     ];
   };
