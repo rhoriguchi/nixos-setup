@@ -67,7 +67,6 @@
   environment.systemPackages = [
     pkgs.discord
     pkgs.gimp
-    pkgs.gitkraken
     pkgs.google-chrome
     pkgs.inkscape
     pkgs.jetbrains.datagrip
