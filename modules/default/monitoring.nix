@@ -34,16 +34,6 @@ in {
     ];
 
     services = {
-      nginx.virtualHosts.${serverAddress} = lib.attrsets.optionalAttrs isParent {
-        enableACME = true;
-        forceSSL = true;
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:19999";
-          inherit (cfg) basicAuth;
-        };
-      };
-
       infomaniak.hostnames = lib.mkIf isParent [ serverAddress ];
 
       netdata = {
@@ -67,8 +57,8 @@ in {
         config = {
           parent.web = {
             "bind to" = lib.concatStringsSep " " [
-              "127.0.0.1=dashboard|registry|badges|management|netdata.conf"
-              "0.0.0.0:${toString streamPort}=streaming"
+              "0.0.0.0=dashboard|registry|badges|management|netdata.conf^SSL=force"
+              "0.0.0.0:${toString streamPort}=streaming^SSL=force"
             ];
             "ssl certificate" = "/run/monitoring/cert.pem";
             "ssl ssl key" = "/run/monitoring/key.pem";
@@ -102,7 +92,7 @@ in {
       };
     };
 
-    systemd.tmpfiles.rules = let certDir = config.security.acme.certs.${serverAddress}.directory;
+    systemd.tmpfiles.rules = let certDir = "/var/lib/acme/monitoring.00a.ch";
     in lib.mkIf isParent [
       "d /run/monitoring 0700 ${config.services.netdata.user} ${config.services.netdata.group}"
       "L+ /run/monitoring/cert.pem - - - - ${certDir}/cert.pem"
@@ -110,8 +100,8 @@ in {
     ];
 
     networking.firewall = {
-      allowedTCPPorts = lib.mkIf isParent [ streamPort ];
-      allowedUDPPorts = lib.mkIf isParent [ streamPort ];
+      allowedTCPPorts = lib.mkIf isParent [ 19999 streamPort ];
+      allowedUDPPorts = lib.mkIf isParent [ 19999 streamPort ];
     };
 
     # TODO cause `error: The option `services.monitoring.type' is used but not defined.`
