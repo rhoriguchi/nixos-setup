@@ -1,6 +1,4 @@
-{ pkgs, lib, config, secrets, ... }:
-let adguardhomePort = 80;
-in {
+{ pkgs, config, secrets, ... }: {
   services = {
     nginx = {
       enable = true;
@@ -15,7 +13,7 @@ in {
 
         listen = [{
           addr = "0.0.0.0";
-          port = adguardhomePort;
+          port = 80;
         }];
 
         locations."/" = {
@@ -23,10 +21,7 @@ in {
           proxyWebsockets = true;
         };
 
-        extraConfig = let
-          ips = import ../../../../../modules/default/wireguard-network/ips.nix;
-          allowedIps = lib.mapAttrsToList (_: value: "allow ${value};") (lib.filterAttrs (key: _: key != config.networking.hostName) ips);
-        in (lib.concatStringsSep "\n" allowedIps) + ''
+        extraConfig = ''
           allow 192.168.1.0/24;
           deny all;
         '';
@@ -37,7 +32,6 @@ in {
       enable = true;
 
       host = "127.0.0.1";
-      port = adguardhomePort + 1;
 
       mutableSettings = false;
       settings = assert pkgs.adguardhome.schema_version == 27;
@@ -77,7 +71,7 @@ in {
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 53 adguardhomePort ];
+    allowedTCPPorts = [ 53 80 ];
     allowedUDPPorts = [ 53 ];
   };
 }
