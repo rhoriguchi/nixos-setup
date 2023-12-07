@@ -33,6 +33,16 @@
           }
         }/pkgs/desktops/gnome/extensions/unite") { };
     };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=272722
+    tautulli = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "2257c1bd2433e95d46b2775e44fa66f1cb22cb75";
+          sha256 = "sha256-biRdK3TfKekq7BDLUSB4tfnZnR5e530AljotM4j9mNY=";
+        }
+      }/pkgs/servers/tautulli") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
