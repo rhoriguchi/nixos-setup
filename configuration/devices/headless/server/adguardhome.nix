@@ -41,14 +41,14 @@
           dns = rec {
             bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
             upstream_dns = let routerIp = "192.168.1.1";
-            in bootstrap_dns ++ [ "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
+            in bootstrap_dns ++ [ "[/dmz/]${routerIp}" "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
 
             ratelimit = 0;
           };
 
           filtering.rewrites = [{
             domain = "*.00a.ch";
-            answer = "${config.networking.hostName}.local";
+            answer = "${config.networking.hostName}.dmz";
           }];
 
           querylog.ignored = ignored;

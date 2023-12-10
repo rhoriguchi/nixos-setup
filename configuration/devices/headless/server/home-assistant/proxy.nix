@@ -29,7 +29,7 @@ in {
           '';
         };
 
-        "${config.networking.hostName}.local" = {
+        "${config.networking.hostName}.dmz" = {
           listen = map (addr: {
             inherit addr;
             port = homeAssistantPort;
