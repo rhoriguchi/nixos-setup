@@ -4,7 +4,6 @@
 
     ./fancontrol.nix
     ./home-assistant
-    ./home-page.nix
     ./libvirtd
     ./minecraft-server.nix
     ./rsnapshot.nix
