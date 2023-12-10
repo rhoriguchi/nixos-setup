@@ -5,7 +5,7 @@
   - Deluge
     - Get credentials from [secret.nix](../../../../../secrets.nix)
   - myStrom
-    - Set Name `myStrom living room light switch` and Host `myStrom-Switch-8A0F50.iot`
+    - Set Name `myStrom living room light switch` for Host `myStrom-Switch-8A0F50.iot`
   - Netatmo
     - Get credentials from <https://dev.netatmo.com>
   - Shelly
