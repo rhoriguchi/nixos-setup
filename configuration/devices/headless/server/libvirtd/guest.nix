@@ -1,13 +1,7 @@
 { pkgs, lib, config, ... }:
 let nvramDir = "/var/lib/virt/nvram";
 in {
-  virtualisation.libvirtd.qemu = {
-    # TODO this option seems to not work, since it's not automatically picked up (remove pkgs.OVMF.fd)
-    # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/libvirtd.nix#L306-L309
-    # https://libvirt.org/formatdomain.html#bios-bootloader
-    ovmf.enable = true;
-    swtpm.enable = true;
-  };
+  virtualisation.libvirtd.qemu.swtpm.enable = true;
 
   system.activationScripts.libvirtd-guest = ''
     mkdir -p ${nvramDir}
@@ -40,7 +34,7 @@ in {
 
             <os>
               <!-- qemu-kvm -machine help -->
-              <type machine='pc-q35-7.2'>hvm</type>
+              <type machine='q35'>hvm</type>
             </os>
 
             <on_poweroff>destroy</on_poweroff>
@@ -126,9 +120,6 @@ in {
                 <backend model='random'>/dev/urandom</backend>
               </rng>
 
-              ${
-                "" # TODO tpm not detected by "PC Health Check"
-              }
               <tpm model='tpm-tis'>
                 <backend type='emulator' version='2.0' persistent_state='yes'>
                   <active_pcr_banks>
