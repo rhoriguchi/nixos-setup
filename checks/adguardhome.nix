@@ -5,17 +5,26 @@
 pkgs.nixosTest {
   name = "adguardhome-test";
 
-  nodes.machine = {
+  nodes.machine = { lib, ... }: {
     imports = [
       ../modules/default
 
       ../modules/profiles/nginx.nix
-      ../configuration/devices/headless/raspberry-pi-4/adguard/adguardhome.nix
+      ../configuration/devices/headless/server/adguardhome.nix
     ];
 
-    _module.args.secrets.adguard = {
-      username = "test";
-      encryptedUsernamePassword = "$2y$05$gjHEFr9yo.y/8a8DV5jGievJzKzE2IhxPibxmg4QbE3H8mIfVRxbu"; # test:password
+    services.infomaniak.enable = lib.mkForce false;
+
+    _module.args.secrets = {
+      adguard = {
+        username = "test";
+        encryptedUsernamePassword = "$2y$05$gjHEFr9yo.y/8a8DV5jGievJzKzE2IhxPibxmg4QbE3H8mIfVRxbu"; # test:password
+      };
+
+      infomaniak = {
+        username = "test";
+        password = "password";
+      };
     };
   };
 

@@ -1,4 +1,6 @@
 { pkgs, ... }: {
+  services.dnsmasq.settings.port = 5353;
+
   systemd.services.libvirtd-network = rec {
     after = [ "libvirtd.service" ];
     requires = after;

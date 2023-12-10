@@ -2,6 +2,7 @@
   imports = [
     ../common.nix
 
+    ./adguardhome.nix
     ./fancontrol.nix
     ./home-assistant
     ./libvirtd

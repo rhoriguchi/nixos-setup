@@ -1,9 +1,9 @@
-{ pkgs, secrets, ... }:
+{ pkgs, config, secrets, ... }:
 let
   username = secrets.adguard.username;
   password = secrets.adguard.password;
 
-  ip = (import ../../../../../modules/default/wireguard-network/ips.nix).AdGuard;
+  ip = "127.0.0.1";
 
   script = methodCall:
     pkgs.writeText "adguard_${methodCall}.py" ''
@@ -13,12 +13,16 @@ let
 
 
       async def get_status():
-          async with AdGuardHome("${ip}", username="${username}", password="${password}", port=80) as adguard:
+          async with AdGuardHome("${ip}", username="${username}", password="${password}", port=${
+            toString config.services.adguardhome.port
+          }) as adguard:
               print(await adguard.protection_enabled())
 
 
       async def set_status(status):
-          async with AdGuardHome("${ip}", username="${username}", password="${password}", port=80) as adguard:
+          async with AdGuardHome("${ip}", username="${username}", password="${password}", port=${
+            toString config.services.adguardhome.port
+          }) as adguard:
               if status:
                   await adguard.enable_protection()
               else:

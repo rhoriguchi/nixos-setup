@@ -141,19 +141,6 @@
         };
 
         # Raspberry Pi 4 Model B - 8GB
-        AdGuard = {
-          deployment.targetHost = "adguard";
-
-          imports = [
-            inputs.nixos-hardware.nixosModules.raspberry-pi-4
-
-            self.nixosModules.profiles.headless
-
-            ./configuration/devices/headless/raspberry-pi-4/adguard
-          ];
-        };
-
-        # Raspberry Pi 4 Model B - 8GB
         Grimmjow = {
           deployment.targetHost = "xxlpitu-grimmjow";
 

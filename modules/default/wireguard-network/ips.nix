@@ -3,7 +3,6 @@
 
   # Clients
 
-  AdGuard = "10.123.123.3";
   XXLPitu-Grimmjow = "10.123.123.4";
   XXLPitu-Ulquiorra = "10.123.123.5";
 }
