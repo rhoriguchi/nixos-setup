@@ -109,7 +109,12 @@
 
             inputs.home-manager.nixosModule
             {
-              nixpkgs.overlays = [ self.overlays.default ];
+              nixpkgs = {
+                overlays = [ self.overlays.default ];
+
+                # TODO required for obsidian
+                config.permittedInsecurePackages = [ "electron-25.9.0" ];
+              };
 
               home-manager = {
                 useGlobalPkgs = true;
