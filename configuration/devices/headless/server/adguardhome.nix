@@ -31,7 +31,7 @@
 
       mutableSettings = false;
       settings = assert pkgs.adguardhome.schema_version == 27;
-        let ignored = [ "infomaniak.com.local" "infomaniak.com" "ping.ui.com" "unifi.local" "wireguard.00a.ch" ];
+        let routerIp = "192.168.1.1";
         in {
           users = [{
             name = secrets.adguard.username;
@@ -40,8 +40,9 @@
 
           dns = rec {
             bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
-            upstream_dns = let routerIp = "192.168.1.1";
-            in bootstrap_dns ++ [ "[/dmz/]${routerIp}" "[/guest/]${routerIp}" "[/iot/]${routerIp}" "[/local/]${routerIp}" ];
+            upstream_dns = bootstrap_dns ++ map (value: "[/${value}/]${routerIp}") [ "dmz" "guest" "iot" "local" ];
+
+            local_ptr_upstreams = [ routerIp ];
 
             ratelimit = 0;
           };
@@ -50,9 +51,6 @@
             domain = "*.00a.ch";
             answer = "${config.networking.hostName}.dmz";
           }];
-
-          querylog.ignored = ignored;
-          statistics.ignored = ignored;
         };
     };
   };
