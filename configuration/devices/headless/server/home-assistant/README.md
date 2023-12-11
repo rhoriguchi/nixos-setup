@@ -1,6 +1,7 @@
 # Home Assistant
 
 - Create default user `admin`
+  - Profile -> Advanced mode = true
 - Add integrations
   - Deluge
     - Get credentials from [secret.nix](../../../../../secrets.nix)
