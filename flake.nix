@@ -178,7 +178,7 @@
           config = {
             allowUnfree = true;
 
-            # TODO temp fix for CVEs
+            # TODO fix for deprecated nixops
             permittedInsecurePackages = [
               # CVE-2023-32681
               "python3.10-requests-2.29.0"
