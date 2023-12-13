@@ -19,7 +19,7 @@ start /wait spice-guest-tools.exe
 del /f spice-guest-tools.exe
 
 REM Nvidia GeForce Experience
-curl --location --output GeForce_Experience.exe --url "https://de.download.nvidia.com/GFE/GFEClient/3.27.0.112/GeForce_Experience_v3.27.0.112.exe"
+curl --location --output GeForce_Experience.exe --url "https://de.download.nvidia.com/GFE/GFEClient/3.27.0.120/GeForce_Experience_v3.27.0.120.exe"
 start /wait GeForce_Experience.exe
 del /f GeForce_Experience.exe
 ```
@@ -35,7 +35,7 @@ start /wait msiexec /i UsbDk.msi /quiet /qn /norestart
 del /f UsbDk.msi
 
 REM VirtIO Drivers
-curl --location --output virtio-win-gt.msi --url "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.217-2/virtio-win-gt-x64.msi"
+curl --location --output virtio-win-gt.msi --url "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-gt-x64.msi"
 start /wait msiexec /i virtio-win-gt.msi /quiet /qn /norestart
 del /f virtio-win-gt.msi
 
@@ -54,6 +54,7 @@ REM Windows Explorer tuning
 reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Hidden /t REG_DWORD /d 1 /f
 reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v HideFileExt /t REG_DWORD /d 0 /f
 
+REM TODO replace is archived
 REM Cleanup Windows with https://github.com/Sycnex/Windows10Debloater
 powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Debloat%20Windows' | iex"
 powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Disable%20Cortana' | iex"
@@ -81,7 +82,7 @@ curl --location --output Hextech_Repair_tool.msi --url "https://lolstatic-a.akam
 start /wait msiexec /i Hextech_Repair_tool.msi /quiet /qn /norestart
 del /f Hextech_Repair_tool.msi
 
-curl --location --output VLC.msi --url "https://get.videolan.org/vlc/3.0.18/win64/vlc-3.0.18-win64.msi"
+curl --location --output VLC.msi --url "https://get.videolan.org/vlc/3.0.20/win64/vlc-3.0.20-win64.msi"
 start /wait msiexec /i VLC.msi /quiet /qn /norestart
 del /f VLC.msi
 
@@ -89,10 +90,9 @@ curl --location --output Blitz_installer.exe --url "https://blitz.gg/download/wi
 curl --location --output Discord.exe --url "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86"
 curl --location --output Driver_Booster.exe --url "https://cdn.iobit.com/dl/driver_booster_setup.exe"
 curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.euw.exe"
-curl --location --output mcrcon.zip --url "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.2/mcrcon-0.7.2-windows-x86-64.zip"
 curl --location --output Minecraft_Launcher.exe --url "https://aka.ms/minecraftClientGameCoreWindows"
-curl --location --output Notepad_plus_plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.5/npp.8.5.Installer.x64.exe"
-curl --location --output Plex.exe --url "https://downloads.plex.tv/plex-desktop/1.82.1.4022-2e4fdbb9/windows/Plex-1.82.1.4022-2e4fdbb9-x86_64.exe"
+curl --location --output Notepad_plus_plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.6/npp.8.6.Installer.x64.exe"
+curl --location --output Plex.exe --url "https://downloads.plex.tv/plex-desktop/1.83.1.4061-d3f45728/windows/Plex-1.83.1.4061-d3f45728-x86_64.exe"
 curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
 curl --location --output Razer_Synapse.exe --url "https://rzr.to/synapse-3-pc-download"
 curl --location --output Spotify.exe --url "https://download.scdn.co/SpotifySetup.exe"
