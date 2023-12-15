@@ -6,7 +6,14 @@
       add_newline = false;
       scan_timeout = 10;
 
-      format = lib.concatStrings [ "$directory" "$git_state" "$git_branch" "$character" ];
+      format = lib.concatStrings [ "$nix_shell" "$directory" "$git_state" "$git_branch" "$character" ];
+
+      nix_shell = {
+        disabled = false;
+
+        format = "[\\[nix-shell\\]]($style) ";
+        style = "${colors.normal.green} bold";
+      };
 
       directory = {
         format = "[$path]($style) ";
