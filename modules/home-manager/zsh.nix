@@ -12,11 +12,18 @@
       ignoreAllDups = true;
     };
 
-    plugins = [{
-      name = pkgs.zsh-autosuggestions.pname;
-      file = "zsh-autosuggestions.zsh";
-      src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
-    }];
+    plugins = [
+      {
+        name = pkgs.zsh-autosuggestions.pname;
+        file = "zsh-autosuggestions.zsh";
+        src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
+      }
+      {
+        name = pkgs.zsh-nix-shell.pname;
+        file = "nix-shell.plugin.zsh";
+        src = "${pkgs.zsh-nix-shell}/share/${pkgs.zsh-nix-shell.pname}";
+      }
+    ];
 
     localVariables.ZSH_AUTOSUGGEST_STRATEGY = [ "completion" ];
 
