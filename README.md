@@ -74,6 +74,9 @@ zfs create \
   data/deluge
 
 zfs create \
+  data/naruto
+
+zfs create \
   -o compression=zstd \
   -o copies=2 \
   data/snapshots
