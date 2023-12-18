@@ -1,6 +1,4 @@
-{ pkgs, ... }: {
-  home.packages = [ pkgs.virt-manager ];
-
+{
   dconf = {
     enable = true;
 

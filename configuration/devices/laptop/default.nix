@@ -62,7 +62,11 @@
     onedrive.enable = true;
   };
 
-  programs.steam.enable = true;
+  programs = {
+    steam.enable = true;
+
+    virt-manager.enable = true;
+  };
 
   environment.systemPackages = [
     pkgs.discord
