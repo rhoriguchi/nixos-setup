@@ -1,21 +1,58 @@
 { pkgs, config, ... }: {
   programs.git.extraConfig.init.templatedir = "${config.home.homeDirectory}/.git_template";
 
-  home.file.".git_template/hooks/commit-msg".source = pkgs.writeShellScript "commit-msg" ''
-    readonly COMMIT_MSG_FILE="$1"
+  home.file = let
+    # Copy of https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/trivial-builders/default.nix but uses `env bash`
+    writeShellScript = name: text:
+      pkgs.writeTextFile {
+        inherit name;
+        executable = true;
+        text = ''
+          #!/usr/bin/env bash
 
-    function check_commit_msg_length {
-        readonly MAX_MSG_LENGTH=72
+          ${text}
+        '';
+        checkPhase = ''
+          ${pkgs.stdenv.shellDryRun} "$target"
+        '';
+      };
+  in {
+    ".git_template/hooks/commit-msg".source = writeShellScript "commit-msg" ''
+      readonly COMMIT_MSG_FILE="$1"
 
-        local title=$(head -n 1 "$COMMIT_MSG_FILE")
+      function check_commit_msg_length {
+          readonly MAX_MSG_LENGTH=72
 
-        if [ ''${#title} -gt $MAX_MSG_LENGTH ]; then
-            # TODO figure out how to use hex colors variable
-            echo -e "\x1b[1;38;5;203mCommit title is ''${#title} characters long, must be equal or shorter than $MAX_MSG_LENGTH characters!\e[0m";
-            exit 1
+          local title=$(head -n 1 "$COMMIT_MSG_FILE")
+
+          if [ ''${#title} -gt $MAX_MSG_LENGTH ]; then
+              # TODO figure out how to use hex colors variable
+              echo -e "\x1b[1;38;5;203mCommit title is ''${#title} characters long, must be equal or shorter than $MAX_MSG_LENGTH characters!\e[0m";
+              exit 1
+          fi
+      }
+
+      check_commit_msg_length
+    '';
+
+    ".git_template/hooks/post-checkout".source = writeShellScript "post-checkout" ''
+      readonly PREV_HEAD="$1"
+      readonly NEW_HEAD="$2"
+      # Retrieving a file from the index, flag=0 / changing branches, flag=1
+      readonly CHECKOUT_TYPE="$3"
+
+      function alias_main {
+        local current_branch="$(cut -d ' ' -f2 "$(git rev-parse --show-toplevel)/.git/HEAD" | sed 's|refs/heads/||')"
+
+        if [ "$current_branch" = "main" ]; then
+          git symbolic-ref refs/heads/master refs/heads/main
+          git switch master
         fi
-    }
+      }
 
-    check_commit_msg_length
-  '';
+      if [ "$CHECKOUT_TYPE" = "1" ]; then
+        alias_main
+      fi
+    '';
+  };
 }
