@@ -5,7 +5,7 @@
     packages = [ pkgs.nano ];
 
     activation.deleteGitconfig = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-      rm -f ${config.home.homeDirectory}/.gitconfig
+      rm -f '${config.home.homeDirectory}/.gitconfig'
     '';
   };
 
