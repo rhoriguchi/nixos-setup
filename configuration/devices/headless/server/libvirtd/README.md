@@ -89,6 +89,7 @@ del /f VLC.msi
 curl --location --output Blitz_installer.exe --url "https://blitz.gg/download/win"
 curl --location --output Discord.exe --url "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86"
 curl --location --output Driver_Booster.exe --url "https://cdn.iobit.com/dl/driver_booster_setup.exe"
+curl --location --output IObit_Uninstaller.exe --url "https://cdn.iobit.com/dl/iobituninstaller.exe"
 curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.euw.exe"
 curl --location --output Minecraft_Launcher.exe --url "https://aka.ms/minecraftClientGameCoreWindows"
 curl --location --output Notepad_plus_plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.6/npp.8.6.Installer.x64.exe"
