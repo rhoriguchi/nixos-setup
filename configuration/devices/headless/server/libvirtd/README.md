@@ -117,9 +117,22 @@ start %userprofile%/Downloads
 
 #### Mods
 
-- [NebulaMultiplayerMod](ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.8.14)
+- NebulaMultiplayerMod
+
+  ```txt
+  ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.8.14
+  ```
 
 ### From Microsoft store
 
-- [NVIDIA Control Panel](ms-windows-store://pdp/?productid=9NF8H0H7WMLT&mode=mini)
-- [WhatsApp](ms-windows-store://pdp/?productid=9NKSQGP7F2NH&mode=mini)
+- NVIDIA Control Panel
+
+  ```txt
+  ms-windows-store://pdp/?productid=9NF8H0H7WMLT&mode=mini
+  ```
+
+- WhatsApp
+
+  ```txt
+  ms-windows-store://pdp/?productid=9NKSQGP7F2NH&mode=mini
+  ```
