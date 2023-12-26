@@ -137,3 +137,9 @@ start %userprofile%/Downloads
   ```txt
   ms-windows-store://pdp/?productid=9NKSQGP7F2NH&mode=mini
   ```
+
+- Xbox
+
+  ```txt
+  ms-windows-store://pdp/?productid=9MV0B5HZVK9Z&mode=mini
+  ```
