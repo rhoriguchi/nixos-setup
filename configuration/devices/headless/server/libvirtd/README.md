@@ -102,6 +102,23 @@ curl --location --output TeamViewer.exe --url "https://download.teamviewer.com/d
 start %userprofile%/Downloads
 ```
 
+### Dyson Sphere Program
+
+```txt
+cd %userprofile%/Downloads
+
+curl --location --output r2modman.zip --url "https://thunderstore.io/package/download/ebkr/r2modman/3.1.45"
+mkdir r2modman
+tar -xf r2modman.zip -C r2modman
+del /f r2modman.zip
+
+start %userprofile%/Downloads
+```
+
+#### Mods
+
+- [NebulaMultiplayerMod](ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.8.14)
+
 ### From Microsoft store
 
 - [NVIDIA Control Panel](ms-windows-store://pdp/?productid=9NF8H0H7WMLT&mode=mini)
