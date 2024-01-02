@@ -27,6 +27,10 @@ in {
           name = "Booted";
           state = "{{ states('sensor.last_boot') | as_timestamp | timestamp_custom('%d.%m.%Y %H:%M:%S') }}";
         }
+        {
+          name = "Installed Kernel";
+          state = config.boot.kernelPackages.kernel.version;
+        }
       ];
     }];
 
@@ -49,7 +53,7 @@ in {
       }
       {
         sensor = {
-          name = "Kernel";
+          name = "Active Kernel";
           scan_interval = 60 * 60;
           command = "${pkgs.coreutils}/bin/uname -r";
         };

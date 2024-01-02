@@ -296,8 +296,12 @@ in {
                     entity = "sensor.version";
                   }
                   {
-                    name = "Kernel";
-                    entity = "sensor.kernel";
+                    name = "Installed Kernel";
+                    entity = "sensor.installed_kernel";
+                  }
+                  {
+                    name = "Active Kernel";
+                    entity = "sensor.active_kernel";
                   }
                 ];
               }
