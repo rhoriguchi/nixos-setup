@@ -122,6 +122,11 @@ in {
         toggle-tiled-right = [ "<Super>Right" ];
       };
       "org/gnome/nautilus/preferences".open-folder-on-dnd-hover = true;
+      "org/gnome/settings-daemon/plugins/color" = {
+        night-light-enabled = true;
+        night-light-schedule-automatic = true;
+        night-light-temperature = lib.hm.gvariant.mkUint32 3300;
+      };
       "org/gnome/settings-daemon/plugins/media-keys" = {
         area-screenshot = [ ];
         area-screenshot-clip = [ ];
