@@ -60,5 +60,19 @@ in {
         icon_template = "mdi:shield-check";
       };
     }];
+
+    automation = [{
+      alias = "Turn AdGuard protection back on after 30 minutes";
+      trigger = [{
+        platform = "state";
+        entity_id = "switch.adguard_protection";
+        to = "off";
+        for.minutes = 30;
+      }];
+      action = [{
+        service = "switch.turn_on";
+        target.entity_id = "switch.adguard_protection";
+      }];
+    }];
   };
 }
