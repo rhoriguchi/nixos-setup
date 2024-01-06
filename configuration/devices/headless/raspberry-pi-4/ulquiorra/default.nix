@@ -4,7 +4,7 @@
   networking.hostName = "XXLPitu-Ulquiorra";
 
   fileSystems."/mnt/Data" = {
-    device = "/dev/disk/by-uuid/3a05e016-ff47-4897-bd7e-80e6079b5ba0";
+    device = "/dev/disk/by-uuid/44064fb4-2d1e-4df4-b477-9cf5f8194fb4";
     fsType = "ext4";
     options = [ "defaults" "errors=continue" "nofail" ];
   };
