@@ -47,8 +47,8 @@
           text = colors.normal.white;
         };
 
-        normal = colors.normal;
-        bright = colors.bright;
+        normal = removeAttrs colors.normal [ "accent" "gray" ];
+        bright = removeAttrs colors.bright [ "accent" "gray" ];
       };
     };
   };
