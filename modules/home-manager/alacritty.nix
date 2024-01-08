@@ -10,7 +10,8 @@
     settings = {
       shell.program = "${pkgs.zsh}/bin/zsh";
       working_directory = config.home.homeDirectory;
-      window.startup_mode = "Maximized";
+      # TODO when this is set, it will create a window
+      # window.startup_mode = "Maximized";
 
       scrolling = {
         history = 10 * 1000;
