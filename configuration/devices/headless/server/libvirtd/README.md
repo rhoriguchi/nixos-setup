@@ -10,7 +10,7 @@ Once Windows is installed run in an elevated cmd.
 
 Some tools need to be installed manually.
 
-```txt
+```cmd
 cd %userprofile%/Downloads
 
 REM SPICE Guest Tools
@@ -26,7 +26,7 @@ del /f GeForce_Experience.exe
 
 After the manual installation.
 
-```txt
+```cmd
 cd %userprofile%/Downloads
 
 REM SPICE UsbDk
@@ -69,9 +69,9 @@ Restart VM.
 
 ## Other Software to install
 
-### Run in an elevated cmd
+### General
 
-```txt
+```cmd
 cd %userprofile%/Downloads
 
 curl --location --output Firefox.msi --url "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US"
@@ -103,9 +103,24 @@ curl --location --output TeamViewer.exe --url "https://download.teamviewer.com/d
 start %userprofile%/Downloads
 ```
 
+### Microsoft store
+
+Run in an elevated cmd
+
+```cmd
+REM NVIDIA Control Panel
+winget install --silent --accept-source-agreements 9NF8H0H7WMLT
+
+REM WhatsApp
+winget install --silent --accept-source-agreements 9NKSQGP7F2NH
+
+REM Xbox
+winget install --silent --accept-source-agreements 9MV0B5HZVK9Z
+```
+
 ### Dyson Sphere Program
 
-```txt
+```cmd
 cd %userprofile%/Downloads
 
 curl --location --output r2modman.zip --url "https://thunderstore.io/package/download/ebkr/r2modman/3.1.45"
@@ -116,30 +131,10 @@ del /f r2modman.zip
 start %userprofile%/Downloads
 ```
 
-#### Mods
+#### Dyson Sphere Program mods
 
 - NebulaMultiplayerMod
 
   ```txt
   ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.8.14
-  ```
-
-### From Microsoft store
-
-- NVIDIA Control Panel
-
-  ```txt
-  ms-windows-store://pdp/?productid=9NF8H0H7WMLT&mode=mini
-  ```
-
-- WhatsApp
-
-  ```txt
-  ms-windows-store://pdp/?productid=9NKSQGP7F2NH&mode=mini
-  ```
-
-- Xbox
-
-  ```txt
-  ms-windows-store://pdp/?productid=9MV0B5HZVK9Z&mode=mini
   ```
