@@ -102,37 +102,18 @@ Navigate to directory and run command
 direnv allow .
 ```
 
-## NixOps
+## deploy-rs
 
-### Init
+### Deploy all
 
 ```console
-nixops create
+deploy .
 ```
 
-### Deploy
+### Deploy single
 
 ```console
-nixops deploy
-```
-
-### List devices
-
-```console
-nixops info
-```
-
-### Update devices
-
-```console
-nixops modify
-nixops deploy --kill-obsolete --create-only
-```
-
-### Update channel
-
-```console
-nixops ssh-for-each --parallel "nix-channel --update"
+deploy '.#Laptop'
 ```
 
 ### Delete garbage

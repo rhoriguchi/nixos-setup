@@ -11,7 +11,8 @@
         pkgs.firefox-addons.bitwarden
         pkgs.firefox-addons.bypass-paywalls-clean
         pkgs.firefox-addons.export-tabs-urls-and-titles
-        pkgs.firefox-addons.grammarly
+        # TODO remove override when fixed https://github.com/nix-community/home-manager/issues/2942
+        (pkgs.firefox-addons.grammarly.overrideAttrs (_: { meta.license = lib.licenses.mit; }))
         pkgs.firefox-addons.metamask
         pkgs.firefox-addons.multi-account-containers
         pkgs.firefox-addons.octolinker
@@ -23,7 +24,8 @@
         pkgs.firefox-addons.tab-session-manager
         pkgs.firefox-addons.ublock-origin
         pkgs.firefox-addons.view-image
-        pkgs.firefox-addons.wappalyzer
+        # TODO remove override when fixed https://github.com/nix-community/home-manager/issues/2942
+        (pkgs.firefox-addons.wappalyzer.overrideAttrs (_: { meta.license = lib.licenses.mit; }))
       ];
 
       search = {
