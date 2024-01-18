@@ -67,7 +67,7 @@
           }
           {
             name = "TV Time";
-            url = "https://www.tvtime.com/en/to-watch";
+            url = "https://app.tvtime.com";
           }
           {
             name = "Todoist";
