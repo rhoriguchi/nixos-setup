@@ -2,7 +2,7 @@
 let
   poolDir = "/var/lib/virt/images";
   # TODO commented, use rsync instead of cp so if it get's canceled it can continue
-  # snapshotsDir = "/mnt/Data/Snapshots";
+  # snapshotDir = "/mnt/Data/Snapshot";
 in {
   system.activationScripts.libvirtd-pool = ''
     mkdir -p ${poolDir}
@@ -117,25 +117,25 @@ in {
     #     Group = "root";
     #   };
 
-    #   preStart = "mkdir -p ${snapshotsDir}/windows";
+    #   preStart = "mkdir -p ${snapshotDir}/windows";
 
     #   script = ''
     #     volumePath="$(virsh vol-path --pool "default" "windows")"
 
     #     virsh snapshot-create-as "windows" --no-metadata --disk-only --quiesce --atomic --diskspec vda,file="$volumePath.temp"
 
-    #     cp "$volumePath" "${snapshotsDir}/windows/$(date +"%Y%m%dT%H%M%S")"
+    #     cp "$volumePath" "${snapshotDir}/windows/$(date +"%Y%m%dT%H%M%S")"
 
     #     virsh blockcommit "windows" vda --wait --active --pivot --delete
     #   '';
 
     #   preStop = let
-    #     script = pkgs.writeText "cleanup_windows_snapshots.py" ''
+    #     script = pkgs.writeText "cleanup_windows_snapshot.py" ''
     #       from datetime import datetime
     #       from pathlib import Path
 
     #       files_to_delete = sorted(
-    #           Path('${snapshotsDir}/windows').iterdir(),
+    #           Path('${snapshotDir}/windows').iterdir(),
     #           key=lambda file: datetime.fromtimestamp(file.lstat().st_mtime)
     #       )[:-7]
 

@@ -79,7 +79,7 @@ zfs create \
 zfs create \
   -o compression=zstd \
   -o copies=2 \
-  data/snapshots
+  data/snapshot
 
 zfs create \
   -o quota=512G \
