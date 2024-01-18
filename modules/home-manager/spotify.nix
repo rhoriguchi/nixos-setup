@@ -9,11 +9,7 @@
   programs.spicetify = {
     enable = true;
 
-    enabledExtensions = [
-      pkgs.spicetify.extensions.genre
-      pkgs.spicetify.extensions.groupSession
-      pkgs.spicetify.extensions.songStats
-      pkgs.spicetify.extensions.volumePercentage
-    ];
+    enabledExtensions =
+      [ pkgs.spicetify.extensions.groupSession pkgs.spicetify.extensions.songStats pkgs.spicetify.extensions.volumePercentage ];
   };
 }
