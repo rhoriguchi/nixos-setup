@@ -19,6 +19,11 @@
     fsType = "vfat";
   };
 
+  fileSystems."/var/log" = {
+    device = "data/log";
+    fsType = "zfs";
+  };
+
   fileSystems."/mnt/Data/Backup" = {
     device = "data/backup";
     fsType = "zfs";

@@ -74,6 +74,10 @@ zfs create \
   data/deluge
 
 zfs create \
+  -o compression=zstd \
+  data/log
+
+zfs create \
   data/naruto
 
 zfs create \
