@@ -1,5 +1,7 @@
 { pkgs, lib, config, secrets, ... }: {
   imports = [
+    ../../common.nix
+
     ./keepassxc.nix
     ./rsnapshot.nix
 

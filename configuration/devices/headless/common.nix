@@ -1,4 +1,6 @@
 { pkgs, lib, config, public-keys, secrets, ... }: {
+  imports = [ ../../common.nix ];
+
   nix.gc = {
     automatic = true;
     dates = "05:00";

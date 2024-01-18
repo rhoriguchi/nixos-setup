@@ -71,11 +71,7 @@
         };
 
         defaults = {
-          imports = [
-            self.nixosModules.default
-
-            ./configuration/common.nix
-          ];
+          imports = [ self.nixosModules.default ];
 
           nixpkgs.overlays = [ self.overlays.default ];
 
