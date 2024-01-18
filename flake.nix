@@ -73,6 +73,8 @@
         defaults = {
           imports = [ self.nixosModules.default ];
 
+          system.configurationRevision = self.rev or self.dirtyRev or null;
+
           nixpkgs.overlays = [ self.overlays.default ];
 
           nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
