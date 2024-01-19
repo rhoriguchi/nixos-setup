@@ -6,6 +6,7 @@ let
   createResourcesWithArgs = args: types: lib.flatten (map (arg: createResourcesWithArg arg types) args);
 in {
   services.home-assistant.config = {
+    # TODO migrate all of those to shell scripts
     sensor = [{
       platform = "systemmonitor";
       resources = (createResources [ "last_boot" "memory_use_percent" "processor_use" ])
