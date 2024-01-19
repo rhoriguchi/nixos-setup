@@ -2,12 +2,16 @@
   system.stateVersion = "24.05";
 
   nix = {
-    settings.trusted-users = [ "@wheel" "root" ];
+    package = pkgs.nixUnstable;
+
+    settings = {
+      trusted-users = [ "@wheel" "root" ];
+      auto-optimise-store = true;
+    };
+
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    package = pkgs.nixUnstable;
-    settings.auto-optimise-store = true;
   };
 
   nixpkgs.config.allowUnfree = true;
