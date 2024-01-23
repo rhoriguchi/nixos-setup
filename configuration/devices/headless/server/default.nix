@@ -3,8 +3,7 @@
     ../common.nix
 
     ./adguardhome.nix
-    # TODO service fails
-    # ./fancontrol.nix
+    ./fancontrol.nix
     ./home-assistant
     ./libvirtd
     ./minecraft-server.nix
