@@ -38,7 +38,7 @@
       after = [ "network.target" "sonarr.service" ];
 
       script = let
-        pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.beautifulsoup4 ps.requests ]);
+        pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.pyjwt ps.requests ]);
 
         script = pkgs.substituteAll {
           src = ./update_series.py;

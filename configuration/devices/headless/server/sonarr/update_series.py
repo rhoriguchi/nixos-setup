@@ -1,78 +1,106 @@
+import jwt
 import requests
-from bs4 import BeautifulSoup
 
 
 class TVTimeRequestHandler(object):
-    BASE_URL = 'https://www.tvtime.com'
+    URL = 'https://app.tvtime.com/sidecar'
 
     def __init__(self, username, password):
         self._session = self._get_session()
         self._username = username
         self._password = password
 
-        self._login()
+        self._profile_id = self._login()
 
     @staticmethod
     def _get_session():
         session = requests.session()
-        session.headers.update({'User-agent': 'Mozilla/5.0'})
         return session
 
     def _login(self):
-        response = self._session.post(f'{self.BASE_URL}/signin', data={
-            'username': self._username,
-            'password': self._password
-        })
+        anonymous_tokens = self._session.post(
+            self.URL,
+            params={'o': 'https://api2.tozelabs.com/v2/user'}
+        ).json()['tvst_access_token']
+
+        response = self._session.post(
+            self.URL,
+            params={'o': 'https://auth.tvtime.com/v1/login'},
+            headers={'Authorization': f'Bearer {anonymous_tokens}'},
+            json={'username': self._username, 'password': self._password}
+        )
 
         if not response.ok:
             raise ValueError(
                 f'TV Time returned status code {response.status_code} with reason: {response.reason}')
 
-    def get_tvdb_ids(self):
-        response = self._session.get(f'{self.BASE_URL}/en')
+        token = response.json()['data']['jwt_token']
 
-        soup = BeautifulSoup(response.content, 'html.parser')
+        self._session.headers.update({'Authorization': f'Bearer {token}'})
 
-        if not soup.find('body'):
-            raise ValueError('TV Time returned empty body')
+        return jwt.decode(token, options={"verify_signature": False})['id']
 
+    def _get_tvdb_ids(self, params):
         ids = set()
-        for section in soup.find_all('section', id='to-watch'):
-            text = section.find('h1').text.strip()
 
-            if 'Watch next' in text or 'Not watched for a while' in text:
-                for link in section.find_all('a', class_='secondary-link'):
-                    ids.add(int(link.attrs['href'].split('/')[-1]))
+        limit = 500
+        offset = 0
+
+        while True:
+            response = self._session.get(
+                self.URL,
+                params={
+                    **params,
+                    **{
+                        'offset': f'{offset}',
+                        'limit': f'{limit}'
+                    }
+                }
+            )
+
+            shows = response.json()
+
+            for show in shows:
+                ids.add(show['show']['id'])
+
+            if len(shows) != limit:
+                break
+
+            offset = offset + limit
+
+        return ids
+
+    def get_tvdb_ids(self):
+        ids = set()
+
+        ids = ids.union(self._get_tvdb_ids({
+            'o': f'https://api2.tozelabs.com/v2/user/{self._profile_id}/to_watch',
+            'filter': 'continue_watching'
+        }))
+        ids = ids.union(self._get_tvdb_ids({
+            'o': f'https://api2.tozelabs.com/v2/user/{self._profile_id}/to_watch',
+            'filter': 'not_watched_for_a_while'
+        }))
 
         return ids
 
     def get_unwatched_episodes(self, tvdb_id):
-        response = self._session.get(f'{self.BASE_URL}/show/{tvdb_id}')
-
-        soup = BeautifulSoup(response.content, 'html.parser')
-
-        if not soup.find(id='show-details'):
-            raise ValueError('Probably failed to load page correctly, no id with value "show-details"')
+        response = self._session.get(
+            self.URL,
+            params={'o': f'https://api2.tozelabs.com/v2/show/{tvdb_id}/extended'}
+        )
 
         unwatched = {}
 
-        season_number = 1
-        while True:
+        for season in response.json()['seasons']:
             unwatched_episodes = []
 
-            season = soup.find(id=f'season{season_number}-content')
-            if season is None:
-                break
-
-            for episode in season.find_all('li', {'class': 'episode-wrapper'}):
-                if 'active' not in episode.find('a', {'class': 'watched-btn'}).attrs['class']:
-                    episode_number = episode.find('span', {'class': 'episode-nb-label'}).text.strip()
-                    unwatched_episodes.append(int(episode_number))
+            for episode in season['episodes']:
+                if not episode['is_watched']:
+                    unwatched_episodes.append(episode['number'])
 
             if unwatched_episodes:
-                unwatched[season_number] = unwatched_episodes
-
-            season_number += 1
+                unwatched[season['number']] = unwatched_episodes
 
         return unwatched
 
@@ -87,7 +115,7 @@ class SonarrHelper(object):
 
         self._quality_profile_id = self.get_quality_profile_id('Any')
         self._language_profile_id = self.get_language_profile_id('English')
-        self._tag_id = self._get_tag_id('tv_time')
+        self._tag_id = self.get_tag_id('tv_time')
 
     @staticmethod
     def _get_session(api_key):
@@ -141,7 +169,7 @@ class SonarrHelper(object):
     def _add_root_dir(self, root_dir):
         self._session.post(f'{self._base_url}/rootFolder', json={'path': root_dir})
 
-    def _get_tag_id(self, tag):
+    def get_tag_id(self, tag):
         return self._session.post(f'{self._base_url}/tag', json={'label': tag}) \
             .json()['id']
 
@@ -196,6 +224,12 @@ class SonarrHelper(object):
     def _command_refresh_series(self):
         self._session.post(f'{self._base_url}/command', json={'name': 'RefreshSeries'})
 
+    def _command_episode_search(self, episode_id):
+        self._session.post(f'{self._base_url}/command', json={
+            'name': 'EpisodeSearch',
+            'episodeIds': [episode_id]
+        })
+
     def delete_all_missing_series(self, tvdb_ids):
         for series in self._get_all_series():
             if self._tag_id in series['tags'] and series['tvdbId'] not in tvdb_ids:
@@ -227,6 +261,9 @@ class SonarrHelper(object):
 
             if episode['monitored'] != monitored:
                 self._set_episode_monitored(episode['id'], monitored)
+
+                if monitored:
+                    self._command_episode_search(episode['id'])
 
     def refresh_series(self):
         self._command_refresh_series()
