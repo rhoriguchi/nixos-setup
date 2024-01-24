@@ -17,6 +17,7 @@
       pkgs.glances
       pkgs.gnugrep
       pkgs.gnutar
+      pkgs.iproute2
       pkgs.jq
       pkgs.killall
       pkgs.nano
