@@ -51,15 +51,15 @@ in {
             data.name = "Google - Light";
           }];
         }];
+
+        lovelace.resources = map (lovelaceModule: {
+          url = "/local/js/${lovelaceModule.pname}.js?v=${lovelaceModule.version}";
+          type = "module";
+        }) lovelaceModules;
       };
 
       lovelaceConfig = {
         title = "Home";
-
-        resources = map (lovelaceModule: {
-          url = "/local/js/${lovelaceModule.pname}.js?v=${lovelaceModule.version}";
-          type = "module";
-        }) lovelaceModules;
 
         views = [
           {
