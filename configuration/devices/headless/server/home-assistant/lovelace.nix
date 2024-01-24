@@ -310,7 +310,7 @@ in {
                 title = "CPU";
                 entities = [{
                   name = "Load";
-                  entity = "sensor.processor_use";
+                  entity = "sensor.cpu_load";
                 }];
               }
               {
@@ -318,7 +318,7 @@ in {
                 title = "RAM";
                 entities = [{
                   name = "Used";
-                  entity = "sensor.memory_use_percent";
+                  entity = "sensor.ram_used";
                 }];
               }
               {
@@ -331,10 +331,10 @@ in {
                   d = string: (lib.removeSuffix "_") (c string);
 
                   format = string: d string;
-                in lib.mapAttrsToList (key: _: {
-                  name = key;
-                  entity = format "sensor.disk_use_percent_${key}";
-                }) (lib.filterAttrs (key: _: key != "/boot") config.fileSystems);
+                in lib.mapAttrsToList (path: _: {
+                  name = path;
+                  entity = format "sensor.disk_use_${path}";
+                }) config.fileSystems;
               }
               {
                 type = "entities";
