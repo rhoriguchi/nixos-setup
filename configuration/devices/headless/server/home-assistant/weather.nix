@@ -11,8 +11,10 @@ in {
     sensor = {
       name = "OpenWeather current temperature";
       scan_interval = 5 * 60;
-      command = ''${pkgs.curl}/bin/curl "${apiUrl}/weather?appid=${apiKey}&lat=${toString lat}&lon=${toString lon}&units=${units}"'';
-      value_template = "{{ value_json.main.temp }}";
+      command = "${pkgs.curl}/bin/curl '${apiUrl}/weather?appid=${apiKey}&lat=${toString lat}&lon=${
+          toString lon
+        }&units=${units}' | ${pkgs.jq}/bin/jq '.main.temp'";
+      value_template = "{{ value | float }}";
       unit_of_measurement = "°C";
     };
   }];
