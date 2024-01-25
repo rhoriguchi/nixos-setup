@@ -1,7 +1,5 @@
 # Home Assistant
 
-- Create default user `admin`
-  - Profile -> Advanced mode = true
 - Add integrations
   - Deluge
     - Get credentials from [secret.nix](../../../../../secrets.nix)
@@ -13,6 +11,10 @@
     - `shellycolorbulb-98CDAC1F031E.iot`
     - `shellycolorbulb-98CDAC1F68BC.iot`
   - UniFi Network
+- Settings to change
+  - `Profile` (bottom left user icon) -> `Advanced mode = true`
+  - Delete all areas
+    - `Settings` -> `Areas & zones` -> `Areas`
 
 ## Configure myStrom buttons
 
