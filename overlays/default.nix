@@ -10,18 +10,6 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    gnomeExtensions = super.gnomeExtensions // {
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=270321
-      unite = super.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "NixOS";
-            repo = "nixpkgs";
-            rev = "3851d20b7586c26979da0da05ea57235fa989a42";
-            hash = "sha256-b05dOc/5RFmXEPlkaYzy7EvSmaPJ5FNWY84/Snv1Rdw=";
-          }
-        }/pkgs/desktops/gnome/extensions/unite") { };
-    };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=272722
     tautulli = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
