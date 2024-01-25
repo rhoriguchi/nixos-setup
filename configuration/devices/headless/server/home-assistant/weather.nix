@@ -16,6 +16,7 @@ in {
         }&units=${units}' | ${pkgs.jq}/bin/jq '.main.temp'";
       value_template = "{{ value | float }}";
       unit_of_measurement = "°C";
+      state_class = "measurement";
     };
   }];
 }

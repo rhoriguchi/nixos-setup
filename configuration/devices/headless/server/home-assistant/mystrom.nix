@@ -38,6 +38,7 @@ let
         minVoltage = "3700";
       in "{{ (((value | float) * 1000 - ${minVoltage}) * 100 / (${maxVoltage} - ${minVoltage})) | round }}";
       unit_of_measurement = "%";
+      state_class = "measurement";
     };
   });
 in {
@@ -86,6 +87,7 @@ in {
         command = "${pythonWithPackages}/bin/python ${getPowerScript "083AF2A56094"}";
         value_template = "{{ value | round }}";
         unit_of_measurement = "W";
+        state_class = "measurement";
       };
     }];
 

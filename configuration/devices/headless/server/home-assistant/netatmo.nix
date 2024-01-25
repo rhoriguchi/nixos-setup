@@ -61,6 +61,7 @@ let
         {% endif %}
       '';
       unit_of_measurement = "%";
+      state_class = "measurement";
     };
   });
 in {
