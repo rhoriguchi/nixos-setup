@@ -30,6 +30,7 @@ in {
 
         # Manual added integrations
         "deluge"
+        "esphome"
         "mobile_app"
         "mystrom"
         "netatmo"

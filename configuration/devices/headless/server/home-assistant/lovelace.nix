@@ -68,55 +68,71 @@ in {
 
             cards = addStyleToCards [
               {
-                type = "vertical-stack";
+                type = "custom:mini-graph-card";
+                name = "Outdoor temperature";
 
-                cards = [
+                hours_to_show = 24 * 7;
+                points_per_hour = 2;
+                line_width = 3;
+                hour24 = true;
+
+                show = {
+                  icon = false;
+                  fill = false;
+                };
+
+                entities = [{
+                  name = "Outdoor";
+                  entity = "sensor.openweather_current_temperature";
+                }];
+              }
+              {
+                type = "entities";
+                title = "Living room";
+
+                entities = [
                   {
-                    type = "custom:mini-graph-card";
-                    name = "Outdoor temperature";
-
-                    hours_to_show = 24 * 7;
-                    points_per_hour = 2;
-                    line_width = 3;
-                    hour24 = true;
-
-                    show = {
-                      icon = false;
-                      fill = false;
-                    };
-
-                    entities = [{
-                      name = "Outdoor";
-                      entity = "sensor.openweather_current_temperature";
-                    }];
+                    name = "Temperature";
+                    entity = "sensor.airgradient_one_temperature";
                   }
                   {
-                    type = "custom:mini-graph-card";
-                    name = "Indoor temperature";
-
-                    hours_to_show = 24 * 7;
-                    points_per_hour = 2;
-                    line_width = 3;
-                    hour24 = true;
-
-                    show = {
-                      icon = false;
-                      state = false;
-                      fill = false;
-                    };
-
-                    entities = [
-                      {
-                        name = "Entrance";
-                        entity = "sensor.netatmo_current_temperature_entrance";
-                      }
-                      {
-                        name = "Living room";
-                        entity = "sensor.netatmo_current_temperature_living_room";
-                      }
-                    ];
+                    name = "Humidity";
+                    entity = "sensor.airgradient_one_humidity";
+                  }
+                  {
+                    name = "CO2";
+                    entity = "sensor.airgradient_one_co2";
+                  }
+                  {
+                    name = "VOC Index";
+                    entity = "sensor.airgradient_one_voc_index";
+                  }
+                  {
+                    name = "NOx Index";
+                    entity = "sensor.airgradient_one_nox_index";
+                  }
+                  {
+                    name = "PM 1.0 μm";
+                    entity = "sensor.airgradient_one_pm_1_0";
+                  }
+                  {
+                    name = "PM 2.5 μm";
+                    entity = "sensor.airgradient_one_pm_10_0";
+                  }
+                  {
+                    name = "PM 10.0 μm";
+                    entity = "sensor.airgradient_one_pm_2_5";
                   }
                 ];
+              }
+              {
+                type = "entities";
+                title = "Entrance";
+
+                entities = [{
+                  name = "Temperature";
+                  entity = "sensor.netatmo_current_temperature_entrance";
+                }];
               }
               {
                 type = "custom:mini-graph-card";
@@ -159,6 +175,21 @@ in {
                       {
                         name = "Window";
                         entity = "light.entrance_window";
+                      }
+                    ];
+                  }
+                  { type = "divider"; }
+                  {
+                    type = "custom:fold-entity-row";
+                    head = "light.airgradient_one";
+                    entities = [
+                      {
+                        name = "Display";
+                        entity = "light.airgradient_one_display";
+                      }
+                      {
+                        name = "Led";
+                        entity = "light.airgradient_one_led_strip";
                       }
                     ];
                   }

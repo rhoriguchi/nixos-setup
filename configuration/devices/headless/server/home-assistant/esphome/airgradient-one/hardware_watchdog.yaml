@@ -1,0 +1,16 @@
+# Hardware watchdog for boards with ESP32-C3 chips
+# Must notify the watchdog the device is still alive, or it will force a hardware restart to attempt to clear errors
+
+output:
+  - platform: gpio
+    id: watchdog
+    pin:
+      number: GPIO2
+      ignore_strapping_warning: true
+
+interval:
+  - interval: 2.5min
+    then:
+      - output.turn_on: watchdog
+      - delay: 20ms
+      - output.turn_off: watchdog

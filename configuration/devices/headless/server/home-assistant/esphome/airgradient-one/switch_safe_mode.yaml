@@ -1,0 +1,4 @@
+switch:
+  - platform: safe_mode
+    name: "Flash Mode (Safe Mode)"
+    icon: "mdi:cellphone-arrow-down"

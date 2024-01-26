@@ -1,0 +1,19 @@
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO9
+      mode: INPUT_PULLUP
+      inverted: true
+      ignore_strapping_warning: true
+    internal: true
+    name: "Configuration Button"
+    id: config_button
+    on_multi_click:
+      - timing:
+          - ON for 1s to 5s
+          - OFF for at least 0.5s
+        then:
+          - logger.log: "Starting manual CO2 calibration"
+          - senseair.background_calibration: senseair_s8
+          - delay: 70s
+          - senseair.background_calibration_result: senseair_s8

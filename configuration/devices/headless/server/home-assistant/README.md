@@ -3,6 +3,8 @@
 - Add integrations
   - Deluge
     - Get credentials from [secret.nix](../../../../../secrets.nix)
+  - ESPHome
+    - `airgradient-one.iot`
   - myStrom
     - Set Name `myStrom living room light switch` for Host `myStrom-Switch-8A0F50.iot`
   - Netatmo
