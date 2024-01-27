@@ -1,5 +1,13 @@
 { pkgs, lib, config, ... }:
 let
+  getDiskUsageScript = path:
+    pkgs.writeShellScript "disk_usage_${(lib.replaceStrings [ "/" " " ] [ "_" "_" ]) path}.sh" ''
+      total=$(${pkgs.coreutils}/bin/df ${path} | ${pkgs.gawk}/bin/awk 'NR==2 {print $2}')
+      used=$(${pkgs.coreutils}/bin/df ${path} | ${pkgs.gawk}/bin/awk 'NR==2 {print $3}')
+
+      echo "scale=10; 100 * $used / $total" | ${pkgs.bc}/bin/bc
+    '';
+
   getThroughputScript = interface: key:
     pkgs.writeShellScript "network_throughput_${key}_${interface}.sh" ''
       start=$(${pkgs.iproute2}/bin/ifstat -j ${interface} | ${pkgs.jq}/bin/jq '.kernel | to_entries[] | .value.${key}')
@@ -89,7 +97,7 @@ in {
         name = "Disk use ${path}";
         icon = "mdi:harddisk";
         scan_interval = 5 * 60;
-        command = "${pkgs.coreutils}/bin/df -h ${path} | ${pkgs.gawk}/bin/awk 'NR==2{printf \"%s\", $5}' | ${pkgs.coreutils}/bin/tr -d '%'";
+        command = "${pkgs.bashInteractive}/bin/sh ${getDiskUsageScript path}";
         value_template = "{{ value | float | round(3) }}";
         unit_of_measurement = "%";
         state_class = "measurement";
