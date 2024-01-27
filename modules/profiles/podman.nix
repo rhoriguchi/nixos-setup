@@ -14,6 +14,6 @@
   environment = {
     systemPackages = [ pkgs.podman-compose ];
 
-    shellAliases."docker-compose" = "${config.virtualisation.podman.package}/bin/podman-compose";
+    shellAliases.docker-compose = "${config.virtualisation.podman.package}/bin/podman-compose";
   };
 }
