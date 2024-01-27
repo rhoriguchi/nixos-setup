@@ -111,13 +111,13 @@ direnv allow .
 ### Deploy all
 
 ```console
-deploy .
+deploy . |& nom
 ```
 
 ### Deploy single
 
 ```console
-deploy '.#Laptop'
+deploy '.#Laptop' |& nom
 ```
 
 ### Delete garbage
