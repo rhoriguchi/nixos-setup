@@ -159,6 +159,7 @@
       "files.autoSave" = "onFocusChange";
       "files.exclude" = {
         "**/.classpath" = true;
+        "**/.deploy-gc" = true;
         "**/.DS_Store" = true;
         "**/.factorypath" = true;
         "**/.git-crypt" = true;

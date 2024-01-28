@@ -1,2 +1,3 @@
+.deploy-gc/
 .pre-commit-config.yaml
 result/
