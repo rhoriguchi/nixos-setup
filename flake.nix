@@ -204,7 +204,7 @@
         };
 
         # Raspberry Pi 4 Model B - 8GB
-        ulquiorra = let system = inputs.flake-utils.lib.system.aarch64-linux;
+        Ulquiorra = let system = inputs.flake-utils.lib.system.aarch64-linux;
         in {
           hostname = "xxlpitu-ulquiorra";
 
