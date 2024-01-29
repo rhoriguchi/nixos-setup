@@ -1,6 +1,7 @@
 {
   imports = [
-    ./displaylink.nix
+    # TODO uncomment when https://github.com/NixOS/nixpkgs/issues/265868 fixed
+    # ./displaylink.nix
     ./fwupd.nix
     ./git.nix
     ./gnome.nix

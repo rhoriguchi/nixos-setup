@@ -1,5 +1,7 @@
 { lib, pkgs, public-keys, ... }: {
-  boot.kernelPackages = lib.mkOverride 9999 pkgs.linuxPackages_latest;
+  # TODO unpin when zfs works
+  boot.kernelPackages = lib.mkDefault pkgs.linuxKernel.packages.linux_6_6;
+  # boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   networking.useDHCP = false;
 
