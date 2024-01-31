@@ -9,8 +9,7 @@
         "/dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_84:FC:E6:02:59:C0-if00" # AirGradient ONE
       ];
 
-      # TODO uncomment when merged https://nixpk.gs/pr-tracker.html?pr=284075
-      # usePing = true;
+      usePing = true;
     };
 
     infomaniak = {
@@ -36,7 +35,4 @@
       };
     };
   };
-
-  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=284075
-  systemd.services.esphome.environment.ESPHOME_DASHBOARD_USE_PING = "true";
 }
