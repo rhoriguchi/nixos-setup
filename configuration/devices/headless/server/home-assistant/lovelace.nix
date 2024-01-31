@@ -196,14 +196,6 @@ in {
                 ];
               }
               {
-                type = "entities";
-                title = "AdGuard";
-                entities = [{
-                  name = "Protection";
-                  entity = "switch.adguard_protection";
-                }];
-              }
-              {
                 type = "vertical-stack";
 
                 cards = [
@@ -395,6 +387,31 @@ in {
                     }
                   ];
                 }) config.networking.interfaces;
+              }
+              {
+                type = "entities";
+                title = "AdGuard Home";
+                entities = [
+                  {
+                    name = "Protection";
+                    entity = "switch.adguard_protection";
+                  }
+                  {
+                    name = "Average DNS query time";
+                    entity = "sensor.filtered_adguard_average_dns_query_time";
+                    icon = "mdi:eye";
+                  }
+                  {
+                    name = "DNS queries per hour";
+                    entity = "sensor.filtered_adguard_dns_queries_per_hour";
+                    icon = "mdi:eye";
+                  }
+                  {
+                    name = "Blocked DNS queries per hour";
+                    entity = "sensor.filtered_adguard_blocked_dns_queries_per_hour";
+                    icon = "mdi:eye";
+                  }
+                ];
               }
               {
                 type = "entities";
