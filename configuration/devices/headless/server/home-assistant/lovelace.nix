@@ -440,6 +440,37 @@ in {
                   ];
                 }];
               }
+              {
+                type = "entities";
+                title = "Plex";
+
+                entities = [
+                  {
+                    name = "Streams";
+                    entity = "sensor.plex_stream_count";
+                  }
+                  {
+                    type = "custom:fold-entity-row";
+                    head = {
+                      name = "Bandwidth";
+                      entity = "sensor.plex_total_bandwidth";
+                    };
+
+                    open = true;
+
+                    entities = [
+                      {
+                        name = "WAN";
+                        entity = "sensor.plex_wan_bandwidth";
+                      }
+                      {
+                        name = "LAN";
+                        entity = "sensor.plex_lan_bandwidth";
+                      }
+                    ];
+                  }
+                ];
+              }
             ];
           }
         ];
