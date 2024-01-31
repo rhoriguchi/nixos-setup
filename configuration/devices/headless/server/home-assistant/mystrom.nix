@@ -38,6 +38,7 @@ let
         minVoltage = "3700";
       in "{{ (((value | float) * 1000 - ${minVoltage}) * 100 / (${maxVoltage} - ${minVoltage})) | round }}";
       unit_of_measurement = "%";
+      device_class = "battery";
       state_class = "measurement";
     };
   });
