@@ -46,6 +46,7 @@ in {
       backup	${config.services.deluge.config.torrentfiles_location}/	./
       backup	${config.services.minecraft-servers.dataDir}/	./
       backup	${config.services.plex.dataDir}/	./
+      backup	${config.services.postgresql.dataDir}/	./
       backup	${config.services.prowlarr.dataDir}/	./
       backup	${config.services.resilio.syncPath}/	./
       backup	${config.services.sonarr.dataDir}/	./
