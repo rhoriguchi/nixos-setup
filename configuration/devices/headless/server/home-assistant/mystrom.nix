@@ -129,7 +129,6 @@ in {
           entity_id = "light.entrance";
           data = {
             brightness = 255;
-            rgb_color = [ 255 205 166 ];
             transition = 0.1;
           };
         }];
