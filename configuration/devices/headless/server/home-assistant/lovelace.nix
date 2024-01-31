@@ -129,10 +129,86 @@ in {
                 type = "entities";
                 title = "Entrance";
 
-                entities = [{
-                  name = "Temperature";
-                  entity = "sensor.netatmo_current_temperature_entrance";
-                }];
+                entities = [
+                  {
+                    name = "Temperature";
+                    entity = "sensor.netatmo_current_temperature_entrance";
+                  }
+                  {
+                    name = "Humidity";
+                    entity = "sensor.stadler_form_karl_humidity";
+                  }
+                ];
+              }
+              {
+                type = "entities";
+                title = "Stadler Form Karl";
+
+                entities = [
+                  {
+                    name = "Power";
+                    entity = "switch.stadler_form_karl_power";
+                    icon = "mdi:power";
+                  }
+                  {
+                    type = "conditional";
+                    conditions = [{
+                      entity = "switch.stadler_form_karl_power";
+                      state = "on";
+                    }];
+                    row = {
+                      name = "Auto mode";
+                      entity = "switch.stadler_form_karl_auto_mode";
+                      icon = "mdi:fan-auto";
+                    };
+                  }
+                  {
+                    type = "conditional";
+                    conditions = [
+                      {
+                        entity = "switch.stadler_form_karl_power";
+                        state = "on";
+                      }
+                      {
+                        entity = "switch.stadler_form_karl_auto_mode";
+                        state = "on";
+                      }
+                    ];
+                    row = {
+                      name = "Hygrostat";
+                      entity = "select.stadler_form_karl_hygrostat";
+                      icon = "mdi:water-percent";
+                    };
+                  }
+                  {
+                    type = "conditional";
+                    conditions = [
+                      {
+                        entity = "switch.stadler_form_karl_power";
+                        state = "on";
+                      }
+                      {
+                        entity = "switch.stadler_form_karl_auto_mode";
+                        state = "off";
+                      }
+                    ];
+                    row = {
+                      name = "Fan speed";
+                      entity = "select.stadler_form_karl_fan_speed";
+                      icon = "mdi:fan";
+                    };
+                  }
+                  {
+                    name = "Low water";
+                    entity = "binary_sensor.stadler_form_karl_low_water";
+                    icon = "mdi:water";
+                  }
+                  {
+                    name = "Filter life";
+                    entity = "sensor.stadler_form_karl_filter_life";
+                    icon = "mdi:filter";
+                  }
+                ];
               }
               {
                 type = "custom:mini-graph-card";

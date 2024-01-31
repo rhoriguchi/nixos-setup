@@ -5,6 +5,11 @@
     - Get credentials from [secret.nix](../../../../../secrets.nix)
   - ESPHome
     - `airgradient-one.iot`
+  - localtuya
+    - More info here <https://community.home-assistant.io/t/localtuya-stadler-form-eva-humidifier/414349>
+    - Get credentials from <https://iot.tuya.com/cloud/basic?id=p1706658370961ww5yan>
+    - User id can be found like this <https://github.com/rospogrigio/localtuya/issues/858#issuecomment-1155201879>
+    - Add device, id can be found here <https://eu.iot.tuya.com/cloud/basic?id=p1706658370961ww5yan&deviceTab=all>
   - myStrom
     - Set Name `myStrom living room light switch` for Host `myStrom-Switch-8A0F50.iot`
   - Netatmo
