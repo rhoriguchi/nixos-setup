@@ -2,14 +2,16 @@
   console.useXkbConfig = true;
 
   services.xserver = rec {
-    layout = "ch";
-    xkbModel = "pc105";
-    xkbVariant = "de_nodeadkeys";
+    xkb = {
+      layout = "ch";
+      model = "pc105";
+      variant = "de_nodeadkeys";
+    };
 
     desktopManager.gnome = {
       extraGSettingsOverrides = ''
         [org.gnome.desktop.input-sources]
-        sources=[ ('xkb', '${layout}+${xkbVariant}') ]
+        sources=[ ('xkb', '${xkb.layout}+${xkb.variant}') ]
       '';
 
       extraGSettingsOverridePackages = [
