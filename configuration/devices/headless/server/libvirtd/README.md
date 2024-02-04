@@ -94,7 +94,7 @@ curl --location --output IObit_Uninstaller.exe --url "https://cdn.iobit.com/dl/i
 curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.euw.exe"
 curl --location --output Minecraft_Launcher.exe --url "https://aka.ms/minecraftClientGameCoreWindows"
 curl --location --output Notepad_plus_plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.6/npp.8.6.Installer.x64.exe"
-curl --location --output Plex.exe --url "https://downloads.plex.tv/plex-desktop/1.83.1.4061-d3f45728/windows/Plex-1.83.1.4061-d3f45728-x86_64.exe"
+curl --location --output Plex.exe --url "https://downloads.plex.tv/plex-desktop/1.86.1.4076-a3ab948d/windows/Plex-1.86.1.4076-a3ab948d-x86_64.exe"
 curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
 curl --location --output Razer_Synapse.exe --url "https://rzr.to/synapse-3-pc-download"
 curl --location --output Spotify.exe --url "https://download.scdn.co/SpotifySetup.exe"
@@ -124,7 +124,7 @@ winget install --silent --accept-source-agreements 9MV0B5HZVK9Z
 ```cmd
 cd %userprofile%/Downloads
 
-curl --location --output r2modman.zip --url "https://thunderstore.io/package/download/ebkr/r2modman/3.1.45"
+curl --location --output r2modman.zip --url "https://thunderstore.io/package/download/ebkr/r2modman/3.1.46"
 mkdir r2modman
 tar -xf r2modman.zip -C r2modman
 del /f r2modman.zip
