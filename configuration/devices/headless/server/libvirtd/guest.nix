@@ -57,6 +57,8 @@ in {
 
                 <cpu mode='host-passthrough' migratable='off'>
                   <topology sockets='1' cores='${toString cores}' threads='${toString threads}'/>
+
+                  <feature policy='require' name='topoext'/>
                 </cpu>
               ''
             }
@@ -128,16 +130,21 @@ in {
                 </backend>
               </tpm>
 
-              ${
-                "" # TODO switch to https://looking-glass.io/docs
-              }
               <graphics type='spice' autoport='yes' keymap='de-ch'>
                 <listen type='address' address='127.0.0.1'/>
+
+                <image compression='auto_glz'/>
+                <streaming mode='filter'/>
               </graphics>
 
               <video>
                 <model type='virtio' heads='1'/>
               </video>
+
+              <sound model='ich9'>
+                <audio id='1'/>
+              </sound>
+              <audio id='1' type='spice'/>
 
               <channel type='spicevmc'>
                 <target type='virtio' name='com.redhat.spice.0'/>
