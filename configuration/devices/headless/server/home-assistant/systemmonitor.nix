@@ -106,7 +106,7 @@ in {
       {
         sensor = {
           name = "IPv4 address ${interface}";
-          icon = "mdi:ip-network";
+          icon = "mdi:web";
           scan_interval = 5 * 60;
           command =
             "${pkgs.iproute2}/bin/ip addr show ${interface} | ${pkgs.gawk}/bin/awk '/inet / {print $2}' | ${pkgs.coreutils}/bin/cut -f1 -d'/'";
@@ -115,6 +115,7 @@ in {
       {
         sensor = {
           name = "Network throughput in ${interface}";
+          icon = "mdi:download";
           scan_interval = 30;
           command = "${pkgs.bashInteractive}/bin/sh ${getThroughputScript interface "rx_bytes"}";
           value_template = "{{ ((value | float) / 1024 / 1024) | round(3) }}";
@@ -126,6 +127,7 @@ in {
       {
         sensor = {
           name = "Network throughput out ${interface}";
+          icon = "mdi:upload";
           scan_interval = 30;
           command = "${pkgs.bashInteractive}/bin/sh ${getThroughputScript interface "tx_bytes"}";
           value_template = "{{ ((value | float) / 1024 / 1024) | round(3) }}";

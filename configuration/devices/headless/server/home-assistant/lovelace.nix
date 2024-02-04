@@ -443,7 +443,6 @@ in {
                   head = {
                     name = key;
                     entity = "sensor.ipv4_address_${key}";
-                    icon = "mdi:web";
                   };
 
                   open = true;
@@ -454,12 +453,10 @@ in {
                     {
                       name = "Down";
                       entity = "sensor.network_throughput_in_${key}";
-                      icon = "mdi:download";
                     }
                     {
                       name = "Up";
                       entity = "sensor.network_throughput_out_${key}";
-                      icon = "mdi:upload";
                     }
                   ];
                 }) config.networking.interfaces;
