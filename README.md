@@ -38,7 +38,7 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 ### Add KeePass password to keyring
 
 ```console
-nix-shell -p libsecret --run "secret-tool store --label=KeePass KeePass 2FA"
+nix-shell -p libsecret --run 'secret-tool store --label=KeePass KeePass 2FA'
 ```
 
 ### Server
@@ -118,12 +118,6 @@ deploy --keep-result . |& nom
 
 ```console
 deploy --keep-result '.#Laptop' |& nom
-```
-
-### Delete garbage
-
-```console
-nixops ssh-for-each --parallel "nix-collect-garbage -d"
 ```
 
 ## Encrypt backup drive
