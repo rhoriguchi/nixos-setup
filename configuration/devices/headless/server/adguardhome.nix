@@ -30,7 +30,7 @@
       host = "127.0.0.1";
 
       mutableSettings = false;
-      settings = assert pkgs.adguardhome.schema_version == 27;
+      settings = assert pkgs.adguardhome.schema_version == 28;
         let routerIp = "192.168.1.1";
         in {
           users = [{
