@@ -52,6 +52,18 @@
       pkgs.vscode-extensions.redhat.vscode-yaml
       pkgs.vscode-extensions.rubymaniac.vscode-paste-and-indent
       pkgs.vscode-extensions.ryu1kn.partial-diff
+
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=XXXXXXXXXXXXXXXXXXX
+      # pkgs.signageos.signageos-vscode-sops
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "signageos-vscode-sops";
+          publisher = "signageos";
+          version = "0.9.1";
+          sha256 = "sha256-b1Gp+tL5/e97xMuqkz4EvN0PxI7cJOObusEkcp+qKfM=";
+        };
+      })
+
       pkgs.vscode-extensions.spywhere.guides
       pkgs.vscode-extensions.streetsidesoftware.code-spell-checker
       pkgs.vscode-extensions.timonwong.shellcheck
@@ -159,6 +171,7 @@
       "files.autoSave" = "onFocusChange";
       "files.exclude" = {
         "**/.classpath" = true;
+        "**/.decrypted~secrets.json" = true;
         "**/.deploy-gc" = true;
         "**/.DS_Store" = true;
         "**/.factorypath" = true;

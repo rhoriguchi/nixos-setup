@@ -158,3 +158,24 @@ mkdir -p /mnt/FIRMWARE && mount /dev/disk/by-label/FIRMWARE /mnt/FIRMWARE
 BOOTFS=/mnt/FIRMWARE FIRMWARE_RELEASE_STATUS=stable rpi-eeprom-update -d -a
 umount /mnt/FIRMWARE && rm -rf /mnt/FIRMWARE
 ```
+
+## SOPS
+
+### Generate key pair
+
+```console
+mkdir -p ~/.config/sops/age
+nix-shell -p age --run 'age-keygen -o ~/.config/sops/age/keys.txt'
+```
+
+### Get public key
+
+```console
+nix-shell -p age --run 'age-keygen -y ~/.config/sops/age/keys.txt'
+```
+
+### Edit encrypted file
+
+```console
+sops PATH_TO_FILE
+```

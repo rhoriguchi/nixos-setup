@@ -81,7 +81,7 @@
           _module.args = {
             inherit (self.nixosModules) colors;
             public-keys = import ./configuration/public-keys.nix;
-            secrets = import ./secrets.nix;
+            secrets = lib.filterAttrsRecursive (key: _: key != "$comment") (builtins.fromJSON (builtins.readFile ./secrets.json));
           };
         };
       in {
@@ -260,7 +260,7 @@
         } // (inputs.deploy-rs.lib.${system}.deployChecks self.deploy) // (import ./checks { inherit pkgs; });
 
         devShells.default = pkgs.mkShell {
-          buildInputs = [ inputs.deploy-rs.packages.${system}.deploy-rs pkgs.nix-output-monitor pkgs.nixVersions.unstable ];
+          buildInputs = [ inputs.deploy-rs.packages.${system}.deploy-rs pkgs.nix-output-monitor pkgs.nixVersions.unstable pkgs.sops ];
           shellHook = self.checks.${system}.pre-commit.shellHook;
         };
       });
