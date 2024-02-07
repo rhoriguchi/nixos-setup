@@ -2,7 +2,10 @@
   home = {
     packages = [ pkgs.nano ];
 
-    sessionVariables.EDITOR = "nano";
+    sessionVariables = {
+      EDITOR = "nano";
+      KUBE_EDITOR = "nano";
+    };
 
     file.".nanorc".text = ''
       include "${pkgs.nano}/share/nano/*.nanorc"
@@ -15,4 +18,6 @@
       unset nonewlines
     '';
   };
+
+  programs.git.extraConfig.core.editor = "nano";
 }

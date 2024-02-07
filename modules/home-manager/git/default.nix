@@ -1,13 +1,9 @@
 { pkgs, config, lib, colors, ... }: {
   imports = [ ./template.nix ];
 
-  home = {
-    packages = [ pkgs.nano ];
-
-    activation.deleteGitconfig = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-      rm -f '${config.home.homeDirectory}/.gitconfig'
-    '';
-  };
+  home.activation.deleteGitconfig = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+    rm -f '${config.home.homeDirectory}/.gitconfig'
+  '';
 
   programs.git = {
     enable = true;
@@ -40,10 +36,7 @@
 
       init.defaultBranch = "master";
 
-      core = {
-        editor = "nano";
-        symlinks = true;
-      };
+      core.symlinks = true;
 
       color.ui = true;
 
