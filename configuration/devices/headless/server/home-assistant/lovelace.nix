@@ -360,7 +360,7 @@ in {
                 title = "Info";
                 entities = [
                   {
-                    name = "Booted";
+                    name = "Last boot";
                     entity = "sensor.booted";
                   }
                   {
