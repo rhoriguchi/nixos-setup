@@ -321,49 +321,30 @@ in {
                 ];
               }
               {
-                type = "entities";
+                type = "custom:battery-state-card";
                 title = "Battery";
-                entities = [
+
+                bulk_rename = [ { from = " battery"; } { from = "Netatmo valve "; } { from = "myStrom button "; } ];
+                sort.by = "name";
+
+                collapse = [
                   {
-                    type = "custom:battery-state-entity";
-                    name = "Netatmo valve entrance hallway";
-                    entity = "sensor.netatmo_valve_entrance_hallway_battery";
+                    name = "Netatmo valves {range}%";
+                    entities = [
+                      "sensor.netatmo_valve_entrance_hallway_battery"
+                      "sensor.netatmo_valve_entrance_window_battery"
+                      "sensor.netatmo_valve_living_room_battery"
+                    ];
                   }
                   {
-                    type = "custom:battery-state-entity";
-                    name = "Netatmo valve entrance window";
-                    entity = "sensor.netatmo_valve_entrance_window_battery";
-                  }
-                  {
-                    type = "custom:battery-state-entity";
-                    name = "Netatmo valve living room";
-                    entity = "sensor.netatmo_valve_living_room_battery";
-                  }
-                  { type = "divider"; }
-                  {
-                    type = "custom:battery-state-entity";
-                    name = "myStrom button blue";
-                    entity = "sensor.mystrom_button_blue_battery";
-                  }
-                  {
-                    type = "custom:battery-state-entity";
-                    name = "myStrom button orange";
-                    entity = "sensor.mystrom_button_orange_battery";
-                  }
-                  {
-                    type = "custom:battery-state-entity";
-                    name = "myStrom button gray";
-                    entity = "sensor.mystrom_button_gray_battery";
-                  }
-                  {
-                    type = "custom:battery-state-entity";
-                    name = "myStrom button purple";
-                    entity = "sensor.mystrom_button_purple_battery";
-                  }
-                  {
-                    type = "custom:battery-state-entity";
-                    name = "myStrom button white";
-                    entity = "sensor.mystrom_button_white_battery";
+                    name = "myStrom buttons {range}%";
+                    entities = [
+                      "sensor.mystrom_button_blue_battery"
+                      "sensor.mystrom_button_gray_battery"
+                      "sensor.mystrom_button_orange_battery"
+                      "sensor.mystrom_button_purple_battery"
+                      "sensor.mystrom_button_white_battery"
+                    ];
                   }
                 ];
               }
