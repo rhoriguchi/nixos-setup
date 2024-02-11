@@ -206,7 +206,7 @@
         # Raspberry Pi 4 Model B - 8GB
         Ulquiorra = let system = inputs.flake-utils.lib.system.aarch64-linux;
         in {
-          hostname = "xxlpitu-ulquiorra";
+          hostname = "172.16.0.1";
 
           profiles.system = {
             sshUser = "root";

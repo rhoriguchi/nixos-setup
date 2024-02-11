@@ -1,21 +1,90 @@
-{ secrets, ... }: {
+{ lib, secrets, ... }: {
   imports = [ ../common.nix ];
 
-  networking.hostName = "XXLPitu-Ulquiorra";
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
-  fileSystems."/mnt/Data" = {
-    device = "/dev/disk/by-uuid/44064fb4-2d1e-4df4-b477-9cf5f8194fb4";
-    fsType = "ext4";
-    options = [ "defaults" "errors=continue" "nofail" ];
+  networking = {
+    hostName = "XXLPitu-Ulquiorra";
+
+    interfaces.eth0 = {
+      useDHCP = lib.mkForce false;
+
+      ipv4.addresses = [{
+        address = "172.16.0.1";
+        prefixLength = 24;
+      }];
+    };
+
+    wireless = {
+      enable = true;
+
+      networks.Niflheim = secrets.wifis.Niflheim;
+    };
+
+    nat = {
+      enable = true;
+
+      externalInterface = "wlan0";
+      internalInterfaces = [ "eth0" ];
+
+      forwardPorts = [
+        {
+          proto = "tcp";
+          destination = "172.16.0.2";
+          sourcePort = 22; # SSH
+        }
+        {
+          proto = "tcp";
+          destination = "172.16.0.2";
+          sourcePort = 80; # http
+        }
+        {
+          proto = "tcp";
+          destination = "172.16.0.2";
+          sourcePort = 443; # https
+        }
+        {
+          proto = "tcp";
+          destination = "172.16.0.2";
+          sourcePort = 32400; # Plex
+        }
+        {
+          proto = "udp";
+          destination = "172.16.0.2";
+          sourcePort = 51820; # WireGuard
+        }
+      ];
+    };
+
+    firewall = {
+      allowedUDPPorts = [
+        67 # DHCP
+
+        51820 # WireGuard
+      ];
+
+      allowedTCPPorts = [
+        22 # SSH
+        80 # http
+        443 # https
+        32400 # Plex
+      ];
+    };
   };
 
   services = {
-    resilio = {
+    dnsmasq = {
       enable = true;
-      logging.enable = false;
 
-      secrets = secrets.resilio.secrets;
-      syncPath = "/mnt/Data/Sync";
+      settings = {
+        interface = "eth0";
+
+        dhcp-authoritative = true;
+        dhcp-range = "172.16.0.3, 172.16.0.254";
+        dhcp-option = [ "option:router,172.16.0.1" "option:dns-server, 1.1.1.1, 1.0.0.1" ];
+
+        dhcp-host = "24:5a:4c:7b:36:11, unifi, 172.16.0.2";
+      };
     };
 
     wireguard-network = {
