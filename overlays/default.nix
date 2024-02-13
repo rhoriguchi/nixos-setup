@@ -20,13 +20,13 @@
         }
       }/pkgs/servers/tautulli") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=278091
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=288529
     prowlarr = super.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "3a236d83c9aee844a869ac3d6e8117012d000de3";
-          sha256 = "sha256-uBh6bWdmxq24COCY5PdLhCFSrL7f/Ozi6F/JbBBy/Qw=";
+          rev = "cc54759e5f3ea6213cadca42b5e2b10ac89a3395";
+          sha256 = "sha256-pjZxaMbgulHN4F5C5HSORBMCEwez7zTs3AEAJXl04fc=";
         }
       }/pkgs/servers/prowlarr") { };
 
