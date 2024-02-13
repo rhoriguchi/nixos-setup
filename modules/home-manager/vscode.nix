@@ -145,7 +145,6 @@
       "editor.suggestSelection" = "first";
       "editor.tokenColorCustomizations".comments = "#767676";
       "editor.unicodeHighlight.includeComments" = true;
-      "editor.wordBasedSuggestionsMode" = "allDocuments";
       "editor.defaultColorDecorators" = true;
       "explorer.compactFolders" = false;
       "explorer.confirmDelete" = false;
