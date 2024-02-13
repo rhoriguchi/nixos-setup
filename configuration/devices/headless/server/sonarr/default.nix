@@ -26,6 +26,16 @@
         locations."/" = {
           proxyPass = "http://127.0.0.1:8989";
           basicAuth = secrets.nginx.basicAuth."sonarr.00a.ch";
+
+          recommendedProxySettings = false;
+          extraConfig = ''
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP 127.0.0.1;
+            proxy_set_header X-Forwarded-For 127.0.0.1;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Forwarded-Server $host;
+          '';
         };
       };
     };

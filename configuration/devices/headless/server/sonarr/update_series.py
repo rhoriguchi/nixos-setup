@@ -138,14 +138,14 @@ class SonarrHelper(object):
 
         return match['id']
 
-    def _get_all_language_profiles(self):
-        return self._session.get(f'{self._base_url}/languageprofile') \
+    def _get_all_languages(self):
+        return self._session.get(f'{self._base_url}/language') \
             .json()
 
     def get_language_profile_id(self, name):
         match = next(filter(
             lambda profile: profile['name'].lower() == name.lower(),
-            self._get_all_language_profiles()
+            self._get_all_languages()
         ))
 
         if not match:
