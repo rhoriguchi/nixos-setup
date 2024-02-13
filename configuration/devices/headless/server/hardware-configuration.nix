@@ -34,8 +34,8 @@
     fsType = "zfs";
   };
 
-  fileSystems."/mnt/Data/Naruto" = {
-    device = "data/naruto";
+  fileSystems."/mnt/Data/Series" = {
+    device = "data/series";
     fsType = "zfs";
   };
 

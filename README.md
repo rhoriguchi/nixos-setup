@@ -78,7 +78,7 @@ zfs create \
   data/log
 
 zfs create \
-  data/naruto
+  data/series
 
 zfs create \
   -o compression=zstd \
