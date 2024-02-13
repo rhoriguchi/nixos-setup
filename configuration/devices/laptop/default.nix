@@ -46,8 +46,6 @@
   };
 
   services = {
-    xserver.displayManager.autoLogin.user = "rhoriguchi";
-
     resilio = {
       enable = true;
 
