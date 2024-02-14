@@ -52,8 +52,8 @@
         stop_seed_at_ratio = true;
         stop_seed_ratio = 0.0;
 
-        max_download_speed = 1000 * 80;
-        max_upload_speed = 1000 * 10;
+        max_download_speed = builtins.floor (100 * 1000 * 0.8);
+        max_upload_speed = builtins.floor (20 * 1000 * 0.8);
 
         max_active_downloading = 10;
         max_active_seeding = 10;
