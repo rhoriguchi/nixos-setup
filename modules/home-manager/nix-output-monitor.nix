@@ -1,12 +1,14 @@
-{ pkgs, ... }: {
-  home.packages = [ pkgs.nix-output-monitor ];
+{ pkgs, ... }:
+let package = pkgs.nix-output-monitor;
+in {
+  home.packages = [ package ];
 
   programs.zsh.shellAliases = {
-    "nix build" = "${pkgs.nix-output-monitor}/bin/nom build";
-    "nix shell" = "${pkgs.nix-output-monitor}/bin/nom shell";
-    "nix develop" = "${pkgs.nix-output-monitor}/bin/nom develop";
+    "nix build" = "${package}/bin/nom build";
+    "nix shell" = "${package}/bin/nom shell";
+    "nix develop" = "${package}/bin/nom develop";
 
-    nix-build = "${pkgs.nix-output-monitor}/bin/nom-build";
-    nix-shell = "${pkgs.nix-output-monitor}/bin/nom-shell";
+    nix-build = "${package}/bin/nom-build";
+    nix-shell = "${package}/bin/nom-shell";
   };
 }
