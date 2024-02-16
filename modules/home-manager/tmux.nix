@@ -1,12 +1,15 @@
 { config, pkgs, colors, ... }:
-let tmux = "${config.programs.tmux.package}/bin/tmux";
+let
+  tmux = "${config.programs.tmux.package}/bin/tmux";
+
+  attachSession = name: ''${tmux} attach-session -t "${name}" || ${tmux} new-session -s "${name}"'';
 in {
   programs = {
     fzf.tmux.enableShellIntegration = true;
 
     zsh = {
       shellAliases = {
-        attach = "${tmux} attach-session -t 'Default' || ${tmux} new-session -s 'Default'";
+        attach = attachSession "Default";
         clear = "clear && ${tmux} clear-history 2> /dev/null";
         detach = "${tmux} detach-client";
       };
@@ -14,9 +17,9 @@ in {
       initExtra = ''
         if [ "$TMUX" = ''' ]; then
           if [ "$XDG_SESSION_TYPE" = 'tty' ]; then
-            ${tmux} attach-session -t "TTY $(basename $(tty))" || ${tmux} new-session -s "TTY $(basename $(tty))"
+            ${attachSession "TTY $(basename $(tty))"}
           elif [ "$TERM_PROGRAM" != 'vscode' ] && [ "$TERMINAL_EMULATOR" != 'JetBrains-JediTerm' ]; then
-            ${tmux} attach-session -t 'Default' || ${tmux} new-session -s 'Default'
+            ${attachSession "Default"}
           fi
         fi
       '';
@@ -39,6 +42,9 @@ in {
 
         unbind %
         bind h split-window -h
+
+        # backwards: n | forwards: N
+        bind / copy-mode \; send-key C-r
 
         set -g clock-mode-colour '${colors.normal.accent}'
         set -g message-command-style bg='${colors.normal.black}',fg='${colors.normal.green}'
