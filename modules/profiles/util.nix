@@ -20,6 +20,7 @@
       pkgs.iproute2
       pkgs.jq
       pkgs.killall
+      pkgs.mtr
       pkgs.nano
       pkgs.nixfmt
       pkgs.nmap
@@ -31,6 +32,7 @@
       pkgs.speedtest-cli
       pkgs.sshpass
       pkgs.strace
+      pkgs.tcpdump
       pkgs.traceroute
       pkgs.tree
       pkgs.unzip
