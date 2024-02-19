@@ -23,7 +23,7 @@
       function check_commit_msg_length {
           readonly MAX_MSG_LENGTH=72
 
-          local title=$(head -n 1 "$COMMIT_MSG_FILE")
+          local title=$(${pkgs.coreutils}/bin/head -n 1 "$COMMIT_MSG_FILE")
 
           if [ ''${#title} -gt $MAX_MSG_LENGTH ]; then
               # TODO figure out how to use hex colors variable
@@ -42,7 +42,7 @@
       readonly CHECKOUT_TYPE="$3"
 
       function alias_main {
-        local current_branch="$(cut -d ' ' -f2 "$(git rev-parse --show-toplevel)/.git/HEAD" | sed 's|refs/heads/||')"
+        local current_branch="$(${pkgs.coreutils}/bin/cut -d ' ' -f2 "$(git rev-parse --show-toplevel)/.git/HEAD" | ${pkgs.gnused}/bin/sed 's|refs/heads/||')"
 
         if [ "$current_branch" = "main" ]; then
           git symbolic-ref refs/heads/master refs/heads/main
