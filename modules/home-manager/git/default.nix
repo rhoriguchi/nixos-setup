@@ -34,8 +34,6 @@
           } ''${1}"; fi; fi; }; f'';
       };
 
-      init.defaultBranch = "master";
-
       core.symlinks = true;
 
       color.ui = true;
@@ -49,6 +47,8 @@
 
       # TODO remove when https://github.com/libgit2/libgit2/issues/6531 fixed
       index.skipHash = false;
+
+      init.defaultBranch = "master";
 
       pull.ff = "only";
 
