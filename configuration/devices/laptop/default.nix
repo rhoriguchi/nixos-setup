@@ -85,6 +85,7 @@
         pkgs.jetbrains.pycharm-professional
         pkgs.jetbrains.webstorm
         pkgs.obsidian
+        pkgs.glow
         pkgs.postgresql
         pkgs.protonvpn-gui
         pkgs.qbittorrent
