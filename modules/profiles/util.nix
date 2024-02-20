@@ -27,6 +27,7 @@
       pkgs.openssl
       pkgs.pciutils
       pkgs.procps
+      pkgs.postgresql
       pkgs.rsync
       pkgs.smartmontools
       pkgs.speedtest-cli
