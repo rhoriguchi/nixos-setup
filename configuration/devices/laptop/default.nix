@@ -68,30 +68,28 @@
     virt-manager.enable = true;
   };
 
-  environment.systemPackages = [
-    pkgs.discord
-    pkgs.gimp
-    pkgs.google-chrome
-    pkgs.inkscape
-    pkgs.jetbrains.datagrip
-    pkgs.jetbrains.idea-ultimate
-    pkgs.jetbrains.pycharm-professional
-    pkgs.jetbrains.webstorm
-    pkgs.libreoffice-fresh
-    pkgs.obsidian
-    pkgs.postgresql
-    pkgs.protonvpn-gui
-    pkgs.qbittorrent
-    pkgs.signal-desktop
-    pkgs.vlc
-    pkgs.wpa_supplicant_gui
-  ];
+  environment.systemPackages = [ pkgs.google-chrome pkgs.libreoffice-fresh pkgs.vlc pkgs.wpa_supplicant_gui ];
 
   users.users = {
     rhoriguchi = {
       extraGroups = [ "networkmanager" "plugdev" "podman" "wheel" ];
       isNormalUser = true;
       password = secrets.users.rhoriguchi.password;
+
+      packages = [
+        pkgs.discord
+        pkgs.gimp
+        pkgs.inkscape
+        pkgs.jetbrains.datagrip
+        pkgs.jetbrains.idea-ultimate
+        pkgs.jetbrains.pycharm-professional
+        pkgs.jetbrains.webstorm
+        pkgs.obsidian
+        pkgs.postgresql
+        pkgs.protonvpn-gui
+        pkgs.qbittorrent
+        pkgs.signal-desktop
+      ];
     };
 
     sillert = {
