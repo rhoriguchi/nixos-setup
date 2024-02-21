@@ -49,7 +49,7 @@
 
           filtering.rewrites = [{
             domain = "*.00a.ch";
-            answer = "${config.networking.hostName}.dmz";
+            answer = "${config.networking.hostName}.local";
           }];
         };
     };
