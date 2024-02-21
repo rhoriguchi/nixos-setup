@@ -8,8 +8,6 @@
       allowedDevices = [
         "/dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_84:FC:E6:02:59:C0-if00" # AirGradient ONE
       ];
-
-      usePing = true;
     };
 
     infomaniak = {

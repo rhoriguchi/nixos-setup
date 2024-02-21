@@ -1,11 +1,11 @@
 {
   services.home-assistant.config = {
     yeelight.devices = {
-      "yeelink-light-mono5_mibt1D55.iot" = {
+      "yeelink-light-mono5_mibt1D55.local" = {
         name = "Entrance window";
         model = "mono5";
       };
-      "yeelink-light-mono5_mibt9166.iot" = {
+      "yeelink-light-mono5_mibt9166.local" = {
         name = "Entrance hallway";
         model = "mono5";
       };
