@@ -102,6 +102,7 @@
         "browser.download.dir" = "${config.home.homeDirectory}/Downloads/Browser";
         "browser.download.folderList" = 2;
         "browser.laterrun.enabled" = false;
+        "browser.link.open_newwindow.restriction" = 0;
         "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
         "browser.newtabpage.activity-stream.feeds.snippets" = false;
         "browser.newtabpage.activity-stream.feeds.topsites" = false;
