@@ -103,7 +103,7 @@
     home = config.users.users.rhoriguchi.home;
     syncPath = "${home}/Sync";
 
-    downloadDirs = map (path: ''"${home}/Downloads/${path}"'') [ "Browser" "Torrent" ];
+    downloadDirs = map (path: "'${home}/Downloads/${path}'") [ "Browser" "Torrent" ];
 
     createSymlink = source: target: ''
       if [ -d "${source}" ] && [ ! \( -L "${target}" \) ] && [ ! \( -e "${target}" \) ]; then
