@@ -101,12 +101,12 @@
         "browser.download.autohideButton" = false;
         "browser.download.dir" = "${config.home.homeDirectory}/Downloads/Browser";
         "browser.download.folderList" = 2;
+        "browser.laterrun.enabled" = false;
         "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
         "browser.newtabpage.activity-stream.feeds.snippets" = false;
         "browser.newtabpage.activity-stream.feeds.topsites" = false;
         "browser.newtabpage.activity-stream.showSearch" = false;
         "browser.newtabpage.enabled" = false;
-        "browser.laterrun.enabled" = false;
         "browser.rights.3.shown" = true;
         "browser.search.region" = "CH";
         "browser.search.suggest.enabled.private" = true;
