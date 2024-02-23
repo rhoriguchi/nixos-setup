@@ -258,7 +258,10 @@
       "workbench.startupEditor" = "none";
       "[html]"."editor.defaultFormatter" = "vscode.html-language-features";
       "[javascript]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
-      "[json]"."editor.defaultFormatter" = "vscode.json-language-features";
+      "[json]" = {
+        "editor.defaultFormatter" = "vscode.json-language-features";
+        "editor.tabSize" = 2;
+      };
       "[jsonc]"."editor.defaultFormatter" = "vscode.json-language-features";
       "[latex]" = {
         "editor.wordWrap" = "wordWrapColumn";
@@ -266,7 +269,10 @@
       };
       "[nix]"."editor.tabSize" = 2;
       "[terraform]"."editor.tabSize" = 2;
-      "[typescript]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
+      "[typescript]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "editor.tabSize" = 2;
+      };
       "[typescriptreact]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
       "[yaml]" = {
         "editor.defaultFormatter" = "redhat.vscode-yaml";
