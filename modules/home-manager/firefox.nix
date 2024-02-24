@@ -205,7 +205,7 @@
         "network.dns.disablePrefetch" = true;
         "network.predictor.enabled" = false;
         "network.prefetch-next" = false;
-        "network.trr.mode" = 2;
+        "network.trr.mode" = 5;
         "pref.downloads.disable_button.edit_actions" = false;
         "privacy.donottrackheader.enabled" = true;
         "privacy.query_stripping.enabled" = true;
