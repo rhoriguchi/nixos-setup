@@ -11,7 +11,8 @@
     - User id can be found like this <https://github.com/rospogrigio/localtuya/issues/858#issuecomment-1155201879>
     - Add device, id can be found here <https://eu.local.tuya.com/cloud/basic?id=p1706658370961ww5yan&deviceTab=all>
   - myStrom
-    - Set Name `myStrom living room light switch` for Host `myStrom-Switch-8A0F50.local`
+    - Set Name `myStrom living room light 1 switch` for Host `myStrom-Switch-8A0F50.local`
+    - Set Name `myStrom living room light 2 switch` for Host `myStrom-Switch-A56094.local`
   - Netatmo
     - Get credentials from <https://dev.netatmo.com>
   - Shelly
