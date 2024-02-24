@@ -17,6 +17,7 @@
   - Shelly
     - `shellycolorbulb-98CDAC1F031E.local`
     - `shellycolorbulb-98CDAC1F68BC.local`
+    - `shellyhtg3-84fce639c104.local`
   - UniFi Network
 - Settings to change
   - `Profile` (bottom left user icon) -> `Advanced mode = true`
