@@ -15,4 +15,7 @@
   };
 
   environment.systemPackages = [ pkgs.raspberrypi-eeprom ];
+
+  # https://github.com/fwupd/fwupd/wiki/PluginFlag:capsules-unsupported
+  services.fwupd.daemonSettings.DisabledPlugins = [ "test" "test_ble" "invalid" "bios" ];
 }
