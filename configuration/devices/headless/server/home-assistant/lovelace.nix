@@ -88,6 +88,30 @@ in {
               }
               {
                 type = "entities";
+                title = "Bedroom";
+
+                entities = [{
+                  name = "Temperature";
+                  entity = "sensor.netatmo_current_temperature_bedroom";
+                }];
+              }
+              {
+                type = "entities";
+                title = "Entrance";
+
+                entities = [
+                  {
+                    name = "Temperature";
+                    entity = "sensor.netatmo_current_temperature_entrance";
+                  }
+                  {
+                    name = "Humidity";
+                    entity = "sensor.stadler_form_karl_humidity";
+                  }
+                ];
+              }
+              {
+                type = "entities";
                 title = "Living room";
 
                 entities = [
@@ -122,21 +146,6 @@ in {
                   {
                     name = "PM 10.0 μm";
                     entity = "sensor.airgradient_one_pm_2_5";
-                  }
-                ];
-              }
-              {
-                type = "entities";
-                title = "Entrance";
-
-                entities = [
-                  {
-                    name = "Temperature";
-                    entity = "sensor.netatmo_current_temperature_entrance";
-                  }
-                  {
-                    name = "Humidity";
-                    entity = "sensor.stadler_form_karl_humidity";
                   }
                 ];
               }
@@ -211,25 +220,6 @@ in {
                 ];
               }
               {
-                type = "custom:mini-graph-card";
-                name = "Desk power consumption";
-
-                hours_to_show = 24 * 7;
-                points_per_hour = 5;
-                line_width = 3;
-                hour24 = true;
-
-                show = {
-                  icon = false;
-                  fill = false;
-                };
-
-                entities = [{
-                  name = "Desk";
-                  entity = "sensor.mystrom_desk_monitor_power_consumption";
-                }];
-              }
-              {
                 # TODO HOME-ASSISTANT toggle is broken
                 type = "entities";
                 title = "Lights";
@@ -237,22 +227,20 @@ in {
                 show_header_toggle = true;
 
                 entities = [
-                  "light.bedroom"
-                  "light.kitchen"
-                  "light.living_room"
                   {
                     type = "custom:fold-entity-row";
-                    head = "light.entrance";
-                    entities = [
-                      {
-                        name = "Hallway";
-                        entity = "light.entrance_hallway";
-                      }
-                      {
-                        name = "Window";
-                        entity = "light.entrance_window";
-                      }
-                    ];
+                    head = "light.mystrom_light_switches";
+                    entities = [ { entity = "light.mystrom_light_switch_1"; } { entity = "light.mystrom_light_switch_2"; } ];
+                  }
+                  {
+                    type = "custom:fold-entity-row";
+                    head = "light.shelly_lights";
+                    entities = [ { entity = "light.shelly_light_1"; } { entity = "light.shelly_light_2"; } ];
+                  }
+                  {
+                    type = "custom:fold-entity-row";
+                    head = "light.yeelight_lights";
+                    entities = [ { entity = "light.yeelight_light_1"; } { entity = "light.yeelight_light_2"; } ];
                   }
                   { type = "divider"; }
                   {
@@ -324,17 +312,14 @@ in {
                 type = "custom:battery-state-card";
                 title = "Battery";
 
-                bulk_rename = [ { from = " battery"; } { from = "Netatmo valve "; } { from = "myStrom button "; } ];
+                bulk_rename = [ { from = " Battery Percent"; } { from = " battery"; } { from = "myStrom button "; } { from = "Valve "; } ];
                 sort.by = "name";
 
                 collapse = [
                   {
                     name = "Netatmo valves {range}%";
-                    entities = [
-                      "sensor.netatmo_valve_entrance_hallway_battery"
-                      "sensor.netatmo_valve_entrance_window_battery"
-                      "sensor.netatmo_valve_living_room_battery"
-                    ];
+                    entities =
+                      [ "sensor.valve_blue_battery_percent" "sensor.valve_green_battery_percent" "sensor.valve_yellow_battery_percent" ];
                   }
                   {
                     name = "myStrom buttons {range}%";

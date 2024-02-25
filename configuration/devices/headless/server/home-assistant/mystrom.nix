@@ -2,8 +2,8 @@
 let
   apiUrl = "https://mystrom.ch/api";
 
-  getXScript = id: key:
-    pkgs.writeText "mystrom_get_${key}_${id}.py" ''
+  getVoltageScript = id:
+    pkgs.writeText "mystrom_get_voltage_${id}.py" ''
       import json
 
       import requests
@@ -20,11 +20,8 @@ let
           json.loads(response.content)['devices']
       ))
 
-      print(match['${key}'])
+      print(match['voltage'])
     '';
-
-  getVoltageScript = id: getXScript id "voltage";
-  getPowerScript = id: getXScript id "power";
 
   pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.requests ]);
 
@@ -44,21 +41,42 @@ let
   });
 in {
   services.home-assistant.config = {
-    light = [{
-      platform = "template";
-      lights.living_room = {
-        friendly_name = "Living room";
-        value_template = "{{ states('switch.mystrom_living_room_light_switch') }}";
-        turn_on = {
-          service = "switch.turn_on";
-          target.entity_id = "switch.mystrom_living_room_light_switch";
+    light = [
+      {
+        platform = "template";
+        lights = {
+          mystrom_light_switch_1 = {
+            friendly_name = "myStrom Light Switch 1";
+            value_template = "{{ states('switch.mystrom_light_switch_1') }}";
+            turn_on = {
+              service = "switch.turn_on";
+              target.entity_id = "switch.mystrom_light_switch_1";
+            };
+            turn_off = {
+              service = "switch.turn_off";
+              target.entity_id = "switch.mystrom_light_switch_1";
+            };
+          };
+          mystrom_light_switch_2 = {
+            friendly_name = "myStrom Light Switch 2";
+            value_template = "{{ states('switch.mystrom_light_switch_2') }}";
+            turn_on = {
+              service = "switch.turn_on";
+              target.entity_id = "switch.mystrom_light_switch_2";
+            };
+            turn_off = {
+              service = "switch.turn_off";
+              target.entity_id = "switch.mystrom_light_switch_2";
+            };
+          };
         };
-        turn_off = {
-          service = "switch.turn_off";
-          target.entity_id = "switch.mystrom_living_room_light_switch";
-        };
-      };
-    }];
+      }
+      {
+        platform = "group";
+        name = "myStrom Light Switches";
+        entities = [ "light.mystrom_light_switch_1" "light.mystrom_light_switch_2" ];
+      }
+    ];
 
     command_line = createButtonBatterySensors [
       {
@@ -81,20 +99,23 @@ in {
         name = "myStrom button white battery";
         id = "CC50E3F8CB7A";
       }
-    ] ++ [{
-      sensor = {
-        name = "myStrom Desk Monitor power consumption";
-        scan_interval = 60;
-        command = "${pythonWithPackages}/bin/python ${getPowerScript "083AF2A56094"}";
-        value_template = "{{ value | round }}";
-        unit_of_measurement = "W";
-        state_class = "measurement";
-      };
-    }];
+    ];
 
     automation = [
       {
-        alias = "Turn on bedroom light";
+        alias = "Toggle myStrom Light Switches";
+        trigger = [{
+          platform = "webhook";
+          webhook_id = "mystrom_button_orange";
+          local_only = true;
+        }];
+        action = [{
+          service = "light.toggle";
+          entity_id = "light.mystrom_light_switches";
+        }];
+      }
+      {
+        alias = "Toggle Shelly Lights";
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_gray";
@@ -102,7 +123,7 @@ in {
         }];
         action = [{
           service = "light.toggle";
-          entity_id = "light.bedroom";
+          entity_id = "light.shelly_lights";
           data = {
             brightness = 255;
             color_temp = 333;
@@ -111,56 +132,36 @@ in {
         }];
       }
       {
-        alias = "Turn on entrance lights";
+        alias = "Toggle Yeelight Lights";
+        trigger = [{
+          platform = "webhook";
+          webhook_id = "mystrom_button_blue";
+          local_only = true;
+        }];
+        action = [{
+          service = "light.toggle";
+          entity_id = "light.yeelight_lights";
+          data = {
+            brightness = 255;
+            transition = 0.1;
+          };
+        }];
+      }
+      {
+        alias = "Placeholder";
         trigger = [
-          {
-            platform = "webhook";
-            webhook_id = "mystrom_button_blue";
-            local_only = true;
-          }
           {
             platform = "webhook";
             webhook_id = "mystrom_button_purple";
             local_only = true;
           }
+          {
+            platform = "webhook";
+            webhook_id = "mystrom_button_white";
+            local_only = true;
+          }
         ];
-        action = [{
-          service = "light.toggle";
-          entity_id = "light.entrance";
-          data = {
-            brightness = 255;
-            transition = 0.1;
-          };
-        }];
-      }
-      {
-        alias = "Turn on kitchen light";
-        trigger = [{
-          platform = "webhook";
-          webhook_id = "mystrom_button_white";
-          local_only = true;
-        }];
-        action = [{
-          service = "light.toggle";
-          entity_id = "light.kitchen";
-          data = {
-            brightness = 255;
-            color_temp = 210;
-            transition = 0.1;
-          };
-        }];
-      }
-      {
-        alias = "Turn on living room light";
-        trigger = [{
-          platform = "webhook";
-          webhook_id = "mystrom_button_orange";
-          local_only = true;
-        }];
-        action = [{
-          service = "light.toggle";
-          entity_id = "light.living_room";
-        }];
+        action = [ ];
       }
     ];
   };
