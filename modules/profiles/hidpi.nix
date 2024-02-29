@@ -4,7 +4,7 @@
       gimp = super.gimp.overrideAttrs (oldAttrs: {
         postInstall = (oldAttrs.postInstall or "") + ''
           substituteInPlace $out/etc/gimp/2.0/gimprc \
-            --replace "# (icon-size auto)" "(icon-size huge)"
+            --replace-fail "# (icon-size auto)" "(icon-size huge)"
         '';
       });
 

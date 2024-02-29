@@ -11,8 +11,8 @@ let
     postBuild = ''
       cp --remove-destination $(realpath $out/share/applications/org.keepassxc.KeePassXC.desktop) $out/share/applications/org.keepassxc.KeePassXC.desktop
       substituteInPlace $out/share/applications/org.keepassxc.KeePassXC.desktop \
-        --replace "Exec=keepassxc %f" "Exec=${script}" \
-        --replace "TryExec=keepassxc" "TryExec=${script}"
+        --replace-fail "Exec=keepassxc %f" "Exec=${script}" \
+        --replace-fail "TryExec=keepassxc" "TryExec=${script}"
     '';
   };
 in { environment.systemPackages = [ keepassxc ]; }
