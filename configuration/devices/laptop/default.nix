@@ -72,7 +72,7 @@
 
   users.users = {
     rhoriguchi = {
-      extraGroups = [ "networkmanager" "plugdev" "podman" "wheel" ];
+      extraGroups = [ "networkmanager" "openrazer" "plugdev" "podman" "wheel" ];
       isNormalUser = true;
       password = secrets.users.rhoriguchi.password;
 
@@ -93,7 +93,7 @@
     };
 
     sillert = {
-      extraGroups = [ "networkmanager" "plugdev" ];
+      extraGroups = [ "networkmanager" "openrazer" "plugdev" ];
       isNormalUser = true;
       password = secrets.users.sillert.password;
     };
