@@ -44,6 +44,7 @@
           Papierschorle = "fd048705-cb86-4e31-a251-1a99d5d2483f"; # Ramon
           Probefahrer = "bbc822d0-2ad2-44f1-94c3-e185cf4d74b4"; # Cyrill
           sanlitun = "9c645c2c-1a1b-4207-ab9e-1ea0ca75a127"; # Isler
+          Sebolar = "3a0c19ba-765a-4f86-a981-acf48c5b17da"; # Mike
           Sirkii = "5e14c507-16cd-4a0d-84bd-ec82c1792e03"; # Keanu
           ThatOneSlave = "ee4c4772-23d4-4cc9-9f70-092aa1ddc7c2"; # Janik
           thripphy = "3607cdd3-c5fc-475a-94ae-10e0732c1b69"; # Cipi
