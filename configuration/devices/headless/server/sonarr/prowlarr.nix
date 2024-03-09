@@ -30,6 +30,13 @@
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header X-Forwarded-Host $host;
             proxy_set_header X-Forwarded-Server $host;
+
+            satisfy any;
+
+            # TODO test if needed
+            deny  192.168.1.1;
+            allow 192.168.1.0/24;
+            deny all;
           '';
         };
       };

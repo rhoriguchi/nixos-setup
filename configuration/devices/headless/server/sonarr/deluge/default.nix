@@ -18,6 +18,15 @@
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.deluge.web.port}";
           basicAuth = secrets.nginx.basicAuth."deluge.00a.ch";
+
+          extraConfig = ''
+            satisfy any;
+
+            # TODO test if needed
+            deny  192.168.1.1;
+            allow 192.168.1.0/24;
+            deny all;
+          '';
         };
       };
     };
