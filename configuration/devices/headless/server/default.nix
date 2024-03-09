@@ -9,6 +9,7 @@
     ./minecraft-server.nix
     ./rsnapshot.nix
     ./sonarr
+    ./tautulli.nix
 
     ./hardware-configuration.nix
   ];
@@ -34,18 +35,7 @@
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "home.00a.ch" "tautulli.00a.ch" ];
-    };
-
-    nginx = {
-      enable = true;
-
-      virtualHosts."tautulli.00a.ch" = {
-        enableACME = true;
-        forceSSL = true;
-
-        locations."/".proxyPass = "http://127.0.0.1:${toString config.services.tautulli.port}";
-      };
+      hostnames = [ "home.00a.ch" ];
     };
 
     gphotos-sync = {
@@ -90,8 +80,6 @@
         })
       ];
     };
-
-    tautulli.enable = true;
 
     wireguard-network = {
       enable = true;

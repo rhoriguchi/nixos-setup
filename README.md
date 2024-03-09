@@ -45,6 +45,10 @@ nix-shell -p libsecret --run 'secret-tool store --label=KeePass KeePass 2FA'
 
 #### Setup Plex over `http://IP:32400/web`
 
+#### Setup Tautulli `http://IP:8181`
+
+Set any username and password. Will be removed after restart of service.
+
 #### [Home Assistant](configuration/devices/headless/server/home-assistant/README.md)
 
 #### Google Photos Sync
