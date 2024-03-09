@@ -16,15 +16,12 @@ pkgs.nixosTest {
     services.infomaniak.enable = lib.mkForce false;
 
     _module.args.secrets = {
-      adguard = {
-        username = "test";
-        encryptedUsernamePassword = "$2y$05$gjHEFr9yo.y/8a8DV5jGievJzKzE2IhxPibxmg4QbE3H8mIfVRxbu"; # test:password
-      };
-
       infomaniak = {
         username = "test";
         password = "password";
       };
+
+      nginx.basicAuth."adguardhome.00a.ch".test = "password";
     };
   };
 

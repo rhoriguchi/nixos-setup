@@ -1,8 +1,5 @@
-{ pkgs, config, secrets, ... }:
+{ pkgs, config, ... }:
 let
-  username = secrets.adguard.username;
-  password = secrets.adguard.password;
-
   ip = "127.0.0.1";
 
   script = methodCall:
@@ -11,7 +8,7 @@ let
 
       from adguardhome import AdGuardHome
 
-      adguard = AdGuardHome("${ip}", username="${username}", password="${password}", port=${toString config.services.adguardhome.port})
+      adguard = AdGuardHome("${ip}", port=${toString config.services.adguardhome.port})
 
 
       async def get_status():
