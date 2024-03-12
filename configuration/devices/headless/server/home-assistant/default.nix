@@ -31,6 +31,7 @@ in {
         # Manual added integrations
         "deluge"
         "esphome"
+        "hue"
         "mobile_app"
         "mystrom"
         "netatmo"

@@ -5,6 +5,8 @@
     - Get credentials from [secret.nix](../../../../../secrets.nix)
   - ESPHome
     - `airgradient-one.local`
+  - Philips Hue
+    - `ecb5faac6110.local`
   - localtuya
     - More info here <https://community.home-assistant.io/t/localtuya-stadler-form-eva-humidifier/414349>
     - Get credentials from <https://iot.tuya.com/cloud/basic?id=p1706658370961ww5yan>

@@ -238,6 +238,10 @@ in {
                     entities = [ { entity = "light.shelly_light_1"; } { entity = "light.shelly_light_2"; } ];
                   }
                   {
+                    name = "Hue Signe gradient floor";
+                    entity = "light.signe_gradient_floor";
+                  }
+                  {
                     type = "custom:fold-entity-row";
                     head = "light.yeelight_lights";
                     entities = [ { entity = "light.yeelight_light_1"; } { entity = "light.yeelight_light_2"; } ];
