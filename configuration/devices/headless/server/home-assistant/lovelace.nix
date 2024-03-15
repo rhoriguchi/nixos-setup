@@ -233,13 +233,13 @@ in {
                     entities = [ { entity = "light.mystrom_light_switch_1"; } { entity = "light.mystrom_light_switch_2"; } ];
                   }
                   {
+                    name = "Hue Signe gradient floor";
+                    entity = "light.signe_gradient_floor";
+                  }
+                  {
                     type = "custom:fold-entity-row";
                     head = "light.shelly_lights";
                     entities = [ { entity = "light.shelly_light_1"; } { entity = "light.shelly_light_2"; } ];
-                  }
-                  {
-                    name = "Hue Signe gradient floor";
-                    entity = "light.signe_gradient_floor";
                   }
                   {
                     type = "custom:fold-entity-row";

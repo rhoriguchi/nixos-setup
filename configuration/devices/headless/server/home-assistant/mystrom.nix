@@ -115,6 +115,23 @@ in {
         }];
       }
       {
+        alias = "Toggle Hue Signe gradient floor";
+        trigger = [{
+          platform = "webhook";
+          webhook_id = "mystrom_button_purple";
+          local_only = true;
+        }];
+        action = [{
+          service = "light.toggle";
+          entity_id = "light.signe_gradient_floor";
+          data = {
+            brightness = 255;
+            color_temp = 300;
+            transition = 0.1;
+          };
+        }];
+      }
+      {
         alias = "Toggle Shelly Lights";
         trigger = [{
           platform = "webhook";
@@ -149,18 +166,11 @@ in {
       }
       {
         alias = "Placeholder";
-        trigger = [
-          {
-            platform = "webhook";
-            webhook_id = "mystrom_button_purple";
-            local_only = true;
-          }
-          {
-            platform = "webhook";
-            webhook_id = "mystrom_button_white";
-            local_only = true;
-          }
-        ];
+        trigger = [{
+          platform = "webhook";
+          webhook_id = "mystrom_button_white";
+          local_only = true;
+        }];
         action = [ ];
       }
     ];
