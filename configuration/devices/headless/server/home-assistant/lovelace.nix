@@ -322,8 +322,12 @@ in {
                 collapse = [
                   {
                     name = "Netatmo valves {range}%";
-                    entities =
-                      [ "sensor.valve_blue_battery_percent" "sensor.valve_green_battery_percent" "sensor.valve_yellow_battery_percent" ];
+                    entities = [
+                      "sensor.valve_blue_battery_percent"
+                      "sensor.valve_green_battery_percent"
+                      "sensor.valve_orange_battery_percent"
+                      "sensor.valve_yellow_battery_percent"
+                    ];
                   }
                   {
                     name = "myStrom buttons {range}%";
