@@ -124,7 +124,7 @@ winget install --silent --accept-source-agreements 9MV0B5HZVK9Z
 ```cmd
 cd %userprofile%/Downloads
 
-curl --location --output r2modman.zip --url "https://thunderstore.io/package/download/ebkr/r2modman/3.1.46"
+curl --location --output r2modman.zip --url "https://thunderstore.io/package/download/ebkr/r2modman/3.1.47"
 mkdir r2modman
 tar -xf r2modman.zip -C r2modman
 del /f r2modman.zip
@@ -134,8 +134,32 @@ start %userprofile%/Downloads
 
 #### Dyson Sphere Program mods
 
+- GalacticScale
+
+  ```txt
+  ror2mm://v1/install/thunderstore.io/Galactic_Scale/GalacticScale/2.13.4
+  ```
+
+- NebulaCompatibilityAssist
+
+  ```txt
+  ror2mm://v1/install/thunderstore.io/starfi5h/NebulaCompatibilityAssist/0.4.1
+  ```
+
 - NebulaMultiplayerMod
 
   ```txt
-  ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.8.14
+  ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.9.1
+  ```
+
+- SmartEjectors
+
+  ```txt
+  ror2mm://v1/install/thunderstore.io/DanielHeEGG/SmartEjectors/1.3.3
+  ```
+
+- SphereEditorTools
+
+  ```txt
+  ror2mm://v1/install/thunderstore.io/starfi5h/SphereEditorTools/2.2.3
   ```
