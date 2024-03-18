@@ -28,7 +28,10 @@
         p2p_disabled=1
       '';
 
-      networks = secrets.wifis;
+      networks = lib.recursiveUpdate secrets.wifis {
+        "63466727".priority = 100;
+        Niflheim.priority = 10;
+      };
     };
   };
 
