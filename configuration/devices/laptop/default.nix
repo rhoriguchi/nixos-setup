@@ -46,6 +46,26 @@
     };
 
     openrazer.enable = true;
+
+    printers = {
+      ensureDefaultPrinter = "DeskJet-3700";
+
+      ensurePrinters = [{
+        name = "DeskJet-3700";
+        deviceUri = "ipp://XXLPitu-Ulquiorra.local/printers/DeskJet-3700";
+        location = "Home";
+
+        model = "raw";
+
+        # lpoptions -p DeskJet-3700
+        ppdOptions = {
+          ColorModel = "KGray";
+          InputSlot = "Upper";
+          MediaType = "Plain";
+          PageSize = "A4";
+        };
+      }];
+    };
   };
 
   services = {

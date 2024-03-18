@@ -1,5 +1,9 @@
 { secrets, ... }: {
-  imports = [ ../common.nix ];
+  imports = [
+    ../common.nix
+
+    ./print-server.nix
+  ];
 
   networking = {
     hostName = "XXLPitu-Ulquiorra";
