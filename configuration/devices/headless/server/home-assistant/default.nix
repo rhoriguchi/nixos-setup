@@ -31,6 +31,7 @@ in {
         # Manual added integrations
         "deluge"
         "esphome"
+        "homekit_controller"
         "hue"
         "mobile_app"
         "mystrom"

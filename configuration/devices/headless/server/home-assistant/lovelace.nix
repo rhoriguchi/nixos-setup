@@ -237,6 +237,10 @@ in {
                     entity = "light.signe_gradient_floor";
                   }
                   {
+                    name = "Ikea Trådfr storage closet";
+                    entity = "light.tradfr_storage_closet";
+                  }
+                  {
                     type = "custom:fold-entity-row";
                     head = "light.shelly_lights";
                     entities = [ { entity = "light.shelly_light_1"; } { entity = "light.shelly_light_2"; } ];
