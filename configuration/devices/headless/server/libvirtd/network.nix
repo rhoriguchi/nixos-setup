@@ -1,6 +1,4 @@
 { pkgs, ... }: {
-  services.dnsmasq.settings.port = 5353;
-
   systemd.services.libvirtd-network = rec {
     after = [ "libvirtd.service" ];
     requires = after;
@@ -26,7 +24,7 @@
 
             <forward mode='nat'/>
 
-            <mac address="52:54:00:2d:33:8f"/>
+            <mac address='52:54:00:2d:33:8f'/>
 
             <port isolated='yes'/>
 
@@ -36,11 +34,10 @@
               </dhcp>
             </ip>
 
-            <ip family='ipv6' address='2001:db8:ca2:2::1' prefix='64'>
-              <dhcp>
-                <range start='2001:db8:ca2:2::2' end='2001:db8:ca2:2::ff'/>
-              </dhcp>
-            </ip>
+            <dnsmasq:options xmlns:dnsmasq='http://libvirt.org/schemas/network/dnsmasq/1.0'>
+              <dnsmasq:option value='port=5353'/>
+              <dnsmasq:option value='dhcp-option=option:dns-server,172.16.1.1'/>
+            </dnsmasq:options>
           </network>
         '';
         checkPhase = ''
