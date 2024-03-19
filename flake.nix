@@ -245,16 +245,17 @@
                 enable = true;
                 excludes = [ "hardware-configuration\\.nix" ];
               };
-              markdownlint.enable = true;
+              markdownlint = {
+                enable = true;
+
+                settings.config.MD013 = false;
+              };
               nixfmt = {
                 enable = true;
                 excludes = [ "secrets\\.nix" ];
-              };
-            };
 
-            settings = {
-              markdownlint.config.MD013 = false;
-              nixfmt.width = 140;
+                settings.width = 140;
+              };
             };
           };
         } // (inputs.deploy-rs.lib.${system}.deployChecks self.deploy) // (import ./checks { inherit pkgs; });
