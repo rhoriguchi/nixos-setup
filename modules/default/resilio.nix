@@ -21,8 +21,8 @@ let
     storage_path = cfg.storagePath;
     check_for_updates = cfg.webUI.enable;
     use_upnp = true;
-    download_limit = 0;
-    upload_limit = 0;
+    download_limit = cfg.downloadLimit;
+    upload_limit = cfg.uploadLimit;
     directory_root = cfg.syncPath;
     lan_encrypt_data = true;
     send_statistics = false;
@@ -98,6 +98,16 @@ in {
         };
       };
       default = { };
+    };
+    downloadLimit = lib.mkOption {
+      type = lib.types.int;
+      # kB/s
+      default = 0;
+    };
+    uploadLimit = lib.mkOption {
+      type = lib.types.int;
+      # kB/s
+      default = 0;
     };
     readWriteDirs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
