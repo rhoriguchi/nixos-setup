@@ -20,7 +20,7 @@
       src = "${pkgs.zsh-nix-shell}/share/${pkgs.zsh-nix-shell.pname}";
     }];
 
-    localVariables.ZSH_AUTOSUGGEST_STRATEGY = "history completion";
+    localVariables.ZSH_AUTOSUGGEST_STRATEGY = "completion";
 
     sessionVariables = {
       DIRSTACKSIZE = "20";
