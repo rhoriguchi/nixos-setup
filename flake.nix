@@ -204,7 +204,32 @@
         };
 
         # Raspberry Pi 4 Model B - 8GB
-        Ulquiorra = let system = inputs.flake-utils.lib.system.aarch64-linux;
+        Nelliel = let system = inputs.flake-utils.lib.system.aarch64-linux;
+        in {
+          hostname = "xxlpitu-nelliel";
+
+          profiles.system = {
+            sshUser = "root";
+
+            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
+              modules = [{
+                imports = [
+                  commonModule
+
+                  inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
+                  self.nixosModules.profiles.headless
+
+                  ./configuration/devices/headless/raspberry-pi-4/nelliel
+                ];
+              }];
+            });
+          };
+        };
+
+        Ulquiorra = let
+          system = inputs.flake-utils.lib.system.aarch64-linux;
+          # Raspberry Pi 4 Model B - 8GB
         in {
           hostname = "xxlpitu-ulquiorra";
 
