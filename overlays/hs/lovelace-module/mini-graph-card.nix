@@ -1,13 +1,13 @@
 { stdenv, fetchurl }:
 stdenv.mkDerivation rec {
   pname = "hs-lovelace-module-mini-graph-card";
-  version = "0.11.0";
+  version = "0.12.1";
 
   src = let
     owner = "kalkih";
     repo = "mini-graph-card";
     rev = "v${version}";
-    hash = "sha256-ujWSekx/DRS6fQzDyL79ZKGne5VHJwHBT6c88WECc1I=";
+    hash = "sha256-NfqjTTwHleXajLNlMEQgbVYfiEtsC12aCbFEuH9RGMQ=";
   in fetchurl {
     url = "https://github.com/${owner}/${repo}/releases/download/${rev}/mini-graph-card-bundle.js";
     inherit hash;
