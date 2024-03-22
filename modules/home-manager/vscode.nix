@@ -121,7 +121,10 @@
         {
           "type" = "shell";
           "label" = "nixfmt workspace";
-          "command" = ''${pkgs.nixfmt}/bin/nixfmt --width=140 "''${workspaceFolder}"'';
+          "command" = lib.concatStringsSep " | " [
+            ''${pkgs.findutils}/bin/find "''${workspaceFolder}" -name "*.nix"''
+            "${pkgs.findutils}/bin/xargs ${pkgs.nixfmt}/bin/nixfmt --width=140"
+          ];
           "presentation" = {
             "clear" = true;
             "close" = true;
