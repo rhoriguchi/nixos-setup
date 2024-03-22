@@ -93,7 +93,7 @@
           "type" = "shell";
           "label" = "deadnix workspace";
           "command" = lib.concatStringsSep " | " [
-            ''${pkgs.findutils}/bin/find "''${workspaceFolder}" -name "*.nix" -and ! -name "hardware-configuration.nix"''
+            "${pkgs.findutils}/bin/find \"\${workspaceFolder}\" -name '*.nix' -and ! -name 'hardware-configuration.nix'"
             "${pkgs.findutils}/bin/xargs ${pkgs.deadnix}/bin/deadnix"
           ];
           "presentation" = {
@@ -122,7 +122,7 @@
           "type" = "shell";
           "label" = "nixfmt workspace";
           "command" = lib.concatStringsSep " | " [
-            ''${pkgs.findutils}/bin/find "''${workspaceFolder}" -name "*.nix"''
+            "${pkgs.findutils}/bin/find \"\${workspaceFolder}\" -name '*.nix'"
             "${pkgs.findutils}/bin/xargs ${pkgs.nixfmt}/bin/nixfmt --width=140"
           ];
           "presentation" = {
