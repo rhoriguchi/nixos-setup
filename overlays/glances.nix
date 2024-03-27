@@ -5,7 +5,7 @@ let
     diskio.hide = "loop\\d+,^mmcblk\\d+p\\d+$,^sd[a-z]+\\d+$,^nvme0n\\d+p\\d+$,^dm-\\d+$";
     fs = {
       allow = "cifs,zfs";
-      hide = "/nix/store";
+      hide = builtins.storeDir;
     };
     global.check_update = false;
     irq.disable = true;
