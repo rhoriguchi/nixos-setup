@@ -51,6 +51,7 @@ in {
       backup	${config.services.resilio.syncPath}/	./
       backup	${config.services.sonarr.dataDir}/	./
       backup	${config.services.tautulli.dataDir}/	./
+      backup	/mnt/Data/Series	./
       backup	/var/lib/esphome/	./
     '';
   };
