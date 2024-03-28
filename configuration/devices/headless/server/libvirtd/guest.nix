@@ -151,23 +151,20 @@ in {
               </channel>
 
               ${
-                ""
+              # INITIAL SETUP
+              # Get image from https://www.microsoft.com/en-us/software-download/windows10ISO
 
-                # INITIAL SETUP
-                # + (let
-                #   windowsInstallerIso = pkgs.fetchurl {
-                #     url = "https://go.microsoft.com/fwlink/p/?LinkID=2208844&clcid=0x809&culture=en-gb&country=GB";
-                #     hash = "sha256-o4rMBXqBTK7kl1NTViA2KvIO7ULdjsra1p96z0FK8sU=";
-                #   };
-                # in ''
-                #   <disk type='file' device='cdrom'>
-                #     <driver name='qemu' type='raw' cache='none'/>
-                #     <source file='${windowsInstallerIso}'/>
-                #     <target dev='vda' bus='sata'/>
-                #     <boot order='1'/>
-                #     <readonly/>
-                #   </disk>
-                # '')
+              # ''
+              #   <disk type='file' device='cdrom'>
+              #     <driver name='qemu' type='raw' cache='none'/>
+              #     <source file='PATH'/>
+              #     <target dev='vda' bus='sata'/>
+              #     <boot order='1'/>
+              #     <readonly/>
+              #   </disk>
+              # ''
+
+                ""
               }
 
               <disk type='volume' device='disk'>

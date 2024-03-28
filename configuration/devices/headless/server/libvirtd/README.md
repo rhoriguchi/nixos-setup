@@ -51,55 +51,59 @@ powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 powercfg -change -monitor-timeout-ac 15
 
 REM Windows Explorer tuning
-reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Hidden /t REG_DWORD /d 1 /f
-reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v HideFileExt /t REG_DWORD /d 0 /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem" /v LongPathsEnabled /t REG_DWORD /d 1 /f
+reg add HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v Hidden /t REG_DWORD /d 1 /f
+reg add HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v HideFileExt /t REG_DWORD /d 0 /f
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem /v LongPathsEnabled /t REG_DWORD /d 1 /f
 
-REM TODO replace is archived
-REM Cleanup Windows with https://github.com/Sycnex/Windows10Debloater
-powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Debloat%20Windows' | iex"
-powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Disable%20Cortana' | iex"
-powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Protect%20Privacy' | iex"
-powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Remove%20Bloatware%20RegKeys' | iex"
-powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Stop%20Edge%20PDF' | iex"
-powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Uninstall%20OneDrive' | iex"
-powershell -command "iwr -useb 'https://raw.githubusercontent.com/Sycnex/Windows10Debloater/master/Individual%20Scripts/Unpin%20Start' | iex"
+REM Mouse acceleration
+reg add HKEY_CURRENT_USER\Control Panel\Mouse /v MouseSpeed /t REG_SZ /d 0 /f
 ```
 
 Restart VM.
 
 ## Other Software to install
 
-### General
+### Chocolatey
+
+Run in an elevated cmd
+
+```cmd
+powershell -command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
+
+echo C:\ProgramData\chocolatey\bin\choco upgrade all -y > "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\choco_upgrade.bat"
+```
+
+Reopen elevated cmd
+
+```cmd
+choco install -y ^
+  cheatengine ^
+  discord ^
+  firefox ^
+  leagueoflegends ^
+  minecraft ^
+  notepadplusplus ^
+  plex ^
+  razer-synapse-2 ^
+  razer-synapse-3 ^
+  teamviewer ^
+  vlc
+```
+
+### Manual
 
 ```cmd
 cd %userprofile%/Downloads
-
-curl --location --output Firefox.msi --url "https://download.mozilla.org/?product=firefox-msi-latest-ssl&os=win64&lang=en-US"
-start /wait msiexec /i Firefox.msi /quiet /qn /norestart
-del /f Firefox.msi
 
 curl --location --output Hextech_Repair_tool.msi --url "https://lolstatic-a.akamaihd.net/player-support/tools/hextech-repair-tool/latest/Hextech%20Repair%20Tool.msi"
 start /wait msiexec /i Hextech_Repair_tool.msi /quiet /qn /norestart
 del /f Hextech_Repair_tool.msi
 
-curl --location --output VLC.msi --url "https://get.videolan.org/vlc/3.0.20/win64/vlc-3.0.20-win64.msi"
-start /wait msiexec /i VLC.msi /quiet /qn /norestart
-del /f VLC.msi
-
 curl --location --output Blitz_installer.exe --url "https://blitz.gg/download/win"
-curl --location --output Discord.exe --url "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86"
 curl --location --output Driver_Booster.exe --url "https://cdn.iobit.com/dl/driver_booster_setup.exe"
 curl --location --output IObit_Uninstaller.exe --url "https://cdn.iobit.com/dl/iobituninstaller.exe"
-curl --location --output League_of_Legends.exe --url "https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.euw.exe"
-curl --location --output Minecraft_Launcher.exe --url "https://aka.ms/minecraftClientGameCoreWindows"
-curl --location --output Notepad_plus_plus.exe --url "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.6/npp.8.6.Installer.x64.exe"
-curl --location --output Plex.exe --url "https://downloads.plex.tv/plex-desktop/1.86.1.4076-a3ab948d/windows/Plex-1.86.1.4076-a3ab948d-x86_64.exe"
-curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
-curl --location --output Razer_Synapse.exe --url "https://rzr.to/synapse-3-pc-download"
 curl --location --output Spotify.exe --url "https://download.scdn.co/SpotifySetup.exe"
 curl --location --output Steam_installer.exe --url "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe"
-curl --location --output TeamViewer.exe --url "https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe"
 
 start %userprofile%/Downloads
 ```
