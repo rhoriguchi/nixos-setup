@@ -58,7 +58,7 @@
       };
 
       overlays.default = lib.composeManyExtensions ([
-        inputs.deploy-rs.overlay
+        inputs.deploy-rs.overlays.default
 
         inputs.nix-minecraft.overlay
 
