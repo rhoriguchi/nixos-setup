@@ -10,7 +10,7 @@ in {
     zsh = {
       shellAliases = {
         attach = attachSession "Default";
-        clear = "clear && ${tmux} clear-history 2> /dev/null";
+        clear = "${pkgs.ncurses}/bin/clear && ${tmux} clear-history 2> /dev/null";
         detach = "${tmux} detach-client";
       };
 
