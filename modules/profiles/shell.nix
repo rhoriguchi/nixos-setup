@@ -4,7 +4,8 @@
   users.defaultUserShell = pkgs.zsh;
 
   environment.shellAliases = {
-    run-help = null;
-    which-command = null;
+    l = null;
+    ll = null;
+    ls = null;
   };
 }

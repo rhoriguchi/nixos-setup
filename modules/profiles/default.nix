@@ -21,7 +21,7 @@
   podman = import ./podman.nix;
   printing = import ./printing.nix;
   python = import ./python.nix;
+  shell = import ./shell.nix;
   util = import ./util.nix;
   zfs = import ./zfs.nix;
-  zsh = import ./zsh.nix;
 }
