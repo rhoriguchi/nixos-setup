@@ -273,7 +273,7 @@
               markdownlint = {
                 enable = true;
 
-                settings.config.MD013 = false;
+                settings.configuration.MD013 = false;
               };
               nixfmt = {
                 enable = true;
