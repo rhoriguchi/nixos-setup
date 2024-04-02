@@ -27,6 +27,12 @@
       MAILCHECK = "0";
     };
 
+    initExtraFirst = ''
+      # Remove default alias
+      unalias run-help
+      unalias which-command
+    '';
+
     initExtra = ''
       # https://zsh.sourceforge.io/Doc/Release/Options.html
 
