@@ -22,12 +22,12 @@
       pkgs.killall
       pkgs.mtr
       pkgs.nano
-      pkgs.nixfmt
+      pkgs.nixfmt-classic
       pkgs.nmap
       pkgs.openssl
       pkgs.pciutils
-      pkgs.procps
       pkgs.postgresql
+      pkgs.procps
       pkgs.rsync
       pkgs.smartmontools
       pkgs.speedtest-cli
