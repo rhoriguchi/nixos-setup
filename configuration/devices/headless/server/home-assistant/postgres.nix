@@ -1,6 +1,6 @@
 { config, ... }: {
   services = {
-    home-assistant.config.recorder.db_url = "postgresql://:${toString config.services.postgresql.port}/hass";
+    home-assistant.config.recorder.db_url = "postgresql://:${toString config.services.postgresql.settings.port}/hass";
 
     postgresql = {
       enable = true;
