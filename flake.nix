@@ -227,9 +227,8 @@
           };
         };
 
-        Ulquiorra = let
-          system = inputs.flake-utils.lib.system.aarch64-linux;
-          # Raspberry Pi 4 Model B - 8GB
+        # Raspberry Pi 4 Model B - 8GB
+        Ulquiorra = let system = inputs.flake-utils.lib.system.aarch64-linux;
         in {
           hostname = "xxlpitu-ulquiorra";
 
