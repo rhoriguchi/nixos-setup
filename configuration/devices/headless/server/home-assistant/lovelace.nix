@@ -238,11 +238,6 @@ in {
                   }
                   {
                     type = "custom:fold-entity-row";
-                    head = "light.shelly_lights";
-                    entities = [ { entity = "light.shelly_light_1"; } { entity = "light.shelly_light_2"; } ];
-                  }
-                  {
-                    type = "custom:fold-entity-row";
                     head = "light.yeelight_lights";
                     entities = [ { entity = "light.yeelight_light_1"; } { entity = "light.yeelight_light_2"; } ];
                   }

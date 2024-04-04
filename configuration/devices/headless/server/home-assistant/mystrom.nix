@@ -132,23 +132,6 @@ in {
         }];
       }
       {
-        alias = "Toggle Shelly Lights";
-        trigger = [{
-          platform = "webhook";
-          webhook_id = "mystrom_button_gray";
-          local_only = true;
-        }];
-        action = [{
-          service = "light.toggle";
-          entity_id = "light.shelly_lights";
-          data = {
-            brightness = 255;
-            color_temp = 333;
-            transition = 0.1;
-          };
-        }];
-      }
-      {
         alias = "Toggle Yeelight Lights";
         trigger = [{
           platform = "webhook";
@@ -165,7 +148,16 @@ in {
         }];
       }
       {
-        alias = "Placeholder";
+        alias = "Placeholder myStrom gray";
+        trigger = [{
+          platform = "webhook";
+          webhook_id = "mystrom_button_gray";
+          local_only = true;
+        }];
+        action = [ ];
+      }
+      {
+        alias = "Placeholder myStrom white";
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_white";
