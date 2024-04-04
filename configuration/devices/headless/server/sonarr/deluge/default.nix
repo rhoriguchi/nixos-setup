@@ -49,6 +49,8 @@
       in pkgs.writeText "deluge-auth" text;
 
       config = rec {
+        new_release_check = false;
+
         download_location = "/mnt/Data/Deluge/Downloads";
 
         copy_torrent_file = true;
@@ -67,10 +69,9 @@
         max_active_downloading = 10;
         max_active_seeding = 10;
         max_active_limit = max_active_downloading + max_active_seeding;
-        dont_count_slow_torrents = true;
 
-        max_connections_global = 250;
-        max_half_open_connections = 40;
+        queue_new_to_top = true;
+        dont_count_slow_torrents = true;
       };
     };
   };
