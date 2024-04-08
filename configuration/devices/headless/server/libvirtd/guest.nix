@@ -168,10 +168,16 @@ in {
               }
 
               <disk type='volume' device='disk'>
-                <driver name='qemu' type='qcow2' discard='unmap'/>
-                <source pool='default' volume='windows'/>
+                <driver name='qemu' type='raw'/>
+                <source pool='default' volume='disk_windows'/>
                 <target dev='vdb' bus='sata' rotation_rate='1'/>
                 <boot order='2'/>
+              </disk>
+
+              <disk type='volume' device='disk'>
+                <driver name='qemu' type='raw'/>
+                <source pool='default' volume='disk_steam'/>
+                <target dev='vdc' bus='sata' rotation_rate='1'/>
               </disk>
 
               ${

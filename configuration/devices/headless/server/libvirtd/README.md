@@ -56,41 +56,22 @@ reg add HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Adv
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem /v LongPathsEnabled /t REG_DWORD /d 1 /f
 
 REM Mouse acceleration
-reg add HKEY_CURRENT_USER\Control Panel\Mouse /v MouseSpeed /t REG_SZ /d 0 /f
+reg add "HKEY_CURRENT_USER\Control Panel\Mouse" /v MouseSpeed /t REG_SZ /d 0 /f
 ```
 
 Restart VM.
 
+### Mount Steam folder
+
+```cmd
+mkdir -p "C:\Program Files (x86)\Steam\steamapps"
+```
+
+Open `Disk Management`, right click drive and select `Change Drive Letter and Paths...` and add the newly created path.
+
 ## Other Software to install
 
-### Chocolatey
-
 Run in an elevated cmd
-
-```cmd
-powershell -command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
-
-echo C:\ProgramData\chocolatey\bin\choco upgrade all -y > "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\choco_upgrade.bat"
-```
-
-Reopen elevated cmd
-
-```cmd
-choco install -y ^
-  cheatengine ^
-  discord ^
-  firefox ^
-  leagueoflegends ^
-  minecraft ^
-  notepadplusplus ^
-  plex ^
-  razer-synapse-2 ^
-  razer-synapse-3 ^
-  teamviewer ^
-  vlc
-```
-
-### Manual
 
 ```cmd
 cd %userprofile%/Downloads
@@ -99,11 +80,28 @@ curl --location --output Hextech_Repair_tool.msi --url "https://lolstatic-a.akam
 start /wait msiexec /i Hextech_Repair_tool.msi /quiet /qn /norestart
 del /f Hextech_Repair_tool.msi
 
-curl --location --output Blitz_installer.exe --url "https://blitz.gg/download/win"
-curl --location --output Driver_Booster.exe --url "https://cdn.iobit.com/dl/driver_booster_setup.exe"
-curl --location --output IObit_Uninstaller.exe --url "https://cdn.iobit.com/dl/iobituninstaller.exe"
-curl --location --output Spotify.exe --url "https://download.scdn.co/SpotifySetup.exe"
-curl --location --output Steam_installer.exe --url "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe"
+winget install --silent --accept-source-agreements ^
+  Blitz.Blitz ^
+  Discord.Discord ^
+  IObit.DriverBooster ^
+  IObit.Uninstaller ^
+  Mojang.MinecraftLauncher ^
+  OpenWhisperSystems.Signal ^
+  Mozilla.Firefox ^
+  Notepad++.Notepad++ ^
+  RazerInc.RazerInstaller ^
+  RiotGames.LeagueOfLegends.EUW ^
+  Valve.Steam ^
+  VideoLAN.VLC
+```
+
+### Manual
+
+```cmd
+cd %userprofile%/Downloads
+
+curl --location --output Cheat_Engine.exe --url "https://d1vdn3r1396bak.cloudfront.net/installer/726575248502658/7285449"
+curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
 
 start %userprofile%/Downloads
 ```
@@ -128,7 +126,7 @@ winget install --silent --accept-source-agreements 9MV0B5HZVK9Z
 ```cmd
 cd %userprofile%/Downloads
 
-curl --location --output r2modman.zip --url "https://thunderstore.io/package/download/ebkr/r2modman/3.1.47"
+curl --location --output r2modman.zip --url "https://thunderstore.io/package/download/ebkr/r2modman/3.1.48"
 mkdir r2modman
 tar -xf r2modman.zip -C r2modman
 del /f r2modman.zip
@@ -137,6 +135,12 @@ start %userprofile%/Downloads
 ```
 
 #### Dyson Sphere Program mods
+
+- CommonAPI
+
+  ```txt
+  ror2mm://v1/install/thunderstore.io/CommonAPI/CommonAPI/1.6.5
+  ```
 
 - GalacticScale
 
@@ -153,7 +157,7 @@ start %userprofile%/Downloads
 - NebulaMultiplayerMod
 
   ```txt
-  ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.9.1
+  ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.9.2
   ```
 
 - SmartEjectors

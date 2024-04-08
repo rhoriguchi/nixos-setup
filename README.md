@@ -85,11 +85,6 @@ zfs create \
   data/series
 
 zfs create \
-  -o compression=zstd \
-  -o copies=2 \
-  data/snapshot
-
-zfs create \
   -o quota=512G \
   data/sync
 ```
