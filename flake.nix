@@ -42,15 +42,10 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    spicetify-nix = {
-      url = "github:the-argus/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, deploy-rs, flake-utils, firefox-addons, home-manager, nix-github-actions, nix-minecraft, nix-index-database
-    , nixos-hardware, pre-commit-hooks, spicetify-nix, ... }@inputs:
+    , nixos-hardware, pre-commit-hooks, ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
@@ -65,8 +60,7 @@
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
-        home-manager.imports =
-          [ inputs.nix-index-database.hmModules.nix-index inputs.spicetify-nix.homeManagerModule ./modules/home-manager ];
+        home-manager.imports = [ inputs.nix-index-database.hmModules.nix-index ./modules/home-manager ];
       };
 
       overlays.default = lib.composeManyExtensions ([
@@ -74,10 +68,7 @@
 
         inputs.nix-minecraft.overlay
 
-        (_: super: {
-          firefox-addons = inputs.firefox-addons.packages.${super.system};
-          spicetify = inputs.spicetify-nix.packages.${super.system}.default;
-        })
+        (_: super: { firefox-addons = inputs.firefox-addons.packages.${super.system}; })
       ] ++ import ./overlays);
 
       deploy.nodes = let
