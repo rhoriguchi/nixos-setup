@@ -45,14 +45,14 @@
 
   # https://hub.docker.com/r/flaresolverr/flaresolverr
   virtualisation.oci-containers.containers.flaresolverr = {
-    image = "flaresolverr/flaresolverr:v3.3.16";
+    image = "flaresolverr/flaresolverr:v3.3.17";
 
     imageFile = pkgs.dockerTools.pullImage {
       imageName = "flaresolverr/flaresolverr";
-      imageDigest = "sha256:35feb16defbc4a0012143ec14e7eabdf361a1a1f31075db49e85ccd8cc1ee485"; # linux/amd64
-      sha256 = "sha256-xAVVF5jdmiCtdtHSimucIIW0gt8iB9de2igNbtDUGQA=";
+      imageDigest = "sha256:5f5661db1e69a6f80ac24d47d9fa5580f6f741ee5ec967818396ae0dacecd7ea"; # linux/amd64
+      sha256 = "sha256-M175GXIUlCSCGwSbpkuuTpzwnCpQi3xn8A8ex0KuqWI=";
 
-      finalImageTag = "v3.3.16";
+      finalImageTag = "v3.3.17";
     };
 
     ports = [ "8191:8191" ];
