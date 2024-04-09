@@ -102,7 +102,6 @@ in {
               "" # TODO correct?
             }
             <clock offset='localtime'>
-              <timer name='hpet' present='no'/>
               <timer name='hypervclock' present='yes'/>
               <timer name='pit' tickpolicy='delay'/>
               <timer name='rtc' tickpolicy='catchup' track='guest'/>
