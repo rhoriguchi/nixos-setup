@@ -86,11 +86,12 @@ winget install --silent --accept-source-agreements ^
   IObit.DriverBooster ^
   IObit.Uninstaller ^
   Mojang.MinecraftLauncher ^
-  OpenWhisperSystems.Signal ^
   Mozilla.Firefox ^
   Notepad++.Notepad++ ^
+  OpenWhisperSystems.Signal ^
   RazerInc.RazerInstaller ^
   RiotGames.LeagueOfLegends.EUW ^
+  SomePythonThings.WingetUIStore ^
   Valve.Steam ^
   VideoLAN.VLC
 ```
