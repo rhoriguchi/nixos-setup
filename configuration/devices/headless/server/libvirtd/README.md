@@ -92,6 +92,7 @@ winget install --silent --accept-source-agreements ^
   RazerInc.RazerInstaller ^
   RiotGames.LeagueOfLegends.EUW ^
   SomePythonThings.WingetUIStore ^
+  TeamViewer.TeamViewer ^
   Valve.Steam ^
   VideoLAN.VLC
 ```
