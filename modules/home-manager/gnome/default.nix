@@ -6,7 +6,6 @@ let
     pkgs.gnomeExtensions.caffeine
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.date-menu-formatter
-    pkgs.gnomeExtensions.emoji-selector
     pkgs.gnomeExtensions.tophat
     pkgs.gnomeExtensions.transparent-top-bar-adjustable-transparency
     pkgs.gnomeExtensions.unite
@@ -297,17 +296,6 @@ in {
         transition-windows-touch = false;
         transition-with-overview = true;
         unmaximized-opacity = 0;
-      };
-      "org/gnome/shell/extensions/emoji-selector" = rec {
-        always-show = true;
-        emoji-keybinding = [ "<Super>period" ];
-        emojisize = 20;
-        gender = 2;
-        nbcols = lib.length recently-used;
-        position = "top";
-        recently-used = [ "🤔" "😂" "😊" "😜" "😬" "😭" "😕" "😘" "🤗" "🤮" "👍🏻" "👎🏻" "🙈" "💁🏻‍♂️" "🤦🏻‍♂️" "🤷🏻‍♂️" ];
-        skin-tone = 1;
-        use-keybinding = true;
       };
       "org/gnome/shell/extensions/gnome-fuzzy-app-search".applications = true;
       "org/gnome/shell/extensions/tophat" = {
