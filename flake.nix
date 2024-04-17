@@ -108,6 +108,7 @@
 
                     self.nixosModules.profiles.headful
 
+                    self.nixosModules.profiles.dygma-defy
                     self.nixosModules.profiles.hidpi
                     self.nixosModules.profiles.java
                     self.nixosModules.profiles.javascript

@@ -7,6 +7,10 @@ let
       vendorId = "0d8c";
       productId = "002b";
     };
+    "Dygma Defy" = {
+      vendorId = "35ef";
+      productId = "0012";
+    };
     "HP KB2101U Keyboard" = {
       vendorId = "0461";
       productId = "4d8a";

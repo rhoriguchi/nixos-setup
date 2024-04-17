@@ -38,6 +38,7 @@ in {
         picture-uri-dark = picture-uri;
       };
       "org/gnome/desktop/calendar".show-weekdate = true;
+      "org/gnome/desktop/input-sources".sources = "[('xkb', 'ch+de_nodeadkeys'), ('xkb', 'us')]";
       "org/gnome/desktop/interface" = {
         clock-show-seconds = true;
         clock-show-weekday = true;
