@@ -6,7 +6,7 @@ in {
   options.services.prowlarr.dataDir = lib.mkOption {
     type = lib.types.str;
     default = "/var/lib/prowlarr";
-    description = lib.mdDoc "The directory where Prowlarr stores its data files.";
+    description = "The directory where Prowlarr stores its data files.";
   };
 
   config = lib.mkIf cfg.enable {
