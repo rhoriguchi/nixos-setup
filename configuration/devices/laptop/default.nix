@@ -102,13 +102,13 @@
       packages = [
         pkgs.discord
         pkgs.gimp
+        pkgs.glow
         pkgs.inkscape
         pkgs.jetbrains.datagrip
         pkgs.jetbrains.idea-ultimate
         pkgs.jetbrains.pycharm-professional
         pkgs.jetbrains.webstorm
         pkgs.obsidian
-        pkgs.glow
         pkgs.protonvpn-gui
         pkgs.qbittorrent
         pkgs.signal-desktop
