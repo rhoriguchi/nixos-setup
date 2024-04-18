@@ -41,42 +41,23 @@ let
   });
 in {
   services.home-assistant.config = {
-    light = [
-      {
-        platform = "template";
-        lights = {
-          mystrom_light_switch_1 = {
-            friendly_name = "myStrom Light Switch 1";
-            value_template = "{{ states('switch.mystrom_light_switch_1') }}";
-            turn_on = {
-              service = "switch.turn_on";
-              target.entity_id = "switch.mystrom_light_switch_1";
-            };
-            turn_off = {
-              service = "switch.turn_off";
-              target.entity_id = "switch.mystrom_light_switch_1";
-            };
+    light = [{
+      platform = "template";
+      lights = {
+        mystrom_light_switch_2 = {
+          friendly_name = "myStrom Light Switch 2";
+          value_template = "{{ states('switch.mystrom_light_switch_2') }}";
+          turn_on = {
+            service = "switch.turn_on";
+            target.entity_id = "switch.mystrom_light_switch_2";
           };
-          mystrom_light_switch_2 = {
-            friendly_name = "myStrom Light Switch 2";
-            value_template = "{{ states('switch.mystrom_light_switch_2') }}";
-            turn_on = {
-              service = "switch.turn_on";
-              target.entity_id = "switch.mystrom_light_switch_2";
-            };
-            turn_off = {
-              service = "switch.turn_off";
-              target.entity_id = "switch.mystrom_light_switch_2";
-            };
+          turn_off = {
+            service = "switch.turn_off";
+            target.entity_id = "switch.mystrom_light_switch_2";
           };
         };
-      }
-      {
-        platform = "group";
-        name = "myStrom Light Switches";
-        entities = [ "light.mystrom_light_switch_1" "light.mystrom_light_switch_2" ];
-      }
-    ];
+      };
+    }];
 
     command_line = createButtonBatterySensors [
       {
@@ -103,49 +84,31 @@ in {
 
     automation = [
       {
-        alias = "Toggle myStrom Light Switches";
+        alias = "Placeholder myStrom orange";
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_orange";
           local_only = true;
         }];
-        action = [{
-          service = "light.toggle";
-          entity_id = "light.mystrom_light_switches";
-        }];
+        action = [ ];
       }
       {
-        alias = "Toggle Hue Signe gradient floor";
+        alias = "Placeholder myStrom purple";
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_purple";
           local_only = true;
         }];
-        action = [{
-          service = "light.toggle";
-          entity_id = "light.signe_gradient_floor";
-          data = {
-            brightness = 255;
-            color_temp = 300;
-            transition = 0.1;
-          };
-        }];
+        action = [ ];
       }
       {
-        alias = "Toggle Yeelight Lights";
+        alias = "Placeholder myStrom blue";
         trigger = [{
           platform = "webhook";
           webhook_id = "mystrom_button_blue";
           local_only = true;
         }];
-        action = [{
-          service = "light.toggle";
-          entity_id = "light.yeelight_lights";
-          data = {
-            brightness = 255;
-            transition = 0.1;
-          };
-        }];
+        action = [ ];
       }
       {
         alias = "Placeholder myStrom gray";

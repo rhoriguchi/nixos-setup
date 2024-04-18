@@ -228,9 +228,8 @@ in {
 
                 entities = [
                   {
-                    type = "custom:fold-entity-row";
-                    head = "light.mystrom_light_switches";
-                    entities = [ { entity = "light.mystrom_light_switch_1"; } { entity = "light.mystrom_light_switch_2"; } ];
+                    name = "REMOVE myStrom Light Switch 2";
+                    entity = "light.mystrom_light_switch_2";
                   }
                   {
                     name = "Hue Signe gradient floor";
@@ -238,7 +237,10 @@ in {
                   }
                   {
                     type = "custom:fold-entity-row";
-                    head = "light.yeelight_lights";
+                    head = {
+                      name = "REMOVE Yeelight Lights";
+                      entity = "light.yeelight_lights";
+                    };
                     entities = [ { entity = "light.yeelight_light_1"; } { entity = "light.yeelight_light_2"; } ];
                   }
                   { type = "divider"; }
