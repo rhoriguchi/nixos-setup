@@ -316,6 +316,11 @@ in {
                 bulk_rename = [ { from = " Battery Percent"; } { from = " battery"; } { from = "myStrom button "; } { from = "Valve "; } ];
                 sort.by = "name";
 
+                entities = [{
+                  name = "Reduit Parasoll";
+                  entity = "sensor.reduit_parasoll_battery";
+                }];
+
                 collapse = [
                   {
                     name = "Netatmo valves {range}%";
