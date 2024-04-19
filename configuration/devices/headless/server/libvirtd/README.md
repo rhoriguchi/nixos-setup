@@ -144,6 +144,12 @@ start %userprofile%/Downloads
   ror2mm://v1/install/thunderstore.io/CommonAPI/CommonAPI/1.6.5
   ```
 
+- FactoryLocator
+
+  ```txt
+  ror2mm://v1/install/thunderstore.io/starfi5h/FactoryLocator/1.2.3/
+  ```
+
 - GalacticScale
 
   ```txt
