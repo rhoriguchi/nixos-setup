@@ -269,7 +269,7 @@ in {
         apply-all-panels = true;
         custom-locale = "";
         font-size = 12;
-        pattern = "dd.MM.yyyy kk:mm:ss";
+        pattern = "dd.MM.yyyy HH:mm:ss";
         remove-messages-indicator = false;
         use-default-locale = true;
       };
