@@ -228,20 +228,67 @@ in {
 
                 entities = [
                   {
-                    name = "REMOVE myStrom Light Switch 2";
-                    entity = "light.mystrom_light_switch_2";
-                  }
-                  {
-                    name = "Hue Signe gradient floor";
-                    entity = "light.signe_gradient_floor";
+                    type = "custom:fold-entity-row";
+                    head = {
+                      name = "Bedroom";
+                      entity = "light.group_bedroom";
+                    };
+                    entities = [{
+                      name = "Lamp";
+                      entity = "light.bedroom_lamp";
+                    }];
                   }
                   {
                     type = "custom:fold-entity-row";
                     head = {
-                      name = "REMOVE Yeelight Lights";
-                      entity = "light.yeelight_lights";
+                      name = "Entrance";
+                      entity = "light.group_entrance";
                     };
-                    entities = [ { entity = "light.yeelight_light_1"; } { entity = "light.yeelight_light_2"; } ];
+                    entities = [
+                      {
+                        name = "Ceiling lamp";
+                        entity = "light.entrance_ceiling_lamp";
+                      }
+                      {
+                        name = "Sideboard lamp";
+                        entity = "light.entrance_sideboard_lamp";
+                      }
+                      {
+                        type = "custom:fold-entity-row";
+                        head = "light.remove_yeelight_lights";
+                        entities = [ "light.remove_yeelight_light_1" "light.remove_yeelight_light_2" ];
+                      }
+                    ];
+                  }
+                  {
+                    type = "custom:fold-entity-row";
+                    head = {
+                      name = "Hallway";
+                      entity = "light.group_hallway";
+                    };
+                    entities = [{
+                      name = "Lamp";
+                      entity = "light.hallway_lamp";
+                    }];
+                  }
+                  {
+                    type = "custom:fold-entity-row";
+                    head = {
+                      name = "Living room";
+                      entity = "light.group_living_room";
+                    };
+                    entities = [
+                      "light.signe_gradient_floor"
+                      {
+                        name = "Lamp";
+                        entity = "light.living_room_lamp";
+                      }
+                      {
+                        name = "Table lamp";
+                        entity = "light.living_room_table_lamp";
+                      }
+                      "light.remove_mystrom_light_switch_2"
+                    ];
                   }
                   { type = "divider"; }
                   {

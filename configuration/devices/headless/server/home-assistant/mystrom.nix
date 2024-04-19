@@ -44,8 +44,8 @@ in {
     light = [{
       platform = "template";
       lights = {
-        mystrom_light_switch_2 = {
-          friendly_name = "myStrom Light Switch 2";
+        remove_mystrom_light_switch_2 = {
+          friendly_name = "REMOVE myStrom Light Switch 2";
           value_template = "{{ states('switch.mystrom_light_switch_2') }}";
           turn_on = {
             service = "switch.turn_on";
