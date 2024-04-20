@@ -233,6 +233,9 @@ in {
                       name = "Bedroom";
                       entity = "light.group_bedroom";
                     };
+
+                    open = true;
+
                     entities = [{
                       name = "Lamp";
                       entity = "light.bedroom_lamp";
@@ -244,6 +247,9 @@ in {
                       name = "Entrance";
                       entity = "light.group_entrance";
                     };
+
+                    open = true;
+
                     entities = [
                       {
                         name = "Ceiling lamp";
@@ -266,6 +272,9 @@ in {
                       name = "Hallway";
                       entity = "light.group_hallway";
                     };
+
+                    open = true;
+
                     entities = [{
                       name = "Lamp";
                       entity = "light.hallway_lamp";
@@ -277,6 +286,9 @@ in {
                       name = "Living room";
                       entity = "light.group_living_room";
                     };
+
+                    open = true;
+
                     entities = [
                       "light.signe_gradient_floor"
                       {
@@ -294,6 +306,9 @@ in {
                   {
                     type = "custom:fold-entity-row";
                     head = "light.airgradient_one";
+
+                    open = true;
+
                     entities = [
                       {
                         name = "Display";
