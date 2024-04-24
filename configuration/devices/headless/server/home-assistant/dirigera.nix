@@ -7,7 +7,7 @@
           platform = "state";
           entity_id = "light.bedroom_closet_lights";
           to = "off";
-          for.seconds = 1;
+          for.minutes = 10;
         }];
         action = [{
           service = "light.turn_on";

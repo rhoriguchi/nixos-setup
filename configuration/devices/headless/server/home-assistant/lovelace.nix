@@ -236,10 +236,16 @@ in {
 
                     open = true;
 
-                    entities = [{
-                      name = "Lamp";
-                      entity = "light.bedroom_lamp";
-                    }];
+                    entities = [
+                      {
+                        name = "Closet lights";
+                        entity = "light.bedroom_closet_lights";
+                      }
+                      {
+                        name = "Lamp";
+                        entity = "light.bedroom_lamp";
+                      }
+                    ];
                   }
                   {
                     type = "custom:fold-entity-row";
