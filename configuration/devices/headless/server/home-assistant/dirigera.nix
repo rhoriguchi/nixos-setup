@@ -43,16 +43,16 @@
     light = [{
       platform = "template";
       lights = {
-        bedroom_lamp = {
+        bedroom_standing_lamp = {
           friendly_name = "Bedroom lamp";
-          value_template = "{{ states('switch.bedroom_lamp') }}";
+          value_template = "{{ states('switch.bedroom_standing_lamp') }}";
           turn_on = {
             service = "switch.turn_on";
-            target.entity_id = "switch.bedroom_lamp";
+            target.entity_id = "switch.bedroom_standing_lamp";
           };
           turn_off = {
             service = "switch.turn_off";
-            target.entity_id = "switch.bedroom_lamp";
+            target.entity_id = "switch.bedroom_standing_lamp";
           };
         };
         entrance_ceiling_lamp = {
@@ -79,16 +79,16 @@
             target.entity_id = "switch.entrance_sideboard_lamp";
           };
         };
-        living_room_lamp = {
+        living_room_standing_lamp = {
           friendly_name = "Living room lamp";
-          value_template = "{{ states('switch.living_room_lamp') }}";
+          value_template = "{{ states('switch.living_room_standing_lamp') }}";
           turn_on = {
             service = "switch.turn_on";
-            target.entity_id = "switch.living_room_lamp";
+            target.entity_id = "switch.living_room_standing_lamp";
           };
           turn_off = {
             service = "switch.turn_off";
-            target.entity_id = "switch.living_room_lamp";
+            target.entity_id = "switch.living_room_standing_lamp";
           };
         };
       };

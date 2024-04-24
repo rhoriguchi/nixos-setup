@@ -9,7 +9,7 @@
     {
       platform = "group";
       name = "Group Bedroom";
-      entities = [ "light.bedroom_lamp" ];
+      entities = [ "light.bedroom_standing_lamp" ];
     }
     {
       platform = "group";
@@ -24,8 +24,12 @@
     {
       platform = "group";
       name = "Group Living room";
-      entities =
-        [ "light.signe_gradient_floor" "light.living_room_lamp" "light.living_room_table_lamp" "light.remove_mystrom_light_switch_2" ];
+      entities = [
+        "light.signe_gradient_floor"
+        "light.living_room_standing_lamp"
+        "light.living_room_table_lamp"
+        "light.remove_mystrom_light_switch_2"
+      ];
     }
   ];
 }

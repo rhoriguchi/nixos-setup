@@ -242,8 +242,8 @@ in {
                         entity = "light.bedroom_closet_lights";
                       }
                       {
-                        name = "Lamp";
-                        entity = "light.bedroom_lamp";
+                        name = "Standing lamp";
+                        entity = "light.bedroom_standing_lamp";
                       }
                     ];
                   }
@@ -298,8 +298,8 @@ in {
                     entities = [
                       "light.signe_gradient_floor"
                       {
-                        name = "Lamp";
-                        entity = "light.living_room_lamp";
+                        name = "Standing lamp";
+                        entity = "light.living_room_standing_lamp";
                       }
                       {
                         name = "Table lamp";
