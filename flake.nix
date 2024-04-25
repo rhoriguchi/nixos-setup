@@ -38,14 +38,14 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = { self, nixpkgs, deploy-rs, flake-utils, firefox-addons, home-manager, nix-github-actions, nix-minecraft, nix-index-database
-    , nixos-hardware, pre-commit-hooks, ... }@inputs:
+    , nixos-hardware, git-hooks, ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
@@ -264,7 +264,7 @@
         };
       in {
         checks = {
-          pre-commit = inputs.pre-commit-hooks.lib.${system}.run {
+          pre-commit = inputs.git-hooks.lib.${system}.run {
             src = ./.;
 
             hooks = {
