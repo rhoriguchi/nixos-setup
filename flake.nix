@@ -123,9 +123,6 @@
                   services.openssh.openFirewall = false;
 
                   boot.binfmt.emulatedSystems = [ inputs.flake-utils.lib.system.aarch64-linux ];
-
-                  # TODO required for obsidian
-                  nixpkgs.config.permittedInsecurePackages = [ "electron-25.9.0" ];
                 }];
               });
             };
