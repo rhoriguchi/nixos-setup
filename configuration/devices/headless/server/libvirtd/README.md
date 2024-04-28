@@ -88,6 +88,7 @@ winget install --silent --accept-source-agreements ^
   Mojang.MinecraftLauncher ^
   Mozilla.Firefox ^
   Notepad++.Notepad++ ^
+  Obsidian.Obsidian ^
   OpenWhisperSystems.Signal ^
   RazerInc.RazerInstaller ^
   RiotGames.LeagueOfLegends.EUW ^
