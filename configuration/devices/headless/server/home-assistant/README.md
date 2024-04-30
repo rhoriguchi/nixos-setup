@@ -9,6 +9,8 @@
     - `DIRIGERA (Bridge)`
   - Philips Hue
     - `ecb5faac6110.local`
+    - Rename lights
+      - `light.bedroom_standing_lamp`
   - localtuya
     - More info here <https://community.home-assistant.io/t/localtuya-stadler-form-eva-humidifier/414349>
     - Get credentials from <https://iot.tuya.com/cloud/basic?id=p1706658370961ww5yan>

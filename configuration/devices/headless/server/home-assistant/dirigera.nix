@@ -43,18 +43,6 @@
     light = [{
       platform = "template";
       lights = {
-        bedroom_standing_lamp = {
-          friendly_name = "Bedroom lamp";
-          value_template = "{{ states('switch.bedroom_standing_lamp') }}";
-          turn_on = {
-            service = "switch.turn_on";
-            target.entity_id = "switch.bedroom_standing_lamp";
-          };
-          turn_off = {
-            service = "switch.turn_off";
-            target.entity_id = "switch.bedroom_standing_lamp";
-          };
-        };
         entrance_ceiling_lamp = {
           friendly_name = "Entrance ceiling lamp";
           value_template = "{{ states('switch.entrance_ceiling_lamp') }}";
