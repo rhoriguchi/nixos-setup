@@ -9,15 +9,15 @@
     - `DIRIGERA (Bridge)`
   - Philips Hue
     - `ecb5faac6110.local`
-    - Rename lights
+    - Rename
       - `light.bedroom_standing_lamp`
+      - `light.living_room_signe_gradient_kitchen`
+      - `light.living_room_signe_gradient_window`
   - localtuya
     - More info here <https://community.home-assistant.io/t/localtuya-stadler-form-eva-humidifier/414349>
     - Get credentials from <https://iot.tuya.com/cloud/basic?id=p1706658370961ww5yan>
     - User id can be found like this <https://github.com/rospogrigio/localtuya/issues/858#issuecomment-1155201879>
     - Add device, id can be found here <https://eu.local.tuya.com/cloud/basic?id=p1706658370961ww5yan&deviceTab=all>
-  - myStrom
-    - Set Name `myStrom living room light 2 switch` for Host `myStrom-Switch-A56094.local`
   - Netatmo
     - Get credentials from <https://dev.netatmo.com>
   - Shelly

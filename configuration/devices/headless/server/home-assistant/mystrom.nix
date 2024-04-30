@@ -41,24 +41,6 @@ let
   });
 in {
   services.home-assistant.config = {
-    light = [{
-      platform = "template";
-      lights = {
-        remove_mystrom_light_switch_2 = {
-          friendly_name = "REMOVE myStrom Light Switch 2";
-          value_template = "{{ states('switch.mystrom_light_switch_2') }}";
-          turn_on = {
-            service = "switch.turn_on";
-            target.entity_id = "switch.mystrom_light_switch_2";
-          };
-          turn_off = {
-            service = "switch.turn_off";
-            target.entity_id = "switch.mystrom_light_switch_2";
-          };
-        };
-      };
-    }];
-
     command_line = createButtonBatterySensors [
       {
         name = "myStrom button blue battery";

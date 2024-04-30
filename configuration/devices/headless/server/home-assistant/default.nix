@@ -34,7 +34,6 @@ in {
         "homekit_controller"
         "hue"
         "mobile_app"
-        "mystrom"
         "netatmo"
         "shelly"
         "unifi"

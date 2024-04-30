@@ -296,7 +296,8 @@ in {
                     open = true;
 
                     entities = [
-                      "light.signe_gradient_floor"
+                      "light.living_room_signe_gradient_kitchen"
+                      "light.living_room_signe_gradient_window"
                       {
                         name = "Standing lamp";
                         entity = "light.living_room_standing_lamp";
@@ -305,7 +306,6 @@ in {
                         name = "Table lamp";
                         entity = "light.living_room_table_lamp";
                       }
-                      "light.remove_mystrom_light_switch_2"
                     ];
                   }
                   { type = "divider"; }
