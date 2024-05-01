@@ -2,7 +2,7 @@
   system.stateVersion = "24.05";
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.latest;
 
     settings = {
       trusted-users = [ "@wheel" "root" ];
