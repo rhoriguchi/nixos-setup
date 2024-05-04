@@ -95,7 +95,8 @@ winget install --silent --accept-source-agreements ^
   SomePythonThings.WingetUIStore ^
   TeamViewer.TeamViewer ^
   Valve.Steam ^
-  VideoLAN.VLC
+  VideoLAN.VLC ^
+  WeMod.WeMod
 ```
 
 ### Manual
