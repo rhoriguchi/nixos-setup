@@ -1,51 +1,5 @@
 { pkgs, lib, config, ... }:
-let
-  nvramDir = "/var/lib/virt/nvram";
-
-  usbDevices = {
-    "Antlion Audio USB Sound Card" = {
-      vendorId = "0d8c";
-      productId = "002b";
-    };
-    "Dygma Defy" = {
-      vendorId = "35ef";
-      productId = "0012";
-    };
-    "HP KB2101U Keyboard" = {
-      vendorId = "0461";
-      productId = "4d8a";
-    };
-    "Keychron K8" = {
-      vendorId = "05ac";
-      productId = "024f";
-    };
-    "Logitech HD Webcam C510" = {
-      vendorId = "046d";
-      productId = "081d";
-    };
-    "Razer BlackShark V2 Pro" = {
-      vendorId = "1532";
-      productId = "0528";
-    };
-    "Razer Ouroboros 2012" = {
-      vendorId = "1532";
-      productId = "0032";
-    };
-    "Samsung Duo Plus - 64 GB" = {
-      vendorId = "090c";
-      productId = "1000";
-    };
-  };
-
-  getUsbHostdev = name: vendorId: productId: ''
-    <!-- ${name} -->
-    <hostdev mode='subsystem' type='usb' managed='yes'>
-      <source startupPolicy='optional'>
-        <vendor id='0x${vendorId}'/>
-        <product id='0x${productId}'/>
-      </source>
-    </hostdev>
-  '';
+let nvramDir = "/var/lib/virt/nvram";
 in {
   virtualisation.libvirtd.qemu.swtpm.enable = true;
 
@@ -53,18 +7,6 @@ in {
     mkdir -p ${nvramDir}
     chown -R qemu-libvirtd:qemu-libvirtd ${nvramDir}
   '';
-
-  services.udev.extraRules = let
-    getUsbHotplugRule = action: name: vendorId: productId:
-      let hostdev = pkgs.writeText "hostdev-${vendorId}-${productId}.xml" (getUsbHostdev name vendorId productId);
-      in ''
-        ACTION=="${action}", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="${vendorId}", ENV{ID_MODEL_ID}=="${productId}", RUN+="${pkgs.libvirt}/bin/virsh attach-device 'windows' ${hostdev}"'';
-
-    usbHotplugRules = lib.attrValues (lib.mapAttrs (key: value: [
-      (getUsbHotplugRule "add" key value.vendorId value.productId)
-      (getUsbHotplugRule "remove" key value.vendorId value.productId)
-    ]) usbDevices);
-  in lib.concatStringsSep "\n" (lib.flatten usbHotplugRules);
 
   # TODO pass through audio http://www.draeath.net/blog/it/2021/08/18/libvirt-spice-audio
   # TODO pass through bluetooth
@@ -291,11 +233,6 @@ in {
                 #     <address domain='0x0000' bus='0x04' slot='0x00' function='0'/>
                 #   </source>
                 # </hostdev>
-              }
-
-              ${
-                let usbHostdevs = lib.attrValues (lib.mapAttrs (key: value: getUsbHostdev key value.vendorId value.productId) usbDevices);
-                in lib.concatStringsSep "\n" usbHostdevs
               }
             </devices>
           </domain>
