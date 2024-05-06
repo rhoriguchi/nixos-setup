@@ -26,4 +26,21 @@
     password = secrets.users.xxlpitu.password;
     openssh.authorizedKeys.keys = [ public-keys.default ];
   };
+
+  services = {
+    wireguard-network = {
+      enable = true;
+
+      type = "client";
+      serverHostname = "XXLPitu-Server";
+    };
+
+    monitoring = {
+      enable = true;
+
+      type = "child";
+      parentHostname = "XXLPitu-Server";
+      apiKey = secrets.monitoring.apiKey;
+    };
+  };
 }

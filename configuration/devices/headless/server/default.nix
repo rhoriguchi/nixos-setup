@@ -82,7 +82,7 @@
       ];
     };
 
-    wireguard-network = {
+    wireguard-network = lib.mkForce {
       enable = true;
       type = "server";
     };

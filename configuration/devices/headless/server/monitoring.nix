@@ -1,4 +1,4 @@
-{ config, secrets, ... }: {
+{ config, lib, secrets, ... }: {
   services = {
     nginx.virtualHosts."monitoring.00a.ch" = {
       enableACME = true;
@@ -25,7 +25,7 @@
       hostnames = [ "monitoring.00a.ch" ];
     };
 
-    monitoring = {
+    monitoring = lib.mkForce {
       enable = true;
 
       type = "parent";

@@ -9,28 +9,11 @@
     options = [ "defaults" "errors=continue" "nofail" ];
   };
 
-  services = {
-    resilio = {
-      enable = true;
-      logging.enable = false;
+  services.resilio = {
+    enable = true;
+    logging.enable = false;
 
-      secrets = secrets.resilio.secrets;
-      syncPath = "/mnt/Data/Sync";
-    };
-
-    wireguard-network = {
-      enable = true;
-
-      type = "client";
-      serverHostname = "XXLPitu-Server";
-    };
-
-    monitoring = {
-      enable = true;
-
-      type = "child";
-      parentHostname = "XXLPitu-Server";
-      apiKey = secrets.monitoring.apiKey;
-    };
+    secrets = secrets.resilio.secrets;
+    syncPath = "/mnt/Data/Sync";
   };
 }
