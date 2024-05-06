@@ -24,6 +24,8 @@
 
   services.wireguard-network = {
     enable = true;
+
     type = "client";
+    serverHostname = "XXLPitu-Server";
   };
 }
