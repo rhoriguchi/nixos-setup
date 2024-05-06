@@ -37,7 +37,6 @@ in {
     ];
 
     services = {
-
       netdata = {
         enable = true;
 
