@@ -44,6 +44,8 @@ in {
 
         # TODO monitor
         # CUPS https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/cups
+        # Dnsmasq DHCP https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq-dhcp
+        # Dnsmasq https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq
         # HDD temperature https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/hdd-temperature
         # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft/
         # NGINX https://learn.netdata.cloud/docs/data-collection/web-servers-and-web-proxies/nginx
