@@ -71,6 +71,8 @@ in {
             global."memory mode" = "ram";
 
             web.node = "none";
+
+            ml.enabled = "no";
           };
         }.${cfg.type};
 
