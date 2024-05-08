@@ -36,61 +36,59 @@ in {
       }
     ];
 
-    services = {
-      netdata = {
-        enable = true;
+    services.netdata = {
+      enable = true;
 
-        package = pkgs.netdata.override { withCloudUi = isParent; };
+      package = pkgs.netdata.override { withCloudUi = isParent; };
 
-        # TODO monitor
-        # CUPS https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/cups
-        # Dnsmasq DHCP https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq-dhcp
-        # Dnsmasq https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq
-        # HDD temperature https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/hdd-temperature
-        # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft/
-        # NGINX https://learn.netdata.cloud/docs/data-collection/web-servers-and-web-proxies/nginx
-        # Nvidia GPU https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/nvidia-gpu
-        # S.M.A.R.T. https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/s.m.a.r.t.
+      # TODO monitor
+      # CUPS https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/cups
+      # Dnsmasq DHCP https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq-dhcp
+      # Dnsmasq https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq
+      # HDD temperature https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/hdd-temperature
+      # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft/
+      # NGINX https://learn.netdata.cloud/docs/data-collection/web-servers-and-web-proxies/nginx
+      # Nvidia GPU https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/nvidia-gpu
+      # S.M.A.R.T. https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/s.m.a.r.t.
 
-        # WireGuard https://learn.netdata.cloud/docs/collecting-metrics/vpns/wireguard
-        # https://github.com/influxdata/telegraf/blob/19c4316694c70c086fbdd7d048c0de37e7374b24/plugins/inputs/wireguard/README.md#troubleshooting
+      # WireGuard https://learn.netdata.cloud/docs/collecting-metrics/vpns/wireguard
+      # https://github.com/influxdata/telegraf/blob/19c4316694c70c086fbdd7d048c0de37e7374b24/plugins/inputs/wireguard/README.md#troubleshooting
 
-        # TODO install on windows (Plugin: go.d.plugin Module: windows)
+      # TODO install on windows (Plugin: go.d.plugin Module: windows)
 
-        config = {
-          parent.web = {
-            "bind to" = lib.concatStringsSep " " [
-              "127.0.0.1:${toString cfg.webPort}=dashboard|registry|badges|management|netdata.conf"
-              "${wireguardIps.${config.networking.hostName}}:${toString streamPort}=streaming"
-            ];
+      config = {
+        parent.web = {
+          "bind to" = lib.concatStringsSep " " [
+            "127.0.0.1:${toString cfg.webPort}=dashboard|registry|badges|management|netdata.conf"
+            "${wireguardIps.${config.networking.hostName}}:${toString streamPort}=streaming"
+          ];
 
-            "enable gzip compression" = "no";
-          };
+          "enable gzip compression" = "no";
+        };
 
-          child = {
-            global."memory mode" = "ram";
+        child = {
+          global."memory mode" = "ram";
 
-            web.node = "none";
+          web.node = "none";
 
-            ml.enabled = "no";
-          };
-        }.${cfg.type};
+          ml.enabled = "no";
+        };
+      }.${cfg.type};
 
-        configDir."stream.conf" = (pkgs.formats.ini { }).generate "stream.conf" {
-          parent.${cfg.apiKey} = {
-            enabled = "yes";
+      configDir."stream.conf" = (pkgs.formats.ini { }).generate "stream.conf" {
+        parent.${cfg.apiKey} = {
+          enabled = "yes";
 
-            "default memory mode" = "dbengine";
-          };
+          "default memory mode" = "dbengine";
+        };
 
-          child.stream = {
-            enabled = "yes";
+        child.stream = {
+          enabled = "yes";
 
-            "api key" = cfg.apiKey;
-            destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
-          };
-        }.${cfg.type};
-      };
+          "api key" = cfg.apiKey;
+          destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
+        };
+      }.${cfg.type};
     };
 
     networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = lib.mkIf isParent [ streamPort ];
