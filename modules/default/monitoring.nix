@@ -51,9 +51,6 @@ in {
       # Nvidia GPU https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/nvidia-gpu
       # S.M.A.R.T. https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/s.m.a.r.t.
 
-      # WireGuard https://learn.netdata.cloud/docs/collecting-metrics/vpns/wireguard
-      # https://github.com/influxdata/telegraf/blob/19c4316694c70c086fbdd7d048c0de37e7374b24/plugins/inputs/wireguard/README.md#troubleshooting
-
       # TODO install on windows (Plugin: go.d.plugin Module: windows)
 
       config = {
@@ -89,6 +86,16 @@ in {
           destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
         };
       }.${cfg.type};
+    };
+
+    systemd.services.netdata.serviceConfig = {
+      AmbientCapabilities = [
+        "CAP_NET_ADMIN" # Required for WireGuard collector
+      ];
+
+      CapabilityBoundingSet = [
+        "CAP_NET_ADMIN" # Required for WireGuard collector
+      ];
     };
 
     networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = lib.mkIf isParent [ streamPort ];
