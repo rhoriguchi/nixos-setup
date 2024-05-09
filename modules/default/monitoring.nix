@@ -27,6 +27,10 @@ in {
         message = "wireguard-network service must be enabled";
       }
       {
+        assertion = isParent -> builtins.elem config.networking.hostName (lib.attrNames wireguardIps);
+        message = "When type is parent hostname must be wireguard host";
+      }
+      {
         assertion = isChild -> cfg.parentHostname != null;
         message = "When type is child parentHostname must be set";
       }
