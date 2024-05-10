@@ -51,9 +51,7 @@ in {
 
     networking.wireguard.interfaces = {
       "${cfg.interfaceName}" = {
-        server = let
-
-        in {
+        server = {
           listenPort = serverPort;
 
           ips = [ "${ips.${config.networking.hostName}}/24" ];
