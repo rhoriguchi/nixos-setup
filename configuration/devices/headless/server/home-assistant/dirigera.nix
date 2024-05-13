@@ -68,7 +68,7 @@
           };
         };
         living_room_standing_lamp = {
-          friendly_name = "Living room lamp";
+          friendly_name = "Living room standing lamp";
           value_template = "{{ states('switch.living_room_standing_lamp') }}";
           turn_on = {
             service = "switch.turn_on";
@@ -77,6 +77,18 @@
           turn_off = {
             service = "switch.turn_off";
             target.entity_id = "switch.living_room_standing_lamp";
+          };
+        };
+        kitchen_standing_lamp = {
+          friendly_name = "Kitchen standing lamp";
+          value_template = "{{ states('switch.kitchen_standing_lamp') }}";
+          turn_on = {
+            service = "switch.turn_on";
+            target.entity_id = "switch.kitchen_standing_lamp";
+          };
+          turn_off = {
+            service = "switch.turn_off";
+            target.entity_id = "switch.kitchen_standing_lamp";
           };
         };
       };

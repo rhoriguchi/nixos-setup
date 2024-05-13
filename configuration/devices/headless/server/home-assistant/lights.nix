@@ -23,6 +23,11 @@
     }
     {
       platform = "group";
+      name = "Group Kitchen";
+      entities = [ "light.kitchen_standing_lamp" ];
+    }
+    {
+      platform = "group";
       name = "Group Living room";
       entities = [
         "light.living_room_signe_gradient_kitchen"
