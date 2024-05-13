@@ -8,8 +8,8 @@ let
   serverAddress = "wireguard.00a.ch";
   serverPort = 51820;
 
-  isClient = cfg.type == "client";
   isServer = cfg.type == "server";
+  isClient = cfg.type == "client";
 in {
   options.services.wireguard-network = {
     enable = lib.mkEnableOption "Private VPN";
@@ -48,6 +48,8 @@ in {
         message = "When type is client key needs to exist for serverHostname";
       }
     ];
+
+    boot.kernel.sysctl = lib.optionalAttrs isServer { "net.ipv4.ip_forward" = 1; };
 
     networking.wireguard.interfaces = {
       "${cfg.interfaceName}" = {
