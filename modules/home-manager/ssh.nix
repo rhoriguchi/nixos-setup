@@ -29,17 +29,13 @@ in {
         user = "git";
         identityFile = "${home}/.ssh/gitlab_rsa";
       };
-
-      "*.00a.ch".user = "xxlpitu";
     } // (let
       ips = import ../default/wireguard-network/ips.nix;
-      clientIps = lib.filterAttrs (key: _: key != "XXLPitu-Server") ips;
+      clientIps = lib.filterAttrs (key: _: key != "Ryan-Laptop") ips;
     in lib.mapAttrs' (key: value:
       lib.nameValuePair (lib.toLower key) {
         hostname = value;
         user = "xxlpitu";
-
-        proxyJump = "wireguard.00a.ch";
       }) clientIps);
   };
 }

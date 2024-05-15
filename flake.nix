@@ -120,8 +120,6 @@
                     ./configuration/devices/laptop
                   ];
 
-                  services.openssh.openFirewall = false;
-
                   boot.binfmt.emulatedSystems = [ inputs.flake-utils.lib.system.aarch64-linux ];
                 }];
               });
@@ -157,9 +155,36 @@
           };
         };
 
+        Router = let system = inputs.flake-utils.lib.system.x86_64-linux;
+        in {
+          hostname = "xxlpitu-router";
+
+          profiles.system = {
+            sshUser = "root";
+
+            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
+              modules = [{
+                imports = [
+                  commonModule
+
+                  self.nixosModules.profiles.headless
+
+                  ./configuration/devices/headless/router
+                ];
+
+                _module.args.interfaces = {
+                  external = "enp1s0";
+                  internal = "enp2s0";
+                  management = "enp3s0";
+                };
+              }];
+            });
+          };
+        };
+
         Server = let system = inputs.flake-utils.lib.system.x86_64-linux;
         in {
-          hostname = "home.00a.ch";
+          hostname = "xxlpitu-server";
 
           profiles.system = {
             sshUser = "root";

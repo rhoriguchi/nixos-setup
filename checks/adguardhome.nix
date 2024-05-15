@@ -10,7 +10,7 @@ pkgs.nixosTest {
       ../modules/default
 
       ../modules/profiles/nginx.nix
-      ../configuration/devices/headless/server/adguardhome.nix
+      ../configuration/devices/headless/router/adguardhome.nix
     ];
 
     services.infomaniak.enable = lib.mkForce false;

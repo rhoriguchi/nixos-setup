@@ -1,16 +1,27 @@
-{ lib, pkgs, public-keys, ... }: {
+{ config, lib, pkgs, public-keys, ... }: {
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-
-  networking.useDHCP = false;
 
   time.timeZone = "Europe/Zurich";
 
-  services.openssh = {
-    enable = true;
+  networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = config.services.openssh.ports;
 
-    settings = {
-      KbdInteractiveAuthentication = false;
-      PasswordAuthentication = false;
+  services = {
+    openssh = {
+      enable = true;
+
+      openFirewall = false;
+
+      settings = {
+        KbdInteractiveAuthentication = false;
+        PasswordAuthentication = false;
+      };
+    };
+
+    wireguard-network = {
+      enable = true;
+
+      type = "client";
+      serverHostname = "XXLPitu-Router";
     };
   };
 

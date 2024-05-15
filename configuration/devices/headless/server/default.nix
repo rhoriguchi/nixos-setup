@@ -2,7 +2,6 @@
   imports = [
     ../common.nix
 
-    ./adguardhome.nix
     ./fancontrol.nix
     ./home-assistant
     ./libvirtd
@@ -28,17 +27,11 @@
       eno1.useDHCP = true;
       wlp10s0.useDHCP = true;
     };
+
+    firewall.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort config.services.nginx.defaultSSLListenPort ];
   };
 
   services = {
-    infomaniak = {
-      enable = true;
-
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
-      hostnames = [ "home.00a.ch" ];
-    };
-
     gphotos-sync = {
       enable = true;
 
@@ -82,9 +75,11 @@
       ];
     };
 
-    wireguard-network = lib.mkForce {
+    monitoring = lib.mkForce {
       enable = true;
-      type = "server";
+
+      type = "parent";
+      apiKey = secrets.monitoring.apiKey;
     };
   };
 }

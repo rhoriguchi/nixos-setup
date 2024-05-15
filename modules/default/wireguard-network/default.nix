@@ -49,7 +49,7 @@ in {
       }
     ];
 
-    boot.kernel.sysctl = lib.optionalAttrs isServer { "net.ipv4.ip_forward" = 1; };
+    boot.kernel.sysctl = lib.optionalAttrs isServer (lib.mkDefault { "net.ipv4.ip_forward" = 1; });
 
     networking = {
       firewall.allowedUDPPorts = lib.mkIf isServer [ serverPort ];
