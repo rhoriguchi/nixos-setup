@@ -140,7 +140,7 @@
 
     userSettings = {
       "cSpell.enableFiletypes" = [ "nix" "terraform" ];
-      "cSpell.userWords" = [ "horiguchi" "rhoriguchi" ];
+      "cSpell.userWords" = [ "horiguchi" "rhoriguchi" "xxlpitu" ];
       "editor.bracketPairColorization.enabled" = true;
       "editor.fontFamily" = "JetBrainsMono Nerd Font";
       "editor.guides.bracketPairs" = true;
