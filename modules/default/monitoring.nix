@@ -68,20 +68,16 @@ in {
         };
 
         child = {
-          global."memory mode" = "ram";
+          db.mode = "ram";
 
-          web.node = "none";
+          web.mode = "none";
 
           ml.enabled = "no";
         };
       }.${cfg.type};
 
       configDir."stream.conf" = (pkgs.formats.ini { }).generate "stream.conf" {
-        parent.${cfg.apiKey} = {
-          enabled = "yes";
-
-          "default memory mode" = "dbengine";
-        };
+        parent.${cfg.apiKey}.enabled = "yes";
 
         child.stream = {
           enabled = "yes";
