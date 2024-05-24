@@ -51,41 +51,43 @@ in {
 
     boot.kernel.sysctl = lib.optionalAttrs isServer { "net.ipv4.ip_forward" = 1; };
 
-    networking.wireguard.interfaces = {
-      "${cfg.interfaceName}" = {
-        server = {
-          listenPort = serverPort;
+    networking = {
+      firewall.allowedUDPPorts = lib.mkIf isServer [ serverPort ];
 
-          ips = [ "${ips.${config.networking.hostName}}/24" ];
-          privateKey = keys.${config.networking.hostName}.private;
+      wireguard.interfaces = {
+        "${cfg.interfaceName}" = {
+          server = {
+            listenPort = serverPort;
 
-          peers = let
-            clientIps = lib.filterAttrs (key: _: key != config.networking.hostName) ips;
-            clientKeys = lib.filterAttrs (key: _: key != config.networking.hostName) keys;
-          in lib.attrValues (lib.mapAttrs (key: value: {
-            publicKey = value.public;
-            allowedIPs = [ "${clientIps.${key}}/32" ];
-          }) clientKeys);
-        };
+            ips = [ "${ips.${config.networking.hostName}}/24" ];
+            privateKey = keys.${config.networking.hostName}.private;
 
-        client = {
-          ips = [ "${ips.${config.networking.hostName}}/24" ];
-          privateKey = keys.${config.networking.hostName}.private;
+            peers = let
+              clientIps = lib.filterAttrs (key: _: key != config.networking.hostName) ips;
+              clientKeys = lib.filterAttrs (key: _: key != config.networking.hostName) keys;
+            in lib.attrValues (lib.mapAttrs (key: value: {
+              publicKey = value.public;
+              allowedIPs = [ "${clientIps.${key}}/32" ];
+            }) clientKeys);
+          };
 
-          peers = [{
-            publicKey = keys.${cfg.serverHostname}.public;
-            allowedIPs = [ "${ips.${cfg.serverHostname}}/32" ];
-            endpoint = "${serverAddress}:${toString serverPort}";
+          client = {
+            ips = [ "${ips.${config.networking.hostName}}/32" ];
+            privateKey = keys.${config.networking.hostName}.private;
 
-            persistentKeepalive = 25;
-            dynamicEndpointRefreshSeconds = 30;
-          }];
-        };
-      }.${cfg.type};
+            peers = [{
+              publicKey = keys.${cfg.serverHostname}.public;
+              allowedIPs = [ "10.123.123.0/24" ];
+              endpoint = "${serverAddress}:${toString serverPort}";
+
+              persistentKeepalive = 25;
+              dynamicEndpointRefreshSeconds = 30;
+            }];
+          };
+        }.${cfg.type};
+      };
     };
 
     services.infomaniak.hostnames = lib.mkIf isServer [ serverAddress ];
-
-    networking.firewall.allowedUDPPorts = lib.mkIf isServer [ serverPort ];
   };
 }
