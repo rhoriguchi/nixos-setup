@@ -10,7 +10,7 @@ let
 in {
   imports = getImports ./.;
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "24.11";
 
   nixpkgs.config.allowUnfree = true;
 
