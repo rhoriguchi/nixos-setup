@@ -1,4 +1,4 @@
-{ glances, formats, lib, stdenv, fetchpatch, python3Packages, makeWrapper }:
+{ glances, formats, lib, stdenv, fetchpatch, fetchFromGitHub, python3Packages, makeWrapper }:
 let
   configFile = (formats.ini { }).generate "glances.conf" {
     connections.disable = false;
@@ -36,6 +36,16 @@ let
       })
     ];
   });
+
+  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=308031
+  sparklines = python3Packages.callPackage (import "${
+      fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "c6bd08a21101ac5f1ad4b4a3b5a96530ed595177";
+        sha256 = "sha256-PeEehqBBJovDGInFpgEB66Pz8wHdfJMfy/hDJrowFpE=";
+      }
+    }/pkgs/development/python-modules/sparklines") { };
 in glances.overrideAttrs (oldAttrs: {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
 
@@ -46,7 +56,7 @@ in glances.overrideAttrs (oldAttrs: {
     python3Packages.docker
     python3Packages.python-dateutil
     python3Packages.requests
-    python3Packages.sparklines
+    sparklines
   ] ++ lib.optional stdenv.isLinux python3Packages.pymdstat;
 
   postInstall = (oldAttrs.postInstall or "") + ''
