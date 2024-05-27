@@ -90,11 +90,11 @@ in {
 
     systemd.services.netdata.serviceConfig = {
       AmbientCapabilities = [
-        "CAP_NET_ADMIN" # Required for WireGuard collector
+        "CAP_NET_ADMIN" # Required for WireGuard collector https://github.com/NixOS/nixpkgs/pull/298641#issuecomment-2103671221
       ];
 
       CapabilityBoundingSet = [
-        "CAP_NET_ADMIN" # Required for WireGuard collector
+        "CAP_NET_ADMIN" # Required for WireGuard collector https://github.com/NixOS/nixpkgs/pull/298641#issuecomment-2103671221
       ];
     };
 
