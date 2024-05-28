@@ -35,7 +35,7 @@
             </ip>
 
             <dnsmasq:options xmlns:dnsmasq='http://libvirt.org/schemas/network/dnsmasq/1.0'>
-              <dnsmasq:option value='port=5353'/>
+              <dnsmasq:option value='port=9053'/>
               <dnsmasq:option value='dhcp-option=option:dns-server,172.16.1.1'/>
             </dnsmasq:options>
           </network>
