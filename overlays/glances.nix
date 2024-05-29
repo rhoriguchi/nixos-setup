@@ -1,4 +1,4 @@
-{ glances, formats, lib, stdenv, fetchpatch, fetchFromGitHub, python3Packages, makeWrapper }:
+{ glances, formats, lib, stdenv, fetchpatch, python3Packages, makeWrapper }:
 let
   configFile = (formats.ini { }).generate "glances.conf" {
     connections.disable = false;

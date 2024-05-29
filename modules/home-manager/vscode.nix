@@ -15,18 +15,7 @@
       pkgs.vscode-extensions.adpyke.codesnap
       pkgs.vscode-extensions.alexdima.copy-relative-path
       pkgs.vscode-extensions.bbenoist.nix
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=261740
-      # pkgs.vscode-extensions.cameron.vscode-pytest
-      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          name = "vscode-pytest";
-          publisher = "Cameron";
-          version = "0.1.1";
-          sha256 = "sha256-YU37a0Q+IXusXgwf9doxXLlYiyzkizbPjjdCZFxeDaA=";
-        };
-      })
-
+      pkgs.vscode-extensions.cameron.vscode-pytest
       pkgs.vscode-extensions.davidanson.vscode-markdownlint
       pkgs.vscode-extensions.dbaeumer.vscode-eslint
       pkgs.vscode-extensions.dotjoshjohnson.xml
@@ -44,8 +33,7 @@
       pkgs.vscode-extensions.johnpapa.vscode-peacock
       pkgs.vscode-extensions.ms-azuretools.vscode-docker
       pkgs.vscode-extensions.ms-python.isort
-      # TODO uncomment once build issue is fixed
-      # pkgs.vscode-extensions.ms-python.python
+      pkgs.vscode-extensions.ms-python.python
       pkgs.vscode-extensions.ms-python.vscode-pylance
       pkgs.vscode-extensions.ms-vscode-remote.remote-containers
       pkgs.vscode-extensions.pkief.material-icon-theme
@@ -61,17 +49,7 @@
       pkgs.vscode-extensions.vincaslt.highlight-matching-tag
       pkgs.vscode-extensions.wholroyd.jinja
       pkgs.vscode-extensions.wix.vscode-import-cost
-
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=261740
-      # pkgs.vscode-extensions.zainchen.json
-      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          name = "json";
-          publisher = "ZainChen";
-          version = "2.0.2";
-          sha256 = "sha256-nC3Q8KuCtn/jg1j/NaAxWGvnKe/ykrPm2PUjfsJz8aI=";
-        };
-      })
+      pkgs.vscode-extensions.zainchen.json
     ];
 
     userTasks = {
