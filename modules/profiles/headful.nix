@@ -3,6 +3,7 @@
     ./displaylink.nix
     ./fwupd.nix
     ./git.nix
+    ./glances.nix
     ./gnome.nix
     ./i18n.nix
     ./keyboard.nix

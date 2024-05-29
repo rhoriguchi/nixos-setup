@@ -14,7 +14,6 @@
       pkgs.file
       pkgs.gdb
       pkgs.git
-      pkgs.glances
       pkgs.gnugrep
       pkgs.gnutar
       pkgs.iproute2
