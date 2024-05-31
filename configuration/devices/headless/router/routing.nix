@@ -11,6 +11,8 @@ in {
   networking = {
     useDHCP = false;
 
+    enableIPv6 = false;
+
     vlans = {
       # Private
       "${internalInterface}.1" = {
