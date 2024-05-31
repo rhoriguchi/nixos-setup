@@ -153,10 +153,8 @@ in {
     avahi = {
       enable = true;
 
-      allowInterfaces =
-        [ "${internalInterface}" "${internalInterface}.1" "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.100" ];
-
       reflector = true;
+      allowInterfaces = [ "${internalInterface}" "${internalInterface}.1" "${internalInterface}.2" "${internalInterface}.3" ];
     };
   };
 }
