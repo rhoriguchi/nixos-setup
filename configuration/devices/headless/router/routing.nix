@@ -67,14 +67,6 @@ in {
       }];
     };
 
-    nat = {
-      enable = true;
-
-      externalInterface = externalInterface;
-      internalInterfaces =
-        [ "${internalInterface}" "${internalInterface}.1" "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.100" ];
-    };
-
     firewall.interfaces = let
       rules = {
         allowedUDPPorts = [
