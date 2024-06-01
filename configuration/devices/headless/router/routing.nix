@@ -43,7 +43,7 @@ in {
       "${externalInterface}".useDHCP = true;
 
       "${managementInterface}".ipv4.addresses = [{
-        address = "172.0.1.1";
+        address = "172.16.1.1";
         prefixLength = 24;
       }];
 
@@ -110,7 +110,7 @@ in {
 
         dhcp-authoritative = true;
         dhcp-range = [
-          "${managementInterface}, 172.0.1.2, 172.0.1.254, 1h"
+          "${managementInterface}, 172.16.1.2, 172.16.1.254, 1h"
 
           "${internalInterface}, 192.168.1.2, 192.168.1.254, 1h"
           "${internalInterface}.1, 192.168.1.2, 192.168.1.254, 1h"
@@ -120,7 +120,7 @@ in {
         ];
 
         dhcp-option = [
-          "${managementInterface}, option:router, 172.0.1.1"
+          "${managementInterface}, option:router, 172.16.1.1"
 
           "${internalInterface}, option:router, 192.168.1.1"
           "${internalInterface}, option:dns-server, 192.168.1.1"
