@@ -16,6 +16,7 @@
       pkgs.git
       pkgs.gnugrep
       pkgs.gnutar
+      pkgs.ipcalc
       pkgs.iproute2
       pkgs.jq
       pkgs.killall
