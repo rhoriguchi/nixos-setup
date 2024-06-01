@@ -4,6 +4,7 @@ let
   internalInterface = interfaces.internal;
   managementInterface = interfaces.management;
 
+  cloudKeyIp = "192.168.1.2";
   serverIp = "192.168.2.2";
 in {
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
@@ -143,7 +144,7 @@ in {
         ];
 
         dhcp-host = [
-          "74:83:c2:74:90:b7, unifi, 192.168.1.2"
+          "74:83:c2:74:90:b7, unifi, ${cloudKeyIp}"
           "c8:7f:54:03:bd:79, XXLPitu-Server, ${serverIp}"
 
           # Stadler Form Karl
