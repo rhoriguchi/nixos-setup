@@ -4,14 +4,14 @@
   nix = {
     package = pkgs.nixVersions.latest;
 
+    channel.enable = false;
+
     settings = {
+      nix-path = [ "nixpkgs=${pkgs.path}" ];
       trusted-users = [ "@wheel" "root" ];
       auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
     };
-
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
   };
 
   nixpkgs.config.allowUnfree = true;
