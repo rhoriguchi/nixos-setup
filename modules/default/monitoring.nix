@@ -40,52 +40,64 @@ in {
       }
     ];
 
-    services.netdata = {
-      enable = true;
+    services = {
+      nginx.statusPage = true;
 
-      package = pkgs.netdata.override { withCloudUi = isParent; };
+      netdata = {
+        enable = true;
 
-      # TODO monitor
-      # CUPS https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/cups
-      # Dnsmasq DHCP https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq-dhcp
-      # Dnsmasq https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq
-      # HDD temperature https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/hdd-temperature
-      # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft/
-      # NGINX https://learn.netdata.cloud/docs/data-collection/web-servers-and-web-proxies/nginx
-      # Nvidia GPU https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/nvidia-gpu
-      # S.M.A.R.T. https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/s.m.a.r.t.
+        package = pkgs.netdata.override { withCloudUi = isParent; };
 
-      # TODO install on windows (Plugin: go.d.plugin Module: windows)
+        # TODO monitor
+        # CUPS https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/cups
+        # Dnsmasq DHCP https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq-dhcp
+        # Dnsmasq https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq
+        # HDD temperature https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/hdd-temperature
+        # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft/
+        # Nvidia GPU https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/nvidia-gpu
+        # S.M.A.R.T. https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/s.m.a.r.t.
 
-      config = {
-        parent.web = {
-          "bind to" = lib.concatStringsSep " " [
-            "127.0.0.1:${toString cfg.webPort}=dashboard|registry|badges|management|netdata.conf"
-            "${wireguardIps.${config.networking.hostName}}:${toString streamPort}=streaming"
-          ];
+        # TODO install on windows (Plugin: go.d.plugin Module: windows)
 
-          "enable gzip compression" = "no";
+        config = {
+          parent.web = {
+            "bind to" = lib.concatStringsSep " " [
+              "127.0.0.1:${toString cfg.webPort}=dashboard|registry|badges|management|netdata.conf"
+              "${wireguardIps.${config.networking.hostName}}:${toString streamPort}=streaming"
+            ];
+
+            "enable gzip compression" = "no";
+          };
+
+          child = {
+            db.mode = "ram";
+
+            web.mode = "none";
+
+            ml.enabled = "no";
+          };
+        }.${cfg.type};
+
+        configDir = {
+          "stream.conf" = (pkgs.formats.ini { }).generate "stream.conf" {
+            parent.${cfg.apiKey}.enabled = "yes";
+
+            child.stream = {
+              enabled = "yes";
+
+              "api key" = cfg.apiKey;
+              destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
+            };
+          }.${cfg.type};
+        } // lib.optionalAttrs config.services.nginx.enable {
+          "go.d/nginx.conf" = (pkgs.formats.yaml { }).generate "nginx.conf" {
+            jobs = [{
+              name = "local";
+              url = "http://localhost/nginx_status";
+            }];
+          };
         };
-
-        child = {
-          db.mode = "ram";
-
-          web.mode = "none";
-
-          ml.enabled = "no";
-        };
-      }.${cfg.type};
-
-      configDir."stream.conf" = (pkgs.formats.ini { }).generate "stream.conf" {
-        parent.${cfg.apiKey}.enabled = "yes";
-
-        child.stream = {
-          enabled = "yes";
-
-          "api key" = cfg.apiKey;
-          destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
-        };
-      }.${cfg.type};
+      };
     };
 
     systemd.services.netdata.serviceConfig = {
