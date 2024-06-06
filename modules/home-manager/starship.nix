@@ -12,7 +12,7 @@
         disabled = false;
 
         format = "[\\[nix-shell\\]]($style) ";
-        style = "${colors.normal.green} bold";
+        style = "${colors.normal.cyan} bold";
       };
 
       python = {
