@@ -18,8 +18,7 @@
       inherit (super.linuxPackages) evdi;
     };
 
-    # TODO temp fix since it does not build on aarch64
-    glances = if super.stdenv.hostPlatform.isx86 then super.callPackage ./glances.nix { inherit (super) glances; } else super.glances;
+    glances = super.callPackage ./glances.nix { inherit (super) glances; };
 
     hs = super.callPackage ./hs { };
   })
