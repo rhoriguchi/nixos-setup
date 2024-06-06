@@ -1,7 +1,6 @@
 { config, lib, interfaces, ... }:
 let
   externalInterface = interfaces.external;
-  internalInterface = interfaces.internal;
 
   serverIp = "192.168.2.2";
 in {
@@ -12,7 +11,7 @@ in {
 
     streamConfig = let
       domains = lib.attrNames config.services.nginx.virtualHosts;
-      localRoutings = map (domain: "${domain} ${config.networking.hostName};") domains;
+      localRoutings = map (domain: "${domain} ${config.networking.hostName};") (lib.filter (domain: domain != "*.00a.ch") domains);
     in ''
       upstream ${config.networking.hostName} {
         server 127.0.0.1:${toString config.services.nginx.defaultSSLListenPort};
@@ -29,23 +28,23 @@ in {
 
       server {
         listen 443;
-        listen [::]:443;
+        ${lib.optionalString config.networking.enableIPv6 "listen [::]:443;"}
 
         ssl_preread on;
 
         proxy_pass $name;
       }
     '';
+
+    virtualHosts."*.00a.ch" = {
+      listen = map (addr: {
+        inherit addr;
+        port = 80;
+      }) config.services.nginx.defaultListenAddresses;
+
+      locations."/".proxyPass = "http://${serverIp}:80";
+    };
   };
 
-  networking.firewall.interfaces = let rules = { allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort 443 ]; };
-  in {
-    "${externalInterface}" = rules;
-
-    "${internalInterface}" = rules;
-    "${internalInterface}.1" = rules;
-    "${internalInterface}.2" = rules;
-    "${internalInterface}.3" = rules;
-    "${internalInterface}.100" = rules;
-  };
+  networking.firewall.interfaces."${externalInterface}".allowedTCPPorts = [ 80 443 ];
 }
