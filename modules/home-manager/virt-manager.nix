@@ -16,8 +16,8 @@
         unapplied-dev = true;
       };
       "org/virt-manager/virt-manager/connections" = {
-        autoconnect = [ "qemu+ssh://home.00a.ch/system" ];
-        uris = [ "qemu+ssh://home.00a.ch/system" ];
+        autoconnect = [ "qemu+ssh://xxlpitu-server/system" ];
+        uris = [ "qemu+ssh://xxlpitu-server/system" ];
       };
       "org/virt-manager/virt-manager/details".show-toolbar = true;
       "org/virt-manager/virt-manager/new-vm" = {
