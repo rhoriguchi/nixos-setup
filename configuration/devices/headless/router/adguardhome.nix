@@ -80,8 +80,8 @@ in {
 
         filtering.rewrites = (map (domain: {
           inherit domain;
-          # TODO use `${config.networking.hostName}.local` also remove "${config.networking.hostName}.local" domain rewrite
           answer = routerIp;
+          # TODO remove "${config.networking.hostName}.local" domain rewrite
         }) [ "${config.networking.hostName}.local" "adguardhome.00a.ch" "wireguard.00a.ch" ]) ++ (map (domain: {
           inherit domain;
           answer = serverIp;
