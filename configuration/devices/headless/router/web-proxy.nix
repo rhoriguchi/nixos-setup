@@ -1,8 +1,5 @@
-{ config, lib, interfaces, ... }:
-let
-  externalInterface = interfaces.external;
-
-  serverIp = "192.168.2.2";
+{ config, lib, ... }:
+let serverIp = "192.168.2.2";
 in {
   services.nginx = {
     enable = true;
@@ -45,6 +42,4 @@ in {
       locations."/".proxyPass = "http://${serverIp}:80";
     };
   };
-
-  networking.firewall.interfaces."${externalInterface}".allowedTCPPorts = [ 80 443 ];
 }

@@ -8,6 +8,17 @@ let
   serverIp = "192.168.2.2";
 in {
   networking = {
+    firewall.interfaces = let rules = { allowedTCPPorts = [ 80 443 ]; };
+    in {
+      "${externalInterface}" = rules;
+
+      "${internalInterface}" = rules;
+      "${internalInterface}.1" = rules;
+      "${internalInterface}.2" = rules;
+      "${internalInterface}.3" = rules;
+      "${internalInterface}.100" = rules;
+    };
+
     nftables = {
       enable = true;
 
