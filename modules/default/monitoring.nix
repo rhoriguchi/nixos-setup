@@ -46,10 +46,12 @@ in {
       netdata = {
         enable = true;
 
-        package = pkgs.netdata.override { withCloudUi = isParent; };
+        package = pkgs.netdata.override {
+          withCloudUi = isParent;
+          withCups = config.services.printing.enable;
+        };
 
         # TODO monitor
-        # CUPS https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/cups
         # Dnsmasq DHCP https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq-dhcp
         # Dnsmasq https://learn.netdata.cloud/docs/collecting-metrics/dns-and-dhcp-servers/dnsmasq
         # HDD temperature https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/hdd-temperature
