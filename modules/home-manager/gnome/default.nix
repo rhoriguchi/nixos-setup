@@ -33,6 +33,7 @@ in {
         dark-full-screen = true;
         transparency = 0;
       };
+      "io/missioncenter/MissionCenter".performance-page-cpu-graph = 2;
       "org/gnome/desktop/background" = rec {
         picture-uri = "file://${./wallpaper.jpg}";
         picture-uri-dark = picture-uri;

@@ -25,6 +25,7 @@
     systemPackages = [ pkgs.gnome.dconf-editor pkgs.gnome.networkmanager-openconnect ] ++ [
       pkgs.alacritty # pkgs.gnome-console
       pkgs.firefox # pkgs.gnome.epiphany
+      pkgs.mission-center # pkgs.gnome.gnome-system-monitor
     ];
 
     gnome.excludePackages = [
@@ -46,6 +47,7 @@
       pkgs.gnome.gnome-logs
       pkgs.gnome.gnome-maps
       pkgs.gnome.gnome-music
+      pkgs.gnome.gnome-system-monitor
       pkgs.gnome.gnome-themes-extra
       pkgs.gnome.gnome-weather
       pkgs.gnome.nautilus
