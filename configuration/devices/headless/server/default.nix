@@ -14,6 +14,9 @@
     ./hardware-configuration.nix
   ];
 
+  # TODO remove when zfs is not marked broken
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_8;
+
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
