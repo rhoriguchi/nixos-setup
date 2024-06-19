@@ -62,13 +62,32 @@ in {
         # TODO install on windows (Plugin: go.d.plugin Module: windows)
 
         config = {
-          parent.web = {
-            "bind to" = lib.concatStringsSep " " [
-              "127.0.0.1:${toString cfg.webPort}=dashboard|registry|badges|management|netdata.conf"
-              "${wireguardIps.${config.networking.hostName}}:${toString streamPort}=streaming"
-            ];
+          parent = {
+            db = {
+              mode = "dbengine";
+              "storage tiers" = 3;
 
-            "enable gzip compression" = "no";
+              # Tier 0, per second data
+              "dbengine tier 0 disk space MB" = 0;
+              "dbengine tier 0 retention days" = 14;
+
+              # Tier 1, per minute data
+              "dbengine tier 1 disk space MB" = 0;
+              "dbengine tier 1 retention days" = 30 * 3;
+
+              # Tier 2, per hour data
+              "dbengine tier 2 disk space MB" = 0;
+              "dbengine tier 2 retention days" = 30 * 12;
+            };
+
+            web = {
+              "bind to" = lib.concatStringsSep " " [
+                "127.0.0.1:${toString cfg.webPort}=dashboard|registry|badges|management|netdata.conf"
+                "${wireguardIps.${config.networking.hostName}}:${toString streamPort}=streaming"
+              ];
+
+              "enable gzip compression" = "no";
+            };
           };
 
           child = {
