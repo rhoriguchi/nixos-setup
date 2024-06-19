@@ -91,6 +91,18 @@ in {
               destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
             };
           }.${cfg.type};
+        } // {
+          "go.d/ping.conf" = (pkgs.formats.yaml { }).generate "ping.conf" {
+            jobs = [{
+              name = "internet";
+              update_every = 10;
+              hosts = [ "1.1.1.1" "digitec.ch" "youtube.com" ];
+            }] ++ lib.optional (config.services.wireguard-network.type == "client") {
+              name = "wireguard";
+              update_every = 10;
+              hosts = [ (import ./wireguard-network/ips.nix).${config.services.wireguard-network.serverHostname} ];
+            };
+          };
         } // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = (pkgs.formats.yaml { }).generate "nginx.conf" {
             jobs = [{
@@ -105,6 +117,7 @@ in {
     systemd.services.netdata.serviceConfig = {
       AmbientCapabilities = [
         "CAP_NET_ADMIN" # Required for WireGuard collector https://github.com/NixOS/nixpkgs/pull/298641#issuecomment-2103671221
+        "CAP_NET_RAW" # Required for ping collector
       ];
 
       CapabilityBoundingSet = [
