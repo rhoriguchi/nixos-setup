@@ -18,7 +18,7 @@ in {
         server ${serverIp}:443;
       }
 
-      map $ssl_preread_server_name $name {
+      map $ssl_preread_server_name $upstream {
         ${lib.concatStringsSep "\n" localRoutings}
         default XXLPitu-Server;
       }
@@ -29,7 +29,7 @@ in {
 
         ssl_preread on;
 
-        proxy_pass $name;
+        proxy_pass $upstream;
       }
     '';
 
