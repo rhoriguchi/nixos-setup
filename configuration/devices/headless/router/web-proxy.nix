@@ -36,7 +36,7 @@ in {
     virtualHosts."*.00a.ch" = {
       listen = map (addr: {
         inherit addr;
-        port = 80;
+        port = config.services.nginx.defaultHTTPListenPort;
       }) config.services.nginx.defaultListenAddresses;
 
       locations."/".proxyPass = "http://${serverIp}:80";
