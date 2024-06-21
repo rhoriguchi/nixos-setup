@@ -22,7 +22,7 @@ in {
     nftables = {
       enable = true;
 
-      tables.nixos-fw = {
+      tables.firewall = {
         family = "inet";
 
         content = ''
@@ -50,7 +50,7 @@ in {
             elements = { 192.168.100.0/24 }
           }
 
-          chain interface-filter-fwd {
+          chain interface-filter-fw {
             type filter hook forward priority filter; policy accept;
 
             iifname { "${
