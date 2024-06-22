@@ -15,8 +15,8 @@
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "a987a20ea01a7b9bea6704a6601008029945059b";
-          hash = "sha256-c2lAsinKseGVncDY6l62vDTP2I5khRhKsjbAeJHcuK4=";
+          rev = "57eccbb4deed82851c54c18d67a1a15e3465767a";
+          hash = "sha256-QVn7G9WZte4WIBNwL3p2x8OmLpP7XtfinPSadkAXZN4=";
         }
       }/pkgs/tools/system/netdata") {
         inherit (super.darwin.apple_sdk.frameworks) CoreFoundation IOKit;

@@ -134,16 +134,9 @@ in {
       };
     };
 
-    systemd.services.netdata.serviceConfig = {
-      AmbientCapabilities = [
-        "CAP_NET_ADMIN" # Required for WireGuard collector https://github.com/NixOS/nixpkgs/pull/298641#issuecomment-2103671221
-        "CAP_NET_RAW" # Required for ping collector
-      ];
-
-      CapabilityBoundingSet = [
-        "CAP_NET_ADMIN" # Required for WireGuard collector https://github.com/NixOS/nixpkgs/pull/298641#issuecomment-2103671221
-      ];
-    };
+    systemd.services.netdata.serviceConfig.AmbientCapabilities = [
+      "CAP_NET_RAW" # Required for ping collector
+    ];
 
     networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = lib.mkIf isParent [ streamPort ];
   };
