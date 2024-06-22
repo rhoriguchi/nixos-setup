@@ -58,7 +58,6 @@ in {
         # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft/
         # Nvidia GPU https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/nvidia-gpu
         # S.M.A.R.T. https://learn.netdata.cloud/docs/collecting-metrics/hardware-devices-and-sensors/s.m.a.r.t.
-        # ZFS Pools https://learn.netdata.cloud/docs/collecting-metrics/storage,-mount-points-and-filesystems/zfs-pools
 
         # TODO install on windows (Plugin: go.d.plugin Module: windows)
 
@@ -122,6 +121,13 @@ in {
               update_every = 10;
               hosts = [ (import ./wireguard-network/ips.nix).${config.services.wireguard-network.serverHostname} ];
             };
+          };
+        } // lib.optionalAttrs config.boot.zfs.enabled {
+          "go.d/zfspool.conf" = (pkgs.formats.yaml { }).generate "zfspool.conf" {
+            jobs = [{
+              name = "zfspool";
+              binary_path = "${config.boot.zfs.package}/bin/zpool";
+            }];
           };
         } // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = (pkgs.formats.yaml { }).generate "nginx.conf" {
