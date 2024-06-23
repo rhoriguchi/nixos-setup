@@ -9,6 +9,8 @@ in {
     "nix develop" = "${package}/bin/nom develop";
 
     nix-build = "${package}/bin/nom-build";
-    nix-shell = "${package}/bin/nom-shell";
+
+    # interferes with zsh-nix-shell
+    # nix-shell = "${package}/bin/nom-shell";
   };
 }
