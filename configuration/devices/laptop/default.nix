@@ -102,6 +102,7 @@
       packages = [
         pkgs.discord
         pkgs.gimp
+        pkgs.gitkraken
         pkgs.glow
         pkgs.inkscape
         pkgs.jetbrains.datagrip
