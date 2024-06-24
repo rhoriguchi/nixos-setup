@@ -82,7 +82,7 @@ in {
           inherit domain;
           answer = routerIp;
           # TODO remove "${config.networking.hostName}.local" domain rewrite
-        }) [ "${config.networking.hostName}.local" "adguardhome.00a.ch" "wireguard.00a.ch" ]) ++ (map (domain: {
+        }) ([ "${config.networking.hostName}.local" ] ++ config.services.infomaniak.hostnames)) ++ (map (domain: {
           inherit domain;
           answer = serverIp;
         }) [
