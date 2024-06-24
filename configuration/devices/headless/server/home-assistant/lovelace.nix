@@ -220,7 +220,6 @@ in {
                 ];
               }
               {
-                # TODO HOME-ASSISTANT toggle is broken
                 type = "entities";
                 title = "Lights";
 
