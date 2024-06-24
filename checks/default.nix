@@ -1,6 +1,5 @@
 { pkgs }: {
-  # TODO commented
-  # adguardhome = pkgs.callPackage ./adguardhome.nix { };
+  adguardhome = pkgs.callPackage ./adguardhome.nix { };
 
   # TODO uncomment when https://github.com/project-chip/connectedhomeip/issues/25688 fixed
   # home-assistant = pkgs.callPackage ./home-assistant.nix { };

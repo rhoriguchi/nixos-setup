@@ -13,7 +13,12 @@ pkgs.nixosTest {
       ../configuration/devices/headless/router/adguardhome.nix
     ];
 
-    services.infomaniak.enable = lib.mkForce false;
+    networking.firewall.enable = false;
+
+    services = {
+      infomaniak.enable = lib.mkForce false;
+      dnsmasq.settings.port = 9053;
+    };
 
     _module.args.secrets = {
       infomaniak = {
