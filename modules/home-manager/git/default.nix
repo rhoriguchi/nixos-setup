@@ -15,6 +15,7 @@
       alias = {
         alias =
           "! git config --get-regexp '^alias.' | ${pkgs.coreutils}/bin/sort | ${pkgs.gnused}/bin/sed -e 's/^alias\\.//' -e 's/\\ /\\ =\\ /'";
+
         changes = "! git diff --stat";
         graph = "! git history --graph --all --decorate";
         history = "! git log --pretty='%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ar %C(auto)%d %C(reset)%s'";
@@ -34,25 +35,12 @@
           } ''${1}"; fi; fi; }; f'';
       };
 
-      core.symlinks = true;
-
-      color.ui = true;
-
-      "gitflow \"prefix\"" = {
-        feature = "feature/";
-        release = "release/";
-        hotfix = "hotfix/";
-        support = "support/";
-      };
-
       # TODO remove when https://github.com/libgit2/libgit2/issues/6531 fixed
       index.skipHash = false;
 
       init.defaultBranch = "master";
 
       pull.ff = "only";
-
-      push.default = "simple";
 
       feature.manyFiles = true;
 
