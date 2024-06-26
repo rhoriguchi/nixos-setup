@@ -321,6 +321,20 @@ in {
                       }
                     ];
                   }
+                  {
+                    type = "custom:fold-entity-row";
+                    head = {
+                      name = "Reduit";
+                      entity = "light.group_reduit";
+                    };
+
+                    open = true;
+
+                    entities = [{
+                      name = "Lamp";
+                      entity = "light.reduit_closet_lights";
+                    }];
+                  }
                   { type = "divider"; }
                   {
                     type = "custom:fold-entity-row";

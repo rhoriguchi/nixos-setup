@@ -36,5 +36,10 @@
         "light.living_room_table_lamp"
       ];
     }
+    {
+      platform = "group";
+      name = "Group Reduit";
+      entities = [ "light.reduit_closet_lights" ];
+    }
   ];
 }
