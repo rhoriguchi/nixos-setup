@@ -1,23 +1,8 @@
 { pkgs, config, ... }: {
   programs.git.extraConfig.init.templatedir = "${config.home.homeDirectory}/.git_template";
 
-  home.file = let
-    # Copy of https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/trivial-builders/default.nix but uses `env bash`
-    writeShellScript = name: text:
-      pkgs.writeTextFile {
-        inherit name;
-        executable = true;
-        text = ''
-          #!/usr/bin/env bash
-
-          ${text}
-        '';
-        checkPhase = ''
-          ${pkgs.stdenv.shellDryRun} "$target"
-        '';
-      };
-  in {
-    ".git_template/hooks/commit-msg".source = writeShellScript "commit-msg" ''
+  home.file = {
+    ".git_template/hooks/commit-msg".source = pkgs.writers.writeBash "commit-msg" ''
       readonly COMMIT_MSG_FILE="$1"
 
       function check_commit_msg_length {
@@ -35,7 +20,7 @@
       check_commit_msg_length
     '';
 
-    ".git_template/hooks/post-checkout".source = writeShellScript "post-checkout" ''
+    ".git_template/hooks/post-checkout".source = pkgs.writers.writeBash "post-checkout" ''
       readonly PREV_HEAD="$1"
       readonly NEW_HEAD="$2"
       # Retrieving a file from the index, flag=0 / changing branches, flag=1

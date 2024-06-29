@@ -1,11 +1,13 @@
-{ pkgs, config, secrets, ... }:
+{ pkgs, lib, config, secrets, ... }:
 let
   token = secrets.tautulli.token;
 
   ip = "127.0.0.1";
 
-  script = methodCall:
-    pkgs.writeText "tautulli_${methodCall}.py" ''
+  getScript = methodCall:
+    pkgs.writers.writePython3 "tautulli_${lib.replaceStrings [ "(" ")" ] [ "" "" ] methodCall}.py" {
+      libraries = [ pkgs.python3Packages.pytautulli ];
+    } ''
       import asyncio
       from pytautulli import PyTautulli, PyTautulliHostConfiguration
 
@@ -18,6 +20,7 @@ let
           )) as client:
               value = await client.async_command("get_activity")
               return value['response']['data']
+
 
       async def get_total_bandwidth():
           return print((await get_data())['total_bandwidth'])
@@ -39,8 +42,6 @@ let
           loop = asyncio.get_event_loop()
           loop.run_until_complete(${methodCall})
     '';
-
-  pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.pytautulli ]);
 in {
   services.home-assistant.config.command_line = [
     {
@@ -48,7 +49,7 @@ in {
         name = "Plex total bandwidth";
         icon = "mdi:file-upload";
         scan_interval = 30;
-        command = "${pythonWithPackages}/bin/python ${script "get_total_bandwidth()"}";
+        command = getScript "get_total_bandwidth()";
         value_template = "{{ ((value | int) / 8 / 1024) | round(3) }}";
         unit_of_measurement = "MB/s";
         state_class = "measurement";
@@ -59,7 +60,7 @@ in {
         name = "Plex lan bandwidth";
         icon = "mdi:file-upload";
         scan_interval = 30;
-        command = "${pythonWithPackages}/bin/python ${script "get_lan_bandwidth()"}";
+        command = getScript "get_lan_bandwidth()";
         value_template = "{{ ((value | int) / 8 / 1024) | round(3) }}";
         unit_of_measurement = "MB/s";
         state_class = "measurement";
@@ -70,7 +71,7 @@ in {
         name = "Plex wan bandwidth";
         icon = "mdi:file-upload";
         scan_interval = 30;
-        command = "${pythonWithPackages}/bin/python ${script "get_wan_bandwidth()"}";
+        command = getScript "get_wan_bandwidth()";
         value_template = "{{ ((value | int) / 8 / 1024) | round(3) }}";
         unit_of_measurement = "MB/s";
         state_class = "measurement";
@@ -81,7 +82,7 @@ in {
         name = "Plex stream count";
         icon = "mdi:account";
         scan_interval = 30;
-        command = "${pythonWithPackages}/bin/python ${script "get_stream_count()"}";
+        command = getScript "get_stream_count()";
         value_template = "{{ value | int }}";
         state_class = "measurement";
       };

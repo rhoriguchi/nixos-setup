@@ -111,7 +111,7 @@ in {
             };
           }.${cfg.type};
         } // {
-          "go.d/ping.conf" = (pkgs.formats.yaml { }).generate "ping.conf" {
+          "go.d/ping.conf" = pkgs.writers.writeYAML "ping.conf" {
             jobs = [{
               name = "internet";
               update_every = 10;
@@ -123,14 +123,14 @@ in {
             };
           };
         } // lib.optionalAttrs config.boot.zfs.enabled {
-          "go.d/zfspool.conf" = (pkgs.formats.yaml { }).generate "zfspool.conf" {
+          "go.d/zfspool.conf" = pkgs.writers.writeYAML "zfspool.conf" {
             jobs = [{
               name = "zfspool";
               binary_path = "${config.boot.zfs.package}/bin/zpool";
             }];
           };
         } // lib.optionalAttrs config.services.nginx.enable {
-          "go.d/nginx.conf" = (pkgs.formats.yaml { }).generate "nginx.conf" {
+          "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
             jobs = [{
               name = "local";
               url = "http://localhost/nginx_status";

@@ -38,7 +38,7 @@ let
   } else
     lib.optionalAttrs (lib.length sharedFolders > 0) { shared_folders = sharedFolders; });
 
-  configFile = (pkgs.formats.json { }).generate "config.json" resilioConfig;
+  configFile = pkgs.writers.writeJSON "config.json" resilioConfig;
 in {
   disabledModules = [ "${modulesPath}/services/networking/resilio.nix" ];
 

@@ -3,7 +3,7 @@ let
   apiUrl = "https://mystrom.ch/api";
 
   getVoltageScript = id:
-    pkgs.writeText "mystrom_get_voltage_${id}.py" ''
+    pkgs.writers.writePython3 "mystrom_get_voltage_${id}.py" { libraries = [ pkgs.python3Packages.requests ]; } ''
       import json
 
       import requests
@@ -13,7 +13,10 @@ let
           'password': '${secrets.mystrom.password}'
       })
 
-      response = requests.get('${apiUrl}/devices', headers={'Auth-Token': json.loads(response.content)['authToken']})
+      response = requests.get(
+        url='${apiUrl}/devices',
+        headers={'Auth-Token': json.loads(response.content)['authToken']}
+      )
 
       match = next(filter(
           lambda device: device['id'] == '${id}',
@@ -23,13 +26,11 @@ let
       print(match['voltage'])
     '';
 
-  pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.requests ]);
-
   createButtonBatterySensors = map (button: {
     sensor = {
       name = button.name;
       scan_interval = 60 * 60;
-      command = "${pythonWithPackages}/bin/python ${getVoltageScript button.id}";
+      command = getVoltageScript button.id;
       value_template = let
         maxVoltage = "4300";
         minVoltage = "3700";

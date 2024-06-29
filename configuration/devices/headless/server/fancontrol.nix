@@ -12,7 +12,7 @@ let
   # k10temp temp1 = Tctl (cpu)
   # nct6796 temp1 = SYSTIN (motherboard)
 
-  script = pkgs.writeText "create_fancontrol_config.py" ''
+  script = pkgs.writers.writePython3 "create_fancontrol_config.py" { flakeIgnore = [ "E501" ]; } ''
     import os
     from pathlib import Path
 
@@ -72,7 +72,7 @@ in {
     script = ''
       file=$(mktemp)
 
-      python ${script} > $file
+      ${script} > $file
       fancontrol $file
     '';
 

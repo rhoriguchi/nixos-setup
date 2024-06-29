@@ -3,7 +3,7 @@ let
   ssid = "63466727-Guest";
   password = secrets.wifis.${ssid}.psk;
 
-  script = pkgs.writeText "generate_wifi_guest_qr.py" ''
+  script = pkgs.writers.writePython3 "generate_wifi_guest_qr.py" { libraries = [ pkgs.python3Packages.qrcode ]; } ''
     import sys
 
     import qrcode
@@ -16,9 +16,7 @@ let
     img.save(sys.argv[1])
   '';
 
-  pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.qrcode ]);
-
-  qrCode = pkgs.runCommand "wifi_guest_qr.png" { } "${pythonWithPackages}/bin/python ${script} $out";
+  qrCode = pkgs.runCommand "wifi_guest_qr.png" { } "${script} $out";
 in {
   systemd.tmpfiles.rules = [
     "d /run/hass/img 0700 ${config.services.nginx.user} ${config.services.nginx.group}"

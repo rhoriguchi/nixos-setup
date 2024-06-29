@@ -2,7 +2,7 @@
 let
   cfg = config.services.gphotos-sync;
 
-  secretFile = (pkgs.formats.json { }).generate "secret.json" {
+  secretFile = pkgs.writers.writeJSON "secret.json" {
     installed = {
       project_id = cfg.projectId;
       client_id = cfg.clientId;
