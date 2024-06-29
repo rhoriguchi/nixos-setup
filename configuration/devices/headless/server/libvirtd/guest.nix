@@ -198,7 +198,7 @@ in {
                   <address domain='0x0000' bus='0x01' slot='0x00' function='0'/>
                 </source>
 
-                <!-- Dumped with https://github.com/SpaceinvaderOne/Dump_GPU_vBIOS -->
+                <!-- Dumped with https://github.com/rhoriguchi/Dump_GPU_vBIOS -->
                 <rom file='${./PNY_Quadro_RTX_5000.rom}'/>
               </hostdev>
 
