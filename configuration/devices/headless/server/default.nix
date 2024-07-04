@@ -26,6 +26,9 @@
     hostId = "c270d3cf";
     hostName = "XXLPitu-Server";
 
+    # TODO breaks libvirt guest internet
+    nftables.enable = lib.mkForce false;
+
     interfaces = {
       eno1.useDHCP = true;
       wlp10s0.useDHCP = true;
