@@ -10,6 +10,6 @@
   environment = {
     sessionVariables.NAUTILUS_4_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-4";
 
-    systemPackages = [ pkgs.ffmpegthumbnailer pkgs.gnome.nautilus pkgs.gnutar pkgs.zip ];
+    systemPackages = [ pkgs.ffmpegthumbnailer pkgs.gnutar pkgs.nautilus pkgs.zip ];
   };
 }

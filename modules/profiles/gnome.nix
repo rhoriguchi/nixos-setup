@@ -22,40 +22,40 @@
   programs.dconf.enable = true;
 
   environment = {
-    systemPackages = [ pkgs.gnome.dconf-editor pkgs.gnome.networkmanager-openconnect ] ++ [
+    systemPackages = [ pkgs.dconf-editor pkgs.networkmanager-openconnect ] ++ [
       pkgs.alacritty # pkgs.gnome-console
-      pkgs.firefox # pkgs.gnome.epiphany
-      pkgs.mission-center # pkgs.gnome.gnome-system-monitor
+      pkgs.firefox # pkgs.epiphany
+      pkgs.mission-center # pkgs.gnome-system-monitor
     ];
 
     gnome.excludePackages = [
+      pkgs.adwaita-icon-theme
+      pkgs.epiphany
+      pkgs.evince
+      pkgs.file-roller
+      pkgs.geary
+      pkgs.gnome-calendar
       pkgs.gnome-connections
       pkgs.gnome-console
+      pkgs.gnome-font-viewer
+      pkgs.gnome-system-monitor
       pkgs.gnome-text-editor
+      pkgs.gnome-themes-extra
       pkgs.gnome-tour
-      pkgs.gnome.adwaita-icon-theme
-      pkgs.gnome.epiphany
-      pkgs.gnome.evince
-      pkgs.gnome.file-roller
-      pkgs.gnome.geary
       pkgs.gnome.gnome-backgrounds
-      pkgs.gnome.gnome-calendar
       pkgs.gnome.gnome-characters
       pkgs.gnome.gnome-clocks
       pkgs.gnome.gnome-contacts
-      pkgs.gnome.gnome-font-viewer
       pkgs.gnome.gnome-logs
       pkgs.gnome.gnome-maps
       pkgs.gnome.gnome-music
-      pkgs.gnome.gnome-system-monitor
-      pkgs.gnome.gnome-themes-extra
       pkgs.gnome.gnome-weather
-      pkgs.gnome.nautilus
-      pkgs.gnome.simple-scan
-      pkgs.gnome.sushi
-      pkgs.gnome.totem
-      pkgs.gnome.yelp
+      pkgs.nautilus
       pkgs.orca
+      pkgs.simple-scan
+      pkgs.sushi
+      pkgs.totem
+      pkgs.yelp
     ];
   };
 }
