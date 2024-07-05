@@ -2,6 +2,12 @@
   programs.direnv = {
     enable = true;
 
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+    enableNushellIntegration = true;
+    enableZshIntegration = true;
+
+    silent = true;
     nix-direnv.enable = true;
 
     stdlib = ''
