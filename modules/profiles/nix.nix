@@ -10,6 +10,7 @@
       nix-path = [ "nixpkgs=${pkgs.path}" ];
       trusted-users = [ "@wheel" "root" ];
       auto-optimise-store = true;
+      warn-dirty = false;
       experimental-features = [ "nix-command" "flakes" ];
     };
   };
