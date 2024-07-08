@@ -1,22 +1,18 @@
-{ pkgs, ... }: {
+{ pkgs, lib, config, ... }: {
   console.useXkbConfig = true;
 
-  services.xserver = rec {
+  services.xserver = {
     xkb = {
       layout = "ch";
       model = "pc105";
       variant = "de_nodeadkeys";
     };
-
-    desktopManager.gnome = {
-      extraGSettingsOverrides = ''
-        [org.gnome.desktop.input-sources]
-        sources=[ ('xkb', '${xkb.layout}+${xkb.variant}') ]
-      '';
-
-      extraGSettingsOverridePackages = [
-        pkgs.gsettings-desktop-schemas # org.gnome.desktop.input-sources
-      ];
-    };
   };
+
+  programs.dconf.profiles.user.databases = [{
+    keyfiles = [ pkgs.gsettings-desktop-schemas ];
+
+    settings."org/gnome/desktop/input-sources".sources = lib.gvariant.mkArray
+      [ (lib.gvariant.mkTuple [ "xkb" "${config.services.xserver.xkb.layout}+${config.services.xserver.xkb.variant}" ]) ];
+  }];
 }

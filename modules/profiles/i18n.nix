@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   i18n = {
     defaultLocale = "en_US.UTF-8";
 
@@ -13,14 +13,11 @@
     };
   };
 
-  services.xserver.desktopManager.gnome = {
-    extraGSettingsOverrides = ''
-      [system.locale]
-      region='de_CH.UTF-8'
-    '';
+  programs.dconf.profiles.user.databases = [{
+    lockAll = true;
 
-    extraGSettingsOverridePackages = [
-      pkgs.gsettings-desktop-schemas # system.locale
-    ];
-  };
+    keyfiles = [ pkgs.gsettings-desktop-schemas ];
+
+    settings."system/locale".region = lib.gvariant.mkString "de_CH.UTF-8";
+  }];
 }

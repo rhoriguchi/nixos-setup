@@ -28,17 +28,16 @@ in {
     enable = true;
 
     settings = {
-      "ca/desrt/dconf-editor/Settings".show-warning = false;
       "com/ftpix/transparentbar" = {
         dark-full-screen = true;
         transparency = 0;
       };
-      "io/missioncenter/MissionCenter".performance-page-cpu-graph = 2;
       "org/gnome/desktop/background" = rec {
         picture-uri = "file://${./wallpaper.jpg}";
         picture-uri-dark = picture-uri;
       };
       "org/gnome/desktop/calendar".show-weekdate = true;
+      # needed for US keyboard
       "org/gnome/desktop/input-sources".sources = "[('xkb', 'ch+de_nodeadkeys'), ('xkb', 'us')]";
       "org/gnome/desktop/interface" = {
         clock-show-seconds = true;
@@ -122,7 +121,6 @@ in {
         toggle-tiled-left = [ "<Super>Left" ];
         toggle-tiled-right = [ "<Super>Right" ];
       };
-      "org/gnome/nautilus/preferences".open-folder-on-dnd-hover = true;
       "org/gnome/settings-daemon/plugins/color" = {
         night-light-enabled = true;
         night-light-schedule-automatic = true;
@@ -360,7 +358,6 @@ in {
         toggle-message-tray = [ ];
         toggle-overview = [ "<SUPER>" ];
       };
-      "org/gtk/settings/file-chooser".show-hidden = true;
     };
   };
 }
