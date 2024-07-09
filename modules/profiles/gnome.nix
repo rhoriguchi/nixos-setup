@@ -47,6 +47,8 @@
   };
 
   environment = {
+    sessionVariables.QT_QPA_PLATFORM = "wayland";
+
     systemPackages = [ pkgs.dconf-editor pkgs.networkmanager-openconnect ] ++ [
       pkgs.alacritty # pkgs.gnome-console
       pkgs.firefox # pkgs.epiphany
