@@ -23,13 +23,13 @@
         protobuf = super.protobuf_21;
       };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=319679
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=326379
     plexRaw = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "09509747e46b8fa697f616de65ba142e95f83d2d";
-          sha256 = "sha256-s8788+KHOoRYPYTPcTo+8kFgsa3ZzWElCUMh82sqL9U=";
+          rev = "196e4af886085b6525f3ff85c02010cfd0f8295c";
+          sha256 = "sha256-APuaU5LPfdlXDKAE86mPSM4Wgy9sF3bxhDLMa+jUmpg=";
         }
       }/pkgs/servers/plex/raw.nix") { };
   })
