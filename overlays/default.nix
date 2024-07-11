@@ -23,15 +23,15 @@
         protobuf = super.protobuf_21;
       };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=326379
-    plexRaw = super.python3Packages.callPackage (import "${
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=325186
+    adguardhome = super.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "196e4af886085b6525f3ff85c02010cfd0f8295c";
-          sha256 = "sha256-APuaU5LPfdlXDKAE86mPSM4Wgy9sF3bxhDLMa+jUmpg=";
+          rev = "6b75aa0af800b0cc6d2a2d6aef160a77c0660240";
+          sha256 = "sha256-a3TX+difrenFlc1jgeHvvXlYTQx5h3P3SF3ZXmsqHtA=";
         }
-      }/pkgs/servers/plex/raw.nix") { };
+      }/pkgs/servers/adguardhome") { };
 
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=326347
     bazecor = super.callPackage (import "${
@@ -43,15 +43,15 @@
         }
       }/pkgs/applications/misc/bazecor") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=325186
-    adguardhome = super.callPackage (import "${
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=326379
+    plexRaw = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "6b75aa0af800b0cc6d2a2d6aef160a77c0660240";
-          sha256 = "sha256-a3TX+difrenFlc1jgeHvvXlYTQx5h3P3SF3ZXmsqHtA=";
+          rev = "196e4af886085b6525f3ff85c02010cfd0f8295c";
+          sha256 = "sha256-APuaU5LPfdlXDKAE86mPSM4Wgy9sF3bxhDLMa+jUmpg=";
         }
-      }/pkgs/servers/adguardhome") { };
+      }/pkgs/servers/plex/raw.nix") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
