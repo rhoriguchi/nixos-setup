@@ -257,10 +257,6 @@ in {
 
                     entities = [
                       {
-                        name = "Ceiling lamp";
-                        entity = "light.entrance_ceiling_lamp";
-                      }
-                      {
                         name = "Sideboard lamp";
                         entity = "light.entrance_sideboard_lamp";
                       }
@@ -333,6 +329,21 @@ in {
                     entities = [{
                       name = "Lamp";
                       entity = "light.reduit_closet_lights";
+                    }];
+                  }
+                  { type = "divider"; }
+                  {
+                    type = "custom:fold-entity-row";
+                    head = {
+                      name = "Lego";
+                      entity = "light.group_lego";
+                    };
+
+                    open = true;
+
+                    entities = [{
+                      name = "Bonsai";
+                      entity = "light.lego_bonsai";
                     }];
                   }
                   { type = "divider"; }

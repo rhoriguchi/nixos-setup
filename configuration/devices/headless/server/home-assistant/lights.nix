@@ -8,13 +8,19 @@
 
     {
       platform = "group";
+      name = "Group Lego";
+      entities = [ "light.lego_bonsai" ];
+    }
+
+    {
+      platform = "group";
       name = "Group Bedroom";
       entities = [ "light.bedroom_standing_lamp" ];
     }
     {
       platform = "group";
       name = "Group Entrance";
-      entities = [ "light.entrance_ceiling_lamp" "light.entrance_sideboard_lamp" "light.remove_yeelight_lights" ];
+      entities = [ "light.entrance_sideboard_lamp" "light.remove_yeelight_lights" ];
     }
     {
       platform = "group";

@@ -14,6 +14,30 @@
           target.entity_id = "light.bedroom_closet_lights";
         }];
       }
+
+      {
+        alias = "Turn Lego bonsai lights on when sunset";
+        trigger = [{
+          platform = "sun";
+          event = "sunset";
+        }];
+        action = [{
+          service = "light.turn_on";
+          target.entity_id = "light.lego_bonsai";
+        }];
+      }
+      {
+        alias = "Turn Lego bonsai lights off when sunrise";
+        trigger = [{
+          platform = "sun";
+          event = "sunrise";
+        }];
+        action = [{
+          service = "light.turn_off";
+          target.entity_id = "light.lego_bonsai";
+        }];
+      }
+
       {
         alias = "Turn Reduit closet lights on when sliding door is open";
         trigger = [{
@@ -43,18 +67,6 @@
     light = [{
       platform = "template";
       lights = {
-        entrance_ceiling_lamp = {
-          friendly_name = "Entrance ceiling lamp";
-          value_template = "{{ states('switch.entrance_ceiling_lamp') }}";
-          turn_on = {
-            service = "switch.turn_on";
-            target.entity_id = "switch.entrance_ceiling_lamp";
-          };
-          turn_off = {
-            service = "switch.turn_off";
-            target.entity_id = "switch.entrance_ceiling_lamp";
-          };
-        };
         entrance_sideboard_lamp = {
           friendly_name = "Entrance sideboard lamp";
           value_template = "{{ states('switch.entrance_sideboard_lamp') }}";
@@ -65,6 +77,18 @@
           turn_off = {
             service = "switch.turn_off";
             target.entity_id = "switch.entrance_sideboard_lamp";
+          };
+        };
+        lego_bonsai = {
+          friendly_name = "Lego bonsai";
+          value_template = "{{ states('switch.lego_bonsai') }}";
+          turn_on = {
+            service = "switch.turn_on";
+            target.entity_id = "switch.lego_bonsai";
+          };
+          turn_off = {
+            service = "switch.turn_off";
+            target.entity_id = "switch.lego_bonsai";
           };
         };
         living_room_standing_lamp = {
