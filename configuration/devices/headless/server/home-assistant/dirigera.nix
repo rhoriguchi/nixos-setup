@@ -2,7 +2,7 @@
   services.home-assistant.config = {
     automation = [
       {
-        alias = "Turn Bedroom closet lights on after 1 second";
+        alias = "Turn Bedroom closet lights on after 10 minutes";
         trigger = [{
           platform = "state";
           entity_id = "light.bedroom_closet_lights";
