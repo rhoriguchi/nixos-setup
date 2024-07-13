@@ -40,6 +40,16 @@
 
           settings."io/missioncenter/MissionCenter".performance-page-cpu-graph = lib.gvariant.mkInt32 2;
         }
+        {
+          lockAll = true;
+
+          keyfiles = [ pkgs.gsettings-desktop-schemas ];
+
+          settings."org/gnome/desktop/interface" = {
+            font-name = lib.gvariant.mkString "Inter Variable 11";
+            monospace-font-name = lib.gvariant.mkString "RobotoMono Nerd Font";
+          };
+        }
       ];
     };
 
@@ -49,17 +59,18 @@
   environment = {
     sessionVariables.QT_QPA_PLATFORM = "wayland";
 
-    systemPackages = [ pkgs.dconf-editor pkgs.networkmanager-openconnect ] ++ [
-      pkgs.alacritty # pkgs.gnome-console
-      pkgs.firefox # pkgs.epiphany
-      pkgs.mission-center # pkgs.gnome-system-monitor
+    systemPackages = [ pkgs.inter (pkgs.nerdfonts.override { fonts = [ "RobotoMono" ]; }) ]
+      ++ [ pkgs.dconf-editor pkgs.networkmanager-openconnect ] ++ [
+        pkgs.alacritty # pkgs.gnome-console
+        pkgs.firefox # pkgs.epiphany
+        pkgs.mission-center # pkgs.gnome-system-monitor
 
-      pkgs.baobab
-      pkgs.gnome-calculator
-      pkgs.loupe
-      pkgs.simple-scan
-      pkgs.snapshot
-    ];
+        pkgs.baobab
+        pkgs.gnome-calculator
+        pkgs.loupe
+        pkgs.simple-scan
+        pkgs.snapshot
+      ];
 
     gnome.excludePackages = [
       pkgs.adwaita-icon-theme

@@ -14,15 +14,7 @@ let
 in {
   imports = [ ./autostart.nix ];
 
-  fonts.fontconfig.enable = true;
-  # TODO remove when `pkgs.cantarell-fonts` is no more broken on darwin
-  home.packages = lib.optionals pkgs.stdenv.isLinux ([
-    pkgs.cantarell-fonts
-    (pkgs.nerdfonts.override { fonts = [ "RobotoMono" ]; })
-
-    pkgs.papirus-icon-theme
-    pkgs.yaru-theme
-  ] ++ extensions);
+  home.packages = [ pkgs.papirus-icon-theme pkgs.yaru-theme ] ++ extensions;
 
   dconf = {
     enable = true;
@@ -43,10 +35,8 @@ in {
         clock-show-seconds = true;
         clock-show-weekday = true;
         enable-hot-corners = false;
-        font-name = "Cantarell 11";
         gtk-theme = "Yaru-blue";
         icon-theme = "Papirus";
-        monospace-font-name = "RobotoMono Nerd Font";
         show-battery-percentage = true;
       };
       "org/gnome/desktop/notifications" = {
