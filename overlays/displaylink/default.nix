@@ -1,2 +1,1 @@
-{ displaylink, ... }:
-displaylink.overrideAttrs (oldAttrs: { src = assert oldAttrs.version == "5.8.0-63.33"; ./displaylink_5.8.0-63.33.zip; })
+{ displaylink, ... }: displaylink.overrideAttrs (oldAttrs: { src = assert oldAttrs.version == "6.0.0-24"; ./displaylink_6.0.0-24.zip; })
