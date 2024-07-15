@@ -44,8 +44,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, deploy-rs, flake-utils, firefox-addons, home-manager, nix-github-actions, nix-minecraft, nix-index-database
-    , nixos-hardware, git-hooks, ... }@inputs:
+  outputs = { self, ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
@@ -228,28 +227,28 @@
         };
 
         # Raspberry Pi 4 Model B - 8GB
-        Nelliel = let system = inputs.flake-utils.lib.system.aarch64-linux;
-        in {
-          hostname = "xxlpitu-nelliel";
+        # Nelliel = let system = inputs.flake-utils.lib.system.aarch64-linux;
+        # in {
+        #   hostname = "xxlpitu-nelliel";
 
-          profiles.system = {
-            sshUser = "root";
+        #   profiles.system = {
+        #     sshUser = "root";
 
-            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-              modules = [{
-                imports = [
-                  commonModule
+        #     path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
+        #       modules = [{
+        #         imports = [
+        #           commonModule
 
-                  inputs.nixos-hardware.nixosModules.raspberry-pi-4
+        #           inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-                  self.nixosModules.profiles.headless
+        #           self.nixosModules.profiles.headless
 
-                  ./configuration/devices/headless/raspberry-pi-4/nelliel
-                ];
-              }];
-            });
-          };
-        };
+        #           ./configuration/devices/headless/raspberry-pi-4/nelliel
+        #         ];
+        #       }];
+        #     });
+        #   };
+        # };
 
         # Raspberry Pi 4 Model B - 8GB
         Ulquiorra = let system = inputs.flake-utils.lib.system.aarch64-linux;
