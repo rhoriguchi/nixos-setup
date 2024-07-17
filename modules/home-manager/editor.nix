@@ -19,5 +19,9 @@
     '';
   };
 
-  programs.git.extraConfig.core.editor = "nano";
+  programs.git.extraConfig = {
+    core.editor = "nano";
+    diff.tool = "nano";
+    merge.tool = "nano";
+  };
 }
