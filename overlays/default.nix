@@ -23,26 +23,6 @@
         protobuf = super.protobuf_21;
       };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=325186
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "6b75aa0af800b0cc6d2a2d6aef160a77c0660240";
-          sha256 = "sha256-a3TX+difrenFlc1jgeHvvXlYTQx5h3P3SF3ZXmsqHtA=";
-        }
-      }/pkgs/servers/adguardhome") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=325327
-    prowlarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "bee394b999ba9f3456914072b51a48dd052a11f5";
-          sha256 = "sha256-KKbGEdwAb17SmmjM4axTba9w5qNQE0+wYe7ds8O8pyw=";
-        }
-      }/pkgs/servers/prowlarr") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=328978
     sonarr = super.callPackage (import "${
         super.fetchFromGitHub {
