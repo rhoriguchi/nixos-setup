@@ -14,7 +14,8 @@ let
 in {
   imports = [ ./autostart.nix ];
 
-  home.packages = [ pkgs.papirus-icon-theme pkgs.yaru-theme ] ++ extensions;
+  # TODO causes issues on darwin
+  home.packages = lib.optionals pkgs.stdenv.isLinux ([ pkgs.papirus-icon-theme pkgs.yaru-theme ] ++ extensions);
 
   dconf = {
     enable = true;
