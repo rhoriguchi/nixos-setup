@@ -6,7 +6,11 @@
 
     syntaxHighlighting.enable = true;
 
-    autosuggestion.enable = true;
+    autosuggestion = {
+      enable = true;
+
+      strategy = [ "completion" ];
+    };
 
     history = {
       size = 10 * 1000;
@@ -19,8 +23,6 @@
       file = "nix-shell.plugin.zsh";
       src = "${pkgs.zsh-nix-shell}/share/${pkgs.zsh-nix-shell.pname}";
     }];
-
-    localVariables.ZSH_AUTOSUGGEST_STRATEGY = "completion";
 
     sessionVariables = {
       DIRSTACKSIZE = "20";
