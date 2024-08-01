@@ -1,5 +1,6 @@
 { pkgs, config, lib, colors, ... }: {
-  home.packages = [ pkgs.flameshot ];
+  # TODO causes issues on darwin
+  home.packages = lib.optionals pkgs.stdenv.isLinux [ pkgs.flameshot ];
 
   xdg.configFile."flameshot/flameshot.ini".source = (pkgs.formats.ini { }).generate "flameshot.ini" {
     General = {
