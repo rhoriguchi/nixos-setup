@@ -4,6 +4,12 @@
   boot = {
     kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_rpi4;
 
+    # fixes connection issue with wpa_supplicant v2.11
+    # https://github.com/raspberrypi/bookworm-feedback/issues/121
+    extraModprobeConfig = ''
+      options brcmfmac feature_disable=0x2000
+    '';
+
     loader.raspberryPi.firmwareConfig = ''
       hdmi_force_hotplug=1
     '';
