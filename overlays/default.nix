@@ -22,16 +22,6 @@
         inherit (super.darwin.apple_sdk.frameworks) CoreFoundation IOKit;
         protobuf = super.protobuf_21;
       };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=330285
-    resilio-sync = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "ad93085a699ab59abd43186d0ca762697986ec71";
-          hash = "sha256-u5efb83IUeuOqp0O9s2FFPiHT1vtEEDrE52TlIc2gO8=";
-        }
-      }/pkgs/applications/networking/resilio-sync") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
