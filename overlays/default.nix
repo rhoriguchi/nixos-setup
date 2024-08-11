@@ -22,6 +22,16 @@
         inherit (super.darwin.apple_sdk.frameworks) CoreFoundation IOKit;
         protobuf = super.protobuf_21;
       };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=333966
+    bazecor = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "f190f6e4881546c6c07ecad8d27b34328fbee988";
+          hash = "sha256-b4eMtWeRkO5K4geEHyRNZcTdDFNpVLNRfXyKYbo8ty4=";
+        }
+      }/pkgs/by-name/ba/bazecor/package.nix") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
