@@ -162,6 +162,7 @@
       };
       "files.trimTrailingWhitespace" = true;
       "git.autofetch" = "all";
+      "githubPullRequests.terminalLinksHandler" = "github";
       "importCost.javascriptExtensions" = [ "\\.jsx?$" "\\.tsx?$" ];
       "javascript.updateImportsOnFileMove.enabled" = "always";
       "peacock.affectActivityBar" = true;
