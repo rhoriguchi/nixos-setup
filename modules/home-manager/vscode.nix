@@ -28,6 +28,7 @@
       pkgs.vscode-extensions.gruntfuggly.todo-tree
       pkgs.vscode-extensions.hashicorp.terraform
       pkgs.vscode-extensions.ibm.output-colorizer
+      pkgs.vscode-extensions.iliazeus.vscode-ansi
       pkgs.vscode-extensions.jock.svg
       pkgs.vscode-extensions.johnpapa.vscode-peacock
       pkgs.vscode-extensions.ms-azuretools.vscode-docker
