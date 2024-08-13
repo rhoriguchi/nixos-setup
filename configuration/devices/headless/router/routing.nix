@@ -136,7 +136,7 @@ in {
           "${internalInterface}.2, option:domain-name, local"
 
           "${internalInterface}.3, option:router, 192.168.3.1"
-          "${internalInterface}.3, option:dns-server, 1.1.1.1, 1.0.0.1"
+          "${internalInterface}.3, option:dns-server, 192.168.3.1"
           "${internalInterface}.3, option:domain-name, local"
 
           "${internalInterface}.100, option:router, 192.168.100.1"
