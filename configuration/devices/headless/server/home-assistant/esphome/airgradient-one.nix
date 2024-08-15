@@ -39,7 +39,7 @@
           at = "11:00:00";
         }];
         action = [{
-          service = "light.turn_on";
+          action = "light.turn_on";
           target.entity_id = "light.airgradient_one";
           data.brightness = 255;
         }];
@@ -51,7 +51,7 @@
           at = "00:00:00";
         }];
         action = [{
-          service = "light.turn_off";
+          action = "light.turn_off";
           target.entity_id = "light.airgradient_one";
         }];
       }

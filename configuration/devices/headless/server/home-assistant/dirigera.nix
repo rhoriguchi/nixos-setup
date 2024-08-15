@@ -10,7 +10,7 @@
           for.minutes = 10;
         }];
         action = [{
-          service = "light.turn_on";
+          action = "light.turn_on";
           target.entity_id = "light.bedroom_closet_lights";
         }];
       }
@@ -22,7 +22,7 @@
           event = "sunset";
         }];
         action = [{
-          service = "light.turn_on";
+          action = "light.turn_on";
           target.entity_id = "light.lego_bonsai";
         }];
       }
@@ -33,7 +33,7 @@
           event = "sunrise";
         }];
         action = [{
-          service = "light.turn_off";
+          action = "light.turn_off";
           target.entity_id = "light.lego_bonsai";
         }];
       }
@@ -46,7 +46,7 @@
           to = "on";
         }];
         action = [{
-          service = "light.turn_on";
+          action = "light.turn_on";
           target.entity_id = "light.reduit_closet_lights";
         }];
       }
@@ -58,7 +58,7 @@
           to = "off";
         }];
         action = [{
-          service = "light.turn_off";
+          action = "light.turn_off";
           target.entity_id = "light.reduit_closet_lights";
         }];
       }

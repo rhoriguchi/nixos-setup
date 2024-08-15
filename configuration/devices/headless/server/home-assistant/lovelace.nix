@@ -47,7 +47,7 @@ in {
             event = "start";
           };
           action = [{
-            service = "frontend.set_theme";
+            action = "frontend.set_theme";
             data.name = "Google - Light";
           }];
         }];
