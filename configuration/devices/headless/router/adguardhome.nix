@@ -51,6 +51,8 @@ in {
           basicAuth = secrets.nginx.basicAuth."adguardhome.00a.ch";
 
           extraConfig = ''
+            proxy_buffering off;
+
             satisfy any;
 
             allow 192.168.1.0/24;

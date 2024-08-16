@@ -31,6 +31,8 @@
           basicAuth = secrets.nginx.basicAuth."esphome.00a.ch";
 
           extraConfig = ''
+            proxy_buffering off;
+
             satisfy any;
 
             allow 192.168.1.0/24;
