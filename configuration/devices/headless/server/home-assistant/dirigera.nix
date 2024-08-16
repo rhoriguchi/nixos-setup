@@ -2,7 +2,7 @@
   services.home-assistant.config = {
     automation = [
       {
-        alias = "Turn Bedroom closet lights on after 10 minutes";
+        alias = "Turn bedroom closet lights on after 10 minutes";
         trigger = [{
           platform = "state";
           entity_id = "light.bedroom_closet_lights";
@@ -39,7 +39,7 @@
       }
 
       {
-        alias = "Turn Reduit closet lights on when sliding door is open";
+        alias = "Turn reduit closet lights on when sliding door is open";
         trigger = [{
           platform = "state";
           entity_id = "binary_sensor.reduit_parasoll_contact";
@@ -51,7 +51,7 @@
         }];
       }
       {
-        alias = "Turn Reduit closet lights off when sliding door is closed";
+        alias = "Turn reduit closet lights off when sliding door is closed";
         trigger = [{
           platform = "state";
           entity_id = "binary_sensor.reduit_parasoll_contact";
