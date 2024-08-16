@@ -1,20 +1,24 @@
 { config, lib, secrets, ... }: {
   services = {
-    nginx.virtualHosts."monitoring.00a.ch" = {
-      enableACME = true;
-      forceSSL = true;
+    nginx = {
+      enable = true;
 
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.monitoring.webPort}";
-        basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
+      virtualHosts."monitoring.00a.ch" = {
+        enableACME = true;
+        forceSSL = true;
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString config.services.monitoring.webPort}";
+          basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
+        };
+
+        extraConfig = ''
+          satisfy any;
+
+          allow 192.168.1.0/24;
+          deny all;
+        '';
       };
-
-      extraConfig = ''
-        satisfy any;
-
-        allow 192.168.1.0/24;
-        deny all;
-      '';
     };
 
     infomaniak = {
