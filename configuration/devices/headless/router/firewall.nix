@@ -89,7 +89,7 @@ in {
     nat = {
       enable = true;
 
-      externalInterface = externalInterface;
+      inherit externalInterface;
       internalInterfaces =
         [ "${internalInterface}" "${internalInterface}.1" "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.100" ];
 
