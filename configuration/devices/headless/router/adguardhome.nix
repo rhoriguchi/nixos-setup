@@ -2,6 +2,7 @@
 let
   internalInterface = interfaces.internal;
 
+  wingoRouterIp = "192.168.0.254";
   routerIp = "192.168.1.1";
   serverIp = "192.168.2.2";
 
@@ -106,11 +107,19 @@ in {
           }
         ];
 
-        filtering.rewrites = (map (domain: {
+        filtering.rewrites = [
+          {
+            domain = "winbox.local";
+            answer = wingoRouterIp;
+          }
+          {
+            domain = "${config.networking.hostName}.local";
+            answer = routerIp;
+          }
+        ] ++ (map (domain: {
           inherit domain;
           answer = routerIp;
-          # TODO remove "${config.networking.hostName}.local" domain rewrite
-        }) ([ "${config.networking.hostName}.local" ] ++ config.services.infomaniak.hostnames)) ++ (map (domain: {
+        }) config.services.infomaniak.hostnames) ++ (map (domain: {
           inherit domain;
           answer = serverIp;
         }) [
