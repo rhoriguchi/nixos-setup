@@ -3,7 +3,7 @@ let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
 
-  wingeRouterIp = "192.168.0.254";
+  wingoRouterIp = "192.168.0.254";
   cloudKeyIp = "192.168.1.2";
   serverIp = "192.168.2.2";
 in {
@@ -65,7 +65,7 @@ in {
           }
 
           chain lan {
-            ip saddr @private_vlan ip daddr ${wingeRouterIp} accept
+            ip saddr @private_vlan ip daddr ${wingoRouterIp} accept
             ip saddr @private_vlan ip daddr ${serverIp} accept
             ip saddr @private_vlan ip daddr @private_vlan accept
             ip saddr @private_vlan ip daddr @iot_vlan accept
