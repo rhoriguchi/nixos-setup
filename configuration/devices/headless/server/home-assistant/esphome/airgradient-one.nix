@@ -33,10 +33,10 @@
 
     automation = [
       {
-        alias = "Turn on lights AirGradient ONE at 11:00:00";
+        alias = "Turn lights AirGradient ONE on when sunrise";
         trigger = [{
-          platform = "time";
-          at = "11:00:00";
+          platform = "sun";
+          event = "sunrise";
         }];
         action = [{
           action = "light.turn_on";
@@ -45,10 +45,10 @@
         }];
       }
       {
-        alias = "Turn off lights AirGradient ONE at 00:00:00";
+        alias = "Turn lights AirGradient ONE off when sunset";
         trigger = [{
-          platform = "time";
-          at = "00:00:00";
+          platform = "sun";
+          event = "sunset";
         }];
         action = [{
           action = "light.turn_off";
