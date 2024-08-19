@@ -15,7 +15,7 @@
   ];
 
   # TODO remove when zfs is not marked broken
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_8;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
 
   boot.loader = {
     systemd-boot.enable = true;
