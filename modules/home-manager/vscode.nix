@@ -139,6 +139,7 @@
       };
       "files.autoSave" = "onFocusChange";
       "files.exclude" = {
+        "**/__pychache__" = true;
         "**/.classpath" = true;
         "**/.deploy-gc" = true;
         "**/.DS_Store" = true;
