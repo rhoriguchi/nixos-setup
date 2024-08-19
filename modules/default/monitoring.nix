@@ -8,6 +8,8 @@ let
   isChild = cfg.type == "child";
 
   wireguardIps = import ./wireguard-network/ips.nix;
+
+  frrEnabled = builtins.any (service: config.services.frr.${service}.enable) [ "bfd" "bgp" "ospf" "pim" ];
 in {
   options.services.monitoring = {
     enable = lib.mkEnableOption "Monitoring with Netdata";
@@ -52,6 +54,17 @@ in {
       else
         null;
 
+      frr_exporter = {
+        enable = frrEnabled;
+
+        collectors = {
+          bfd = config.services.frr.bfd.enable;
+          bgp = config.services.frr.bgp.enable;
+          ospf = config.services.frr.ospf.enable;
+          pim = config.services.frr.pim.enable;
+        };
+      };
+
       netdata = {
         enable = true;
 
@@ -63,7 +76,6 @@ in {
         # TODO monitor
         # Dnsmasq DHCP https://www.netdata.cloud/integrations/data-collection/dns-and-dhcp-servers/dnsmasq-dhcp
         # Dnsmasq https://www.netdata.cloud/integrations/data-collection/dns-and-dhcp-servers/dnsmasq
-        # FRRouting https://www.netdata.cloud/integrations/data-collection/networking-stack-and-network-interfaces/frrouting
         # HDD temperature https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/hdd-temperature
         # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft
         # nftables https://www.netdata.cloud/integrations/data-collection/linux-systems/firewall/nftables
@@ -139,6 +151,13 @@ in {
             jobs = [{
               name = "nginx_local";
               url = "http://127.0.0.1/nginx_status";
+            }];
+          };
+        } // lib.optionalAttrs frrEnabled {
+          "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
+            jobs = [{
+              name = "frr_exporter_local";
+              url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
             }];
           };
         } // lib.optionalAttrs config.boot.zfs.enabled {
