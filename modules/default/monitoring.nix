@@ -128,7 +128,7 @@ in {
         } // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
             jobs = [{
-              name = "local";
+              name = "nginx_local";
               url = "http://127.0.0.1/nginx_status";
             }];
           };
