@@ -38,6 +38,6 @@ pkgs.nixosTest {
 
     machine.wait_for_open_port(53)
     machine.wait_for_open_port(80)
-    machine.succeed("curl localhost:80")
+    machine.succeed("curl 127.0.0.1:80")
   '';
 }

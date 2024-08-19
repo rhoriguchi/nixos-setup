@@ -129,7 +129,7 @@ in {
           "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
             jobs = [{
               name = "local";
-              url = "http://localhost/nginx_status";
+              url = "http://127.0.0.1/nginx_status";
             }];
           };
         } // lib.optionalAttrs config.boot.zfs.enabled {

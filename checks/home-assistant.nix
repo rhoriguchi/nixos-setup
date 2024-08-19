@@ -55,6 +55,6 @@ pkgs.nixosTest {
     machine.wait_for_unit("postgresql.service")
 
     machine.wait_for_open_port(8123)
-    machine.succeed("curl localhost:8123")
+    machine.succeed("curl 127.0.0.1:8123")
   '';
 }
