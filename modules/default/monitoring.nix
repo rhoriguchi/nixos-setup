@@ -134,6 +134,13 @@ in {
               destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
             };
           }.${cfg.type};
+        } // lib.optionalAttrs config.services.nginx.enable {
+          "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
+            jobs = [{
+              name = "nginx_local";
+              url = "http://127.0.0.1/nginx_status";
+            }];
+          };
         } // {
           "go.d/ping.conf" = pkgs.writers.writeYAML "ping.conf" {
             jobs = [{
@@ -145,13 +152,6 @@ in {
               update_every = 10;
               hosts = [ (import ./wireguard-network/ips.nix).${config.services.wireguard-network.serverHostname} ];
             };
-          };
-        } // lib.optionalAttrs config.services.nginx.enable {
-          "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
-            jobs = [{
-              name = "nginx_local";
-              url = "http://127.0.0.1/nginx_status";
-            }];
           };
         } // lib.optionalAttrs frrEnabled {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
