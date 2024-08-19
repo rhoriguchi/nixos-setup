@@ -125,18 +125,18 @@ in {
               hosts = [ (import ./wireguard-network/ips.nix).${config.services.wireguard-network.serverHostname} ];
             };
           };
-        } // lib.optionalAttrs config.boot.zfs.enabled {
-          "go.d/zfspool.conf" = pkgs.writers.writeYAML "zfspool.conf" {
-            jobs = [{
-              name = "zfspool";
-              binary_path = "${config.boot.zfs.package}/bin/zpool";
-            }];
-          };
         } // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
             jobs = [{
               name = "local";
               url = "http://localhost/nginx_status";
+            }];
+          };
+        } // lib.optionalAttrs config.boot.zfs.enabled {
+          "go.d/zfspool.conf" = pkgs.writers.writeYAML "zfspool.conf" {
+            jobs = [{
+              name = "zfspool";
+              binary_path = "${config.boot.zfs.package}/bin/zpool";
             }];
           };
         };
