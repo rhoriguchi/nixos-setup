@@ -15,7 +15,7 @@
     {
       platform = "group";
       name = "Group Bedroom";
-      entities = [ "light.bedroom_standing_lamp" ];
+      entities = [ "light.bedroom_nightstand_lamp_left" "light.bedroom_nightstand_lamp_right" "light.bedroom_standing_lamp" ];
     }
     {
       platform = "group";

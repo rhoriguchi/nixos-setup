@@ -13,6 +13,10 @@
       - `light.bedroom_standing_lamp`
       - `light.living_room_signe_gradient_kitchen`
       - `light.living_room_signe_gradient_window`
+  - Govee lights local
+    - Rename
+      - `light.bedroom_nightstand_lamp_left`
+      - `light.bedroom_nightstand_lamp_right`
   - localtuya
     - More info here <https://community.home-assistant.io/t/localtuya-stadler-form-eva-humidifier/414349>
     - Get credentials from <https://iot.tuya.com/cloud/basic?id=p1706658370961ww5yan>

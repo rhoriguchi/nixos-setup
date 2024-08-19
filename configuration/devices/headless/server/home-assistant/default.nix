@@ -10,6 +10,10 @@ let
 in {
   imports = getImports ./.;
 
+  networking.firewall.allowedUDPPorts = [
+    4002 # Govee lights local
+  ];
+
   # TODO remove when https://github.com/project-chip/connectedhomeip/issues/25688 fixed
   nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
 
@@ -31,6 +35,7 @@ in {
         # Manual added integrations
         "deluge"
         "esphome"
+        "govee_light_local"
         "homekit_controller"
         "hue"
         "mobile_app"
@@ -62,6 +67,8 @@ in {
       frontend = { };
 
       bluetooth = { };
+
+      sun = { };
 
       history = { };
 

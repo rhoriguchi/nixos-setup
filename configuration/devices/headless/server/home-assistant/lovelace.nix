@@ -241,6 +241,14 @@ in {
                         entity = "light.bedroom_closet_lights";
                       }
                       {
+                        name = "Nightstand lamp left";
+                        entity = "light.bedroom_nightstand_lamp_left";
+                      }
+                      {
+                        name = "Nightstand lamp right";
+                        entity = "light.bedroom_nightstand_lamp_right";
+                      }
+                      {
                         name = "Standing lamp";
                         entity = "light.bedroom_standing_lamp";
                       }
