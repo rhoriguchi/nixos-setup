@@ -54,6 +54,7 @@ in {
         # TODO monitor
         # Dnsmasq DHCP https://www.netdata.cloud/integrations/data-collection/dns-and-dhcp-servers/dnsmasq-dhcp
         # Dnsmasq https://www.netdata.cloud/integrations/data-collection/dns-and-dhcp-servers/dnsmasq
+        # FRRouting https://www.netdata.cloud/integrations/data-collection/networking-stack-and-network-interfaces/frrouting
         # HDD temperature https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/hdd-temperature
         # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft
         # nftables https://www.netdata.cloud/integrations/data-collection/linux-systems/firewall/nftables

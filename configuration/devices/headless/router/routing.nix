@@ -159,5 +159,29 @@ in {
       reflector = true;
       allowInterfaces = [ "${internalInterface}" "${internalInterface}.1" "${internalInterface}.2" "${internalInterface}.3" ];
     };
+
+    frr.pim = {
+      enable = true;
+
+      config = ''
+        ip pim rp 192.168.1.1 239.0.0.0/8
+
+        interface ${internalInterface}
+          ip pim
+          ip igmp
+
+        interface ${internalInterface}.1
+          ip pim
+          ip igmp
+
+        interface ${internalInterface}.2
+          ip pim
+          ip igmp
+
+        interface ${internalInterface}.3
+          ip pim
+          ip igmp
+      '';
+    };
   };
 }
