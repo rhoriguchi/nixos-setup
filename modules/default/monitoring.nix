@@ -74,7 +74,6 @@ in {
         };
 
         # TODO monitor
-        # Dnsmasq DHCP https://www.netdata.cloud/integrations/data-collection/dns-and-dhcp-servers/dnsmasq-dhcp
         # HDD temperature https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/hdd-temperature
         # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft
         # nftables https://www.netdata.cloud/integrations/data-collection/linux-systems/firewall/nftables
@@ -133,6 +132,22 @@ in {
               destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
             };
           }.${cfg.type};
+        } // lib.optionalAttrs config.services.dnsmasq.enable {
+          "go.d/dnsmasq_dhcp.conf" = pkgs.writers.writeYAML "dnsmasq_dhcp.conf" {
+            jobs = [{
+              name = "dnsmasq_dhcp";
+              leases_path = "/var/lib/dnsmasq/dnsmasq.leases";
+              conf_path = let
+                wrapperParts = lib.splitString " " config.systemd.services.dnsmasq.serviceConfig.ExecStart;
+                wrapperFilePath = lib.findFirst (part: lib.hasSuffix "dnsmasq.conf" part) null wrapperParts;
+
+                # TODO `wrapperFilePath` is the correct value when merged https://nixpk.gs/pr-tracker.html?pr=215817
+                wrapperContent = lib.replaceStrings [ "\n" ] [ "" ] (lib.readFile wrapperFilePath);
+
+                parts = lib.splitString "=" wrapperContent;
+              in lib.findFirst (part: lib.hasSuffix "dnsmasq.conf" part) null parts;
+            }];
+          };
         } // lib.optionalAttrs config.services.dnsmasq.enable {
           "go.d/dnsmasq.conf" = pkgs.writers.writeYAML "dnsmasq.conf" {
             jobs = [{
