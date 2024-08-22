@@ -195,6 +195,13 @@ in {
               hosts = [ (import ./wireguard-network/ips.nix).${config.services.wireguard-network.serverHostname} ];
             };
           };
+        } // {
+          "go.d/sensors.conf" = pkgs.writers.writeYAML "sensors.conf" {
+            jobs = [{
+              name = "sensors";
+              binary_path = "${pkgs.lm_sensors}/bin/sensors";
+            }];
+          };
         } // lib.optionalAttrs frrEnabled {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
             jobs = [{
