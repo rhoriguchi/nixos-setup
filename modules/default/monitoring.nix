@@ -75,7 +75,6 @@ in {
 
         # TODO monitor
         # Dnsmasq DHCP https://www.netdata.cloud/integrations/data-collection/dns-and-dhcp-servers/dnsmasq-dhcp
-        # Dnsmasq https://www.netdata.cloud/integrations/data-collection/dns-and-dhcp-servers/dnsmasq
         # HDD temperature https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/hdd-temperature
         # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft
         # nftables https://www.netdata.cloud/integrations/data-collection/linux-systems/firewall/nftables
@@ -134,6 +133,13 @@ in {
               destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
             };
           }.${cfg.type};
+        } // lib.optionalAttrs config.services.dnsmasq.enable {
+          "go.d/dnsmasq.conf" = pkgs.writers.writeYAML "dnsmasq.conf" {
+            jobs = [{
+              name = "local";
+              address = "127.0.0.1:${toString config.services.dnsmasq.settings.port}";
+            }];
+          };
         } // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
             jobs = [{
