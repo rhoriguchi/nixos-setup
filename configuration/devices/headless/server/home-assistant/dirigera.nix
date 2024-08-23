@@ -62,6 +62,19 @@
           target.entity_id = "light.reduit_closet_lights";
         }];
       }
+      {
+        alias = "Turn reduit closet lights off after 10 minutes";
+        trigger = [{
+          platform = "state";
+          entity_id = "light.reduit_closet_lights";
+          to = "on";
+          for.minutes = 10;
+        }];
+        action = [{
+          action = "light.turn_off";
+          target.entity_id = "light.reduit_closet_lights";
+        }];
+      }
     ];
 
     light = [{
