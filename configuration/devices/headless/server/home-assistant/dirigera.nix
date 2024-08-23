@@ -16,25 +16,25 @@
       }
 
       {
-        alias = "Turn Lego bonsai lights on when sunset";
+        alias = "Turn Lego lights on when sunset";
         trigger = [{
           platform = "sun";
           event = "sunset";
         }];
         action = [{
           action = "light.turn_on";
-          target.entity_id = "light.lego_bonsai";
+          target.entity_id = "light.group_lego";
         }];
       }
       {
-        alias = "Turn Lego bonsai lights off when sunrise";
+        alias = "Turn Lego lights off when sunrise";
         trigger = [{
           platform = "sun";
           event = "sunrise";
         }];
         action = [{
           action = "light.turn_off";
-          target.entity_id = "light.lego_bonsai";
+          target.entity_id = "light.group_lego";
         }];
       }
 
