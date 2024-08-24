@@ -1,8 +1,6 @@
 # Home Assistant
 
 - Add integrations
-  - Deluge
-    - Get credentials from [secret.nix](../../../../../secrets.nix)
   - ESPHome
     - `airgradient-one.local`
   - Homekit Device
