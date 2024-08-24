@@ -25,8 +25,8 @@
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "ed52f49f7ec7a97c17bc34ca2c35516abeed7a2b";
-          sha256 = "sha256-4fUrNMvhsFwLnsjW6Ri4F9XmeAS85VGbAATIVMHK5hI=";
+          rev = "a7f6a89fc067551f2d6f752dd7c540e3680020cd";
+          sha256 = "sha256-Yj5h67bN4TC+PTTs///5pBniIspJn5EaYTas7io3fWU=";
         }
       }/pkgs/servers/prowlarr") { };
 
