@@ -78,23 +78,23 @@
       pkgs.evince
       pkgs.file-roller
       pkgs.geary
+      pkgs.gnome-backgrounds
       pkgs.gnome-calendar
+      pkgs.gnome-characters
+      pkgs.gnome-clocks
       pkgs.gnome-connections
       pkgs.gnome-console
+      pkgs.gnome-contacts
       pkgs.gnome-font-viewer
+      pkgs.gnome-logs
+      pkgs.gnome-maps
+      pkgs.gnome-music
       pkgs.gnome-system-monitor
       pkgs.gnome-text-editor
       pkgs.gnome-themes-extra
       pkgs.gnome-tour
       pkgs.gnome-user-docs
-      pkgs.gnome.gnome-backgrounds
-      pkgs.gnome.gnome-characters
-      pkgs.gnome.gnome-clocks
-      pkgs.gnome.gnome-contacts
-      pkgs.gnome.gnome-logs
-      pkgs.gnome.gnome-maps
-      pkgs.gnome.gnome-music
-      pkgs.gnome.gnome-weather
+      pkgs.gnome-weather
       pkgs.nautilus
       pkgs.orca
       pkgs.simple-scan
