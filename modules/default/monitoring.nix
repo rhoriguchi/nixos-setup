@@ -10,6 +10,8 @@ let
   wireguardIps = import ./wireguard-network/ips.nix;
 
   frrEnabled = builtins.any (service: config.services.frr.${service}.enable) [ "bfd" "bgp" "ospf" "pim" ];
+
+  hasCerts = lib.length (lib.attrNames config.security.acme.certs) > 0;
 in {
   options.services.monitoring = {
     enable = lib.mkEnableOption "Monitoring with Netdata";
@@ -209,6 +211,13 @@ in {
               url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
             }];
           };
+        } // lib.optionalAttrs hasCerts {
+          "go.d/x509check.conf" = pkgs.writers.writeYAML "x509check.conf" {
+            jobs = map (hostname: {
+              name = lib.replaceStrings [ "." ] [ "_" ] hostname;
+              source = "file:///var/lib/acme/${hostname}/cert.pem";
+            }) (lib.attrNames config.security.acme.certs);
+          };
         } // lib.optionalAttrs config.boot.zfs.enabled {
           "go.d/zfspool.conf" = pkgs.writers.writeYAML "zfspool.conf" {
             jobs = [{
@@ -223,6 +232,10 @@ in {
     systemd.services.netdata.serviceConfig.AmbientCapabilities = [
       "CAP_NET_RAW" # Required for ping collector
     ];
+
+    users.users.${config.services.netdata.user}.extraGroups =
+      let acmeGroups = lib.unique (map (acme: acme.group) (lib.attrValues config.security.acme.certs));
+      in lib.optionals hasCerts acmeGroups;
 
     networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = lib.mkIf isParent [ streamPort ];
   };
