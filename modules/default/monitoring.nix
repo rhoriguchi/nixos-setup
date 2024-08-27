@@ -48,13 +48,10 @@ in {
       nginx.statusPage = true;
 
       # TODO workaround for https://github.com/NixOS/nixpkgs/issues/204189
-      postgresql.initialScript = if config.services.postgresql.enable then
-        pkgs.writeText "initialScript" ''
-          CREATE USER netdata;
-          GRANT pg_monitor TO netdata;
-        ''
-      else
-        null;
+      postgresql.initialScript = pkgs.writeText "initialScript" ''
+        CREATE USER netdata;
+        GRANT pg_monitor TO netdata;
+      '';
 
       frr_exporter = {
         enable = frrEnabled;
