@@ -70,27 +70,6 @@ in {
         package = (pkgs.netdata.override {
           withCloudUi = isParent;
           withCups = config.services.printing.enable;
-        }).overrideAttrs (oldAttrs: {
-          patches = (oldAttrs.patches or [ ]) ++ (lib.optionals config.services.dnsmasq.enable [
-            # TODO remove when https://github.com/netdata/netdata/pull/18376 in package
-            (let
-              content = lib.readFile (pkgs.fetchpatch {
-                url = "https://github.com/netdata/netdata/pull/18376.patch";
-                hash = "sha256-ewYdYDtvzfcEWYjylXaQ3DtUjYB7ur5g0CfOmJlrul8=";
-              });
-            in pkgs.writeText "18376.patch"
-            (lib.replaceStrings [ "src/go/plugin/go.d/modules/dnsmasq" ] [ "src/go/collectors/go.d.plugin/modules/dnsmasq" ] content))
-
-            # TODO remove when https://github.com/netdata/netdata/pull/18394 in package
-            (let
-              content = lib.readFile (pkgs.fetchpatch {
-                url = "https://github.com/netdata/netdata/pull/18394.patch";
-                hash = "sha256-N+FwvRSJ/8o865EmRqAy+sFQT7CMeFxdOHICVT71xMw=";
-              });
-            in pkgs.writeText "18394.patch"
-            (lib.replaceStrings [ "src/go/plugin/go.d/modules/dnsmasq_dhcp" ] [ "src/go/collectors/go.d.plugin/modules/dnsmasq_dhcp" ]
-              content))
-          ]);
         });
 
         # TODO monitor
