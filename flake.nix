@@ -286,6 +286,8 @@
           pre-commit = inputs.git-hooks.lib.${system}.run {
             src = ./.;
 
+            addGcRoot = true;
+
             hooks = {
               actionlint.enable = true;
               deadnix = {
