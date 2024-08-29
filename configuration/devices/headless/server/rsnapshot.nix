@@ -52,7 +52,8 @@ in {
       backup	${config.services.sonarr.dataDir}/	./
       backup	${config.services.tautulli.dataDir}/	./
       backup	/mnt/Data/Series	./
-      backup	/var/lib/esphome/	./
+      backup	/var/cache/netdata	./
+      backup	/var/lib/esphome	./
     '';
   };
 }
