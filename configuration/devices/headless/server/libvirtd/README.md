@@ -11,6 +11,7 @@ Once Windows is installed run in an elevated cmd.
 Some tools need to be installed manually.
 
 ```cmd
+
 cd %userprofile%/Downloads
 
 REM SPICE Guest Tools
@@ -44,6 +45,8 @@ curl --location --output winfsp.msi --url "https://github.com/winfsp/winfsp/rele
 start /wait msiexec /i winfsp.msi /quiet /qn /norestart
 del /f winfsp.msi
 sc config VirtioFsSvc start=auto
+
+wmic computersystem where name="%COMPUTERNAME%" call rename name="Ryan-Desktop"
 
 REM Power tuning
 powercfg -hibernate off
