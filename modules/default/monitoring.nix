@@ -86,7 +86,7 @@ in {
         # nftables https://www.netdata.cloud/integrations/data-collection/linux-systems/firewall/nftables
         # Nvidia GPU https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/nvidia-gpu
         # NVMe devices https://www.netdata.cloud/integrations/data-collection/storage-mount-points-and-filesystems/nvme-devices
-        # S.M.A.R.T. https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/s.m.a.r.t.
+        # S.M.A.R.T. https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/s.m.a.r.t./
 
         config = {
           parent = {
