@@ -20,7 +20,7 @@ start /wait spice-guest-tools.exe
 del /f spice-guest-tools.exe
 
 REM Nvidia GeForce Experience
-curl --location --output GeForce_Experience.exe --url "https://de.download.nvidia.com/GFE/GFEClient/3.27.0.120/GeForce_Experience_v3.27.0.120.exe"
+curl --location --output GeForce_Experience.exe --url "https://de.download.nvidia.com/GFE/GFEClient/3.28.0.417/GeForce_Experience_v3.28.0.417.exe"
 start /wait GeForce_Experience.exe
 del /f GeForce_Experience.exe
 ```
