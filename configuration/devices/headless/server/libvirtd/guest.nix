@@ -115,6 +115,9 @@ in {
 
               <interface type='network'>
                 <source network='default'/>
+
+                <!-- Same mac is used in network.nix -->
+                <mac address='52:54:00:49:cc:f3'/>
               </interface>
 
               <rng model='virtio'>

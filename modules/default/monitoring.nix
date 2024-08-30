@@ -70,6 +70,14 @@ in {
         package = (pkgs.netdata.override {
           withCloudUi = isParent;
           withCups = config.services.printing.enable;
+        }).overrideAttrs (oldAttrs: {
+          patches = (oldAttrs.patches or [ ]) ++ (lib.optionals config.virtualisation.libvirtd.enable [
+            # TODO remove when https://github.com/netdata/netdata/pull/18445 in package
+            (pkgs.fetchpatch {
+              url = "https://github.com/netdata/netdata/pull/18445.patch";
+              hash = "sha256-y5KwK7naDg9PPr1XGJ1igO870SDKcx2DkG9aNByBe+Y=";
+            })
+          ]);
         });
 
         # TODO monitor
@@ -79,8 +87,6 @@ in {
         # Nvidia GPU https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/nvidia-gpu
         # NVMe devices https://www.netdata.cloud/integrations/data-collection/storage-mount-points-and-filesystems/nvme-devices
         # S.M.A.R.T. https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/s.m.a.r.t.
-
-        # TODO install on windows (Plugin: go.d.plugin Module: windows)
 
         config = {
           parent = {
