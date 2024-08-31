@@ -30,6 +30,16 @@
         }
       }/pkgs/servers/prowlarr") { };
 
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=336198
+    plexRaw = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "86296a6c37ac479018ca5fc6f5d7c63a3ddfbc18";
+          sha256 = "sha256-5XXSeSI6u0Xh4yEs9f2mmrMI73snwMg5rsZpusOSkZ8=";
+        }
+      }/pkgs/servers/plex/raw.nix") { };
+
     home-assistant-custom-components = super.home-assistant-custom-components // {
       # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=337980
       localtuya = super.callPackage (import "${
