@@ -1,4 +1,4 @@
-{ pkgs, lib, config, secrets, ... }: {
+{ pkgs, config, secrets, ... }: {
   services = {
     tautulli.enable = true;
 
@@ -35,10 +35,10 @@
   systemd.services.tautulli = rec {
     path = [ pkgs.gnused ];
 
-    preStart = lib.concatStringsSep "&&" [
-      "sed -i '/http_password/d' '${config.services.tautulli.configFile}'"
-      "sed -i '/http_username/d' '${config.services.tautulli.configFile}'"
-    ];
+    preStart = ''
+      sed -i '/http_password/d' '${config.services.tautulli.configFile}'
+      sed -i '/http_username/d' '${config.services.tautulli.configFile}'
+    '';
     preStop = preStart;
   };
 }
