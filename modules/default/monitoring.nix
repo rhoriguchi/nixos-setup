@@ -189,7 +189,7 @@ in {
         } // lib.optionalAttrs frrEnabled {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
             jobs = [{
-              name = "frr_exporter_local";
+              name = "frr";
               url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
             }];
           };
