@@ -64,7 +64,6 @@
 
       overlays.default = lib.composeManyExtensions ([
         inputs.deploy-rs.overlays.default
-
         inputs.nix-minecraft.overlay
 
         (_: super: { firefox-addons = inputs.firefox-addons.packages.${super.system}; })
