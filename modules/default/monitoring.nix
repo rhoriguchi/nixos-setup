@@ -165,7 +165,7 @@ in {
         } // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
             jobs = [{
-              name = "nginx_local";
+              name = "local";
               url = "http://localhost/nginx_status";
             }];
           };
@@ -191,10 +191,10 @@ in {
         } // {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
             jobs = lib.optional config.services.borgmatic.enable {
-              name = "borg";
+              name = "Borg";
               url = "http://127.0.0.1:${toString config.services.borg-exporter.port}/metrics";
             } ++ lib.optional frrEnabled {
-              name = "frr";
+              name = "FRRouting";
               url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
             };
           };
