@@ -2,12 +2,12 @@
   imports = [
     ../common.nix
 
+    ./backup.nix
     ./fancontrol.nix
     ./home-assistant
     ./libvirtd
     ./minecraft-server.nix
     ./monitoring.nix
-    ./rsnapshot.nix
     ./sonarr
     ./tautulli.nix
 

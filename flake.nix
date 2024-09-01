@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
+    borg-exporter = {
+      url = "github:k0ral/borg-exporter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -66,7 +71,10 @@
         inputs.deploy-rs.overlays.default
         inputs.nix-minecraft.overlay
 
-        (_: super: { firefox-addons = inputs.firefox-addons.packages.${super.system}; })
+        (_: super: {
+          borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system};
+          firefox-addons = inputs.firefox-addons.packages.${super.system};
+        })
       ] ++ import ./overlays);
 
       deploy.nodes = let

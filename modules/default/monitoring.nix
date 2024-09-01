@@ -53,6 +53,8 @@ in {
         GRANT pg_monitor TO netdata;
       '';
 
+      borg-exporter.enable = config.services.borgmatic.enable;
+
       frr_exporter = {
         enable = frrEnabled;
 
@@ -186,12 +188,15 @@ in {
               binary_path = "${pkgs.lm_sensors}/bin/sensors";
             }];
           };
-        } // lib.optionalAttrs frrEnabled {
+        } // {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
-            jobs = [{
+            jobs = lib.optional config.services.borgmatic.enable {
+              name = "borg";
+              url = "http://127.0.0.1:${toString config.services.borg-exporter.port}/metrics";
+            } ++ lib.optional frrEnabled {
               name = "frr";
               url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
-            }];
+            };
           };
         } // lib.optionalAttrs hasCerts {
           "go.d/x509check.conf" = pkgs.writers.writeYAML "x509check.conf" {
