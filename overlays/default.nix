@@ -20,16 +20,6 @@
         }
       }/pkgs/by-name/ba/bazecor/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=334020
-    prowlarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "a7f6a89fc067551f2d6f752dd7c540e3680020cd";
-          sha256 = "sha256-Yj5h67bN4TC+PTTs///5pBniIspJn5EaYTas7io3fWU=";
-        }
-      }/pkgs/servers/prowlarr") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=336198
     plexRaw = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
@@ -39,18 +29,6 @@
           sha256 = "sha256-5XXSeSI6u0Xh4yEs9f2mmrMI73snwMg5rsZpusOSkZ8=";
         }
       }/pkgs/servers/plex/raw.nix") { };
-
-    home-assistant-custom-components = super.home-assistant-custom-components // {
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=337980
-      localtuya = super.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "NixOS";
-            repo = "nixpkgs";
-            rev = "060ad743acf87c6d330d86ae9df433a90f60ad94";
-            sha256 = "sha256-qqJX2fJbRTp6Ur1fJcFveenTxP6INseo8Ckhxfq7pxM=";
-          }
-        }/pkgs/servers/home-assistant/custom-components/localtuya") { };
-    };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
