@@ -6,6 +6,7 @@ in {
 
     ./adguardhome.nix
     ./firewall.nix
+    ./qos.nix
     ./routing.nix
     ./web-proxy.nix
 

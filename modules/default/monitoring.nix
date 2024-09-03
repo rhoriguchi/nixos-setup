@@ -126,7 +126,9 @@ in {
 
             ml.enabled = "no";
           };
-        }.${cfg.type};
+        }.${cfg.type} // lib.optionalAttrs config.services.fireqos.enable {
+          "plugin:tc"."script to run to get tc values" = "${pkgs.netdata}/libexec/netdata/plugins.d/tc-qos-helper.sh";
+        };
 
         configDir = {
           "stream.conf" = (pkgs.formats.ini { }).generate "stream.conf" {
@@ -212,13 +214,21 @@ in {
               binary_path = "${config.boot.zfs.package}/bin/zpool";
             }];
           };
+        } // lib.optionalAttrs config.services.fireqos.enable {
+          "tc-qos-helper.conf" = pkgs.writeText "tc-qos-helper.conf" ''
+            tc_show="class"
+          '';
         };
       };
     };
 
-    systemd.services.netdata.serviceConfig.AmbientCapabilities = [
-      "CAP_NET_RAW" # Required for ping collector
-    ];
+    systemd.services.netdata.serviceConfig = {
+      path = lib.optional config.services.fireqos.enable pkgs.firehol;
+
+      AmbientCapabilities = [
+        "CAP_NET_RAW" # Required for ping collector
+      ];
+    };
 
     users.users.${config.services.netdata.user}.extraGroups =
       let acmeGroups = lib.unique (map (acme: acme.group) (lib.attrValues config.security.acme.certs));
