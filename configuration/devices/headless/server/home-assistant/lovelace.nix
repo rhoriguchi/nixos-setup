@@ -92,11 +92,11 @@ in {
               entities = [
                 {
                   name = "Temperature";
-                  entity = "sensor.plus_h_t_temperature";
+                  entity = "sensor.bedroom_plus_h_t_temperature";
                 }
                 {
                   name = "Humidity";
-                  entity = "sensor.plus_h_t_humidity";
+                  entity = "sensor.bedroom_plus_h_t_humidity";
                 }
               ];
             }
@@ -397,7 +397,7 @@ in {
                 }
                 {
                   name = "Shelly H&T Gen3";
-                  entity = "sensor.plus_h_t_battery";
+                  entity = "sensor.bedroom_plus_h_t_battery";
                 }
               ];
 
