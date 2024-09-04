@@ -22,8 +22,6 @@
     - Add device, id can be found here <https://eu.local.tuya.com/cloud/basic?id=p1706658370961ww5yan&deviceTab=all>
   - Netatmo
     - Get credentials from <https://dev.netatmo.com>
-  - Shelly
-    - `shellyhtg3-84fce639c104.local`
   - UniFi Network
 - Settings to change
   - `Profile` (bottom left user icon) -> `Advanced mode = true`
@@ -37,3 +35,13 @@
 - `curl -d "single=post://XXLPitu-Server.local:8123/api/webhook/mystrom_button_orange" "http://myStrom-Button-E9DAD9.local/api/v1/device/F4CFA2E9DAD9"`
 - `curl -d "single=post://XXLPitu-Server.local:8123/api/webhook/mystrom_button_purple" "http://myStrom-Button-E9D761.local/api/v1/device/F4CFA2E9D761"`
 - `curl -d "single=post://XXLPitu-Server.local:8123/api/webhook/mystrom_button_white" "http://myStrom-Button-F8CB7A.local/api/v1/device/CC50E3F8CB7A"`
+
+## Shelly
+
+### shellyhtg3-84fce639c104.local
+
+1. Open in browser `http://shellyhtg3-84fce639c104.local/#/settings/web-socket`
+2. Outbound websocket settings
+   - Enable: `true`
+   - Connection type: `TLS no validation`:
+   - Server: `wss://home-assistant.00a.ch/api/shelly/ws`

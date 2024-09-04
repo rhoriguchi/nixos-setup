@@ -89,10 +89,16 @@ in {
               type = "entities";
               title = "Bedroom";
 
-              entities = [{
-                name = "Temperature";
-                entity = "sensor.netatmo_current_temperature_bedroom";
-              }];
+              entities = [
+                {
+                  name = "Temperature";
+                  entity = "sensor.plus_h_t_temperature";
+                }
+                {
+                  name = "Humidity";
+                  entity = "sensor.plus_h_t_humidity";
+                }
+              ];
             }
             {
               type = "entities";
@@ -429,10 +435,16 @@ in {
               bulk_rename = [ { from = " Battery Percent"; } { from = " battery"; } { from = "myStrom button "; } { from = "Valve "; } ];
               sort.by = "name";
 
-              entities = [{
-                name = "Reduit Parasoll";
-                entity = "sensor.reduit_parasoll_battery";
-              }];
+              entities = [
+                {
+                  name = "Reduit Parasoll";
+                  entity = "sensor.reduit_parasoll_battery";
+                }
+                {
+                  name = "Shelly H&T Gen3";
+                  entity = "sensor.plus_h_t_battery";
+                }
+              ];
 
               collapse = [
                 {
