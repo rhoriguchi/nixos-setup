@@ -380,53 +380,8 @@ in {
               ];
             }
             {
-              type = "vertical-stack";
-
-              cards = [
-                {
-                  type = "entities";
-                  title = "Network";
-                  entities = [
-                    {
-                      name = "Total";
-                      entity = "sensor.unifi_total";
-                    }
-                    { type = "divider"; }
-                    {
-                      name = "Wired";
-                      entity = "sensor.unifi_wired";
-                    }
-                    {
-                      type = "custom:fold-entity-row";
-                      head = {
-                        name = "WiFi";
-                        entity = "sensor.unifi_wifi";
-                      };
-
-                      open = true;
-
-                      entities = [
-                        {
-                          name = "63466727";
-                          entity = "sensor.unifi_wifi_default";
-                        }
-                        {
-                          name = "63466727-Guest";
-                          entity = "sensor.unifi_wifi_guest";
-                        }
-                        {
-                          name = "63466727-IoT";
-                          entity = "sensor.unifi_wifi_iot";
-                        }
-                      ];
-                    }
-                  ];
-                }
-                {
-                  type = "picture";
-                  image = "/local/img/wifi-guest-qr.png";
-                }
-              ];
+              type = "picture";
+              image = "/local/img/wifi-guest-qr.png";
             }
             {
               type = "custom:battery-state-card";

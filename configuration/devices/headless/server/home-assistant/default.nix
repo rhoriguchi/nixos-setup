@@ -41,7 +41,6 @@ in {
         "mobile_app"
         "netatmo"
         "shelly"
-        "unifi"
         "yeelight"
       ];
     };

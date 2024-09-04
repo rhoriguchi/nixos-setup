@@ -22,7 +22,6 @@
     - Add device, id can be found here <https://eu.local.tuya.com/cloud/basic?id=p1706658370961ww5yan&deviceTab=all>
   - Netatmo
     - Get credentials from <https://dev.netatmo.com>
-  - UniFi Network
 - Settings to change
   - `Profile` (bottom left user icon) -> `Advanced mode = true`
   - Delete all areas
