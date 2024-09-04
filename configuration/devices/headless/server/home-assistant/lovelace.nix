@@ -387,19 +387,19 @@ in {
               type = "custom:battery-state-card";
               title = "Battery";
 
-              bulk_rename = [ { from = " Battery Percent"; } { from = " battery"; } { from = "myStrom button "; } { from = "Valve "; } ];
+              bulk_rename = [
+                { from = " Battery Percent"; }
+                { from = " battery"; }
+                { from = " Plus H&T"; }
+                { from = "myStrom button "; }
+                { from = "Valve "; }
+              ];
               sort.by = "name";
 
-              entities = [
-                {
-                  name = "Reduit Parasoll";
-                  entity = "sensor.reduit_parasoll_battery";
-                }
-                {
-                  name = "Shelly H&T Gen3";
-                  entity = "sensor.bedroom_plus_h_t_battery";
-                }
-              ];
+              entities = [{
+                name = "Reduit Parasoll";
+                entity = "sensor.reduit_parasoll_battery";
+              }];
 
               collapse = [
                 {
@@ -420,6 +420,10 @@ in {
                     "sensor.valve_orange_battery_percent"
                     "sensor.valve_yellow_battery_percent"
                   ];
+                }
+                {
+                  name = "Shelly H&T Gen3 {range}%";
+                  entities = [ "sensor.bedroom_plus_h_t_battery" ];
                 }
               ];
             }
