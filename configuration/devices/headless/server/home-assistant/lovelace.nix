@@ -436,15 +436,6 @@ in {
 
               collapse = [
                 {
-                  name = "Netatmo valves {range}%";
-                  entities = [
-                    "sensor.valve_blue_battery_percent"
-                    "sensor.valve_green_battery_percent"
-                    "sensor.valve_orange_battery_percent"
-                    "sensor.valve_yellow_battery_percent"
-                  ];
-                }
-                {
                   name = "myStrom buttons {range}%";
                   entities = [
                     "sensor.mystrom_button_blue_battery"
@@ -452,6 +443,15 @@ in {
                     "sensor.mystrom_button_orange_battery"
                     "sensor.mystrom_button_purple_battery"
                     "sensor.mystrom_button_white_battery"
+                  ];
+                }
+                {
+                  name = "Netatmo valves {range}%";
+                  entities = [
+                    "sensor.valve_blue_battery_percent"
+                    "sensor.valve_green_battery_percent"
+                    "sensor.valve_orange_battery_percent"
+                    "sensor.valve_yellow_battery_percent"
                   ];
                 }
               ];
