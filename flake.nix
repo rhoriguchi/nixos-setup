@@ -306,7 +306,7 @@
 
                 settings.configuration.MD013 = false;
               };
-              nixfmt = {
+              nixfmt-classic = {
                 enable = true;
                 excludes = [ "secrets\\.nix" ];
 

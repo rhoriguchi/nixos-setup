@@ -18,7 +18,7 @@
       rygel.enable = false;
     };
 
-    udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+    udev.packages = [ pkgs.gnome-settings-daemon ];
   };
 
   programs = {
