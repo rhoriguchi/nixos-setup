@@ -196,6 +196,9 @@ in {
             } ++ lib.optional frrEnabled {
               name = "FRRouting";
               url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
+            } ++ lib.optional config.services.grafana.enable {
+              name = "Grafana";
+              url = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}/metrics";
             };
           };
         } // lib.optionalAttrs hasCerts {

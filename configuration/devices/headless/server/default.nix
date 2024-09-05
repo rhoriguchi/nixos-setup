@@ -6,6 +6,7 @@
     ./fancontrol.nix
     ./home-assistant
     ./libvirtd
+    ./log-management.nix
     ./minecraft-server.nix
     ./monitoring.nix
     ./sonarr

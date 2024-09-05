@@ -125,6 +125,7 @@ in {
         }) [
           "deluge.00a.ch"
           "esphome.00a.ch"
+          "grafana.00a.ch"
           "home-assistant.00a.ch"
           "monitoring.00a.ch"
           "prowlarr.00a.ch"
