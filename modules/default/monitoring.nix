@@ -142,7 +142,7 @@ in {
         } // lib.optionalAttrs config.services.dnsmasq.enable {
           "go.d/dnsmasq_dhcp.conf" = pkgs.writers.writeYAML "dnsmasq_dhcp.conf" {
             jobs = [{
-              name = "dnsmasq_dhcp";
+              name = "local";
               leases_path = "/var/lib/dnsmasq/dnsmasq.leases";
               conf_path = let
                 wrapperParts = lib.splitString " " config.systemd.services.dnsmasq.serviceConfig.ExecStart;
@@ -184,7 +184,7 @@ in {
         } // {
           "go.d/sensors.conf" = pkgs.writers.writeYAML "sensors.conf" {
             jobs = [{
-              name = "sensors";
+              name = "local";
               binary_path = "${pkgs.lm_sensors}/bin/sensors";
             }];
           };
@@ -208,7 +208,7 @@ in {
         } // lib.optionalAttrs config.boot.zfs.enabled {
           "go.d/zfspool.conf" = pkgs.writers.writeYAML "zfspool.conf" {
             jobs = [{
-              name = "zfspool";
+              name = "local";
               binary_path = "${config.boot.zfs.package}/bin/zpool";
             }];
           };
