@@ -92,11 +92,11 @@ in {
               entities = [
                 {
                   name = "Temperature";
-                  entity = "sensor.bedroom_plus_h_t_temperature";
+                  entity = "sensor.bedroom_h_t_gen3_temperature";
                 }
                 {
                   name = "Humidity";
-                  entity = "sensor.bedroom_plus_h_t_humidity";
+                  entity = "sensor.bedroom_h_t_gen3_humidity";
                 }
               ];
             }
@@ -107,11 +107,11 @@ in {
               entities = [
                 {
                   name = "Temperature";
-                  entity = "sensor.entrance_plus_h_t_temperature";
+                  entity = "sensor.entrance_h_t_gen3_temperature";
                 }
                 {
                   name = "Humidity";
-                  entity = "sensor.entrance_plus_h_t_humidity";
+                  entity = "sensor.entrance_h_t_gen3_humidity";
                 }
               ];
             }
@@ -432,7 +432,7 @@ in {
                 }
                 {
                   name = "Shelly H&T Gen3 {range}%";
-                  entities = [ "sensor.bedroom_plus_h_t_battery" "sensor.entrance_plus_h_t_battery" ];
+                  entities = [ "sensor.bedroom_h_t_gen3_battery" "sensor.entrance_h_t_gen3_battery" ];
                 }
               ];
             }
