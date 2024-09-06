@@ -388,11 +388,20 @@ in {
               title = "Battery";
 
               bulk_rename = [
-                { from = " Battery Percent"; }
+                # myStrom buttons
                 { from = " battery"; }
+                {
+                  from = "myStrom button ";
+                }
+
+                # Netatmo valves
+                { from = " Battery"; }
+                {
+                  from = "Valve ";
+                }
+
+                # Shelly H&T Gen3
                 { from = " Plus H&T"; }
-                { from = "myStrom button "; }
-                { from = "Valve "; }
               ];
               sort.by = "name";
 
