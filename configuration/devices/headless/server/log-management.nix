@@ -35,7 +35,10 @@
           admin_password = secrets.grafana.users.${config.services.grafana.settings.security.admin_user}.password;
         };
 
-        users.login_hint = "password";
+        analytics = {
+          enabled = false;
+          check_for_updates = false;
+        };
       };
 
       provision = {
