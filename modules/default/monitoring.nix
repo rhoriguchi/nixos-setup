@@ -66,6 +66,8 @@ in {
         };
       };
 
+      loki.configuration.server.register_instrumentation = true;
+
       netdata = {
         enable = true;
 
@@ -199,6 +201,9 @@ in {
             } ++ lib.optional config.services.grafana.enable {
               name = "Grafana";
               url = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}/metrics";
+            } ++ lib.optional config.services.loki.enable {
+              name = "Loki";
+              url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/metrics";
             };
           };
         } // lib.optionalAttrs hasCerts {

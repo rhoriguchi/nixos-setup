@@ -82,6 +82,9 @@ zfs create \
   data/log
 
 zfs create \
+  data/loki
+
+zfs create \
   data/series
 
 zfs create \

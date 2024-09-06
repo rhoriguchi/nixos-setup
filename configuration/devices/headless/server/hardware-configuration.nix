@@ -34,6 +34,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/mnt/Data/loki" = {
+    device = "data/loki";
+    fsType = "zfs";
+  };
+
   fileSystems."/mnt/Data/Series" = {
     device = "data/series";
     fsType = "zfs";
