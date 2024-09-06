@@ -66,7 +66,7 @@
         auth_enabled = false;
 
         server = {
-          http_listen_address = "127.0.0.1";
+          http_listen_address = "0.0.0.0";
           http_listen_port = 3100;
 
           grpc_listen_port = 0;
@@ -115,5 +115,10 @@
         tracing.enabled = false;
       };
     };
+
+    log-shipping.useLocalhost = true;
   };
+
+  networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts =
+    [ config.services.loki.configuration.server.http_listen_port ];
 }

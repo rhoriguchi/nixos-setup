@@ -31,11 +31,19 @@
     openssh.authorizedKeys.keys = [ public-keys.default ];
   };
 
-  services.monitoring = {
-    enable = true;
+  services = {
+    log-shipping = {
+      enable = true;
 
-    type = "child";
-    parentHostname = "XXLPitu-Server";
-    apiKey = secrets.monitoring.apiKey;
+      receiverHostname = "XXLPitu-Server";
+    };
+
+    monitoring = {
+      enable = true;
+
+      type = "child";
+      parentHostname = "XXLPitu-Server";
+      apiKey = secrets.monitoring.apiKey;
+    };
   };
 }
