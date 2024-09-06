@@ -10,7 +10,15 @@
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
           proxyWebsockets = true;
+          basicAuth = secrets.nginx.basicAuth."grafana.00a.ch";
         };
+
+        extraConfig = ''
+          satisfy any;
+
+          allow 192.168.1.0/24;
+          deny all;
+        '';
       };
     };
 
@@ -28,11 +36,15 @@
       settings = {
         server.domain = "grafana.00a.ch";
 
-        security = {
-          secret_key = secrets.grafana.secret_key;
+        security.secret_key = secrets.grafana.secret_key;
 
-          admin_user = "admin";
-          admin_password = secrets.grafana.users.${config.services.grafana.settings.security.admin_user}.password;
+        auth.disable_login_form = true;
+
+        "auth.anonymous" = {
+          enabled = true;
+
+          org_name = "Main Org.";
+          org_role = "Editor";
         };
 
         analytics = {
