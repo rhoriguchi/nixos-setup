@@ -37,9 +37,12 @@
 
 ## Shelly
 
-### shellyhtg3-84fce639c104.local
+Configure:
 
-1. Open in browser `http://shellyhtg3-84fce639c104.local/#/settings/web-socket`
+- `shellyhtg3-34b7da8ccedc.local`
+- `shellyhtg3-84fce639c104.local`
+
+1. Open in browser:`http://HOSTNAME.local/#/settings/web-socket`
 2. Outbound websocket settings
    - Enable: `true`
    - Connection type: `TLS no validation`:

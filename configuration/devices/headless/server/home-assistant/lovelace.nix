@@ -107,11 +107,11 @@ in {
               entities = [
                 {
                   name = "Temperature";
-                  entity = "sensor.netatmo_current_temperature_entrance";
+                  entity = "sensor.entrance_plus_h_t_temperature";
                 }
                 {
                   name = "Humidity";
-                  entity = "sensor.stadler_form_karl_humidity";
+                  entity = "sensor.entrance_plus_h_t_humidity";
                 }
               ];
             }
@@ -423,7 +423,7 @@ in {
                 }
                 {
                   name = "Shelly H&T Gen3 {range}%";
-                  entities = [ "sensor.bedroom_plus_h_t_battery" ];
+                  entities = [ "sensor.bedroom_plus_h_t_battery" "sensor.entrance_plus_h_t_battery" ];
                 }
               ];
             }
