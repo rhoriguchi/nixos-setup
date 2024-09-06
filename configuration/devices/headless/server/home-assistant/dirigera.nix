@@ -80,6 +80,18 @@
     light = [{
       platform = "template";
       lights = {
+        entrance_lamp = {
+          friendly_name = "Entrance lamp";
+          value_template = "{{ states('switch.entrance_lamp') }}";
+          turn_on = {
+            service = "switch.turn_on";
+            target.entity_id = "switch.entrance_lamp";
+          };
+          turn_off = {
+            service = "switch.turn_off";
+            target.entity_id = "switch.entrance_lamp";
+          };
+        };
         entrance_sideboard_lamp = {
           friendly_name = "Entrance sideboard lamp";
           value_template = "{{ states('switch.entrance_sideboard_lamp') }}";

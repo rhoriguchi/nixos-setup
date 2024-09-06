@@ -20,7 +20,7 @@
     {
       platform = "group";
       name = "Group Entrance";
-      entities = [ "light.entrance_sideboard_lamp" "light.remove_yeelight_lights" ];
+      entities = [ "light.entrance_lamp" "light.entrance_sideboard_lamp" "light.remove_yeelight_lights" ];
     }
     {
       platform = "group";
