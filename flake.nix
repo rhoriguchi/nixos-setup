@@ -31,11 +31,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,7 +55,7 @@
       };
 
       nixosModules = {
-        default.imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
+        default.imports = [ ./modules/default ];
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
@@ -69,7 +64,6 @@
 
       overlays.default = lib.composeManyExtensions ([
         inputs.deploy-rs.overlays.default
-        inputs.nix-minecraft.overlay
 
         (_: super: {
           borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system};

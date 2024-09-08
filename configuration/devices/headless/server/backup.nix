@@ -21,7 +21,6 @@ in {
           config.services.deluge.config.torrentfiles_location
           config.services.grafana.dataDir
           config.services.loki.dataDir
-          config.services.minecraft-servers.dataDir
           config.services.plex.dataDir
           config.services.prowlarr.dataDir
           config.services.resilio.syncPath

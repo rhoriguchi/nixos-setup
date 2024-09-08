@@ -94,13 +94,6 @@ in {
         [ "${internalInterface}" "${internalInterface}.1" "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.100" ];
 
       forwardPorts = [
-        # Minecraft
-        {
-          proto = "tcp";
-          destination = "${serverIp}:25565";
-          sourcePort = 25565;
-        }
-
         # Plex
         {
           proto = "tcp";
