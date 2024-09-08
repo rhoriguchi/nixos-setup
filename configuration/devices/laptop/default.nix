@@ -38,8 +38,6 @@
   hardware = {
     bluetooth.enable = true;
 
-    pulseaudio.enable = true;
-
     logitech.wireless = {
       enable = true;
       enableGraphical = true;
