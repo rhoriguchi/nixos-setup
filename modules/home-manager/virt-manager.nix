@@ -11,7 +11,7 @@
         delete-storage = true;
         forcepoweroff = true;
         pause = true;
-        poweroff = true;
+        poweroff = false;
         removedev = true;
         unapplied-dev = true;
       };
