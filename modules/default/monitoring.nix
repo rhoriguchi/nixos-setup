@@ -229,7 +229,8 @@ in {
     };
 
     systemd.services.netdata.serviceConfig.AmbientCapabilities = [
-      "CAP_NET_RAW" # Required for ping collector
+      # Ping collector
+      "CAP_NET_RAW"
     ];
 
     users.users.${config.services.netdata.user}.extraGroups =
