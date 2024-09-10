@@ -76,6 +76,7 @@ in {
         package = (pkgs.netdata.override {
           withCloudUi = isParent;
           withCups = config.services.printing.enable;
+          withNdsudo = true;
         }).overrideAttrs (oldAttrs: {
           patches = (oldAttrs.patches or [ ]) ++ (lib.optionals config.virtualisation.libvirtd.enable [
             # TODO remove when https://github.com/netdata/netdata/pull/18445 in package
@@ -86,12 +87,18 @@ in {
           ]);
         });
 
+        extraNdsudoPackages = [
+          # NVMe devices collector
+          pkgs.nvme-cli
+
+          # S.M.A.R.T. collector
+          pkgs.smartmontools
+        ];
+
         # TODO monitor
         # HDD temperature https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/hdd-temperature
         # nftables https://www.netdata.cloud/integrations/data-collection/linux-systems/firewall/nftables
         # Nvidia GPU https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/nvidia-gpu
-        # NVMe devices https://www.netdata.cloud/integrations/data-collection/storage-mount-points-and-filesystems/nvme-devices
-        # S.M.A.R.T. https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/s.m.a.r.t./
 
         config = {
           parent = {
@@ -173,6 +180,8 @@ in {
             }];
           };
         } // {
+          "go.d/nvme.conf" = pkgs.writers.writeYAML "nvme.conf" { jobs = [{ name = "local"; }]; };
+        } // {
           "go.d/ping.conf" = pkgs.writers.writeYAML "ping.conf" {
             jobs = [{
               name = "internet";
@@ -184,6 +193,8 @@ in {
               hosts = [ (import ./wireguard-network/ips.nix).${config.services.wireguard-network.serverHostname} ];
             };
           };
+        } // {
+          "go.d/smartctl.conf" = pkgs.writers.writeYAML "smartctl.conf" { jobs = [{ name = "local"; }]; };
         } // {
           "go.d/sensors.conf" = pkgs.writers.writeYAML "sensors.conf" {
             jobs = [{
