@@ -75,7 +75,7 @@ in {
 
         package = (pkgs.netdata.override {
           withCloudUi = isParent;
-          withCups = config.services.printing.enable;
+          withCups = true;
           withNdsudo = true;
         }).overrideAttrs (oldAttrs: {
           patches = (oldAttrs.patches or [ ]) ++ (lib.optionals config.virtualisation.libvirtd.enable [
