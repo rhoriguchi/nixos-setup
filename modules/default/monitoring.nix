@@ -245,8 +245,8 @@ in {
     ];
 
     users.users.${config.services.netdata.user}.extraGroups =
-      let acmeGroups = lib.unique (map (acme: acme.group) (lib.attrValues config.security.acme.certs));
-      in lib.optional config.services.nginx.enable config.services.nginx.user ++ lib.optionals hasCerts acmeGroups;
+      (let acmeGroups = lib.unique (map (acme: acme.group) (lib.attrValues config.security.acme.certs));
+      in lib.optionals hasCerts acmeGroups) ++ lib.optional config.services.nginx.enable config.services.nginx.group;
 
     networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = lib.mkIf isParent [ streamPort ];
   };
