@@ -34,8 +34,6 @@
 
       package = pkgs.deluge.overrideAttrs (_: { patches = [ ./remove-web-login.patch ]; });
 
-      openFirewall = true;
-
       web.enable = true;
 
       declarative = true;
