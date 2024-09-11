@@ -83,7 +83,7 @@ in {
 
         clients.persistent = [
           {
-            name = "Privat VLAN";
+            name = "Private VLAN";
             ids = [ "192.168.1.0/24" ];
             use_global_settings = true;
             use_global_blocked_services = true;
