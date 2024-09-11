@@ -29,8 +29,8 @@
     fsType = "zfs";
   };
 
-  fileSystems."/mnt/Data/loki" = {
-    device = "data/loki";
+  fileSystems."/mnt/Data/Monitoring" = {
+    device = "data/monitoring";
     fsType = "zfs";
   };
 

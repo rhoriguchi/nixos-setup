@@ -76,7 +76,7 @@
     loki = {
       enable = true;
 
-      dataDir = "/mnt/Data/loki";
+      dataDir = "/mnt/Data/Monitoring/loki";
 
       extraFlags = [ "-print-config-stderr" ];
 
