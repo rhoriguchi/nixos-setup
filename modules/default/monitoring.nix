@@ -22,6 +22,17 @@ in {
       type = lib.types.port;
       default = 19999;
     };
+    debug = lib.mkOption {
+      type = lib.types.submodule {
+        options = {
+          enable = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+          };
+        };
+      };
+      default = { };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -76,6 +87,7 @@ in {
         package = (pkgs.netdata.override {
           withCloudUi = isParent;
           withCups = true;
+          withDebug = cfg.debug.enable;
           withNdsudo = true;
         }).overrideAttrs (oldAttrs: {
           patches = (oldAttrs.patches or [ ]) ++ (lib.optionals config.virtualisation.libvirtd.enable [
