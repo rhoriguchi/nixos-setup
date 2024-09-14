@@ -165,6 +165,10 @@ in {
                   icon = "mdi:power";
                 }
                 {
+                  name = "Humidity";
+                  entity = "sensor.stadler_form_karl_humidity";
+                }
+                {
                   type = "conditional";
                   conditions = [{
                     entity = "switch.stadler_form_karl_power";
