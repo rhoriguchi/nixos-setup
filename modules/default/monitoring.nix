@@ -84,20 +84,12 @@ in {
       netdata = {
         enable = true;
 
-        package = (pkgs.netdata.override {
+        package = pkgs.netdata.override {
           withCloudUi = isParent;
           withCups = true;
           withDebug = cfg.debug.enable;
           withNdsudo = true;
-        }).overrideAttrs (oldAttrs: {
-          patches = (oldAttrs.patches or [ ]) ++ (lib.optionals config.virtualisation.libvirtd.enable [
-            # TODO remove when https://github.com/netdata/netdata/pull/18445 in package
-            (pkgs.fetchpatch {
-              url = "https://github.com/netdata/netdata/pull/18445.patch";
-              hash = "sha256-y5KwK7naDg9PPr1XGJ1igO870SDKcx2DkG9aNByBe+Y=";
-            })
-          ]);
-        });
+        };
 
         extraNdsudoPackages = [
           # NVMe devices collector

@@ -5,8 +5,8 @@ let
   src = let
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "c7b89e5069fa2f34634059ae00ddf14dc6dd5eb4";
-    sha256 = "sha256:1l3jhbidannc543ygq5f5z79g4a66p2959z6saml5nq9328y689m";
+    rev = "4e7df2caa4c1979a656a325fc08ab8a4694ea6ba";
+    sha256 = "sha256:0nksibckqm7r7zm82152plp6isjyjhb2mnlxcr1sp6wl6z8rfr4k";
   in builtins.fetchTarball {
     name = "nixpkgs";
     url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
@@ -17,12 +17,5 @@ in {
 
   imports = [ "${src}/nixos/modules/services/monitoring/netdata.nix" ];
 
-  nixpkgs.overlays = [
-    (_: super: {
-      netdata = super.callPackage "${src}/pkgs/tools/system/netdata" {
-        inherit (super.darwin.apple_sdk.frameworks) CoreFoundation IOKit;
-        protobuf = super.protobuf_21;
-      };
-    })
-  ];
+  nixpkgs.overlays = [ (_: super: { netdata = super.callPackage "${src}/pkgs/tools/system/netdata" { protobuf = super.protobuf_21; }; }) ];
 }
