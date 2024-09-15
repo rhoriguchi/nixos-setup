@@ -243,10 +243,17 @@ in {
       };
     };
 
-    systemd.services.netdata.serviceConfig.AmbientCapabilities = [
-      # Ping collector
-      "CAP_NET_RAW"
-    ];
+    systemd.services.netdata.serviceConfig = {
+      CapabilityBoundingSet = [
+        # S.M.A.R.T. collector
+        "CAP_SYS_RAWIO"
+      ];
+
+      AmbientCapabilities = [
+        # Ping collector
+        "CAP_NET_RAW"
+      ];
+    };
 
     users.users.${config.services.netdata.user}.extraGroups =
       (let acmeGroups = lib.unique (map (acme: acme.group) (lib.attrValues config.security.acme.certs));
