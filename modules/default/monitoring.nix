@@ -182,6 +182,16 @@ in {
             }];
           };
         } // lib.optionalAttrs isParent {
+          "go.d/filecheck.conf" = pkgs.writers.writeYAML "filecheck.conf" {
+            jobs = [{
+              name = "local";
+              dirs = {
+                collect_dir_size = true;
+                include = [ "/var/cache/netdata" ];
+              };
+            }];
+          };
+        } // lib.optionalAttrs isParent {
           "health_alarm_notify.conf" = pkgs.writeTextFile {
             name = "health_alarm_notify.conf";
             text = ''
