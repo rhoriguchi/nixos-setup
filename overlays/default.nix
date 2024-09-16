@@ -19,6 +19,20 @@
           sha256 = "sha256-hrYizdLhaDXKSgJ9do76xvQS694bZ39ENcMaUeALQkE=";
         }
       }/pkgs/servers/plex/raw.nix") { };
+
+    vscode-extensions = super.vscode-extensions // {
+      ms-python = super.vscode-extensions.ms-python // {
+        # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=341661
+        python = super.callPackage (import "${
+            super.fetchFromGitHub {
+              owner = "NixOS";
+              repo = "nixpkgs";
+              rev = "64e0dfab58293a5e33343090c2881aee766c02df";
+              sha256 = "sha256-Cp6qi33k+fPttniQs82QF4izbahBMDS/1w8EwvDGGX4=";
+            }
+          }/pkgs/applications/editors/vscode/extensions/ms-python.python") { };
+      };
+    };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
