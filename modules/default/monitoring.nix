@@ -18,6 +18,7 @@ in {
     type = lib.mkOption { type = lib.types.nullOr (lib.types.enum [ "parent" "child" ]); };
     parentHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
     apiKey = lib.mkOption { type = lib.types.str; };
+    discordWebhookUrl = lib.mkOption { type = lib.types.nullOr lib.types.str; };
     webPort = lib.mkOption {
       type = lib.types.port;
       default = 19999;
@@ -44,6 +45,10 @@ in {
       {
         assertion = isParent -> builtins.elem config.networking.hostName (lib.attrNames wireguardIps);
         message = "When type is parent hostname must be wireguard host";
+      }
+      {
+        assertion = isParent -> cfg.discordWebhookUrl != null;
+        message = "When type is parent discordWebhookUrl must be set";
       }
       {
         assertion = isChild -> cfg.parentHostname != null;
@@ -175,6 +180,15 @@ in {
               name = "local";
               address = "127.0.0.1:${toString config.services.dnsmasq.settings.port}";
             }];
+          };
+        } // lib.optionalAttrs isParent {
+          "health_alarm_notify.conf" = pkgs.writeTextFile {
+            name = "health_alarm_notify.conf";
+            text = ''
+              SEND_DISCORD="YES"
+              DISCORD_WEBHOOK_URL="${cfg.discordWebhookUrl}"
+              DEFAULT_RECIPIENT_DISCORD="netdata"
+            '';
           };
         } // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {

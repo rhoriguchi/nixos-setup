@@ -83,6 +83,7 @@
 
       type = "parent";
       apiKey = secrets.monitoring.apiKey;
+      discordWebhookUrl = secrets.monitoring.discordWebhookUrl;
     };
   };
 }
