@@ -270,8 +270,12 @@ in {
     };
 
     users.users.${config.services.netdata.user}.extraGroups =
+      # X.509 certificate collector
       (let acmeGroups = lib.unique (map (acme: acme.group) (lib.attrValues config.security.acme.certs));
-      in lib.optionals hasCerts acmeGroups) ++ lib.optional config.services.nginx.enable config.services.nginx.group;
+      in lib.optionals hasCerts acmeGroups)
+
+      # Web server collector
+      ++ lib.optional config.services.nginx.enable config.services.nginx.group;
 
     networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = lib.mkIf isParent [ streamPort ];
   };
