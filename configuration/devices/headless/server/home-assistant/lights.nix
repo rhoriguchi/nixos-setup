@@ -2,12 +2,6 @@
   services.home-assistant.config.light = [
     {
       platform = "group";
-      name = "REMOVE Yeelight Lights";
-      entities = [ "light.remove_yeelight_light_1" "light.remove_yeelight_light_2" ];
-    }
-
-    {
-      platform = "group";
       name = "Group Lego";
       entities = [ "light.lego_bonsai" ];
     }

@@ -282,9 +282,8 @@ in {
                       entity = "light.entrance_lamp";
                     }
                     {
-                      type = "custom:fold-entity-row";
-                      head = "light.remove_yeelight_lights";
-                      entities = [ "light.remove_yeelight_light_1" "light.remove_yeelight_light_2" ];
+                      name = "REMOVE Yeelight Light";
+                      entity = "light.remove_yeelight_light";
                     }
                   ];
                 }
