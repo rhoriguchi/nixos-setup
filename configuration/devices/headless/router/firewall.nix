@@ -4,7 +4,6 @@ let
   internalInterface = interfaces.internal;
 
   wingoRouterIp = "192.168.0.254";
-  cloudKeyIp = "192.168.1.2";
   serverIp = "192.168.2.2";
 in {
   networking = {
@@ -75,7 +74,6 @@ in {
 
             ip saddr @guest_vlan ip daddr ${serverIp} tcp dport { 80, 443 } accept
 
-            ip saddr ${serverIp} ip daddr ${cloudKeyIp} tcp dport { 80, 443 } accept
             ip saddr ${serverIp} ip daddr @private_vlan ct state established accept
             ip saddr ${serverIp} ip daddr @guest_vlan ct state established accept
             ip saddr ${serverIp} ip daddr @iot_vlan accept
