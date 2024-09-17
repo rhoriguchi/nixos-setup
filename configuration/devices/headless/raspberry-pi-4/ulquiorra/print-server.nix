@@ -1,16 +1,21 @@
 { pkgs, ... }: {
   hardware.printers.ensurePrinters = [{
-    name = "DeskJet-3700";
-    deviceUri = "hp:/usb/DeskJet_3700_series?serial=CN8CA6P2F706GZ";
+    name = "Default";
+
+    # lpinfo -v
+    deviceUri = "hp:/usb/ENVY_4500_series?serial=CN4CS2325205X4";
 
     # lpinfo -m
-    model = "HP/hp-deskjet_3700_series.ppd.gz";
+    model = "HP/hp-envy_4500_series.ppd.gz";
 
-    # lpoptions -p DeskJet-3700
+    # lpoptions -p Default -l
     ppdOptions = {
       ColorModel = "KGray";
-      InputSlot = "Upper";
+      Duplex = "None";
+      InputSlot = "Auto";
       MediaType = "Plain";
+      OptionDuplex = "False";
+      OutputMode = "Normal";
       PageSize = "A4";
     };
   }];
