@@ -36,7 +36,7 @@
       browsing = true;
       defaultShared = true;
 
-      drivers = [ pkgs.hplip ];
+      drivers = [ pkgs.hplipWithPlugin ];
 
       extraConf = ''
         DefaultEncryption Never
