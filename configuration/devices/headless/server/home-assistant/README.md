@@ -1,6 +1,8 @@
 # Home Assistant
 
 - Add integrations
+  - Discord
+    - Get `API Token` from <https://discord.com/developers/applications>
   - ESPHome
     - `airgradient-one.local`
   - Homekit Device

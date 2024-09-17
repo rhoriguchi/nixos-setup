@@ -24,7 +24,13 @@ in {
       doCheck = false;
       doInstallCheck = false;
     })).override {
-      extraPackages = ps: [ ps.psycopg2 ];
+      extraPackages = ps: [
+        # Discord
+        ps.setuptools
+
+        # Postgres
+        ps.psycopg2
+      ];
 
       extraComponents = [
         "default_config"
@@ -34,6 +40,7 @@ in {
 
         # Manual added integrations
         "deluge"
+        "discord"
         "esphome"
         "govee_light_local"
         "homekit_controller"
