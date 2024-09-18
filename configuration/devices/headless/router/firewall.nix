@@ -1,4 +1,4 @@
-{ lib, interfaces, ... }:
+{ config, lib, interfaces, ... }:
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
@@ -7,7 +7,7 @@ let
   serverIp = "192.168.2.2";
 in {
   networking = {
-    firewall.interfaces = let rules = { allowedTCPPorts = [ 80 443 ]; };
+    firewall.interfaces = let rules = { allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort 443 ]; };
     in {
       "${externalInterface}" = rules;
 
