@@ -68,7 +68,6 @@
         pkgs.baobab
         pkgs.gnome-calculator
         pkgs.loupe
-        pkgs.simple-scan
         pkgs.snapshot
       ];
 
@@ -105,7 +104,6 @@
       pkgs.baobab
       pkgs.gnome-calculator
       pkgs.loupe
-      pkgs.simple-scan
       pkgs.snapshot
     ];
   };
