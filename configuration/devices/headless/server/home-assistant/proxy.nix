@@ -22,11 +22,11 @@ in {
           locations."/" = {
             inherit proxyPass;
             proxyWebsockets = true;
-          };
 
-          extraConfig = ''
-            proxy_buffering off;
-          '';
+            extraConfig = ''
+              proxy_buffering off;
+            '';
+          };
         };
 
         "${config.networking.hostName}.local" = {
