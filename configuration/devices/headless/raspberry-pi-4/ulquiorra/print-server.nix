@@ -1,24 +1,35 @@
-{ pkgs, ... }: {
-  hardware.printers.ensurePrinters = [{
-    name = "Default";
+{ pkgs, config, secrets, ... }: {
+  # Required for sane
+  boot.kernelModules = [ "sg" "usblp" ];
 
-    # lpinfo -v
-    deviceUri = "hp:/usb/ENVY_4500_series?serial=CN4CS2325205X4";
+  hardware = {
+    printers.ensurePrinters = [{
+      name = "Default";
 
-    # lpinfo -m
-    model = "HP/hp-envy_4500_series.ppd.gz";
+      # lpinfo -v
+      deviceUri = "hp:/usb/ENVY_4500_series?serial=CN4CS2325205X4";
 
-    # lpoptions -p Default -l
-    ppdOptions = {
-      ColorModel = "KGray";
-      Duplex = "None";
-      InputSlot = "Auto";
-      MediaType = "Plain";
-      OptionDuplex = "False";
-      OutputMode = "Normal";
-      PageSize = "A4";
+      # lpinfo -m
+      model = "HP/hp-envy_4500_series.ppd.gz";
+
+      # lpoptions -p Default -l
+      ppdOptions = {
+        ColorModel = "KGray";
+        Duplex = "None";
+        InputSlot = "Auto";
+        MediaType = "Plain";
+        OptionDuplex = "False";
+        OutputMode = "Normal";
+        PageSize = "A4";
+      };
+    }];
+
+    sane = {
+      enable = true;
+
+      extraBackends = [ pkgs.hplipWithPlugin ];
     };
-  }];
+  };
 
   services = {
     # lsusb
@@ -48,6 +59,10 @@
       '';
     };
 
+    saned.enable = true;
+
+    scanservjs.enable = true;
+
     avahi = {
       enable = true;
 
@@ -59,6 +74,32 @@
       publish = {
         enable = true;
         userServices = true;
+      };
+    };
+
+    infomaniak = {
+      enable = true;
+
+      username = secrets.infomaniak.username;
+      password = secrets.infomaniak.password;
+      hostnames = [ "scanner.00a.ch" ];
+    };
+
+    nginx = {
+      enable = true;
+
+      virtualHosts."scanner.00a.ch" = {
+        enableACME = true;
+        forceSSL = true;
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString config.services.scanservjs.settings.port}";
+
+          extraConfig = ''
+            allow 192.168.1.0/24;
+            deny all;
+          '';
+        };
       };
     };
   };

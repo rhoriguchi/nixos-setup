@@ -1,17 +1,40 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+let
+  getRoutings = host: domains:
+    let getRouting = host: domain: "${domain} ${host};";
+    in lib.concatStringsSep "\n" (map (domain: getRouting host domain) domains);
+
+  getVirtualHosts = hostName: domains:
+    lib.listToAttrs (map (domain:
+      lib.nameValuePair domain {
+        listen = map (addr: {
+          inherit addr;
+          port = config.services.nginx.defaultHTTPListenPort;
+        }) config.services.nginx.defaultListenAddresses;
+
+        locations."/".proxyPass = "http://${hostName}:80";
+      }) domains);
+
+  ulquiorraDomains = [ "scanner.00a.ch" ];
+  serverDomains = [ "*.00a.ch" ];
+
+  localDomains = let filter = virtualHost: builtins.all (domain: virtualHost != domain) (ulquiorraDomains ++ serverDomains);
+  in lib.filter filter (lib.attrNames config.services.nginx.virtualHosts);
+in {
   services.nginx = {
     enable = true;
 
     defaultSSLListenPort = 9443;
 
-    streamConfig = let
-      domains = lib.attrNames config.services.nginx.virtualHosts;
-      localRoutings = map (domain: "${domain} ${config.networking.hostName};") (lib.filter (domain: domain != "*.00a.ch") domains);
-    in ''
+    streamConfig = ''
       resolver 127.0.0.1;
 
       upstream ${config.networking.hostName} {
         server 127.0.0.1:${toString config.services.nginx.defaultSSLListenPort};
+      }
+
+      upstream XXLPitu-Ulquiorra {
+        server XXLPitu-Ulquiorra.local:443;
       }
 
       upstream XXLPitu-Server {
@@ -19,7 +42,9 @@
       }
 
       map $ssl_preread_server_name $upstream {
-        ${lib.concatStringsSep "\n" localRoutings}
+        ${getRoutings config.networking.hostName localDomains}
+        ${getRoutings "XXLPitu-Ulquiorra" ulquiorraDomains}
+
         default XXLPitu-Server;
       }
 
@@ -33,13 +58,6 @@
       }
     '';
 
-    virtualHosts."*.00a.ch" = {
-      listen = map (addr: {
-        inherit addr;
-        port = config.services.nginx.defaultHTTPListenPort;
-      }) config.services.nginx.defaultListenAddresses;
-
-      locations."/".proxyPass = "http://XXLPitu-Server.local:80";
-    };
+    virtualHosts = (getVirtualHosts "XXLPitu-Ulquiorra.local" ulquiorraDomains) // (getVirtualHosts "XXLPitu-Server.local" serverDomains);
   };
 }

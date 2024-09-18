@@ -1,4 +1,4 @@
-{ secrets, ... }: {
+{ config, secrets, ... }: {
   imports = [
     ../common.nix
 
@@ -20,5 +20,7 @@
         authProtocols = [ "WPA-PSK" ];
       };
     };
+
+    firewall.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort config.services.nginx.defaultSSLListenPort ];
   };
 }
