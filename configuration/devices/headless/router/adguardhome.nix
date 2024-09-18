@@ -4,7 +4,6 @@ let
 
   wingoRouterIp = "192.168.0.254";
   routerIp = "192.168.1.1";
-  serverIp = "192.168.2.2";
 
   dnsmasqPort = config.services.dnsmasq.settings.port;
 in {
@@ -121,7 +120,7 @@ in {
           answer = routerIp;
         }) config.services.infomaniak.hostnames) ++ (map (domain: {
           inherit domain;
-          answer = serverIp;
+          answer = "XXLPitu-Server.local";
         }) [
           "deluge.00a.ch"
           "esphome.00a.ch"

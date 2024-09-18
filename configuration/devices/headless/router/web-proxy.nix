@@ -1,6 +1,4 @@
-{ config, lib, ... }:
-let serverIp = "192.168.2.2";
-in {
+{ config, lib, ... }: {
   services.nginx = {
     enable = true;
 
@@ -10,12 +8,14 @@ in {
       domains = lib.attrNames config.services.nginx.virtualHosts;
       localRoutings = map (domain: "${domain} ${config.networking.hostName};") (lib.filter (domain: domain != "*.00a.ch") domains);
     in ''
+      resolver 127.0.0.1;
+
       upstream ${config.networking.hostName} {
         server 127.0.0.1:${toString config.services.nginx.defaultSSLListenPort};
       }
 
       upstream XXLPitu-Server {
-        server ${serverIp}:443;
+        server XXLPitu-Server.local:443;
       }
 
       map $ssl_preread_server_name $upstream {
@@ -39,7 +39,7 @@ in {
         port = config.services.nginx.defaultHTTPListenPort;
       }) config.services.nginx.defaultListenAddresses;
 
-      locations."/".proxyPass = "http://${serverIp}:80";
+      locations."/".proxyPass = "http://XXLPitu-Server.local:80";
     };
   };
 }
