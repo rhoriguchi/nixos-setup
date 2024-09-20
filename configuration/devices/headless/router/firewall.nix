@@ -2,6 +2,7 @@
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
+  managementInterface = interfaces.management;
 
   wingoRouterIp = "192.168.0.254";
   serverIp = "192.168.2.2";
@@ -10,6 +11,8 @@ in {
     firewall.interfaces = let rules = { allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort 443 ]; };
     in {
       "${externalInterface}" = rules;
+
+      "${managementInterface}" = rules;
 
       "${internalInterface}" = rules;
       "${internalInterface}.1" = rules;
