@@ -4,8 +4,8 @@ let
   src = let
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "c861052eab51de685f2286ce75d6e67395f6eae5";
-    sha256 = "sha256:1j3drcp4mizf90dcpvnfajx1b49m8ijfq7w6a53kyfgx22r1x51i";
+    rev = "7104e41f3ad8ac5b0d5429e249c5b4088a7d0b9a";
+    sha256 = "sha256:1iaxj0w5xphxfp0xw8sqkix0v9nf86i89k26xb30iazd9aw0jq06";
   in builtins.fetchTarball {
     name = "nixpkgs";
     url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
@@ -14,5 +14,5 @@ let
 in {
   imports = [ "${src}/nixos/modules/services/hardware/scanservjs.nix" ];
 
-  nixpkgs.overlays = [ (_: super: { scanservjs = super.callPackage "${src}/pkgs/applications/graphics/scanservjs" { }; }) ];
+  nixpkgs.overlays = [ (_: super: { scanservjs = super.callPackage "${src}/pkgs/by-name/sc/scanservjs/package.nix" { }; }) ];
 }
