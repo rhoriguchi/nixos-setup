@@ -2,7 +2,7 @@
 let
   tmux = "${config.programs.tmux.package}/bin/tmux";
 
-  attachSession = name: ''${tmux} attach-session -t "${name}" || ${tmux} new-session -s "${name}"'';
+  attachSession = name: ''${tmux} has-session -t "${name}" && ${tmux} attach-session -t "${name}" || ${tmux} new-session -s "${name}"'';
 in {
   programs = {
     fzf.tmux.enableShellIntegration = true;
