@@ -123,9 +123,6 @@ in {
           answer = "XXLPitu-Ulquiorra.local";
         }) [ "scanner.00a.ch" ]) ++ (map (domain: {
           inherit domain;
-          answer = "${config.networking.hostName}.local";
-        }) config.services.infomaniak.hostnames) ++ (map (domain: {
-          inherit domain;
           answer = "XXLPitu-Server.local";
         }) [
           "deluge.00a.ch"
