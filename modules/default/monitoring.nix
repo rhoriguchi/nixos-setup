@@ -163,14 +163,7 @@ in {
             jobs = [{
               name = "local";
               leases_path = "/var/lib/dnsmasq/dnsmasq.leases";
-              conf_path = let
-                wrapperParts = lib.splitString " " config.systemd.services.dnsmasq.serviceConfig.ExecStart;
-                wrapperFilePath = lib.findFirst (part: lib.hasSuffix "dnsmasq.conf" part) null wrapperParts;
-
-                # TODO `wrapperFilePath` is the correct value when merged https://nixpk.gs/pr-tracker.html?pr=335957
-                wrapperContent = lib.replaceStrings [ "\n" ] [ "" ] (lib.readFile wrapperFilePath);
-
-                parts = lib.splitString "=" wrapperContent;
+              conf_path = let parts = lib.splitString " " config.systemd.services.dnsmasq.serviceConfig.ExecStart;
               in lib.findFirst (part: lib.hasSuffix "dnsmasq.conf" part) null parts;
             }];
           };
