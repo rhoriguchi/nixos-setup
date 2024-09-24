@@ -1,15 +1,18 @@
 { config, pkgs, colors, ... }:
 let
-  tmux = "${config.programs.tmux.package}/bin/tmux";
+  homeDirectory = config.home.homeDirectory;
 
-  attachSession = name: ''${tmux} has-session -t "${name}" && ${tmux} attach-session -t "${name}" || ${tmux} new-session -s "${name}"'';
+  tmux = "${config.programs.tmux.package}/bin/tmux";
+  tmuxp = "${pkgs.tmuxp}/bin/tmuxp";
+
+  attachSession = "${tmux} has-session -t Default && ${tmux} attach-session -t Default || ${tmuxp} load Default";
 in {
   programs = {
     fzf.tmux.enableShellIntegration = true;
 
     zsh = {
       shellAliases = {
-        attach = attachSession "Default";
+        attach = attachSession;
         clear = "${pkgs.ncurses}/bin/clear && ${tmux} clear-history 2> /dev/null";
         detach = "${tmux} detach-client";
       };
@@ -17,9 +20,9 @@ in {
       initExtra = ''
         if [ "$TMUX" = ''' ]; then
           if [ "$XDG_SESSION_TYPE" = 'tty' ]; then
-            ${attachSession "TTY $(basename $(tty))"}
+            ${tmux} has-session -t "TTY $(basename $(tty))" && ${tmux} attach-session -t "TTY $(basename $(tty))" || ${tmux} new-session -s "TTY $(basename $(tty))"
           elif [ "$TERM_PROGRAM" != 'vscode' ] && [ "$TERMINAL_EMULATOR" != 'JetBrains-JediTerm' ]; then
-            ${attachSession "Default"}
+            ${attachSession}
           fi
         fi
       '';
@@ -27,6 +30,8 @@ in {
 
     tmux = {
       enable = true;
+
+      tmuxp.enable = true;
 
       shortcut = "a";
       keyMode = "emacs";
@@ -65,5 +70,21 @@ in {
         set -g window-status-style bg='#3d3d3d',fg='${colors.normal.accent}'
       '';
     };
+  };
+
+  home.file.".tmuxp/Default.yaml".source = (pkgs.formats.yaml { }).generate "Default.yml" {
+    session_name = "Default";
+
+    windows = [
+      {
+        focus = true;
+        start_directory = homeDirectory;
+      }
+      {
+        window_name = "Nix config";
+        start_directory = "${homeDirectory}/Sync/Git/nixos-setup";
+        window_index = 99;
+      }
+    ];
   };
 }
