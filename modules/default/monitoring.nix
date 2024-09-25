@@ -184,15 +184,6 @@ in {
               };
             }];
           };
-        } // lib.optionalAttrs isParent {
-          "health_alarm_notify.conf" = pkgs.writeTextFile {
-            name = "health_alarm_notify.conf";
-            text = ''
-              SEND_DISCORD="YES"
-              DISCORD_WEBHOOK_URL="${cfg.discordWebhookUrl}"
-              DEFAULT_RECIPIENT_DISCORD="netdata"
-            '';
-          };
         } // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
             jobs = [{
@@ -255,6 +246,15 @@ in {
               name = "local";
               binary_path = "${config.boot.zfs.package}/bin/zpool";
             }];
+          };
+        } // lib.optionalAttrs isParent {
+          "health_alarm_notify.conf" = pkgs.writeTextFile {
+            name = "health_alarm_notify.conf";
+            text = ''
+              SEND_DISCORD="YES"
+              DISCORD_WEBHOOK_URL="${cfg.discordWebhookUrl}"
+              DEFAULT_RECIPIENT_DISCORD="netdata"
+            '';
           };
         };
       };
