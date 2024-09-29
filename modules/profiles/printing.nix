@@ -26,6 +26,4 @@
       nssmdns6 = true;
     };
   };
-
-  environment.systemPackages = [ pkgs.simple-scan ];
 }
