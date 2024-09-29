@@ -13,6 +13,9 @@
     loader.raspberryPi.firmwareConfig = ''
       hdmi_force_hotplug=1
     '';
+
+    # https://github.com/NixOS/nixpkgs/issues/344963#issuecomment-2380559167
+    initrd.systemd.tpm2.enable = false;
   };
 
   networking.interfaces = {
