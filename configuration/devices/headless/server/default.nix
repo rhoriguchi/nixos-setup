@@ -5,6 +5,7 @@
     ./backup.nix
     ./fancontrol.nix
     ./home-assistant
+    ./immich.nix
     ./libvirtd
     ./log-management.nix
     ./monitoring.nix

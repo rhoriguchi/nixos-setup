@@ -86,6 +86,8 @@ in {
 
       promtail.configuration.server.register_instrumentation = true;
 
+      immich.environment.IMMICH_METRICS = "true";
+
       netdata = {
         enable = true;
 
@@ -206,6 +208,13 @@ in {
             };
           };
         } // {
+          "go.d/redis.conf" = pkgs.writers.writeYAML "redis.conf" {
+            jobs = lib.optional config.services.immich.enable {
+              name = "Immich";
+              address = "unix://@${config.services.redis.servers.immich.unixSocket}";
+            };
+          };
+        } // {
           "go.d/smartctl.conf" = pkgs.writers.writeYAML "smartctl.conf" { jobs = [{ name = "local"; }]; };
         } // {
           "go.d/sensors.conf" = pkgs.writers.writeYAML "sensors.conf" {
@@ -225,7 +234,16 @@ in {
             } ++ lib.optional config.services.grafana.enable {
               name = "Grafana";
               url = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}/metrics";
-            } ++ lib.optional config.services.loki.enable {
+            } ++ lib.optionals config.services.immich.enable [
+              {
+                name = "Immich server";
+                url = "http://127.0.0.1:8081/metrics";
+              }
+              {
+                name = "Immich microservice";
+                url = "http://127.0.0.1:8082/metrics";
+              }
+            ] ++ lib.optional config.services.loki.enable {
               name = "Loki";
               url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/metrics";
             } ++ lib.optional config.services.promtail.enable {
@@ -273,8 +291,12 @@ in {
     };
 
     users.users.${config.services.netdata.user}.extraGroups =
+      # Redis collector
+      # this has to be user since redis will use the configured user as group
+      lib.optional config.services.immich.enable config.services.immich.user
+
       # Web server collector
-      lib.optional config.services.nginx.enable config.services.nginx.group
+      ++ lib.optional config.services.nginx.enable config.services.nginx.group
 
       # X.509 certificate collector
       ++ (let acmeGroups = lib.unique (map (acme: acme.group) (lib.attrValues config.security.acme.certs));
