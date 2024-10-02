@@ -14,7 +14,8 @@
       hdmi_force_hotplug=1
     '';
 
-    # https://github.com/NixOS/nixpkgs/issues/344963#issuecomment-2380559167
+    # https://github.com/NixOS/nixos-hardware/issues/858
+    # https://github.com/NixOS/nixpkgs/issues/344963
     initrd.systemd.tpm2.enable = false;
   };
 
