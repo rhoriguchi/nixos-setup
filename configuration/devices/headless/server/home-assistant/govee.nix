@@ -1,7 +1,7 @@
 {
   services.home-assistant.config.automation = [
     {
-      alias = "Set bedroom nightstand lamp right brightness to night mode when sun below horizon";
+      alias = "Reset bedroom nightstand lamp left when turned on";
       trigger = [{
         platform = "state";
         entity_id = "light.bedroom_nightstand_lamp_left";
@@ -15,7 +15,7 @@
       }];
     }
     {
-      alias = "Set bedroom nightstand lamp to night mode when sun below horizon";
+      alias = "Reset bedroom nightstand lamp right when turned on";
       trigger = [{
         platform = "state";
         entity_id = "light.bedroom_nightstand_lamp_right";

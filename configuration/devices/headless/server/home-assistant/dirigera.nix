@@ -2,6 +2,35 @@
   services.home-assistant.config = {
     automation = [
       {
+        alias = "Reset hallway lamp when turned on";
+        trigger = [{
+          platform = "state";
+          entity_id = "light.hallway_lamp";
+          from = "off";
+          to = "on";
+        }];
+        action = [{
+          action = "light.turn_on";
+          target.entity_id = "light.hallway_lamp";
+          data.rgb_color = [ 255 179 109 ];
+        }];
+      }
+      {
+        alias = "Reset living room table lamp when turned on";
+        trigger = [{
+          platform = "state";
+          entity_id = "light.living_room_table_lamp";
+          from = "off";
+          to = "on";
+        }];
+        action = [{
+          action = "light.turn_on";
+          target.entity_id = "light.living_room_table_lamp";
+          data.rgb_color = [ 255 179 109 ];
+        }];
+      }
+
+      {
         alias = "Turn bedroom closet lights on after 10 minutes";
         trigger = [{
           platform = "state";
