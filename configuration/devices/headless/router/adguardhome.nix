@@ -70,7 +70,7 @@ in {
       host = "127.0.0.1";
 
       mutableSettings = false;
-      settings = assert pkgs.adguardhome.schema_version == 28; {
+      settings = assert pkgs.adguardhome.schema_version == 29; {
         dns = rec {
           bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
           upstream_dns = bootstrap_dns ++ [ "[/local/]127.0.0.1:${toString dnsmasqPort}" ];
