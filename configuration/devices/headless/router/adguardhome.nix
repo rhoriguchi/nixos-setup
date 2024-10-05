@@ -117,6 +117,8 @@ in {
           }
         ] ++ (map (domain: {
           inherit domain;
+          # TODO uncomment when https://github.com/AdguardTeam/AdGuardHome/issues/7327 fixed
+          # answer = "${config.networking.hostName}.local";
           answer = routerIp;
         }) config.services.infomaniak.hostnames) ++ (map (domain: {
           inherit domain;
