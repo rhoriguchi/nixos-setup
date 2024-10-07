@@ -19,6 +19,7 @@ let
     "--do-delete"
     "--flush-index"
     "--omit-album-date"
+    "--progress"
     "--rescan"
     "--retry-download"
     "--secret ${secretFile}"
