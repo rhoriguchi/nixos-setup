@@ -16,7 +16,7 @@ in {
 
       imageFile = pkgs.borg-exporter-image;
 
-      ports = [ "${toString cfg.port}:9884" ];
+      ports = [ "127.0.0.1:${toString cfg.port}:9884" ];
 
       cmd = [ "borg-exporter" "--repository" "/repository" ];
 
