@@ -200,10 +200,12 @@ in {
             jobs = [{
               name = "internet";
               update_every = 10;
+              autodetection_retry = 5;
               hosts = [ "1.1.1.1" "digitec.ch" "youtube.com" ];
             }] ++ lib.optional (config.services.wireguard-network.type == "client") {
               name = "wireguard";
               update_every = 10;
+              autodetection_retry = 5;
               hosts = [ (import ./wireguard-network/ips.nix).${config.services.wireguard-network.serverHostname} ];
             };
           };
