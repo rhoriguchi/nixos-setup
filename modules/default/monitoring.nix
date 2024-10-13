@@ -230,6 +230,9 @@ in {
             jobs = lib.optional config.services.borgmatic.enable {
               name = "Borg";
               url = "http://127.0.0.1:${toString config.services.borg-exporter.port}/metrics";
+            } ++ lib.optional (config.services.flaresolverr.enable && config.services.flaresolverr.prometheusExporter.enable) {
+              name = "FlareSolverr";
+              url = "http://127.0.0.1:${toString config.services.flaresolverr.prometheusExporter.port}/metrics";
             } ++ lib.optional frrEnabled {
               name = "FRRouting";
               url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
