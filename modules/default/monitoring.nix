@@ -9,7 +9,7 @@ let
 
   wireguardIps = import ./wireguard-network/ips.nix;
 
-  frrEnabled = builtins.any (service: config.services.frr.${service}.enable) [ "bfd" "bgp" "ospf" "pim" ];
+  frrEnabled = builtins.any (service: config.services.frr.${service}.enable) [ "bfdd" "bgpd" "ospfd" "pimd" ];
 
   hasCerts = lib.length (lib.attrNames config.security.acme.certs) > 0;
 in {
@@ -75,10 +75,10 @@ in {
         enable = frrEnabled;
 
         collectors = {
-          bfd = config.services.frr.bfd.enable;
-          bgp = config.services.frr.bgp.enable;
-          ospf = config.services.frr.ospf.enable;
-          pim = config.services.frr.pim.enable;
+          bfd = config.services.frr.bfdd.enable;
+          bgp = config.services.frr.bgpd.enable;
+          ospf = config.services.frr.ospfd.enable;
+          pim = config.services.frr.pimd.enable;
         };
       };
 

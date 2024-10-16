@@ -160,8 +160,8 @@ in {
       allowInterfaces = [ "${internalInterface}" "${internalInterface}.1" "${internalInterface}.2" "${internalInterface}.3" ];
     };
 
-    frr.pim = {
-      enable = true;
+    frr = {
+      pimd.enable = true;
 
       config = ''
         ip pim rp 192.168.1.1 239.0.0.0/8
