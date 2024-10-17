@@ -220,7 +220,7 @@ in {
         force-straight-corner = true;
         height-fraction = 1.0;
         hide-delay = 0.2;
-        hot-keys = true;
+        hot-keys = false;
         hotkeys-overlay = false;
         hotkeys-show-dock = false;
         icon-size-fixed = true;
