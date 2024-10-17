@@ -11,6 +11,8 @@ let
 
   frrEnabled = builtins.any (service: config.services.frr.${service}.enable) [ "bfdd" "bgpd" "ospfd" "pimd" ];
 
+  redisEnabled = builtins.any (server: server.enable) (lib.attrValues config.services.redis.servers);
+
   hasCerts = lib.length (lib.attrNames config.security.acme.certs) > 0;
 in {
   options.services.monitoring = {
@@ -209,12 +211,12 @@ in {
               hosts = [ (import ./wireguard-network/ips.nix).${config.services.wireguard-network.serverHostname} ];
             };
           };
-        } // {
+        } // lib.optionalAttrs redisEnabled {
           "go.d/redis.conf" = pkgs.writers.writeYAML "redis.conf" {
-            jobs = lib.optional config.services.immich.enable {
-              name = "Immich";
-              address = "unix://@${config.services.redis.servers.immich.unixSocket}";
-            };
+            jobs = lib.mapAttrsToList (key: value: {
+              name = key;
+              address = "unix://@${value.unixSocket}";
+            }) config.services.redis.servers;
           };
         } // {
           "go.d/smartctl.conf" = pkgs.writers.writeYAML "smartctl.conf" { jobs = [{ name = "local"; }]; };
@@ -298,7 +300,7 @@ in {
     users.users.${config.services.netdata.user}.extraGroups =
       # Redis collector
       # this has to be user since redis will use the configured user as group
-      lib.optional config.services.immich.enable config.services.immich.user
+      lib.optionals redisEnabled (map (server: server.group) (lib.attrValues config.services.redis.servers))
 
       # Web server collector
       ++ lib.optional config.services.nginx.enable config.services.nginx.group
