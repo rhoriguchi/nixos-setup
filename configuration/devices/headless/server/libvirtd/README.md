@@ -104,7 +104,8 @@ winget install --silent --accept-source-agreements ^
   TeamViewer.TeamViewer ^
   Valve.Steam ^
   VideoLAN.VLC ^
-  WeMod.WeMod
+  WeMod.WeMod ^
+  WinDirStat.WinDirStat
 ```
 
 ### Manual
