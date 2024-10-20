@@ -35,7 +35,4 @@
       group = if config.services.resilio.enable then "rslsync" else "immich";
     };
   };
-
-  # TODO remove when https://github.com/NixOS/nixpkgs/issues/344738 fixed
-  users.groups.immich = { };
 }
