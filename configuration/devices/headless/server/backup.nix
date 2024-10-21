@@ -19,7 +19,6 @@ in {
           "/var/lib/esphome"
 
           config.services.deluge.config.torrentfiles_location
-          config.services.grafana.dataDir
           config.services.immich.mediaLocation
           config.services.loki.dataDir
           config.services.plex.dataDir
