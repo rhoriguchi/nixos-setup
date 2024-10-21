@@ -18,7 +18,6 @@ in {
           "/var/cache/netdata"
           "/var/lib/esphome"
 
-          config.services.deluge.config.torrentfiles_location
           config.services.immich.mediaLocation
           config.services.loki.dataDir
           config.services.plex.dataDir
