@@ -16,12 +16,12 @@ in {
         source_directories = [
           "/mnt/Data/Series"
           "/var/cache/netdata"
+          "/var/lib/private/prowlarr"
           "/var/lib/esphome"
 
           config.services.immich.mediaLocation
           config.services.loki.dataDir
           config.services.plex.dataDir
-          config.services.prowlarr.dataDir
           config.services.resilio.syncPath
           config.services.sonarr.dataDir
           config.services.tautulli.dataDir
