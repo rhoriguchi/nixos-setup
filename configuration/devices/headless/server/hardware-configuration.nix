@@ -10,13 +10,20 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/d7094a90-c48e-4273-8399-4c0827fa1c59";
-    fsType = "ext4";
+    device = "os/root";
+    fsType = "zfs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/9B3A-054E";
+    device = "/dev/disk/by-uuid/5FB8-953C";
     fsType = "vfat";
+    options = [ "fmask=0022" "dmask=0022" ];
+  };
+
+  fileSystems."/boot-mirror" = {
+    device = "/dev/disk/by-uuid/6054-F72D";
+    fsType = "vfat";
+    options = [ "fmask=0022" "dmask=0022" ];
   };
 
   fileSystems."/mnt/Data/Backup" = {

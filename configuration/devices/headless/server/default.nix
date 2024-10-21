@@ -19,9 +19,19 @@
     # TODO remove once zfs builds
     kernelPackages = pkgs.pkgs.linuxPackages_6_10;
 
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
+    loader.grub = {
+      enable = true;
+
+      zfsSupport = true;
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+
+      device = "nodev";
+
+      mirroredBoots = [{
+        devices = [ "/dev/disk/by-uuid/6054-F72D" ];
+        path = "/boot-mirror";
+      }];
     };
   };
 
