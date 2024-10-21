@@ -24,6 +24,7 @@ in {
           config.services.plex.dataDir
           config.services.prowlarr.dataDir
           config.services.resilio.syncPath
+          config.services.sonarr.dataDir
           config.services.tautulli.dataDir
         ] ++ lib.optional config.services.postgresql.enable postgresBackupDir;
 
