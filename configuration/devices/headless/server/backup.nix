@@ -64,7 +64,6 @@ in {
   };
 
   system.activationScripts = {
-
     borgmatic = ''
       # Disable error trap since list can fail if the backup is running
       trap - ERR
