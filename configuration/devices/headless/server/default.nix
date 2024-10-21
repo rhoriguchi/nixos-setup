@@ -44,7 +44,7 @@
 
     interfaces = {
       eno1.useDHCP = true;
-      wlp10s0.useDHCP = true;
+      wlp11s0.useDHCP = true;
     };
 
     firewall.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort config.services.nginx.defaultSSLListenPort ];
