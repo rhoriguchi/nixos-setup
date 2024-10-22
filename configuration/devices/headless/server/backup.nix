@@ -16,8 +16,8 @@ in {
         source_directories = [
           "/mnt/Data/Series"
           "/var/cache/netdata"
+          "/var/lib/private/esphome"
           "/var/lib/private/prowlarr"
-          "/var/lib/esphome"
 
           config.services.immich.mediaLocation
           config.services.loki.dataDir
