@@ -45,7 +45,9 @@ in {
         after = [ "postgresql.service" ];
 
         script = ''
-          ${config.services.postgresql.package}/bin/pg_dump --clean --if-exists --format custom ${database} > '${postgresBackupDir}/${database}.sql'
+          ${config.services.postgresql.package}/bin/pg_dump ${
+            lib.concatStringsSep " " [ "--blobs" "--clean" "--format custom" "--if-exists" ]
+          } ${database} > '${postgresBackupDir}/${database}.sql'
         '';
 
         serviceConfig.User = database;
