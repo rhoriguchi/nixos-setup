@@ -2,7 +2,7 @@
 
 - Add integrations
   - Discord
-    - Get `API Token` from <https://discord.com/developers/applications>
+    - Get `API Token` from <https://discord.com/developers/applications> for `Home Assistant bot`
   - ESPHome
     - `airgradient-one.local`
   - Homekit Device
@@ -14,9 +14,10 @@
       - `light.living_room_signe_gradient_kitchen`
       - `light.living_room_signe_gradient_window`
   - Govee lights local
-    - Rename
-      - `light.bedroom_nightstand_lamp_left`
-      - `light.bedroom_nightstand_lamp_right`
+    - Serial number: `C6:39:C8:35:34:31:6F:67`
+      Rename: `light.bedroom_nightstand_lamp_left`
+    - Serial number: `08:D5:D1:35:34:37:5C:1A`
+      Rename: `light.bedroom_nightstand_lamp_right`
   - localtuya
     - More info here <https://community.home-assistant.io/t/localtuya-stadler-form-eva-humidifier/414349>
     - Get credentials from <https://iot.tuya.com/cloud/basic?id=p1706658370961ww5yan>
@@ -24,6 +25,8 @@
     - Add device, id can be found here <https://eu.local.tuya.com/cloud/basic?id=p1706658370961ww5yan&deviceTab=all>
   - Netatmo
     - Get credentials from <https://dev.netatmo.com>
+  - Shelly
+    - Wake up sensor with button or wait till it shows up
 - Settings to change
   - `Profile` (bottom left user icon) -> `Advanced mode = true`
   - Delete all areas
