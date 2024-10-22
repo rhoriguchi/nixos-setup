@@ -1,5 +1,6 @@
 { pkgs, lib, config, ... }:
 let
+  # TODO use https://nixos.wiki/wiki/Home_Assistant#Add_custom_lovelace_modules
   lovelaceModules = [
     pkgs.hs.lovelaceModule.battery-state-card
     pkgs.hs.lovelaceModule.card-mod
