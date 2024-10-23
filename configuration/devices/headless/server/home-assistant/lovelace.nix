@@ -432,10 +432,10 @@ in {
                 {
                   name = "Netatmo valves {range}%";
                   entities = [
-                    "sensor.valve_blue_battery_percent"
-                    "sensor.valve_green_battery_percent"
-                    "sensor.valve_orange_battery_percent"
-                    "sensor.valve_yellow_battery_percent"
+                    "sensor.valve_blue_battery"
+                    "sensor.valve_green_battery"
+                    "sensor.valve_orange_battery"
+                    "sensor.valve_yellow_battery"
                   ];
                 }
                 {
