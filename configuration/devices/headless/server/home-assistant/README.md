@@ -5,8 +5,8 @@
     - Get `API Token` from <https://discord.com/developers/applications> for `Home Assistant bot`
   - ESPHome
     - `airgradient-one.local`
-  - Homekit Device
-    - `DIRIGERA (Bridge)`
+  - IKEA Dirigera Hub Integration
+    - `gw2-3fb2ef61d5a6.local`
   - Philips Hue
     - `ecb5faac6110.local`
     - Rename

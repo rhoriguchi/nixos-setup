@@ -52,7 +52,19 @@ in {
       ];
     };
 
-    customComponents = [ pkgs.home-assistant-custom-components.localtuya ];
+    customComponents = [
+      pkgs.home-assistant-custom-components.localtuya
+
+      ((pkgs.python3Packages.callPackage (import "${
+          pkgs.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "90f4ec0eab20235cd0fd2c5d81fbe0533c893d6f";
+            hash = "sha256-sqtWDeetBasTX8qRPTwTXRCK+T5u9KqK9CukNtB+4sc=";
+          }
+        }/pkgs/servers/home-assistant/custom-components/dirigera_platform/package.nix") { }).overrideAttrs
+        (_: { dontCheckManifest = true; }))
+    ];
 
     config = {
       homeassistant = {
