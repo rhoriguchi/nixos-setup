@@ -71,7 +71,7 @@
         alias = "Turn reduit closet lights on when sliding door is open";
         trigger = [{
           trigger = "state";
-          entity_id = "binary_sensor.reduit_parasoll_contact";
+          entity_id = "binary_sensor.reduit_parasoll";
           to = "on";
         }];
         action = [{
@@ -83,7 +83,7 @@
         alias = "Turn reduit closet lights off when sliding door is closed";
         trigger = [{
           trigger = "state";
-          entity_id = "binary_sensor.reduit_parasoll_contact";
+          entity_id = "binary_sensor.reduit_parasoll";
           to = "off";
         }];
         action = [{

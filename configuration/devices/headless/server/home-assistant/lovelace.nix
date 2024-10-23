@@ -415,7 +415,7 @@ in {
 
               entities = [{
                 name = "Reduit Parasoll";
-                entity = "sensor.reduit_parasoll_battery";
+                entity = "sensor.reduit_parasoll_battery_percentage";
               }];
 
               collapse = [

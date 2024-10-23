@@ -43,7 +43,6 @@ in {
         "discord"
         "esphome"
         "govee_light_local"
-        "homekit_controller"
         "hue"
         "mobile_app"
         "netatmo"
@@ -52,7 +51,20 @@ in {
       ];
     };
 
-    customComponents = [ pkgs.home-assistant-custom-components.localtuya ];
+    customComponents = [
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=350542
+      # pkgs.home-assistant-custom-components.dirigera_platform
+      (pkgs.python3Packages.callPackage (import "${
+          pkgs.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "097750eab077606b000f2c68d44225f488073cb8";
+            hash = "sha256-abRod/lwME8j9ADG44/FDD62ECN2qOkyqlgGp1FGalo=";
+          }
+        }/pkgs/servers/home-assistant/custom-components/dirigera_platform/package.nix") { })
+
+      pkgs.home-assistant-custom-components.localtuya
+    ];
 
     config = {
       homeassistant = {
