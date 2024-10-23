@@ -9,6 +9,9 @@
           hash = "sha256-VlvxAWOKZ/ih7bxKxD2qfp2S8skGABS90hfmP8aV2w0=";
         }
       }/pkgs/tools/system/fancy-motd") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=349783
+    utillinux = super.util-linux;
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
