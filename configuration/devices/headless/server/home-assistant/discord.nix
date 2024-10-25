@@ -32,5 +32,32 @@
         };
       }];
     }
+    {
+      alias = "Low Battery Discord notification";
+      trigger = [{
+        trigger = "numeric_state";
+        entity_id = [
+          "sensor.bedroom_h_t_gen3_battery"
+          "sensor.entrance_h_t_gen3_battery"
+          "sensor.mystrom_button_blue_battery"
+          "sensor.mystrom_button_gray_battery"
+          "sensor.mystrom_button_orange_battery"
+          "sensor.mystrom_button_purple_battery"
+          "sensor.mystrom_button_white_battery"
+          "sensor.valve_blue_battery"
+          "sensor.valve_green_battery"
+          "sensor.valve_orange_battery"
+          "sensor.valve_yellow_battery"
+        ];
+        below = 26;
+      }];
+      action = [{
+        action = "notify.home_assistant_bot";
+        data = {
+          message = "{{ trigger.to_state.name }} has 25% or less battery";
+          target = [ "1285383628527763579" ];
+        };
+      }];
+    }
   ];
 }
