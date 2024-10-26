@@ -30,6 +30,7 @@ in {
         picture-uri-dark = picture-uri;
       };
       "org/gnome/desktop/calendar".show-weekdate = true;
+      "org/gnome/desktop/datetime".automatic-timezone = true;
       # needed for US keyboard
       "org/gnome/desktop/input-sources".sources = "[('xkb', 'ch+de_nodeadkeys'), ('xkb', 'us')]";
       "org/gnome/desktop/interface" = {
