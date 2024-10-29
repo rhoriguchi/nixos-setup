@@ -7,8 +7,8 @@
     enable = true;
 
     settings = {
-      shell.program = "${pkgs.zsh}/bin/zsh";
-      working_directory = config.home.homeDirectory;
+      terminal.shell.program = "${pkgs.zsh}/bin/zsh";
+      general.working_directory = config.home.homeDirectory;
       window.startup_mode = "Maximized";
 
       scrolling = {
