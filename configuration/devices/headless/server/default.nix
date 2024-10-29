@@ -17,7 +17,7 @@
 
   boot = {
     # TODO remove once zfs builds
-    kernelPackages = pkgs.pkgs.linuxPackages_6_10;
+    kernelPackages = pkgs.linuxPackages_6_6;
 
     loader.grub = {
       enable = true;

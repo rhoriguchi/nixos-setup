@@ -3,7 +3,9 @@ let
   ssid = "63466727-Guest";
   password = secrets.wifis.${ssid}.psk;
 
-  script = pkgs.writers.writePython3 "generate_wifi_guest_qr.py" { libraries = [ pkgs.python3Packages.qrcode ]; } ''
+  script = pkgs.writers.writePython3 "generate_wifi_guest_qr.py" {
+    libraries = let inherit (pkgs.python3Packages) qrcode; in [ qrcode ] ++ qrcode.optional-dependencies.all;
+  } ''
     import sys
 
     import qrcode
