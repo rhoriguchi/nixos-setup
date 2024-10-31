@@ -88,7 +88,7 @@ in {
 
       promtail.configuration.server.register_instrumentation = true;
 
-      immich.environment.IMMICH_METRICS = "true";
+      immich.environment.IMMICH_TELEMETRY_INCLUDE = "all";
 
       netdata = {
         enable = true;
