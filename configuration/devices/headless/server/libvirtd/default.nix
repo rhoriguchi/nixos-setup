@@ -3,7 +3,12 @@
 
   security.polkit.enable = true;
 
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+
+    onBoot = "ignore";
+    onShutdown = "shutdown";
+  };
 
   services.netdata.configDir = {
     "go.d/windows.conf" = (pkgs.formats.yaml { }).generate "windows.conf" {
