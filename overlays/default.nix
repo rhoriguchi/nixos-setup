@@ -18,8 +18,6 @@
       inherit (super.linuxPackages) evdi;
     };
 
-    glances = super.callPackage ./glances.nix { inherit (super) glances; };
-
     hs = super.callPackage ./hs { };
   })
 ]

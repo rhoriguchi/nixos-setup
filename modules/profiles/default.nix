@@ -8,7 +8,6 @@
   dygma-defy = import ./dygma-defy.nix;
   fancy-motd = import ./fancy-motd.nix;
   git = import ./git.nix;
-  glances = import ./glances.nix;
   gnome = import ./gnome.nix;
   hidpi = import ./hidpi.nix;
   i18n = import ./i18n.nix;
