@@ -47,8 +47,8 @@ del /f winfsp.msi
 sc config VirtioFsSvc start=auto
 
 REM Netdata Windows exporter
-curl --location --output windows_exporter.msi --url "https://github.com/prometheus-community/windows_exporter/releases/download/v0.27.2/windows_exporter-0.27.2-amd64.msi"
-start /wait msiexec /i windows_exporter.msi ADD_FIREWALL_EXCEPTION=yes /quiet /qn /norestart
+curl --location --output windows_exporter.msi --url "https://github.com/prometheus-community/windows_exporter/releases/download/v0.29.2/windows_exporter-0.29.2-amd64.msi"
+start /wait msiexec /i windows_exporter.msi ADDLOCAL=FirewallException /quiet /qn /norestart
 del /f windows_exporter.msi
 
 wmic computersystem where name="%COMPUTERNAME%" call rename name="Ryan-Desktop"
