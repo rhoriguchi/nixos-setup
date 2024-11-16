@@ -12,7 +12,7 @@
         forcepoweroff = true;
         pause = true;
         poweroff = false;
-        removedev = true;
+        removedev = false;
         unapplied-dev = true;
       };
       "org/virt-manager/virt-manager/connections" = {
