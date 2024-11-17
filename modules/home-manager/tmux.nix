@@ -51,6 +51,7 @@ in {
         # backwards: n | forwards: N
         bind / copy-mode \; send-key C-r
 
+        set -g base-index 1
         set -g clock-mode-colour '${colors.normal.accent}'
         set -g message-command-style bg='${colors.normal.black}',fg='${colors.normal.green}'
         set -g message-style bg='${colors.normal.green}',fg='${colors.normal.black}'
