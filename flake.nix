@@ -311,8 +311,12 @@
         } // (inputs.deploy-rs.lib.${system}.deployChecks self.deploy) // (import ./checks { inherit pkgs; });
 
         devShells.default = pkgs.mkShell {
-          buildInputs = [ inputs.deploy-rs.packages.${system}.deploy-rs pkgs.nix-output-monitor pkgs.nixVersions.latest ]
-            ++ self.checks.${system}.pre-commit.enabledPackages;
+          buildInputs = [
+            pkgs.nix-output-monitor
+            pkgs.nixVersions.latest
+
+            inputs.deploy-rs.packages.${system}.deploy-rs
+          ] ++ self.checks.${system}.pre-commit.enabledPackages;
           shellHook = self.checks.${system}.pre-commit.shellHook;
         };
       });
