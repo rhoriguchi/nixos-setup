@@ -4,7 +4,7 @@
       {
         alias = "Reset hallway lamp when turned on";
         trigger = [{
-          platform = "state";
+          trigger = "state";
           entity_id = "light.hallway_lamp";
           from = "off";
           to = "on";
@@ -18,7 +18,7 @@
       {
         alias = "Reset living room table lamp when turned on";
         trigger = [{
-          platform = "state";
+          trigger = "state";
           entity_id = "light.living_room_table_lamp";
           from = "off";
           to = "on";
@@ -33,7 +33,7 @@
       {
         alias = "Turn bedroom closet lights on after 10 minutes";
         trigger = [{
-          platform = "state";
+          trigger = "state";
           entity_id = "light.bedroom_closet_lights";
           to = "off";
           for.minutes = 10;
@@ -70,7 +70,7 @@
       {
         alias = "Turn reduit closet lights on when sliding door is open";
         trigger = [{
-          platform = "state";
+          trigger = "state";
           entity_id = "binary_sensor.reduit_parasoll_contact";
           to = "on";
         }];
@@ -82,7 +82,7 @@
       {
         alias = "Turn reduit closet lights off when sliding door is closed";
         trigger = [{
-          platform = "state";
+          trigger = "state";
           entity_id = "binary_sensor.reduit_parasoll_contact";
           to = "off";
         }];
@@ -94,7 +94,7 @@
       {
         alias = "Turn reduit closet lights off after 10 minutes";
         trigger = [{
-          platform = "state";
+          trigger = "state";
           entity_id = "light.reduit_closet_lights";
           to = "on";
           for.minutes = 10;

@@ -3,7 +3,7 @@
     {
       alias = "Reset bedroom nightstand lamp left when turned on";
       trigger = [{
-        platform = "state";
+        trigger = "state";
         entity_id = "light.bedroom_nightstand_lamp_left";
         from = "off";
         to = "on";
@@ -17,7 +17,7 @@
     {
       alias = "Reset bedroom nightstand lamp right when turned on";
       trigger = [{
-        platform = "state";
+        trigger = "state";
         entity_id = "light.bedroom_nightstand_lamp_right";
         from = "off";
         to = "on";

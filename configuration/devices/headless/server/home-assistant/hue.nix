@@ -3,7 +3,7 @@
     {
       alias = "Reset living room Signe Gradient kitchen when turned on";
       trigger = [{
-        platform = "state";
+        trigger = "state";
         entity_id = "light.living_room_signe_gradient_kitchen";
         from = "off";
         to = "on";
@@ -17,7 +17,7 @@
     {
       alias = "Reset living room Signe Gradient window when turned on";
       trigger = [{
-        platform = "state";
+        trigger = "state";
         entity_id = "light.living_room_signe_gradient_window";
         from = "off";
         to = "on";

@@ -3,7 +3,7 @@
     {
       alias = "Stadler Form Karl low water Discord notification";
       trigger = [{
-        platform = "state";
+        trigger = "state";
         entity_id = "binary_sensor.stadler_form_karl_low_water";
         from = "off";
         to = "on";
@@ -19,7 +19,7 @@
     {
       alias = "Stadler Form Karl replace filter Discord notification";
       trigger = [{
-        platform = "state";
+        trigger = "state";
         entity_id = "binary_sensor.stadler_form_karl_replace_filter";
         from = "off";
         to = "on";
