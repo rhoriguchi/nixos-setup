@@ -71,6 +71,11 @@ in {
         GRANT pg_monitor TO netdata;
       '';
 
+      mysql.ensureUsers = [{
+        name = "netdata";
+        ensurePermissions."*.*" = lib.concatStringsSep ", " [ "PROCESS" "REPLICATION CLIENT" "USAGE" ];
+      }];
+
       borg-exporter.enable = config.services.borgmatic.enable;
 
       frr_exporter = {
