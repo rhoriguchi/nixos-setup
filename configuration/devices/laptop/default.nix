@@ -8,9 +8,15 @@
     ./hardware-configuration.nix
   ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    # TODO remove once displaylink and nvidia-x11 build
+    # https://github.com/NixOS/nixpkgs/issues/357643
+    kernelPackages = pkgs.linuxPackages_6_11;
+
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
   };
 
   networking = {

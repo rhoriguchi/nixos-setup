@@ -39,6 +39,28 @@
           sha256 = "sha256-wnagBi+XG6qc7M87lqs2Kk/QTMAzpUyvq8iUaeJh270=";
         }
       }/pkgs/servers/prowlarr") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=357219
+    mission-center = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "dd78a15b79aa3f741d16deadf209f6074938af82";
+          sha256 = "sha256-ehZvXwABl3rdLspF4onwwsHHvrwDA4GMQSiq9lFWIaU=";
+        }
+      }/pkgs/by-name/mi/mission-center/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=357555
+    libreoffice-fresh = let
+      src = super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "4a79221efa1f1a4c8cf08b25107328f2b994c517";
+        sha256 = "sha256-GmOROBqOgNWoem1DvclxPflFE+R+1jrHbae3QOacYj0=";
+      };
+    in super.callPackage (import "${src}/pkgs/applications/office/libreoffice/wrapper.nix") {
+      unwrapped = super.callPackage (import "${src}/pkgs//applications/office/libreoffice") { variant = "fresh"; };
+    };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };

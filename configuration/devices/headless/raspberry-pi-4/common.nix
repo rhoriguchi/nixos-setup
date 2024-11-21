@@ -10,10 +10,6 @@
       options brcmfmac feature_disable=0x2000
     '';
 
-    loader.raspberryPi.firmwareConfig = ''
-      hdmi_force_hotplug=1
-    '';
-
     # https://github.com/NixOS/nixos-hardware/issues/858
     # https://github.com/NixOS/nixpkgs/issues/344963
     initrd.systemd.tpm2.enable = false;
