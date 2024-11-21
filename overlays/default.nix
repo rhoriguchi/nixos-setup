@@ -30,16 +30,6 @@
         }
       }/pkgs/servers/adguardhome") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=355016
-    prowlarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "79fccb5048611847344cdc8d15f99d3b36a89cc7";
-          sha256 = "sha256-wnagBi+XG6qc7M87lqs2Kk/QTMAzpUyvq8iUaeJh270=";
-        }
-      }/pkgs/servers/prowlarr") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=357219
     mission-center = super.callPackage (import "${
         super.fetchFromGitHub {
@@ -49,6 +39,16 @@
           sha256 = "sha256-ehZvXwABl3rdLspF4onwwsHHvrwDA4GMQSiq9lFWIaU=";
         }
       }/pkgs/by-name/mi/mission-center/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=357362
+    prowlarr = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "e65ba64c2920d4cc69b5af1cbfa211149948e711";
+          sha256 = "sha256-+xVnB8BUDgp8GAZfphvny2Y0c5qw+td6W8WqVhtJcQE=";
+        }
+      }/pkgs/servers/prowlarr") { };
 
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=357555
     libreoffice-fresh = let
