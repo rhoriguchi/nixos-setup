@@ -3,7 +3,6 @@
   headful = import ./headful.nix;
 
   displaylink = import ./displaylink.nix;
-  doas = import ./doas.nix;
   docker = import ./docker.nix;
   dygma-defy = import ./dygma-defy.nix;
   fancy-motd = import ./fancy-motd.nix;
