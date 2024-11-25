@@ -10,16 +10,6 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=354995
-    sonarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "113f56a42130941612fe7f56246d7ff3da27dbe1";
-          sha256 = "sha256-tXIK9Dz1ypI/PKDV7hJqmRLUfeZ2Rvp7ckmTf1qob3o=";
-        }
-      }/pkgs/by-name/so/sonarr/package.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=355011
     adguardhome = super.callPackage (import "${
         super.fetchFromGitHub {
