@@ -61,6 +61,16 @@
     in super.callPackage (import "${src}/pkgs/applications/office/libreoffice/wrapper.nix") {
       unwrapped = super.callPackage (import "${src}/pkgs//applications/office/libreoffice") { variant = "fresh"; };
     };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=358983
+    tautulli = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "0706f4f5390fcddc62d8cf974857901a7ebf95e3";
+          sha256 = "sha256-Rg6B6b4/2Ydfi6w67RWPmEeC9u6E+zon2Idg9wO184Q=";
+        }
+      }/pkgs/servers/tautulli") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
