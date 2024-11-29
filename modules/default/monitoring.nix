@@ -304,7 +304,6 @@ in {
 
     users.users.${config.services.netdata.user}.extraGroups =
       # Redis collector
-      # this has to be user since redis will use the configured user as group
       lib.optionals redisEnabled (map (server: server.group) (lib.attrValues config.services.redis.servers))
 
       # Web server collector
