@@ -1,23 +1,59 @@
-{ config, secrets, ... }: {
+{ lib, config, secrets, ... }: {
+  fileSystems = {
+    "/mnt/Data/Monitoring/loki" = {
+      depends = [ "/mnt/Data/Monitoring" ];
+      device = config.services.loki.dataDir;
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+    "/mnt/Data/Monitoring/prometheus" = {
+      depends = [ "/mnt/Data/Monitoring" ];
+      device = "/var/lib/${config.services.prometheus.stateDir}";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+  };
+
   services = {
     nginx = {
       enable = true;
 
-      virtualHosts."grafana.00a.ch" = {
-        enableACME = true;
-        forceSSL = true;
+      virtualHosts = {
+        "grafana.00a.ch" = {
+          enableACME = true;
+          forceSSL = true;
 
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
-          proxyWebsockets = true;
-          basicAuth = secrets.nginx.basicAuth."grafana.00a.ch";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
+            proxyWebsockets = true;
+            basicAuth = secrets.nginx.basicAuth."grafana.00a.ch";
 
-          extraConfig = ''
-            satisfy any;
+            extraConfig = ''
+              satisfy any;
 
-            allow 192.168.1.0/24;
-            deny all;
-          '';
+              allow 192.168.1.0/24;
+              deny all;
+            '';
+          };
+        };
+
+        "pushgateway.00a.ch" = {
+          enableACME = true;
+          forceSSL = true;
+
+          locations."/" = {
+            proxyPass = "http://${config.services.prometheus.pushgateway.web.listen-address}";
+            proxyWebsockets = true;
+            basicAuth = secrets.nginx.basicAuth."pushgateway.00a.ch";
+
+            extraConfig = ''
+              satisfy any;
+
+              allow 192.168.1.0/24;
+              deny all;
+            '';
+          };
         };
       };
     };
@@ -27,7 +63,7 @@
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "grafana.00a.ch" ];
+      hostnames = [ "grafana.00a.ch" "pushgateway.00a.ch" ];
     };
 
     grafana = {
@@ -62,21 +98,34 @@
         datasources.settings = {
           apiVersion = 1;
 
-          datasources = [{
-            name = "Loki";
-            type = "loki";
-            access = "direct";
-            url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
-            isDefault = true;
-          }];
+          datasources = [
+            {
+              name = "Loki";
+              type = "loki";
+              access = "direct";
+              url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
+              isDefault = true;
+            }
+            {
+              name = "Prometheus";
+              type = "prometheus";
+              access = "proxy";
+              url = "http://127.0.0.1:${toString config.services.prometheus.port}";
+
+              jsonData = {
+                manageAlerts = true;
+                prometheusType = "Prometheus";
+                prometheusVersion = config.services.prometheus.package.version;
+                cacheLevel = "High";
+              };
+            }
+          ];
         };
       };
     };
 
     loki = {
       enable = true;
-
-      dataDir = "/mnt/Data/Monitoring/loki";
 
       extraFlags = [ "-print-config-stderr" ];
 
@@ -132,6 +181,40 @@
         analytics.reporting_enabled = false;
         tracing.enabled = false;
       };
+    };
+
+    prometheus = {
+      enable = true;
+
+      enableReload = true;
+
+      pushgateway = {
+        enable = true;
+
+        web = {
+          telemetry-path = "/metrics";
+          listen-address = "127.0.0.1:9091";
+        };
+      };
+
+      scrapeConfigs = [
+        {
+          job_name = "netdata";
+          scheme = "https";
+          metrics_path = "/api/v1/allmetrics";
+          params.format = [ "prometheus" ];
+          basic_auth = let basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
+          in {
+            username = builtins.head (lib.attrNames basicAuth);
+            password = builtins.head (lib.attrValues basicAuth);
+          };
+          static_configs = [{ targets = [ "monitoring.00a.ch" ]; }];
+        }
+        {
+          job_name = "pushgateway";
+          static_configs = [{ targets = [ "127.0.0.1:9091" ]; }];
+        }
+      ];
     };
 
     log-shipping.useLocalhost = true;
