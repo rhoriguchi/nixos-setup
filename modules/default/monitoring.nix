@@ -213,7 +213,7 @@ in {
               name = "wireguard";
               update_every = 10;
               autodetection_retry = 5;
-              hosts = [ (import ./wireguard-network/ips.nix).${config.services.wireguard-network.serverHostname} ];
+              hosts = [ wireguardIps.${config.services.wireguard-network.serverHostname} ];
             };
           };
         } // lib.optionalAttrs redisEnabled {
