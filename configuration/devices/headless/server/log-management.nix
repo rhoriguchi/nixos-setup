@@ -38,6 +38,23 @@
           };
         };
 
+        "prometheus.00a.ch" = {
+          enableACME = true;
+          forceSSL = true;
+
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.prometheus.port}";
+            basicAuth = secrets.nginx.basicAuth."prometheus.00a.ch";
+
+            extraConfig = ''
+              satisfy any;
+
+              allow 192.168.1.0/24;
+              deny all;
+            '';
+          };
+        };
+
         "pushgateway.00a.ch" = {
           enableACME = true;
           forceSSL = true;
@@ -62,7 +79,7 @@
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "grafana.00a.ch" "pushgateway.00a.ch" ];
+      hostnames = [ "grafana.00a.ch" "prometheus.00a.ch" "pushgateway.00a.ch" ];
     };
 
     grafana = {
