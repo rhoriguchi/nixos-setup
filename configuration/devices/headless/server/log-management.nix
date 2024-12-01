@@ -218,7 +218,7 @@
           job_name = "netdata";
           scheme = "https";
           metrics_path = "/api/v1/allmetrics";
-          params.format = [ "prometheus" ];
+          params.format = [ "prometheus_all_hosts" ];
           basic_auth = let basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
           in {
             username = builtins.head (lib.attrNames basicAuth);
