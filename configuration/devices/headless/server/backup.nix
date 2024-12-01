@@ -16,6 +16,7 @@ in {
         source_directories = [
           "/mnt/Data/Series"
           "/var/cache/netdata"
+          "/var/lib/${config.services.prometheus.stateDir}"
           "/var/lib/hass"
           "/var/lib/private/esphome"
           "/var/lib/private/prowlarr"
