@@ -225,6 +225,7 @@
             password = builtins.head (lib.attrValues basicAuth);
           };
           static_configs = [{ targets = [ "monitoring.00a.ch" ]; }];
+          scrape_interval = "5s";
         }
         {
           job_name = "pushgateway";
