@@ -44,7 +44,6 @@
 
           locations."/" = {
             proxyPass = "http://${config.services.prometheus.pushgateway.web.listen-address}";
-            proxyWebsockets = true;
             basicAuth = secrets.nginx.basicAuth."pushgateway.00a.ch";
 
             extraConfig = ''
