@@ -44,6 +44,7 @@
           "sensor.mystrom_button_orange_battery"
           "sensor.mystrom_button_purple_battery"
           "sensor.mystrom_button_white_battery"
+          "sensor.reduit_parasoll_battery"
           "sensor.valve_blue_battery"
           "sensor.valve_green_battery"
           "sensor.valve_orange_battery"
