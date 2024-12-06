@@ -90,6 +90,8 @@
     steam.enable = true;
 
     virt-manager.enable = true;
+
+    bazecor.enable = true;
   };
 
   environment.systemPackages = [ pkgs.google-chrome pkgs.libreoffice-fresh pkgs.vlc pkgs.wpa_supplicant_gui ];

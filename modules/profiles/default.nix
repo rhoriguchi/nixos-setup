@@ -4,7 +4,6 @@
 
   displaylink = import ./displaylink.nix;
   docker = import ./docker.nix;
-  dygma-defy = import ./dygma-defy.nix;
   fancy-motd = import ./fancy-motd.nix;
   git = import ./git.nix;
   gnome = import ./gnome.nix;
