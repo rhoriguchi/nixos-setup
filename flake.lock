@@ -11,15 +11,15 @@
       "locked": {
         "lastModified": 1644066363,
         "narHash": "sha256-u1uPVOks+vNth1AAnny/++SRaqpxYaGWQmCqMfEZEs8=",
-        "owner": "k0ral",
-        "repo": "borg-exporter",
+        "ref": "refs/heads/master",
         "rev": "3e3ff19a0da3bb148dbf6f5ab951dacb876a6e7b",
-        "type": "github"
+        "revCount": 1,
+        "type": "git",
+        "url": "https://codeberg.org/k0ral/borg-exporter.git"
       },
       "original": {
-        "owner": "k0ral",
-        "repo": "borg-exporter",
-        "type": "github"
+        "type": "git",
+        "url": "https://codeberg.org/k0ral/borg-exporter.git"
       }
     },
     "deploy-rs": {

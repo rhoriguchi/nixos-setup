@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
     borg-exporter = {
-      url = "github:k0ral/borg-exporter";
+      url = "git+https://codeberg.org/k0ral/borg-exporter.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
