@@ -90,6 +90,7 @@ in {
           {
             name = "DMZ VLAN";
             ids = [ "192.168.2.0/24" ];
+            use_global_settings = true;
             filtering_enabled = false;
           }
           {
