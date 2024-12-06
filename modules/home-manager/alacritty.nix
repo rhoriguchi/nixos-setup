@@ -1,5 +1,5 @@
 { pkgs, config, colors, ... }: {
-  home.packages = [ (pkgs.nerdfonts.override { fonts = [ "RobotoMono" ]; }) ];
+  home.packages = [ pkgs.nerd-fonts.roboto-mono ];
 
   home.sessionVariables.TERMINAL = "alacritty";
 

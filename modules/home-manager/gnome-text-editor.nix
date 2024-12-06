@@ -1,9 +1,5 @@
 { pkgs, ... }: {
-  home.packages = [
-    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-
-    pkgs.gnome-text-editor
-  ];
+  home.packages = [ pkgs.nerd-fonts.jetbrains-mono pkgs.gnome-text-editor ];
 
   dconf = {
     enable = true;

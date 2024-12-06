@@ -1,5 +1,5 @@
 { config, pkgs, lib, colors, ... }: {
-  home.packages = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+  home.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
 
   programs.zsh.shellAliases.vscode = "${config.programs.vscode.package}/bin/code";
 
