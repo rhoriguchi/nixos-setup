@@ -19,10 +19,10 @@ curl --location --output spice-guest-tools.exe --url "https://www.spice-space.or
 start /wait spice-guest-tools.exe
 del /f spice-guest-tools.exe
 
-REM Nvidia GeForce Experience
-curl --location --output GeForce_Experience.exe --url "https://de.download.nvidia.com/GFE/GFEClient/3.28.0.417/GeForce_Experience_v3.28.0.417.exe"
-start /wait GeForce_Experience.exe
-del /f GeForce_Experience.exe
+REM NVIDIA App
+curl --location --output NVIDIA_app.exe --url "https://us.download.nvidia.com/nvapp/client/11.0.1.184/NVIDIA_app_v11.0.1.184.exe"
+start /wait NVIDIA_app.exe
+del /f NVIDIA_app.exe
 ```
 
 After the manual installation.
