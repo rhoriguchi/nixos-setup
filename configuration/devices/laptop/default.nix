@@ -87,7 +87,10 @@
   };
 
   programs = {
-    steam.enable = true;
+    steam = {
+      enable = true;
+      localNetworkGameTransfers.openFirewall = true;
+    };
 
     virt-manager.enable = true;
 
