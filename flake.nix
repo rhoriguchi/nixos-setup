@@ -93,6 +93,9 @@
 
           profilesOrder = [ "system" "rhoriguchi-home-manager" ];
 
+          autoRollback = false;
+          magicRollback = false;
+
           profiles = {
             system = {
               sshUser = "root";
