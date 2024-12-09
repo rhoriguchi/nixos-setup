@@ -42,7 +42,7 @@
 
       stateless = true;
 
-      webInterface = false;
+      webInterface = true;
       startWhenNeeded = false;
 
       # Firewall port needs to be open and listen address needs to be 0.0.0.0 else discovery does not work
