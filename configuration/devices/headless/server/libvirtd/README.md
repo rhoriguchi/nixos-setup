@@ -91,7 +91,7 @@ del /f Hextech_Repair_tool.msi
 winget install --silent --accept-source-agreements ^
   Blitz.Blitz ^
   Discord.Discord ^
-  IObit.DriverBooster ^
+  GlennDelahoy.SnappyDriverInstallerOrigin ^
   IObit.Uninstaller ^
   Mojang.MinecraftLauncher ^
   Mozilla.Firefox ^
