@@ -20,7 +20,7 @@
         }
       }/pkgs/servers/prowlarr") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=362654
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=362549
     sonarr = super.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
