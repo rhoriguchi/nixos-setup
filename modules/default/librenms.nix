@@ -5,8 +5,8 @@ let
   src = let
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "d7a016108bb4cdbf208a97c5906f3c87343b7635";
-    sha256 = "sha256:09jn0n2gban9z107n4mzdnlppankj12pr9idfki31cygh33z94an";
+    rev = "26abd85e2c1b78dc403cfa38aeb1efa31c5103f4";
+    sha256 = "sha256:02y90bqw2h1m9pd5a45pmrml9r5lka9vawz0594gjsjirw6bcbhb";
   in builtins.fetchTarball {
     name = "nixpkgs";
     url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
