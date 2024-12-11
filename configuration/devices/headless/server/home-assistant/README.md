@@ -8,9 +8,7 @@
   - Homekit Device
     - `DIRIGERA (Bridge)`
   - Philips Hue
-    - `ecb5faac6110.local`
     - Rename
-      - `light.bedroom_standing_lamp`
       - `light.living_room_signe_gradient_kitchen`
       - `light.living_room_signe_gradient_window`
   - Govee lights local
