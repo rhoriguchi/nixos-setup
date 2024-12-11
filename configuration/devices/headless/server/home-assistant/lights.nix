@@ -29,12 +29,7 @@
     {
       platform = "group";
       name = "Group Living room";
-      entities = [
-        "light.living_room_signe_gradient_kitchen"
-        "light.living_room_signe_gradient_window"
-        "light.living_room_standing_lamp"
-        "light.living_room_table_lamp"
-      ];
+      entities = [ "light.living_room_signe_gradient_kitchen" "light.living_room_signe_gradient_window" "light.living_room_standing_lamp" ];
     }
     {
       platform = "group";
