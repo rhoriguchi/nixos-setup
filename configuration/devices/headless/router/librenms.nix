@@ -95,6 +95,6 @@ in {
   };
 
   services.cron.systemCronJobs = [
-    "27 * * * * ${config.services.librenms.user} ${pkgs.python3}/bin/python ${config.services.librenms.package}/snmp-scan.py >> /dev/null 2>&1"
+    "27 * * * * ${config.services.librenms.user} ${pkgs.python3}/bin/python ${config.services.librenms.finalPackage}/snmp-scan.py >> /dev/null 2>&1"
   ];
 }
