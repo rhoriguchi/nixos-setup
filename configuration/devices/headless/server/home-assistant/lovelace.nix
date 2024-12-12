@@ -409,7 +409,7 @@ in {
 
                 # Shelly H&T Gen3
                 {
-                  from = " Plus H&T";
+                  from = " H&T Gen3 battery";
                 }
 
                 # Hue Dimmer switches
