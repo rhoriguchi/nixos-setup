@@ -409,7 +409,12 @@ in {
                 }
 
                 # Shelly H&T Gen3
-                { from = " Plus H&T"; }
+                {
+                  from = " Plus H&T";
+                }
+
+                # Hue Dimmer switches
+                { from = " Dimmer switch"; }
               ];
               sort.by = "name";
 
@@ -441,6 +446,14 @@ in {
                 {
                   name = "Shelly H&T Gen3 {range}%";
                   entities = [ "sensor.bedroom_h_t_gen3_battery" "sensor.entrance_h_t_gen3_battery" ];
+                }
+                {
+                  name = "Hue Dimmer switches {range}%";
+                  entities = [
+                    "sensor.bedroom_dimmer_switch_battery"
+                    "sensor.entrance_dimmer_switch_battery"
+                    "sensor.living_room_dimmer_switch_battery"
+                  ];
                 }
               ];
             }

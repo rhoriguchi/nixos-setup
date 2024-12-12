@@ -37,8 +37,11 @@
       trigger = [{
         trigger = "numeric_state";
         entity_id = [
+          "sensor.bedroom_dimmer_switch_battery"
           "sensor.bedroom_h_t_gen3_battery"
+          "sensor.entrance_dimmer_switch_battery"
           "sensor.entrance_h_t_gen3_battery"
+          "sensor.living_room_dimmer_switch_battery"
           "sensor.mystrom_button_blue_battery"
           "sensor.mystrom_button_gray_battery"
           "sensor.mystrom_button_orange_battery"
