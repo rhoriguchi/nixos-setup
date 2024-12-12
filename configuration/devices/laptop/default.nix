@@ -90,6 +90,7 @@
     steam = {
       enable = true;
       localNetworkGameTransfers.openFirewall = true;
+      remotePlay.openFirewall = true;
     };
 
     virt-manager.enable = true;
