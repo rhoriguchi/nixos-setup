@@ -396,6 +396,16 @@ in {
               title = "Battery";
 
               bulk_rename = [
+                # Phone (has to be on top else rename does not work)
+                {
+                  from = "FP5 Battery level";
+                  to = "Ryan Fairphone 5";
+                }
+                {
+                  from = "iPhone von Sarah  Battery Level";
+                  to = "Sarah iPhone 15 Pro Max ";
+                }
+
                 # Netatmo valve
                 { from = " Battery"; }
                 {
@@ -430,6 +440,10 @@ in {
                 {
                   name = "Parasoll {range}%";
                   entities = [ "sensor.reduit_parasoll_battery" ];
+                }
+                {
+                  name = "Phone {range}%";
+                  entities = [ "sensor.fp5_battery_level" "sensor.iphone_von_sarah_battery_level" ];
                 }
                 {
                   name = "Shelly H&T Gen3 {range}%";
