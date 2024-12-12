@@ -29,6 +29,11 @@ in {
         user = "git";
         identityFile = "${home}/.ssh/gitlab_rsa";
       };
+
+      "jcrk.synology.me" = {
+        user = "xxlpitu";
+        port = 10022;
+      };
     } // (let
       ips = import ../default/wireguard-network/ips.nix;
       clientIps = lib.filterAttrs (key: _: key != "Ryan-Laptop") ips;
