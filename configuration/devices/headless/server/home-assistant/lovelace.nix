@@ -396,7 +396,7 @@ in {
               title = "Battery";
 
               bulk_rename = [
-                # Netatmo valves
+                # Netatmo valve
                 { from = " Battery"; }
                 {
                   from = "Valve ";
@@ -412,7 +412,7 @@ in {
                   from = " H&T Gen3 battery";
                 }
 
-                # Hue Dimmer switches
+                # Hue Dimmer switche
                 { from = " Dimmer switch"; }
               ];
               sort.by = "name";
