@@ -18,6 +18,7 @@
       pkgs.vscode-extensions.davidanson.vscode-markdownlint
       pkgs.vscode-extensions.dbaeumer.vscode-eslint
       pkgs.vscode-extensions.dotjoshjohnson.xml
+      pkgs.vscode-extensions.eamodio.gitlens
       pkgs.vscode-extensions.editorconfig.editorconfig
       pkgs.vscode-extensions.esbenp.prettier-vscode
       pkgs.vscode-extensions.formulahendry.auto-close-tag
