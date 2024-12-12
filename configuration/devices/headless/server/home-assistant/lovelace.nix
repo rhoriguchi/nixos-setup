@@ -402,6 +402,11 @@ in {
                   from = "Valve ";
                 }
 
+                # Parasoll
+                {
+                  from = " Parasoll";
+                }
+
                 # Shelly H&T Gen3
                 {
                   from = " Plus H&T";
@@ -412,22 +417,7 @@ in {
               ];
               sort.by = "name";
 
-              entities = [{
-                name = "Reduit Parasoll";
-                entity = "sensor.reduit_parasoll_battery";
-              }];
-
               collapse = [
-                {
-                  name = "myStrom buttons {range}%";
-                  entities = [
-                    "sensor.mystrom_button_blue_battery"
-                    "sensor.mystrom_button_gray_battery"
-                    "sensor.mystrom_button_orange_battery"
-                    "sensor.mystrom_button_purple_battery"
-                    "sensor.mystrom_button_white_battery"
-                  ];
-                }
                 {
                   name = "Netatmo valves {range}%";
                   entities = [
@@ -436,6 +426,10 @@ in {
                     "sensor.valve_orange_battery"
                     "sensor.valve_yellow_battery"
                   ];
+                }
+                {
+                  name = "Parasoll {range}%";
+                  entities = [ "sensor.reduit_parasoll_battery" ];
                 }
                 {
                   name = "Shelly H&T Gen3 {range}%";
