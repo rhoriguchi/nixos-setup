@@ -30,7 +30,7 @@ let
   createswitchAutomations = let steps = 6;
   in data: [
     {
-      alias = "Turn ${data.name} lights on";
+      alias = "Toggle ${data.name} lights";
       trigger = [{
         trigger = "event";
         event_type = "hue_event";
@@ -40,35 +40,8 @@ let
           type = "initial_press";
         };
       }];
-      condition = [{
-        condition = "state";
-        entity_id = data.targetId;
-        match = "any";
-        state = "off";
-      }];
       action = [{
-        action = "light.turn_on";
-        target.entity_id = data.targetId;
-      }];
-    }
-    {
-      alias = "Turn ${data.name} lights off";
-      trigger = [{
-        trigger = "event";
-        event_type = "hue_event";
-        event_data = {
-          id = data.switch.id;
-          unique_id = data.switch.buttons.power;
-          type = "initial_press";
-        };
-      }];
-      condition = [{
-        condition = "state";
-        entity_id = data.targetId;
-        state = "on";
-      }];
-      action = [{
-        action = "light.turn_off";
+        action = "light.toggle";
         target.entity_id = data.targetId;
       }];
     }
@@ -199,22 +172,17 @@ in {
   ] ++ lib.lists.flatten (map (data: createswitchAutomations data) [
     {
       name = "bedroom";
-      targetId = "light.group_bedroom";
+      targetId = "light.group_switch_bedroom";
       switch = switches.bedroom;
     }
     {
       name = "entrance";
-      targetId = "light.group_entrance";
+      targetId = "light.group_switch_entrance";
       switch = switches.entrance;
     }
     {
-      name = "kitchen";
-      targetId = "light.group_kitchen";
-      switch = switches.livingRoom;
-    }
-    {
-      name = "living room";
-      targetId = "light.group_living_room";
+      name = "kitchen and living room";
+      targetId = "light.group_switch_living_room";
       switch = switches.livingRoom;
     }
   ]);

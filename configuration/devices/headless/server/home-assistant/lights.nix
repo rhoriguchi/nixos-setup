@@ -29,12 +29,38 @@
     {
       platform = "group";
       name = "Group Living room";
-      entities = [ "light.living_room_signe_gradient_kitchen" "light.living_room_signe_gradient_window" "light.living_room_standing_lamp" ];
+      entities = [
+        "light.living_room_signe_gradient_kitchen"
+        "light.living_room_signe_gradient_window"
+        "light.living_room_standing_lamp"
+        "light.living_room_table_lamp"
+      ];
     }
     {
       platform = "group";
       name = "Group Reduit";
       entities = [ "light.reduit_closet_lights" ];
+    }
+
+    {
+      platform = "group";
+      name = "Group switch bedroom";
+      entities = [ "light.bedroom_standing_lamp" ];
+    }
+    {
+      platform = "group";
+      name = "Group switch entrance";
+      entities = [ "light.entrance_lamp" "light.entrance_sideboard_lamp" ];
+    }
+    {
+      platform = "group";
+      name = "Group switch living room";
+      entities = [
+        "light.kitchen_standing_lamp"
+        "light.living_room_signe_gradient_kitchen"
+        "light.living_room_signe_gradient_window"
+        "light.living_room_standing_lamp"
+      ];
     }
   ];
 }
