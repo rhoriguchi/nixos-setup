@@ -75,6 +75,7 @@ in {
 
   home.file.".tmuxp/Default.yaml".source = (pkgs.formats.yaml { }).generate "Default.yml" {
     session_name = "Default";
+    start_directory = homeDirectory;
 
     windows = [
       {
