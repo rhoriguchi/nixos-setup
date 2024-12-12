@@ -419,7 +419,7 @@ in {
 
               collapse = [
                 {
-                  name = "Netatmo valves {range}%";
+                  name = "Netatmo valve {range}%";
                   entities = [
                     "sensor.valve_blue_battery"
                     "sensor.valve_green_battery"
@@ -436,7 +436,7 @@ in {
                   entities = [ "sensor.bedroom_h_t_gen3_battery" "sensor.entrance_h_t_gen3_battery" ];
                 }
                 {
-                  name = "Hue Dimmer switches {range}%";
+                  name = "Hue Dimmer switche {range}%";
                   entities = [
                     "sensor.bedroom_dimmer_switch_battery"
                     "sensor.entrance_dimmer_switch_battery"
