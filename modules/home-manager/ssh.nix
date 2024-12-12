@@ -36,6 +36,7 @@ in {
       lib.nameValuePair (lib.toLower key) {
         hostname = value;
         user = "xxlpitu";
+        extraOptions.HostKeyAlias = lib.toLower key;
       }) clientIps);
   };
 }
