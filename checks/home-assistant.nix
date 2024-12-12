@@ -24,11 +24,6 @@ pkgs.nixosTest {
         password = "password";
       };
 
-      mystrom = {
-        email = "test@example.com";
-        password = "password";
-      };
-
       netatmo = {
         homeId = "000000000000000000000000";
         email = "test@example.com";

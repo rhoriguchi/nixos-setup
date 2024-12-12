@@ -396,12 +396,6 @@ in {
               title = "Battery";
 
               bulk_rename = [
-                # myStrom buttons
-                { from = " battery"; }
-                {
-                  from = "myStrom button ";
-                }
-
                 # Netatmo valves
                 { from = " Battery"; }
                 {
