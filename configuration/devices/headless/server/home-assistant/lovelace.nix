@@ -454,7 +454,7 @@ in {
                   entities = [
                     "sensor.bedroom_dimmer_switch_battery"
                     "sensor.entrance_dimmer_switch_battery"
-                    "sensor.living_room_dimmer_switch_battery"
+                    "sensor.kitchen_dimmer_switch_battery"
                   ];
                 }
               ];

@@ -54,7 +54,7 @@
     }
     {
       platform = "group";
-      name = "Group switch living room";
+      name = "Group switch kitchen";
       entities = [
         "light.kitchen_standing_lamp"
         "light.living_room_signe_gradient_kitchen"

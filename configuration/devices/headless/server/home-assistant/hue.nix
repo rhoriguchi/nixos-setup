@@ -17,8 +17,8 @@ let
         down = "e25e17ec-6e2d-4a30-bbbd-65dab1462b65";
       };
     };
-    livingRoom = {
-      id = "living_room_dimmer_switch_button";
+    kitchen = {
+      id = "kitchen_dimmer_switch_button";
       buttons = {
         power = "57c96761-dbaf-41ac-8295-957d7efcfc72";
         up = "0f58fa50-d758-42ce-8e49-82567c617494";
@@ -182,8 +182,8 @@ in {
     }
     {
       name = "kitchen and living room";
-      targetId = "light.group_switch_living_room";
-      switch = switches.livingRoom;
+      targetId = "light.group_switch_kitchen";
+      switch = switches.kitchen;
     }
   ]);
 }
