@@ -7,6 +7,7 @@ let
         power = "2819c8f1-5dc5-4fcb-bafe-c7bc4fa595c5";
         up = "ae296fae-ecc0-47cd-b54e-ec913f5666c9";
         down = "1499685c-45e0-4ff6-9acc-5ebda9266a34";
+        hue = "40aa54e0-2678-4738-ab02-a68a3f56f01f";
       };
     };
     entrance = {
@@ -15,6 +16,7 @@ let
         power = "165c3f81-a23a-42ac-89ea-2daa0efa6572";
         up = "d6c12a95-7924-49a8-b782-4792bf04e459";
         down = "e25e17ec-6e2d-4a30-bbbd-65dab1462b65";
+        hue = "f2d227d2-299b-4a71-9e61-822411905d9c";
       };
     };
     kitchen = {
@@ -23,11 +25,12 @@ let
         power = "57c96761-dbaf-41ac-8295-957d7efcfc72";
         up = "0f58fa50-d758-42ce-8e49-82567c617494";
         down = "94b42bfb-3681-4b86-bb5d-e4da98976557";
+        hue = "561bd416-cb41-4f5c-a20f-c79e9e674fde";
       };
     };
   };
 
-  createswitchAutomations = let steps = 6;
+  createSwitchAutomations = let steps = 6;
   in data: [
     {
       alias = "Toggle ${data.name} lights";
@@ -169,7 +172,34 @@ in {
         data.color_temp_kelvin = 3600;
       }];
     }
-  ] ++ lib.lists.flatten (map (data: createswitchAutomations data) [
+    {
+      alias = "Toggle hallway light";
+      trigger = [
+        {
+          trigger = "event";
+          event_type = "hue_event";
+          event_data = {
+            id = switches.bedroom.id;
+            unique_id = switches.bedroom.buttons.hue;
+            type = "initial_press";
+          };
+        }
+        {
+          trigger = "event";
+          event_type = "hue_event";
+          event_data = {
+            id = switches.kitchen.id;
+            unique_id = switches.kitchen.buttons.hue;
+            type = "initial_press";
+          };
+        }
+      ];
+      action = [{
+        action = "light.toggle";
+        target.entity_id = "light.hallway_lamp";
+      }];
+    }
+  ] ++ lib.lists.flatten (map (data: createSwitchAutomations data) [
     {
       name = "bedroom";
       targetId = "light.group_switch_bedroom";
