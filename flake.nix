@@ -175,7 +175,7 @@
                 _module.args.interfaces = {
                   external = "enp1s0";
                   internal = "enp2s0";
-                  management = "enp3s0";
+                  management = "enp4s0";
                 };
               }];
             });

@@ -5,6 +5,7 @@ in {
     ../common.nix
 
     ./adguardhome.nix
+    ./broken-emmc.nix
     ./firewall.nix
     ./librenms.nix
     ./routing.nix
