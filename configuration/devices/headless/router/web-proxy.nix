@@ -21,6 +21,9 @@ let
   localDomains = let filter = virtualHost: builtins.all (domain: virtualHost != domain) (ulquiorraDomains ++ serverDomains);
   in lib.filter filter (lib.attrNames config.services.nginx.virtualHosts);
 in {
+  # nginx needs to start after adguardhome because of `resolver` option
+  systemd.services.nginx.after = lib.optional config.services.adguardhome.enable "adguardhome.service";
+
   services.nginx = {
     enable = true;
 
