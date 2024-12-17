@@ -63,7 +63,6 @@ in {
 
   systemd.services.fancontrol = {
     documentation = [ "man:fancontrol(8)" ];
-    description = "software fan control";
     wantedBy = [ "multi-user.target" ];
     after = [ "lm_sensors.service" ];
 
