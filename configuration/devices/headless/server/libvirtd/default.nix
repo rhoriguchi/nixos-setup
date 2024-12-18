@@ -16,6 +16,7 @@
         name = "Ryan-Desktop";
         vnode = "Ryan-Desktop";
         url = "http://172.16.1.2:9182/metrics";
+        autodetection_retry = 60;
       }];
     };
 
