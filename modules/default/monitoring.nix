@@ -290,16 +290,46 @@ in {
       };
     };
 
-    systemd.services.netdata.serviceConfig = {
-      CapabilityBoundingSet = [
-        # S.M.A.R.T. collector
-        "CAP_SYS_RAWIO"
-      ];
+    systemd.services = {
+      netdata = {
+        requires = [ "netdata-set-node-uuid.service" ];
 
-      AmbientCapabilities = [
-        # Ping collector
-        "CAP_NET_RAW"
-      ];
+        serviceConfig = {
+          CapabilityBoundingSet = [
+            # S.M.A.R.T. collector
+            "CAP_SYS_RAWIO"
+          ];
+
+          AmbientCapabilities = [
+            # Ping collector
+            "CAP_NET_RAW"
+          ];
+        };
+      };
+
+      netdata-set-node-uuid = {
+        before = [ "netdata.service" ];
+        wantedBy = [ "multi-user.target" ];
+
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          User = config.services.netdata.user;
+          Group = config.services.netdata.group;
+        };
+
+        script = ''
+          ${pkgs.coreutils}/bin/mkdir -p /var/lib/netdata/registry
+
+          hash=$(echo -n "${config.networking.hostName}" | ${pkgs.coreutils}/bin/sha1sum | ${pkgs.gawk}/bin/awk '{print $1}')
+          printf "%s-%s-%s-%s-%s" \
+            "''${hash:0:8}" \
+            "''${hash:8:4}" \
+            "''${hash:12:4}" \
+            "''${hash:16:4}" \
+            "''${hash:20:12}" > /var/lib/netdata/registry/netdata.public.unique.id
+        '';
+      };
     };
 
     users.users.${config.services.netdata.user}.extraGroups =
