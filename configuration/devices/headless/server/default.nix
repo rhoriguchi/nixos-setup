@@ -15,24 +15,19 @@
     ./hardware-configuration.nix
   ];
 
-  boot = {
-    # TODO remove once zfs builds
-    kernelPackages = pkgs.linuxPackages_6_6;
+  boot.loader.grub = {
+    enable = true;
 
-    loader.grub = {
-      enable = true;
+    zfsSupport = true;
+    efiSupport = true;
+    efiInstallAsRemovable = true;
 
-      zfsSupport = true;
-      efiSupport = true;
-      efiInstallAsRemovable = true;
+    device = "nodev";
 
-      device = "nodev";
-
-      mirroredBoots = [{
-        devices = [ "/dev/disk/by-uuid/6054-F72D" ];
-        path = "/boot-mirror";
-      }];
-    };
+    mirroredBoots = [{
+      devices = [ "/dev/disk/by-uuid/6054-F72D" ];
+      path = "/boot-mirror";
+    }];
   };
 
   networking = {
