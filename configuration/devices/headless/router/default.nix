@@ -7,6 +7,7 @@ in {
     ./adguardhome.nix
     ./broken-emmc.nix
     ./firewall.nix
+    ./lancache.nix
     ./librenms.nix
     ./routing.nix
     ./web-proxy.nix
