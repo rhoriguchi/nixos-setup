@@ -1,5 +1,20 @@
 { config, lib, ... }:
 let
+  serverDomains = [
+    "deluge.00a.ch"
+    "esphome.00a.ch"
+    "grafana.00a.ch"
+    "home-assistant.00a.ch"
+    "immich.00a.ch"
+    "monitoring.00a.ch"
+    "prometheus.00a.ch"
+    "prowlarr.00a.ch"
+    "pushgateway.00a.ch"
+    "sonarr.00a.ch"
+    "tautulli.00a.ch"
+  ];
+  ulquiorraDomains = [ "scanner.00a.ch" ];
+
   getRoutings = host: domains:
     let getRouting = host: domain: "${domain} ${host};";
     in lib.concatStringsSep "\n" (map (domain: getRouting host domain) domains);
@@ -14,12 +29,6 @@ let
 
         locations."/".proxyPass = "http://${hostName}:80";
       }) domains);
-
-  ulquiorraDomains = [ "scanner.00a.ch" ];
-  serverDomains = [ "*.00a.ch" ];
-
-  localDomains = let filter = virtualHost: builtins.all (domain: virtualHost != domain) (ulquiorraDomains ++ serverDomains);
-  in lib.filter filter (lib.attrNames config.services.nginx.virtualHosts);
 in {
   # nginx needs to start after adguardhome because of `resolver` option
   systemd.services.nginx.after = lib.optional config.services.adguardhome.enable "adguardhome.service";
@@ -45,10 +54,10 @@ in {
       }
 
       map $ssl_preread_server_name $upstream {
-        ${getRoutings config.networking.hostName localDomains}
+        ${getRoutings "XXLPitu-Server" serverDomains}
         ${getRoutings "XXLPitu-Ulquiorra" ulquiorraDomains}
 
-        default XXLPitu-Server;
+        default ${config.networking.hostName};
       }
 
       server {
@@ -61,6 +70,6 @@ in {
       }
     '';
 
-    virtualHosts = (getVirtualHosts "XXLPitu-Ulquiorra.local" ulquiorraDomains) // (getVirtualHosts "XXLPitu-Server.local" serverDomains);
+    virtualHosts = (getVirtualHosts "XXLPitu-Server.local" serverDomains) // (getVirtualHosts "XXLPitu-Ulquiorra.local" ulquiorraDomains);
   };
 }
