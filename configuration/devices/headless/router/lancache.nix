@@ -4,6 +4,7 @@ let
 
   cachedServices = [ "blizzard" "epicgames" "riot" "steam" ];
   lancachePort = 15411;
+  nginxStatusPort = 15412;
 
   src = pkgs.fetchFromGitHub {
     owner = "uklans";
@@ -35,7 +36,7 @@ in {
       TZ = config.time.timeZone;
     };
 
-    ports = [ "127.0.0.1:${toString lancachePort}:80" ];
+    ports = [ "127.0.0.1:${toString lancachePort}:80" "127.0.0.1:${toString nginxStatusPort}:8080" ];
 
     volumes = [ "/var/cache/lancache:/data/cache" "/var/log/lancach:/data/logs" ];
   };
@@ -46,7 +47,18 @@ in {
   '';
 
   services = {
-    nginx.virtualHosts = lib.listToAttrs (map (cachedDomain:
+    nginx.virtualHosts = {
+      "localhost".locations."/lancache_status" = {
+        proxyPass = "http://127.0.0.1:${toString nginxStatusPort}/nginx_status";
+
+        extraConfig = ''
+          access_log off;
+          allow 127.0.0.1;
+          ${lib.optionalString config.networking.enableIPv6 "allow ::1;"}
+          deny all;
+        '';
+      };
+    } // lib.listToAttrs (map (cachedDomain:
       lib.nameValuePair cachedDomain {
         listen = map (addr: {
           inherit addr;
