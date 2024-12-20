@@ -1,5 +1,5 @@
 { config, pkgs, lib, colors, ... }: {
-  home.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
+  home.packages = [ pkgs.nerd-fonts.jetbrains-mono pkgs.nerd-fonts.roboto-mono ];
 
   programs.zsh.shellAliases.vscode = "${config.programs.vscode.package}/bin/code";
 
@@ -128,7 +128,7 @@
       "editor.suggestSelection" = "first";
       "editor.tokenColorCustomizations".comments = "#767676";
       "editor.unicodeHighlight.includeComments" = true;
-      "editor.defaultColorDecorators" = true;
+      "editor.defaultColorDecorators" = "auto";
       "explorer.compactFolders" = false;
       "explorer.confirmDelete" = false;
       "explorer.confirmDragAndDrop" = false;
@@ -168,6 +168,7 @@
       "githubPullRequests.terminalLinksHandler" = "github";
       "importCost.javascriptExtensions" = [ "\\.jsx?$" "\\.tsx?$" ];
       "javascript.updateImportsOnFileMove.enabled" = "always";
+      "javascript.updateImportsOnPaste.enabled" = true;
       "peacock.affectActivityBar" = true;
       "peacock.affectStatusBar" = true;
       "peacock.affectTitleBar" = false;
@@ -196,7 +197,8 @@
       "telemetry.telemetryLevel" = "off";
       "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
       "terminal.integrated.defaultProfile.linux" = "zsh";
-      "terminal.integrated.enableMultiLinePasteWarning" = false;
+      "terminal.integrated.enableMultiLinePasteWarning" = "never";
+      "terminal.integrated.fontFamily" = "RobotoMono Nerd Font";
       "terminal.integrated.profiles.linux" = {
         bash.path = "${pkgs.bash}/bin/bash";
         fish.path = "${pkgs.fish}/bin/fish";
@@ -227,6 +229,7 @@
       "todo-tree.tree.showCountsInTree" = true;
       "typescript.inlayHints.parameterNames.enabled" = "all";
       "typescript.updateImportsOnFileMove.enabled" = "always";
+      "typescript.updateImportsOnPaste.enabled" = true;
       "window.autoDetectColorScheme" = true;
       "window.newWindowDimensions" = "maximized";
       "window.openFoldersInNewWindow" = "on";
