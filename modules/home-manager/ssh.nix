@@ -7,16 +7,17 @@ in {
     compression = true;
     controlPath = "${home}/.ssh/master-%r@%n:%p";
     hashKnownHosts = false;
+    addKeysToAgent = "yes";
     serverAliveCountMax = 3;
     serverAliveInterval = 10;
     userKnownHostsFile = "${home}/.ssh/known_hosts";
 
     extraConfig = ''
-      AddKeysToAgent yes
       ConnectionAttempts 3
       IdentityFile ${home}/.ssh/id_rsa
       NumberOfPasswordPrompts 3
       PubkeyAuthentication yes
+      StrictHostKeyChecking ask
     '';
 
     matchBlocks = {
