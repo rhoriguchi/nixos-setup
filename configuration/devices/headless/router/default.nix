@@ -7,7 +7,6 @@ in {
     ./adguardhome.nix
     ./broken-emmc.nix
     ./firewall.nix
-    ./lancache.nix
     ./librenms.nix
     ./routing.nix
     ./web-proxy.nix
@@ -49,6 +48,12 @@ in {
         sysLocation Cabinet
         sysContact ${config.security.acme.defaults.email}
       '';
+    };
+
+    lancache = {
+      enable = true;
+
+      cachedServices = [ "blizzard" "epicgames" "riot" "steam" ];
     };
   };
 }

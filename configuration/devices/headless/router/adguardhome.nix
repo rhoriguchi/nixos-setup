@@ -1,4 +1,4 @@
-{ pkgs, config, interfaces, secrets, ... }:
+{ pkgs, lib, config, interfaces, secrets, ... }:
 let
   internalInterface = interfaces.internal;
 
@@ -6,6 +6,8 @@ let
   routerIp = "192.168.1.1";
 
   dnsmasqPort = config.services.dnsmasq.settings.port;
+
+  bootstrapDns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
 in {
   networking = {
     nameservers = [ "127.0.0.1" ];
@@ -64,6 +66,8 @@ in {
 
     dnsmasq.resolveLocalQueries = false;
 
+    lancache.upstreamDns = map (dns: lib.replaceStrings [ "tls://" ] [ "" ] dns) bootstrapDns;
+
     adguardhome = {
       enable = true;
 
@@ -71,9 +75,9 @@ in {
 
       mutableSettings = false;
       settings = assert pkgs.adguardhome.schema_version == 29; {
-        dns = rec {
-          bootstrap_dns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
-          upstream_dns = bootstrap_dns ++ [ "[/local/]127.0.0.1:${toString dnsmasqPort}" ];
+        dns = {
+          bootstrap_dns = bootstrapDns;
+          upstream_dns = bootstrapDns ++ [ "[/local/]127.0.0.1:${toString dnsmasqPort}" ];
 
           local_ptr_upstreams = [ "127.0.0.1:${toString dnsmasqPort}" ];
 
@@ -139,7 +143,12 @@ in {
           "pushgateway.00a.ch"
           "sonarr.00a.ch"
           "tautulli.00a.ch"
-        ]);
+        ]) ++ lib.optionals config.services.lancache.enable (map (cachedDomain: {
+          domain = lib.replaceStrings [ "*." ] [ "" ] cachedDomain;
+          # TODO uncomment when https://github.com/AdguardTeam/AdGuardHome/issues/7327 fixed
+          # answer = "${config.networking.hostName}.local";
+          answer = routerIp;
+        }) config.services.lancache.cachedDomains);
       };
     };
   };
