@@ -282,10 +282,6 @@ in {
                       name = "Lamp";
                       entity = "light.entrance_lamp";
                     }
-                    {
-                      name = "REMOVE Yeelight Light";
-                      entity = "light.remove_yeelight_light";
-                    }
                   ];
                 }
                 {

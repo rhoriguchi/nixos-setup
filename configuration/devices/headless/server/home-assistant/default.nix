@@ -45,7 +45,6 @@ in {
         "mobile_app"
         "netatmo"
         "shelly"
-        "yeelight"
       ];
     };
 
