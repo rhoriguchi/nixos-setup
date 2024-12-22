@@ -28,18 +28,28 @@ in {
       }
     ];
 
-    systemd.services = lib.listToAttrs (map (hostname:
-      lib.nameValuePair "infomaniak-${lib.replaceStrings [ "." ] [ "-" ] hostname}" {
-        after = [ "network.target" ];
+    systemd = {
+      services = lib.listToAttrs (map (hostname:
+        lib.nameValuePair "infomaniak-${lib.replaceStrings [ "." ] [ "-" ] hostname}" {
+          after = [ "network.target" ];
 
-        script = ''${pkgs.curl}/bin/curl -s "https://${cfg.username}:${cfg.password}@infomaniak.com/nic/update?hostname=${hostname}"'';
+          script = ''${pkgs.curl}/bin/curl -s "https://${cfg.username}:${cfg.password}@infomaniak.com/nic/update?hostname=${hostname}"'';
 
-        startAt = "*:*:0/5";
+          serviceConfig = {
+            DynamicUser = true;
+            Restart = "on-abort";
+          };
+        }) cfg.hostnames);
 
-        serviceConfig = {
-          DynamicUser = true;
-          Restart = "on-abort";
-        };
-      }) cfg.hostnames);
+      timers = lib.listToAttrs (map (hostname:
+        lib.nameValuePair "infomaniak-${lib.replaceStrings [ "." ] [ "-" ] hostname}" {
+          wantedBy = [ "timers.target" ];
+
+          timerConfig = {
+            OnCalendar = "*:0/4";
+            RandomizedDelaySec = 60;
+          };
+        }) cfg.hostnames);
+    };
   };
 }
