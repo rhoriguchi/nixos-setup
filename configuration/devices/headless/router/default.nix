@@ -53,7 +53,7 @@ in {
     lancache = {
       enable = true;
 
-      cachedServices = [ "blizzard" "epicgames" "riot" "steam" ];
+      cachedServices = [ "blizzard" "epicgames" "nintendo" "riot" "steam" ];
     };
   };
 }
