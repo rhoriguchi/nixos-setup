@@ -31,7 +31,10 @@ let
       }) domains);
 in {
   # nginx needs to start after adguardhome because of `resolver` option
-  systemd.services.nginx.after = lib.optional config.services.adguardhome.enable "adguardhome.service";
+  systemd.services = {
+    nginx.after = lib.optional config.services.adguardhome.enable "adguardhome.service";
+    nginx-config-reload.after = lib.optional config.services.adguardhome.enable "adguardhome.service";
+  };
 
   services.nginx = {
     enable = true;
