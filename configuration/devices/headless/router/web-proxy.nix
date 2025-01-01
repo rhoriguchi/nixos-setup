@@ -15,9 +15,7 @@ let
   ];
   ulquiorraDomains = [ "scanner.00a.ch" ];
 
-  getRoutings = host: domains:
-    let getRouting = host: domain: "${domain} ${host};";
-    in lib.concatStringsSep "\n" (map (domain: getRouting host domain) domains);
+  getUpstreams = host: domains: lib.concatStringsSep "\n" (map (domain: "${domain} ${host};") domains);
 
   getVirtualHosts = hostName: domains:
     lib.listToAttrs (map (domain:
@@ -57,8 +55,8 @@ in {
       }
 
       map $ssl_preread_server_name $upstream {
-        ${getRoutings "XXLPitu-Server" serverDomains}
-        ${getRoutings "XXLPitu-Ulquiorra" ulquiorraDomains}
+        ${getUpstreams "XXLPitu-Server" serverDomains}
+        ${getUpstreams "XXLPitu-Ulquiorra" ulquiorraDomains}
 
         default ${config.networking.hostName};
       }
