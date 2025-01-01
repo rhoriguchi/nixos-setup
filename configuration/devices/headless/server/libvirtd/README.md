@@ -88,6 +88,11 @@ curl --location --output Hextech_Repair_tool.msi --url "https://lolstatic-a.akam
 start /wait msiexec /i Hextech_Repair_tool.msi /quiet /qn /norestart
 del /f Hextech_Repair_tool.msi
 
+curl --location --output r2modman.zip --url "https://thunderstore.io/package/download/ebkr/r2modman/3.1.48"
+mkdir r2modman
+tar -xf r2modman.zip -C r2modman
+del /f r2modman.zip
+
 winget install --silent --accept-source-agreements ^
   Blitz.Blitz ^
   Discord.Discord ^
@@ -136,18 +141,7 @@ winget install --silent --accept-source-agreements 9MV0B5HZVK9Z
 
 ### Dyson Sphere Program
 
-```cmd
-cd %userprofile%/Downloads
-
-curl --location --output r2modman.zip --url "https://thunderstore.io/package/download/ebkr/r2modman/3.1.48"
-mkdir r2modman
-tar -xf r2modman.zip -C r2modman
-del /f r2modman.zip
-
-start %userprofile%/Downloads
-```
-
-#### Dyson Sphere Program mods
+#### Mods
 
 - CommonAPI
 
