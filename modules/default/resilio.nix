@@ -33,7 +33,7 @@ let
     webui = {
       login = cfg.webUI.username;
       password = cfg.webUI.password;
-      listen = "0.0.0.0:${toString cfg.webUI.port}";
+      listen = "127.0.0.1:${toString cfg.webUI.port}";
     };
   } else
     lib.optionalAttrs (lib.length sharedFolders > 0) { shared_folders = sharedFolders; });
