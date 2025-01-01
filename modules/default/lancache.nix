@@ -17,13 +17,17 @@ let
 in {
   options.services.lancache = {
     enable = lib.mkEnableOption "Lancache";
-    port = lib.mkOption {
+    httpPort = lib.mkOption {
       type = lib.types.port;
       default = 15411;
     };
-    statusPort = lib.mkOption {
+    httpsPort = lib.mkOption {
       type = lib.types.port;
       default = 15412;
+    };
+    statusPort = lib.mkOption {
+      type = lib.types.port;
+      default = 15413;
     };
     cacheDir = lib.mkOption {
       type = lib.types.path;
@@ -62,7 +66,8 @@ in {
         TZ = config.time.timeZone;
       };
 
-      ports = [ "127.0.0.1:${toString cfg.port}:80" "127.0.0.1:${toString cfg.statusPort}:8080" ];
+      ports =
+        [ "127.0.0.1:${toString cfg.httpPort}:80" "127.0.0.1:${toString cfg.httpsPort}:443" "127.0.0.1:${toString cfg.statusPort}:8080" ];
 
       volumes = [ "${cfg.cacheDir}:/data/cache" "/var/log/lancach:/data/logs" ];
     };
@@ -71,19 +76,5 @@ in {
       ${pkgs.coreutils}/bin/mkdir -p ${cfg.cacheDir}
       ${pkgs.coreutils}/bin/mkdir -p /var/log/lancach
     '';
-
-    services.nginx = {
-      enable = true;
-
-      virtualHosts = lib.listToAttrs (map (cachedDomain:
-        lib.nameValuePair cachedDomain {
-          listen = map (addr: {
-            inherit addr;
-            port = config.services.nginx.defaultHTTPListenPort;
-          }) config.services.nginx.defaultListenAddresses;
-
-          locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
-        }) cfg.cachedDomains);
-    };
   };
 }

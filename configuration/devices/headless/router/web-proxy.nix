@@ -46,6 +46,10 @@ in {
         server 127.0.0.1:${toString config.services.nginx.defaultSSLListenPort};
       }
 
+      upstream lancache {
+        server 127.0.0.1:${toString config.services.lancache.httpsPort};
+      }
+
       upstream XXLPitu-Ulquiorra {
         server XXLPitu-Ulquiorra.local:443;
       }
@@ -55,6 +59,8 @@ in {
       }
 
       map $ssl_preread_server_name $upstream {
+        ${getUpstreams "lancache" config.services.lancache.cachedDomains}
+
         ${getUpstreams "XXLPitu-Server" serverDomains}
         ${getUpstreams "XXLPitu-Ulquiorra" ulquiorraDomains}
 
