@@ -36,13 +36,13 @@ in {
         port = 10022;
       };
     } // (let
-      ips = import ../default/wireguard-network/ips.nix;
-      clientIps = lib.filterAttrs (key: _: key != "Ryan-Laptop") ips;
+      wireguardIps = import ../default/wireguard-network/ips.nix;
+      filteredWireguardIps = lib.filterAttrs (key: _: key != "Ryan-Laptop") wireguardIps;
     in lib.mapAttrs' (key: value:
       lib.nameValuePair (lib.toLower key) {
         hostname = value;
         user = "xxlpitu";
         extraOptions.HostKeyAlias = lib.toLower key;
-      }) clientIps);
+      }) filteredWireguardIps);
   };
 }
