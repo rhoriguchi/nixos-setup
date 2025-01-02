@@ -3,7 +3,7 @@
     lancache = {
       enable = true;
 
-      cachedServices = [ "blizzard" "epicgames" "nintendo" "riot" "steam" ];
+      cachedServices = [ "blizzard" "epicgames" "nintendo" "riot" "steam" "wsus" ];
     };
 
     nginx = {
