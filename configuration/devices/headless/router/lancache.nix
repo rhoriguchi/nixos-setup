@@ -17,7 +17,7 @@
           }) config.services.nginx.defaultListenAddresses;
 
           locations."/".proxyPass = "http://127.0.0.1:${toString config.services.lancache.httpPort}";
-        }) config.services.lancache.cachedDomains);
+        }) config.services.lancache.cacheDomains);
     };
   };
 }

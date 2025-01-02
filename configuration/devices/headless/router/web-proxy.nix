@@ -59,7 +59,7 @@ in {
       }
 
       map $ssl_preread_server_name $upstream {
-        ${getUpstreams "lancache" config.services.lancache.cachedDomains}
+        ${getUpstreams "lancache" config.services.lancache.cacheDomains}
 
         ${getUpstreams "XXLPitu-Server" serverDomains}
         ${getUpstreams "XXLPitu-Ulquiorra" ulquiorraDomains}

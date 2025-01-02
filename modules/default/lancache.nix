@@ -13,7 +13,7 @@ let
   filteredMetadata = lib.filter (cacheDomain: builtins.elem cacheDomain.name cfg.cachedServices) metadata;
   domainFiles = lib.flatten (map (cacheDomain: cacheDomain.domain_files) filteredMetadata);
   rawCacheDomains = lib.flatten (map (domainFile: (lib.splitString "\n" (builtins.readFile "${src}/${domainFile}"))) domainFiles);
-  cachedDomains = lib.filter (domain: domain != "") rawCacheDomains;
+  cacheDomains = lib.filter (domain: domain != "") rawCacheDomains;
 in {
   options.services.lancache = {
     enable = lib.mkEnableOption "Lancache";
@@ -42,9 +42,9 @@ in {
       type = lib.types.listOf (lib.types.str);
       default = [ "1.1.1.1" "1.0.0.1" ];
     };
-    cachedDomains = lib.mkOption {
+    cacheDomains = lib.mkOption {
       type = lib.types.listOf (lib.types.str);
-      default = cachedDomains;
+      default = cacheDomains;
       readOnly = true;
     };
   };

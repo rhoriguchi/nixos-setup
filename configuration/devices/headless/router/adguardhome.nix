@@ -148,7 +148,7 @@ in {
           # TODO uncomment when https://github.com/AdguardTeam/AdGuardHome/issues/7327 fixed
           # answer = "${config.networking.hostName}.local";
           answer = routerIp;
-        }) config.services.lancache.cachedDomains);
+        }) config.services.lancache.cacheDomains);
       };
     };
   };
