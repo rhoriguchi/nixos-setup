@@ -60,6 +60,9 @@ in {
       }
 
       map $ssl_preread_server_name $upstream {
+        # indicates that source values can be hostnames with a prefix or suffix mask:
+        hostnames;
+
         ${getUpstreams config.networking.hostName localDomains}
         ${getUpstreams "lancache" config.services.lancache.cacheDomains}
 
