@@ -1,5 +1,6 @@
 { config, lib, ... }:
 let
+  localDomains = [ "adguardhome.00a.ch" "librenms.00a.ch" ];
   serverDomains = [
     "deluge.00a.ch"
     "esphome.00a.ch"
@@ -59,12 +60,11 @@ in {
       }
 
       map $ssl_preread_server_name $upstream {
+        ${getUpstreams config.networking.hostName localDomains}
         ${getUpstreams "lancache" config.services.lancache.cacheDomains}
 
         ${getUpstreams "XXLPitu-Server" serverDomains}
         ${getUpstreams "XXLPitu-Ulquiorra" ulquiorraDomains}
-
-        default ${config.networking.hostName};
       }
 
       server {
