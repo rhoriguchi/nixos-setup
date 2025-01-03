@@ -29,6 +29,18 @@
           sha256 = "sha256-ZVZWze5ThOiJyjRjHCUtImBQ2IhwVeiNfZcAaUjmAlU=";
         }
       }/pkgs/servers/adguardhome") { };
+
+    home-assistant-custom-components = super.home-assistant-custom-components // {
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=369945
+      localtuya = super.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "a34e0f92f7f721886eb1b310c28aa94ce087a664";
+            sha256 = "sha256-u1GsB51kBXZy747OkM9iet4MzbpHmKVxynkBSb2FLXo=";
+          }
+        }/pkgs/servers/home-assistant/custom-components/hass-localtuya/package.nix") { };
+    };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
