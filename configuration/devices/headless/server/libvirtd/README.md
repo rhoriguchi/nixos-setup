@@ -108,6 +108,7 @@ winget install --silent --accept-source-agreements ^
   SomePythonThings.WingetUIStore ^
   TeamViewer.TeamViewer ^
   Valve.Steam ^
+  NexusMods.Vortex ^
   VideoLAN.VLC ^
   WeMod.WeMod ^
   WinDirStat.WinDirStat
@@ -139,9 +140,13 @@ REM Xbox
 winget install --silent --accept-source-agreements 9MV0B5HZVK9Z
 ```
 
-### Dyson Sphere Program
+## Games
 
-#### Mods
+### Cyberpunk 20777 mods
+
+- [Reset Attributes always available - Redscript](https://www.nexusmods.com/cyberpunk2077/mods/9240)
+
+### Dyson Sphere Program mods
 
 - CommonAPI
 
