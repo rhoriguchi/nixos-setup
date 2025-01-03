@@ -2,13 +2,13 @@
   services.home-assistant.config.automation = [
     {
       alias = "Stadler Form Karl low water Discord notification";
-      trigger = [{
+      triggers = [{
         trigger = "state";
         entity_id = "binary_sensor.stadler_form_karl_low_water";
         from = "off";
         to = "on";
       }];
-      action = [{
+      actions = [{
         action = "notify.home_assistant_bot";
         data = {
           message = "Stadler Form Karl low water";
@@ -18,13 +18,13 @@
     }
     {
       alias = "Stadler Form Karl replace filter Discord notification";
-      trigger = [{
+      triggers = [{
         trigger = "state";
         entity_id = "binary_sensor.stadler_form_karl_replace_filter";
         from = "off";
         to = "on";
       }];
-      action = [{
+      actions = [{
         action = "notify.home_assistant_bot";
         data = {
           message = "Stadler Form Karl replace filter";
@@ -34,7 +34,7 @@
     }
     {
       alias = "Low Battery Discord notification";
-      trigger = [{
+      triggers = [{
         trigger = "numeric_state";
         entity_id = [
           "sensor.bedroom_dimmer_switch_battery"
@@ -50,7 +50,7 @@
         ];
         below = 26;
       }];
-      action = [{
+      actions = [{
         action = "notify.home_assistant_bot";
         data = {
           message = "{{ trigger.to_state.name }} has 25% or less battery";

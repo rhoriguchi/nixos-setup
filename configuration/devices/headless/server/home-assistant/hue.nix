@@ -34,7 +34,7 @@ let
   in data: [
     {
       alias = "Toggle ${data.name} lights";
-      trigger = [{
+      triggers = [{
         trigger = "event";
         event_type = "hue_event";
         event_data = {
@@ -43,14 +43,14 @@ let
           type = "initial_press";
         };
       }];
-      action = [{
+      actions = [{
         action = "light.toggle";
         target.entity_id = data.targetId;
       }];
     }
     {
       alias = "Brighten ${data.name} lights";
-      trigger = [
+      triggers = [
         {
           trigger = "event";
           event_type = "hue_event";
@@ -70,14 +70,14 @@ let
           };
         }
       ];
-      condition = [{
+      conditions = [{
         condition = "numeric_state";
         entity_id = data.targetId;
         attribute = "brightness";
         above = 0;
       }];
-      action = [{
-        service = "light.turn_on";
+      actions = [{
+        action = "light.turn_on";
         target.entity_id = data.targetId;
         data.brightness = ''
           {% set step = (255 / ${toString steps}) | int %}
@@ -97,7 +97,7 @@ let
     }
     {
       alias = "Dim ${data.name} lights";
-      trigger = [
+      triggers = [
         {
           trigger = "event";
           event_type = "hue_event";
@@ -117,14 +117,14 @@ let
           };
         }
       ];
-      condition = [{
+      conditions = [{
         condition = "numeric_state";
         entity_id = data.targetId;
         attribute = "brightness";
         above = 0;
       }];
-      action = [{
-        service = "light.turn_on";
+      actions = [{
+        action = "light.turn_on";
         target.entity_id = data.targetId;
         data.brightness = ''
           {% set step = (255 / ${toString steps}) | int %}
@@ -146,13 +146,13 @@ in {
   services.home-assistant.config.automation = [
     {
       alias = "Reset living room Signe Gradient kitchen when turned on";
-      trigger = [{
+      triggers = [{
         trigger = "state";
         entity_id = "light.living_room_signe_gradient_kitchen";
         from = "off";
         to = "on";
       }];
-      action = [{
+      actions = [{
         action = "light.turn_on";
         target.entity_id = "light.living_room_signe_gradient_kitchen";
         data.color_temp_kelvin = 3600;
@@ -160,13 +160,13 @@ in {
     }
     {
       alias = "Reset living room Signe Gradient window when turned on";
-      trigger = [{
+      triggers = [{
         trigger = "state";
         entity_id = "light.living_room_signe_gradient_window";
         from = "off";
         to = "on";
       }];
-      action = [{
+      actions = [{
         action = "light.turn_on";
         target.entity_id = "light.living_room_signe_gradient_window";
         data.color_temp_kelvin = 3600;
@@ -174,7 +174,7 @@ in {
     }
     {
       alias = "Toggle hallway light";
-      trigger = [
+      triggers = [
         {
           trigger = "event";
           event_type = "hue_event";
@@ -194,7 +194,7 @@ in {
           };
         }
       ];
-      action = [{
+      actions = [{
         action = "light.toggle";
         target.entity_id = "light.hallway_lamp";
       }];

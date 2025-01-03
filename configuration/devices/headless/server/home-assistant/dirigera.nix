@@ -3,13 +3,13 @@
     automation = [
       {
         alias = "Reset hallway lamp when turned on";
-        trigger = [{
+        triggers = [{
           trigger = "state";
           entity_id = "light.hallway_lamp";
           from = "off";
           to = "on";
         }];
-        action = [{
+        actions = [{
           action = "light.turn_on";
           target.entity_id = "light.hallway_lamp";
           data.rgb_color = [ 255 179 109 ];
@@ -17,13 +17,13 @@
       }
       {
         alias = "Reset living room table lamp when turned on";
-        trigger = [{
+        triggers = [{
           trigger = "state";
           entity_id = "light.living_room_table_lamp";
           from = "off";
           to = "on";
         }];
-        action = [{
+        actions = [{
           action = "light.turn_on";
           target.entity_id = "light.living_room_table_lamp";
           data.rgb_color = [ 255 179 109 ];
@@ -32,13 +32,13 @@
 
       {
         alias = "Turn bedroom closet lights on after 10 minutes";
-        trigger = [{
+        triggers = [{
           trigger = "state";
           entity_id = "light.bedroom_closet_lights";
           to = "off";
           for.minutes = 10;
         }];
-        action = [{
+        actions = [{
           action = "light.turn_on";
           target.entity_id = "light.bedroom_closet_lights";
         }];
@@ -46,22 +46,22 @@
 
       {
         alias = "Turn Lego lights on when sunset";
-        trigger = [{
-          platform = "sun";
+        triggers = [{
+          trigger = "sun";
           event = "sunset";
         }];
-        action = [{
+        actions = [{
           action = "light.turn_on";
           target.entity_id = "light.group_lego";
         }];
       }
       {
         alias = "Turn Lego lights off when sunrise";
-        trigger = [{
-          platform = "sun";
+        triggers = [{
+          trigger = "sun";
           event = "sunrise";
         }];
-        action = [{
+        actions = [{
           action = "light.turn_off";
           target.entity_id = "light.group_lego";
         }];
@@ -69,37 +69,37 @@
 
       {
         alias = "Turn reduit closet lights on when sliding door is open";
-        trigger = [{
+        triggers = [{
           trigger = "state";
           entity_id = "binary_sensor.reduit_parasoll_contact";
           to = "on";
         }];
-        action = [{
+        actions = [{
           action = "light.turn_on";
           target.entity_id = "light.reduit_closet_lights";
         }];
       }
       {
         alias = "Turn reduit closet lights off when sliding door is closed";
-        trigger = [{
+        triggers = [{
           trigger = "state";
           entity_id = "binary_sensor.reduit_parasoll_contact";
           to = "off";
         }];
-        action = [{
+        actions = [{
           action = "light.turn_off";
           target.entity_id = "light.reduit_closet_lights";
         }];
       }
       {
         alias = "Turn reduit closet lights off after 10 minutes";
-        trigger = [{
+        triggers = [{
           trigger = "state";
           entity_id = "light.reduit_closet_lights";
           to = "on";
           for.minutes = 10;
         }];
-        action = [{
+        actions = [{
           action = "light.turn_off";
           target.entity_id = "light.reduit_closet_lights";
         }];

@@ -44,10 +44,10 @@ in {
           alias = "Set theme at startup";
           initial_state = true;
           trigger = {
-            platform = "homeassistant";
+            trigger = "homeassistant";
             event = "start";
           };
-          action = [{
+          actions = [{
             action = "frontend.set_theme";
             data.name = "Google - Light";
           }];
