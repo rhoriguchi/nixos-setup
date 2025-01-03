@@ -10,13 +10,13 @@
         }
       }/pkgs/tools/system/fancy-motd") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=362641
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=366659
     prowlarr = super.callPackage (import "${
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "8c1369637e0a52efebb84e4c127e6469254b45c3";
-          sha256 = "sha256-zc0bmytECqO3R4wht7zURz2XPOn7goVOXGiXDLBCijI=";
+          rev = "5736cebc5c14b9596a6be0cdd586ae4b8a32f036";
+          sha256 = "sha256-0gk/ry0C3d9a8PpyMOiZE0Wl+3EkXqQXb3q6rZlSkAY=";
         }
       }/pkgs/servers/prowlarr") { };
 
