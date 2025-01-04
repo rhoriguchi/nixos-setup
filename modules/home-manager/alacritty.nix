@@ -1,4 +1,4 @@
-{ pkgs, config, colors, ... }: {
+{ colors, config, pkgs, ... }: {
   home.packages = [ pkgs.nerd-fonts.roboto-mono ];
 
   home.sessionVariables.TERMINAL = "alacritty";

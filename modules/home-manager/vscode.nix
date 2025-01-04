@@ -1,4 +1,4 @@
-{ config, pkgs, lib, colors, ... }: {
+{ colors, config, lib, pkgs, ... }: {
   home.packages = [ pkgs.nerd-fonts.jetbrains-mono pkgs.nerd-fonts.roboto-mono ];
 
   programs.zsh.shellAliases.vscode = "${config.programs.vscode.package}/bin/code";

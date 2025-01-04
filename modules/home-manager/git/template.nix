@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ config, pkgs, ... }: {
   programs.git.extraConfig.init.templatedir = "${config.home.homeDirectory}/.git_template";
 
   home.file = {

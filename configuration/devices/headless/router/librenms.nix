@@ -1,4 +1,4 @@
-{ pkgs, config, lib, secrets, ... }:
+{ config, lib, pkgs, secrets, ... }:
 let defaultUser = "admin";
 in {
   services = {

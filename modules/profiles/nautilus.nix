@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }: {
+{ config, lib, pkgs, ... }: {
   services.gnome.sushi.enable = true;
 
   programs = {

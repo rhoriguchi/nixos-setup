@@ -1,4 +1,4 @@
-{ lib, config, secrets, ... }: {
+{ config, lib, secrets, ... }: {
   fileSystems = {
     "/mnt/Data/Monitoring/loki" = {
       depends = [ "/mnt/Data/Monitoring" ];

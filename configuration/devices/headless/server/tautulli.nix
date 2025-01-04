@@ -1,4 +1,4 @@
-{ pkgs, config, secrets, ... }: {
+{ config, pkgs, secrets, ... }: {
   services = {
     tautulli.enable = true;
 

@@ -1,4 +1,4 @@
-{ lib, pkgs, config, secrets, ... }: {
+{ config, lib, pkgs, secrets, ... }: {
   services = {
     infomaniak = {
       enable = true;

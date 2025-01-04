@@ -1,4 +1,4 @@
-{ pkgs, config, secrets, ... }: {
+{ config, pkgs, secrets, ... }: {
   imports = [ ./deluge ./prowlarr.nix ];
 
   services = {

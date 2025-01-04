@@ -1,4 +1,4 @@
-{ pkgs, config, secrets, ... }:
+{ config, pkgs, secrets, ... }:
 let
   ssid = "63466727-Guest";
   password = secrets.wifis.${ssid}.psk;

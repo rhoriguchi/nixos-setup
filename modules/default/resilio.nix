@@ -1,4 +1,4 @@
-{ lib, config, pkgs, modulesPath, ... }:
+{ config, lib, modulesPath, pkgs, ... }:
 let
   cfg = config.services.resilio;
 

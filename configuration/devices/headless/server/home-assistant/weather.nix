@@ -1,4 +1,4 @@
-{ pkgs, config, secrets, ... }:
+{ config, pkgs, secrets, ... }:
 let
   apiKey = secrets.openWeatherMap.apiKey;
   lat = config.services.home-assistant.config.homeassistant.latitude;

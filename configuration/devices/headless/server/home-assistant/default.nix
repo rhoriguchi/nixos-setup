@@ -1,4 +1,4 @@
-{ pkgs, lib, config, secrets, ... }:
+{ config, lib, pkgs, secrets, ... }:
 let
   getFiles = dir: lib.attrNames (builtins.readDir dir);
   filter = file:

@@ -1,4 +1,4 @@
-{ pkgs, lib, config, interfaces, secrets, ... }:
+{ config, interfaces, lib, pkgs, secrets, ... }:
 let
   internalInterface = interfaces.internal;
 

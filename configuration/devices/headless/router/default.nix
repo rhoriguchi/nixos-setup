@@ -1,4 +1,4 @@
-{ config, lib, secrets, interfaces, ... }:
+{ config, interfaces, lib, secrets, ... }:
 let managementInterface = interfaces.management;
 in {
   imports = [

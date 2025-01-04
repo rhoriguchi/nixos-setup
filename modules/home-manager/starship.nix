@@ -1,4 +1,4 @@
-{ lib, colors, ... }: {
+{ colors, lib, ... }: {
   programs.starship = {
     enable = true;
 

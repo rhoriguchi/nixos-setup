@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ lib, pkgs, ... }: {
   xdg.configFile = {
     "autostart/${pkgs.discord.pname}.desktop".source = "${pkgs.discord}/share/applications/discord.desktop";
 

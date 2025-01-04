@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ lib, pkgs, ... }: {
   programs.zsh.shellAliases.cat = "${pkgs.bat}/bin/bat";
 
   programs.bat = {

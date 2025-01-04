@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ config, lib, pkgs, ... }:
 let
   backupDir = "/mnt/Backup";
   snapshotDir = "${backupDir}/snapshot/Laptop";

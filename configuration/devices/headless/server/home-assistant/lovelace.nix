@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ config, lib, pkgs, ... }:
 let
   # TODO use https://nixos.wiki/wiki/Home_Assistant#Add_custom_lovelace_modules
   lovelaceModules = [

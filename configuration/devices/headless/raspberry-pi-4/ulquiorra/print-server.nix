@@ -1,4 +1,4 @@
-{ pkgs, config, secrets, ... }: {
+{ config, pkgs, secrets, ... }: {
   # Required for sane
   boot.kernelModules = [ "sg" "usblp" ];
 

@@ -1,4 +1,4 @@
-{ pkgs, config, lib, colors, ... }: {
+{ colors, config, lib, pkgs, ... }: {
   imports = [ ./template.nix ];
 
   home.activation.deleteGitconfig = lib.hm.dag.entryBefore [ "writeBoundary" ] ''

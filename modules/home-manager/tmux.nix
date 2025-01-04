@@ -1,4 +1,4 @@
-{ config, pkgs, colors, ... }:
+{ colors, config, pkgs, ... }:
 let
   homeDirectory = config.home.homeDirectory;
 

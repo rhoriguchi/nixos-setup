@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ lib, pkgs, ... }: {
   imports = [ ../common.nix ./hardware-configuration.nix ];
 
   boot = {

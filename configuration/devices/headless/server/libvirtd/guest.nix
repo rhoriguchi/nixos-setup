@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ config, lib, pkgs, ... }:
 let nvramDir = "/var/lib/virt/nvram";
 in {
   virtualisation.libvirtd.qemu.swtpm.enable = true;
