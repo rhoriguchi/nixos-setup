@@ -1,4 +1,6 @@
-{ config, pkgs, secrets, ... }: {
+{ config, pkgs, secrets, ... }:
+let cupsPort = 631;
+in {
   # Required for sane
   boot.kernelModules = [ "sg" "usblp" ];
 
@@ -47,7 +49,7 @@
 
       # Firewall port needs to be open and listen address needs to be 0.0.0.0 else discovery does not work
       openFirewall = true;
-      listenAddresses = [ "0.0.0.0:631" ];
+      listenAddresses = [ "0.0.0.0:${toString cupsPort}" ];
       allowFrom = [ "127.0.0.1" "192.168.1.*" ];
       browsing = true;
       defaultShared = true;
@@ -82,23 +84,48 @@
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "scanner.00a.ch" ];
+      hostnames = [ "printer.00a.ch" "scanner.00a.ch" ];
     };
 
     nginx = {
       enable = true;
 
-      virtualHosts."scanner.00a.ch" = {
-        enableACME = true;
-        forceSSL = true;
+      virtualHosts = {
+        "printer.00a.ch" = {
+          enableACME = true;
+          forceSSL = true;
 
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.scanservjs.settings.port}";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString cupsPort}";
 
-          extraConfig = ''
-            allow 192.168.1.0/24;
-            deny all;
-          '';
+            recommendedProxySettings = false;
+            extraConfig = ''
+              # cups won't work if this is not 127.0.0.1
+              proxy_set_header Host 127.0.0.1;
+              proxy_set_header X-Real-IP 127.0.0.1;
+              proxy_set_header X-Forwarded-For 127.0.0.1;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_set_header X-Forwarded-Host $host;
+              proxy_set_header X-Forwarded-Server $host;
+
+              allow 192.168.1.0/24;
+              deny all;
+            '';
+          };
+        };
+
+        "scanner.00a.ch" = {
+          enableACME = true;
+          forceSSL = true;
+
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.scanservjs.settings.port}";
+
+            extraConfig = ''
+              allow 192.168.1.0/24;
+              deny all;
+            '';
+          };
         };
       };
     };

@@ -128,7 +128,7 @@ in {
         }) config.services.infomaniak.hostnames) ++ (map (domain: {
           inherit domain;
           answer = "XXLPitu-Ulquiorra.local";
-        }) [ "scanner.00a.ch" ]) ++ (map (domain: {
+        }) [ "printer.00a.ch" "scanner.00a.ch" ]) ++ (map (domain: {
           inherit domain;
           answer = "XXLPitu-Server.local";
         }) [

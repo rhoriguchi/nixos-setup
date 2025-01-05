@@ -14,7 +14,7 @@ let
     "sonarr.00a.ch"
     "tautulli.00a.ch"
   ];
-  ulquiorraDomains = [ "scanner.00a.ch" ];
+  ulquiorraDomains = [ "printer.00a.ch" "scanner.00a.ch" ];
 
   getUpstreams = host: domains: lib.concatStringsSep "\n" (map (domain: "${domain} ${host};") domains);
 
