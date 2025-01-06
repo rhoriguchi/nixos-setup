@@ -2,6 +2,7 @@
 let
   internalInterface = interfaces.internal;
 
+  cloudKeyIp = "192.168.1.2";
   wingoRouterIp = "192.168.0.254";
   routerIp = "192.168.1.1";
 
@@ -112,6 +113,10 @@ in {
         ];
 
         filtering.rewrites = [
+          {
+            domain = "unifi.local";
+            answer = cloudKeyIp;
+          }
           {
             domain = "winbox.local";
             answer = wingoRouterIp;
