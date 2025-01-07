@@ -70,8 +70,8 @@ in {
     };
 
     script = let
-      pkg = builtins.head (builtins.filter (pkg: pkg.name == "lnms") config.environment.systemPackages);
-      lnms = "${pkg}/bin/lnms";
+      package = builtins.head (builtins.filter (package: package.name == "lnms") config.environment.systemPackages);
+      lnms = "${package}/bin/lnms";
     in ''
       ${lnms} db:seed --force
 
