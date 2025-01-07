@@ -112,6 +112,7 @@
         pkgs.jetbrains.pycharm-professional
         pkgs.jetbrains.webstorm
         pkgs.obsidian
+        pkgs.prismlauncher # minecraft
         pkgs.protonvpn-gui
         pkgs.qbittorrent
         pkgs.signal-desktop
