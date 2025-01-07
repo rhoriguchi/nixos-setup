@@ -8,6 +8,7 @@
     ./immich.nix
     ./libvirtd
     ./log-management.nix
+    ./minecraft-server.nix
     ./monitoring.nix
     ./sonarr
     ./tautulli.nix

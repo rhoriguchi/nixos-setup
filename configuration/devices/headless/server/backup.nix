@@ -23,6 +23,7 @@ in {
 
           config.services.immich.mediaLocation
           config.services.loki.dataDir
+          config.services.minecraft-servers.dataDir
           config.services.plex.dataDir
           config.services.resilio.syncPath
           config.services.sonarr.dataDir

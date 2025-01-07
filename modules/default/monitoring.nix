@@ -130,6 +130,7 @@ in {
 
         # TODO monitor
         # HDD temperature https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/hdd-temperature
+        # Minecraft https://www.netdata.cloud/integrations/data-collection/gaming/minecraft
         # nftables https://www.netdata.cloud/integrations/data-collection/linux-systems/firewall/nftables
         # Nvidia GPU https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/nvidia-gpu
 
