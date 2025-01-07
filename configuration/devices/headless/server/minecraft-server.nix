@@ -21,6 +21,7 @@
       servers.world = {
         enable = true;
 
+        package = pkgs.paper-server;
         jvmOpts = let memory = 1024 * 4; in "-Xmx${toString memory}M -Xms${toString memory}M";
 
         # https://minecraft.fandom.com/wiki/Server.properties
@@ -32,6 +33,16 @@
           difficulty = "normal";
           view-distance = 32;
           enable-command-block = true;
+        };
+
+        symlinks."plugins/minecraft-prometheus-exporter.jar" = let
+          owner = "sladkoff";
+          repo = "minecraft-prometheus-exporter";
+          rev = "3.1.0";
+          sha256 = "sha256-An5zkJJop2CEkCtjgzOroelQVY0bxLDvH/uhex24YyI=";
+        in pkgs.fetchurl {
+          url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/minecraft-prometheus-exporter-${rev}.jar";
+          inherit sha256;
         };
 
         # https://mcuuid.net
