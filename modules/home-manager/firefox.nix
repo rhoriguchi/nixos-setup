@@ -67,7 +67,7 @@
             {
               # Check https://gogotaku.info for latest active domain
               name = "Gogoanime";
-              url = "https://gogoanime3.cc";
+              url = "https://anitaku.io";
             }
             {
               name = "TV Time";
