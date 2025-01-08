@@ -35,7 +35,7 @@
           enable-command-block = true;
         };
 
-        symlinks."plugins/minecraft-prometheus-exporter.jar" = let
+        symlinks."plugins/PrometheusExporter.jar" = let
           owner = "sladkoff";
           repo = "minecraft-prometheus-exporter";
           rev = "3.1.0";
