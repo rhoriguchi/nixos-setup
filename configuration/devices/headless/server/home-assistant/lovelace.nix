@@ -28,13 +28,13 @@ let
         // lib.optionalAttrs (lib.hasAttr "cards" card) { cards = addStyleToCards card.cards; })) cards;
 in {
   systemd.tmpfiles.rules = [
-    "d /run/hass 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
-    "d /run/hass/js 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
-  ] ++ map (lovelaceModule: "L+ /run/hass/js/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js")
+    "d /run/nginx-hass 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
+    "d /run/nginx-hass/js 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
+  ] ++ map (lovelaceModule: "L+ /run/nginx-hass/js/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js")
     lovelaceModules;
 
   services = {
-    nginx.virtualHosts."home-assistant.00a.ch".locations."/local/".alias = "/run/hass/";
+    nginx.virtualHosts."home-assistant.00a.ch".locations."/local/".alias = "/run/nginx-hass/";
 
     home-assistant = {
       config = {

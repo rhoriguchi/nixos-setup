@@ -21,7 +21,7 @@ let
   qrCode = pkgs.runCommand "wifi_guest_qr.png" { } "${script} $out";
 in {
   systemd.tmpfiles.rules = [
-    "d /run/hass/img 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
-    "L+ /run/hass/img/wifi-guest-qr.png - - - - ${qrCode}"
+    "d /run/nginx-hass/img 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
+    "L+ /run/nginx-hass/img/wifi-guest-qr.png - - - - ${qrCode}"
   ];
 }
