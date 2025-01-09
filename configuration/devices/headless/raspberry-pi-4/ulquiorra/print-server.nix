@@ -1,4 +1,4 @@
-{ config, pkgs, secrets, ... }:
+{ pkgs, secrets, ... }:
 let cupsPort = 631;
 in {
   # Required for sane
@@ -63,7 +63,8 @@ in {
 
     saned.enable = true;
 
-    scanservjs.enable = true;
+    # TODO uncomment when https://github.com/NixOS/nixpkgs/issues/371649 fixed
+    # scanservjs.enable = true;
 
     avahi = {
       enable = true;
@@ -114,19 +115,20 @@ in {
           };
         };
 
-        "scanner.00a.ch" = {
-          enableACME = true;
-          forceSSL = true;
+        # TODO uncomment when https://github.com/NixOS/nixpkgs/issues/371649 fixed
+        # "scanner.00a.ch" = {
+        #   enableACME = true;
+        #   forceSSL = true;
 
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:${toString config.services.scanservjs.settings.port}";
+        #   locations."/" = {
+        #     proxyPass = "http://127.0.0.1:${toString config.services.scanservjs.settings.port}";
 
-            extraConfig = ''
-              allow 192.168.1.0/24;
-              deny all;
-            '';
-          };
-        };
+        #     extraConfig = ''
+        #       allow 192.168.1.0/24;
+        #       deny all;
+        #     '';
+        #   };
+        # };
       };
     };
   };
