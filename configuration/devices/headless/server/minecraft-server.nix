@@ -1,4 +1,6 @@
-{ config, pkgs, lib, secrets, ... }: {
+{ config, pkgs, lib, secrets, ... }:
+let blueMapPort = 8100;
+in {
   environment.shellAliases =
     lib.mapAttrs' (key: _: lib.nameValuePair "attach-minecraft-server-${key}" "${pkgs.tmux}/bin/tmux -S /run/minecraft/${key}.sock attach")
     config.services.minecraft-servers.servers;
@@ -10,6 +12,17 @@
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
       hostnames = [ "minecraft.00a.ch" ];
+    };
+
+    nginx = {
+      enable = true;
+
+      virtualHosts."minecraft.00a.ch" = {
+        enableACME = true;
+        forceSSL = true;
+
+        locations."/".proxyPass = "http://127.0.0.1:${toString blueMapPort}";
+      };
     };
 
     minecraft-servers = {
@@ -35,14 +48,43 @@
           enable-command-block = true;
         };
 
-        symlinks."plugins/PrometheusExporter.jar" = let
-          owner = "sladkoff";
-          repo = "minecraft-prometheus-exporter";
-          rev = "3.1.0";
-          sha256 = "sha256-An5zkJJop2CEkCtjgzOroelQVY0bxLDvH/uhex24YyI=";
-        in pkgs.fetchurl {
-          url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/minecraft-prometheus-exporter-${rev}.jar";
-          inherit sha256;
+        symlinks = {
+          "plugins/BlueMap.jar" = let
+            owner = "BlueMap-Minecraft";
+            repo = "BlueMap";
+            rev = "5.5";
+            sha256 = "sha256-nZxBbF1KkGHveZCKPJ0hHyJGXHnNSCKTvX5JRr0+s88=";
+          in pkgs.fetchurl {
+            url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/bluemap-${rev}-paper.jar";
+            inherit sha256;
+          };
+          "plugins/BlueMap/core.conf" = pkgs.writeText "core.conf" ''
+            accept-download: true
+            metrics: false
+          '';
+          "plugins/BlueMap/packs/BlueMapSpawnMarker.jar" = let
+            owner = "TechnicJelle";
+            repo = "BlueMapSpawnMarker";
+            rev = "1.1";
+            sha256 = "sha256-6wZ0Ns6RulKjIuJ3zpxg4MnmgHHD0AdByYE+s+sIk8w=";
+          in pkgs.fetchurl {
+            url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/BlueMapSpawnMarker-${rev}.jar";
+            inherit sha256;
+          };
+          "plugins/BlueMap/webserver.conf" = pkgs.writeText "webserver.conf" ''
+            ip: "127.0.0.1"
+            port: ${toString blueMapPort}
+          '';
+
+          "plugins/PrometheusExporter.jar" = let
+            owner = "sladkoff";
+            repo = "minecraft-prometheus-exporter";
+            rev = "3.1.0";
+            sha256 = "sha256-An5zkJJop2CEkCtjgzOroelQVY0bxLDvH/uhex24YyI=";
+          in pkgs.fetchurl {
+            url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/minecraft-prometheus-exporter-${rev}.jar";
+            inherit sha256;
+          };
         };
 
         # https://mcuuid.net
