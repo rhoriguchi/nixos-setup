@@ -60,6 +60,7 @@ in {
           };
           "plugins/BlueMap/core.conf" = pkgs.writeText "core.conf" ''
             accept-download: true
+            render-thread-count: 2
             metrics: false
           '';
           "plugins/BlueMap/packs/BlueMapSpawnMarker.jar" = let
