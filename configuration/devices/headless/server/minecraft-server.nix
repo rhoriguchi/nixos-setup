@@ -77,6 +77,29 @@ in {
             port: ${toString blueMapPort}
           '';
 
+          "plugins/CoreProtect.jar" = "${
+              pkgs.maven.buildMavenPackage rec {
+                pname = "CoreProtect";
+                version = "22.4";
+
+                src = pkgs.fetchFromGitHub {
+                  owner = "PlayPro";
+                  repo = "CoreProtect";
+                  rev = "v${version}";
+                  hash = "sha256-kfemFVT2LMToQLRtxdPyN1Slwf2HBNPHnO4rDuyvIP8=";
+                };
+
+                mvnHash = "sha256-Sjnz3ylZeOcdWEvjT+5bbgHKC+B5rLB5yksbcqnptMU=";
+
+                mvnParameters = lib.escapeShellArgs [ "-Dproject.branch=master" ];
+
+                installPhase = ''
+                  mkdir -p $out/share/CoreProtect
+                  install -Dm644 target/CoreProtect-${version}.jar $out/share/CoreProtect/CoreProtect.jar
+                '';
+              }
+            }/share/CoreProtect/CoreProtect.jar";
+
           "plugins/PrometheusExporter.jar" = let
             owner = "sladkoff";
             repo = "minecraft-prometheus-exporter";
