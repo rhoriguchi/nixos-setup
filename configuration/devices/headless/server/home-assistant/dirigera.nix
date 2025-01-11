@@ -145,6 +145,18 @@
             target.entity_id = "switch.lego_bonsai";
           };
         };
+        lego_chrysanthemum = {
+          friendly_name = "Lego Chrysanthemum";
+          value_template = "{{ states('switch.lego_chrysanthemum') }}";
+          turn_on = {
+            service = "switch.turn_on";
+            target.entity_id = "switch.lego_chrysanthemum";
+          };
+          turn_off = {
+            service = "switch.turn_off";
+            target.entity_id = "switch.lego_chrysanthemum";
+          };
+        };
         living_room_standing_lamp = {
           friendly_name = "Living room standing lamp";
           value_template = "{{ states('switch.living_room_standing_lamp') }}";

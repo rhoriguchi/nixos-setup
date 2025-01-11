@@ -358,10 +358,16 @@ in {
 
                   open = true;
 
-                  entities = [{
-                    name = "Bonsai";
-                    entity = "light.lego_bonsai";
-                  }];
+                  entities = [
+                    {
+                      name = "Bonsai";
+                      entity = "light.lego_bonsai";
+                    }
+                    {
+                      name = "Chrysanthemum";
+                      entity = "light.lego_chrysanthemum";
+                    }
+                  ];
                 }
                 { type = "divider"; }
                 {
