@@ -14,7 +14,7 @@ in {
 
     extraConfig = ''
       ConnectionAttempts 3
-      IdentityFile ${home}/.ssh/id_rsa
+      IdentityFile ${home}/.ssh/id_ed25519
       NumberOfPasswordPrompts 3
       PubkeyAuthentication yes
       StrictHostKeyChecking ask
@@ -23,12 +23,12 @@ in {
     matchBlocks = {
       "github.com" = {
         user = "git";
-        identityFile = "${home}/.ssh/github_rsa";
+        identityFile = "${home}/.ssh/github_ed25519";
       };
 
       "gitlab.com" = {
         user = "git";
-        identityFile = "${home}/.ssh/gitlab_rsa";
+        identityFile = "${home}/.ssh/gitlab_ed25519";
       };
 
       "jcrk.synology.me" = {
