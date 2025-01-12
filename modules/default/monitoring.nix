@@ -187,8 +187,7 @@ in {
             jobs = [{
               name = "local";
               leases_path = "/var/lib/dnsmasq/dnsmasq.leases";
-              conf_path = let parts = lib.splitString " " config.systemd.services.dnsmasq.serviceConfig.ExecStart;
-              in lib.findFirst (part: lib.hasSuffix "dnsmasq.conf" part) null parts;
+              conf_path = config.services.dnsmasq.finalConfigFile;
             }];
           };
         } // lib.optionalAttrs config.services.dnsmasq.enable {
