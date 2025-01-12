@@ -2,6 +2,7 @@
   headless = import ./headless.nix;
   headful = import ./headful.nix;
 
+  colmena = import ./colmena.nix;
   displaylink = import ./displaylink.nix;
   docker = import ./docker.nix;
   fancy-motd = import ./fancy-motd.nix;

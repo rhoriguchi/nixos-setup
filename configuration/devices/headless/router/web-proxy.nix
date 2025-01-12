@@ -1,21 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, nodes, ... }:
 let
   localDomains = config.services.infomaniak.hostnames;
-  serverDomains = [
-    "deluge.00a.ch"
-    "esphome.00a.ch"
-    "grafana.00a.ch"
-    "home-assistant.00a.ch"
-    "immich.00a.ch"
-    "minecraft.00a.ch"
-    "monitoring.00a.ch"
-    "prometheus.00a.ch"
-    "prowlarr.00a.ch"
-    "pushgateway.00a.ch"
-    "sonarr.00a.ch"
-    "tautulli.00a.ch"
-  ];
-  ulquiorraDomains = [ "printer.00a.ch" "scanner.00a.ch" ];
+  serverDomains = nodes.Server.config.services.infomaniak.hostnames;
+  ulquiorraDomains = nodes.Ulquiorra.config.services.infomaniak.hostnames;
 
   getUpstreams = host: domains: lib.concatStringsSep "\n" (map (domain: "${domain} ${host};") domains);
 

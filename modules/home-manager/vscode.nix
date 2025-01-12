@@ -142,7 +142,7 @@
       "files.exclude" = {
         "**/__pychache__" = true;
         "**/.classpath" = true;
-        "**/.deploy-gc" = true;
+        "**/.gcroots" = true;
         "**/.DS_Store" = true;
         "**/.factorypath" = true;
         "**/.git-crypt" = true;

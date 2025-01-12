@@ -1,4 +1,4 @@
-{ config, interfaces, lib, pkgs, secrets, ... }:
+{ config, interfaces, lib, nodes, pkgs, secrets, ... }:
 let
   internalInterface = interfaces.internal;
 
@@ -133,23 +133,10 @@ in {
         }) config.services.infomaniak.hostnames) ++ (map (domain: {
           inherit domain;
           answer = "XXLPitu-Ulquiorra.local";
-        }) [ "printer.00a.ch" "scanner.00a.ch" ]) ++ (map (domain: {
+        }) nodes.Ulquiorra.config.services.infomaniak.hostnames) ++ (map (domain: {
           inherit domain;
           answer = "XXLPitu-Server.local";
-        }) [
-          "deluge.00a.ch"
-          "esphome.00a.ch"
-          "grafana.00a.ch"
-          "home-assistant.00a.ch"
-          "immich.00a.ch"
-          "minecraft.00a.ch"
-          "monitoring.00a.ch"
-          "prometheus.00a.ch"
-          "prowlarr.00a.ch"
-          "pushgateway.00a.ch"
-          "sonarr.00a.ch"
-          "tautulli.00a.ch"
-        ]) ++ lib.optionals config.services.lancache.enable (map (cachedDomain: {
+        }) nodes.Server.config.services.infomaniak.hostnames) ++ lib.optionals config.services.lancache.enable (map (cachedDomain: {
           domain = lib.replaceStrings [ "*." ] [ "" ] cachedDomain;
           # TODO uncomment when https://github.com/AdguardTeam/AdGuardHome/issues/7327 fixed
           # answer = "${config.networking.hostName}.local";

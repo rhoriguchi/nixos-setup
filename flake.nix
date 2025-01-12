@@ -9,8 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
+    colmena = {
+      url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -52,12 +52,8 @@
   outputs = { self, ... }@inputs:
     let inherit (inputs.nixpkgs) lib;
     in {
-      githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
-        checks = let
-          filterAttrs = attrs: lib.filterAttrs (key: _: !(builtins.elem key [ "deploy-activate" "deploy-schema" ])) attrs;
-          removeChecks = checks: lib.mapAttrs (_: system: filterAttrs system) checks;
-        in lib.getAttrs [ inputs.flake-utils.lib.system.x86_64-linux ] (removeChecks self.checks);
-      };
+      githubActions =
+        inputs.nix-github-actions.lib.mkGithubMatrix { checks = lib.getAttrs [ inputs.flake-utils.lib.system.x86_64-linux ] self.checks; };
 
       nixosModules = {
         default.imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
@@ -68,7 +64,7 @@
       };
 
       overlays.default = lib.composeManyExtensions ([
-        inputs.deploy-rs.overlays.default
+        inputs.colmena.overlays.default
         inputs.nix-minecraft.overlay
 
         (_: super: {
@@ -77,8 +73,13 @@
         })
       ] ++ import ./overlays);
 
-      deploy.nodes = let
-        commonModule = {
+      # https://github.com/zhaofengli/colmena/pull/228
+      colmenaHive = inputs.colmena.lib.makeHive self.colmena;
+
+      colmena = {
+        meta.nixpkgs = import inputs.nixpkgs { system = inputs.flake-utils.lib.system.x86_64-linux; };
+
+        defaults = {
           imports = [ self.nixosModules.default ];
 
           system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -91,172 +92,122 @@
             secrets = import ./secrets.nix;
           };
         };
-      in {
+
         # Lenovo Legion 5 15ACH6
-        Laptop = let system = inputs.flake-utils.lib.system.x86_64-linux;
-        in {
-          hostname = "127.0.0.1";
+        Laptop = {
+          deployment = {
+            targetHost = "127.0.0.1";
 
-          profilesOrder = [ "system" "rhoriguchi-home-manager" ];
+            tags = [ "headful" inputs.flake-utils.lib.system.x86_64-linux ];
+          };
 
-          autoRollback = false;
-          magicRollback = false;
+          imports = [
+            inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6
 
-          profiles = {
-            system = {
-              sshUser = "root";
+            self.nixosModules.profiles.headful
 
-              path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-                modules = [{
-                  imports = [
-                    commonModule
+            self.nixosModules.profiles.colmena
+            self.nixosModules.profiles.hidpi
+            self.nixosModules.profiles.java
+            self.nixosModules.profiles.javascript
+            self.nixosModules.profiles.kotlin
+            self.nixosModules.profiles.laptop-power-management
+            self.nixosModules.profiles.podman
+            self.nixosModules.profiles.python
 
-                    inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6
+            ./configuration/devices/laptop
 
-                    self.nixosModules.profiles.headful
+            inputs.home-manager.nixosModule
+            {
+              nixpkgs.overlays = [ self.overlays.default ];
 
-                    self.nixosModules.profiles.hidpi
-                    self.nixosModules.profiles.java
-                    self.nixosModules.profiles.javascript
-                    self.nixosModules.profiles.kotlin
-                    self.nixosModules.profiles.laptop-power-management
-                    self.nixosModules.profiles.podman
-                    self.nixosModules.profiles.python
-
-                    ./configuration/devices/laptop
-                  ];
-
-                  boot.binfmt.emulatedSystems = [ inputs.flake-utils.lib.system.aarch64-linux ];
-                }];
-              });
-            };
-
-            rhoriguchi-home-manager = {
-              sshUser = "root";
-              user = "rhoriguchi";
-
-              # TODO does not seem to work
-              profilePath = "/nix/var/nix/profiles/per-user/rhoriguchi/home-manager";
-              path = inputs.deploy-rs.lib.${system}.activate.home-manager (inputs.home-manager.lib.homeManagerConfiguration {
-                pkgs = inputs.nixpkgs.legacyPackages.${system};
-
-                modules = [
-                  {
-                    nixpkgs.overlays = [ self.overlays.default ];
-
-                    home = {
-                      username = "rhoriguchi";
-                      homeDirectory = "/home/rhoriguchi";
-
-                      sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
-                    };
-                  }
-
-                  self.nixosModules.home-manager
-                ];
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
 
                 extraSpecialArgs.colors = self.nixosModules.colors;
-              });
-            };
+
+                users.rhoriguchi = self.nixosModules.home-manager;
+              };
+            }
+          ];
+
+          boot.binfmt.emulatedSystems = [ inputs.flake-utils.lib.system.aarch64-linux ];
+        };
+
+        Router = {
+          deployment = {
+            targetHost = null;
+            allowLocalDeployment = true;
+
+            tags = [ "headless" inputs.flake-utils.lib.system.x86_64-linux ];
+          };
+
+          imports = [
+            self.nixosModules.profiles.headless
+
+            ./configuration/devices/headless/router
+          ];
+
+          _module.args.interfaces = {
+            external = "enp1s0";
+            internal = "enp2s0";
+            management = "enp4s0";
           };
         };
 
-        Router = let system = inputs.flake-utils.lib.system.x86_64-linux;
-        in {
-          hostname = "xxlpitu-router";
+        Server = {
+          deployment = {
+            targetHost = "xxlpitu-server";
 
-          profiles.system = {
-            sshUser = "root";
-
-            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-              modules = [{
-                imports = [
-                  commonModule
-
-                  self.nixosModules.profiles.headless
-
-                  ./configuration/devices/headless/router
-                ];
-
-                _module.args.interfaces = {
-                  external = "enp1s0";
-                  internal = "enp2s0";
-                  management = "enp4s0";
-                };
-              }];
-            });
+            tags = [ "headless" inputs.flake-utils.lib.system.x86_64-linux ];
           };
-        };
 
-        Server = let system = inputs.flake-utils.lib.system.x86_64-linux;
-        in {
-          hostname = "xxlpitu-server";
+          imports = [
+            self.nixosModules.profiles.headless
 
-          profiles.system = {
-            sshUser = "root";
+            self.nixosModules.profiles.zfs
 
-            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-              modules = [{
-                imports = [
-                  commonModule
-
-                  self.nixosModules.profiles.headless
-
-                  self.nixosModules.profiles.zfs
-
-                  ./configuration/devices/headless/server
-                ];
-              }];
-            });
-          };
+            ./configuration/devices/headless/server
+          ];
         };
 
         # Raspberry Pi 4 Model B - 8GB
-        Grimmjow = let system = inputs.flake-utils.lib.system.aarch64-linux;
-        in {
-          hostname = "xxlpitu-grimmjow";
+        Grimmjow = {
+          nixpkgs.system = inputs.flake-utils.lib.system.aarch64-linux;
 
-          profiles.system = {
-            sshUser = "root";
+          deployment = {
+            targetHost = "xxlpitu-grimmjow";
 
-            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-              modules = [{
-                imports = [
-                  commonModule
-
-                  inputs.nixos-hardware.nixosModules.raspberry-pi-4
-
-                  self.nixosModules.profiles.headless
-
-                  ./configuration/devices/headless/raspberry-pi-4/grimmjow
-                ];
-              }];
-            });
+            tags = [ "headless" "raspberry-pi-4" inputs.flake-utils.lib.system.aarch64-linux ];
           };
+
+          imports = [
+            inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
+            self.nixosModules.profiles.headless
+
+            ./configuration/devices/headless/raspberry-pi-4/grimmjow
+          ];
         };
 
         # Raspberry Pi 4 Model B - 8GB
-        Ulquiorra = let system = inputs.flake-utils.lib.system.aarch64-linux;
-        in {
-          hostname = "xxlpitu-ulquiorra";
+        Ulquiorra = {
+          nixpkgs.system = inputs.flake-utils.lib.system.aarch64-linux;
 
-          profiles.system = {
-            sshUser = "root";
+          deployment = {
+            targetHost = "xxlpitu-ulquiorra";
 
-            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-              modules = [{
-                imports = [
-                  commonModule
-
-                  inputs.nixos-hardware.nixosModules.raspberry-pi-4
-
-                  self.nixosModules.profiles.headless
-
-                  ./configuration/devices/headless/raspberry-pi-4/ulquiorra
-                ];
-              }];
-            });
+            tags = [ "headless" "raspberry-pi-4" inputs.flake-utils.lib.system.aarch64-linux ];
           };
+
+          imports = [
+            inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
+            self.nixosModules.profiles.headless
+
+            ./configuration/devices/headless/raspberry-pi-4/ulquiorra
+          ];
         };
       };
     } // inputs.flake-utils.lib.eachDefaultSystem (system:
@@ -267,57 +218,55 @@
           overlays = [ self.overlays.default ];
         };
       in {
-        checks = {
-          pre-commit = inputs.git-hooks.lib.${system}.run {
-            src = ./.;
+        checks.pre-commit = inputs.git-hooks.lib.${system}.run {
+          src = ./.;
 
-            addGcRoot = true;
+          addGcRoot = true;
 
-            hooks = {
-              actionlint.enable = true;
-              check-case-conflicts.enable = true;
-              check-executables-have-shebangs.enable = true;
-              check-merge-conflicts.enable = true;
-              check-shebang-scripts-are-executable.enable = true;
-              check-symlinks.enable = true;
-              deadnix = {
-                enable = true;
-                excludes = [ "hardware-configuration\\.nix$" ];
-              };
-              end-of-file-fixer = {
-                enable = true;
-                excludes = [ "secrets\\.nix$" ];
-              };
-              fix-byte-order-marker.enable = true;
-              markdownlint = {
-                enable = true;
+          hooks = {
+            actionlint.enable = true;
+            check-case-conflicts.enable = true;
+            check-executables-have-shebangs.enable = true;
+            check-merge-conflicts.enable = true;
+            check-shebang-scripts-are-executable.enable = true;
+            check-symlinks.enable = true;
+            deadnix = {
+              enable = true;
+              excludes = [ "hardware-configuration\\.nix$" ];
+            };
+            end-of-file-fixer = {
+              enable = true;
+              excludes = [ "secrets\\.nix$" ];
+            };
+            fix-byte-order-marker.enable = true;
+            markdownlint = {
+              enable = true;
 
-                settings.configuration.MD013 = false;
-              };
-              mixed-line-endings = {
-                enable = true;
-                excludes = [ "secrets\\.nix$" ];
-              };
-              nixfmt-classic = {
-                enable = true;
-                excludes = [ "secrets\\.nix$" ];
+              settings.configuration.MD013 = false;
+            };
+            mixed-line-endings = {
+              enable = true;
+              excludes = [ "secrets\\.nix$" ];
+            };
+            nixfmt-classic = {
+              enable = true;
+              excludes = [ "secrets\\.nix$" ];
 
-                settings.width = 140;
-              };
-              trim-trailing-whitespace = {
-                enable = true;
-                excludes = [ "secrets\\.nix$" ];
-              };
+              settings.width = 140;
+            };
+            trim-trailing-whitespace = {
+              enable = true;
+              excludes = [ "secrets\\.nix$" ];
             };
           };
-        } // (inputs.deploy-rs.lib.${system}.deployChecks self.deploy);
+        };
 
         devShells.default = pkgs.mkShell {
           buildInputs = [
             pkgs.nix-output-monitor
             pkgs.nixVersions.latest
 
-            inputs.deploy-rs.packages.${system}.deploy-rs
+            inputs.colmena.packages.${system}.colmena
           ] ++ self.checks.${system}.pre-commit.enabledPackages;
           shellHook = self.checks.${system}.pre-commit.shellHook;
         };
