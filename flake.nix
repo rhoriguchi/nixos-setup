@@ -310,7 +310,7 @@
               };
             };
           };
-        } // (inputs.deploy-rs.lib.${system}.deployChecks self.deploy) // (import ./checks { inherit pkgs; });
+        } // (inputs.deploy-rs.lib.${system}.deployChecks self.deploy);
 
         devShells.default = pkgs.mkShell {
           buildInputs = [
