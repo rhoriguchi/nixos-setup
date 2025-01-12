@@ -56,7 +56,7 @@
         checks = let
           filterAttrs = attrs: lib.filterAttrs (key: _: !(builtins.elem key [ "deploy-activate" "deploy-schema" ])) attrs;
           removeChecks = checks: lib.mapAttrs (_: system: filterAttrs system) checks;
-        in lib.getAttrs [ inputs.flake-utils.lib.system.x86_64-linux ] (removeChecks self.checks);
+        in lib.getAttrs [ "x86_64-linux" ] (removeChecks self.checks);
       };
 
       nixosModules = {
@@ -77,7 +77,7 @@
         })
       ] ++ import ./overlays);
 
-      deploy.nodes = let
+      nixosConfigurations = let
         commonModule = {
           imports = [ self.nixosModules.default ];
 
@@ -92,9 +92,125 @@
           };
         };
       in {
+        Laptop = inputs.nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
+          modules = [{
+            imports = [
+              commonModule
+
+              inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6
+
+              self.nixosModules.profiles.headful
+
+              self.nixosModules.profiles.hidpi
+              self.nixosModules.profiles.java
+              self.nixosModules.profiles.javascript
+              self.nixosModules.profiles.kotlin
+              self.nixosModules.profiles.laptop-power-management
+              self.nixosModules.profiles.podman
+              self.nixosModules.profiles.python
+
+              ./configuration/devices/laptop
+            ];
+
+            boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+          }];
+        };
+
+        Router = inputs.nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
+          modules = [{
+            imports = [
+              commonModule
+
+              self.nixosModules.profiles.headless
+
+              ./configuration/devices/headless/router
+            ];
+
+            _module.args.interfaces = {
+              external = "enp1s0";
+              internal = "enp2s0";
+              management = "enp4s0";
+            };
+          }];
+        };
+
+        Server = inputs.nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
+          modules = [{
+            imports = [
+              commonModule
+
+              self.nixosModules.profiles.headless
+
+              self.nixosModules.profiles.zfs
+
+              ./configuration/devices/headless/server
+            ];
+          }];
+        };
+
+        Grimmjow = inputs.nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+
+          modules = [{
+            imports = [
+              commonModule
+
+              inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
+              self.nixosModules.profiles.headless
+
+              ./configuration/devices/headless/raspberry-pi-4/grimmjow
+            ];
+          }];
+        };
+
+        Ulquiorra = inputs.nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+
+          modules = [{
+            imports = [
+              commonModule
+
+              inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
+              self.nixosModules.profiles.headless
+
+              ./configuration/devices/headless/raspberry-pi-4/ulquiorra
+            ];
+          }];
+        };
+      };
+
+      homeConfigurations."rhoriguchi" = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+
+        modules = [
+          {
+            nixpkgs.overlays = [ self.overlays.default ];
+
+            home = {
+              username = "rhoriguchi";
+              homeDirectory = "/home/rhoriguchi";
+
+              sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
+            };
+          }
+
+          self.nixosModules.home-manager
+        ];
+
+        extraSpecialArgs.colors = self.nixosModules.colors;
+      };
+
+      deploy.nodes = {
         # Lenovo Legion 5 15ACH6
-        Laptop = let system = inputs.flake-utils.lib.system.x86_64-linux;
-        in {
+        Laptop = {
           hostname = "127.0.0.1";
 
           profilesOrder = [ "system" "rhoriguchi-home-manager" ];
@@ -106,156 +222,57 @@
             system = {
               sshUser = "root";
 
-              path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-                modules = [{
-                  imports = [
-                    commonModule
-
-                    inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6
-
-                    self.nixosModules.profiles.headful
-
-                    self.nixosModules.profiles.hidpi
-                    self.nixosModules.profiles.java
-                    self.nixosModules.profiles.javascript
-                    self.nixosModules.profiles.kotlin
-                    self.nixosModules.profiles.laptop-power-management
-                    self.nixosModules.profiles.podman
-                    self.nixosModules.profiles.python
-
-                    ./configuration/devices/laptop
-                  ];
-
-                  boot.binfmt.emulatedSystems = [ inputs.flake-utils.lib.system.aarch64-linux ];
-                }];
-              });
+              path = inputs.deploy-rs.lib."x86_64-linux".activate.nixos self.nixosConfigurations.Laptop;
             };
 
             rhoriguchi-home-manager = {
               sshUser = "root";
               user = "rhoriguchi";
 
-              # TODO does not seem to work
-              profilePath = "/nix/var/nix/profiles/per-user/rhoriguchi/home-manager";
-              path = inputs.deploy-rs.lib.${system}.activate.home-manager (inputs.home-manager.lib.homeManagerConfiguration {
-                pkgs = inputs.nixpkgs.legacyPackages.${system};
-
-                modules = [
-                  {
-                    nixpkgs.overlays = [ self.overlays.default ];
-
-                    home = {
-                      username = "rhoriguchi";
-                      homeDirectory = "/home/rhoriguchi";
-
-                      sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
-                    };
-                  }
-
-                  self.nixosModules.home-manager
-                ];
-
-                extraSpecialArgs.colors = self.nixosModules.colors;
-              });
+              path = inputs.deploy-rs.lib."x86_64-linux".activate.home-manager self.homeConfigurations."rhoriguchi";
             };
           };
         };
 
-        Router = let system = inputs.flake-utils.lib.system.x86_64-linux;
-        in {
+        Router = {
           hostname = "xxlpitu-router";
 
           profiles.system = {
             sshUser = "root";
 
-            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-              modules = [{
-                imports = [
-                  commonModule
-
-                  self.nixosModules.profiles.headless
-
-                  ./configuration/devices/headless/router
-                ];
-
-                _module.args.interfaces = {
-                  external = "enp1s0";
-                  internal = "enp2s0";
-                  management = "enp4s0";
-                };
-              }];
-            });
+            path = inputs.deploy-rs.lib."x86_64-linux".activate.nixos self.nixosConfigurations.Router;
           };
         };
 
-        Server = let system = inputs.flake-utils.lib.system.x86_64-linux;
-        in {
+        Server = {
           hostname = "xxlpitu-server";
 
           profiles.system = {
             sshUser = "root";
 
-            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-              modules = [{
-                imports = [
-                  commonModule
-
-                  self.nixosModules.profiles.headless
-
-                  self.nixosModules.profiles.zfs
-
-                  ./configuration/devices/headless/server
-                ];
-              }];
-            });
+            path = inputs.deploy-rs.lib."x86_64-linux".activate.nixos self.nixosConfigurations.Server;
           };
         };
 
         # Raspberry Pi 4 Model B - 8GB
-        Grimmjow = let system = inputs.flake-utils.lib.system.aarch64-linux;
-        in {
+        Grimmjow = {
           hostname = "xxlpitu-grimmjow";
 
           profiles.system = {
             sshUser = "root";
 
-            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-              modules = [{
-                imports = [
-                  commonModule
-
-                  inputs.nixos-hardware.nixosModules.raspberry-pi-4
-
-                  self.nixosModules.profiles.headless
-
-                  ./configuration/devices/headless/raspberry-pi-4/grimmjow
-                ];
-              }];
-            });
+            path = inputs.deploy-rs.lib."aarch64-linux".activate.nixos self.nixosConfigurations.Grimmjow;
           };
         };
 
         # Raspberry Pi 4 Model B - 8GB
-        Ulquiorra = let system = inputs.flake-utils.lib.system.aarch64-linux;
-        in {
+        Ulquiorra = {
           hostname = "xxlpitu-ulquiorra";
 
           profiles.system = {
             sshUser = "root";
 
-            path = inputs.deploy-rs.lib.${system}.activate.nixos (inputs.nixpkgs.lib.nixosSystem {
-              modules = [{
-                imports = [
-                  commonModule
-
-                  inputs.nixos-hardware.nixosModules.raspberry-pi-4
-
-                  self.nixosModules.profiles.headless
-
-                  ./configuration/devices/headless/raspberry-pi-4/ulquiorra
-                ];
-              }];
-            });
+            path = inputs.deploy-rs.lib."aarch64-linux".activate.nixos self.nixosConfigurations.Ulquiorra;
           };
         };
       };
