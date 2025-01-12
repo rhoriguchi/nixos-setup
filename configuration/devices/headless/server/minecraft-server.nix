@@ -72,6 +72,11 @@ in {
             url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/BlueMapSpawnMarker-${rev}.jar";
             inherit sha256;
           };
+          "plugins/BlueMap/packs/BlueMapSpawnMarker/marker.conf" = pkgs.writeText "marker.conf" ''
+            name: Spawn
+
+            technicjelle.updatechecker.disabled: true
+          '';
           "plugins/BlueMap/webserver.conf" = pkgs.writeText "webserver.conf" ''
             ip: "127.0.0.1"
             port: ${toString blueMapPort}
