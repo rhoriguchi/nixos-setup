@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  localDomains = [ "adguardhome.00a.ch" "librenms.00a.ch" ];
+  localDomains = config.services.infomaniak.hostnames;
   serverDomains = [
     "deluge.00a.ch"
     "esphome.00a.ch"
