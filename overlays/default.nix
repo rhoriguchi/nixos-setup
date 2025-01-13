@@ -21,6 +21,16 @@
           }
         }/pkgs/servers/home-assistant/custom-components/hass-localtuya/package.nix") { };
     };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=373339
+    tautulli = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "e337f76cab1360dace456783544b4072c731d920";
+          sha256 = "sha256-vLEoTGYwS4PLpzlb2jCy02iMNot/XnIjhk3UxflMj+U=";
+        }
+      }/pkgs/servers/tautulli") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
