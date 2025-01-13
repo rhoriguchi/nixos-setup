@@ -164,6 +164,8 @@ in {
       pimd.enable = true;
 
       config = ''
+        ip pim rp 192.168.1.1 224.0.1.0/24
+        ip pim rp 192.168.1.1 224.0.2.0/24
         ip pim rp 192.168.1.1 239.0.0.0/8
 
         interface ${internalInterface}
