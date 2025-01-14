@@ -96,8 +96,8 @@
 
   users.users = {
     rhoriguchi = {
-      extraGroups = [ "networkmanager" "openrazer" "plugdev" "wheel" ] ++ (lib.optional config.virtualisation.docker.enable "docker")
-        ++ (lib.optional config.virtualisation.podman.enable "podman");
+      extraGroups = [ "networkmanager" "openrazer" "plugdev" "wheel" ] ++ (lib.optional config.programs.wireshark.enable "wireshark")
+        ++ (lib.optional config.virtualisation.docker.enable "docker") ++ (lib.optional config.virtualisation.podman.enable "podman");
       isNormalUser = true;
       password = secrets.users.rhoriguchi.password;
 
