@@ -1,9 +1,69 @@
 { config, pkgs, lib, secrets, ... }:
-let blueMapPort = 8100;
+let
+  serverName = "world";
+  package = pkgs.vanilla-server;
+
+  blueMapDataDir = "/srv/minecraft-bluemap/${serverName}/data";
+  blueMapWebDir = "/srv/minecraft-bluemap/${serverName}/web";
 in {
   environment.shellAliases =
     lib.mapAttrs' (key: _: lib.nameValuePair "attach-minecraft-server-${key}" "${pkgs.tmux}/bin/tmux -S /run/minecraft/${key}.sock attach")
     config.services.minecraft-servers.servers;
+
+  # https://ghcr.io/bluemap-minecraft/bluemap
+  virtualisation.oci-containers.containers."minecraft-bluemap-${serverName}" = {
+    image = "ghcr.io/bluemap-minecraft/bluemap:v5.5";
+
+    cmd = [
+      # --mc-version does not work
+      "-v ${package.version}"
+      "--render"
+      "--watch"
+    ];
+
+    environment.TZ = config.time.timeZone;
+
+    volumes = let
+      coreConf = pkgs.writeText "core.conf" ''
+        accept-download: true
+        data: "data"
+        render-thread-count: 2
+        metrics: false
+      '';
+
+      blueMapSpawnMarkerJar = let
+        owner = "TechnicJelle";
+        repo = "BlueMapSpawnMarker";
+        rev = "1.1";
+        sha256 = "sha256-6wZ0Ns6RulKjIuJ3zpxg4MnmgHHD0AdByYE+s+sIk8w=";
+      in pkgs.fetchurl {
+        url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/BlueMapSpawnMarker-${rev}.jar";
+        inherit sha256;
+      };
+      blueMapSpawnMarkerMarkerConf = pkgs.writeText "marker.conf" ''
+        name: Spawn
+
+        technicjelle.updatechecker.disabled: true
+      '';
+    in [
+      "${blueMapDataDir}:/app/data"
+      "${blueMapWebDir}:/app/web"
+
+      "${coreConf}:/app/config/core.conf"
+
+      "${config.services.minecraft-servers.dataDir}/${serverName}/world:/app/world:ro"
+      "${config.services.minecraft-servers.dataDir}/${serverName}/world/DIM-1:/app/world_nether:ro"
+      "${config.services.minecraft-servers.dataDir}/${serverName}/world/DIM1:/app/world_the_end:ro"
+
+      "${blueMapSpawnMarkerJar}:/app/config/packs/BlueMapSpawnMarker.jar"
+      "${blueMapSpawnMarkerMarkerConf}:/app/config/packs/BlueMapSpawnMarker/marker.conf"
+    ];
+  };
+
+  system.activationScripts."minecraft-bluemap-${serverName}" = ''
+    ${pkgs.coreutils}/bin/mkdir -p ${blueMapDataDir}
+    ${pkgs.coreutils}/bin/mkdir -p ${blueMapWebDir}
+  '';
 
   services = {
     infomaniak = {
@@ -21,7 +81,15 @@ in {
         enableACME = true;
         forceSSL = true;
 
-        locations."/".proxyPass = "http://127.0.0.1:${toString blueMapPort}";
+        root = blueMapWebDir;
+
+        locations = {
+          "@empty".return = 204;
+
+          "~* ^/maps/[^/]*/live/".extraConfig = ''
+            error_page 404 = @empty;
+          '';
+        };
       };
     };
 
@@ -31,14 +99,14 @@ in {
 
       openFirewall = true;
 
-      servers.world = {
+      servers.${serverName} = {
         enable = true;
 
-        package = pkgs.paper-server;
+        inherit package;
         jvmOpts = let memory = 1024 * 4; in "-Xmx${toString memory}M -Xms${toString memory}M";
 
         # https://minecraft.fandom.com/wiki/Server.properties
-        serverProperties = rec {
+        serverProperties = {
           #https://mctools.org/motd-creator?text=%26d%26lPingu+Land
           motd = "\\u00A7d\\u00A7lPingu Land";
           white-list = true;
@@ -46,74 +114,6 @@ in {
           difficulty = "normal";
           view-distance = 32;
           enable-command-block = true;
-        };
-
-        symlinks = {
-          "plugins/BlueMap.jar" = let
-            owner = "BlueMap-Minecraft";
-            repo = "BlueMap";
-            rev = "5.5";
-            sha256 = "sha256-nZxBbF1KkGHveZCKPJ0hHyJGXHnNSCKTvX5JRr0+s88=";
-          in pkgs.fetchurl {
-            url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/bluemap-${rev}-paper.jar";
-            inherit sha256;
-          };
-          "plugins/BlueMap/core.conf" = pkgs.writeText "core.conf" ''
-            accept-download: true
-            render-thread-count: 2
-            metrics: false
-          '';
-          "plugins/BlueMap/packs/BlueMapSpawnMarker.jar" = let
-            owner = "TechnicJelle";
-            repo = "BlueMapSpawnMarker";
-            rev = "1.1";
-            sha256 = "sha256-6wZ0Ns6RulKjIuJ3zpxg4MnmgHHD0AdByYE+s+sIk8w=";
-          in pkgs.fetchurl {
-            url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/BlueMapSpawnMarker-${rev}.jar";
-            inherit sha256;
-          };
-          "plugins/BlueMap/packs/BlueMapSpawnMarker/marker.conf" = pkgs.writeText "marker.conf" ''
-            name: Spawn
-
-            technicjelle.updatechecker.disabled: true
-          '';
-          "plugins/BlueMap/webserver.conf" = pkgs.writeText "webserver.conf" ''
-            ip: "127.0.0.1"
-            port: ${toString blueMapPort}
-          '';
-
-          "plugins/CoreProtect.jar" = "${
-              pkgs.maven.buildMavenPackage rec {
-                pname = "CoreProtect";
-                version = "22.4";
-
-                src = pkgs.fetchFromGitHub {
-                  owner = "PlayPro";
-                  repo = "CoreProtect";
-                  rev = "v${version}";
-                  hash = "sha256-kfemFVT2LMToQLRtxdPyN1Slwf2HBNPHnO4rDuyvIP8=";
-                };
-
-                mvnHash = "sha256-Sjnz3ylZeOcdWEvjT+5bbgHKC+B5rLB5yksbcqnptMU=";
-
-                mvnParameters = lib.escapeShellArgs [ "-Dproject.branch=master" ];
-
-                installPhase = ''
-                  mkdir -p $out/share/CoreProtect
-                  install -Dm644 target/CoreProtect-${version}.jar $out/share/CoreProtect/CoreProtect.jar
-                '';
-              }
-            }/share/CoreProtect/CoreProtect.jar";
-
-          "plugins/PrometheusExporter.jar" = let
-            owner = "sladkoff";
-            repo = "minecraft-prometheus-exporter";
-            rev = "3.1.0";
-            sha256 = "sha256-An5zkJJop2CEkCtjgzOroelQVY0bxLDvH/uhex24YyI=";
-          in pkgs.fetchurl {
-            url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/minecraft-prometheus-exporter-${rev}.jar";
-            inherit sha256;
-          };
         };
 
         # https://mcuuid.net
