@@ -20,7 +20,7 @@ start /wait spice-guest-tools.exe
 del /f spice-guest-tools.exe
 
 REM NVIDIA App
-curl --location --output NVIDIA_app.exe --url "https://us.download.nvidia.com/nvapp/client/11.0.1.184/NVIDIA_app_v11.0.1.184.exe"
+curl --location --output NVIDIA_app.exe --url "https://us.download.nvidia.com/nvapp/client/11.0.1.189/NVIDIA_app_v11.0.1.189.exe"
 start /wait NVIDIA_app.exe
 del /f NVIDIA_app.exe
 ```
@@ -47,7 +47,7 @@ del /f winfsp.msi
 sc config VirtioFsSvc start=auto
 
 REM Netdata Windows exporter
-curl --location --output windows_exporter.msi --url "https://github.com/prometheus-community/windows_exporter/releases/download/v0.29.2/windows_exporter-0.29.2-amd64.msi"
+curl --location --output windows_exporter.msi --url "https://github.com/prometheus-community/windows_exporter/releases/download/v0.30.0/windows_exporter-0.30.0-amd64.msi"
 start /wait msiexec /i windows_exporter.msi ADDLOCAL=FirewallException /quiet /qn /norestart
 del /f windows_exporter.msi
 
@@ -157,25 +157,25 @@ winget install --silent --accept-source-agreements 9MV0B5HZVK9Z
 - FactoryLocator
 
   ```txt
-  ror2mm://v1/install/thunderstore.io/starfi5h/FactoryLocator/1.2.3/
+  ror2mm://v1/install/thunderstore.io/starfi5h/FactoryLocator/1.3.8
   ```
 
 - GalacticScale
 
   ```txt
-  ror2mm://v1/install/thunderstore.io/Galactic_Scale/GalacticScale/2.13.4
+  ror2mm://v1/install/thunderstore.io/Galactic_Scale/GalacticScale/2.16.6
   ```
 
 - NebulaCompatibilityAssist
 
   ```txt
-  ror2mm://v1/install/thunderstore.io/starfi5h/NebulaCompatibilityAssist/0.4.1
+  ror2mm://v1/install/thunderstore.io/starfi5h/NebulaCompatibilityAssist/0.4.23
   ```
 
 - NebulaMultiplayerMod
 
   ```txt
-  ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.9.2
+  ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.9.12
   ```
 
 - SmartEjectors
