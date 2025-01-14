@@ -1,4 +1,4 @@
-{ config, lib, modulesPath, pkgs, ... }:
+{ config, lib, modulesPath, ... }:
 let cfg = config.services.flaresolverr;
 in {
   # TODO switch to nix package and module once no more broken
@@ -32,14 +32,6 @@ in {
     # https://hub.docker.com/r/flaresolverr/flaresolverr
     virtualisation.oci-containers.containers.flaresolverr = {
       image = "flaresolverr/flaresolverr:v3.3.21";
-
-      imageFile = pkgs.dockerTools.pullImage {
-        imageName = "flaresolverr/flaresolverr";
-        imageDigest = "sha256:f104ee51e5124d83cf3be9b37480649355d223f7d8f9e453d0d5ef06c6e3b31b"; # linux/amd64
-        sha256 = "sha256-unGzkgDG5RvVPz+cHdNqizBjEf9FCHSMwi7PbRgjETI=";
-
-        finalImageTag = "v3.3.21";
-      };
 
       ports = [ "127.0.0.1:${toString cfg.port}:8191" ]
         ++ lib.optional cfg.prometheusExporter.enable "127.0.0.1:${toString cfg.prometheusExporter.port}:8192";
