@@ -120,8 +120,9 @@ in {
           "${internalInterface}.100, 192.168.100.2, 192.168.100.254, 1h"
         ];
 
-        dhcp-option = [
-          "${managementInterface}, option:router, 172.16.1.1"
+          # https://blog.abysm.org/2020/06/human-readable-dhcp-options-for-dnsmasq
+          dhcp-option = [
+            "${managementInterface}, option:router, 172.16.1.1"
 
           "${internalInterface}, option:router, 192.168.1.1"
           "${internalInterface}, option:dns-server, 192.168.1.1"
