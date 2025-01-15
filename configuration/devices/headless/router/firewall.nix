@@ -1,8 +1,10 @@
-{ interfaces, lib, ... }:
+{ config, interfaces, lib, ... }:
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
   managementInterface = interfaces.management;
+
+  ipv6Prefix = "fdc7:643d:1406";
 
   wingoRouterIp = "192.168.0.254";
   serverIp = "192.168.2.2";
@@ -13,6 +15,9 @@ in {
 
     "net.ipv4.conf.all.secure_redirects" = 0;
     "net.ipv4.conf.default.secure_redirects" = 0;
+  } // lib.optionalAttrs config.networking.enableIPv6 {
+    "net.ipv6.conf.all.accept_redirects" = 0;
+    "net.ipv6.conf.default.accept_redirects" = 0;
   };
 
   networking = {
@@ -90,6 +95,19 @@ in {
             ip saddr ${serverIp} ip daddr @iot_vlan accept
 
             ip saddr @rfc1918 ip daddr @rfc1918 drop
+
+            ${
+              lib.optionalString config.networking.enableIPv6 ''
+                # TODO check if accept rules are needed, if needed can be generated out of `networking.interfaces.<name>.ipv6.addresses`
+                # ip6 daddr ${ipv6Prefix}:1::1 accept
+                # ip6 daddr ${ipv6Prefix}:2::1 accept
+                # ip6 daddr ${ipv6Prefix}:3::1 accept
+                # ip6 daddr ${ipv6Prefix}:100::1 accept
+
+                # TODO commented
+                # ip6 saddr ${ipv6Prefix}::/48 ip6 daddr ${ipv6Prefix}::/48 drop
+              ''
+            }
           }
         '';
       };
@@ -101,6 +119,9 @@ in {
       inherit externalInterface;
       internalInterfaces =
         [ "${internalInterface}" "${internalInterface}.1" "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.100" ];
+
+      enableIPv6 = config.networking.enableIPv6;
+      internalIPv6s = [ "${ipv6Prefix}:1::/64" "${ipv6Prefix}:2::/64" "${ipv6Prefix}:3::/64" "${ipv6Prefix}:100::/64" ];
 
       forwardPorts = [
         # Minecraft
