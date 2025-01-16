@@ -4,6 +4,7 @@
 
     ./backup.nix
     ./fancontrol.nix
+    ./gphotos-sync.nix
     ./home-assistant
     ./immich.nix
     ./libvirtd
@@ -47,17 +48,6 @@
   };
 
   services = {
-    gphotos-sync = {
-      enable = true;
-
-      group = if config.services.resilio.enable then config.services.resilio.user else "gphotos-sync";
-
-      projectId = secrets.gphotosSync.projectId;
-      clientId = secrets.gphotosSync.clientId;
-      clientSecret = secrets.gphotosSync.clientSecret;
-      exportPath = "${config.services.resilio.syncPath}/Google_Photos";
-    };
-
     resilio = {
       enable = true;
 
