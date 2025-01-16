@@ -1,14 +1,38 @@
-{ config, pkgs, secrets, ... }: {
+{ config, lib, pkgs, secrets, ... }:
+let
+  rootBindmountDir = "/mnt/bindmount/${config.services.sonarr.user}";
+  bindmountDir1 = "${rootBindmountDir}/resilio-TvShows";
+  bindmountDir2 = "${rootBindmountDir}/disk-TvShows";
+in {
   imports = [ ./deluge ./prowlarr.nix ];
 
   users.users.sonarr.extraGroups = [ config.services.deluge.group ];
 
-  services = {
-    sonarr = {
-      enable = true;
-
-      group = if config.services.resilio.enable then config.services.resilio.user else "sonarr";
+  system.fsPackages = [ pkgs.bindfs ];
+  fileSystems = {
+    "${bindmountDir1}" = {
+      device = "${config.services.resilio.syncPath}/Series/Tv Shows";
+      fsType = "fuse.bindfs";
+      options = [
+        "map=${
+          lib.concatStringsSep ":" [
+            "${config.services.resilio.user}/${config.services.sonarr.user}"
+            "@${config.services.resilio.group}/@${config.services.sonarr.group}"
+          ]
+        }"
+      ];
     };
+
+    "${bindmountDir2}" = {
+      depends = [ "/mnt/Data/Series" ];
+      device = "/mnt/Data/Series/Tv Shows";
+      fsType = "fuse.bindfs";
+      options = [ "map=${lib.concatStringsSep ":" [ "root/${config.services.sonarr.user}" "@root/@${config.services.sonarr.group}" ]}" ];
+    };
+  };
+
+  services = {
+    sonarr.enable = true;
 
     infomaniak = {
       enable = true;
@@ -48,33 +72,29 @@
     };
   };
 
-  systemd.services = {
-    sonarr.serviceConfig.UMask = "0002";
+  systemd.services.sonarr-update-tracked-series = {
+    after = [ "network.target" "sonarr.service" ];
 
-    sonarr-update-tracked-series = {
-      after = [ "network.target" "sonarr.service" ];
+    script = let
+      pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.pyjwt ps.requests ]);
 
-      script = let
-        pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.pyjwt ps.requests ]);
+      script = pkgs.substituteAll {
+        src = ./update_series.py;
 
-        script = pkgs.substituteAll {
-          src = ./update_series.py;
+        sonarApiUrl = "http://127.0.0.1:8989";
+        sonarApiKey = secrets.sonarr.apiKey;
+        sonarrRootDir = bindmountDir1;
 
-          sonarApiUrl = "http://127.0.0.1:8989";
-          sonarApiKey = secrets.sonarr.apiKey;
-          sonarrRootDir = "${config.services.resilio.syncPath}/Series/Tv Shows";
-
-          tvTimeUsername = secrets.tvTime.username;
-          tvTimePassword = secrets.tvTime.password;
-        };
-      in "${pythonWithPackages}/bin/python ${script}";
-
-      startAt = "*:0/15";
-
-      serviceConfig = {
-        DynamicUser = true;
-        Restart = "on-abort";
+        tvTimeUsername = secrets.tvTime.username;
+        tvTimePassword = secrets.tvTime.password;
       };
+    in "${pythonWithPackages}/bin/python ${script}";
+
+    startAt = "*:0/15";
+
+    serviceConfig = {
+      DynamicUser = true;
+      Restart = "on-abort";
     };
   };
 }
