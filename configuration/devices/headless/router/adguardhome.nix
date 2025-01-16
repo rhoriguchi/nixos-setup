@@ -108,7 +108,6 @@ in {
             ids = [ "192.168.100.0/24" ];
             use_global_settings = true;
             use_global_blocked_services = true;
-            upstreams = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
           }
         ];
 
@@ -144,6 +143,7 @@ in {
           "immich.00a.ch"
           "minecraft.00a.ch"
           "monitoring.00a.ch"
+          "plex.00a.ch"
           "prometheus.00a.ch"
           "prowlarr.00a.ch"
           "pushgateway.00a.ch"
