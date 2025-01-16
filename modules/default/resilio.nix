@@ -44,6 +44,16 @@ in {
 
   options.services.resilio = {
     enable = lib.mkEnableOption "Resilio Sync";
+    user = lib.mkOption {
+      type = lib.types.str;
+      default = "rslsync";
+      readOnly = true;
+    };
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = "rslsync";
+      readOnly = true;
+    };
     deviceName = lib.mkOption {
       type = lib.types.str;
       default = lib.optionalString (config.networking.hostName != "") config.networking.hostName;
@@ -195,26 +205,26 @@ in {
     ];
 
     users = lib.mkIf cfg.systemWide {
-      users.rslsync = {
+      users.${cfg.user} = {
         isSystemUser = true;
-        group = "rslsync";
+        group = cfg.group;
         uid = config.ids.uids.rslsync;
         createHome = true;
         home = cfg.storagePath;
       };
 
-      groups.rslsync.gid = config.ids.gids.rslsync;
+      groups.${cfg.group}.gid = config.ids.gids.rslsync;
     };
 
     system.activationScripts.resilio = lib.mkIf cfg.systemWide ''
       mkdir -pm 0711 "$(dirname "${cfg.logging.filePath}")"
-      chown rslsync:rslsync "$(dirname "${cfg.logging.filePath}")"
+      chown ${cfg.user}:${cfg.group} "$(dirname "${cfg.logging.filePath}")"
 
       mkdir -pm 0775 "${cfg.storagePath}"
-      chown rslsync:rslsync "${cfg.storagePath}"
+      chown ${cfg.user}:${cfg.group} "${cfg.storagePath}"
 
       mkdir -pm 0775 "${cfg.syncPath}"
-      chown rslsync:rslsync "${cfg.syncPath}"
+      chown ${cfg.user}:${cfg.group} "${cfg.syncPath}"
     '';
 
     systemd = if cfg.systemWide then {
@@ -231,8 +241,8 @@ in {
           Restart = "on-abort";
 
           UMask = "0002";
-          User = "rslsync";
-          Group = "rslsync";
+          User = cfg.user;
+          Group = cfg.group;
         };
 
         unitConfig.ConditionPathExists = [ cfg.syncPath ];

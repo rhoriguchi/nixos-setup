@@ -31,7 +31,7 @@
       enable = true;
 
       host = "127.0.0.1";
-      group = if config.services.resilio.enable then "rslsync" else "immich";
+      group = if config.services.resilio.enable then config.services.resilio.user else "immich";
     };
   };
 }

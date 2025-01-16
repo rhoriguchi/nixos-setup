@@ -57,7 +57,7 @@ in {
       users.gphotos-sync = {
         isSystemUser = true;
         group = "gphotos-sync";
-        extraGroups = lib.optional config.services.resilio.enable "rslsync";
+        extraGroups = lib.optional config.services.resilio.enable config.services.resilio.user;
       };
 
       groups.gphotos-sync = { };
@@ -75,7 +75,7 @@ in {
         Restart = "on-abort";
         UMask = "0002";
         User = "gphotos-sync";
-        Group = if config.services.resilio.enable then "rslsync" else "gphotos-sync";
+        Group = if config.services.resilio.enable then config.services.resilio.user else "gphotos-sync";
       };
     };
   };

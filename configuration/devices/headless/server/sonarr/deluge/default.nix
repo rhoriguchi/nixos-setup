@@ -37,7 +37,7 @@
       web.enable = true;
 
       declarative = true;
-      group = if config.services.resilio.enable then "rslsync" else "sonarr";
+      group = if config.services.resilio.enable then config.services.resilio.user else "sonarr";
 
       authFile = let
         text = lib.concatStringsSep "\n"
