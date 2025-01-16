@@ -47,12 +47,10 @@ in {
     user = lib.mkOption {
       type = lib.types.str;
       default = "rslsync";
-      readOnly = true;
     };
     group = lib.mkOption {
       type = lib.types.str;
       default = "rslsync";
-      readOnly = true;
     };
     deviceName = lib.mkOption {
       type = lib.types.str;
