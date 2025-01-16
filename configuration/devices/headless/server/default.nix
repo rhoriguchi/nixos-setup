@@ -50,6 +50,8 @@
     gphotos-sync = {
       enable = true;
 
+      group = if config.services.resilio.enable then config.services.resilio.user else "gphotos-sync";
+
       projectId = secrets.gphotosSync.projectId;
       clientId = secrets.gphotosSync.clientId;
       clientSecret = secrets.gphotosSync.clientSecret;

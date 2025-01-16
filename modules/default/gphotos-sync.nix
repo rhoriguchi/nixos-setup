@@ -27,6 +27,14 @@ let
 in {
   options.services.gphotos-sync = {
     enable = lib.mkEnableOption "Google Photos Sync";
+    user = lib.mkOption {
+      type = lib.types.str;
+      default = "gphotos-sync";
+    };
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = "gphotos-sync";
+    };
     exportPath = lib.mkOption { type = lib.types.path; };
     projectId = lib.mkOption { type = lib.types.str; };
     clientId = lib.mkOption { type = lib.types.str; };
@@ -54,13 +62,12 @@ in {
     ];
 
     users = {
-      users.gphotos-sync = {
+      users.${cfg.user} = {
         isSystemUser = true;
-        group = "gphotos-sync";
-        extraGroups = lib.optional config.services.resilio.enable config.services.resilio.user;
+        group = cfg.group;
       };
 
-      groups.gphotos-sync = { };
+      groups.${cfg.group} = { };
     };
 
     systemd.services.gphotos-sync = {
@@ -73,9 +80,8 @@ in {
 
       serviceConfig = {
         Restart = "on-abort";
-        UMask = "0002";
-        User = "gphotos-sync";
-        Group = if config.services.resilio.enable then config.services.resilio.user else "gphotos-sync";
+        User = cfg.user;
+        Group = cfg.group;
       };
     };
   };
