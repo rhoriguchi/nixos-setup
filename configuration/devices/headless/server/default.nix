@@ -1,4 +1,4 @@
-{ config, lib, pkgs, secrets, ... }: {
+{ config, lib, secrets, ... }: {
   imports = [
     ../common.nix
 
@@ -11,6 +11,7 @@
     ./log-management.nix
     ./minecraft-server.nix
     ./monitoring.nix
+    ./plex.nix
     ./sonarr
     ./tautulli.nix
 
@@ -54,32 +55,6 @@
       readWriteDirs = lib.attrNames secrets.resilio.secrets;
       secrets = secrets.resilio.secrets;
       syncPath = "/mnt/Data/Sync";
-    };
-
-    plex = {
-      enable = true;
-
-      openFirewall = true;
-
-      extraPlugins = [
-        (builtins.path {
-          name = "MyAnimeList.bundle";
-          path = pkgs.fetchFromGitHub {
-            owner = "Fribb";
-            repo = "MyAnimeList.bundle";
-            rev = "v7.4.1";
-            hash = "sha256-hqdhz1FyzwgLHcxMRSuSuwNLuqDhdy+t6KCZhESgAho=";
-          };
-        })
-      ];
-      extraScanners = [
-        (pkgs.fetchFromGitHub {
-          owner = "ZeroQI";
-          repo = "Absolute-Series-Scanner";
-          rev = "ddca35eecb2377e727850e0497bc9b1f67fc11e7";
-          hash = "sha256-xMZPSi6+YUNFJjNmiiIBN713A/2PKDuQ1Iwm5c/Qt+s=";
-        })
-      ];
     };
 
     monitoring = lib.mkForce {
