@@ -1,6 +1,8 @@
 { config, pkgs, secrets, ... }: {
   imports = [ ./deluge ./prowlarr.nix ];
 
+  users.users.sonarr.extraGroups = [ config.services.deluge.group ];
+
   services = {
     sonarr = {
       enable = true;
