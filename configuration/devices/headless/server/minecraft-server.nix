@@ -1,4 +1,4 @@
-{ config, pkgs, lib, secrets, ... }:
+{ config, pkgs, secrets, ... }:
 let
   serverName = "world";
   package = pkgs.vanilla-server;
@@ -6,10 +6,6 @@ let
   blueMapDataDir = "/srv/minecraft-bluemap/${serverName}/data";
   blueMapWebDir = "/srv/minecraft-bluemap/${serverName}/web";
 in {
-  environment.shellAliases =
-    lib.mapAttrs' (key: _: lib.nameValuePair "attach-minecraft-server-${key}" "${pkgs.tmux}/bin/tmux -S /run/minecraft/${key}.sock attach")
-    config.services.minecraft-servers.servers;
-
   # https://ghcr.io/bluemap-minecraft/bluemap
   virtualisation.oci-containers.containers."minecraft-bluemap-${serverName}" = {
     image = "ghcr.io/bluemap-minecraft/bluemap:v5.5";
@@ -99,7 +95,9 @@ in {
 
       openFirewall = true;
 
-      servers.${serverName} = {
+      managementSystem.systemd-socket.enable = true;
+
+      servers.${serverName} = rec {
         enable = true;
 
         inherit package;
@@ -133,6 +131,12 @@ in {
           thripphy = "3607cdd3-c5fc-475a-94ae-10e0732c1b69"; # Cipi
           XD3NNY_ = "844269e7-d1f0-4a22-8067-f1d89fe8dd25"; # Denny
           XXLPitu = "91469f95-dded-484b-acde-1da375f88aed"; # Ryan
+        };
+
+        operators.XXLPitu = {
+          uuid = whitelist.XXLPitu;
+          level = 4;
+          bypassesPlayerLimit = true;
         };
       };
     };
