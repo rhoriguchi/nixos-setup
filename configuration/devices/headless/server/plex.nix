@@ -7,6 +7,7 @@ in {
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {
+      depends = [ config.services.resilio.syncPath ];
       device = "${config.services.resilio.syncPath}/Series";
       fsType = "fuse.bindfs";
       options = [

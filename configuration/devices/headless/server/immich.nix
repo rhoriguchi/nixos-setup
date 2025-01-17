@@ -5,6 +5,7 @@ let
 in {
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems.${bindmountDir} = {
+    depends = [ config.services.resilio.syncPath ];
     device = "${config.services.resilio.syncPath}/Google_Photos/photos";
     fsType = "fuse.bindfs";
     options = [

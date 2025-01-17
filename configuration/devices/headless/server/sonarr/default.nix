@@ -11,6 +11,7 @@ in {
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {
+      depends = [ config.services.resilio.syncPath ];
       device = "${config.services.resilio.syncPath}/Series/Tv Shows";
       fsType = "fuse.bindfs";
       options = [
