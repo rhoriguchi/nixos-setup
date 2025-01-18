@@ -150,7 +150,7 @@ in {
           "sonarr.00a.ch"
           "tautulli.00a.ch"
         ]) ++ lib.optionals config.services.lancache.enable (map (cachedDomain: {
-          domain = lib.replaceStrings [ "*." ] [ "" ] cachedDomain;
+          domain = cachedDomain;
           # TODO uncomment when https://github.com/AdguardTeam/AdGuardHome/issues/7327 fixed
           # answer = "${config.networking.hostName}.local";
           answer = routerIp;
