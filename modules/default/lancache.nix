@@ -39,7 +39,7 @@ in {
       default = services;
     };
     upstreamDns = lib.mkOption {
-      type = lib.types.listOf (lib.types.str);
+      type = lib.types.listOf lib.types.str;
       default = [ "1.1.1.1" "1.0.0.1" ];
     };
     cacheDomains = lib.mkOption {
