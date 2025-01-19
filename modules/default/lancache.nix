@@ -44,7 +44,9 @@ in {
     };
     cacheDomains = lib.mkOption {
       type = lib.types.listOf (lib.types.str);
-      default = cacheDomains;
+      default = cacheDomains
+        # needed for steam download to work
+        ++ lib.optional (builtins.elem "steam" cfg.cachedServices) "*.steamcontent.com";
       readOnly = true;
     };
   };
