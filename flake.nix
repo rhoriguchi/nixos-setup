@@ -77,6 +77,8 @@
         })
       ] ++ import ./overlays);
 
+      images.sdImageRaspberryPi4 = self.nixosConfigurations.sdImageRaspberryPi4.config.system.build.image;
+
       nixosConfigurations = let
         commonModule = {
           imports = [ self.nixosModules.default ];
@@ -184,6 +186,38 @@
               ./configuration/devices/headless/raspberry-pi-4/ulquiorra
             ];
           }];
+        };
+
+        sdImageRaspberryPi4 = inputs.nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+
+          modules = [
+            {
+              imports = [ "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ];
+              sdImage.compressImage = false;
+            }
+            ({ public-keys, secrets, ... }: {
+              imports = [
+                commonModule
+
+                inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
+                self.nixosModules.profiles.headless
+              ];
+
+              services.openssh.enable = true;
+
+              users.users.xxlpitu = {
+                extraGroups = [ "wheel" ];
+                isNormalUser = true;
+                password = secrets.users.xxlpitu.password;
+                openssh.authorizedKeys.keys = [ public-keys.default ];
+              };
+
+              # TODO workaround for https://github.com/NixOS/nixpkgs/issues/126755
+              nixpkgs.overlays = [ (_: super: { makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; }); }) ];
+            })
+          ];
         };
       };
 
