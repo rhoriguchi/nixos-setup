@@ -10,12 +10,7 @@ in {
   virtualisation.oci-containers.containers."minecraft-bluemap-${serverName}" = {
     image = "ghcr.io/bluemap-minecraft/bluemap:v5.5";
 
-    cmd = [
-      # --mc-version does not work
-      "-v ${package.version}"
-      "--render"
-      "--watch"
-    ];
+    cmd = [ "--mc-version=${package.version}" "--render" "--watch" ];
 
     environment.TZ = config.time.timeZone;
 
