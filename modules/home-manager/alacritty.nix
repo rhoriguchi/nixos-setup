@@ -11,11 +11,7 @@
       general.working_directory = config.home.homeDirectory;
       window.startup_mode = "Maximized";
 
-      scrolling = {
-        history = 10 * 1000;
-        multiplier = 3;
-      };
-
+      # fc-list : family style
       font = {
         size = 10;
 
@@ -32,6 +28,11 @@
         italic = {
           family = "RobotoMono Nerd Font";
           style = "Italic";
+        };
+
+        bold_italic = {
+          family = "RobotoMono Nerd Font";
+          style = "Bold Italic";
         };
       };
 
