@@ -51,6 +51,7 @@
       character = {
         success_symbol = "[❯](${colors.normal.white} bold)";
         error_symbol = "[❯](${colors.normal.white} bold)";
+        vimcmd_symbol = "[❮](${colors.normal.white} bold)";
       };
     };
   };
