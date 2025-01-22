@@ -86,6 +86,16 @@
         # Whenever a command completion or spelling correction is attempted, make sure the entire command path is hashed first. This makes
         #  the first completion slower but avoids false reports of spelling errors.
         setopt HASH_LIST_ALL
+
+        # Enable case-insensitive tab completion
+        zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
+
+        # Apply LS_COLORS to completion menu
+        zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+
+        # Disable sorting of branch names in git checkout and git switch completions
+        zstyle ':completion:*:git-checkout:*' sort false
+        zstyle ':completion:*:git-switch:*' sort false
       '';
     };
   };
