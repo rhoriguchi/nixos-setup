@@ -1,6 +1,7 @@
 { config, pkgs, ... }: {
   programs = {
     alacritty.settings.terminal.shell.program = "${config.programs.zsh.package}/bin/zsh";
+    ghostty.settings.shell-integration = "zsh";
     tmux.shell = "${config.programs.zsh.package}/bin/zsh";
 
     zsh = {

@@ -1,10 +1,10 @@
 { colors, config, pkgs, ... }: {
   home.packages = [ pkgs.nerd-fonts.roboto-mono ];
 
-  home.sessionVariables.TERMINAL = "alacritty";
+  # home.sessionVariables.TERMINAL = "alacritty";
 
   programs.alacritty = {
-    enable = true;
+    enable = false;
 
     settings = {
       general.working_directory = config.home.homeDirectory;
