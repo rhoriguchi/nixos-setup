@@ -55,7 +55,7 @@ in {
         set -g clock-mode-colour '${colors.normal.accent}'
         set -g message-command-style bg='${colors.normal.black}',fg='${colors.normal.green}'
         set -g message-style bg='${colors.normal.green}',fg='${colors.normal.black}'
-        set -g mode-style 'reverse'
+        set -g mode-style 'fg=default,bg=default,reverse'
         set -g pane-active-border-style fg='${colors.normal.accent}'
         set -g status-bg '#3d3d3d'
         set -g status-fg '${colors.normal.accent}'
