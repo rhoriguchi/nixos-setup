@@ -15,5 +15,7 @@
     };
 
     historyWidgetOptions = [ "--no-multi" ];
+    changeDirWidgetCommand = "";
+    fileWidgetCommand = "";
   };
 }
