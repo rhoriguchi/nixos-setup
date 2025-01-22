@@ -38,7 +38,6 @@ in {
       mouse = true;
       clock24 = true;
       historyLimit = 10 * 1000;
-      shell = "${pkgs.zsh}/bin/zsh";
       terminal = "screen-256color";
 
       extraConfig = ''

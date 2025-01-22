@@ -7,7 +7,6 @@
     enable = true;
 
     settings = {
-      terminal.shell.program = "${pkgs.zsh}/bin/zsh";
       general.working_directory = config.home.homeDirectory;
       window.startup_mode = "Maximized";
 
