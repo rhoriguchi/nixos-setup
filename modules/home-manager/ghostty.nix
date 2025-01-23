@@ -27,6 +27,8 @@
       font-style-bold-italic = "RobotoMono Nerd Font Bd It";
       font-feature = [ "-calt" "-dlig" "-liga" ];
 
+      adjust-cursor-thickness = "150%";
+
       mouse-hide-while-typing = true;
       mouse-scroll-multiplier = 0.3;
 
