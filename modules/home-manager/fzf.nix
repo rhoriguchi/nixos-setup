@@ -13,6 +13,8 @@
         info = colors.normal.green;
         prompt = colors.normal.white;
         pointer = colors.normal.accent;
+        border = colors.extra.tmux.statusBackground;
+        preview-border = colors.extra.tmux.statusBackground;
       };
 
       historyWidgetOptions = [ "--no-multi" ];
