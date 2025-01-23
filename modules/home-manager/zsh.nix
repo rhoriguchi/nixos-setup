@@ -19,8 +19,10 @@
 
       history = {
         size = 10 * 1000;
+        append = true;
         extended = true;
         ignoreAllDups = true;
+        share = true;
       };
 
       plugins = [{
