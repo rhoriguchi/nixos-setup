@@ -49,7 +49,7 @@
     };
 
     themes.Custom = {
-      background = "#303030";
+      background = colors.extra.terminal.background;
       foreground = colors.normal.white;
 
       cursor-color = colors.normal.accent;

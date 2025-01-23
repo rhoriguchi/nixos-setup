@@ -1,4 +1,9 @@
 {
+  extra = {
+    terminal.background = "#303030";
+    tmux.statusBackground = "#3d3d3d";
+  };
+
   normal = rec {
     accent = magenta;
 

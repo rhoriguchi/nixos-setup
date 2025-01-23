@@ -37,7 +37,7 @@
 
       colors = {
         primary = {
-          background = "#303030";
+          background = colors.extra.terminal.background;
           foreground = colors.normal.white;
         };
 

@@ -56,7 +56,7 @@ in {
         set -g message-style bg='${colors.normal.green}',fg='${colors.normal.black}'
         set -g mode-style 'fg=default,bg=default,reverse'
         set -g pane-active-border-style fg='${colors.normal.accent}'
-        set -g status-bg '#3d3d3d'
+        set -g status-bg '${colors.extra.tmux.statusBackground}'
         set -g status-fg '${colors.normal.accent}'
         set -g status-interval 1
         set -g status-justify 'centre'
@@ -64,10 +64,10 @@ in {
         set -g status-left-length 20
         set -g status-right '''
         set -g window-status-current-format ' #I:#W '
-        set -g window-status-current-style bg='${colors.normal.accent}',fg='#3d3d3d'
+        set -g window-status-current-style bg='${colors.normal.accent}',fg='${colors.extra.tmux.statusBackground}'
         set -g window-status-format ' #I:#W '
         set -g window-status-separator '''
-        set -g window-status-style bg='#3d3d3d',fg='${colors.normal.accent}'
+        set -g window-status-style bg='${colors.extra.tmux.statusBackground}',fg='${colors.normal.accent}'
       '';
     };
   };
