@@ -1,4 +1,9 @@
 { colors, config, lib, pkgs, ... }: {
+  # TODO uncomment when https://github.com/ajeetdsouza/zoxide/issues/618 fixed
+  # currently overrides all options set here
+  # https://github.com/ajeetdsouza/zoxide/blob/3fe42e901e181e791e5af3ea07d7e7d7a2b915c1/src/cmd/query.rs#L92-L118
+  # home.sessionVariables._ZO_FZF_OPTS = "--bind=tab:accept";
+
   programs = {
     fzf = {
       enable = true;
