@@ -84,7 +84,7 @@ in {
       {
         window_name = "Nix config";
         start_directory = "${homeDirectory}/Sync/Git/nixos-setup";
-        window_index = 99;
+        window_index = 9;
       }
     ];
   };
