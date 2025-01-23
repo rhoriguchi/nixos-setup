@@ -186,23 +186,17 @@ in {
         }
 
         (lib.optionalAttrs config.networking.enableIPv6 {
-          enable-ra = true;
-          quiet-ra = true;
+          # enable-ra = true;
+          # quiet-ra = true;
 
-          ra-param = [
-            "${internalInterface}, high, 60"
-            "${internalInterface}.1, high, 60"
-            "${internalInterface}.2, high, 60"
-            "${internalInterface}.3, high, 60"
-            "${internalInterface}.100, high, 60"
-          ];
+          # ra-param = [
+          #   "${internalInterface}, high, 60"
+          #   "${internalInterface}.1, high, 60"
+          #   "${internalInterface}.2, high, 60"
+          #   "${internalInterface}.3, high, 60"
+          #   "${internalInterface}.100, high, 60"
+          # ];
 
-          # TODO `ra-names` needed / wanted? since ipv6 traffic between devices is forbidden
-          # ra-names enables a mode which gives DNS names to dual-stack hosts which do ra-only for IPv6. Dnsmasq uses the host's IPv4 lease
-          # to derive the name, network segment and MAC address and assumes that the host will also have an IPv6 address calculated using
-          # the ra-only algorithm, on the same network segment. The address is pinged, and if a reply is received, an AAAA record is added to
-          # the DNS for this IPv6 address. Note that this is only happens for directly-connected networks, (not one doing DHCP via a relay)
-          # and it will not work if a host is using privacy extensions. ra-names can be combined with ra-stateless and ra-only.
           dhcp-range = [
             "${internalInterface}, ${ipv6Prefix}:1::2, ${ipv6Prefix}:1::ffff, slaac, 64, 1h"
             "${internalInterface}.1, ${ipv6Prefix}:1::2, ${ipv6Prefix}:1::ffff, slaac, 64, 1h"
@@ -213,19 +207,10 @@ in {
 
           # https://blog.abysm.org/2020/06/human-readable-dhcp-options-for-dnsmasq
           dhcp-option = [
-            # "${internalInterface}, option6:router, ${ipv6Prefix}:1::1"
             "${internalInterface}, option6:dns-server, ${ipv6Prefix}:1::1"
-
-            # "${internalInterface}.1, option6:router, ${ipv6Prefix}:1::1"
             "${internalInterface}.1, option6:dns-server, ${ipv6Prefix}:1::1"
-
-            # "${internalInterface}.2, option6:router, ${ipv6Prefix}:2::1"
             "${internalInterface}.2, option6:dns-server, ${ipv6Prefix}:2::1"
-
-            # "${internalInterface}.3, option6:router, ${ipv6Prefix}:3::1"
             "${internalInterface}.3, option6:dns-server, ${ipv6Prefix}:3::1"
-
-            # "${internalInterface}.100, option6:router, ${ipv6Prefix}:100::1"
             "${internalInterface}.100, option6:dns-server, ${ipv6Prefix}:100::1"
           ];
         })
@@ -251,17 +236,29 @@ in {
           ip pim
           ip igmp
 
+          ipv6 nd prefix ${ipv6Prefix}:1::1/64
+          ipv6 nd ra-interval 60
+
         interface ${internalInterface}.1
           ip pim
           ip igmp
+
+          ipv6 nd prefix ${ipv6Prefix}:1::1/64
+          ipv6 nd ra-interval 60
 
         interface ${internalInterface}.2
           ip pim
           ip igmp
 
+          ipv6 nd prefix ${ipv6Prefix}:2::1/64
+          ipv6 nd ra-interval 60
+
         interface ${internalInterface}.3
           ip pim
           ip igmp
+
+          ipv6 nd prefix ${ipv6Prefix}:100::1/64
+          ipv6 nd ra-interval 60
       '';
     };
   };
