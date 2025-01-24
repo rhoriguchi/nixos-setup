@@ -1,81 +1,85 @@
-{ colors, pkgs, ... }: {
+{ colors, config, pkgs, ... }: {
   home.packages = [ pkgs.nerd-fonts.roboto-mono ];
 
   home.sessionVariables.TERMINAL = "ghostty";
 
-  programs.ghostty = {
-    enable = true;
+  programs = {
+    vscode.userSettings."terminal.external.linuxExec" = "${config.programs.ghostty.package}/bin/ghostty";
 
-    enableBashIntegration = true;
-    enableFishIntegration = true;
-    enableZshIntegration = true;
+    ghostty = {
+      enable = true;
 
-    clearDefaultKeybinds = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
 
-    settings = {
-      confirm-close-surface = false;
-      window-save-state = "never";
+      clearDefaultKeybinds = true;
 
-      title = ''" "'';
-      theme = "Custom";
-      selection-invert-fg-bg = true;
+      settings = {
+        confirm-close-surface = false;
+        window-save-state = "never";
 
-      font-size = 10;
-      font-style = "RobotoMono Nerd Font";
-      font-style-bold = "RobotoMono Nerd Font Bd";
-      font-style-italic = "RobotoMono Nerd Font It";
-      font-style-bold-italic = "RobotoMono Nerd Font Bd It";
-      font-feature = [ "-calt" "-dlig" "-liga" ];
+        title = ''" "'';
+        theme = "Custom";
+        selection-invert-fg-bg = true;
 
-      adjust-cursor-thickness = "150%";
+        font-size = 10;
+        font-style = "RobotoMono Nerd Font";
+        font-style-bold = "RobotoMono Nerd Font Bd";
+        font-style-italic = "RobotoMono Nerd Font It";
+        font-style-bold-italic = "RobotoMono Nerd Font Bd It";
+        font-feature = [ "-calt" "-dlig" "-liga" ];
 
-      mouse-hide-while-typing = true;
-      mouse-scroll-multiplier = 0.3;
+        adjust-cursor-thickness = "150%";
 
-      clipboard-read = "allow";
-      clipboard-write = "allow";
-      clipboard-trim-trailing-spaces = true;
-      clipboard-paste-protection = false;
-      copy-on-select = false;
+        mouse-hide-while-typing = true;
+        mouse-scroll-multiplier = 0.3;
 
-      link-url = true;
+        clipboard-read = "allow";
+        clipboard-write = "allow";
+        clipboard-trim-trailing-spaces = true;
+        clipboard-paste-protection = false;
+        copy-on-select = false;
 
-      keybind = [
-        "ctrl+shift+c=copy_to_clipboard"
-        "ctrl+shift+v=paste_from_clipboard"
+        link-url = true;
 
-        "ctrl+plus=increase_font_size:1"
-        "ctrl+minus=decrease_font_size:1"
-        "ctrl+zero=reset_font_size"
-      ];
-    };
+        keybind = [
+          "ctrl+shift+c=copy_to_clipboard"
+          "ctrl+shift+v=paste_from_clipboard"
 
-    themes.Custom = {
-      background = colors.extra.terminal.background;
-      foreground = colors.normal.white;
+          "ctrl+plus=increase_font_size:1"
+          "ctrl+minus=decrease_font_size:1"
+          "ctrl+zero=reset_font_size"
+        ];
+      };
 
-      cursor-color = colors.normal.accent;
-      cursor-text = colors.normal.white;
+      themes.Custom = {
+        background = colors.extra.terminal.background;
+        foreground = colors.normal.white;
 
-      palette = [
-        "0=${colors.normal.black}"
-        "1=${colors.normal.red}"
-        "2=${colors.normal.green}"
-        "3=${colors.normal.yellow}"
-        "4=${colors.normal.blue}"
-        "5=${colors.normal.magenta}"
-        "6=${colors.normal.cyan}"
-        "7=${colors.normal.white}"
+        cursor-color = colors.normal.accent;
+        cursor-text = colors.normal.white;
 
-        "8=${colors.bright.black}"
-        "9=${colors.bright.red}"
-        "10=${colors.bright.green}"
-        "11=${colors.bright.yellow}"
-        "12=${colors.bright.blue}"
-        "13=${colors.bright.magenta}"
-        "14=${colors.bright.cyan}"
-        "15=${colors.bright.white}"
-      ];
+        palette = [
+          "0=${colors.normal.black}"
+          "1=${colors.normal.red}"
+          "2=${colors.normal.green}"
+          "3=${colors.normal.yellow}"
+          "4=${colors.normal.blue}"
+          "5=${colors.normal.magenta}"
+          "6=${colors.normal.cyan}"
+          "7=${colors.normal.white}"
+
+          "8=${colors.bright.black}"
+          "9=${colors.bright.red}"
+          "10=${colors.bright.green}"
+          "11=${colors.bright.yellow}"
+          "12=${colors.bright.blue}"
+          "13=${colors.bright.magenta}"
+          "14=${colors.bright.cyan}"
+          "15=${colors.bright.white}"
+        ];
+      };
     };
   };
 }

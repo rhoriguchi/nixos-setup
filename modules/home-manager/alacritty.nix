@@ -3,51 +3,55 @@
 
   # home.sessionVariables.TERMINAL = "alacritty";
 
-  programs.alacritty = {
-    enable = false;
+  programs = {
+    # vscode.userSettings."terminal.external.linuxExec" = "${config.programs.alacritty.package}/bin/alacritty";
 
-    settings = {
-      general.working_directory = config.home.homeDirectory;
-      window.startup_mode = "Maximized";
+    alacritty = {
+      enable = false;
 
-      # fc-list : family style
-      font = {
-        size = 10;
+      settings = {
+        general.working_directory = config.home.homeDirectory;
+        window.startup_mode = "Maximized";
 
-        normal = {
-          family = "RobotoMono Nerd Font";
-          style = "Regular";
+        # fc-list : family style
+        font = {
+          size = 10;
+
+          normal = {
+            family = "RobotoMono Nerd Font";
+            style = "Regular";
+          };
+
+          bold = {
+            family = "RobotoMono Nerd Font";
+            style = "Bold";
+          };
+
+          italic = {
+            family = "RobotoMono Nerd Font";
+            style = "Italic";
+          };
+
+          bold_italic = {
+            family = "RobotoMono Nerd Font";
+            style = "Bold Italic";
+          };
         };
 
-        bold = {
-          family = "RobotoMono Nerd Font";
-          style = "Bold";
-        };
+        colors = {
+          primary = {
+            background = colors.extra.terminal.background;
+            foreground = colors.normal.white;
+          };
 
-        italic = {
-          family = "RobotoMono Nerd Font";
-          style = "Italic";
-        };
+          cursor = {
+            cursor = colors.normal.accent;
+            text = colors.normal.white;
+          };
 
-        bold_italic = {
-          family = "RobotoMono Nerd Font";
-          style = "Bold Italic";
+          normal = removeAttrs colors.normal [ "accent" "gray" ];
+          bright = removeAttrs colors.bright [ "accent" "gray" ];
         };
-      };
-
-      colors = {
-        primary = {
-          background = colors.extra.terminal.background;
-          foreground = colors.normal.white;
-        };
-
-        cursor = {
-          cursor = colors.normal.accent;
-          text = colors.normal.white;
-        };
-
-        normal = removeAttrs colors.normal [ "accent" "gray" ];
-        bright = removeAttrs colors.bright [ "accent" "gray" ];
       };
     };
   };

@@ -195,7 +195,6 @@
       "security.workspace.trust.enabled" = false;
       "svg.preview.autoShow" = true;
       "telemetry.telemetryLevel" = "off";
-      "terminal.external.linuxExec" = "${pkgs.alacritty}/bin/alacritty";
       "terminal.integrated.defaultProfile.linux" = "zsh";
       "terminal.integrated.enableMultiLinePasteWarning" = "never";
       "terminal.integrated.fontFamily" = "RobotoMono Nerd Font";
