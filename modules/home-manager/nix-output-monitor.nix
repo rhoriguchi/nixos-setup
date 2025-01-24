@@ -10,7 +10,7 @@ in {
 
     nix-build = "${package}/bin/nom-build";
 
-    # interferes with zsh-nix-shell
+    # TODO commented interferes with zsh-nix-shell
     # nix-shell = "${package}/bin/nom-shell";
   };
 }
