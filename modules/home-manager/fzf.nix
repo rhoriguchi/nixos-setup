@@ -46,14 +46,14 @@
 
         # Preview directory's content when completing cd
         zstyle ':fzf-tab:complete:cd:*' fzf-preview '${
-          if config.programs.lsd.enable then "${pkgs.lsd}/bin/lsd" else "ls"
-        } --almost-all --color always $realpath'
+          if config.programs.lsd.enable then "${pkgs.lsd}/bin/lsd --color always" else "${pkgs.coreutils}/bin/ls --color=always"
+        } --almost-all $realpath'
 
         ${lib.optionalString config.programs.zoxide.enable ''
           # Preview directory's content when completing zoxide
           zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview '${
-            if config.programs.lsd.enable then "${pkgs.lsd}/bin/lsd" else "ls"
-          } --almost-all --color always $realpath'
+            if config.programs.lsd.enable then "${pkgs.lsd}/bin/lsd --color always" else "${pkgs.coreutils}/bin/ls --color=always"
+          } --almost-all $realpath'
         ''}
       '';
     };
