@@ -33,6 +33,7 @@
       enable = true;
 
       type = "parent";
+      claimToken = secrets.monitoring.claimToken;
       apiKey = secrets.monitoring.apiKey;
     };
   };

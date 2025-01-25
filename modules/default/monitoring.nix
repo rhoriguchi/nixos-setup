@@ -20,6 +20,7 @@ in {
     type = lib.mkOption { type = lib.types.nullOr (lib.types.enum [ "parent" "child" ]); };
     parentHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
     apiKey = lib.mkOption { type = lib.types.str; };
+    claimToken = lib.mkOption { type = lib.types.nullOr lib.types.str; };
     discordWebhookUrl = lib.mkOption { type = lib.types.nullOr lib.types.str; };
     webPort = lib.mkOption {
       type = lib.types.port;
@@ -51,6 +52,10 @@ in {
       {
         assertion = isParent -> cfg.discordWebhookUrl != null;
         message = "When type is parent discordWebhookUrl must be set";
+      }
+      {
+        assertion = isParent -> cfg.claimToken != null;
+        message = "When type is parent claimToken must be set";
       }
       {
         assertion = isChild -> cfg.parentHostname != null;
@@ -114,11 +119,14 @@ in {
         enable = true;
 
         package = pkgs.netdata.override {
+          withCloud = isParent;
           withCloudUi = isParent;
           withCups = true;
           withDebug = cfg.debug.enable;
           withNdsudo = true;
         };
+
+        claimTokenFile = if isParent then pkgs.writeText "claimToken" cfg.claimToken else null;
 
         extraNdsudoPackages = [
           # NVMe devices collector
