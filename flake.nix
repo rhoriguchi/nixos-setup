@@ -2,9 +2,7 @@
   description = "Systems flake";
 
   inputs = {
-    # TODO uncomment when merged https://nixpk.gs/pr-tracker.html?pr=376078
-    # nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
     borg-exporter = {
       url = "git+https://codeberg.org/k0ral/borg-exporter.git";
