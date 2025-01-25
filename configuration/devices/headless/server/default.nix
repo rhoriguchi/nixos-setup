@@ -53,21 +53,11 @@
     firewall.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort config.services.nginx.defaultSSLListenPort ];
   };
 
-  services = {
-    resilio = {
-      enable = true;
+  services.resilio = {
+    enable = true;
 
-      readWriteDirs = lib.attrNames secrets.resilio.secrets;
-      secrets = secrets.resilio.secrets;
-      syncPath = "/mnt/Data/Sync";
-    };
-
-    monitoring = lib.mkForce {
-      enable = true;
-
-      type = "parent";
-      apiKey = secrets.monitoring.apiKey;
-      discordWebhookUrl = secrets.monitoring.discordWebhookUrl;
-    };
+    readWriteDirs = lib.attrNames secrets.resilio.secrets;
+    secrets = secrets.resilio.secrets;
+    syncPath = "/mnt/Data/Sync";
   };
 }

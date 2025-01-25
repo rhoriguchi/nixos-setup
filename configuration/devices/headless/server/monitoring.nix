@@ -35,6 +35,7 @@
       type = "parent";
       claimToken = secrets.monitoring.claimToken;
       apiKey = secrets.monitoring.apiKey;
+      discordWebhookUrl = secrets.monitoring.discordWebhookUrl;
     };
   };
 }
