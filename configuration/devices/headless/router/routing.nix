@@ -236,29 +236,45 @@ in {
           ip pim
           ip igmp
 
-          ipv6 nd prefix ${ipv6Prefix}:1::1/64
-          ipv6 nd ra-interval 60
+          ${
+            lib.optionalString config.networking.enableIPv6 ''
+              ipv6 nd prefix ${ipv6Prefix}:1::1/64
+              ipv6 nd ra-interval 60
+            ''
+          }
 
         interface ${internalInterface}.1
           ip pim
           ip igmp
 
-          ipv6 nd prefix ${ipv6Prefix}:1::1/64
-          ipv6 nd ra-interval 60
+          ${
+            lib.optionalString config.networking.enableIPv6 ''
+              ipv6 nd prefix ${ipv6Prefix}:1::1/64
+              ipv6 nd ra-interval 60
+            ''
+          }
 
         interface ${internalInterface}.2
           ip pim
           ip igmp
 
-          ipv6 nd prefix ${ipv6Prefix}:2::1/64
-          ipv6 nd ra-interval 60
+          ${
+            lib.optionalString config.networking.enableIPv6 ''
+              ipv6 nd prefix ${ipv6Prefix}:2::1/64
+              ipv6 nd ra-interval 60
+            ''
+          }
 
         interface ${internalInterface}.3
           ip pim
           ip igmp
 
-          ipv6 nd prefix ${ipv6Prefix}:100::1/64
-          ipv6 nd ra-interval 60
+          ${
+            lib.optionalString config.networking.enableIPv6 ''
+              ipv6 nd prefix ${ipv6Prefix}:100::1/64
+              ipv6 nd ra-interval 60
+            ''
+          }
       '';
     };
   };
