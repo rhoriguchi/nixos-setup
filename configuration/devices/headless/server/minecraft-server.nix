@@ -111,6 +111,7 @@ in {
 
         # https://mcuuid.net
         whitelist = {
+          _wiesel_ = "bf879f6a-b1f1-42b4-8407-60ba33d95263"; # Joël
           BlueSwordLily = "fae3385f-2716-496a-9741-011c7774cf31"; # Matteo +1
           DrGolden = "f3cc5386-5866-4e39-b73e-ffd63abc5bec"; # Jeremy
           GhostMoon = "0da68ac3-aa82-442b-b12e-42d864c629b7"; # Rabia
