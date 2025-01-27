@@ -39,6 +39,7 @@ in {
       clock24 = true;
       historyLimit = 10 * 1000;
       terminal = "screen-256color";
+      baseIndex = 1;
 
       extraConfig = ''
         unbind '"'
@@ -50,7 +51,8 @@ in {
         # backwards: n | forwards: N
         bind / copy-mode \; send-key C-r
 
-        set -g base-index 1
+        bind -n C-l send-keys C-l \; run 'sleep 0.2' \; clear-history
+
         set -g clock-mode-colour '${colors.normal.accent}'
         set -g message-command-style bg='${colors.normal.black}',fg='${colors.normal.green}'
         set -g message-style bg='${colors.normal.green}',fg='${colors.normal.black}'
