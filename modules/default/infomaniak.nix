@@ -28,28 +28,17 @@ in {
       }
     ];
 
-    systemd = {
-      services = lib.listToAttrs (map (hostname:
-        lib.nameValuePair "infomaniak-${lib.replaceStrings [ "." ] [ "-" ] hostname}" {
-          after = [ "network.target" ];
+    services.ddclient = {
+      enable = true;
 
-          script = ''${pkgs.curl}/bin/curl -s "https://${cfg.username}:${cfg.password}@infomaniak.com/nic/update?hostname=${hostname}"'';
+      interval = "5min";
 
-          serviceConfig = {
-            DynamicUser = true;
-            Restart = "on-abort";
-          };
-        }) cfg.hostnames);
+      server = "infomaniak.com";
+      ssl = true;
 
-      timers = lib.listToAttrs (map (hostname:
-        lib.nameValuePair "infomaniak-${lib.replaceStrings [ "." ] [ "-" ] hostname}" {
-          wantedBy = [ "timers.target" ];
-
-          timerConfig = {
-            OnCalendar = "*:0/4";
-            RandomizedDelaySec = 60;
-          };
-        }) cfg.hostnames);
+      inherit (cfg) username;
+      passwordFile = "${pkgs.writeText "ddclient-password" cfg.password}";
+      domains = cfg.hostnames;
     };
   };
 }
