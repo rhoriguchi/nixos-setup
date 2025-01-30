@@ -22,8 +22,10 @@
 
         append = true;
         extended = true;
+        findNoDups = true;
         ignoreAllDups = true;
         ignoreDups = true;
+        saveNoDups = true;
         share = true;
       };
 
