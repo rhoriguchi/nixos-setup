@@ -213,9 +213,6 @@
                 password = secrets.users.xxlpitu.password;
                 openssh.authorizedKeys.keys = [ public-keys.default ];
               };
-
-              # TODO workaround for https://github.com/NixOS/nixpkgs/issues/126755
-              nixpkgs.overlays = [ (_: super: { makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; }); }) ];
             })
           ];
         };
