@@ -130,7 +130,17 @@ in {
 
         extraNdsudoPackages = [
           # NVMe devices collector
-          pkgs.nvme-cli
+          # TODO fixes https://github.com/netdata/netdata/pull/19505 remove when netdata >= 2.2.2
+          (pkgs.nvme-cli.overrideAttrs (_: rec {
+            version = "2.10.2";
+
+            src = pkgs.fetchFromGitHub {
+              owner = "linux-nvme";
+              repo = "nvme-cli";
+              rev = "v${version}";
+              hash = "sha256-8vxalIHA4DRQuI18PRmzrlyG1XHcbKPkZgVB5Yqq9EU=";
+            };
+          }))
 
           # S.M.A.R.T. collector
           pkgs.smartmontools
