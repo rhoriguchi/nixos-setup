@@ -22,16 +22,6 @@
         }/pkgs/servers/home-assistant/custom-components/hass-localtuya/package.nix") { };
     };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=376527
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "0124dd08d8b574e3de79b4548018573ec0b046aa";
-          sha256 = "sha256-J0j8tcScBmmxwSlsMO6RXrkuFJ4Qx/b1xwAfYCh1Ffg=";
-        }
-      }/pkgs/servers/adguardhome") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=377156
     prowlarr = super.callPackage (import "${
         super.fetchFromGitHub {
