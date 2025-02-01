@@ -107,6 +107,8 @@ in {
           difficulty = "normal";
           view-distance = 32;
           enable-command-block = true;
+
+          max-players = builtins.length (builtins.attrNames whitelist);
         };
 
         # https://mcuuid.net
