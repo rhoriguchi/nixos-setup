@@ -25,9 +25,10 @@ in {
       };
     in {
       "${internalInterface}" = rules;
-      "${internalInterface}.1" = rules;
+
       "${internalInterface}.2" = rules;
       "${internalInterface}.3" = rules;
+      "${internalInterface}.10" = rules;
       "${internalInterface}.100" = rules;
     };
   };
@@ -58,7 +59,7 @@ in {
 
             satisfy any;
 
-            allow 192.168.1.0/24;
+            allow 192.168.2.0/24;
             deny all;
           '';
         };
@@ -87,20 +88,27 @@ in {
 
         clients.persistent = [
           {
-            name = "Private VLAN";
+            name = "UniFi Network";
             ids = [ "192.168.1.0/24" ];
+            use_global_settings = true;
+            filtering_enabled = false;
+          }
+
+          {
+            name = "Private VLAN";
+            ids = [ "192.168.2.0/24" ];
             use_global_settings = true;
             use_global_blocked_services = true;
           }
           {
-            name = "DMZ VLAN";
-            ids = [ "192.168.2.0/24" ];
-            use_global_settings = true;
+            name = "IoT VLAN";
+            ids = [ "192.168.3.0/24" ];
             filtering_enabled = false;
           }
           {
-            name = "IoT VLAN";
-            ids = [ "192.168.3.0/24" ];
+            name = "DMZ VLAN";
+            ids = [ "192.168.10.0/24" ];
+            use_global_settings = true;
             filtering_enabled = false;
           }
           {

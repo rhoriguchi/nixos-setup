@@ -50,7 +50,7 @@ in {
       # Firewall port needs to be open and listen address needs to be 0.0.0.0 else discovery does not work
       openFirewall = true;
       listenAddresses = [ "0.0.0.0:${toString cupsPort}" ];
-      allowFrom = [ "127.0.0.1" "192.168.1.*" ];
+      allowFrom = [ "127.0.0.1" "192.168.2.*" ];
       browsing = true;
       defaultShared = true;
 
@@ -109,7 +109,7 @@ in {
               proxy_set_header X-Forwarded-Host $host;
               proxy_set_header X-Forwarded-Server $host;
 
-              allow 192.168.1.0/24;
+              allow 192.168.2.0/24;
               deny all;
             '';
           };
@@ -124,7 +124,7 @@ in {
         #     proxyPass = "http://127.0.0.1:${toString config.services.scanservjs.settings.port}";
 
         #     extraConfig = ''
-        #       allow 192.168.1.0/24;
+        #       allow 192.168.2.0/24;
         #       deny all;
         #     '';
         #   };
