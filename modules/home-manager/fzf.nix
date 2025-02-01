@@ -39,7 +39,7 @@
         zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
         # Set extra options
-        zstyle ':fzf-tab:*' fzf-flags --bind=tab:accept
+        zstyle ':fzf-tab:*' fzf-flags --bind=tab:accept --height=25%
 
         # Force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
         zstyle ':completion:*' menu no
