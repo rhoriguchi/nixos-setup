@@ -98,6 +98,8 @@ in {
         inherit package;
         jvmOpts = let memory = 1024 * 4; in "-Xmx${toString memory}M -Xms${toString memory}M";
 
+        restart = "on-abort";
+
         # https://minecraft.fandom.com/wiki/Server.properties
         serverProperties = {
           server-port = 25565;
