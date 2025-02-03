@@ -100,6 +100,8 @@ in {
 
         # https://minecraft.fandom.com/wiki/Server.properties
         serverProperties = {
+          server-port = 25565;
+
           #https://mctools.org/motd-creator?text=%26d%26lPingu+Land
           motd = "\\u00A7d\\u00A7lPingu Land";
           white-list = true;
