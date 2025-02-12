@@ -46,7 +46,7 @@
           keyfiles = [ pkgs.gsettings-desktop-schemas ];
 
           settings."org/gnome/desktop/interface" = {
-            font-name = lib.gvariant.mkString "Inter Variable 11";
+            font-name = lib.gvariant.mkString "Adwaita Sans 11";
             monospace-font-name = lib.gvariant.mkString "RobotoMono Nerd Font";
           };
         }
@@ -59,7 +59,7 @@
   environment = {
     sessionVariables.QT_QPA_PLATFORM = "wayland";
 
-    systemPackages = [ pkgs.nerd-fonts.roboto-mono ] ++ [ pkgs.dconf-editor pkgs.networkmanager-openconnect ] ++ [
+    systemPackages = [ pkgs.adwaita-fonts pkgs.nerd-fonts.roboto-mono ] ++ [ pkgs.dconf-editor pkgs.networkmanager-openconnect ] ++ [
       pkgs.ghostty # pkgs.gnome-console
       pkgs.firefox # pkgs.epiphany
       pkgs.mission-center # pkgs.gnome-system-monitor
