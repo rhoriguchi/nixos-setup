@@ -22,16 +22,6 @@
         }/pkgs/servers/home-assistant/custom-components/hass-localtuya/package.nix") { };
     };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=377156
-    prowlarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "03619cd28bcb292fbcd2692cca7bf4ac509a9afd";
-          sha256 = "sha256-LPbpicQhYwCG8PeaYwkvgd7cJRQHPr4Nzgrt7HzQKBA=";
-        }
-      }/pkgs/by-name/pr/prowlarr/package.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=380045
     sonarr = super.callPackage (import "${
         super.fetchFromGitHub {
@@ -51,6 +41,16 @@
           sha256 = "sha256-e1SL6/hnur/0QRT2PFkpYclmDvSb3U7jDpRsSByajzg=";
         }
       }/pkgs/by-name/sc/scanservjs/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=380585
+    eslint = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "2133ff69f58c2ea59edf380a9a5c440c0ba73086";
+          sha256 = "sha256-11aDf2bianbcKSyU43cRaQAuyV1IQeLva0kodVafFRY=";
+        }
+      }/pkgs/by-name/es/eslint/package.nix") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
