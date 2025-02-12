@@ -38,6 +38,7 @@
       pkgs.tree
       pkgs.unzip
       pkgs.usbutils
+      pkgs.yq-go
       pkgs.zip
     ];
   };
