@@ -12,8 +12,6 @@ in {
 
   home.stateVersion = "25.05";
 
-  nixpkgs.config.allowUnfree = true;
-
   news.display = "silent";
 
   manual = {

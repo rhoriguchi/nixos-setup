@@ -114,6 +114,18 @@
               self.nixosModules.profiles.python
 
               ./configuration/devices/laptop
+
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+
+                  extraSpecialArgs.colors = self.nixosModules.colors;
+
+                  users.rhoriguchi = self.nixosModules.home-manager;
+                };
+              }
             ];
 
             boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -218,50 +230,18 @@
         };
       };
 
-      homeConfigurations."rhoriguchi" = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
-
-        modules = [
-          {
-            nixpkgs.overlays = [ self.overlays.default ];
-
-            home = {
-              username = "rhoriguchi";
-              homeDirectory = "/home/rhoriguchi";
-
-              sessionVariables.NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
-            };
-          }
-
-          self.nixosModules.home-manager
-        ];
-
-        extraSpecialArgs.colors = self.nixosModules.colors;
-      };
-
       deploy.nodes = {
         # Lenovo Legion 5 15ACH6
         Laptop = {
           hostname = "127.0.0.1";
 
-          profilesOrder = [ "system" "rhoriguchi-home-manager" ];
-
           autoRollback = false;
           magicRollback = false;
 
-          profiles = {
-            system = {
-              sshUser = "root";
+          profiles.system = {
+            sshUser = "root";
 
-              path = inputs.deploy-rs.lib."x86_64-linux".activate.nixos self.nixosConfigurations.Laptop;
-            };
-
-            rhoriguchi-home-manager = {
-              sshUser = "root";
-              user = "rhoriguchi";
-
-              path = inputs.deploy-rs.lib."x86_64-linux".activate.home-manager self.homeConfigurations."rhoriguchi";
-            };
+            path = inputs.deploy-rs.lib."x86_64-linux".activate.nixos self.nixosConfigurations.Laptop;
           };
         };
 
