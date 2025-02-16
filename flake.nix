@@ -369,6 +369,7 @@
 
             inputs.deploy-rs.packages.${system}.deploy-rs
           ] ++ self.checks.${system}.pre-commit.enabledPackages;
+
           shellHook = self.checks.${system}.pre-commit.shellHook;
         };
       });
