@@ -7,7 +7,7 @@ let
   isParent = cfg.type == "parent";
   isChild = cfg.type == "child";
 
-  wireguardIps = import ./wireguard-network/ips.nix;
+  wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
 
   frrEnabled = builtins.any (service: config.services.frr.${service}.enable) [ "bfdd" "bgpd" "ospfd" "pimd" ];
 

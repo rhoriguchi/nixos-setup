@@ -4,7 +4,7 @@ let
 
   lokiPort = 3100;
 
-  wireguardIps = import ./wireguard-network/ips.nix;
+  wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
 in {
   options.services.log-shipping = {
     enable = lib.mkEnableOption "Ship logs with Promtail to Loki";

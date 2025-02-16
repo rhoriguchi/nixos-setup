@@ -50,7 +50,7 @@
   };
 
   outputs = { self, ... }@inputs:
-    let inherit (inputs.nixpkgs) lib;
+    let lib = inputs.nixpkgs.lib.extend self.overlays.lib;
     in {
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
         checks = let
@@ -67,15 +67,19 @@
         home-manager.imports = [ inputs.nix-index-database.hmModules.nix-index ./modules/home-manager ];
       };
 
-      overlays.default = lib.composeManyExtensions ([
-        inputs.deploy-rs.overlays.default
-        inputs.nix-minecraft.overlay
+      overlays = {
+        default = lib.composeManyExtensions ([
+          inputs.deploy-rs.overlays.default
+          inputs.nix-minecraft.overlay
 
-        (_: super: {
-          borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system};
-          firefox-addons = inputs.firefox-addons.packages.${super.system};
-        })
-      ] ++ import ./overlays);
+          (_: super: {
+            borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system};
+            firefox-addons = inputs.firefox-addons.packages.${super.system};
+          })
+        ] ++ import ./overlays);
+
+        lib = (_: super: { custom = import ./lib.nix { lib = super; }; });
+      };
 
       images.sdImageRaspberryPi4 = self.nixosConfigurations.sdImageRaspberryPi4.config.system.build.image;
 
@@ -94,7 +98,7 @@
           };
         };
       in {
-        Laptop = inputs.nixpkgs.lib.nixosSystem {
+        Laptop = lib.nixosSystem {
           system = "x86_64-linux";
 
           modules = [{
@@ -132,7 +136,7 @@
           }];
         };
 
-        Router = inputs.nixpkgs.lib.nixosSystem {
+        Router = lib.nixosSystem {
           system = "x86_64-linux";
 
           modules = [{
@@ -152,7 +156,7 @@
           }];
         };
 
-        Server = inputs.nixpkgs.lib.nixosSystem {
+        Server = lib.nixosSystem {
           system = "x86_64-linux";
 
           modules = [{
@@ -168,7 +172,7 @@
           }];
         };
 
-        Grimmjow = inputs.nixpkgs.lib.nixosSystem {
+        Grimmjow = lib.nixosSystem {
           system = "aarch64-linux";
 
           modules = [{
@@ -184,7 +188,7 @@
           }];
         };
 
-        Ulquiorra = inputs.nixpkgs.lib.nixosSystem {
+        Ulquiorra = lib.nixosSystem {
           system = "aarch64-linux";
 
           modules = [{
@@ -200,7 +204,7 @@
           }];
         };
 
-        sdImageRaspberryPi4 = inputs.nixpkgs.lib.nixosSystem {
+        sdImageRaspberryPi4 = lib.nixosSystem {
           system = "aarch64-linux";
 
           modules = [

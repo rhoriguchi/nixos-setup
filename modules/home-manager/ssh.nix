@@ -36,7 +36,7 @@ in {
         port = 10022;
       };
     } // (let
-      wireguardIps = import ../default/wireguard-network/ips.nix;
+      wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
       filteredWireguardIps = lib.filterAttrs (key: _: key != "Ryan-Laptop") wireguardIps;
     in lib.mapAttrs' (key: value:
       lib.nameValuePair (lib.toLower key) {

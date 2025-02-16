@@ -12,7 +12,7 @@ in {
     file://${homeDirectory}/Sync/Series Sync/Series
 
     ${let
-      wireguardIps = import ../default/wireguard-network/ips.nix;
+      wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
       filteredWireguardIps = lib.filterAttrs (key: _: key != "Ryan-Laptop") wireguardIps;
     in lib.concatStringsSep "\n" (map (hostname: "sftp://root@${hostname} ${hostname}") (lib.attrNames filteredWireguardIps))}
   '';
