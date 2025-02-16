@@ -9,7 +9,7 @@
 #   - Sensirion SGP41 TVOC/NOx Sensor (not in the picture)
 #   - Sensirion SHT40 Temperature/Humidity Sensor
 
-# Copied from https://github.com/MallocArray/airgradient_esphome 2.0.1
+# Adapted from https://github.com/MallocArray/airgradient_esphome/tree/2.0.1
 
 substitutions:
   name: airgradient-one
