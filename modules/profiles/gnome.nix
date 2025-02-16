@@ -60,8 +60,8 @@
     sessionVariables.QT_QPA_PLATFORM = "wayland";
 
     systemPackages = [ pkgs.adwaita-fonts pkgs.nerd-fonts.roboto-mono ] ++ [ pkgs.dconf-editor pkgs.networkmanager-openconnect ] ++ [
-      pkgs.ghostty # pkgs.gnome-console
       pkgs.firefox # pkgs.epiphany
+      pkgs.ghostty # pkgs.gnome-console
       pkgs.mission-center # pkgs.gnome-system-monitor
 
       pkgs.baobab
