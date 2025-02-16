@@ -319,6 +319,8 @@
           pre-commit = inputs.git-hooks.lib.${system}.run {
             src = ./.;
 
+            default_stages = [ "pre-commit" ];
+
             addGcRoot = true;
 
             hooks = {
