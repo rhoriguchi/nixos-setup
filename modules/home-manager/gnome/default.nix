@@ -32,7 +32,8 @@ in {
       "org/gnome/desktop/calendar".show-weekdate = true;
       "org/gnome/desktop/datetime".automatic-timezone = true;
       # needed for US keyboard
-      "org/gnome/desktop/input-sources".sources = "[('xkb', 'ch+de_nodeadkeys'), ('xkb', 'us')]";
+      "org/gnome/desktop/input-sources".sources =
+        [ (lib.hm.gvariant.mkTuple [ "xkb" "ch+de_nodeadkeys" ]) (lib.hm.gvariant.mkTuple [ "xkb" "us" ]) ];
       "org/gnome/desktop/interface" = {
         clock-show-seconds = true;
         clock-show-weekday = true;
