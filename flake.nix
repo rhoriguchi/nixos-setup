@@ -248,7 +248,7 @@
 
             extraOptions = {
               autoRollback = false;
-              magicRollback1 = false;
+              magicRollback = false;
             };
           };
 
