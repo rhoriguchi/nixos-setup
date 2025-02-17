@@ -98,6 +98,7 @@
           };
         };
       in {
+        # Lenovo Legion 5 15ACH6
         Laptop = lib.nixosSystem {
           system = "x86_64-linux";
 
@@ -136,7 +137,8 @@
           }];
         };
 
-        Router = lib.nixosSystem {
+        # Gowin R86S-N N305A
+        XXLPitu-Router = lib.nixosSystem {
           system = "x86_64-linux";
 
           modules = [{
@@ -156,7 +158,7 @@
           }];
         };
 
-        Server = lib.nixosSystem {
+        XXLPitu-Server = lib.nixosSystem {
           system = "x86_64-linux";
 
           modules = [{
@@ -172,7 +174,8 @@
           }];
         };
 
-        Grimmjow = lib.nixosSystem {
+        # Raspberry Pi 4 Model B - 8GB
+        XXLPitu-Grimmjow = lib.nixosSystem {
           system = "aarch64-linux";
 
           modules = [{
@@ -188,7 +191,8 @@
           }];
         };
 
-        Ulquiorra = lib.nixosSystem {
+        # Raspberry Pi 4 Model B - 8GB
+        XXLPitu-Ulquiorra = lib.nixosSystem {
           system = "aarch64-linux";
 
           modules = [{
@@ -234,61 +238,21 @@
         };
       };
 
-      deploy.nodes = {
-        # Lenovo Legion 5 15ACH6
-        Laptop = {
-          hostname = "127.0.0.1";
+      deploy = lib.custom.mkDeploy {
+        inherit (inputs) deploy-rs;
+        inherit (self) nixosConfigurations;
 
-          autoRollback = false;
-          magicRollback = false;
+        overrides = {
+          Laptop = {
+            hostname = "127.0.0.1";
 
-          profiles.system = {
-            sshUser = "root";
-
-            path = inputs.deploy-rs.lib."x86_64-linux".activate.nixos self.nixosConfigurations.Laptop;
+            extraOptions = {
+              autoRollback = false;
+              magicRollback1 = false;
+            };
           };
-        };
 
-        Router = {
-          hostname = "xxlpitu-router";
-
-          profiles.system = {
-            sshUser = "root";
-
-            path = inputs.deploy-rs.lib."x86_64-linux".activate.nixos self.nixosConfigurations.Router;
-          };
-        };
-
-        Server = {
-          hostname = "xxlpitu-server";
-
-          profiles.system = {
-            sshUser = "root";
-
-            path = inputs.deploy-rs.lib."x86_64-linux".activate.nixos self.nixosConfigurations.Server;
-          };
-        };
-
-        # Raspberry Pi 4 Model B - 8GB
-        Grimmjow = {
-          hostname = "xxlpitu-grimmjow";
-
-          profiles.system = {
-            sshUser = "root";
-
-            path = inputs.deploy-rs.lib."aarch64-linux".activate.nixos self.nixosConfigurations.Grimmjow;
-          };
-        };
-
-        # Raspberry Pi 4 Model B - 8GB
-        Ulquiorra = {
-          hostname = "xxlpitu-ulquiorra";
-
-          profiles.system = {
-            sshUser = "root";
-
-            path = inputs.deploy-rs.lib."aarch64-linux".activate.nixos self.nixosConfigurations.Ulquiorra;
-          };
+          sdImageRaspberryPi4.deploy = false;
         };
       };
     } // inputs.flake-utils.lib.eachDefaultSystem (system:
