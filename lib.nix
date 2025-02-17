@@ -11,7 +11,7 @@
   relativeToRoot = lib.path.append ./.;
 
   # Adapted from https://github.com/hmajid2301/nixicle/blob/8e8f5b1f2612a441b9f9da3e893af60774448836/lib/deploy/default.nix
-  mkDeploy = { deploy-rs, nixosConfigurations, overrides ? { }, }:
+  mkDeploy = { deploy-rs, nixosConfigurations, overrides ? { } }:
     let
       hosts = nixosConfigurations;
       names = builtins.attrNames hosts;
