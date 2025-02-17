@@ -27,15 +27,11 @@
 
       profiles.user.databases = [
         {
-          lockAll = true;
-
           keyfiles = [ pkgs.dconf-editor ];
 
           settings."ca/desrt/dconf-editor/Settings".show-warning = lib.gvariant.mkBoolean false;
         }
         {
-          lockAll = true;
-
           keyfiles = [ pkgs.mission-center ];
 
           settings."io/missioncenter/MissionCenter".performance-page-cpu-graph = lib.gvariant.mkInt32 2;
