@@ -88,12 +88,12 @@ in {
       enable = true;
       eula = true;
 
-      openFirewall = true;
-
       managementSystem.systemd-socket.enable = true;
 
       servers.${serverName} = rec {
         enable = true;
+
+        openFirewall = true;
 
         inherit package;
         jvmOpts = let memory = 1024 * 4; in "-Xmx${toString memory}M -Xms${toString memory}M";
