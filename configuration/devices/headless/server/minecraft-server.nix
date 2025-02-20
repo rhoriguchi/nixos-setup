@@ -152,7 +152,7 @@ in {
               url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/VelocityWhitelist-${rev}.jar";
               inherit sha256;
             };
-            "plugins/velocitywhitelist/config.yml" = pkgs.writers.writeYAML "config.toml" {
+            "plugins/velocitywhitelist/config.yml" = pkgs.writers.writeYAML "config.yml" {
               enabled = true;
 
               identify_mode = "uuid";
