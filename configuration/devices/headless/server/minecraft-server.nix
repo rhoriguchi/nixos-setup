@@ -241,10 +241,6 @@ in {
               url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/BlueMapSpawnMarker-${rev}.jar";
               inherit sha256;
             };
-            "plugins/BlueMap/packs/BlueMapSpawnMarker/marker.conf" = pkgs.writeText "marker.conf" ''
-              name: Spawn
-              technicjelle.updatechecker.disabled: true
-            '';
 
             "plugins/PrometheusExporter.jar" = let
               owner = "sladkoff";
