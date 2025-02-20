@@ -209,7 +209,7 @@ in {
             };
             "plugins/BlueMap/core.conf" = pkgs.writeText "core.conf" ''
               accept-download: true
-              render-thread-count: 2
+              render-thread-count: 4
               metrics: false
             '';
             "plugins/BlueMap/webserver.conf" = pkgs.writeText "webserver.conf" ''
