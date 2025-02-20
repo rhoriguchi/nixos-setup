@@ -80,6 +80,10 @@ in {
           "~* ^/maps/[^/]*/live/".extraConfig = ''
             error_page 404 = @empty;
           '';
+
+          "~* ^/maps/[^/]*/tiles/".extraConfig = ''
+            error_page 404 = @empty;
+          '';
         };
       };
     };
