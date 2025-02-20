@@ -293,6 +293,9 @@ in {
             ] ++ lib.optional config.services.loki.enable {
               name = "Loki";
               url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/metrics";
+            } ++ lib.optional config.services.minecraft-servers.enable {
+              name = "Minecraft";
+              url = "http://127.0.0.1:9940/metrics";
             } ++ lib.optional config.services.promtail.enable {
               name = "Promtail";
               url = "http://127.0.0.1:${toString config.services.promtail.configuration.server.http_listen_port}/metrics";
