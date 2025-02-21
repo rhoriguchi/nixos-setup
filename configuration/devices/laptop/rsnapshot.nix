@@ -37,31 +37,67 @@ let
       # Cache
       ".cache"
 
-      # Nix
-      ".nix-defexpr"
-      ".local/state/nix/profiles"
+      # Discord
+      ".config/discord"
 
-      # Node
-      "node_modules"
+      # deploy-rs
+      ".deploy-gc"
 
-      # Maven
+      # Chrome
+      ".config/google-chrome"
+
+      # Home Manager
+      ".local/state/home-manager"
+
+      # Java
       ".m2"
       "target/classes"
       "target/generated-sources"
       "target/generated-test-sources"
       "target/test-classes"
 
+      # JavaScript
+      ".bun"
+      ".npm"
+      "node_modules"
+
+      # Nix
+      ".nix-defexpr"
+      ".local/state/nix/profiles"
+
+      # Firefox
+      ".mozilla"
+
+      # Prism Launcher
+      ".local/share/PrismLauncher"
+
+      # Python
+      ".local/share/virtualenv"
+
+      # Signal
+      ".config/Signal"
+
       # Steam
+      ".local/share/Steam"
       ".steam"
       "Steam/steamapps"
 
+      # Terraform
+      ".terraform.d"
+      "cdktf.out"
+
       # Resilio Sync
+      ".config/resilio-sync"
       ".sync"
+
+      # Visual Studio Code
+      ".config/Code"
+      ".vscode"
 
       # Wine
       ".wine"
 
-      # Security
+      # Secrets
       ".docker/config.json"
       ".git-credentials"
       ".gnupg"
