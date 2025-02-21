@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  rootBindmountDir = "/mnt/bindmount/${config.services.plex.user}";
+  rootBindmountDir = "/mnt/bindmount/plex";
   bindmountDir1 = "${rootBindmountDir}/resilio-Movies";
   bindmountDir2 = "${rootBindmountDir}/resilio-Series";
   bindmountDir3 = "${rootBindmountDir}/disk-Movies";

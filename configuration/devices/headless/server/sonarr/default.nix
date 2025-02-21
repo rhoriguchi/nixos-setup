@@ -1,6 +1,6 @@
 { config, lib, pkgs, secrets, ... }:
 let
-  rootBindmountDir = "/mnt/bindmount/${config.services.sonarr.user}";
+  rootBindmountDir = "/mnt/bindmount/sonarr";
   bindmountDir1 = "${rootBindmountDir}/resilio-TvShows";
   bindmountDir2 = "${rootBindmountDir}/disk-TvShows";
 in {

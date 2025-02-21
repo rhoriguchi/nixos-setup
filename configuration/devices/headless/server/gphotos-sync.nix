@@ -1,6 +1,6 @@
 { config, lib, pkgs, secrets, ... }:
 let
-  rootBindmountDir = "/mnt/bindmount/${config.services.gphotos-sync.user}";
+  rootBindmountDir = "/mnt/bindmount/gphotos-sync";
   bindmountDir = "${rootBindmountDir}/resilio-Google_Photos";
 in {
   system.fsPackages = [ pkgs.bindfs ];

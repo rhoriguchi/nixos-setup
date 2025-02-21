@@ -1,6 +1,6 @@
 { config, lib, pkgs, secrets, ... }:
 let
-  rootBindmountDir = "/mnt/bindmount/${config.services.nginx.user}";
+  rootBindmountDir = "/mnt/bindmount/nginx";
   bindmountDir = "${rootBindmountDir}/blue-map-web-root";
 
   proxyPort = 25565;
