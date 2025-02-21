@@ -94,6 +94,9 @@ zfs create \
   data/loki
 
 zfs create \
+  data/monitoring
+
+zfs create \
   data/series
 
 zfs create \
