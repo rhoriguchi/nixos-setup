@@ -238,6 +238,7 @@ in {
           StandardError = "null";
           Restart = "on-abort";
 
+          UMask = "027";
           User = cfg.user;
           Group = cfg.group;
         };
