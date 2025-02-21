@@ -97,6 +97,9 @@ zfs create \
   data/monitoring
 
 zfs create \
+  data/movies
+
+zfs create \
   data/series
 
 zfs create \

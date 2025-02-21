@@ -41,6 +41,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/mnt/Data/Movies" = {
+    device = "data/movies";
+    fsType = "zfs";
+  };
+
   fileSystems."/mnt/Data/Series" = {
     device = "data/series";
     fsType = "zfs";
