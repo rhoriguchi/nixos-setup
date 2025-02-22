@@ -34,10 +34,10 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 - ProtonVPN Gui
 - qBittorrent
 - Resilio Sync
+- RustDesk
 - Signal
 - Spotify
 - Steam
-- TeamViewer
 
 ##### GPG Key
 

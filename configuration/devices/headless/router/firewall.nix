@@ -151,6 +151,38 @@ in {
           destination = "${ips.server}:32400";
           sourcePort = 32400;
         }
+
+        # RustDesk
+        {
+          proto = "tcp";
+          destination = "${ips.server}:21115";
+          sourcePort = 21115;
+        }
+        {
+          proto = "tcp";
+          destination = "${ips.server}:21116";
+          sourcePort = 21116;
+        }
+        {
+          proto = "tcp";
+          destination = "${ips.server}:21117";
+          sourcePort = 21117;
+        }
+        {
+          proto = "tcp";
+          destination = "${ips.server}:21118";
+          sourcePort = 21118;
+        }
+        {
+          proto = "tcp";
+          destination = "${ips.server}:21119";
+          sourcePort = 21119;
+        }
+        {
+          proto = "udp";
+          destination = "${ips.server}:21116";
+          sourcePort = 21116;
+        }
       ];
     };
   };

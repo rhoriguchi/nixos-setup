@@ -11,6 +11,7 @@
     ./minecraft-server
     ./monitoring.nix
     ./plex.nix
+    ./rustdesk.nix
     ./samba.nix
     ./sonarr
     ./tautulli.nix

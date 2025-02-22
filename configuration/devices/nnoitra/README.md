@@ -76,6 +76,7 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 winget install --accept-source-agreements --exact --silent --uninstall-previous OpenWhisperSystems.Signal
 winget install --accept-source-agreements --exact --silent --uninstall-previous RazerInc.RazerInstaller
 winget install --accept-source-agreements --exact --silent --uninstall-previous RiotGames.LeagueOfLegends.EUW
+winget install --accept-source-agreements --exact --silent --uninstall-previous RustDesk.RustDesk
 winget install --accept-source-agreements --exact --silent --uninstall-previous Spotify.Spotify
 winget install --accept-source-agreements --exact --silent --uninstall-previous TeamViewer.TeamViewer
 winget install --accept-source-agreements --exact --silent --uninstall-previous Valve.Steam
@@ -109,7 +110,7 @@ Manually enter password found in [secrets.nix](../../../secrets.nix).samba.users
 net use X: \\XXLPitu-Server.local\Series /user:samba /persistent:yes
 ```
 
-## Cleanup autostart
+## Autostart
 
 Run in an elevated cmd
 
@@ -120,6 +121,8 @@ reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "RiotClient" 
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Spotify" /f
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Steam" /f
 sc config TeamViewer start= disabled
+
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "RustDesk" /t REG_SZ /d "C:\Program Files\RustDesk\rustdesk.exe" /f
 ```
 
 ## Games
