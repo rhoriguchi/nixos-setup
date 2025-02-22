@@ -57,13 +57,13 @@
 
     systemPackages = [ pkgs.adwaita-fonts pkgs.nerd-fonts.roboto-mono ] ++ [ pkgs.dconf-editor pkgs.networkmanager-openconnect ] ++ [
       pkgs.firefox # pkgs.epiphany
-      pkgs.flameshot # pkgs.snapshot
       pkgs.ghostty # pkgs.gnome-console
       pkgs.mission-center # pkgs.gnome-system-monitor
 
       pkgs.baobab
       pkgs.gnome-calculator
       pkgs.loupe
+      pkgs.snapshot
     ];
 
     gnome.excludePackages = [
@@ -92,7 +92,6 @@
       pkgs.nautilus
       pkgs.orca
       pkgs.simple-scan
-      pkgs.snapshot
       pkgs.sushi
       pkgs.totem
       pkgs.yelp
@@ -100,6 +99,7 @@
       pkgs.baobab
       pkgs.gnome-calculator
       pkgs.loupe
+      pkgs.snapshot
     ];
   };
 }
