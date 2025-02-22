@@ -93,6 +93,8 @@ in {
             ip saddr @guest_vlan ip daddr ${serverIp} tcp dport { 80, 443 } accept # Nginx
             ip saddr @guest_vlan ip daddr ${serverIp} tcp dport { 25565 } accept # Minecraft
             ip saddr @guest_vlan ip daddr ${serverIp} tcp dport { 32400 } accept # Plex
+            ip saddr @guest_vlan ip daddr ${serverIp} udp dport { 21116 } accept # RustDesk
+            ip saddr @guest_vlan ip daddr ${serverIp} tcp dport { 21115, 21116, 21117 } accept # RustDesk
 
             ip saddr ${wingoRouterIp} ip daddr @private_vlan ct state established accept
 
@@ -128,6 +130,28 @@ in {
           proto = "tcp";
           destination = "${serverIp}:32400";
           sourcePort = 32400;
+        }
+
+        # RustDesk
+        {
+          proto = "udp";
+          destination = "${serverIp}:21116";
+          sourcePort = 21116;
+        }
+        {
+          proto = "tcp";
+          destination = "${serverIp}:21116";
+          sourcePort = 21115;
+        }
+        {
+          proto = "tcp";
+          destination = "${serverIp}:21116";
+          sourcePort = 21116;
+        }
+        {
+          proto = "tcp";
+          destination = "${serverIp}:21116";
+          sourcePort = 21117;
         }
       ];
     };
