@@ -85,8 +85,10 @@ in {
             ${
               lib.concatStringsSep "\n" (map (set: ''
                 ip saddr @${set} ip daddr ${serverIp} tcp dport { 80, 443 } accept # Nginx
+                ip saddr @${set} ip daddr ${serverIp} tcp dport { 21115, 21116, 21117, 21118, 21119 } accept # RustDesk
                 ip saddr @${set} ip daddr ${serverIp} tcp dport { 25565 } accept # Minecraft
                 ip saddr @${set} ip daddr ${serverIp} tcp dport { 32400 } accept # Plex
+                ip saddr @${set} ip daddr ${serverIp} udp dport { 21116 } accept # RustDesk
               '') [ "iot_vlan" "guest_vlan" ])
             }
 
@@ -127,6 +129,38 @@ in {
           proto = "tcp";
           destination = "${serverIp}:32400";
           sourcePort = 32400;
+        }
+
+        # RustDesk
+        {
+          proto = "tcp";
+          destination = "${serverIp}:21115";
+          sourcePort = 21115;
+        }
+        {
+          proto = "tcp";
+          destination = "${serverIp}:21116";
+          sourcePort = 21116;
+        }
+        {
+          proto = "tcp";
+          destination = "${serverIp}:21117";
+          sourcePort = 21117;
+        }
+        {
+          proto = "tcp";
+          destination = "${serverIp}:21118";
+          sourcePort = 21118;
+        }
+        {
+          proto = "tcp";
+          destination = "${serverIp}:21119";
+          sourcePort = 21119;
+        }
+        {
+          proto = "udp";
+          destination = "${serverIp}:21116";
+          sourcePort = 21116;
         }
       ];
     };

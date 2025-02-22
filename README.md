@@ -28,10 +28,10 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 - ProtonVPN Gui
 - qBittorrent
 - Resilio Sync
+- RustDesk
 - Signal
 - Spotify
 - Steam
-- TeamViewer
 
 #### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/usage.md#authorise-the-application-with-your-microsoft-onedrive-account)
 

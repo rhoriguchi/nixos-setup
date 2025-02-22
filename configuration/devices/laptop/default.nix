@@ -75,8 +75,6 @@
       };
     };
 
-    teamviewer.enable = true;
-
     onedrive.enable = true;
   };
 
@@ -115,6 +113,7 @@
         pkgs.prismlauncher # Minecraft
         pkgs.protonvpn-gui
         pkgs.qbittorrent
+        pkgs.rustdesk-flutter
         pkgs.signal-desktop
       ];
     };
