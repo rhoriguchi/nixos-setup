@@ -97,6 +97,8 @@ in {
             ip saddr @guest_vlan ip daddr ${serverIp} tcp dport { 25565 } accept # Minecraft
             ip saddr @guest_vlan ip daddr ${serverIp} tcp dport { 32400 } accept # Plex
 
+            ip saddr ${wingoRouterIp} ip daddr @private_vlan ct state established accept
+
             ip saddr ${cloudKeyIp} ip daddr @private_vlan ct state established accept
 
             ip saddr ${serverIp} ip daddr @private_vlan ct state established accept
