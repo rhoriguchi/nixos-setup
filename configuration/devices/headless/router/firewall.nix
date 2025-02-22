@@ -83,12 +83,9 @@ in {
 
           chain lan {
             ip saddr @unifi_network ip daddr @unifi_network accept
+            ip saddr @unifi_network ip daddr @private_vlan ct state established accept
 
-            ip saddr @private_vlan ip daddr ${wingoRouterIp} accept
-            ip saddr @private_vlan ip daddr ${cloudKeyIp} accept
-            ip saddr @private_vlan ip daddr ${serverIp} accept
-            ip saddr @private_vlan ip daddr @private_vlan accept
-            ip saddr @private_vlan ip daddr @iot_vlan accept
+            ip saddr @private_vlan ip daddr @rfc1918 accept
 
             ip saddr @iot_vlan ip daddr ${serverIp} accept
             ip saddr @iot_vlan ip daddr @private_vlan ct state established accept
