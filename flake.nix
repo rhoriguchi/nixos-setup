@@ -26,6 +26,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-github-actions = {
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,7 +65,12 @@
       };
 
       nixosModules = {
-        default.imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
+        default.imports = [
+          inputs.nixos-generators.nixosModules.all-formats
+          inputs.nix-minecraft.nixosModules.minecraft-servers
+
+          ./modules/default
+        ];
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
@@ -170,6 +180,21 @@
           }];
         };
 
+        # Unraid VM
+        XXLPitu-Nelliel = lib.nixosSystem {
+          system = "x86_64-linux";
+
+          modules = [{
+            imports = [
+              commonModule
+
+              self.nixosModules.profiles.headless
+
+              ./configuration/devices/headless/nelliel
+            ];
+          }];
+        };
+
         # Raspberry Pi 4 Model B - 8GB
         XXLPitu-Grimmjow = lib.nixosSystem {
           system = "aarch64-linux";
@@ -234,7 +259,13 @@
         };
       };
 
-      images.sdImageRaspberryPi4 = self.nixosConfigurations.sdImageRaspberryPi4.config.system.build.image;
+      images = {
+        XXLPitu-Nelliel = (self.nixosConfigurations.XXLPitu-Nelliel // {
+          virtualisation.diskSize = builtins.floor (1024 * 1024 * 1.5);
+        }).config.formats.qcow;
+
+        sdImageRaspberryPi4 = self.nixosConfigurations.sdImageRaspberryPi4.config.system.build.image;
+      };
 
       deploy = lib.custom.mkDeploy {
         inherit (inputs) deploy-rs;
