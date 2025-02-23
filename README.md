@@ -176,7 +176,7 @@ BOOTFS=/mnt/FIRMWARE FIRMWARE_RELEASE_STATUS=stable rpi-eeprom-update -d -a
 umount /mnt/FIRMWARE && rm -rf /mnt/FIRMWARE
 ```
 
-## Build SD Raspberry Pi 4 image
+## Build SD image Raspberry Pi 4 image
 
 ```console
 nix build '.#images.sdImageRaspberryPi4' |& nom
