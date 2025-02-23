@@ -6,6 +6,7 @@
     dates = "05:00";
     options = "--delete-older-than 7d";
   };
+
   networking = {
     nftables.enable = true;
 
