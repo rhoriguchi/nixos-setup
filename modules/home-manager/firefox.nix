@@ -2,7 +2,7 @@
   home.sessionVariables.BROWSER = "${config.programs.firefox.package}/bin/firefox";
 
   programs = {
-    vscode.userSettings."workbench.externalBrowser" = "${config.programs.firefox.package}/bin/firefox";
+    vscode.profiles.default.userSettings."workbench.externalBrowser" = "${config.programs.firefox.package}/bin/firefox";
 
     firefox = {
       enable = true;
