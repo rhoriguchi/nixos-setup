@@ -184,3 +184,9 @@ nix build '.#images.sdImageRaspberryPi4' |& nom
 files=( result/sd-image/*.img )
 sudo dd if="${files[1]}" of=/dev/sda bs=4M conv=fsync status=progress
 ```
+
+## Build VM Image for XXLPitu-Nelliel
+
+```console
+nix build '.#images.XXLPitu-Nelliel' |& nom
+```
