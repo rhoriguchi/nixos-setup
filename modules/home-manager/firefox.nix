@@ -10,7 +10,7 @@
       profiles.default = {
         id = 0;
 
-        extensions = [
+        extensions.packages = [
           pkgs.firefox-addons.bitwarden
           pkgs.firefox-addons.export-tabs-urls-and-titles
           # TODO remove override when fixed https://github.com/nix-community/home-manager/issues/2942
