@@ -81,8 +81,6 @@
         lib = (_: super: { custom = import ./lib.nix { lib = super; }; });
       };
 
-      images.sdImageRaspberryPi4 = self.nixosConfigurations.sdImageRaspberryPi4.config.system.build.image;
-
       nixosConfigurations = let
         commonModule = {
           imports = [ self.nixosModules.default ];
@@ -237,6 +235,8 @@
           ];
         };
       };
+
+      images.sdImageRaspberryPi4 = self.nixosConfigurations.sdImageRaspberryPi4.config.system.build.image;
 
       deploy = lib.custom.mkDeploy {
         inherit (inputs) deploy-rs;
