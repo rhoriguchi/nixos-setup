@@ -157,6 +157,18 @@
             target.entity_id = "switch.lego_chrysanthemum";
           };
         };
+        lego_tales_of_the_space_age = {
+          friendly_name = "Lego Tales of the Space Age";
+          value_template = "{{ states('switch.lego_tales_of_space_age') }}";
+          turn_on = {
+            service = "switch.turn_on";
+            target.entity_id = "switch.lego_tales_of_space_age";
+          };
+          turn_off = {
+            service = "switch.turn_off";
+            target.entity_id = "switch.lego_tales_of_space_age";
+          };
+        };
         living_room_standing_lamp = {
           friendly_name = "Living room standing lamp";
           value_template = "{{ states('switch.living_room_standing_lamp') }}";

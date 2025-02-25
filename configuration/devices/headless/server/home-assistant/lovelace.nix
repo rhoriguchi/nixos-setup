@@ -367,6 +367,10 @@ in {
                       name = "Chrysanthemum";
                       entity = "light.lego_chrysanthemum";
                     }
+                    {
+                      name = "Tales of the Space Age";
+                      entity = "light.lego_tales_of_the_space_age";
+                    }
                   ];
                 }
                 { type = "divider"; }

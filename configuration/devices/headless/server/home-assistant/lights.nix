@@ -3,7 +3,7 @@
     {
       platform = "group";
       name = "Group Lego";
-      entities = [ "light.lego_bonsai" "light.lego_chrysanthemum" ];
+      entities = [ "light.lego_bonsai" "light.lego_chrysanthemum" "light.lego_tales_of_the_space_age" ];
     }
 
     {
