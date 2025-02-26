@@ -128,7 +128,7 @@
 
                   extraSpecialArgs.colors = self.nixosModules.colors;
 
-                  users.rhoriguchi = self.nixosModules.home-manager;
+                  users.rhoriguchi.imports = [ self.nixosModules.home-manager ];
                 };
               }
             ];
