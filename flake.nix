@@ -110,7 +110,6 @@
 
               self.nixosModules.profiles.headful
 
-              self.nixosModules.profiles.hidpi
               self.nixosModules.profiles.java
               self.nixosModules.profiles.javascript
               self.nixosModules.profiles.kotlin
