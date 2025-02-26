@@ -25,7 +25,6 @@
     loader.grub = {
       enable = true;
 
-      zfsSupport = true;
       efiSupport = true;
       efiInstallAsRemovable = true;
 
