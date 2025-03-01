@@ -1,13 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, src, ... }:
 let
   cfg = config.services.lancache;
-
-  src = pkgs.fetchFromGitHub {
-    owner = "uklans";
-    repo = "cache-domains";
-    rev = "67594ce10c85250bf5e3cc3c6f4a0abb90abd25c";
-    hash = "sha256-MRyIz1l23B/ibVc1sPi6BwtB0imi47z1gqQxm5PM60Q=";
-  };
 
   metadata = (builtins.fromJSON (builtins.readFile "${src}/cache_domains.json")).cache_domains;
   filteredMetadata = lib.filter (cacheDomain: builtins.elem cacheDomain.name cfg.cachedServices) metadata;

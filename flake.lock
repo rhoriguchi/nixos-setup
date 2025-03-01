@@ -22,6 +22,22 @@
         "url": "https://codeberg.org/k0ral/borg-exporter.git"
       }
     },
+    "cache-domains": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729844030,
+        "narHash": "sha256-MRyIz1l23B/ibVc1sPi6BwtB0imi47z1gqQxm5PM60Q=",
+        "owner": "uklans",
+        "repo": "cache-domains",
+        "rev": "67594ce10c85250bf5e3cc3c6f4a0abb90abd25c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uklans",
+        "repo": "cache-domains",
+        "type": "github"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -229,6 +245,20 @@
         "type": "github"
       }
     },
+    "lancache": {
+      "inputs": {
+        "cache-domains": "cache-domains"
+      },
+      "locked": {
+        "path": "./flakes/lancache",
+        "type": "path"
+      },
+      "original": {
+        "path": "./flakes/lancache",
+        "type": "path"
+      },
+      "parent": []
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": [
@@ -351,6 +381,7 @@
         "flake-utils": "flake-utils_2",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
+        "lancache": "lancache",
         "nix-github-actions": "nix-github-actions",
         "nix-index-database": "nix-index-database",
         "nix-minecraft": "nix-minecraft",
