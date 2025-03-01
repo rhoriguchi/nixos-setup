@@ -26,6 +26,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lancache.url = "path:flakes/lancache";
+
     nix-github-actions = {
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,7 +62,7 @@
       };
 
       nixosModules = {
-        default.imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
+        default.imports = [ inputs.lancache.nixosModules.default inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
