@@ -20,6 +20,18 @@
         }
       }/pkgs/servers/plex/raw.nix") { };
 
+    gnomeExtensions = super.gnomeExtensions // {
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=385948
+      unite = super.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "a7c108c44e8ae878e6dec01563e79381ea6a446f";
+            hash = "sha256-2H3KyY2mw969VCLZOXwMOyhNZbtS1vSSCxSxbrGaYe8=";
+          }
+        }/pkgs/desktops/gnome/extensions/unite/default.nix") { };
+    };
+
     home-assistant-custom-components = super.home-assistant-custom-components // {
       # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=386405
       localtuya = super.callPackage (import "${
