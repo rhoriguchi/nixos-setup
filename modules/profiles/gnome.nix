@@ -62,6 +62,7 @@
 
       pkgs.baobab
       pkgs.gnome-calculator
+      pkgs.gnome-shell-extensions
       pkgs.loupe
       pkgs.snapshot
     ];
@@ -98,6 +99,7 @@
 
       pkgs.baobab
       pkgs.gnome-calculator
+      pkgs.gnome-shell-extensions
       pkgs.loupe
       pkgs.snapshot
     ];
