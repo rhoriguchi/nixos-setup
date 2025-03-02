@@ -95,7 +95,7 @@ in {
     logging = lib.mkOption {
       type = lib.types.submodule {
         options = {
-          enable = lib.mkOption {
+          debug = lib.mkOption {
             type = lib.types.bool;
             default = cfg.systemWide;
           };
@@ -161,8 +161,8 @@ in {
         message = "When running system wide syncPath can't be null";
       }
       {
-        assertion = !cfg.systemWide -> !cfg.logging.enable;
-        message = "When not running system wide logging can't be enabled";
+        assertion = !cfg.systemWide -> !cfg.logging.debug;
+        message = "When not running system wide debug logging can't be enabled";
       }
       {
         assertion = !cfg.systemWide -> cfg.storagePath == null;
@@ -230,7 +230,7 @@ in {
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 
-        preStart = ''echo "${if cfg.logging.enable then "FFFFFFFF" else "80000000"}" > "${cfg.storagePath}/debug.txt"'';
+        preStart = ''echo "${if cfg.logging.debug then "FFFFFFFF" else "80000000"}" > "${cfg.storagePath}/debug.txt"'';
         script = ''${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --log "${cfg.logging.filePath}" --nodaemon'';
 
         serviceConfig = {
