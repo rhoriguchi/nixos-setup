@@ -125,6 +125,8 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
 
+                  backupFileExtension = "backup";
+
                   extraSpecialArgs.colors = self.nixosModules.colors;
 
                   users.rhoriguchi.imports = [ self.nixosModules.home-manager ];
