@@ -51,8 +51,6 @@
       feature.manyFiles = true;
 
       fetch.prune = true;
-
-      tag.forceSignAnnotated = true;
     };
 
     ignores = [
