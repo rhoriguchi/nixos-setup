@@ -79,7 +79,9 @@ in {
 
             ip saddr @private_vlan ip daddr @rfc1918 accept
 
-            ip saddr @iot_vlan ip daddr ${serverIp} accept
+            ip saddr @iot_vlan ip daddr ${serverIp} tcp dport { 443 } accept # Home Assistant - Shelly
+            ip saddr @iot_vlan ip daddr ${serverIp} udp dport { 4002 } accept # Home Assistant - Govee
+            ip saddr @iot_vlan ip daddr ${serverIp} ct state established accept
             ip saddr @iot_vlan ip daddr @private_vlan ct state established accept
 
             ip saddr @guest_vlan ip daddr ${serverIp} tcp dport { 80, 443 } accept # Nginx
@@ -92,7 +94,13 @@ in {
 
             ip saddr ${serverIp} ip daddr @private_vlan ct state established accept
             ip saddr ${serverIp} ip daddr @guest_vlan ct state established accept
-            ip saddr ${serverIp} ip daddr @iot_vlan accept
+            ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 80 } accept # Home Assistant - Shelly
+            ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 443 } accept # Home Assistant - Hue
+            ip saddr ${serverIp} ip daddr @iot_vlan udp dport { 4003 } accept # Home Assistant - Govee
+            ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 6053 } accept # Home Assistant - ESPHome
+            ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 6668 } accept # Home Assistant - Tuya
+            ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 8000 } accept # Home Assistant - Apple HomeKit
+            ip saddr ${serverIp} ip daddr @iot_vlan ct state established accept
 
             ip saddr @rfc1918 ip daddr @rfc1918 drop
           }
