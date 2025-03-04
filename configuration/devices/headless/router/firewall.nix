@@ -78,10 +78,10 @@ in {
                 "${internalInterface}.10"
                 "${internalInterface}.100"
               ]
-            }" } jump lan
+            }" } jump lan-filter
           }
 
-          chain lan {
+          chain lan-filter {
             ip saddr @unifi_network ip daddr @unifi_network accept
             ip saddr @unifi_network ip daddr @private_vlan ct state established accept
 
