@@ -1,6 +1,4 @@
-{ config, secrets, ... }:
-let homeAssistantPort = 8123;
-in {
+{ config, secrets, ... }: {
   services = {
     infomaniak = {
       enable = true;
@@ -13,45 +11,30 @@ in {
     nginx = {
       enable = true;
 
-      virtualHosts = let proxyPass = "http://127.0.0.1:${toString config.services.home-assistant.config.http.server_port}";
-      in {
-        "home-assistant.00a.ch" = {
-          enableACME = true;
-          forceSSL = true;
+      virtualHosts."home-assistant.00a.ch" = {
+        enableACME = true;
+        forceSSL = true;
 
-          locations."/" = {
-            inherit proxyPass;
-            proxyWebsockets = true;
-
-            extraConfig = ''
-              proxy_buffering off;
-            '';
-          };
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString config.services.home-assistant.config.http.server_port}";
+          proxyWebsockets = true;
 
           extraConfig = ''
-            # For some reason the android home assistant app crashes nginx if zstd is enabled
-            zstd off;
+            proxy_buffering off;
           '';
         };
 
-        "${config.networking.hostName}.local" = {
-          listen = map (addr: {
-            inherit addr;
-            port = homeAssistantPort;
-          }) config.services.nginx.defaultListenAddresses;
-
-          locations."/api/webhook".proxyPass = proxyPass;
-        };
+        extraConfig = ''
+          # For some reason the android home assistant app crashes nginx if zstd is enabled
+          zstd off;
+        '';
       };
     };
 
     home-assistant.config.http = {
       server_host = [ "127.0.0.1" ];
-      server_port = homeAssistantPort + 1;
       trusted_proxies = [ "127.0.0.1" ];
       use_x_forwarded_for = true;
     };
   };
-
-  networking.firewall.allowedTCPPorts = [ homeAssistantPort ];
 }
