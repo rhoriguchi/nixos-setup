@@ -72,11 +72,9 @@ in {
     };
 
     firewall.interfaces = let
-      rules = {
-        allowedUDPPorts = [
-          67 # DHCP
-        ];
-      };
+      rules.allowedUDPPorts = [
+        67 # DHCP
+      ];
     in {
       "${managementInterface}" = rules;
 
