@@ -99,7 +99,7 @@ in {
 
       inherit externalInterface;
       internalInterfaces =
-        [ "${internalInterface}" "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.10" "${internalInterface}.100" ];
+        [ internalInterface "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.10" "${internalInterface}.100" ];
 
       forwardPorts = [
         # Minecraft
