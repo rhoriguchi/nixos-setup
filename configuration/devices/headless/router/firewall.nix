@@ -56,7 +56,9 @@ in {
           chain internal-interface-filter-fw {
             type filter hook forward priority filter; policy accept;
 
-            iifname { "${lib.concatStringsSep ''", "'' config.networking.nat.internalInterfaces}" } jump lan-filter
+            iifname { ${
+              lib.concatStringsSep ", " (map (interface: ''"${interface}"'') config.networking.nat.internalInterfaces)
+            } } jump lan-filter
           }
 
           chain lan-filter {
