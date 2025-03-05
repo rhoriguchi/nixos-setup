@@ -2,7 +2,6 @@
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
-  managementInterface = interfaces.management;
 
   wingoRouterIp = "192.168.0.254";
   cloudKeyIp = "192.168.1.2";
@@ -17,19 +16,6 @@ in {
   };
 
   networking = {
-    firewall.interfaces = let rules = { allowedTCPPorts = [ 80 443 ]; };
-    in {
-      "${externalInterface}" = rules;
-
-      "${managementInterface}" = rules;
-
-      "${internalInterface}" = rules;
-      "${internalInterface}.2" = rules;
-      "${internalInterface}.3" = rules;
-      "${internalInterface}.10" = rules;
-      "${internalInterface}.100" = rules;
-    };
-
     nftables = {
       enable = true;
 

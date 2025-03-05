@@ -1,5 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, interfaces, ... }:
 let
+  externalInterface = interfaces.external;
+  internalInterface = interfaces.internal;
+
   localDomains = config.services.infomaniak.hostnames;
   serverDomains = [
     "deluge.00a.ch"
@@ -30,6 +33,17 @@ let
         locations."/".proxyPass = "http://${hostName}:80";
       }) domains);
 in {
+  networking.firewall.interfaces = let rules.allowedTCPPorts = [ 80 443 ];
+  in {
+    "${externalInterface}" = rules;
+
+    "${internalInterface}" = rules;
+    "${internalInterface}.2" = rules;
+    "${internalInterface}.3" = rules;
+    "${internalInterface}.10" = rules;
+    "${internalInterface}.100" = rules;
+  };
+
   # nginx needs to start after adguardhome because of `resolver` option
   systemd.services = {
     nginx.after = lib.optional config.services.adguardhome.enable "adguardhome.service";
