@@ -53,7 +53,7 @@ in {
             elements = { 192.168.100.0/24 }
           }
 
-          chain interface-filter-fw {
+          chain internal-interface-filter-fw {
             type filter hook forward priority filter; policy accept;
 
             iifname { "${lib.concatStringsSep ''", "'' config.networking.nat.internalInterfaces}" } jump lan-filter
