@@ -1,4 +1,4 @@
-{ interfaces, lib, ... }:
+{ config, interfaces, lib, ... }:
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
@@ -70,15 +70,7 @@ in {
           chain interface-filter-fw {
             type filter hook forward priority filter; policy accept;
 
-            iifname { "${
-              lib.concatStringsSep ''", "'' [
-                "${internalInterface}"
-                "${internalInterface}.2"
-                "${internalInterface}.3"
-                "${internalInterface}.10"
-                "${internalInterface}.100"
-              ]
-            }" } jump lan-filter
+            iifname { "${lib.concatStringsSep ''", "'' config.networking.nat.internalInterfaces}" } jump lan-filter
           }
 
           chain lan-filter {
