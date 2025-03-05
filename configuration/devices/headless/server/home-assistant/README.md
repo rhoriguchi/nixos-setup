@@ -36,8 +36,8 @@
 
 Configure:
 
-- `shellyhtg3-34b7da8ccedc.local`
-- `shellyhtg3-84fce639c104.local`
+- `shellyhtg3-34b7da8ccedc`
+- `shellyhtg3-84fce639c104`
 
 1. Open in browser:`http://HOSTNAME.local/#/settings/web-socket`
 2. Outbound websocket settings
