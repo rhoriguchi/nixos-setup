@@ -33,13 +33,13 @@
     };
 
     home-assistant-custom-components = super.home-assistant-custom-components // {
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=386405
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=387405
       localtuya = super.callPackage (import "${
           super.fetchFromGitHub {
             owner = "NixOS";
             repo = "nixpkgs";
-            rev = "c8364760c7388f99cda01b195ac2d3f7ae9398f6";
-            sha256 = "sha256-kDGlobhlPxPyn+stH6eVoNP3hJMyhDQ89IIwiAKnF8Y=";
+            rev = "c2d2046479637adbd3f4a604ebf164fa7184b977";
+            sha256 = "sha256-S0lJ/yrNPaqMhyT/cf7/OUAulZmm6mVFOr3bxS+yoCA=";
           }
         }/pkgs/servers/home-assistant/custom-components/localtuya/package.nix") { };
     };
