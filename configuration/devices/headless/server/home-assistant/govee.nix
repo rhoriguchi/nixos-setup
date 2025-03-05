@@ -1,4 +1,6 @@
 {
+  networking.firewall.allowedUDPPorts = [ 4002 ];
+
   services.home-assistant.config.automation = [
     {
       alias = "Reset bedroom nightstand lamp left when turned on";

@@ -1,10 +1,6 @@
 { config, lib, pkgs, secrets, ... }: {
   imports = lib.custom.getImports ./.;
 
-  networking.firewall.allowedUDPPorts = [
-    4002 # Govee lights local
-  ];
-
   services.home-assistant = {
     enable = true;
 
