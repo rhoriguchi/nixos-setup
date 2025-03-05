@@ -33,7 +33,7 @@ let
         locations."/".proxyPass = "http://${hostName}:80";
       }) domains);
 in {
-  networking.firewall.interfaces = let rules.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.interfaces = let rules.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort 443 ];
   in {
     "${externalInterface}" = rules;
 
