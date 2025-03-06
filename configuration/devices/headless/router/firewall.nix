@@ -84,10 +84,10 @@ in {
             ip saddr ${serverIp} ip daddr @guest_vlan ct state established accept
             ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 80 } accept # Home Assistant - Shelly
             ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 443 } accept # Home Assistant - Hue
-            ip saddr ${serverIp} ip daddr @iot_vlan udp dport { 4003 } accept # Home Assistant - Govee
             ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 6053 } accept # Home Assistant - ESPHome
             ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 6668 } accept # Home Assistant - Tuya
             ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 8000 } accept # Home Assistant - Apple HomeKit
+            ip saddr ${serverIp} ip daddr @iot_vlan udp dport { 4003 } accept # Home Assistant - Govee
             ip saddr ${serverIp} ip daddr @iot_vlan ct state established accept
 
             ip saddr @rfc1918 ip daddr @rfc1918 drop
