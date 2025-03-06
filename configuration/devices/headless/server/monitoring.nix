@@ -37,5 +37,21 @@
       apiKey = secrets.monitoring.apiKey;
       discordWebhookUrl = secrets.monitoring.discordWebhookUrl;
     };
+
+    netdata.configDir = {
+      "go.d/windows.conf" = (pkgs.formats.yaml { }).generate "windows.conf" {
+        jobs = [{
+          name = "XXLPitu-Nnoitra";
+          vnode = "XXLPitu-Nnoitra";
+          url = "http://XXLPitu-Nnoitra.local:9182/metrics";
+          autodetection_retry = 60;
+        }];
+      };
+
+      "vnodes/vnodes.conf" = (pkgs.formats.yaml { }).generate "vnodes.conf" [{
+        hostname = "XXLPitu-Nnoitra";
+        guid = "29e86a04-22b3-4d4b-9a4c-b4d35764ee84";
+      }];
+    };
   };
 }
