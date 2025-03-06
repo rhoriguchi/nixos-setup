@@ -112,7 +112,7 @@ zfs create \
 ## Update flake
 
 ```console
-nix flake update
+nix flake update |& nom
 ```
 
 ## Setup direnv
