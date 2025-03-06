@@ -7,7 +7,6 @@
     ./gphotos-sync.nix
     ./home-assistant
     ./immich.nix
-    ./libvirtd
     ./log-management.nix
     ./minecraft-server.nix
     ./monitoring.nix
