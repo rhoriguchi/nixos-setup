@@ -6,7 +6,7 @@ in {
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems.${bindmountDir} = {
     depends = [ config.services.resilio.syncPath ];
-    device = "${config.services.resilio.syncPath}/Google_Photos/photos";
+    device = "${config.services.resilio.syncPath}/Google_Photos";
     fsType = "fuse.bindfs";
     options = [
       # `ro` causes kernel panic
