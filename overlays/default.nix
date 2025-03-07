@@ -12,16 +12,18 @@
         }/pkgs/desktops/gnome/extensions/unite/default.nix") { };
     };
 
-    home-assistant-custom-components = super.home-assistant-custom-components // {
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=387487
-      localtuya = super.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "NixOS";
-            repo = "nixpkgs";
-            rev = "06f80f51080e9f5636ac63c6c0cad13e462bb83e";
-            sha256 = "sha256-koxE7NH/i2niL3rHv9rSoIPXs20hWcxBmHh/WiZ+0hg=";
-          }
-        }/pkgs/servers/home-assistant/custom-components/localtuya/package.nix") { };
+    vscode-extensions = super.vscode-extensions // {
+      ms-python = super.vscode-extensions.ms-python // {
+        # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=387839
+        python = super.callPackage (import "${
+            super.fetchFromGitHub {
+              owner = "NixOS";
+              repo = "nixpkgs";
+              rev = "4886e147e1b285057228cbd7ce2348cf8fb4cb45";
+              hash = "sha256-HDRMWYEn1V4kp2wUlwP+fFAvSntBLwTJa2WLQfiVJAc=";
+            }
+          }/pkgs/applications/editors/vscode/extensions/ms-python.python") { };
+      };
     };
   })
   (_: super: {
