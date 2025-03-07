@@ -23,6 +23,12 @@
         excludes = [ "secrets\\.nix$" ];
       };
       fix-byte-order-marker.enable = true;
+      lychee = {
+        enable = true;
+        types = [ "markdown" ];
+
+        settings.flags = "--cache --verbose";
+      };
       markdownlint = {
         enable = true;
 

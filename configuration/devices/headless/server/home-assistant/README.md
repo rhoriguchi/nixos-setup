@@ -20,7 +20,7 @@
     - More info here <https://community.home-assistant.io/t/localtuya-stadler-form-eva-humidifier/414349>
     - Get credentials from <https://iot.tuya.com/cloud/basic?id=p1706658370961ww5yan>
     - User id can be found like this <https://github.com/rospogrigio/localtuya/issues/858#issuecomment-1155201879>
-    - Add device, id can be found here <https://eu.local.tuya.com/cloud/basic?id=p1706658370961ww5yan&deviceTab=all>
+    - Add device, id can be found here <https://iot.tuya.com/cloud/basic?id=p1706658370961ww5yan&deviceTab=all>
   - Netatmo
     - Get credentials from <https://dev.netatmo.com>
   - Shelly

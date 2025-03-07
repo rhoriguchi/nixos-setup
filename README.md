@@ -33,7 +33,7 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 - Steam
 - TeamViewer
 
-#### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/USAGE.md#authorize-the-application-with-your-onedrive-account)
+#### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/usage.md#authorise-the-application-with-your-microsoft-onedrive-account)
 
 ### Add KeePass password to keyring
 
@@ -106,8 +106,6 @@ zfs create \
   -o quota=512G \
   data/sync
 ```
-
-#### [libvirt](configuration/devices/headless/server/libvirtd/README.md)
 
 ## Update flake
 

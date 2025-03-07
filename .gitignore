@@ -1,4 +1,5 @@
 .deploy-gc/
+.lycheecache
 .pre-commit-config.yaml
 result
 result/

@@ -151,6 +151,7 @@
           "**/.git" = true;
           "**/.hg" = true;
           "**/.idea" = true;
+          "**/.lycheecache" = true;
           "**/.pre-commit-config.yaml" = true;
           "**/.project" = true;
           "**/.settings" = true;
