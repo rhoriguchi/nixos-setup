@@ -1,8 +1,8 @@
 { config, lib, pkgs, secrets, ... }:
 let
   rootBindmountDir = "/mnt/bindmount/sonarr";
-  bindmountDir1 = "${rootBindmountDir}/resilio-TvShows";
-  bindmountDir2 = "${rootBindmountDir}/disk-TvShows";
+  bindmountDir1 = "${rootBindmountDir}/resilio-Series";
+  bindmountDir2 = "${rootBindmountDir}/disk-Series";
 in {
   imports = [ ./deluge ./prowlarr.nix ];
 
@@ -12,7 +12,7 @@ in {
   fileSystems = {
     "${bindmountDir1}" = {
       depends = [ config.services.resilio.syncPath ];
-      device = "${config.services.resilio.syncPath}/Series/Tv Shows";
+      device = "${config.services.resilio.syncPath}/Series";
       fsType = "fuse.bindfs";
       options = [
         "map=${
@@ -26,11 +26,17 @@ in {
 
     "${bindmountDir2}" = {
       depends = [ "/mnt/Data/Series" ];
-      device = "/mnt/Data/Series/Tv Shows";
+      device = "/mnt/Data/Series";
       fsType = "fuse.bindfs";
       options = [ "map=${lib.concatStringsSep ":" [ "root/${config.services.sonarr.user}" "@root/@${config.services.sonarr.group}" ]}" ];
     };
   };
+
+  system.activationScripts.sonarr = ''
+    mkdir -p ${bindmountDir1}
+    mkdir -p ${bindmountDir2}
+    chown -R ${config.services.sonarr.user}:${config.services.sonarr.group} ${rootBindmountDir}
+  '';
 
   services = {
     sonarr.enable = true;
@@ -84,7 +90,7 @@ in {
 
         sonarApiUrl = "http://127.0.0.1:8989";
         sonarApiKey = secrets.sonarr.apiKey;
-        sonarrRootDir = bindmountDir1;
+        sonarrRootDir = "${bindmountDir1}/Tv Shows";
 
         tvTimeUsername = secrets.tvTime.username;
         tvTimePassword = secrets.tvTime.password;
