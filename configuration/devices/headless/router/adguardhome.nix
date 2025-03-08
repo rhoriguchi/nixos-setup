@@ -86,39 +86,6 @@ in {
           ratelimit = 0;
         };
 
-        clients.persistent = [
-          {
-            name = "UniFi Network";
-            ids = [ "192.168.1.0/24" ];
-            use_global_settings = true;
-            filtering_enabled = false;
-          }
-
-          {
-            name = "Private VLAN";
-            ids = [ "192.168.2.0/24" ];
-            use_global_settings = true;
-            use_global_blocked_services = true;
-          }
-          {
-            name = "IoT VLAN";
-            ids = [ "192.168.3.0/24" ];
-            filtering_enabled = false;
-          }
-          {
-            name = "DMZ VLAN";
-            ids = [ "192.168.10.0/24" ];
-            use_global_settings = true;
-            filtering_enabled = false;
-          }
-          {
-            name = "Guest VLAN";
-            ids = [ "192.168.100.0/24" ];
-            use_global_settings = true;
-            use_global_blocked_services = true;
-          }
-        ];
-
         filtering.rewrites = [
           {
             domain = "unifi.local";
