@@ -10,24 +10,24 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 
 ### Laptop
 
-- SSH Keys
 - Discord
 - Gitkraken
-- JetBrains
-  - DataGrip
-  - IntelliJ IDEA Ultimate
-  - PyCharm Professional
-  - WebStorm
+- GPG Key
+- SSH Keys
 - Firefox
   - BitWarden
   - Grammarly
   - MetaMask
   - Tab Session Manager
+- JetBrains
+  - DataGrip
+  - IntelliJ IDEA Ultimate
+  - PyCharm Professional
+  - WebStorm
 - NixOps
 - ProtonVPN Gui
 - qBittorrent
 - Resilio Sync
-- GPG Key
 - Signal
 - Spotify
 - Steam
