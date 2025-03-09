@@ -94,6 +94,12 @@ in {
 
         tvTimeUsername = secrets.tvTime.username;
         tvTimePassword = secrets.tvTime.password;
+
+        excludedTvdbIds = lib.concatStringsSep ", " (map (tvdbId: toString tvdbId) [
+          366924 # Reacher
+          371980 # Severance
+          422712 # Daredevil: Born Again
+        ]);
       };
     in "${pythonWithPackages}/bin/python ${script}";
 

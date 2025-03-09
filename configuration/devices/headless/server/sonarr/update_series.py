@@ -274,9 +274,11 @@ sonar_helper = SonarrHelper('@sonarApiUrl@', '@sonarApiKey@', '@sonarrRootDir@')
 
 tvdb_ids = tv_time_request_handler.get_tvdb_ids()
 
-sonar_helper.delete_all_missing_series(tvdb_ids)
+filtered_tvdb_ids = [tvdb_id for tvdb_id in tvdb_ids if tvdb_id not in [ @excludedTvdbIds@ ]]
 
-for tvdb_id in tvdb_ids:
+sonar_helper.delete_all_missing_series(filtered_tvdb_ids)
+
+for tvdb_id in filtered_tvdb_ids:
     sonar_helper.add_series(tvdb_id)
 
     unwatched = tv_time_request_handler.get_unwatched_episodes(tvdb_id)
