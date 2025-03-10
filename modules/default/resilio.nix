@@ -16,7 +16,7 @@ let
   }) cfg.secrets);
 
   resilioConfig = {
-    device_name = lib.toUpper cfg.deviceName;
+    device_name = lib.toUpper config.networking.hostName;
     listening_port = cfg.listeningPort;
     storage_path = cfg.storagePath;
     check_for_updates = cfg.webUI.enable;
@@ -51,10 +51,6 @@ in {
     group = lib.mkOption {
       type = lib.types.str;
       default = "rslsync";
-    };
-    deviceName = lib.mkOption {
-      type = lib.types.str;
-      default = lib.optionalString (config.networking.hostName != "") config.networking.hostName;
     };
     webUI = lib.mkOption {
       type = lib.types.submodule {
@@ -143,10 +139,6 @@ in {
       {
         assertion = cfg.syncPath != "";
         message = "Sync path cannot be empty";
-      }
-      {
-        assertion = cfg.deviceName != "";
-        message = "Device name cannot be empty";
       }
       {
         assertion = cfg.systemWide -> !cfg.webUI.enable;
