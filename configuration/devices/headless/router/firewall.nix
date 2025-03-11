@@ -94,6 +94,7 @@ in {
 
             ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 80 } accept # Home Assistant - Shelly
             ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 443 } accept # Home Assistant - Hue
+            ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 3232 } accept # ESPHome - OTA
             ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 6053 } accept # Home Assistant - ESPHome
             ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 6668 } accept # Home Assistant - Tuya
             ip saddr ${serverIp} ip daddr @iot_vlan tcp dport { 8000 } accept # Home Assistant - Apple HomeKit
