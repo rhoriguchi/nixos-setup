@@ -95,15 +95,19 @@
           }
 
           {
-            name = "NixOS Search modules";
-            keyword = "nm";
-            url = "https://search.nixos.org/options?channel=unstable&query=%s";
-          }
-
-          {
-            name = "NixOS Search packages";
-            keyword = "np";
-            url = "https://search.nixos.org/packages?channel=unstable&query=%s";
+            name = "Search";
+            bookmarks = [
+              {
+                name = "NixOS modules";
+                keyword = "nm";
+                url = "https://search.nixos.org/options?channel=unstable&query=%s";
+              }
+              {
+                name = "NixOS packages";
+                keyword = "np";
+                url = "https://search.nixos.org/packages?channel=unstable&query=%s";
+              }
+            ];
           }
         ];
 
