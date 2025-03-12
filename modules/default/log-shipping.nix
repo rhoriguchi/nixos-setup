@@ -2,8 +2,6 @@
 let
   cfg = config.services.log-shipping;
 
-  lokiPort = 3100;
-
   wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
 in {
   options.services.log-shipping = {
@@ -34,11 +32,8 @@ in {
 
         positions.filename = "/tmp/positions.yaml";
 
-        clients = [{
-          url = "http://${if cfg.useLocalhost then "127.0.0.1" else wireguardIps.${cfg.receiverHostname}}:${
-              toString lokiPort
-            }/loki/api/v1/push";
-        }];
+        clients =
+          [{ url = "http://${if cfg.useLocalhost then "127.0.0.1" else wireguardIps.${cfg.receiverHostname}}:3100/loki/api/v1/push"; }];
 
         scrape_configs = [{
           job_name = "systemd";

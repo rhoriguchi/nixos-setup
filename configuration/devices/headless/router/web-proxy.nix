@@ -3,7 +3,6 @@ let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
 
-  localDomains = config.services.infomaniak.hostnames;
   serverDomains = [
     "deluge.00a.ch"
     "esphome.00a.ch"
@@ -78,7 +77,7 @@ in {
         # indicates that source values can be hostnames with a prefix or suffix mask:
         hostnames;
 
-        ${getUpstreams config.networking.hostName localDomains}
+        ${getUpstreams config.networking.hostName config.services.infomaniak.hostnames}
         ${getUpstreams "lancache" config.services.lancache.cacheDomains}
 
         ${getUpstreams "XXLPitu-Server" serverDomains}
