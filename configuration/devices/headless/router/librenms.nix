@@ -33,7 +33,7 @@ in {
         auth_mechanism = "http-auth";
 
         autodiscovery.nets-exclude = [ ];
-        nets = [ "127.0.0.1" "192.168.2.0/24" ];
+        nets = [ "127.0.0.1" "192.168.1.0/24" ];
 
         prometheus = let basicAuth = secrets.nginx.basicAuth."pushgateway.00a.ch";
         in {
