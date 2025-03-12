@@ -98,6 +98,11 @@
             name = "Search";
             bookmarks = [
               {
+                name = "Search YouTube";
+                keyword = "y";
+                url = "https://www.youtube.com/results?search_query=%s";
+              }
+              {
                 name = "NixOS modules";
                 keyword = "nm";
                 url = "https://search.nixos.org/options?channel=unstable&query=%s";
