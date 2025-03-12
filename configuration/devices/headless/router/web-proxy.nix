@@ -21,16 +21,18 @@ let
 
   getUpstreams = host: domains: lib.concatStringsSep "\n" (map (domain: "${domain} ${host};") domains);
 
-  getVirtualHosts = hostName: domains:
-    lib.listToAttrs (map (domain:
-      lib.nameValuePair domain {
-        listen = map (addr: {
-          inherit addr;
-          port = config.services.nginx.defaultHTTPListenPort;
-        }) config.services.nginx.defaultListenAddresses;
+  getVirtualHost = hostName: domains: {
+    "${lib.replaceStrings [ ".local" ] [ "" ] hostName}" = {
+      serverAliases = domains;
 
-        locations."/".proxyPass = "http://${hostName}:80";
-      }) domains);
+      listen = map (addr: {
+        inherit addr;
+        port = config.services.nginx.defaultHTTPListenPort;
+      }) config.services.nginx.defaultListenAddresses;
+
+      locations."/".proxyPass = "http://${hostName}:80";
+    };
+  };
 in {
   networking.firewall.interfaces = let rules.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort 443 ];
   in {
@@ -94,6 +96,6 @@ in {
       }
     '';
 
-    virtualHosts = (getVirtualHosts "XXLPitu-Server.local" serverDomains) // (getVirtualHosts "XXLPitu-Ulquiorra.local" ulquiorraDomains);
+    virtualHosts = (getVirtualHost "XXLPitu-Server.local" serverDomains) // (getVirtualHost "XXLPitu-Ulquiorra.local" ulquiorraDomains);
   };
 }
