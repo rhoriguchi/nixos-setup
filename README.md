@@ -6,9 +6,11 @@
 sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 ```
 
-## Manual setup
+## Devices
 
 ### Laptop
+
+#### Manual setup
 
 - Discord
 - Gitkraken
@@ -33,9 +35,9 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 - Steam
 - TeamViewer
 
-#### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/usage.md#authorise-the-application-with-your-microsoft-onedrive-account)
+##### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/usage.md#authorise-the-application-with-your-microsoft-onedrive-account)
 
-### Add KeePass password to keyring
+##### Add KeePass password to keyring
 
 ```console
 nix-shell -p libsecret --run 'secret-tool store --label=KeePass KeePass 2FA'
@@ -150,15 +152,13 @@ mkfs.ext4 -L backup /dev/mapper/backup
 
 ## Upgrade firmware
 
-### Hardware
-
-#### List hardware
+### List hardware
 
 ```console
 fwupdmgr get-devices
 ```
 
-#### Upgrade hardware
+### Upgrade hardware
 
 ```console
 fwupdmgr refresh
