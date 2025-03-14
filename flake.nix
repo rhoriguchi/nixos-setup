@@ -110,9 +110,6 @@
 
               self.nixosModules.profiles.headful
 
-              self.nixosModules.profiles.java
-              self.nixosModules.profiles.javascript
-              self.nixosModules.profiles.kotlin
               self.nixosModules.profiles.laptop-power-management
               self.nixosModules.profiles.podman
               self.nixosModules.profiles.python
