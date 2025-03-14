@@ -1,4 +1,4 @@
-{ config, lib, pkgs, secrets, ... }: {
+{ config, lib, secrets, ... }: {
   imports = [
     ../common.nix
 
@@ -18,9 +18,6 @@
   ];
 
   boot = {
-    # TODO unpin when zfs works
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_12;
-
     loader.grub = {
       enable = true;
 
