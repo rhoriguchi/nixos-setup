@@ -122,6 +122,7 @@ in {
           withCloud = isParent;
           withCloudUi = isParent;
           withCups = true;
+          withDBengine = isParent;
           withDebug = cfg.debug.enable;
           withNdsudo = true;
         };
