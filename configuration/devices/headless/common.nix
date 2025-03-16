@@ -7,13 +7,9 @@
     options = "--delete-older-than 7d";
   };
 
-  networking = {
-    nftables.enable = true;
-
-    networkmanager = {
-      ethernet.macAddress = "permanent";
-      wifi.macAddress = "permanent";
-    };
+  networking.networkmanager = {
+    ethernet.macAddress = "permanent";
+    wifi.macAddress = "permanent";
   };
 
   environment = {
