@@ -202,11 +202,10 @@
         "terminal.integrated.enableMultiLinePasteWarning" = "never";
         "terminal.integrated.fontFamily" = "RobotoMono Nerd Font";
         "terminal.integrated.profiles.linux" = {
-          bash.path = "${config.programs.bash.package}/bin/bash";
-          fish.path = "${config.programs.fish.package}/bin/fish";
           sh.path = "${pkgs.bashInteractive}/bin/sh";
-          zsh.path = "${config.programs.zsh.package}/bin/zsh";
-        };
+          bash.path = "${config.programs.bash.package}/bin/bash";
+        } // lib.optionalAttrs config.programs.fish.enable { fish.path = "${config.programs.fish.package}/bin/fish"; }
+          // lib.optionalAttrs config.programs.zsh.enable { zsh.path = "${config.programs.zsh.package}/bin/zsh"; };
         "terminal.integrated.smoothScrolling" = true;
         "todo-tree.highlights.customHighlight" = {
           "[ ]" = {
