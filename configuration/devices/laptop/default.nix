@@ -87,8 +87,6 @@
       remotePlay.openFirewall = true;
     };
 
-    virt-manager.enable = true;
-
     bazecor.enable = true;
   };
 
