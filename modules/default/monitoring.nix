@@ -119,7 +119,6 @@ in {
         enable = true;
 
         package = pkgs.netdata.override {
-          withCloud = isParent;
           withCloudUi = isParent;
           withCups = true;
           withDBengine = isParent;
@@ -131,17 +130,7 @@ in {
 
         extraNdsudoPackages = [
           # NVMe devices collector
-          # TODO fixes https://github.com/netdata/netdata/pull/19505 remove when netdata >= 2.2.2
-          (pkgs.nvme-cli.overrideAttrs (_: rec {
-            version = "2.10.2";
-
-            src = pkgs.fetchFromGitHub {
-              owner = "linux-nvme";
-              repo = "nvme-cli";
-              rev = "v${version}";
-              hash = "sha256-8vxalIHA4DRQuI18PRmzrlyG1XHcbKPkZgVB5Yqq9EU=";
-            };
-          }))
+          pkgs.nvme-cli
 
           # S.M.A.R.T. collector
           pkgs.smartmontools
