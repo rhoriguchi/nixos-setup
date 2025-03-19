@@ -34,7 +34,10 @@
         {
           keyfiles = [ pkgs.mission-center ];
 
-          settings."io/missioncenter/MissionCenter".performance-page-cpu-graph = lib.gvariant.mkInt32 2;
+          settings."io/missioncenter/MissionCenter" = {
+            performance-page-cpu-graph = lib.gvariant.mkInt32 2;
+            performance-page-network-use-bytes = lib.gvariant.mkBoolean false;
+          };
         }
         {
           lockAll = true;
