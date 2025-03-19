@@ -98,7 +98,7 @@
           };
         };
       in {
-        # Lenovo Legion 5 15ACH6
+        # Dell XPS 13 9350
         Laptop = lib.nixosSystem {
           system = "x86_64-linux";
 
@@ -106,7 +106,7 @@
             imports = [
               commonModule
 
-              inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6
+              inputs.nixos-hardware.nixosModules.dell-xps-13-9350
 
               self.nixosModules.profiles.headful
 

@@ -4,20 +4,20 @@
 { config, lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/41876dc1-3692-42de-a1df-9875a140b57b";
+    device = "/dev/disk/by-uuid/34bb8c87-a949-43fe-b7f7-982e63a25557";
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/ca20abb8-e49d-4a9f-b485-a1c47b36b50d";
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/bfebc99c-a599-4240-b005-d4390090a972";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/DBAE-B85D";
+    device = "/dev/disk/by-uuid/C513-B48E";
     fsType = "vfat";
     options = [ "fmask=0022" "dmask=0022" ];
   };
@@ -29,8 +29,8 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
