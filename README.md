@@ -20,12 +20,12 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 
 - Discord
 - Gitkraken
-- GPG Key
 - SSH Keys
 - Firefox
   - BitWarden
   - Grammarly
   - Tab Session Manager
+  - RabattCorner
 - JetBrains
   - DataGrip
   - IntelliJ IDEA Ultimate
@@ -38,6 +38,20 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 - Spotify
 - Steam
 - TeamViewer
+
+##### GPG Key
+
+###### Export
+
+```console
+gpg --output private.gpg --armor --export-secret-key ryan.horiguchi@gmail.com
+```
+
+###### Import
+
+```console
+gpg --import private.gpg
+```
 
 ##### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/usage.md#authorise-the-application-with-your-microsoft-onedrive-account)
 
