@@ -25,7 +25,6 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 - Firefox
   - BitWarden
   - Grammarly
-  - MetaMask
   - Tab Session Manager
 - JetBrains
   - DataGrip

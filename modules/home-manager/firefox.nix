@@ -15,7 +15,6 @@
           pkgs.firefox-addons.export-tabs-urls-and-titles
           # TODO remove override when fixed https://gitlab.com/rycee/nur-expressions/-/issues/244
           (pkgs.firefox-addons.grammarly.overrideAttrs (_: { meta.license = lib.licenses.mit; }))
-          pkgs.firefox-addons.metamask
           pkgs.firefox-addons.multi-account-containers
           pkgs.firefox-addons.octolinker
           pkgs.firefox-addons.open-in-browser
@@ -153,7 +152,6 @@
             bitwarden = "_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action";
             export-tabs-urls-and-titles = "_17165bd9-9b71-4323-99a5-3d4ce49f3d75_-browser-action";
             grammarly = "87677a2c52b84ad3a151a4a72f5bd3c4_jetpack-browser-action";
-            metamask = "webextension_metamask_io-browser-action";
             privacy-badger = "jid1-mnnxcxisbpnsxq_jetpack-browser-action";
             tab-session-manager = "tab-session-manager_sienori-browser-action";
             ublock-origin = "ublock0_raymondhill_net-browser-action";
@@ -171,7 +169,6 @@
                 "downloads-button"
                 bitwarden
                 privacy-badger
-                metamask
                 export-tabs-urls-and-titles
                 tab-session-manager
                 ublock-origin
@@ -185,7 +182,6 @@
               bitwarden
               export-tabs-urls-and-titles
               grammarly
-              metamask
               privacy-badger
               tab-session-manager
               ublock-origin
