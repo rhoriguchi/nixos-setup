@@ -33,91 +33,125 @@
           force = true;
 
           default = "google";
-          order = [ "google" "wikipedia" ];
+          privateDefault = "google";
+          order = [ "google" ];
+
           engines = {
-            amazon.metaData.hidden = true;
+            google.metaData.alias = "g";
+
+            nix-packages = {
+              name = "Nix Packages";
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "np" ];
+
+              urls = [{
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }];
+            };
+
+            nixos-options = {
+              name = "NixOS Options";
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "no" ];
+
+              urls = [{
+                template = "https://search.nixos.org/options";
+                params = [
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }];
+            };
+
+            youtube = {
+              name = "YouTube";
+              iconMapObj."16" = "https://www.youtube.com/favicon.ico";
+              definedAliases = [ "y" ];
+
+              urls = [{
+                template = "https://www.youtube.com/results";
+                params = [{
+                  name = "search_query";
+                  value = "{searchTerms}";
+                }];
+              }];
+            };
+
             bing.metaData.hidden = true;
             ddg.metaData.hidden = true;
-            ebay.metaData.hidden = true;
-
-            google.metaData.alias = "g";
-            wikipedia.metaData.alias = "w";
+            "ebay-ch".metaData.hidden = true;
+            ecosia.metaData.hidden = true;
+            qwant.metaData.hidden = true;
+            wikipedia.metaData.hidden = true;
           };
         };
 
         bookmarks = {
           force = true;
 
-          settings = [
-            {
-              toolbar = true;
-              bookmarks = [
-                {
-                  name = "Google";
-                  url = "https://www.google.com";
-                }
-                {
-                  name = "WhatsApp";
-                  url = "https://web.whatsapp.com";
-                }
-                {
-                  name = "Gmail";
-                  url = "https://mail.google.com/mail/u/0";
-                }
-                {
-                  name = "YouTube";
-                  url = "https://www.youtube.com";
-                }
-                {
-                  # Check https://gogotaku.info for latest active domain
-                  name = "Gogoanime";
-                  url = "https://anitaku.io";
-                }
-                {
-                  name = "TV Time";
-                  url = "https://app.tvtime.com";
-                }
-                {
-                  name = "Todoist";
-                  url = "https://todoist.com/app?lang=en#start";
-                }
-                {
-                  name = "reddit";
-                  url = "https://www.reddit.com";
-                }
-                {
-                  name = "Rechtschreibprüfung";
-                  url =
-                    "https://mentor.duden.de/?utm_source=duden_de&utm_medium=premium_int&utm_campaign=topnavi&utm_content=duden-mentor-textpruefung";
-                }
-                {
-                  name = "The Pirate Bay";
-                  url = "https://thepiratebay10.org";
-                }
-              ];
-            }
-
-            {
-              name = "Search";
-              bookmarks = [
-                {
-                  name = "Search YouTube";
-                  keyword = "y";
-                  url = "https://www.youtube.com/results?search_query=%s";
-                }
-                {
-                  name = "NixOS modules";
-                  keyword = "nm";
-                  url = "https://search.nixos.org/options?channel=unstable&query=%s";
-                }
-                {
-                  name = "NixOS packages";
-                  keyword = "np";
-                  url = "https://search.nixos.org/packages?channel=unstable&query=%s";
-                }
-              ];
-            }
-          ];
+          settings = [{
+            toolbar = true;
+            bookmarks = [
+              {
+                name = "Google";
+                url = "https://www.google.com";
+              }
+              {
+                name = "WhatsApp";
+                url = "https://web.whatsapp.com";
+              }
+              {
+                name = "Gmail";
+                url = "https://mail.google.com/mail/u/0";
+              }
+              {
+                name = "YouTube";
+                url = "https://www.youtube.com";
+              }
+              {
+                # Check https://gogotaku.info for latest active domain
+                name = "Gogoanime";
+                url = "https://anitaku.io";
+              }
+              {
+                name = "TV Time";
+                url = "https://app.tvtime.com";
+              }
+              {
+                name = "Todoist";
+                url = "https://todoist.com/app?lang=en#start";
+              }
+              {
+                name = "reddit";
+                url = "https://www.reddit.com";
+              }
+              {
+                name = "Rechtschreibprüfung";
+                url =
+                  "https://mentor.duden.de/?utm_source=duden_de&utm_medium=premium_int&utm_campaign=topnavi&utm_content=duden-mentor-textpruefung";
+              }
+              {
+                name = "The Pirate Bay";
+                url = "https://thepiratebay10.org";
+              }
+            ];
+          }];
         };
 
         settings = {
