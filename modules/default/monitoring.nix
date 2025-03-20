@@ -205,16 +205,6 @@ in {
               address = "127.0.0.1:${toString config.services.dnsmasq.settings.port}";
             }];
           };
-        } // lib.optionalAttrs isParent {
-          "go.d/filecheck.conf" = pkgs.writers.writeYAML "filecheck.conf" {
-            jobs = [{
-              name = "local";
-              dirs = {
-                collect_dir_size = true;
-                include = [ "/var/cache/netdata" ];
-              };
-            }];
-          };
         } // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
             jobs = [{
