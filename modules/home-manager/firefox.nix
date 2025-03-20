@@ -32,88 +32,93 @@
         search = {
           force = true;
 
-          default = "Google";
-          order = [ "Google" "Wikipedia" ];
+          default = "google";
+          order = [ "google" "wikipedia" ];
           engines = {
-            "Amazon.de".metaData.hidden = true;
-            Bing.metaData.hidden = true;
-            DuckDuckGo.metaData.hidden = true;
-            eBay.metaData.hidden = true;
-            Google.metaData.alias = "g";
-            "Wikipedia (en)".metaData.alias = "w";
+            amazon.metaData.hidden = true;
+            bing.metaData.hidden = true;
+            ddg.metaData.hidden = true;
+            ebay.metaData.hidden = true;
+
+            google.metaData.alias = "g";
+            wikipedia.metaData.alias = "w";
           };
         };
 
-        bookmarks = [
-          {
-            toolbar = true;
-            bookmarks = [
-              {
-                name = "Google";
-                url = "https://www.google.com";
-              }
-              {
-                name = "WhatsApp";
-                url = "https://web.whatsapp.com";
-              }
-              {
-                name = "Gmail";
-                url = "https://mail.google.com/mail/u/0";
-              }
-              {
-                name = "YouTube";
-                url = "https://www.youtube.com";
-              }
-              {
-                # Check https://gogotaku.info for latest active domain
-                name = "Gogoanime";
-                url = "https://anitaku.io";
-              }
-              {
-                name = "TV Time";
-                url = "https://app.tvtime.com";
-              }
-              {
-                name = "Todoist";
-                url = "https://todoist.com/app?lang=en#start";
-              }
-              {
-                name = "reddit";
-                url = "https://www.reddit.com";
-              }
-              {
-                name = "Rechtschreibprüfung";
-                url =
-                  "https://mentor.duden.de/?utm_source=duden_de&utm_medium=premium_int&utm_campaign=topnavi&utm_content=duden-mentor-textpruefung";
-              }
-              {
-                name = "The Pirate Bay";
-                url = "https://thepiratebay10.org";
-              }
-            ];
-          }
+        bookmarks = {
+          force = true;
 
-          {
-            name = "Search";
-            bookmarks = [
-              {
-                name = "Search YouTube";
-                keyword = "y";
-                url = "https://www.youtube.com/results?search_query=%s";
-              }
-              {
-                name = "NixOS modules";
-                keyword = "nm";
-                url = "https://search.nixos.org/options?channel=unstable&query=%s";
-              }
-              {
-                name = "NixOS packages";
-                keyword = "np";
-                url = "https://search.nixos.org/packages?channel=unstable&query=%s";
-              }
-            ];
-          }
-        ];
+          settings = [
+            {
+              toolbar = true;
+              bookmarks = [
+                {
+                  name = "Google";
+                  url = "https://www.google.com";
+                }
+                {
+                  name = "WhatsApp";
+                  url = "https://web.whatsapp.com";
+                }
+                {
+                  name = "Gmail";
+                  url = "https://mail.google.com/mail/u/0";
+                }
+                {
+                  name = "YouTube";
+                  url = "https://www.youtube.com";
+                }
+                {
+                  # Check https://gogotaku.info for latest active domain
+                  name = "Gogoanime";
+                  url = "https://anitaku.io";
+                }
+                {
+                  name = "TV Time";
+                  url = "https://app.tvtime.com";
+                }
+                {
+                  name = "Todoist";
+                  url = "https://todoist.com/app?lang=en#start";
+                }
+                {
+                  name = "reddit";
+                  url = "https://www.reddit.com";
+                }
+                {
+                  name = "Rechtschreibprüfung";
+                  url =
+                    "https://mentor.duden.de/?utm_source=duden_de&utm_medium=premium_int&utm_campaign=topnavi&utm_content=duden-mentor-textpruefung";
+                }
+                {
+                  name = "The Pirate Bay";
+                  url = "https://thepiratebay10.org";
+                }
+              ];
+            }
+
+            {
+              name = "Search";
+              bookmarks = [
+                {
+                  name = "Search YouTube";
+                  keyword = "y";
+                  url = "https://www.youtube.com/results?search_query=%s";
+                }
+                {
+                  name = "NixOS modules";
+                  keyword = "nm";
+                  url = "https://search.nixos.org/options?channel=unstable&query=%s";
+                }
+                {
+                  name = "NixOS packages";
+                  keyword = "np";
+                  url = "https://search.nixos.org/packages?channel=unstable&query=%s";
+                }
+              ];
+            }
+          ];
+        };
 
         settings = {
           "app.shield.optoutstudies.enabled" = false;
