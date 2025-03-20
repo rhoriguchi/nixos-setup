@@ -178,9 +178,6 @@
             "https://todoist.com/app/today"
             "https://web.whatsapp.com"
             "https://mail.google.com/mail/u/0/#inbox"
-            "https://www.tvtime.com/en/to-watch"
-            "https://status.nixos.org"
-            "https://github.com/notifications"
           ];
           "browser.startup.page" = 1;
           "browser.tabs.warnOnClose" = false;
