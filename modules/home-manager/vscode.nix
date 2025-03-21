@@ -256,6 +256,7 @@
           "editor.wordWrap" = "wordWrapColumn";
           "editor.wordWrapColumn" = 120;
         };
+        "[markdown]"."editor.tabSize" = 2;
         "[nix]"."editor.tabSize" = 2;
         "[terraform]"."editor.tabSize" = 2;
         "[typescript]" = {
