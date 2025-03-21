@@ -12,16 +12,6 @@
         }/pkgs/desktops/gnome/extensions/unite/default.nix") { };
     };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=389378
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "e69a001b66b91ef0b0875738ec00270747051f45";
-          sha256 = "sha256-Tt0oUrTZSXHtHz8T5vxNjA8sn/dbLEeQzyjUIAb2GDE=";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=390165
     netdata = super.callPackage (import "${
         super.fetchFromGitHub {
