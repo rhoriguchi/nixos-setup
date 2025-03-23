@@ -194,6 +194,8 @@ in {
                 secret = secrets.minecraft.forwardingSecret;
                 online-mode = true;
               };
+
+              unsupported-settings.allow-piston-duplication = true;
             };
           };
 
