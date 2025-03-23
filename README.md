@@ -51,6 +51,19 @@ gpg --output private.gpg --armor --export-secret-key ryan.horiguchi@gmail.com
 
 ```console
 gpg --import private.gpg
+
+expect <<EOF
+spawn gpg --edit-key ryan.horiguchi@gmail.com
+expect "gpg>"
+send "trust\n"
+expect "Your decision?"
+send "5\n"
+expect "Do you really want to set this key to ultimate trust?"
+send "y\n"
+expect "gpg>"
+send "quit\n"
+interact
+EOF
 ```
 
 ##### [Authorize OneDrive](https://github.com/abraunegg/onedrive/blob/master/docs/usage.md#authorise-the-application-with-your-microsoft-onedrive-account)

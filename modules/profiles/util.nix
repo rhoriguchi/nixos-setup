@@ -11,6 +11,7 @@
       pkgs.deadnix
       pkgs.dmidecode
       pkgs.dnsutils
+      pkgs.expect
       pkgs.file
       pkgs.gdb
       pkgs.git
