@@ -79,6 +79,63 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 
 ### Netdata
 
+### WireGuard
+
+Run in an elevated cmd
+
+- PRIVATE_KEY = [secrets.nix](../../../modules/default/wireguard-network/secrets.nix).XXLPitu-Nnoitra.private
+- SERVER_PUBLIC_KEY = [secrets.nix](../../../modules/default/wireguard-network/secrets.nix).XXLPitu-Router.public
+- IP_ADDRESS = [ips.nix](../../../modules/default/wireguard-network/ips.nix).XXLPitu-Nnoitra
+
+```cmd
+winget install --accept-source-agreements --exact --silent --uninstall-previous WireGuard.WireGuard
+
+set WG_CONFIG="%ProgramFiles%\WireGuard\Data\Configurations\wg-management.conf"
+echo [Interface] > %WG_CONFIG%
+echo PrivateKey = PRIVATE_KEY >> %WG_CONFIG%
+echo Address = IP_ADDRESS/32 >> %WG_CONFIG%
+echo. >> %WG_CONFIG%
+echo [Peer] >> %WG_CONFIG%
+echo PublicKey = SERVER_PUBLIC_KEY >> %WG_CONFIG%
+echo AllowedIPs = 10.123.123.0/24 >> %WG_CONFIG%
+echo Endpoint = wireguard.00a.ch:51820 >> %WG_CONFIG%
+echo PersistentKeepalive = 25 >> %WG_CONFIG%
+
+wireguard /installtunnelservice %WG_CONFIG%
+```
+
+### Config
+
+TODO figure out how to set this stuff
+
+```console
+> cat netdata.conf
+[db]
+mode=ram
+
+[global]
+config directory=/etc/netdata/conf.d
+plugins directory=/nix/store/rhv3hvs7h03mr719lhvqxkw03afhdq0s-netdata-2.2.6/libexec/netdata/plugins.d /nix/store/n6ypds1wv6czl9dhc77rd5qqahsv4fw7-wrapped-plugins/libexec/netdata/plugins.d
+
+[ml]
+enabled=no
+
+[plugin:cgroups]
+script to get cgroup network interfaces=/nix/store/n6ypds1wv6czl9dhc77rd5qqahsv4fw7-wrapped-plugins/libexec/netdata/plugins.d/cgroup-network
+use unified cgroups=yes
+
+[web]
+mode=none
+
+> cat conf.d/stream.conf
+[stream]
+api key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+destination=10.123.123.2:19996
+enabled=yes
+```
+
+### Package
+
 Run in an elevated cmd
 
 - Replace `CLAIM_TOKEN` with value form [secrets.nix](../../../secrets.nix).monitoring.claimToken
