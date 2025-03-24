@@ -8,7 +8,6 @@ in {
     ./broken-emmc.nix
     ./firewall.nix
     ./lancache.nix
-    ./librenms.nix
     ./routing.nix
     ./web-proxy.nix
 
@@ -37,18 +36,6 @@ in {
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-    };
-
-    snmpd = {
-      enable = true;
-
-      listenAddress = "127.0.0.1";
-      configText = ''
-        rocommunity public
-
-        sysLocation Cabinet
-        sysContact ${config.security.acme.defaults.email}
-      '';
     };
   };
 }
