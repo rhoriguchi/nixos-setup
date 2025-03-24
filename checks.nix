@@ -20,7 +20,7 @@
       };
       end-of-file-fixer = {
         enable = true;
-        excludes = [ "secrets\\.nix$" ];
+        excludes = [ "secrets\\.nix$" "configuration\\/devices\\/windows-laptop\\/iex\\.json" ];
       };
       fix-byte-order-marker.enable = true;
       lychee = {
@@ -36,7 +36,7 @@
       };
       mixed-line-endings = {
         enable = true;
-        excludes = [ "secrets\\.nix$" ];
+        excludes = [ "secrets\\.nix$" "configuration\\/devices\\/windows-laptop\\/iex\\.json" ];
       };
       nixfmt-classic = {
         enable = true;
