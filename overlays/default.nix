@@ -1,17 +1,5 @@
 [
   (_: super: {
-    gnomeExtensions = super.gnomeExtensions // {
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=385948
-      unite = super.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "NixOS";
-            repo = "nixpkgs";
-            rev = "a7c108c44e8ae878e6dec01563e79381ea6a446f";
-            hash = "sha256-2H3KyY2mw969VCLZOXwMOyhNZbtS1vSSCxSxbrGaYe8=";
-          }
-        }/pkgs/desktops/gnome/extensions/unite/default.nix") { };
-    };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=390165
     netdata = super.callPackage (import "${
         super.fetchFromGitHub {
@@ -31,6 +19,18 @@
           sha256 = "sha256-e2ljR1cZY3WjAr2O0QBEMRCbxHk/qnrhzHhvNOCGDII=";
         }
       }/pkgs/by-name/so/sonarr/package.nix") { };
+
+    gnomeExtensions = super.gnomeExtensions // {
+      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=392867
+      unite = super.callPackage (import "${
+          super.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "1798da7b5784d9d1981acc5ca323f8fa30ea891e";
+            hash = "sha256-OscZuQ+OaLtIrHmcDrMOU+AvEI6zL9j2rxpgGHo3/Sw=";
+          }
+        }/pkgs/desktops/gnome/extensions/unite/default.nix") { };
+    };
 
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=393335
     prowlarr = super.callPackage (import "${
