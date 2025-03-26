@@ -1,4 +1,4 @@
-{ config, lib, secrets, ... }: {
+{ config, lib, pkgs, secrets, ... }: {
   imports = [
     ../common.nix
 
@@ -31,6 +31,8 @@
         path = "/boot-mirror";
       }];
     };
+
+    kernelPackages = pkgs.linuxPackages;
   };
 
   networking = {
