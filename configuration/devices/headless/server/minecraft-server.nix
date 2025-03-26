@@ -146,8 +146,8 @@ in {
             "plugins/VelocityWhitelistr.jar" = let
               owner = "TISUnion";
               repo = "VelocityWhitelist";
-              rev = "0.2.0";
-              sha256 = "sha256-MBvI8fT1dNg03pPMegOohAz39lzgCNpkHfFzEpy4wd0=";
+              rev = "0.3.0";
+              sha256 = "sha256-FnVjNnuYy1Vqrh750Bf+Pmsf55dVu2ylplK3lHBf4OA=";
             in pkgs.fetchurl {
               url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/VelocityWhitelist-${rev}.jar";
               inherit sha256;
