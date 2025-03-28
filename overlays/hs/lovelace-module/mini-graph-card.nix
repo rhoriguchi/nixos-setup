@@ -6,10 +6,10 @@ stdenv.mkDerivation rec {
   src = let
     owner = "kalkih";
     repo = "mini-graph-card";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-NfqjTTwHleXajLNlMEQgbVYfiEtsC12aCbFEuH9RGMQ=";
   in fetchurl {
-    url = "https://github.com/${owner}/${repo}/releases/download/${rev}/mini-graph-card-bundle.js";
+    url = "https://github.com/${owner}/${repo}/releases/download/${tag}/mini-graph-card-bundle.js";
     inherit hash;
   };
 

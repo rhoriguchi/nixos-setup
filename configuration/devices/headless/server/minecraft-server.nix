@@ -146,10 +146,10 @@ in {
             "plugins/VelocityWhitelistr.jar" = let
               owner = "TISUnion";
               repo = "VelocityWhitelist";
-              rev = "0.3.0";
+              tag = "0.3.0";
               sha256 = "sha256-FnVjNnuYy1Vqrh750Bf+Pmsf55dVu2ylplK3lHBf4OA=";
             in pkgs.fetchurl {
-              url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/VelocityWhitelist-${rev}.jar";
+              url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/VelocityWhitelist-${tag}.jar";
               inherit sha256;
             };
             "plugins/velocitywhitelist/config.yml" = pkgs.writers.writeYAML "config.yml" {
@@ -203,10 +203,10 @@ in {
             "plugins/BlueMap.jar" = let
               owner = "BlueMap-Minecraft";
               repo = "BlueMap";
-              rev = "5.7";
+              tag = "5.7";
               sha256 = "sha256-4T9Pf1FA/XlByNTmVIimj+7aCyX/BPy011gdT70mFAk=";
             in pkgs.fetchurl {
-              url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/bluemap-${rev}-paper.jar";
+              url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/bluemap-${tag}-paper.jar";
               inherit sha256;
             };
             "plugins/BlueMap/core.conf" = pkgs.writeText "core.conf" ''
@@ -237,20 +237,20 @@ in {
             "plugins/BlueMap/packs/BlueMapSpawnMarker.jar" = let
               owner = "TechnicJelle";
               repo = "BlueMapSpawnMarker";
-              rev = "1.1";
+              tag = "1.1";
               sha256 = "sha256-6wZ0Ns6RulKjIuJ3zpxg4MnmgHHD0AdByYE+s+sIk8w=";
             in pkgs.fetchurl {
-              url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/BlueMapSpawnMarker-${rev}.jar";
+              url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/BlueMapSpawnMarker-${tag}.jar";
               inherit sha256;
             };
 
             "plugins/PrometheusExporter.jar" = let
               owner = "sladkoff";
               repo = "minecraft-prometheus-exporter";
-              rev = "3.1.2";
+              tag = "3.1.2";
               sha256 = "sha256-nfTBS/EQNMuHHSse23Hsc9CiW6mGD4uQ4JYA2D5I2js=";
             in pkgs.fetchurl {
-              url = "https://github.com/${owner}/${repo}/releases/download/v${rev}/minecraft-prometheus-exporter-${rev}.jar";
+              url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/minecraft-prometheus-exporter-${tag}.jar";
               inherit sha256;
             };
           };

@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "thomasloven";
     repo = "lovelace-card-mod";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-CG0zOD1TluZiFqRkmr/ZRQMRAY/5OhqjsD291zOr2/c=";
   };
 

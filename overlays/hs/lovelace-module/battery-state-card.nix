@@ -6,10 +6,10 @@ stdenv.mkDerivation rec {
   src = let
     owner = "maxwroc";
     repo = "battery-state-card";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-BGBecR099e2wbyEtlWvPDdXTiriMdXPlNqNHGpFkZRY=";
   in fetchurl {
-    url = "https://github.com/${owner}/${repo}/releases/download/${rev}/battery-state-card.js";
+    url = "https://github.com/${owner}/${repo}/releases/download/${tag}/battery-state-card.js";
     inherit hash;
   };
 
