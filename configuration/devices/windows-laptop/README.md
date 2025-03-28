@@ -60,6 +60,7 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 
 winget install --accept-source-agreements --exact --silent --uninstall-previous Blitz.Blitz
 winget install --accept-source-agreements --exact --silent --uninstall-previous Discord.Discord
+winget install --accept-source-agreements --exact --silent --uninstall-previous IObit.DriverBooster
 winget install --accept-source-agreements --exact --silent --uninstall-previous IObit.Uninstaller
 winget install --accept-source-agreements --exact --silent --uninstall-previous MartiCliment.UniGetUI
 winget install --accept-source-agreements --exact --silent --uninstall-previous Mojang.MinecraftLauncher
@@ -68,7 +69,6 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 winget install --accept-source-agreements --exact --silent --uninstall-previous OpenWhisperSystems.Signal
 winget install --accept-source-agreements --exact --silent --uninstall-previous RazerInc.RazerInstaller
 winget install --accept-source-agreements --exact --silent --uninstall-previous RiotGames.LeagueOfLegends.EUW
-winget install --accept-source-agreements --exact --silent --uninstall-previous samlab-ws.SnappyDriverInstaller
 winget install --accept-source-agreements --exact --silent --uninstall-previous Spotify.Spotify
 winget install --accept-source-agreements --exact --silent --uninstall-previous TeamViewer.TeamViewer
 winget install --accept-source-agreements --exact --silent --uninstall-previous Valve.Steam
