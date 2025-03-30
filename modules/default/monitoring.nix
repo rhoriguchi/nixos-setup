@@ -68,6 +68,28 @@ in {
     ];
 
     services = {
+      borg-exporter.enable = config.services.borgmatic.enable;
+
+      frr_exporter = {
+        enable = frrEnabled;
+
+        collectors = {
+          bfd = config.services.frr.bfdd.enable;
+          bgp = config.services.frr.bgpd.enable;
+          ospf = config.services.frr.ospfd.enable;
+          pim = config.services.frr.pimd.enable;
+        };
+      };
+
+      immich.environment.IMMICH_TELEMETRY_INCLUDE = "all";
+
+      loki.configuration.server.register_instrumentation = true;
+
+      mysql.ensureUsers = [{
+        name = "netdata";
+        ensurePermissions."*.*" = lib.concatStringsSep ", " [ "PROCESS" "REPLICATION CLIENT" "USAGE" ];
+      }];
+
       nginx = {
         statusPage = true;
 
@@ -91,29 +113,7 @@ in {
         GRANT pg_monitor TO netdata;
       '';
 
-      mysql.ensureUsers = [{
-        name = "netdata";
-        ensurePermissions."*.*" = lib.concatStringsSep ", " [ "PROCESS" "REPLICATION CLIENT" "USAGE" ];
-      }];
-
-      borg-exporter.enable = config.services.borgmatic.enable;
-
-      frr_exporter = {
-        enable = frrEnabled;
-
-        collectors = {
-          bfd = config.services.frr.bfdd.enable;
-          bgp = config.services.frr.bgpd.enable;
-          ospf = config.services.frr.ospfd.enable;
-          pim = config.services.frr.pimd.enable;
-        };
-      };
-
-      loki.configuration.server.register_instrumentation = true;
-
       promtail.configuration.server.register_instrumentation = true;
-
-      immich.environment.IMMICH_TELEMETRY_INCLUDE = "all";
 
       netdata = {
         enable = true;
