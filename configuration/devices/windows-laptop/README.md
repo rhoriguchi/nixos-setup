@@ -101,6 +101,14 @@ start /wait msiexec /quiet /qn /norestart /i Netdata.msi TOKEN="CLAIM_TOKEN" ROO
 del /f Netdata.msi
 ```
 
+## Samba share
+
+Manually enter password found in [secrets.nix](../../../secrets.nix).samba.users.password and save credentials
+
+```cmd
+net use X: \\XXLPitu-Server.local\Series /user:samba /persistent:yes
+```
+
 ## Cleanup autostart
 
 Run in an elevated cmd

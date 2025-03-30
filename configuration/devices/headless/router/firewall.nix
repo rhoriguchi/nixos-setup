@@ -76,6 +76,7 @@ in {
             ip saddr @private_vlan ip daddr @dmz_vlan accept
 
             ip saddr @iot_vlan ip daddr ${serverIp} tcp dport { 443 } accept # Home Assistant - Shelly
+            ip saddr @iot_vlan ip daddr ${serverIp} tcp dport { 445 } accept # Samba
             ip saddr @iot_vlan ip daddr ${serverIp} udp dport { 4002 } accept # Home Assistant - Govee
             ip saddr @iot_vlan ip daddr ${serverIp} ct state established accept
             ip saddr @iot_vlan ip daddr @private_vlan ct state established accept

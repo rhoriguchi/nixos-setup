@@ -115,6 +115,8 @@ in {
 
       promtail.configuration.server.register_instrumentation = true;
 
+      samba.settings.global."smbd profiling level" = "count";
+
       netdata = {
         enable = true;
 
@@ -123,6 +125,7 @@ in {
           withCups = true;
           withDBengine = isParent;
           withDebug = cfg.debug.enable;
+          # withLibbacktrace = cfg.debug.enable;
           withNdsudo = true;
         };
 
@@ -134,7 +137,9 @@ in {
 
           # S.M.A.R.T. collector
           pkgs.smartmontools
-        ];
+        ]
+        # Samba collector
+          ++ lib.optional config.services.samba.enable pkgs.samba;
 
         # TODO monitor
         # HDD temperature https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/hdd-temperature
