@@ -18,7 +18,7 @@ in {
     ];
   };
 
-  system.activationScripts.gphotos-sync = ''
+  system.activationScripts.bindmount-gphotos-sync = ''
     mkdir -p ${bindmountDir}
     chown -R ${config.services.gphotos-sync.user}:${config.services.gphotos-sync.group} ${rootBindmountDir}
   '';

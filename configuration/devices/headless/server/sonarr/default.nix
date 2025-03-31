@@ -32,7 +32,7 @@ in {
     };
   };
 
-  system.activationScripts.sonarr = ''
+  system.activationScripts.bindmount-sonarr = ''
     mkdir -p ${bindmountDir1}
     mkdir -p ${bindmountDir2}
     chown -R ${config.services.sonarr.user}:${config.services.sonarr.group} ${rootBindmountDir}

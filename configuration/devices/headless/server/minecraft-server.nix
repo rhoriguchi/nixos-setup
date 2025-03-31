@@ -49,7 +49,7 @@ in {
     ];
   };
 
-  system.activationScripts.nginx = ''
+  system.activationScripts.bindmount-nginx = ''
     mkdir -p ${bindmountDir}
     chown -R ${config.services.nginx.user}:${config.services.nginx.group} ${rootBindmountDir}
   '';

@@ -63,7 +63,7 @@ in {
     };
   };
 
-  system.activationScripts.plex = ''
+  system.activationScripts.bindmount-plex = ''
     mkdir -p ${bindmountDir1}
     mkdir -p ${bindmountDir2}
     mkdir -p ${bindmountDir3}

@@ -20,7 +20,7 @@ in {
     ];
   };
 
-  system.activationScripts.immich = ''
+  system.activationScripts.bindmount-immich = ''
     mkdir -p ${bindmountDir}
     chown -R ${config.services.immich.user}:${config.services.immich.group} ${rootBindmountDir}
   '';
