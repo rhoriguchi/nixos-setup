@@ -52,7 +52,8 @@
       enableGraphical = true;
     };
 
-    openrazer.enable = true;
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=384992
+    # openrazer.enable = true;
 
     printers = {
       ensureDefaultPrinter = "Home";
