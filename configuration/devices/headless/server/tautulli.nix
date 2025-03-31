@@ -33,11 +33,9 @@
   };
 
   systemd.services.tautulli = rec {
-    path = [ pkgs.gnused ];
-
     preStart = ''
-      sed -i '/http_password/d' '${config.services.tautulli.configFile}'
-      sed -i '/http_username/d' '${config.services.tautulli.configFile}'
+      ${pkgs.gnused}/bin/sed -i '/http_password/d' '${config.services.tautulli.configFile}'
+      ${pkgs.gnused}/bin/sed -i '/http_username/d' '${config.services.tautulli.configFile}'
     '';
     preStop = preStart;
   };
