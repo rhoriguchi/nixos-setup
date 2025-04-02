@@ -1,6 +1,6 @@
 # Windows Laptop setup
 
-## Chris Titus Tech's Windows Utility
+## [Chris Titus Tech's Windows Utility](https://github.com/ChrisTitusTech/winutil)
 
 Run in an elevated PowerShell
 
@@ -28,10 +28,11 @@ powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 
 REM Windows Explorer tuning
 reg add HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v HideFileExt /t REG_DWORD /d 0 /f
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem /v LongPathsEnabled /t REG_DWORD /d 1 /f
+reg add HKEY_CURRENT_USER\SYSTEM\CurrentControlSet\Control\FileSystem /v LongPathsEnabled /t REG_DWORD /d 1 /f
 
 REM Windows Taskbar
 reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarAl /t REG_DWORD /d 0 /f
+reg add "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Dsh" /v AllowNewsAndInterests /t REG_DWORD /d 0 /f
 ```
 
 ## Manual software
@@ -52,14 +53,17 @@ start %userprofile%/Downloads
 Run in an elevated cmd
 
 ```cmd
-REM Xbox
-winget install --accept-source-agreements --exact --silent --uninstall-previous 9MV0B5HZVK9Z
-
 REM NVIDIA Control Panel
 winget install --accept-source-agreements --exact --silent --uninstall-previous 9NF8H0H7WMLT
 
+REM Snipping Tool
+winget install --accept-source-agreements --exact --silent --uninstall-previous 9MZ95KL8MR0L
+
 REM WhatsApp
 winget install --accept-source-agreements --exact --silent --uninstall-previous 9NKSQGP7F2NH
+
+REM Xbox
+winget install --accept-source-agreements --exact --silent --uninstall-previous 9MV0B5HZVK9Z
 
 winget install --accept-source-agreements --exact --silent --uninstall-previous Blitz.Blitz
 winget install --accept-source-agreements --exact --silent --uninstall-previous Discord.Discord
@@ -116,7 +120,7 @@ sc config TeamViewer start= disabled
 
 ```cmd
 winget install --accept-source-agreements --exact --silent --uninstall-previous NexusMods.Vortex
-``
+```
 
 #### Cyberpunk 20777
 
