@@ -46,10 +46,6 @@ in {
         show-banners = true;
         show-in-lock-screen = false;
       };
-      "org/gnome/desktop/peripherals/touchpad" = {
-        tap-and-drag = false;
-        click-method = "areas";
-      };
       "org/gnome/desktop/privacy" = {
         old-files-age = 30;
         remove-old-temp-files = true;

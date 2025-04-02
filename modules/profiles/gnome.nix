@@ -49,6 +49,11 @@
             monospace-font-name = lib.gvariant.mkString "RobotoMono Nerd Font";
           };
         }
+        {
+          keyfiles = [ pkgs.gsettings-desktop-schemas ];
+
+          settings."org/gnome/desktop/peripherals/touchpad" = { click-method = lib.gvariant.mkString "fingers"; };
+        }
       ];
     };
 
