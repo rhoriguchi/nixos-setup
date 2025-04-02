@@ -1,5 +1,14 @@
 [
   (_: super: {
+    resilio-sync = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "4f0dadbf38ee4cf4cc38cbc232b7708fddf965bc";
+          sha256 = "sha256-jQNGd1Kmey15jq5U36m8pG+lVsxSJlDj1bJ167BjHQ4=";
+        }
+      }/pkgs/by-name/re/resilio-sync/package.nix") { };
+
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=390165
     netdata = super.callPackage (import "${
         super.fetchFromGitHub {
@@ -9,28 +18,6 @@
           sha256 = "sha256-xiF/2bpsZpsPKEBW8e7j0NzRb8TSgmEdkSQeSL4nbAg=";
         }
       }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=391400
-    sonarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "de5d17112156bf80bb0f3870167c8a9f5268ebeb";
-          sha256 = "sha256-e2ljR1cZY3WjAr2O0QBEMRCbxHk/qnrhzHhvNOCGDII=";
-        }
-      }/pkgs/by-name/so/sonarr/package.nix") { };
-
-    gnomeExtensions = super.gnomeExtensions // {
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=392867
-      unite = super.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "NixOS";
-            repo = "nixpkgs";
-            rev = "1798da7b5784d9d1981acc5ca323f8fa30ea891e";
-            hash = "sha256-OscZuQ+OaLtIrHmcDrMOU+AvEI6zL9j2rxpgGHo3/Sw=";
-          }
-        }/pkgs/desktops/gnome/extensions/unite/default.nix") { };
-    };
 
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=393335
     prowlarr = super.callPackage (import "${
@@ -51,18 +38,6 @@
           sha256 = "sha256-0bGBCjWyfyNe17nhnzZC+TL7Wog2GrnBjifZK77p2v0=";
         }
       }/pkgs/servers/adguardhome") { };
-
-    home-assistant-custom-components = super.home-assistant-custom-components // {
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=393563
-      localtuya = super.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "NixOS";
-            repo = "nixpkgs";
-            rev = "58c3c75a0acf8264bc6e834a0c7bfc8bcf879360";
-            sha256 = "sha256-QLtgpuiH0BfaVQ8v7ZUB4WqNs3HoU7AIaDi/W3Pawqs=";
-          }
-        }/pkgs/servers/home-assistant/custom-components/localtuya/package.nix") { };
-    };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
