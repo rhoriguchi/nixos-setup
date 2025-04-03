@@ -125,11 +125,10 @@ in {
 
               bind = "0.0.0.0:${toString proxyPort}";
 
-              # https://docs.advntr.dev/minimessage/format.html
-              motd = "<light_purple>Pingu Land</light_purple>";
-
               player-info-forwarding-mode = "modern";
               forwarding-secret-file = pkgs.writeText "forwarding.secret" secrets.minecraft.forwardingSecret;
+
+              ping-passthrough = "ALL";
 
               show-max-players = builtins.length (builtins.attrNames whitelist);
               online-mode = true;
@@ -142,8 +141,6 @@ in {
 
               forced-hosts."minecraft.00a.ch" = [ serverName ];
             };
-
-            "server-icon.png" = ./icon.png;
 
             "plugins/VelocityWhitelistr.jar" = let
               owner = "TISUnion";
@@ -178,6 +175,9 @@ in {
             server-port = serverPort;
             server-ip = "127.0.0.1";
 
+            #https://mctools.org/motd-creator?text=%26d%26lPingu+Land
+            motd = "\\u00A7d\\u00A7lPingu Land";
+
             online-mode = false; # done by velocity
 
             difficulty = "normal";
@@ -202,6 +202,8 @@ in {
           };
 
           symlinks = {
+            "server-icon.png" = ./server-icon.png;
+
             "plugins/BlueMap.jar" = let
               owner = "BlueMap-Minecraft";
               repo = "BlueMap";
