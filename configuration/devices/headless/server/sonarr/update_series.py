@@ -273,8 +273,9 @@ tv_time_request_handler = TVTimeRequestHandler('@tvTimeUsername@', '@tvTimePassw
 sonar_helper = SonarrHelper('@sonarApiUrl@', '@sonarApiKey@', '@sonarrRootDir@')
 
 tvdb_ids = tv_time_request_handler.get_tvdb_ids()
+excluded_tvdb_ids = [@excludedTvdbIds@]
 
-filtered_tvdb_ids = [tvdb_id for tvdb_id in tvdb_ids if tvdb_id not in [ @excludedTvdbIds@ ]]
+filtered_tvdb_ids = [tvdb_id for tvdb_id in tvdb_ids if tvdb_id not in excluded_tvdb_ids]
 
 sonar_helper.delete_all_missing_series(filtered_tvdb_ids)
 

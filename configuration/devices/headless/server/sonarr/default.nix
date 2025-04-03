@@ -83,9 +83,11 @@ in {
     after = [ "network.target" "sonarr.service" ];
 
     script = let
-      pythonWithPackages = pkgs.python3.withPackages (ps: [ ps.pyjwt ps.requests ]);
+      pythonScript = pkgs.writers.writePython3 "update_series.py" {
+        libraries = [ pkgs.python3Packages.pyjwt pkgs.python3Packages.requests ];
 
-      script = pkgs.substituteAll {
+        flakeIgnore = [ "E501" ];
+      } (builtins.readFile (pkgs.substituteAll {
         src = ./update_series.py;
 
         sonarApiUrl = "http://127.0.0.1:8989";
@@ -100,8 +102,8 @@ in {
           371980 # Severance
           422712 # Daredevil: Born Again
         ]);
-      };
-    in "${pythonWithPackages}/bin/python ${script}";
+      }));
+    in "${pythonScript}";
 
     startAt = "*:0/15";
 
