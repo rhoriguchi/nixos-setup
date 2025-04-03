@@ -48,5 +48,7 @@
     };
 
     hs = super.callPackage ./hs { };
+
+    steam-lancache-prefill = super.callPackage ./steam-lancache-prefill { };
   })
 ]
