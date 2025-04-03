@@ -8,7 +8,7 @@
     ./home-assistant
     ./immich.nix
     ./log-management.nix
-    ./minecraft-server.nix
+    ./minecraft-server
     ./monitoring.nix
     ./plex.nix
     ./samba.nix

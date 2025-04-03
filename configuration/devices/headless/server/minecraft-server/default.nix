@@ -143,6 +143,8 @@ in {
               forced-hosts."minecraft.00a.ch" = [ serverName ];
             };
 
+            "server-icon.png" = ./icon.png;
+
             "plugins/VelocityWhitelistr.jar" = let
               owner = "TISUnion";
               repo = "VelocityWhitelist";
