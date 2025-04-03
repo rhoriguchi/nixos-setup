@@ -140,6 +140,15 @@ zfs create \
   data/sync
 ```
 
+### Router
+
+#### Authenticate steam-lancache-prefill
+
+```console
+cd /var/lib/steam-lancache-prefill
+sudo -u steam-lancache-prefill STORE_PATH/bin/SteamPrefill prefill
+```
+
 ## Update flake
 
 ```console
