@@ -43,7 +43,7 @@ in {
       default = [ "1.1.1.1" "1.0.0.1" ];
     };
     cacheDomains = lib.mkOption {
-      type = lib.types.listOf (lib.types.str);
+      type = lib.types.listOf lib.types.str;
       default = cacheDomains
         # needed for steam download to work
         ++ lib.optional (builtins.elem "steam" cfg.cachedServices) "*.steamcontent.com";
