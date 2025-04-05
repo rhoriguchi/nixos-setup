@@ -1,4 +1,4 @@
-# Windows Laptop setup
+# Nnoitra setup
 
 ## [Chris Titus Tech's Windows Utility](https://github.com/ChrisTitusTech/winutil)
 
