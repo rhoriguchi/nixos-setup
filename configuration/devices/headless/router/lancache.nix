@@ -17,6 +17,7 @@
         1614550 # Astro Colony
         1794680 # Vampire Survivors
         2379780 # Balatro
+        250900 # The Binding of Isaac: Rebirth
         427520 # Factorio
       ];
     };
