@@ -64,6 +64,8 @@ in {
           '';
         };
       };
+
+      stream.resolvers = [ "127.0.0.1" ];
     };
 
     dnsmasq.resolveLocalQueries = false;

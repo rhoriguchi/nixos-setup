@@ -19,8 +19,6 @@ let
   ];
   ulquiorraDomains = [ "printer.00a.ch" "scanner.00a.ch" ];
 
-  getUpstreams = host: domains: lib.concatStringsSep "\n" (map (domain: "${domain} ${host};") domains);
-
   getVirtualHost = hostName: domains: {
     "${lib.replaceStrings [ ".local" ] [ "" ] hostName}" = {
       serverAliases = domains;
@@ -50,45 +48,22 @@ in {
 
     defaultSSLListenPort = 9443;
 
-    streamConfig = ''
-      resolver 127.0.0.1;
+    stream.upstreams = {
+      "${config.networking.hostName}" = {
+        server = "127.0.0.1:${toString config.services.nginx.defaultSSLListenPort}";
+        hostnames = config.services.infomaniak.hostnames;
+      };
 
-      upstream ${config.networking.hostName} {
-        server 127.0.0.1:${toString config.services.nginx.defaultSSLListenPort};
-      }
+      XXLPitu-Ulquiorra = {
+        server = "XXLPitu-Ulquiorra.local:443";
+        hostnames = ulquiorraDomains;
+      };
 
-      upstream lancache {
-        server 127.0.0.1:${toString config.services.lancache.httpsPort};
-      }
-
-      upstream XXLPitu-Ulquiorra {
-        server XXLPitu-Ulquiorra.local:443;
-      }
-
-      upstream XXLPitu-Server {
-        server XXLPitu-Server.local:443;
-      }
-
-      map $ssl_preread_server_name $upstream {
-        # indicates that source values can be hostnames with a prefix or suffix mask:
-        hostnames;
-
-        ${getUpstreams config.networking.hostName config.services.infomaniak.hostnames}
-        ${getUpstreams "lancache" config.services.lancache.cacheDomains}
-
-        ${getUpstreams "XXLPitu-Server" serverDomains}
-        ${getUpstreams "XXLPitu-Ulquiorra" ulquiorraDomains}
-      }
-
-      server {
-        listen 443;
-        ${lib.optionalString config.networking.enableIPv6 "listen [::]:443;"}
-
-        ssl_preread on;
-
-        proxy_pass $upstream;
-      }
-    '';
+      XXLPitu-Server = {
+        server = "XXLPitu-Server.local:443";
+        hostnames = serverDomains;
+      };
+    };
 
     virtualHosts = (getVirtualHost "XXLPitu-Server.local" serverDomains) // (getVirtualHost "XXLPitu-Ulquiorra.local" ulquiorraDomains);
   };

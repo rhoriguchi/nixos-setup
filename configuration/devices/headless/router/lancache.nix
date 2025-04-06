@@ -61,6 +61,11 @@
           };
         };
       };
+
+      stream.upstreams.lancache = {
+        server = "127.0.0.1:${toString config.services.lancache.httpsPort}";
+        hostnames = config.services.lancache.cacheDomains;
+      };
     };
   };
 }
