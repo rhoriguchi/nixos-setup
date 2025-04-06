@@ -48,10 +48,10 @@ in {
         unbind %
         bind h split-window -h
 
-        # backwards: n | forwards: N
         bind / copy-mode \; send-key C-r
-
         bind -n C-l send-keys C-l \; run 'sleep 0.2' \; clear-history
+
+        unbind C
 
         set -g clock-mode-colour '${colors.normal.accent}'
         set -g message-command-style bg='${colors.normal.black}',fg='${colors.normal.green}'
