@@ -4,6 +4,7 @@
 
     ./backup.nix
     ./fancontrol.nix
+    ./firefox-syncserver.nix
     ./gphotos-sync.nix
     ./home-assistant
     ./immich.nix
