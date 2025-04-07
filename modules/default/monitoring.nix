@@ -144,7 +144,6 @@ in {
         # TODO monitor
         # HDD temperature https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/hdd-temperature
         # nftables https://www.netdata.cloud/integrations/data-collection/linux-systems/firewall/nftables
-        # Nvidia GPU https://www.netdata.cloud/integrations/data-collection/hardware-devices-and-sensors/nvidia-gpu
 
         config = {
           parent = {
