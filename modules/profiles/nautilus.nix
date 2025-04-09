@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ config, pkgs, ... }: {
   services.gnome.sushi.enable = true;
 
   programs = {
@@ -13,14 +13,17 @@
         {
           lockAll = true;
 
-          keyfiles = [ pkgs.nautilus ];
+          keyfiles = [ pkgs.gsettings-desktop-schemas pkgs.nautilus ];
 
-          settings."org/gnome/nautilus/preferences".open-folder-on-dnd-hover = lib.gvariant.mkBoolean true;
+          settings = {
+            "org/gnome/nautilus/preferences".open-folder-on-dnd-hover = true;
+            "org/gnome/desktop/search-providers".sort-order = [ "org.gnome.Nautilus.desktop" ];
+          };
         }
         {
           keyfiles = [ pkgs.gtk3 ];
 
-          settings."org/gtk/settings/file-chooser".show-hidden = lib.gvariant.mkBoolean true;
+          settings."org/gtk/settings/file-chooser".show-hidden = true;
         }
       ];
     };

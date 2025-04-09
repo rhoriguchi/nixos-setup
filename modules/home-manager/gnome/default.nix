@@ -6,16 +6,17 @@ let
     pkgs.gnomeExtensions.caffeine
     pkgs.gnomeExtensions.dash-to-dock
     pkgs.gnomeExtensions.date-menu-formatter
+    pkgs.gnomeExtensions.launch-new-instance
     pkgs.gnomeExtensions.tophat
     pkgs.gnomeExtensions.transparent-top-bar-adjustable-transparency
     pkgs.gnomeExtensions.unite
+    pkgs.gnomeExtensions.user-themes
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
   imports = [ ./autostart.nix ];
 
-  # TODO causes issues on darwin
-  home.packages = lib.optionals pkgs.stdenv.isLinux ([ pkgs.papirus-icon-theme pkgs.yaru-theme ] ++ extensions);
+  home.packages = extensions;
 
   dconf = {
     enable = true;
@@ -38,25 +39,9 @@ in {
         clock-show-seconds = true;
         clock-show-weekday = true;
         enable-hot-corners = false;
-        gtk-theme = "Yaru-blue";
-        icon-theme = "Papirus";
         show-battery-percentage = true;
       };
-      "org/gnome/desktop/notifications" = {
-        show-banners = true;
-        show-in-lock-screen = false;
-      };
-      "org/gnome/desktop/privacy" = {
-        old-files-age = 30;
-        remove-old-temp-files = true;
-        remove-old-trash-files = true;
-        report-technical-problems = false;
-        send-software-usage-stats = false;
-      };
-      "org/gnome/desktop/search-providers" = {
-        disabled = [ "org.gnome.Contacts.desktop" ];
-        sort-order = [ "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
-      };
+      "org/gnome/desktop/notifications".show-banners = true;
       "org/gnome/desktop/wm/keybindings" = {
         activate-window-menu = [ ];
         begin-move = [ "<Alt>F7" ];
@@ -99,11 +84,6 @@ in {
       "org/gnome/desktop/wm/preferences" = {
         button-layout = ":minimize,maximize,close";
         num-workspaces = 1;
-        theme = "Yaru-blue";
-      };
-      "org/gnome/login-screen" = {
-        enable-fingerprint-authentication = false;
-        enable-smartcard-authentication = false;
       };
       "org/gnome/mutter".dynamic-workspaces = false;
       "org/gnome/mutter/keybindings" = {
@@ -131,12 +111,8 @@ in {
       };
       "org/gnome/shell" = {
         app-picker-layout = [ ];
-        disable-extension-version-validation = true;
-        disable-user-extensions = false;
-        disabled-extensions = [ ];
         enabled-extensions =
-          [ "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" ]
-          ++ map (extension: if lib.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid) extensions;
+          map (extension: if lib.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid) extensions;
         favorite-apps = [ ];
         welcome-dialog-last-shown-version = "9999999999";
       };
@@ -328,7 +304,6 @@ in {
         window-buttons-placement = "auto";
         window-buttons-theme = "yaru";
       };
-      "org/gnome/shell/extensions/user-theme".name = "Yaru-blue";
       "org/gnome/shell/extensions/windowIsReady_Remover".prevent-disable = true;
       "org/gnome/shell/keybindings" = {
         focus-active-notification = [ ];
