@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
   services.fwupd.enable = true;
 
-  environment.systemPackages = lib.optional config.services.xserver.enable pkgs.gnome-software;
+  environment.systemPackages = lib.optional config.services.xserver.desktopManager.gnome.enable pkgs.gnome-software;
 }
