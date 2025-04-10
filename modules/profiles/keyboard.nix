@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }: {
   console.useXkbConfig = true;
 
-  services.xserver = {
-    xkb = {
-      layout = "ch";
-      model = "pc105";
-      variant = "de_nodeadkeys";
-    };
+  services.xserver.xkb = {
+    layout = "ch";
+    model = "pc105";
+    variant = "de_nodeadkeys";
   };
 
   programs.dconf.profiles.user.databases = [{
