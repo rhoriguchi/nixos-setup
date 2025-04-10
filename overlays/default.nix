@@ -19,16 +19,6 @@
         }
       }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=393335
-    prowlarr = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "c850d1c436fd584b91093b6c4be1897192a2d2b4";
-          sha256 = "sha256-5NX6MgonkLabTyumi2+pshlbY24QNUEkOZfFf9fLvrk=";
-        }
-      }/pkgs/by-name/pr/prowlarr/package.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=393454
     adguardhome = super.callPackage (import "${
         super.fetchFromGitHub {
@@ -38,6 +28,16 @@
           sha256 = "sha256-0bGBCjWyfyNe17nhnzZC+TL7Wog2GrnBjifZK77p2v0=";
         }
       }/pkgs/servers/adguardhome") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=397819
+    prowlarr = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "07251d38564ea52ccb36255222709a59c18a5677";
+          sha256 = "sha256-+DCwKaFrUQAgFN4DLwQu7/FyX58m35hJ1u6eNaSv7v4=";
+        }
+      }/pkgs/by-name/pr/prowlarr/package.nix") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
