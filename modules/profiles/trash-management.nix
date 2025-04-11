@@ -1,16 +1,19 @@
 { pkgs, ... }: {
-  systemd.user.services.trash-management = {
-    after = [ "default.target" ];
-    wantedBy = [ "multi-user.target" ];
+  systemd.user = {
+    services.trash-management = {
+      after = [ "default.target" ];
 
-    script = ''
-      ${pkgs.autotrash}/bin/autotrash --days 30 --stat
-      ${pkgs.autotrash}/bin/autotrash --days 30
-    '';
+      script = ''
+        ${pkgs.autotrash}/bin/autotrash --days 30 --stat
+        ${pkgs.autotrash}/bin/autotrash --days 30
+      '';
 
-    serviceConfig.Type = "oneshot";
+      serviceConfig.Type = "oneshot";
 
-    startAt = "daily";
+      startAt = "daily";
+    };
+
+    timers.trash-management.timerConfig.Persistent = true;
   };
 
   programs.dconf.profiles.user.databases = [{

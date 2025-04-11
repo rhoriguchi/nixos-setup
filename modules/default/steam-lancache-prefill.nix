@@ -38,7 +38,7 @@ in {
 
         script = "${pkgs.steam-lancache-prefill}/bin/SteamPrefill prefill --verbose";
 
-        startAt = "05:00:00";
+        startAt = "05:00";
 
         serviceConfig = {
           User = cfg.user;
