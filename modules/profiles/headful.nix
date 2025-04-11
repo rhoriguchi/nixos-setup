@@ -12,6 +12,7 @@
     ./printing.nix
     ./shell.nix
     ./tmp-management.nix
+    ./trash-management.nix
     ./util.nix
   ];
 }
