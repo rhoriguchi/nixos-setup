@@ -331,7 +331,6 @@ in {
 
         serviceConfig = {
           Type = "oneshot";
-          RemainAfterExit = true;
           User = config.services.netdata.user;
           Group = config.services.netdata.group;
         };
