@@ -53,7 +53,7 @@ in {
             font-name = "Adwaita Sans 11";
             monospace-font-name = "RobotoMono Nerd Font";
             icon-theme = "Papirus";
-            gtk-theme = "Yaru-blue";
+            gtk-theme = "Yaru";
           };
           "org/gnome/desktop/peripherals/touchpad".click-method = "fingers";
           "org/gnome/desktop/privacy" = {
@@ -72,7 +72,7 @@ in {
             enabled-extensions =
               map (extension: if lib.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid) extensions;
           };
-          "org/gnome/shell/extensions/user-theme".name = "Yaru-blue";
+          "org/gnome/shell/extensions/user-theme".name = "Yaru";
         };
       }
     ];
