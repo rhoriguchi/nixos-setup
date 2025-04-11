@@ -10,6 +10,12 @@
       enable = true;
 
       profiles.user.databases = [{
+        keyfiles = [
+          "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-${pkgs.gsettings-desktop-schemas.version}/glib-2.0/schemas"
+          "${pkgs.gtk3}/glib-2.0/schemas"
+          "${pkgs.nautilus}/glib-2.0/schemas"
+        ];
+
         settings = {
           "org/gnome/desktop/search-providers".sort-order = [ "org.gnome.Nautilus.desktop" ];
           "org/gnome/nautilus/preferences".open-folder-on-dnd-hover = true;

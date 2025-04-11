@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   console.useXkbConfig = true;
 
   services.xserver.xkb = {
@@ -8,6 +8,10 @@
   };
 
   programs.dconf.profiles.user.databases = [{
+    keyfiles = [
+      "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-${pkgs.gsettings-desktop-schemas.version}/glib-2.0/schemas"
+    ];
+
     settings."org/gnome/desktop/input-sources".sources =
       [ (lib.gvariant.mkTuple [ "xkb" "${config.services.xserver.xkb.layout}+${config.services.xserver.xkb.variant}" ]) ];
   }];

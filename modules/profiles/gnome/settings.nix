@@ -15,11 +15,15 @@ in {
     profiles.user.databases = [
       # Dconf Editor
       {
+        keyfiles = [ "${pkgs.dconf-editor}/share/gsettings-schemas/dconf-editor-${pkgs.dconf-editor.version}/glib-2.0/schemas" ];
+
         settings."ca/desrt/dconf-editor/Settings".show-warning = false;
       }
 
       # Mission Center
       {
+        keyfiles = [ "${pkgs.mission-center}/share/gsettings-schemas/mission-center-${pkgs.mission-center.version}/glib-2.0/schemas" ];
+
         settings."io/missioncenter/MissionCenter" = {
           performance-page-cpu-graph = lib.gvariant.mkInt32 2;
           performance-page-network-use-bytes = false;
@@ -29,6 +33,11 @@ in {
       # Security
       {
         lockAll = true;
+
+        keyfiles = [
+          "${pkgs.gdm}/share/gsettings-schemas/gdm-${pkgs.gdm.version}/glib-2.0/schemas"
+          "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-${pkgs.gsettings-desktop-schemas.version}/glib-2.0/schemas"
+        ];
 
         settings = {
           "org/gnome/desktop/notifications".show-in-lock-screen = false;
@@ -40,6 +49,12 @@ in {
       }
 
       {
+        keyfiles = [
+          "${pkgs.gnome-shell}/share/gsettings-schemas/gnome-shell-${pkgs.gnome-shell.version}/glib-2.0/schemas"
+          "${pkgs.gnomeExtensions.user-themes}/share/gnome-shell/extensions/${pkgs.gnomeExtensions.user-themes.extensionUuid}/schemas"
+          "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-${pkgs.gsettings-desktop-schemas.version}/glib-2.0/schemas"
+        ];
+
         settings = {
           "org/gnome/desktop/interface" = {
             accent-color = "blue";
