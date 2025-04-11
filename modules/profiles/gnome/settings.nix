@@ -42,8 +42,9 @@ in {
       {
         settings = {
           "org/gnome/desktop/interface" = {
+            accent-color = "blue";
             font-name = "Adwaita Sans 11";
-            gtk-theme = "Yaru";
+            gtk-theme = "Yaru-blue";
             icon-theme = "Papirus";
             monospace-font-name = "RobotoMono Nerd Font";
           };
