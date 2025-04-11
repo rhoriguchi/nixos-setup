@@ -43,9 +43,9 @@ in {
         settings = {
           "org/gnome/desktop/interface" = {
             font-name = "Adwaita Sans 11";
-            monospace-font-name = "RobotoMono Nerd Font";
-            icon-theme = "Papirus";
             gtk-theme = "Yaru";
+            icon-theme = "Papirus";
+            monospace-font-name = "RobotoMono Nerd Font";
           };
           "org/gnome/desktop/peripherals/touchpad".click-method = "fingers";
           "org/gnome/desktop/privacy".remove-old-trash-files = true;
