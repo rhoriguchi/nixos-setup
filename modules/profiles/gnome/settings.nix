@@ -49,11 +49,8 @@ in {
           };
           "org/gnome/desktop/peripherals/touchpad".click-method = "fingers";
           "org/gnome/desktop/privacy" = {
-            old-files-age = lib.gvariant.mkUint32 30;
             remove-old-temp-files = true;
             remove-old-trash-files = true;
-            report-technical-problems = false;
-            send-software-usage-stats = false;
           };
           "org/gnome/desktop/search-providers".disabled = [ "org.gnome.Contacts.desktop" ];
           "org/gnome/desktop/wm/preferences".titlebar-font = "Adwaita Sans 11";
