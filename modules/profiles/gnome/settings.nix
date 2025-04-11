@@ -15,15 +15,11 @@ in {
     profiles.user.databases = [
       # Dconf Editor
       {
-        keyfiles = [ pkgs.dconf-editor ];
-
         settings."ca/desrt/dconf-editor/Settings".show-warning = false;
       }
 
       # Mission Center
       {
-        keyfiles = [ pkgs.mission-center ];
-
         settings."io/missioncenter/MissionCenter" = {
           performance-page-cpu-graph = lib.gvariant.mkInt32 2;
           performance-page-network-use-bytes = false;
@@ -33,8 +29,6 @@ in {
       # Security
       {
         lockAll = true;
-
-        keyfiles = [ pkgs.gdm pkgs.gsettings-desktop-schemas ];
 
         settings = {
           "org/gnome/desktop/notifications".show-in-lock-screen = false;
@@ -46,8 +40,6 @@ in {
       }
 
       {
-        keyfiles = [ pkgs.gnomeExtensions.user-themes pkgs.gsettings-desktop-schemas ];
-
         settings = {
           "org/gnome/desktop/interface" = {
             font-name = "Adwaita Sans 11";

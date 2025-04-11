@@ -10,8 +10,6 @@
       enable = true;
 
       profiles.user.databases = [{
-        keyfiles = [ pkgs.gsettings-desktop-schemas pkgs.gtk3 pkgs.nautilus ];
-
         settings = {
           "org/gnome/desktop/search-providers".sort-order = [ "org.gnome.Nautilus.desktop" ];
           "org/gnome/nautilus/preferences".open-folder-on-dnd-hover = true;

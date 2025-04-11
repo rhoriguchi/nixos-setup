@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   i18n = {
     defaultLocale = "en_US.UTF-8";
 
@@ -13,9 +13,5 @@
     };
   };
 
-  programs.dconf.profiles.user.databases = [{
-    keyfiles = [ pkgs.gsettings-desktop-schemas ];
-
-    settings."system/locale".region = "de_CH.UTF-8";
-  }];
+  programs.dconf.profiles.user.databases = [{ settings."system/locale".region = "de_CH.UTF-8"; }];
 }
