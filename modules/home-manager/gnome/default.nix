@@ -16,7 +16,8 @@ let
 in {
   imports = [ ./autostart.nix ];
 
-  home.packages = extensions;
+  # TODO causes issues on darwin
+  home.packages = lib.optionals pkgs.stdenv.isLinux extensions;
 
   dconf = {
     enable = true;
