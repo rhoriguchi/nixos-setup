@@ -110,6 +110,7 @@ in {
     serviceConfig = {
       DynamicUser = true;
       Restart = "on-abort";
+      Type = "oneshot";
     };
   };
 }

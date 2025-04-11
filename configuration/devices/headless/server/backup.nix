@@ -53,7 +53,11 @@ in {
           } ${database} > '${postgresBackupDir}/${database}.sql'
         '';
 
-        serviceConfig.User = database;
+        serviceConfig = {
+          User = database;
+          Restart = "on-abort";
+          Type = "oneshot";
+        };
       }) config.services.postgresql.ensureDatabases);
 
     timers = lib.listToAttrs (map (database:

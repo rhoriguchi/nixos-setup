@@ -105,6 +105,8 @@ in {
       ${config.services.samba.package}/bin/smbpasswd -e ${key}
     '') secrets.samba.users);
 
+    serviceConfig.Type = "oneshot";
+
     startAt = "hourly";
   };
 
