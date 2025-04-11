@@ -21,6 +21,7 @@
   printing = ./printing.nix;
   python = ./python.nix;
   shell = ./shell.nix;
+  tmp-management = ./tmp-management.nix;
   util = ./util.nix;
   virtualbox = ./virtualbox.nix;
   zfs = ./zfs.nix;

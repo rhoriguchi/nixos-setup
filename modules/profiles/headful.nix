@@ -11,6 +11,7 @@
     ./nvd.nix
     ./printing.nix
     ./shell.nix
+    ./tmp-management.nix
     ./util.nix
   ];
 }

@@ -48,10 +48,7 @@ in {
             gtk-theme = "Yaru";
           };
           "org/gnome/desktop/peripherals/touchpad".click-method = "fingers";
-          "org/gnome/desktop/privacy" = {
-            remove-old-temp-files = true;
-            remove-old-trash-files = true;
-          };
+          "org/gnome/desktop/privacy".remove-old-trash-files = true;
           "org/gnome/desktop/search-providers".disabled = [ "org.gnome.Contacts.desktop" ];
           "org/gnome/desktop/wm/preferences".titlebar-font = "Adwaita Sans 11";
           "org/gnome/shell" = {
