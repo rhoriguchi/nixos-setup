@@ -2,11 +2,9 @@
 let
   internalInterface = interfaces.internal;
 
-  cloudKeyIp = "192.168.1.2";
-  wingoRouterIp = "192.168.0.254";
-  routerIp = "192.168.1.1";
+  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
 
-  dnsmasqPort = config.services.dnsmasq.settings.port;
+  dnsmasqPort = 9053;
 
   bootstrapDns = [ "tls://1.1.1.1" "tls://1.0.0.1" ];
 in {
@@ -68,7 +66,10 @@ in {
       stream.resolvers = [ "127.0.0.1" ];
     };
 
-    dnsmasq.resolveLocalQueries = false;
+    dnsmasq = {
+      settings.port = dnsmasqPort;
+      resolveLocalQueries = false;
+    };
 
     lancache.upstreamDns = map (dns: lib.replaceStrings [ "tls://" ] [ "" ] dns) bootstrapDns;
 
@@ -91,21 +92,21 @@ in {
         filtering.rewrites = [
           {
             domain = "unifi.local";
-            answer = cloudKeyIp;
+            answer = ips.cloudKey;
           }
           {
             domain = "winbox.local";
-            answer = wingoRouterIp;
+            answer = ips.wingoRouter;
           }
           {
             domain = "${config.networking.hostName}.local";
-            answer = routerIp;
+            answer = ips.router;
           }
         ] ++ (map (domain: {
           inherit domain;
           # TODO uncomment when https://github.com/AdguardTeam/AdGuardHome/issues/7327 fixed
           # answer = "${config.networking.hostName}.local";
-          answer = routerIp;
+          answer = ips.router;
         }) config.services.infomaniak.hostnames) ++ (map (domain: {
           inherit domain;
           answer = "XXLPitu-Ulquiorra.local";
@@ -130,7 +131,7 @@ in {
           domain = cachedDomain;
           # TODO uncomment when https://github.com/AdguardTeam/AdGuardHome/issues/7327 fixed
           # answer = "${config.networking.hostName}.local";
-          answer = routerIp;
+          answer = ips.router;
         }) config.services.lancache.cacheDomains);
       };
     };

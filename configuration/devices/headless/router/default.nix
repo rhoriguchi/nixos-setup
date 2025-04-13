@@ -6,9 +6,10 @@ in {
 
     ./adguardhome.nix
     ./broken-emmc.nix
+    ./dhcp
     ./firewall.nix
     ./lancache.nix
-    ./routing.nix
+    ./networking.nix
     ./web-proxy.nix
 
     ./hardware-configuration.nix
