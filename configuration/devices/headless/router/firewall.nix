@@ -27,6 +27,12 @@ in {
             elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
           }
 
+          set management_network {
+            type ipv4_addr;
+            flags interval;
+            elements = { 172.16.1.0/24 }
+          }
+
           set unifi_network {
             type ipv4_addr;
             flags interval;
@@ -57,12 +63,15 @@ in {
             elements = { 192.168.100.0/24 }
           }
 
-          chain internal-interface-filter-fw {
+          chain forward {
             type filter hook forward priority filter; policy accept;
 
             iifname { ${
               lib.concatStringsSep ", " (map (interface: ''"${interface}"'') config.networking.nat.internalInterfaces)
             } } jump lan-filter
+
+            oifname { "${config.networking.nat.externalInterface}" } tcp dport { 53 } jump dns-filter
+            oifname { "${config.networking.nat.externalInterface}" } udp dport { 53 } jump dns-filter
           }
 
           chain lan-filter {
@@ -103,6 +112,12 @@ in {
             ip saddr ${ips.server} ip daddr @guest_vlan ct state established accept
 
             ip saddr @rfc1918 ip daddr @rfc1918 drop
+          }
+
+          chain dns-filter {
+            ip saddr @management_network accept
+
+            reject
           }
         '';
       };
