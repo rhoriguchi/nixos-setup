@@ -11,11 +11,13 @@ let
 
   # https://mcuuid.net
   whitelist = {
+    _Selenia_ = "566e0135-4676-4a70-bf1c-705649629a7e"; # Jenny
     _wiesel_ = "bf879f6a-b1f1-42b4-8407-60ba33d95263"; # Joël
     BlueSwordLily = "fae3385f-2716-496a-9741-011c7774cf31"; # Nadja
     DrGolden = "f3cc5386-5866-4e39-b73e-ffd63abc5bec"; # Jeremy
     GhostMoon = "0da68ac3-aa82-442b-b12e-42d864c629b7"; # Rabia
     Ice3ider = "375fd1d3-f816-43ab-813d-19e907f4769f"; # Matteo
+    Jenny1342 = "b8e89fe2-0ec3-4250-b50d-ae63fe414ce5"; # Jenny
     Jeum = "f9fbd9b1-bb8b-4aa6-8e40-b6cc67905487"; # Jessy
     nielsx3 = "a2d4ac95-9a30-4f88-946c-05b60cfaf28b"; # Niels
     Papierschorle = "fd048705-cb86-4e31-a251-1a99d5d2483f"; # Ramon
