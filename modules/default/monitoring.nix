@@ -125,7 +125,9 @@ in {
           withCups = true;
           withDBengine = isParent;
           withDebug = cfg.debug.enable;
+          # TODO uncomment once version >= 2.3.0
           # withLibbacktrace = cfg.debug.enable;
+          withML = isParent;
           withNdsudo = true;
         };
 
@@ -174,8 +176,6 @@ in {
             db.mode = "ram";
 
             web.mode = "none";
-
-            ml.enabled = "no";
           };
         }.${cfg.type};
 

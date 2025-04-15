@@ -14,8 +14,8 @@
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "558331c869ba8b2c8989a52c81d25f4f4070047c";
-          sha256 = "sha256-xiF/2bpsZpsPKEBW8e7j0NzRb8TSgmEdkSQeSL4nbAg=";
+          rev = "2705e75add11ec45b9611f5423600d1c43a2e978";
+          sha256 = "sha256-AogSlFS8E06KfaMNDLE2rQ4FtwdQ3/d/OxAYPrB86h0=";
         }
       }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
 
