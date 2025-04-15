@@ -121,7 +121,7 @@
         pkgs.prismlauncher # Minecraft
         pkgs.protonvpn-gui
         pkgs.qbittorrent
-        pkgs.signal-desktop
+        pkgs.signal-desktop-source
       ];
     };
 
