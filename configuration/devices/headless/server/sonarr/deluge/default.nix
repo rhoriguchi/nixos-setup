@@ -119,10 +119,6 @@ in {
           copy_torrent_file = true;
           torrentfiles_location = "/mnt/Data/Deluge/Torrents";
 
-          allow_remote = true;
-          daemon_port = 58846;
-          listen_ports = [ 6881 6889 ];
-
           stop_seed_at_ratio = true;
           stop_seed_ratio = 0.0;
 
