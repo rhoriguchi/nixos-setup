@@ -62,13 +62,12 @@ in {
             ips = [ "${ips.${config.networking.hostName}}/24" ];
             privateKey = keys.${config.networking.hostName}.private;
 
-            peers = let
-              clientIps = lib.filterAttrs (key: _: key != config.networking.hostName) ips;
-              clientKeys = lib.filterAttrs (key: _: key != config.networking.hostName) keys;
-            in lib.attrValues (lib.mapAttrs (key: value: {
+            peers = lib.mapAttrsToList (hostName: value: {
+              name = hostName;
+
               publicKey = value.public;
-              allowedIPs = [ "${clientIps.${key}}/32" ];
-            }) clientKeys);
+              allowedIPs = [ "${ips.${hostName}}/32" ];
+            }) (lib.filterAttrs (key: _: key != config.networking.hostName) keys);
           };
 
           client = {
@@ -76,6 +75,8 @@ in {
             privateKey = keys.${config.networking.hostName}.private;
 
             peers = [{
+              name = cfg.serverHostname;
+
               publicKey = keys.${cfg.serverHostname}.public;
               allowedIPs = [ "10.123.123.0/24" ];
               endpoint = "${serverAddress}:${toString serverPort}";
