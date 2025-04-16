@@ -3,11 +3,7 @@
 
   time.timeZone = "Europe/Zurich";
 
-  networking = {
-    nftables.enable = true;
-
-    firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = config.services.openssh.ports;
-  };
+  networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = config.services.openssh.ports;
 
   nixpkgs.config.permittedInsecurePackages = [ ]
     # TODO remove when https://github.com/project-chip/connectedhomeip/issues/25688 fixed

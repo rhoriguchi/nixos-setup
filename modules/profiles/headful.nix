@@ -7,6 +7,7 @@
     ./i18n.nix
     ./keyboard.nix
     ./nautilus.nix
+    ./nftables.nix
     ./nix.nix
     ./nvd.nix
     ./printing.nix

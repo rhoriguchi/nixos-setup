@@ -14,6 +14,7 @@
   kotlin = ./kotlin.nix;
   laptop-power-management = ./laptop-power-management.nix;
   nautilus = ./nautilus.nix;
+  nftables = ./nftables.nix;
   nginx = ./nginx.nix;
   nix = ./nix.nix;
   nvd = ./nvd.nix;
