@@ -1,5 +1,6 @@
 {
   imports = [
+    ./containers.nix
     ./displaylink.nix
     ./fwupd.nix
     ./git.nix

@@ -1,5 +1,6 @@
 # Manually map output https://github.com/NixOS/nix/issues/4945#issuecomment-868572873
 {
+  containers = ./containers.nix;
   displaylink = ./displaylink.nix;
   docker = ./docker.nix;
   fwupd = ./fwupd.nix;
