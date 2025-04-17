@@ -97,7 +97,7 @@ in {
       services.deluge = {
         enable = true;
 
-        package = pkgs.deluge.overrideAttrs (_: { patches = [ ./remove-web-login.patch ]; });
+        package = pkgs.deluge.overrideAttrs (oldAttrs: { patches = (oldAttrs.patches or [ ]) ++ [ ./remove-web-login.patch ]; });
 
         web = {
           enable = true;
