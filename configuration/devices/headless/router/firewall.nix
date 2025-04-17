@@ -115,6 +115,9 @@ in {
           }
 
           chain dns-filter {
+            ${lib.optionalString config.virtualisation.docker.enable "iifname docker0 accept"}
+            ${lib.optionalString config.virtualisation.podman.enable "iifname podman0 accept"}
+
             ip saddr @management_network accept
 
             reject
