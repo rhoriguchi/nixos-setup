@@ -1,13 +1,14 @@
 # Manually map output https://github.com/NixOS/nix/issues/4945#issuecomment-868572873
 {
+  headful = ./headful.nix;
+  headless = ./headless.nix;
+
   containers = ./containers.nix;
   displaylink = ./displaylink.nix;
   docker = ./docker.nix;
   fwupd = ./fwupd.nix;
   git = ./git.nix;
   gnome = ./gnome;
-  headful = ./headful.nix;
-  headless = ./headless.nix;
   i18n = ./i18n.nix;
   java = ./java.nix;
   javascript = ./javascript.nix;
