@@ -92,11 +92,15 @@ in {
             ip saddr @dmz_vlan ip daddr @private_vlan ct state established accept
 
             ${
-              lib.concatStringsSep "\n" (map (set: ''
-                ip saddr @${set} ip daddr ${ips.server} tcp dport { 80, 443 } accept # Nginx
-                ip saddr @${set} ip daddr ${ips.server} tcp dport { 25565 } accept # Minecraft
-                ip saddr @${set} ip daddr ${ips.server} tcp dport { 32400 } accept # Plex
-              '') [ "iot_vlan" "guest_vlan" ])
+              let
+                nginxRules = [ "ip saddr @rfc1918 ip daddr ${ips.server} tcp dport { 80, 443 } accept" ];
+                natRules = map (forwardPort:
+                  let
+                    splits = lib.splitString ":" forwardPort.destination;
+                    ip = builtins.head splits;
+                    port = lib.last splits;
+                  in "ip saddr @rfc1918 ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept") config.networking.nat.forwardPorts;
+              in lib.concatStringsSep "\n" (nginxRules ++ natRules)
             }
 
             ip saddr ${ips.wingoRouter} ip daddr @private_vlan ct state established accept
