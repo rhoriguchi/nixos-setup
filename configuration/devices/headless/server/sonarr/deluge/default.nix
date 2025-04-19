@@ -60,7 +60,7 @@ in {
       publicKey = getValue configText "PublicKey";
       ipCdr = getValue configText "Address";
       endpoint = getValue configText "Endpoint";
-      endpointIp = builtins.head (lib.splitString ":" endpoint);
+      endpointIp = lib.head (lib.splitString ":" endpoint);
       nameserver = getValue configText "DNS";
     in {
       imports = [ (lib.custom.relativeToRoot "modules/profiles/headless.nix") ];

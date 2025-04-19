@@ -40,11 +40,11 @@ in {
         message = "When type is client serverHostname must be set";
       }
       {
-        assertion = isClient -> builtins.elem cfg.serverHostname (lib.attrNames ips);
+        assertion = isClient -> lib.elem cfg.serverHostname (lib.attrNames ips);
         message = "When type is client ip needs to exist for serverHostname";
       }
       {
-        assertion = isClient -> builtins.elem cfg.serverHostname (lib.attrNames keys);
+        assertion = isClient -> lib.elem cfg.serverHostname (lib.attrNames keys);
         message = "When type is client key needs to exist for serverHostname";
       }
     ];

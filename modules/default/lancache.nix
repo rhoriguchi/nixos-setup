@@ -10,7 +10,7 @@ let
   };
 
   metadata = (builtins.fromJSON (builtins.readFile "${src}/cache_domains.json")).cache_domains;
-  filteredMetadata = lib.filter (cacheDomain: builtins.elem cacheDomain.name cfg.cachedServices) metadata;
+  filteredMetadata = lib.filter (cacheDomain: lib.elem cacheDomain.name cfg.cachedServices) metadata;
   domainFiles = lib.flatten (map (cacheDomain: cacheDomain.domain_files) filteredMetadata);
   rawCacheDomains = lib.flatten (map (domainFile: (lib.splitString "\n" (builtins.readFile "${src}/${domainFile}"))) domainFiles);
   cacheDomains = lib.filter (domain: domain != "") rawCacheDomains;
@@ -46,7 +46,7 @@ in {
       type = lib.types.listOf lib.types.str;
       default = cacheDomains
         # needed for steam download to work
-        ++ lib.optional (builtins.elem "steam" cfg.cachedServices) "*.steamcontent.com";
+        ++ lib.optional (lib.elem "steam" cfg.cachedServices) "*.steamcontent.com";
       readOnly = true;
     };
   };
@@ -62,7 +62,7 @@ in {
 
         MIN_FREE_DISK = "10g";
         CACHE_DISK_SIZE = "2000g";
-        CACHE_INDEX_SIZE = "${toString (lib.toInt (builtins.head (lib.splitString "g" CACHE_DISK_SIZE)) / 1000 * 250)}m";
+        CACHE_INDEX_SIZE = "${toString (lib.toInt (lib.head (lib.splitString "g" CACHE_DISK_SIZE)) / 1000 * 250)}m";
         CACHE_MAX_AGE = "${toString (365 * 10)}d";
 
         TZ = config.time.timeZone;

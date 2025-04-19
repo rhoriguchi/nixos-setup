@@ -3,7 +3,7 @@
     getFiles = dir: lib.attrNames (builtins.readDir dir);
     filter = file:
       if lib.pathIsDirectory file then
-        builtins.elem "default.nix" (getFiles file)
+        lib.elem "default.nix" (getFiles file)
       else
         lib.hasSuffix ".nix" file && !(lib.hasSuffix "default.nix" file);
   in dir: lib.filter filter (map (file: dir + "/${file}") (getFiles dir));
@@ -14,7 +14,7 @@
   mkDeploy = { deploy-rs, nixosConfigurations, overrides ? { } }:
     let
       hosts = nixosConfigurations;
-      names = builtins.attrNames hosts;
+      names = lib.attrNames hosts;
     in {
       nodes = lib.foldl (result: name:
         let

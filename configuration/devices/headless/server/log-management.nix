@@ -221,8 +221,8 @@
           params.format = [ "prometheus_all_hosts" ];
           basic_auth = let basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
           in {
-            username = builtins.head (lib.attrNames basicAuth);
-            password = builtins.head (lib.attrValues basicAuth);
+            username = lib.head (lib.attrNames basicAuth);
+            password = lib.head (lib.attrValues basicAuth);
           };
           static_configs = [{ targets = [ "monitoring.00a.ch" ]; }];
           scrape_interval = "5s";

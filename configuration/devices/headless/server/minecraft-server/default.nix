@@ -132,7 +132,7 @@ in {
 
               ping-passthrough = "ALL";
 
-              show-max-players = builtins.length (builtins.attrNames whitelist);
+              show-max-players = lib.length (lib.attrNames whitelist);
               online-mode = true;
 
               servers = {
@@ -186,7 +186,7 @@ in {
             view-distance = 32;
             enable-command-block = true;
 
-            max-players = builtins.length (builtins.attrNames whitelist);
+            max-players = lib.length (lib.attrNames whitelist);
           };
 
           files = {

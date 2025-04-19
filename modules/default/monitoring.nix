@@ -9,9 +9,9 @@ let
 
   wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
 
-  frrEnabled = builtins.any (service: config.services.frr.${service}.enable) [ "bfdd" "bgpd" "ospfd" "pimd" ];
+  frrEnabled = lib.any (service: config.services.frr.${service}.enable) [ "bfdd" "bgpd" "ospfd" "pimd" ];
 
-  redisEnabled = builtins.any (server: server.enable) (lib.attrValues config.services.redis.servers);
+  redisEnabled = lib.any (server: server.enable) (lib.attrValues config.services.redis.servers);
 
   hasCerts = lib.length (lib.attrNames config.security.acme.certs) > 0;
 in {
@@ -46,7 +46,7 @@ in {
         message = "wireguard-network service must be enabled";
       }
       {
-        assertion = isParent -> builtins.elem config.networking.hostName (lib.attrNames wireguardIps);
+        assertion = isParent -> lib.elem config.networking.hostName (lib.attrNames wireguardIps);
         message = "When type is parent hostname must be wireguard host";
       }
       {
@@ -62,7 +62,7 @@ in {
         message = "When type is child parentHostname must be set";
       }
       {
-        assertion = isChild -> builtins.elem cfg.parentHostname (lib.attrNames wireguardIps);
+        assertion = isChild -> lib.elem cfg.parentHostname (lib.attrNames wireguardIps);
         message = "When type is child parentHostname must be wireguard host";
       }
     ];

@@ -97,7 +97,7 @@ in {
                 natRules = map (forwardPort:
                   let
                     splits = lib.splitString ":" forwardPort.destination;
-                    ip = builtins.head splits;
+                    ip = lib.head splits;
                     port = lib.last splits;
                   in "ip saddr @rfc1918 ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept") config.networking.nat.forwardPorts;
               in lib.concatStringsSep "\n" (nginxRules ++ natRules)

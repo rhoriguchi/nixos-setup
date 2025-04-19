@@ -54,7 +54,7 @@
     in {
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
         checks = let
-          filterAttrs = attrs: lib.filterAttrs (key: _: !(builtins.elem key [ "deploy-activate" "deploy-schema" ])) attrs;
+          filterAttrs = attrs: lib.filterAttrs (key: _: !(lib.elem key [ "deploy-activate" "deploy-schema" ])) attrs;
           removeChecks = checks: lib.mapAttrs (_: system: filterAttrs system) checks;
         in lib.getAttrs [ "x86_64-linux" ] (removeChecks self.checks);
       };
