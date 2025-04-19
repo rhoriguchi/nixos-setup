@@ -1,1 +1,1 @@
-secrets.nix filter=git-crypt diff=git-crypt
+keys.nix filter=git-crypt diff=git-crypt

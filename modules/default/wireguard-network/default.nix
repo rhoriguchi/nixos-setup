@@ -3,7 +3,7 @@ let
   cfg = config.services.wireguard-network;
 
   ips = import ./ips.nix;
-  keys = import ./secrets.nix;
+  keys = import ./keys.nix;
 
   serverAddress = "wireguard.00a.ch";
   serverPort = 51820;
