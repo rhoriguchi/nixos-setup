@@ -54,23 +54,6 @@
             '';
           };
         };
-
-        "pushgateway.00a.ch" = {
-          enableACME = true;
-          forceSSL = true;
-
-          locations."/" = {
-            proxyPass = "http://${config.services.prometheus.pushgateway.web.listen-address}";
-            basicAuth = secrets.nginx.basicAuth."pushgateway.00a.ch";
-
-            extraConfig = ''
-              satisfy any;
-
-              allow 192.168.2.0/24;
-              deny all;
-            '';
-          };
-        };
       };
     };
 
@@ -79,7 +62,7 @@
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "grafana.00a.ch" "prometheus.00a.ch" "pushgateway.00a.ch" ];
+      hostnames = [ "grafana.00a.ch" "prometheus.00a.ch" ];
     };
 
     grafana = {
@@ -204,34 +187,19 @@
 
       enableReload = true;
 
-      pushgateway = {
-        enable = true;
-
-        web = {
-          telemetry-path = "/metrics";
-          listen-address = "127.0.0.1:9091";
+      scrapeConfigs = [{
+        job_name = "netdata";
+        scheme = "https";
+        metrics_path = "/api/v1/allmetrics";
+        params.format = [ "prometheus_all_hosts" ];
+        basic_auth = let basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
+        in {
+          username = lib.head (lib.attrNames basicAuth);
+          password = lib.head (lib.attrValues basicAuth);
         };
-      };
-
-      scrapeConfigs = [
-        {
-          job_name = "netdata";
-          scheme = "https";
-          metrics_path = "/api/v1/allmetrics";
-          params.format = [ "prometheus_all_hosts" ];
-          basic_auth = let basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
-          in {
-            username = lib.head (lib.attrNames basicAuth);
-            password = lib.head (lib.attrValues basicAuth);
-          };
-          static_configs = [{ targets = [ "monitoring.00a.ch" ]; }];
-          scrape_interval = "5s";
-        }
-        {
-          job_name = "pushgateway";
-          static_configs = [{ targets = [ "127.0.0.1:9091" ]; }];
-        }
-      ];
+        static_configs = [{ targets = [ "monitoring.00a.ch" ]; }];
+        scrape_interval = "5s";
+      }];
     };
 
     log-shipping.useLocalhost = true;

@@ -124,7 +124,6 @@ in {
           "plex.00a.ch"
           "prometheus.00a.ch"
           "prowlarr.00a.ch"
-          "pushgateway.00a.ch"
           "rustdesk.00a.ch"
           "sonarr.00a.ch"
           "tautulli.00a.ch"
