@@ -138,9 +138,7 @@ in {
 
           # S.M.A.R.T. collector
           pkgs.smartmontools
-        ]
-        # Samba collector
-          ++ lib.optional config.services.samba.enable pkgs.samba;
+        ] ++ lib.optional config.services.samba.enable config.services.samba.package;
 
         config = {
           parent = {
