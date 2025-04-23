@@ -116,7 +116,6 @@
         pkgs.jetbrains.webstorm
         pkgs.obsidian
         pkgs.prismlauncher # Minecraft
-        pkgs.protonvpn-gui
         pkgs.qbittorrent
         pkgs.rustdesk-flutter
         pkgs.signal-desktop-source
