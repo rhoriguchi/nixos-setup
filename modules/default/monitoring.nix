@@ -152,7 +152,8 @@ in {
 
           # S.M.A.R.T. collector
           pkgs.smartmontools
-        ] ++ lib.optional config.services.samba.enable config.services.samba.package;
+        ] ++ lib.optional config.services.fail2ban.enable config.services.fail2ban.package
+          ++ lib.optional config.services.samba.enable config.services.samba.package;
 
         config = {
           parent = {
@@ -216,6 +217,8 @@ in {
               address = "127.0.0.1:${toString config.services.dnsmasq.settings.port}";
             }];
           };
+        } // lib.optionalAttrs config.services.fail2ban.enable {
+          "go.d/fail2ban.conf" = pkgs.writers.writeYAML "fail2ban.conf" { jobs = [{ name = "local"; }]; };
         } // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
             jobs = [{
