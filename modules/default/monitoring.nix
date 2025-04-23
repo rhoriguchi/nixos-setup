@@ -120,7 +120,7 @@ in {
       netdata = {
         enable = true;
 
-        package = pkgs.netdata.override {
+        package = (pkgs.netdata.override {
           withCloudUi = isParent;
           withCups = true;
           withDBengine = isParent;
@@ -128,7 +128,21 @@ in {
           withLibbacktrace = cfg.debug.enable;
           withML = isParent;
           withNdsudo = true;
-        };
+        }).overrideAttrs (oldAttrs: {
+          patches = (oldAttrs.patches or [ ]) ++ [
+            # TODO remove when netdata version > 2.4.0
+            (pkgs.fetchpatch {
+              name = "systemd-nspawn-fix.patch";
+              url = "https://github.com/netdata/netdata/pull/20155.patch";
+              hash = "sha256-zDx/maBMiXKoeUw0Jq3d8eaPDt3Pdp+Kj0UiM7AI/O8=";
+            })
+            (pkgs.fetchpatch {
+              name = "systemd-nspawn-fix.patch";
+              url = "https://github.com/netdata/netdata/pull/20168.patch";
+              hash = "sha256-vQAcOHNZNqFaAzbqNUIkh8dMM6ocPfzZasYEJRz+m3o=";
+            })
+          ];
+        });
 
         claimTokenFile = if isParent then pkgs.writeText "claimToken" cfg.claimToken else null;
 
