@@ -47,6 +47,11 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    local = {
+      url = "path:./flakes";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, ... }@inputs:
@@ -60,7 +65,12 @@
       };
 
       nixosModules = {
-        default.imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
+        default.imports = [
+          inputs.nix-minecraft.nixosModules.minecraft-servers
+
+          inputs.local.nixosModules.default
+          ./modules/default
+        ];
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
@@ -71,6 +81,8 @@
         default = lib.composeManyExtensions ([
           inputs.deploy-rs.overlays.default
           inputs.nix-minecraft.overlay
+
+          inputs.local.overlays.default
 
           (_: super: {
             borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system};

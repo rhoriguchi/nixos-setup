@@ -22,6 +22,22 @@
         "url": "https://codeberg.org/k0ral/borg-exporter.git"
       }
     },
+    "cache-domains": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1743765937,
+        "narHash": "sha256-4pHTyy8Cm9xXqqegW0sqoiB3/sze/tVMFGWPJ/g70uk=",
+        "owner": "uklans",
+        "repo": "cache-domains",
+        "rev": "2e4b716e39cba642351717e1d15c07b4dfa725ce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uklans",
+        "repo": "cache-domains",
+        "type": "github"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -213,6 +229,43 @@
         "type": "github"
       }
     },
+    "lancach": {
+      "inputs": {
+        "cache-domains": "cache-domains",
+        "nixpkgs": [
+          "local",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./lancache",
+        "type": "path"
+      },
+      "original": {
+        "path": "./lancache",
+        "type": "path"
+      },
+      "parent": [
+        "local"
+      ]
+    },
+    "local": {
+      "inputs": {
+        "lancach": "lancach",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./flakes",
+        "type": "path"
+      },
+      "original": {
+        "path": "./flakes",
+        "type": "path"
+      },
+      "parent": []
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": [
@@ -335,6 +388,7 @@
         "flake-utils": "flake-utils",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
+        "local": "local",
         "nix-github-actions": "nix-github-actions",
         "nix-index-database": "nix-index-database",
         "nix-minecraft": "nix-minecraft",
