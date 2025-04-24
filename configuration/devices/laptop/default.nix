@@ -118,7 +118,7 @@
         pkgs.prismlauncher # Minecraft
         pkgs.qbittorrent
         pkgs.rustdesk-flutter
-        pkgs.signal-desktop-source
+        pkgs.signal-desktop
       ];
     };
 

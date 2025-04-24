@@ -34,7 +34,7 @@
         src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
       }];
 
-      initExtra = ''
+      initContent = ''
         # Use FZF_DEFAULT_OPTS
         zstyle ':fzf-tab:*' use-fzf-default-opts yes
 

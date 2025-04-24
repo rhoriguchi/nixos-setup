@@ -17,7 +17,7 @@ in {
         detach = "${tmux} detach-client";
       };
 
-      initExtra = ''
+      initContent = ''
         if [ "$TMUX" = ''' ]; then
           if [ "$XDG_SESSION_TYPE" = 'tty' ]; then
             ${tmux} has-session -t "TTY $(basename $(tty))" && ${tmux} attach-session -t "TTY $(basename $(tty))" || ${tmux} new-session -s "TTY $(basename $(tty))"
