@@ -76,24 +76,7 @@ in {
 
     openFirewall = true;
 
-    extraPlugins = [
-      (builtins.path {
-        name = "MyAnimeList.bundle";
-        path = pkgs.fetchFromGitHub {
-          owner = "Fribb";
-          repo = "MyAnimeList.bundle";
-          tag = "v7.4.1";
-          hash = "sha256-hqdhz1FyzwgLHcxMRSuSuwNLuqDhdy+t6KCZhESgAho=";
-        };
-      })
-    ];
-    extraScanners = [
-      (pkgs.fetchFromGitHub {
-        owner = "ZeroQI";
-        repo = "Absolute-Series-Scanner";
-        rev = "43df2ee5de503221d9d4e96e399ca2eca8f19859";
-        hash = "sha256-AvWUNkne9JfM6WrzoaLfOHu6NhZofS0vE+xjzxwLtzs=";
-      })
-    ];
+    extraPlugins = [ zeroqi-absolute-series-scanner-src ];
+    extraScanners = [ fribb-myanimelist-bundle-src ];
   };
 }

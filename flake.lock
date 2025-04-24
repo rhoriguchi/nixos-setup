@@ -166,6 +166,22 @@
         "type": "github"
       }
     },
+    "fribb-myanimelist-bundle": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1688740511,
+        "narHash": "sha256-hqdhz1FyzwgLHcxMRSuSuwNLuqDhdy+t6KCZhESgAho=",
+        "owner": "Fribb",
+        "repo": "MyAnimeList.bundle",
+        "rev": "b7f3e3788aa0b2ad14eae462e97d43c681d4ce9d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Fribb",
+        "repo": "MyAnimeList.bundle",
+        "type": "github"
+      }
+    },
     "git-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -254,7 +270,8 @@
         "lancach": "lancach",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "plex": "plex"
       },
       "locked": {
         "path": "./flakes",
@@ -380,6 +397,27 @@
         "type": "github"
       }
     },
+    "plex": {
+      "inputs": {
+        "fribb-myanimelist-bundle": "fribb-myanimelist-bundle",
+        "nixpkgs": [
+          "local",
+          "nixpkgs"
+        ],
+        "zeroqi-absolute-series-scanner": "zeroqi-absolute-series-scanner"
+      },
+      "locked": {
+        "path": "./plex",
+        "type": "path"
+      },
+      "original": {
+        "path": "./plex",
+        "type": "path"
+      },
+      "parent": [
+        "local"
+      ]
+    },
     "root": {
       "inputs": {
         "borg-exporter": "borg-exporter",
@@ -489,6 +527,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "zeroqi-absolute-series-scanner": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1740225090,
+        "narHash": "sha256-AvWUNkne9JfM6WrzoaLfOHu6NhZofS0vE+xjzxwLtzs=",
+        "owner": "ZeroQI",
+        "repo": "Absolute-Series-Scanner",
+        "rev": "43df2ee5de503221d9d4e96e399ca2eca8f19859",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ZeroQI",
+        "repo": "Absolute-Series-Scanner",
         "type": "github"
       }
     }
