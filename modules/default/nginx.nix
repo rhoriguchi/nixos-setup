@@ -20,34 +20,38 @@ in {
     };
   };
 
-  config = lib.mkIf config.services.nginx.enable {
-    services.nginx.streamConfig = lib.optionalString (lib.length (lib.attrNames cfg.upstreams) > 0) ''
-      ${lib.optionalString (lib.length cfg.resolvers > 0) "resolver ${lib.concatStringsSep " " cfg.resolvers};"}
+  config = lib.mkIf (config.services.nginx.enable && (lib.length (lib.attrNames cfg.upstreams) > 0)) {
+    services.nginx = {
+      defaultSSLListenPort = 9443;
 
-      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''
-        upstream ${key} {
-          server ${value.server};
+      streamConfig = ''
+        ${lib.optionalString (lib.length cfg.resolvers > 0) "resolver ${lib.concatStringsSep " " cfg.resolvers};"}
+
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''
+          upstream ${key} {
+            server ${value.server};
+          }
+        '') cfg.upstreams)}
+
+        map $ssl_preread_server_name $upstream {
+          # indicates that source values can be hostnames with a prefix or suffix mask:
+          hostnames;
+
+          ${
+            lib.concatStringsSep "\n"
+            (lib.mapAttrsToList (key: value: lib.concatStringsSep "\n" (map (host: "${host} ${key};") value.hostnames)) cfg.upstreams)
+          }
         }
-      '') cfg.upstreams)}
 
-      map $ssl_preread_server_name $upstream {
-        # indicates that source values can be hostnames with a prefix or suffix mask:
-        hostnames;
+        server {
+          listen 443;
+          ${lib.optionalString config.networking.enableIPv6 "listen [::]:443;"}
 
-        ${
-          lib.concatStringsSep "\n"
-          (lib.mapAttrsToList (key: value: lib.concatStringsSep "\n" (map (host: "${host} ${key};") value.hostnames)) cfg.upstreams)
+          ssl_preread on;
+
+          proxy_pass $upstream;
         }
-      }
-
-      server {
-        listen 443;
-        ${lib.optionalString config.networking.enableIPv6 "listen [::]:443;"}
-
-        ssl_preread on;
-
-        proxy_pass $upstream;
-      }
-    '';
+      '';
+    };
   };
 }

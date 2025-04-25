@@ -45,8 +45,6 @@ in {
   services.nginx = {
     enable = true;
 
-    defaultSSLListenPort = 9443;
-
     stream.upstreams = {
       "${config.networking.hostName}" = {
         server = "127.0.0.1:${toString config.services.nginx.defaultSSLListenPort}";
