@@ -11,6 +11,7 @@
       recommendedOptimisation = true;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
+      recommendedUwsgiSettings = true;
       recommendedZstdSettings = true;
 
       appendHttpConfig = ''
