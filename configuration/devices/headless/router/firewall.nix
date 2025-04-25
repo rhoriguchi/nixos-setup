@@ -86,16 +86,17 @@ in {
             ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 445 } accept # Samba
             ip saddr @iot_vlan ip daddr ${ips.server} udp dport { 4002 } accept # Home Assistant - Govee
 
+            ip saddr @rfc1918 ip daddr ${ips.server} tcp dport { 80, 443 } accept
+
             ${
               let
-                nginxRules = [ "ip saddr @rfc1918 ip daddr ${ips.server} tcp dport { 80, 443 } accept" ];
-                natRules = map (forwardPort:
+                rules = map (forwardPort:
                   let
                     splits = lib.splitString ":" forwardPort.destination;
                     ip = lib.head splits;
                     port = lib.last splits;
                   in "ip saddr @rfc1918 ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept") config.networking.nat.forwardPorts;
-              in lib.concatStringsSep "\n" (nginxRules ++ natRules)
+              in lib.concatStringsSep "\n" rules
             }
 
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 80 } accept # Home Assistant - Shelly
