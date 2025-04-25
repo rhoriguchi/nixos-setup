@@ -76,7 +76,6 @@ in {
 
           chain lan-filter {
             ip saddr @unifi_network ip daddr @unifi_network accept
-            ip saddr @unifi_network ip daddr @private_vlan ct state established accept
 
             ip saddr @private_vlan ip daddr @unifi_network accept
             ip saddr @private_vlan ip daddr @private_vlan accept
@@ -86,10 +85,6 @@ in {
             ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 443 } accept # Home Assistant - Shelly
             ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 445 } accept # Samba
             ip saddr @iot_vlan ip daddr ${ips.server} udp dport { 4002 } accept # Home Assistant - Govee
-            ip saddr @iot_vlan ip daddr ${ips.server} ct state established accept
-            ip saddr @iot_vlan ip daddr @private_vlan ct state established accept
-
-            ip saddr @dmz_vlan ip daddr @private_vlan ct state established accept
 
             ${
               let
@@ -103,8 +98,6 @@ in {
               in lib.concatStringsSep "\n" (nginxRules ++ natRules)
             }
 
-            ip saddr ${ips.wingoRouter} ip daddr @private_vlan ct state established accept
-
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 80 } accept # Home Assistant - Shelly
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 443 } accept # Home Assistant - Hue
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 3232 } accept # ESPHome - OTA
@@ -112,8 +105,8 @@ in {
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 6668 } accept # Home Assistant - Tuya
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 8000 } accept # Home Assistant - Apple HomeKit
             ip saddr ${ips.server} ip daddr @iot_vlan udp dport { 4003 } accept # Home Assistant - Govee
-            ip saddr ${ips.server} ip daddr @iot_vlan ct state established accept
-            ip saddr ${ips.server} ip daddr @guest_vlan ct state established accept
+
+            ip saddr @rfc1918 ip daddr @rfc1918 ct state established accept
 
             ip saddr @rfc1918 ip daddr @rfc1918 drop
           }
