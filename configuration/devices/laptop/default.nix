@@ -106,7 +106,7 @@
 
       packages = [
         pkgs.discord
-        pkgs.gimp
+        pkgs.gimp3
         pkgs.gitkraken
         pkgs.glow
         pkgs.inkscape
