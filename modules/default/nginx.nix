@@ -18,6 +18,10 @@ in {
         };
       });
     };
+    transparent = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 
   config = lib.mkIf (config.services.nginx.enable && (lib.length (lib.attrNames cfg.upstreams) > 0)) {
@@ -45,11 +49,11 @@ in {
 
         server {
           listen 443;
-          ${lib.optionalString config.networking.enableIPv6 "listen [::]:443;"}
 
           ssl_preread on;
 
           proxy_pass $upstream;
+          proxy_bind $remote_addr ${lib.optionalString cfg.transparent "transparent"};
         }
       '';
     };

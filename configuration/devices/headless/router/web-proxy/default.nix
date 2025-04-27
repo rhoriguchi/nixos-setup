@@ -32,6 +32,8 @@ let
     };
   };
 in {
+  imports = [ ./transparent.nix ];
+
   networking.firewall.interfaces = let rules.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort 443 ];
   in {
     "${externalInterface}" = rules;
