@@ -190,6 +190,7 @@
           "browser.newtabpage.activity-stream.feeds.topsites" = false;
           "browser.newtabpage.activity-stream.showSearch" = false;
           "browser.newtabpage.enabled" = false;
+          "browser.quitShortcut.disabled" = true;
           "browser.rights.3.shown" = true;
           "browser.search.region" = "CH";
           "browser.search.suggest.enabled.private" = true;
