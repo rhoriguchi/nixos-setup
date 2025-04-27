@@ -48,7 +48,7 @@ in {
       }];
 
       "${internalInterface}".ipv4.addresses = [{
-        address = "${ips.router}";
+        address = ips.router;
         prefixLength = 24;
       }];
 
