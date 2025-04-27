@@ -10,7 +10,7 @@ in {
     ./firewall.nix
     ./lancache.nix
     ./networking.nix
-    ./web-proxy.nix
+    ./web-proxy
 
     ./hardware-configuration.nix
   ];
