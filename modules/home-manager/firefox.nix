@@ -32,12 +32,30 @@
         search = {
           force = true;
 
-          default = "google";
-          privateDefault = "google";
-          order = [ "google" ];
+          default = "google-custom";
+          privateDefault = "google-custom";
+          order = [ "google-custom" ];
 
           engines = {
-            google.metaData.alias = "g";
+            google-custom = {
+              name = "Google (Custom)";
+              iconMapObj."16" = "https://www.google.com/favicon.ico";
+              definedAliases = [ "g" ];
+
+              urls = [{
+                template = "https://www.google.com/search";
+                params = [
+                  {
+                    name = "udm";
+                    value = "14";
+                  }
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }];
+            };
 
             nix-packages = {
               name = "Nix Packages";
@@ -97,6 +115,7 @@
             ddg.metaData.hidden = true;
             "ebay-ch".metaData.hidden = true;
             ecosia.metaData.hidden = true;
+            google.metaData.hidden = true;
             qwant.metaData.hidden = true;
             wikipedia.metaData.hidden = true;
           };
