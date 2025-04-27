@@ -66,12 +66,10 @@ in {
           chain forward {
             type filter hook forward priority filter; policy accept;
 
-            iifname { ${
-              lib.concatStringsSep ", " (map (interface: ''"${interface}"'') config.networking.nat.internalInterfaces)
-            } } jump lan-filter
+            iifname { ${lib.concatStringsSep ", " config.networking.nat.internalInterfaces} } jump lan-filter
 
-            oifname { "${config.networking.nat.externalInterface}" } tcp dport { 53 } jump dns-filter
-            oifname { "${config.networking.nat.externalInterface}" } udp dport { 53 } jump dns-filter
+            oifname ${config.networking.nat.externalInterface} tcp dport { 53 } jump dns-filter
+            oifname ${config.networking.nat.externalInterface} udp dport { 53 } jump dns-filter
           }
 
           chain lan-filter {
