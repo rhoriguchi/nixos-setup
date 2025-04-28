@@ -87,9 +87,7 @@ in {
         libraries = [ pkgs.python3Packages.pyjwt pkgs.python3Packages.requests ];
 
         flakeIgnore = [ "E501" ];
-      } (builtins.readFile (pkgs.substituteAll {
-        src = ./update_series.py;
-
+      } (builtins.readFile (pkgs.replaceVars ./update_series.py {
         sonarApiUrl = "http://127.0.0.1:8989";
         sonarApiKey = secrets.sonarr.apiKey;
         sonarrRootDir = "${bindmountDir1}/Tv Shows";
