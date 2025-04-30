@@ -28,12 +28,6 @@ in {
             elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
           }
 
-          set management_network {
-            type ipv4_addr;
-            flags interval;
-            elements = { 172.16.1.0/24 }
-          }
-
           set unifi_network {
             type ipv4_addr;
             flags interval;
@@ -119,7 +113,7 @@ in {
             ${lib.optionalString config.virtualisation.docker.enable "iifname docker0 accept"}
             ${lib.optionalString config.virtualisation.podman.enable "iifname podman0 accept"}
 
-            ip saddr @management_network accept
+            iifname ${managementInterface} accept
 
             reject
           }
