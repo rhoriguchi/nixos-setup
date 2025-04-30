@@ -79,6 +79,7 @@ in {
             ip saddr @private_vlan ip daddr @private_vlan accept
             ip saddr @private_vlan ip daddr @iot_vlan accept
             ip saddr @private_vlan ip daddr @dmz_vlan accept
+            ip saddr @private_vlan ip daddr ${ips.wingoRouter} accept
 
             ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 443 } accept # Home Assistant - Shelly
             ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 445 } accept # Samba
