@@ -126,13 +126,13 @@ in {
 
       inherit externalInterface;
       internalInterfaces = [
+        managementInterface
+
         internalInterface
         "${internalInterface}.2"
         "${internalInterface}.3"
         "${internalInterface}.10"
         "${internalInterface}.100"
-
-        managementInterface
       ];
 
       forwardPorts = [

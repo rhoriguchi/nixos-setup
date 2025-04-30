@@ -14,7 +14,6 @@ in {
       "${managementInterface}" = rules;
 
       "${internalInterface}" = rules;
-
       "${internalInterface}.2" = rules;
       "${internalInterface}.3" = rules;
       "${internalInterface}.10" = rules;
@@ -30,7 +29,6 @@ in {
         "${managementInterface}"
 
         "${internalInterface}"
-
         "${internalInterface}.2"
         "${internalInterface}.3"
         "${internalInterface}.10"
@@ -47,7 +45,6 @@ in {
         "${managementInterface}, 172.16.1.2, 172.16.1.254, 1h"
 
         "${internalInterface}, 192.168.1.2, 192.168.1.254, 1h"
-
         "${internalInterface}.2, 192.168.2.2, 192.168.2.254, 1h"
         "${internalInterface}.3, 192.168.3.2, 192.168.3.254, 1h"
         "${internalInterface}.10, 192.168.10.2, 192.168.10.254, 1h"
