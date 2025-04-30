@@ -2,7 +2,10 @@
   programs.lsd = {
     enable = true;
 
-    enableAliases = true;
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
+
     settings = {
       icons.when = "never";
       symlink-arrow = "->";
