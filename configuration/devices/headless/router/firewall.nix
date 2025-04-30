@@ -2,6 +2,7 @@
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
+  managementInterface = interfaces.management;
 
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
 in {
@@ -127,8 +128,15 @@ in {
       enable = true;
 
       inherit externalInterface;
-      internalInterfaces =
-        [ internalInterface "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.10" "${internalInterface}.100" ];
+      internalInterfaces = [
+        internalInterface
+        "${internalInterface}.2"
+        "${internalInterface}.3"
+        "${internalInterface}.10"
+        "${internalInterface}.100"
+
+        managementInterface
+      ];
 
       forwardPorts = [
         # Minecraft
