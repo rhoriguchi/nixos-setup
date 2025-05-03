@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   networking = {
     iproute2 = {
       enable = true;
@@ -11,22 +11,48 @@
     nftables = {
       enable = true;
 
-      tables.nginx-transparent-external = {
-        family = "inet";
+      tables = {
+        nginx-transparent-internal = {
+          family = "inet";
 
-        content = ''
-          chain output {
-            type filter hook output priority mangle;
+          content = ''
+            chain input {
+              type filter hook input priority filter;
 
-            fib daddr type != local tcp dport 443 ct mark set 1
-          }
+              fib daddr type local tcp dport ${toString config.services.nginx.defaultSSLListenPort} ct mark set 2 counter
+              ${
+                lib.optionalString config.services.lancache.enable
+                "fib daddr type local tcp dport ${toString config.services.lancache.httpsPort} ct mark set 2 counter"
+              }
 
-          chain prerouting {
-            type filter hook prerouting priority filter;
+              # ct mark 2 meta mark set 2 counter
+            }
 
-            ct mark 1 meta mark set 1
-          }
-        '';
+            chain output {
+              type filter hook output priority filter;
+
+              oif lo ct mark 2 meta mark set 2 counter
+            }
+          '';
+        };
+
+        nginx-transparent-external = {
+          family = "inet";
+
+          content = ''
+            chain output {
+              type filter hook output priority mangle;
+
+              fib daddr type != local tcp dport 443 ct mark set 1
+            }
+
+            chain prerouting {
+              type filter hook prerouting priority filter;
+
+              ct mark 1 meta mark set 1
+            }
+          '';
+        };
       };
     };
   };
