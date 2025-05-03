@@ -6,6 +6,7 @@
 
     systemPackages = [
       pkgs.bind
+      pkgs.conntrack-tools
       pkgs.cryptsetup
       pkgs.curl
       pkgs.deadnix
