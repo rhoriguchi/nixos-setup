@@ -79,7 +79,7 @@ in {
         postShutdown = ''
           ${pkgs.openresolv}/bin/resolvconf -d ${wireguardInterface}
 
-          ${pkgs.iproute2}/bin/ip route add default via ${hostAddress} dev eth0
+          ${pkgs.iproute2}/bin/ip route del ${endpointIp} via ${hostAddress} dev eth0
         '';
 
         peers = [{
