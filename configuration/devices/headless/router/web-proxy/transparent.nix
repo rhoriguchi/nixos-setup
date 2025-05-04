@@ -19,20 +19,26 @@
             chain input {
               type filter hook input priority filter;
 
-              fib daddr type local tcp dport ${toString config.services.nginx.defaultSSLListenPort} ct mark set 2 counter
+              fib daddr type local tcp dport ${toString config.services.nginx.defaultSSLListenPort} ct mark set 27 counter
               ${
                 lib.optionalString config.services.lancache.enable
-                "fib daddr type local tcp dport ${toString config.services.lancache.httpsPort} ct mark set 2 counter"
+                "fib daddr type local tcp dport ${toString config.services.lancache.httpsPort} ct mark set 27 counter"
               }
 
-              # ct mark 2 meta mark set 2 counter
+              # ct mark 27 meta mark set 27 counter
             }
 
-            chain output {
-              type filter hook output priority filter;
+            # chain output {
+            #   type filter hook output priority filter;
 
-              oif lo ct mark 2 meta mark set 2 counter
-            }
+            #   ct mark 27 meta mark set 27 counter
+            # }
+
+            # chain prerouting {
+            #   type filter hook prerouting priority filter;
+
+            #   ct mark 27 meta mark set 27 counter
+            # }
           '';
         };
 
@@ -68,11 +74,15 @@
 
       script = ''
         ${pkgs.iproute2}/bin/ip rule add fwmark 1 lookup nginx-transparent
+        # TODO remove
+        ${pkgs.iproute2}/bin/ip rule add fwmark 27 lookup nginx-transparent
         ${pkgs.iproute2}/bin/ip route add local 0.0.0.0/0 dev lo table nginx-transparent
       '';
 
       preStop = ''
         ${pkgs.iproute2}/bin/ip route del local 0.0.0.0/0 dev lo table nginx-transparent
+        # TODO remove
+        ${pkgs.iproute2}/bin/ip rule del fwmark 27 lookup nginx-transparent
         ${pkgs.iproute2}/bin/ip rule del fwmark 1 lookup nginx-transparent
       '';
 
