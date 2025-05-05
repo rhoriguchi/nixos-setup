@@ -16,15 +16,14 @@
           family = "inet";
 
           content = ''
-            # chain input {
-            #   type filter hook input priority filter;
+            chain input {
+              type filter hook input priority filter;
 
-            #   fib daddr type local tcp dport ${toString config.services.nginx.defaultSSLListenPort} ct mark set 27 counter
-            #   ${ lib.optionalString config.services.lancache.enable "fib daddr type local tcp dport ${toString config.services.lancache.httpsPort} ct mark set 27 counter" }
+              fib daddr type local tcp dport ${toString config.services.nginx.defaultSSLListenPort} ct mark set 27 counter
+              ${ lib.optionalString config.services.lancache.enable "fib daddr type local tcp dport ${toString config.services.lancache.httpsPort} ct mark set 27 counter" }
 
-            #   ct mark 27 meta mark set 27 counter
-            # }
-
+              # ct mark 27 meta mark set 27 counter
+            }
 
             # chain prerouting {
             #   type filter hook prerouting priority filter;
