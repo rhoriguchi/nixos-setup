@@ -54,7 +54,6 @@ in {
           filter = "nginx-forbidden";
           action = "%(banaction_allports)s";
 
-          maxretry = 1;
           bantime = "1d";
         };
       };
