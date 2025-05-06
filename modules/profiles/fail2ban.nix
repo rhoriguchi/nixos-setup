@@ -11,8 +11,7 @@ in {
     bantime-increment = {
       enable = true;
 
-      multipliers = "1 2 4 8 16 32 64";
-      maxtime = "${toString (7 * 24)}h";
+      maxtime = "7d";
     };
 
     maxretry = 3;
@@ -61,6 +60,12 @@ in {
   };
 
   environment.etc = {
+    "fail2ban/action.d/nftables-common.local".source = format.generate "nftables-common.local" {
+      Definition.rule_stat = "<addr_family> saddr @<addr_set> <blocktype>";
+
+      Init.blocktype = "drop";
+    };
+
     # https://www.home-assistant.io/integrations/fail2ban/#create-a-filter-for-the-home-assistant-jail
     "fail2ban/filter.d/home-assistant.local".source = format.generate "home-assistant.local" {
       INCLUDES.before = "common.conf";
