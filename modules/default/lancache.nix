@@ -16,7 +16,7 @@ let
   cacheDomains = lib.filter (domain: domain != "") rawCacheDomains;
 in {
   options.services.lancache = {
-    enable = lib.mkEnableOption "Lancache";
+    enable = lib.mkEnableOption "LanCache";
     httpPort = lib.mkOption {
       type = lib.types.port;
       default = 15411;
