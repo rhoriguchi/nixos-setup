@@ -1,15 +1,9 @@
-{ config, lib, pkgs, public-keys, secrets, ... }: {
+{ config, lib, public-keys, secrets, ... }: {
   imports = [ ../../common.nix ];
 
   networking.networkmanager = {
     ethernet.macAddress = "permanent";
     wifi.macAddress = "permanent";
-  };
-
-  environment = {
-    systemPackages = [ pkgs.nano ];
-
-    variables.EDITOR = "nano";
   };
 
   users.users.xxlpitu = {
