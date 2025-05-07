@@ -1,12 +1,6 @@
 { config, lib, pkgs, public-keys, secrets, ... }: {
   imports = [ ../../common.nix ];
 
-  nix.gc = {
-    automatic = true;
-    dates = "05:00";
-    options = "--delete-older-than 7d";
-  };
-
   networking.networkmanager = {
     ethernet.macAddress = "permanent";
     wifi.macAddress = "permanent";

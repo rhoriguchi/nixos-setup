@@ -20,6 +20,7 @@
   nftables = ./nftables.nix;
   nginx = ./nginx.nix;
   nix = ./nix.nix;
+  nix-garbage-collection = ./nix-garbage-collection.nix;
   nvd = ./nvd.nix;
   podman = ./podman.nix;
   printing = ./printing.nix;
