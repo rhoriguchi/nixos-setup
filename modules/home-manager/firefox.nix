@@ -173,6 +173,28 @@
           }];
         };
 
+        userChrome = ''
+          /* Multi-Account Containers */
+          ${let
+            colorMap = {
+              blue = colors.normal.blue;
+              green = colors.normal.green;
+              # orange
+              # pink
+              purple = colors.normal.magenta;
+              red = colors.normal.red;
+              toolbar = colors.normal.gray;
+              turquoise = colors.normal.cyan;
+              yellow = colors.normal.yellow;
+            };
+          in lib.concatStringsSep "\n" (lib.mapAttrsToList (name: color: ''
+            .identity-color-${name} {
+              --identity-tab-color: ${color} !important;
+              --identity-icon-color: ${color} !important;
+            }
+          '') colorMap)}
+        '';
+
         settings = {
           "app.shield.optoutstudies.enabled" = false;
           "browser.aboutConfig.showWarning" = false;
@@ -297,6 +319,7 @@
           "services.sync.engine.prefs" = false;
           "services.sync.engine.tabs" = false;
           "signon.rememberSignons" = false;
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "toolkit.telemetry.reportingpolicy.firstRun" = false;
           "trailhead.firstrun.didSeeAboutWelcome" = true;
           "ui.textHighlightBackground" = colors.normal.accent;
