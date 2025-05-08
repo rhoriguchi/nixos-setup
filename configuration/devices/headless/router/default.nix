@@ -4,9 +4,9 @@ in {
   imports = [
     ../common.nix
 
-    ./adguardhome.nix
     ./broken-emmc.nix
     ./dhcp
+    ./dns
     ./firewall.nix
     ./lancache.nix
     ./networking.nix
