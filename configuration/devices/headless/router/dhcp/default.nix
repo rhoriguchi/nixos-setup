@@ -19,11 +19,20 @@ in {
     "${internalInterface}.100" = rules;
   };
 
-  services.dnsmasq = {
+  services.kea.dhcp4 = {
     enable = true;
 
     settings = {
-      interface = [
+      lease-database = {
+        type = "memfile";
+        persist = true;
+        name = "/var/lib/kea/dhcp4.leases";
+      };
+
+      authoritative = true;
+      valid-lifetime = 60 * 60;
+
+      interfaces-config.interfaces = [
         "${managementInterface}"
 
         "${internalInterface}"
@@ -33,53 +42,156 @@ in {
         "${internalInterface}.100"
       ];
 
-      # enable hostname dns resolution
-      expand-hosts = true;
-      domain = "local";
-      local = "/local/";
+      ddns-generated-prefix = "";
 
-      dhcp-authoritative = true;
-      dhcp-range = [
-        "${managementInterface}, 172.16.1.2, 172.16.1.254, 1h"
+      subnet4 = [
+        {
+          id = 999;
+          interface = managementInterface;
+          subnet = "172.16.1.0/24";
+          pools = [{ pool = "172.16.1.2 - 172.16.1.254"; }];
 
-        "${internalInterface}, 192.168.1.2, 192.168.1.254, 1h"
-        "${internalInterface}.2, 192.168.2.2, 192.168.2.254, 1h"
-        "${internalInterface}.3, 192.168.3.2, 192.168.3.254, 1h"
-        "${internalInterface}.10, 192.168.10.2, 192.168.10.254, 1h"
-        "${internalInterface}.100, 192.168.100.2, 192.168.100.254, 1h"
-      ];
+          ddns-send-updates = false;
 
-      # https://blog.abysm.org/2020/06/human-readable-dhcp-options-for-dnsmasq
-      dhcp-option = [
-        "${managementInterface}, option:router, 172.16.1.1"
+          option-data = [{
+            name = "routers";
+            data = "172.16.1.1";
+          }];
+        }
 
-        "${internalInterface}, option:router, 192.168.1.1"
-        "${internalInterface}, option:dns-server, 192.168.1.1"
-        "${internalInterface}, option:domain-name, local"
+        {
+          id = 1;
+          interface = internalInterface;
+          subnet = "192.168.1.0/24";
+          pools = [{ pool = "192.168.1.2 - 192.168.1.254"; }];
 
-        "${internalInterface}.2, option:router, 192.168.2.1"
-        "${internalInterface}.2, option:dns-server, 192.168.2.1"
-        "${internalInterface}.2, option:domain-name, local"
+          ddns-qualifying-suffix = "local";
 
-        "${internalInterface}.3, option:router, 192.168.3.1"
-        "${internalInterface}.3, option:dns-server, 192.168.3.1"
-        "${internalInterface}.3, option:domain-name, local"
+          option-data = [
+            {
+              name = "routers";
+              data = "192.168.1.1";
+            }
+            {
+              name = "domain-name-servers";
+              data = "192.168.1.1";
+            }
+            {
+              name = "domain-name";
+              data = "local";
+            }
+          ];
+          reservations = [{
+            hw-address = "74:83:c2:74:90:b7";
+            ip-address = ips.cloudKey;
+          }];
+        }
+        {
+          id = 2;
+          interface = "${internalInterface}.2";
+          subnet = "192.168.2.0/24";
+          pools = [{ pool = "192.168.2.2 - 192.168.2.254"; }];
 
-        "${internalInterface}.10, option:router, 192.168.10.1"
-        "${internalInterface}.10, option:dns-server, 192.168.10.1"
-        "${internalInterface}.10, option:domain-name, local"
+          ddns-qualifying-suffix = "local";
 
-        "${internalInterface}.100, option:router, 192.168.100.1"
-        "${internalInterface}.100, option:dns-server, 192.168.100.1"
-      ];
+          option-data = [
+            {
+              name = "routers";
+              data = "192.168.2.1";
+            }
+            {
+              name = "domain-name-servers";
+              data = "192.168.2.1";
+            }
+            {
+              name = "domain-name";
+              data = "local";
+            }
+          ];
+        }
+        {
+          id = 3;
+          interface = "${internalInterface}.3";
+          subnet = "192.168.3.0/24";
+          pools = [{ pool = "192.168.3.2 - 192.168.3.254"; }];
 
-      dhcp-host = [
-        "74:83:c2:74:90:b7, unifi, ${ips.cloudKey}"
-        "c8:7f:54:03:bd:79, XXLPitu-Server, ${ips.server}"
-        "dc:a6:32:da:9d:b3, XXLPitu-Ulquiorra, ${ips.ulquiorra}"
+          ddns-qualifying-suffix = "local";
 
-        # Stadler Form Karl
-        "a8:80:55:9c:09:9b, 192.168.3.254"
+          option-data = [
+            {
+              name = "routers";
+              data = "192.168.3.1";
+            }
+            {
+              name = "domain-name-servers";
+              data = "192.168.3.1";
+            }
+            {
+              name = "domain-name";
+              data = "local";
+            }
+          ];
+          reservations = [
+            {
+              hw-address = "dc:a6:32:da:9d:b3";
+              ip-address = ips.ulquiorra;
+            }
+            {
+              hw-address = "a8:80:55:9c:09:9b";
+              ip-address = ips.stadlerFormKarl;
+            }
+          ];
+        }
+        {
+          id = 10;
+          interface = "${internalInterface}.10";
+          subnet = "192.168.10.0/24";
+          pools = [{ pool = "192.168.10.2 - 192.168.10.254"; }];
+
+          ddns-qualifying-suffix = "local";
+
+          option-data = [
+            {
+              name = "routers";
+              data = "192.168.10.1";
+            }
+            {
+              name = "domain-name-servers";
+              data = "192.168.10.1";
+            }
+            {
+              name = "domain-name";
+              data = "local";
+            }
+          ];
+          reservations = [{
+            hw-address = "c8:7f:54:03:bd:79";
+            ip-address = ips.server;
+          }];
+        }
+        {
+          id = 100;
+          interface = "${internalInterface}.100";
+          subnet = "192.168.100.0/24";
+          pools = [{ pool = "192.168.100.2 - 192.168.100.254"; }];
+
+          ddns-qualifying-suffix = "local";
+
+          option-data = [
+            {
+              name = "routers";
+              data = "192.168.100.1";
+            }
+            {
+              name = "domain-name-servers";
+              data = "192.168.100.1";
+            }
+            {
+              name = "domain-name";
+              data = "local";
+            }
+          ];
+        }
       ];
     };
   };

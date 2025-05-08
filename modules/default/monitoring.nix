@@ -9,6 +9,8 @@ let
 
   wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
 
+  keaEnabled = lib.any (service: service.enable) [ config.services.kea.dhcp4 config.services.kea.dhcp6 ];
+
   frrEnabled = lib.any (service: config.services.frr.${service}.enable) [ "bfdd" "bgpd" "ospfd" "pimd" ];
 
   redisEnabled = lib.any (server: server.enable) (lib.attrValues config.services.redis.servers);
@@ -68,6 +70,12 @@ in {
     ];
 
     services = {
+      bind.extraConfig = ''
+        statistics-channels {
+          inet 127.0.0.1 port 8653 allow { 127.0.0.1; };
+        };
+      '';
+
       borg-exporter.enable = config.services.borgmatic.enable;
 
       frr_exporter = {
@@ -112,6 +120,45 @@ in {
         CREATE USER netdata;
         GRANT pg_monitor TO netdata;
       '';
+
+      prometheus.exporters.kea = {
+        enable = keaEnabled;
+
+        targets = lib.optional config.services.kea.dhcp4.enable "/run/kea/kea-dhcp4.socket"
+          ++ lib.optional config.services.kea.dhcp6.enable "/run/kea/kea-dhcp6.socket";
+      };
+      kea = {
+        dhcp4.settings.control-socket = {
+          socket-type = "unix";
+          socket-name = "/run/kea/kea-dhcp4.socket";
+        };
+
+        dhcp6.settings.control-socket = {
+          socket-type = "unix";
+          socket-name = "/run/kea/kea-dhcp6.socket";
+        };
+
+        ctrl-agent = {
+          enable = keaEnabled;
+
+          settings = {
+            http-host = "127.0.0.1";
+            http-port = 8000;
+
+            control-sockets = lib.optionalAttrs config.services.kea.dhcp4.enable {
+              dhcp4 = {
+                socket-type = "unix";
+                socket-name = "/run/kea/kea-dhcp4.socket";
+              };
+            } // lib.optionalAttrs config.services.kea.dhcp6.enable {
+              dhcp6 = {
+                socket-type = "unix";
+                socket-name = "/run/kea/kea-dhcp6.socket";
+              };
+            };
+          };
+        };
+      };
 
       promtail.configuration.server.register_instrumentation = true;
 
@@ -188,6 +235,13 @@ in {
               destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
             };
           }.${cfg.type};
+        } // lib.optionalAttrs config.services.bind.enable {
+          "go.d/bind.conf" = pkgs.writers.writeYAML "bind.conf" {
+            jobs = [{
+              name = "local";
+              url = "http://127.0.0.1:8653/xml/v3";
+            }];
+          };
         } // lib.optionalAttrs config.services.dnsmasq.enable {
           "go.d/dnsmasq_dhcp.conf" = pkgs.writers.writeYAML "dnsmasq_dhcp.conf" {
             jobs = [{
@@ -270,7 +324,10 @@ in {
                 name = "Immich microservice";
                 url = "http://127.0.0.1:8082/metrics";
               }
-            ] ++ lib.optional config.services.loki.enable {
+            ] ++ lib.optional keaEnabled {
+              name = "Kea";
+              url = "http://127.0.0.1:${toString config.services.prometheus.exporters.kea.port}/metrics";
+            } ++ lib.optional config.services.loki.enable {
               name = "Loki";
               url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/metrics";
             } ++ lib.optional config.services.minecraft-servers.enable {
