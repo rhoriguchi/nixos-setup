@@ -30,7 +30,7 @@ in {
       };
 
       authoritative = true;
-      valid-lifetime = 60 * 60;
+      valid-lifetime = 60;
 
       interfaces-config.interfaces = [
         "${managementInterface}"

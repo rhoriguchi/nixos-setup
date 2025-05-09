@@ -72,6 +72,28 @@ in {
           algorithm hmac-sha256;
           secret "${secrets.kea.ddnsKey}";
         };
+
+        logging {
+          channel update_debug {
+            file "/run/named/update.log";
+            severity debug 3;
+            print-time yes;
+            print-severity yes;
+            print-category yes;
+          };
+
+          category update {
+            update_debug;
+          };
+
+          category update-security {
+            update_debug;
+          };
+
+          category general {
+            update_debug;
+          };
+        };
       '';
     };
 
