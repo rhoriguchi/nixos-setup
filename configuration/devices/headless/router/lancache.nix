@@ -3,7 +3,15 @@
     lancache = {
       enable = true;
 
-      cachedServices = [ "blizzard" "epicgames" "nintendo" "riot" "steam" "wsus" ];
+      cachedServices = [
+        "blizzard"
+        "epicgames"
+        "nintendo"
+        # TODO uncomment when https://github.com/uklans/cache-domains/issues/209 fixed
+        # "riot"
+        "steam"
+        "wsus"
+      ];
     };
 
     steam-lancache-prefill = {
