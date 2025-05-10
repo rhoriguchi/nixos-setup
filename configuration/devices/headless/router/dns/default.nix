@@ -2,8 +2,29 @@
 let
   internalInterface = interfaces.internal;
 
+  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
+
   dnsZoneDir = "/var/lib/named";
   localZoneFile = "${dnsZoneDir}/local.zone";
+
+  mkZoneFile = let ttl = 60 * 5;
+  in data:
+  pkgs.writeText data.hostname ''
+    $TTL ${toString (ttl * 24)}
+    @ IN SOA ${config.networking.hostName}.local. ${lib.replaceStrings [ "@" ] [ "." ] config.security.acme.defaults.email}. (${
+      lib.concatSTringsSep " " [
+        "1" # Serial
+        (toString ttl) # Refresh
+        (toString (ttl / 2)) # Retry
+        (toString (ttl * 24 * 7)) # Expire
+        (toString (ttl * 24)) # Minimum TTL
+      ]
+    })
+
+      IN NS ${config.networking.hostName}.local.
+
+    ${if lib.hasAttr "ip" data then "@ IN A ${data.ip}" else "@ IN CNAME ${data.hostname}"}
+  '';
 in {
   imports = [ ./adguardhome.nix ];
 
@@ -58,9 +79,20 @@ in {
           '';
         };
 
-        # TODO BIND commented
-        # reverse = {};
+        "${config.networking.hostName}.local" = {
+          master = true;
+          file = mkZoneFile {
+            hostname = "${config.networking.hostName}.local";
+            ip = ips.router;
+          };
+          extraConfig = ''
+            zone-statistics yes;
+          '';
+        };
       };
+
+      # TODO BIND commented
+      # reverse = {};
 
       extraConfig = ''
         tls cloudflare_tls {
