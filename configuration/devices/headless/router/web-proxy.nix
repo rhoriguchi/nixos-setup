@@ -1,4 +1,4 @@
-{ config, lib, interfaces, ... }:
+{ config, interfaces, lib, ... }:
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
