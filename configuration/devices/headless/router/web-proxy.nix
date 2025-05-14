@@ -3,6 +3,8 @@ let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
 
+  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
+
   serverDomains = [
     "deluge.00a.ch"
     "esphome.00a.ch"

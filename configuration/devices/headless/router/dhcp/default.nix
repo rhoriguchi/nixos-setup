@@ -76,6 +76,7 @@ in {
       dhcp-host = [
         "74:83:c2:74:90:b7, unifi, ${ips.cloudKey}"
         "c8:7f:54:03:bd:79, XXLPitu-Server, ${ips.server}"
+        "dc:a6:32:da:9d:b3, XXLPitu-Ulquiorra, ${ips.ulquiorra}"
 
         # Stadler Form Karl
         "a8:80:55:9c:09:9b, 192.168.3.254"
