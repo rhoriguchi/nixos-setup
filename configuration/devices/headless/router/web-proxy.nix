@@ -54,12 +54,12 @@ in {
       };
 
       XXLPitu-Ulquiorra = {
-        server = "XXLPitu-Ulquiorra.local:443";
+        server = "${ips.ulquiorra}:443";
         hostnames = ulquiorraDomains;
       };
 
       XXLPitu-Server = {
-        server = "XXLPitu-Server.local:443";
+        server = "${ips.server}:443";
         hostnames = serverDomains;
       };
     };
