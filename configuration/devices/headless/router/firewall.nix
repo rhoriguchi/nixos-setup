@@ -61,6 +61,18 @@ in {
           chain forward {
             type filter hook forward priority filter; policy accept;
 
+            ${
+              let
+                interfaces = lib.filterAttrs (_: value: value.useDHCP != true) config.networking.interfaces;
+                interfaceAddresses = lib.mapAttrs (_: value: value.ipv4.addresses) interfaces;
+
+                rules = lib.mapAttrsToList (interface: addresses:
+                  "iifname ${interface} ip saddr != { ${
+                    lib.concatStringsSep ", " (map (address: "${address.address}/${toString address.prefixLength}") addresses)
+                  } } drop") interfaceAddresses;
+              in lib.concatStringsSep "\n" rules
+            }
+
             iifname { ${
               lib.concatStringsSep ", "
               (lib.filter (interface: lib.hasPrefix internalInterface interface) config.networking.nat.internalInterfaces)
