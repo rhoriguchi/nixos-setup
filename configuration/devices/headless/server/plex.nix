@@ -82,8 +82,8 @@ in {
         path = pkgs.fetchFromGitHub {
           owner = "Fribb";
           repo = "MyAnimeList.bundle";
-          tag = "v7.4.1";
-          hash = "sha256-hqdhz1FyzwgLHcxMRSuSuwNLuqDhdy+t6KCZhESgAho=";
+          tag = "v7.4.2";
+          hash = "sha256-g2VEsJaVucWk2jwm6EStuq5Age8aqpn/EiMupU3i7Hw=";
         };
       })
     ];
