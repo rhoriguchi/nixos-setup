@@ -149,9 +149,9 @@
             ];
 
             _module.args.interfaces = {
-              external = "enp1s0";
-              internal = "enp2s0";
-              management = "enp4s0";
+              external = "eth0";
+              internal = "eth1";
+              management = "eth2";
             };
           }];
         };

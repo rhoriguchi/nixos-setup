@@ -8,6 +8,7 @@ in {
     ./broken-emmc.nix
     ./dhcp
     ./firewall.nix
+    ./interface-names.nix
     ./lancache.nix
     ./networking.nix
     ./web-proxy.nix
