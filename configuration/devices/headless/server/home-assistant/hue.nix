@@ -199,7 +199,7 @@ in {
         target.entity_id = "light.hallway_lamp";
       }];
     }
-  ] ++ lib.lists.flatten (map (data: createSwitchAutomations data) [
+  ] ++ lib.flatten (map (data: createSwitchAutomations data) [
     {
       name = "bedroom";
       targetId = "light.group_switch_bedroom";

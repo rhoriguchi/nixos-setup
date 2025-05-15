@@ -178,9 +178,9 @@ in {
       }
       {
         assertion = let
-          flattenedSecrets = lib.lists.flatten (map lib.attrValues (lib.attrValues cfg.secrets));
+          flattenedSecrets = lib.flatten (map lib.attrValues (lib.attrValues cfg.secrets));
           secrets = lib.filter (secret: secret != null) flattenedSecrets;
-        in secrets == lib.lists.unique secrets;
+        in secrets == lib.unique secrets;
         message = "Every secret in secrets must be unique";
       }
       {
