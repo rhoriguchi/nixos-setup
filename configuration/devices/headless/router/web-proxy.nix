@@ -20,8 +20,8 @@ let
   ];
   ulquiorraDomains = [ "printer.00a.ch" "scanner.00a.ch" ];
 
-  getVirtualHost = hostName: domains: {
-    "${lib.replaceStrings [ ".local" ] [ "" ] hostName}" = {
+  getVirtualHost = name: ip: domains: {
+    "${name}" = {
       serverAliases = domains;
 
       listen = map (addr: {
@@ -29,7 +29,7 @@ let
         port = config.services.nginx.defaultHTTPListenPort;
       }) config.services.nginx.defaultListenAddresses;
 
-      locations."/".proxyPass = "http://${hostName}:80";
+      locations."/".proxyPass = "http://${ip}:80";
     };
   };
 in {
@@ -64,6 +64,7 @@ in {
       };
     };
 
-    virtualHosts = (getVirtualHost "XXLPitu-Server.local" serverDomains) // (getVirtualHost "XXLPitu-Ulquiorra.local" ulquiorraDomains);
+    virtualHosts = (getVirtualHost "XXLPitu-Server.local" ips.server serverDomains)
+      // (getVirtualHost "XXLPitu-Ulquiorra.local" ips.ulquiorra ulquiorraDomains);
   };
 }
