@@ -41,7 +41,9 @@
     ];
 
     gnome.excludePackages = [
+      pkgs.adwaita-fonts
       pkgs.adwaita-icon-theme
+      pkgs.decibels
       pkgs.epiphany
       pkgs.evince
       pkgs.file-roller
