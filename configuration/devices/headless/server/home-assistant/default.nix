@@ -4,9 +4,11 @@
   services.home-assistant = {
     enable = true;
 
-    package = (pkgs.home-assistant.overrideAttrs (_: {
+    package = (pkgs.home-assistant.overrideAttrs (oldAttrs: {
       doCheck = false;
       doInstallCheck = false;
+
+      patches = (oldAttrs.patches or [ ]) ++ [ ./patches/govee-light-local-scane-interval.patch ];
     })).override {
       extraPackages = ps: [
         # Discord

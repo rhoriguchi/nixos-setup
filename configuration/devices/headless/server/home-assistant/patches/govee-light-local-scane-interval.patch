@@ -1,0 +1,11 @@
+diff --git a/homeassistant/components/govee_light_local/const.py b/homeassistant/components/govee_light_local/const.py
+index a90a1ff1ff1..5f4c1e6bcdc 100644
+--- a/homeassistant/components/govee_light_local/const.py
++++ b/homeassistant/components/govee_light_local/const.py
+@@ -10,5 +10,5 @@ CONF_TARGET_PORT_DEFAULT = 4001
+ CONF_LISTENING_PORT_DEFAULT = 4002
+ CONF_DISCOVERY_INTERVAL_DEFAULT = 60
+
+-SCAN_INTERVAL = timedelta(seconds=30)
++SCAN_INTERVAL = timedelta(seconds=5)
+ DISCOVERY_TIMEOUT = 5
