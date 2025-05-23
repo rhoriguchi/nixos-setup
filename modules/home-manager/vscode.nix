@@ -120,6 +120,7 @@
         "cSpell.enableFiletypes" = [ "nix" "terraform" ];
         "cSpell.userWords" = [ "horiguchi" "rhoriguchi" "xxlpitu" ];
         "editor.bracketPairColorization.enabled" = true;
+        "editor.defaultColorDecorators" = "auto";
         "editor.fontFamily" = "JetBrainsMono Nerd Font";
         "editor.guides.bracketPairs" = true;
         "editor.linkedEditing" = true;
@@ -127,7 +128,6 @@
         "editor.suggestSelection" = "first";
         "editor.tokenColorCustomizations".comments = "#767676";
         "editor.unicodeHighlight.includeComments" = true;
-        "editor.defaultColorDecorators" = "auto";
         "explorer.compactFolders" = false;
         "explorer.confirmDelete" = false;
         "explorer.confirmDragAndDrop" = false;
