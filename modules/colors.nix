@@ -2,10 +2,10 @@
   extra = {
     terminal = {
       background = "#303030";
-      border = "#9f9f9f";
+      border = "#9F9F9F";
     };
 
-    tmux.statusBackground = "#3d3d3d";
+    tmux.statusBackground = "#3D3D3D";
   };
 
   normal = rec {
