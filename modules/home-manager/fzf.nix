@@ -18,8 +18,8 @@
         info = colors.normal.green;
         prompt = colors.normal.white;
         pointer = colors.normal.accent;
-        border = colors.extra.tmux.statusBackground;
-        preview-border = colors.extra.tmux.statusBackground;
+        border = colors.extra.terminal.border;
+        preview-border = colors.extra.terminal.border;
       };
 
       historyWidgetOptions = [ "--no-multi" ];

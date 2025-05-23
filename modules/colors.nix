@@ -1,6 +1,10 @@
 {
   extra = {
-    terminal.background = "#303030";
+    terminal = {
+      background = "#303030";
+      border = "#9f9f9f";
+    };
+
     tmux.statusBackground = "#3d3d3d";
   };
 

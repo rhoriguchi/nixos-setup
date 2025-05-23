@@ -9,7 +9,7 @@
       styleOverrides = {
         primary = colors.normal.accent;
         secondary = colors.normal.white;
-        inactive = colors.extra.tmux.statusBackground;
+        inactive = colors.extra.terminal.border;
         error = colors.normal.red;
         success = colors.normal.green;
       };
