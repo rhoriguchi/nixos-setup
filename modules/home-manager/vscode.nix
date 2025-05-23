@@ -49,7 +49,6 @@
         pkgs.vscode-extensions.tyriar.sort-lines
         pkgs.vscode-extensions.vincaslt.highlight-matching-tag
         pkgs.vscode-extensions.wholroyd.jinja
-        pkgs.vscode-extensions.wix.vscode-import-cost
         pkgs.vscode-extensions.zainchen.json
       ];
 
