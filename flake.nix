@@ -85,8 +85,6 @@
         commonModule = {
           imports = [ self.nixosModules.default ];
 
-          system.configurationRevision = self.rev or self.dirtyRev or null;
-
           nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
           nixpkgs.overlays = [ self.overlays.default ];
