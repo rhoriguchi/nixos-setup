@@ -4,7 +4,7 @@
       listenOn = lib.mkForce [ "127.0.0.1" ];
       listenOnPort = 9053;
 
-      listenOnIpv6 = lib.mkForce [ "::1" ];
+      listenOnIpv6 = lib.mkForce (if config.networking.enableIPv6 then [ "::1" ] else [ "none" ]);
       listenOnIpv6Port = 9053;
     };
 
