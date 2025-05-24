@@ -4,24 +4,77 @@ let
   group = "samba";
 
   rootBindmountDir = "/mnt/bindmount/samba";
-  bindmountDir = "${rootBindmountDir}/resilio-Series";
+  bindmountDir1 = "${rootBindmountDir}/resilio-Movies";
+  bindmountDir2 = "${rootBindmountDir}/resilio-Series";
+  bindmountDir3 = "${rootBindmountDir}/disk-Movies";
+  bindmountDir4 = "${rootBindmountDir}/disk-Series";
+
+  rootOverlayDir = "/mnt/overlay/samba";
+  overlayDir1 = "${rootOverlayDir}/Movies";
+  overlayDir2 = "${rootOverlayDir}/Series";
 in {
   system.fsPackages = [ pkgs.bindfs ];
-  fileSystems.${bindmountDir} = {
-    depends = [ config.services.resilio.syncPath ];
-    device = "${config.services.resilio.syncPath}/Series";
-    fsType = "fuse.bindfs";
-    options = [
-      # `ro` causes kernel panic
-      "perms=0550"
-      "map=${lib.concatStringsSep ":" [ "${config.services.resilio.user}/${user}" "@${config.services.resilio.group}/@${group}" ]}"
-    ];
+  fileSystems = {
+    "${bindmountDir1}" = {
+      depends = [ config.services.resilio.syncPath ];
+      device = "${config.services.resilio.syncPath}/Movies";
+      fsType = "fuse.bindfs";
+      options = [
+        # `ro` causes kernel panic
+        "perms=0550"
+        "map=${lib.concatStringsSep ":" [ "${config.services.resilio.user}/${user}" "@${config.services.resilio.group}/@${group}" ]}"
+      ];
+    };
+
+    "${bindmountDir2}" = {
+      depends = [ config.services.resilio.syncPath ];
+      device = "${config.services.resilio.syncPath}/Series";
+      fsType = "fuse.bindfs";
+      options = [
+        # `ro` causes kernel panic
+        "perms=0550"
+        "map=${lib.concatStringsSep ":" [ "${config.services.resilio.user}/${user}" "@${config.services.resilio.group}/@${group}" ]}"
+      ];
+    };
+
+    "${bindmountDir3}" = {
+      depends = [ "/mnt/Data/Movies" ];
+      device = "/mnt/Data/Movies";
+      fsType = "fuse.bindfs";
+      options = [
+        # `ro` causes kernel panic
+        "perms=0550"
+        "map=${lib.concatStringsSep ":" [ "root/${user}" "@root/@${group}" ]}"
+      ];
+    };
+
+    "${bindmountDir4}" = {
+      depends = [ "/mnt/Data/Series" ];
+      device = "/mnt/Data/Series";
+      fsType = "fuse.bindfs";
+      options = [
+        # `ro` causes kernel panic
+        "perms=0550"
+        "map=${lib.concatStringsSep ":" [ "root/${user}" "@root/@${group}" ]}"
+      ];
+    };
+
+    "${overlayDir1}".overlay.lowerdir = [ bindmountDir1 bindmountDir3 ];
+
+    "${overlayDir2}".overlay.lowerdir = [ bindmountDir2 bindmountDir4 ];
   };
 
-  system.activationScripts.bindmount-samba = ''
-    mkdir -p ${bindmountDir}
-    chown -R ${user}:${group} ${rootBindmountDir}
-  '';
+  systemd.tmpfiles.rules = [
+    "d ${rootBindmountDir} 0550 ${user} ${group}"
+    "d ${bindmountDir1} 0550 ${user} ${group}"
+    "d ${bindmountDir2} 0550 ${user} ${group}"
+    "d ${bindmountDir3} 0550 ${user} ${group}"
+    "d ${bindmountDir4} 0550 ${user} ${group}"
+
+    "d ${rootOverlayDir} 0550 ${user} ${group}"
+    "d ${overlayDir1} 0550 ${user} ${group}"
+    "d ${overlayDir2} 0550 ${user} ${group}"
+  ];
 
   users = {
     users.${user} = {
@@ -74,8 +127,8 @@ in {
         "show add printer wizard" = "no";
       };
 
-      Series = {
-        "path" = bindmountDir;
+      Media = {
+        "path" = rootOverlayDir;
         "browseable" = "yes";
         "read only" = "yes";
 

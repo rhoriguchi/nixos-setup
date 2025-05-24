@@ -108,7 +108,7 @@ del /f Netdata.msi
 Manually enter password found in [secrets.nix](../../../secrets.nix).samba.users.password and save credentials
 
 ```cmd
-net use X: \\XXLPitu-Server.local\Series /user:samba /persistent:yes
+net use X: \\XXLPitu-Server.local\Media /user:samba /persistent:yes
 ```
 
 ## Autostart
