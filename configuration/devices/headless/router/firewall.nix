@@ -10,6 +10,9 @@ in {
     "net.ipv4.conf.all.accept_redirects" = 0;
     "net.ipv4.conf.default.accept_redirects" = 0;
 
+    "net.ipv4.conf.all.rp_filter" = 1;
+    "net.ipv4.conf.default.rp_filter" = 1;
+
     "net.ipv4.conf.all.secure_redirects" = 0;
     "net.ipv4.conf.default.secure_redirects" = 0;
   };
@@ -60,18 +63,6 @@ in {
 
           chain forward {
             type filter hook forward priority filter; policy accept;
-
-            ${
-              let
-                interfaces = lib.filterAttrs (_: value: value.useDHCP != true) config.networking.interfaces;
-                interfaceAddresses = lib.mapAttrs (_: value: value.ipv4.addresses) interfaces;
-
-                rules = lib.mapAttrsToList (interface: addresses:
-                  "iifname ${interface} ip saddr != { ${
-                    lib.concatStringsSep ", " (map (address: "${address.address}/${toString address.prefixLength}") addresses)
-                  } } drop") interfaceAddresses;
-              in lib.concatStringsSep "\n" rules
-            }
 
             iifname { ${
               lib.concatStringsSep ", "
