@@ -19,12 +19,12 @@ in {
           "/var/lib/${config.services.prometheus.stateDir}"
           "/var/lib/hass/backups"
           "/var/lib/private/esphome"
-          "/var/lib/private/prowlarr"
 
           config.services.immich.mediaLocation
           config.services.loki.dataDir
           config.services.minecraft-servers.dataDir
           config.services.plex.dataDir
+          config.services.prowlarr.dataDir
           config.services.resilio.syncPath
           config.services.sonarr.dataDir
           config.services.tautulli.dataDir
