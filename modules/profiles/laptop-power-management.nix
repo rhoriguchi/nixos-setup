@@ -24,9 +24,6 @@
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
         MAX_LOST_WORK_SECS_ON_BAT = "30";
         WIFI_PWR_ON_BAT = "off";
-
-        START_CHARGE_THRESH_BAT0 = "75";
-        STOP_CHARGE_THRESH_BAT0 = "80";
       };
     };
   };
