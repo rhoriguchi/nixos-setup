@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 
   nix = {
     package = pkgs.nixVersions.latest;

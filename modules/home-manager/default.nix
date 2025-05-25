@@ -1,7 +1,7 @@
 { lib, ... }: {
   imports = lib.custom.getImports ./.;
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 
   news.display = "silent";
 
