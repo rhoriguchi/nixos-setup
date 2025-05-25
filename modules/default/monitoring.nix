@@ -177,7 +177,7 @@ in {
           withNdsudo = true;
         };
 
-        claimTokenFile = if isParent then pkgs.writeText "claimToken" cfg.claimToken else null;
+        claimToken = if isParent then cfg.claimToken else null;
 
         extraNdsudoPackages = [
           # NVMe devices collector
