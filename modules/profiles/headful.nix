@@ -27,6 +27,7 @@
     pkgs.loupe
     pkgs.mission-center
     pkgs.obsidian
+    pkgs.pavucontrol
     pkgs.qbittorrent
     pkgs.rustdesk-flutter
     pkgs.signal-desktop
