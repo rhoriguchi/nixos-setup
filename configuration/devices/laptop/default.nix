@@ -94,39 +94,31 @@
 
   environment.systemPackages = [ pkgs.google-chrome pkgs.libreoffice-fresh pkgs.vlc pkgs.wpa_supplicant_gui ];
 
-  users.users = {
-    rhoriguchi = {
-      extraGroups = [ "networkmanager" "plugdev" "wheel" ] ++ (lib.optional config.hardware.openrazer.enable "openrazer")
-        ++ (lib.optional config.programs.wireshark.enable "wireshark") ++ (lib.optional config.virtualisation.docker.enable "docker")
-        ++ (lib.optionals config.virtualisation.libvirtd.enable [ "kvm" "libvirtd" ])
-        ++ (lib.optional config.virtualisation.podman.enable "podman")
-        ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
-      isNormalUser = true;
-      password = secrets.users.rhoriguchi.password;
+  users.users.rhoriguchi = {
+    extraGroups = [ "networkmanager" "plugdev" "wheel" ] ++ (lib.optional config.hardware.openrazer.enable "openrazer")
+      ++ (lib.optional config.programs.wireshark.enable "wireshark") ++ (lib.optional config.virtualisation.docker.enable "docker")
+      ++ (lib.optionals config.virtualisation.libvirtd.enable [ "kvm" "libvirtd" ])
+      ++ (lib.optional config.virtualisation.podman.enable "podman")
+      ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
+    isNormalUser = true;
+    password = secrets.users.rhoriguchi.password;
 
-      packages = [
-        pkgs.discord
-        pkgs.gimp3
-        pkgs.gitkraken
-        pkgs.glow
-        pkgs.inkscape
-        pkgs.jetbrains.datagrip
-        pkgs.jetbrains.idea-ultimate
-        pkgs.jetbrains.pycharm-professional
-        pkgs.jetbrains.webstorm
-        pkgs.obsidian
-        pkgs.prismlauncher # Minecraft
-        pkgs.qbittorrent
-        pkgs.rustdesk-flutter
-        pkgs.signal-desktop
-      ];
-    };
-
-    sillert = {
-      extraGroups = [ "networkmanager" "plugdev" ] ++ (lib.optional config.hardware.openrazer.enable "openrazer");
-      isNormalUser = true;
-      password = secrets.users.sillert.password;
-    };
+    packages = [
+      pkgs.discord
+      pkgs.gimp3
+      pkgs.gitkraken
+      pkgs.glow
+      pkgs.inkscape
+      pkgs.jetbrains.datagrip
+      pkgs.jetbrains.idea-ultimate
+      pkgs.jetbrains.pycharm-professional
+      pkgs.jetbrains.webstorm
+      pkgs.obsidian
+      pkgs.prismlauncher # Minecraft
+      pkgs.qbittorrent
+      pkgs.rustdesk-flutter
+      pkgs.signal-desktop
+    ];
   };
 
   system.activationScripts.rhoriguchiSetup = let
