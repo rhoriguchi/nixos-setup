@@ -3,6 +3,8 @@
     readOnly = true;
 
     entries = [
+      "${pkgs.blueman}/share/applications/blueman-manager.desktop"
+
       "${pkgs.solaar}/share/applications/solaar.desktop"
 
       (let content = lib.readFile "${pkgs.wpa_supplicant_gui}/share/applications/wpa_gui.desktop";
