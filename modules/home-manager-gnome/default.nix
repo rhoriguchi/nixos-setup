@@ -14,10 +14,7 @@ let
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
 in {
-  imports = [ ./autostart.nix ];
-
-  # TODO causes issues on darwin
-  home.packages = lib.optionals pkgs.stdenv.isLinux extensions;
+  home.packages = extensions;
 
   dconf = {
     enable = true;

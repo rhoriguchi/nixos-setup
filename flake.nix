@@ -64,7 +64,9 @@
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
+
         home-manager.imports = [ inputs.nix-index-database.hmModules.nix-index ./modules/home-manager ];
+        home-manager-gnome.imports = [ ./modules/home-manager-gnome ];
       };
 
       overlays = {
@@ -124,7 +126,7 @@
 
                   extraSpecialArgs.colors = self.nixosModules.colors;
 
-                  users.rhoriguchi.imports = [ self.nixosModules.home-manager ];
+                  users.rhoriguchi.imports = [ self.nixosModules.home-manager self.nixosModules.home-manager-gnome ];
                 };
               }
             ];

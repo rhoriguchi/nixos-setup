@@ -2,6 +2,8 @@
   imports = [ ./settings.nix ];
 
   services = {
+    displayManager.defaultSession = "gnome";
+
     xserver = {
       enable = true;
 
