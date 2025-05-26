@@ -1,5 +1,7 @@
 { lib, pkgs, ... }: {
   xdg.configFile = {
+    "autostart/${pkgs.blueman.pname}.desktop".source = "${pkgs.blueman}/share/applications/blueman-manager.desktop";
+
     "autostart/${pkgs.solaar.pname}.desktop".source = "${pkgs.solaar}/share/applications/solaar.desktop";
 
     "autostart/${pkgs.wpa_supplicant_gui.pname}.desktop".text =
