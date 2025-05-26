@@ -31,6 +31,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland = {
+      url = "github:hyprwm/Hyprland?ref=v0.50.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-github-actions = {
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,19 +65,26 @@
       };
 
       nixosModules = {
-        default.imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
+        default.imports = [
+          inputs.hyprland.nixosModules.default
+          inputs.nix-minecraft.nixosModules.minecraft-servers
+
+          ./modules/default
+        ];
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
 
         home-manager.imports = [ inputs.nix-index-database.homeModules.nix-index ./modules/home-manager ];
         home-manager-gnome.imports = [ ./modules/home-manager-gnome ];
+        home-manager-hyprland.imports = [ inputs.hyprland.homeManagerModules.default ./modules/home-manager-hyprland ];
       };
 
       overlays = {
         default = lib.composeManyExtensions ([
           inputs.deploy-rs.overlays.default
           inputs.firefox-addons.overlays.default
+          inputs.hyprland.overlays.default
           inputs.nix-minecraft.overlay
 
           (_: super: { borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system}; })
@@ -110,7 +122,7 @@
               inputs.nixos-hardware.nixosModules.dell-xps-13-9350
 
               self.nixosModules.profiles.headful
-              self.nixosModules.profiles.gnome
+              self.nixosModules.profiles.hyprland
 
               self.nixosModules.profiles.laptop-power-management
               self.nixosModules.profiles.podman
@@ -131,7 +143,7 @@
                     secrets = import ./secrets.nix;
                   };
 
-                  users.rhoriguchi.imports = [ self.nixosModules.home-manager self.nixosModules.home-manager-gnome ];
+                  users.rhoriguchi.imports = [ self.nixosModules.home-manager self.nixosModules.home-manager-hyprland ];
                 };
               }
             ];
