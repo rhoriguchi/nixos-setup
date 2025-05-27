@@ -25,18 +25,20 @@
       gnome-initial-setup.enable = false;
       gnome-online-accounts.enable = false;
       gnome-remote-desktop.enable = false;
-      rygel.enable = false;
     };
 
     udev.packages = [ pkgs.gnome-settings-daemon ];
   };
 
-  programs.gnome-disks.enable = true;
+  programs = {
+    gnome-disks.enable = true; # pkgs.gnome-disk-utility
+    seahorse.enable = true; # pkgs.seahorse
+  };
 
   environment = {
     sessionVariables.QT_QPA_PLATFORM = "wayland";
 
-    systemPackages = [ pkgs.dconf-editor pkgs.networkmanager-openconnect ] ++ [
+    systemPackages = [ pkgs.dconf-editor ] ++ [
       pkgs.firefox # pkgs.epiphany
       pkgs.ghostty # pkgs.gnome-console
       pkgs.mission-center # pkgs.gnome-system-monitor
@@ -82,8 +84,10 @@
 
       pkgs.baobab
       pkgs.gnome-calculator
+      pkgs.gnome-disk-utility
       pkgs.gnome-shell-extensions
       pkgs.loupe
+      pkgs.seahorse
       pkgs.snapshot
     ];
   };
