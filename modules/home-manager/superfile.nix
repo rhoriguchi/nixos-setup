@@ -7,17 +7,12 @@ let
       location = lib.replaceStrings [ "file://" ] [ "" ] (lib.head splits);
     }) (lib.filter (bookmark: !(lib.hasPrefix "sftp://" bookmark)) config.gtk.gtk3.bookmarks));
 in {
-  home = {
-    # TODO remove when merged https://github.com/nix-community/home-manager/pull/7118
-    packages = lib.optional config.programs.superfile.settings.metadata pkgs.exiftool;
+  home.file = {
+    # TODO do something like this and upstream https://github.com/nix-community/home-manager/blob/f9186c64fcc6ee5f0114547acf9e814c806a640b/modules/programs/superfile.nix#L144-L149
+    # "${lib.strings.removePrefix "${config.home.homeDirectory}/" "${config.xdg.dataHome}/superfile/pinned.json"}".source =
+    ".local/share/superfile/pinned.json".source = (pkgs.formats.json { }).generate "pinned.json" bookmarks;
 
-    file = {
-      # TODO do something like this and upstream https://github.com/nix-community/home-manager/blob/f9186c64fcc6ee5f0114547acf9e814c806a640b/modules/programs/superfile.nix#L144-L149
-      # "${lib.strings.removePrefix "${config.home.homeDirectory}/" "${config.xdg.dataHome}/superfile/pinned.json"}".source =
-      ".local/share/superfile/pinned.json".source = (pkgs.formats.json { }).generate "pinned.json" bookmarks;
-
-      ".local/share/superfile/firstUseCheck".text = "";
-    };
+    ".local/share/superfile/firstUseCheck".text = "";
   };
 
   programs = {
