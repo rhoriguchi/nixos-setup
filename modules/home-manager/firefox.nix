@@ -13,8 +13,7 @@
         extensions.packages = [
           pkgs.firefox-addons.bitwarden
           pkgs.firefox-addons.export-tabs-urls-and-titles
-          # TODO remove override when fixed https://gitlab.com/rycee/nur-expressions/-/issues/244
-          (pkgs.firefox-addons.grammarly.overrideAttrs (_: { meta.license = lib.licenses.mit; }))
+          pkgs.firefox-addons.grammarly
           pkgs.firefox-addons.multi-account-containers
           pkgs.firefox-addons.octolinker
           pkgs.firefox-addons.open-in-browser
@@ -25,8 +24,7 @@
           pkgs.firefox-addons.tab-session-manager
           pkgs.firefox-addons.ublock-origin
           pkgs.firefox-addons.view-image
-          # TODO remove override when fixed https://gitlab.com/rycee/nur-expressions/-/issues/244
-          (pkgs.firefox-addons.wappalyzer.overrideAttrs (_: { meta.license = lib.licenses.mit; }))
+          pkgs.firefox-addons.wappalyzer
         ];
 
         search = {

@@ -72,12 +72,10 @@
       overlays = {
         default = lib.composeManyExtensions ([
           inputs.deploy-rs.overlays.default
+          inputs.firefox-addons.overlays.default
           inputs.nix-minecraft.overlay
 
-          (_: super: {
-            borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system};
-            firefox-addons = inputs.firefox-addons.packages.${super.system};
-          })
+          (_: super: { borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system}; })
         ] ++ import ./overlays);
 
         lib = (_: super: { custom = import ./lib.nix { lib = super; }; });
