@@ -1,12 +1,6 @@
 { pkgs, ... }: {
   imports = [ ./settings.nix ];
 
-  # TODO remove when https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-2495681673 fixed
-  systemd.services = {
-    "getty@tty1".enable = false;
-    "autovt@tty1".enable = false;
-  };
-
   services = {
     displayManager.defaultSession = "gnome";
 
