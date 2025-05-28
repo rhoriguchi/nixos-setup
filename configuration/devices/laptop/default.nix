@@ -102,23 +102,6 @@
       ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
     isNormalUser = true;
     password = secrets.users.rhoriguchi.password;
-
-    packages = [
-      pkgs.discord
-      pkgs.gimp3
-      pkgs.gitkraken
-      pkgs.glow
-      pkgs.inkscape
-      pkgs.jetbrains.datagrip
-      pkgs.jetbrains.idea-ultimate
-      pkgs.jetbrains.pycharm-professional
-      pkgs.jetbrains.webstorm
-      pkgs.obsidian
-      pkgs.prismlauncher # Minecraft
-      pkgs.qbittorrent
-      pkgs.rustdesk-flutter
-      pkgs.signal-desktop
-    ];
   };
 
   system.activationScripts.rhoriguchiSetup = let

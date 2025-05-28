@@ -32,57 +32,46 @@
   environment = {
     sessionVariables.QT_QPA_PLATFORM = "wayland";
 
-    systemPackages = [ pkgs.dconf-editor ] ++ [
-      pkgs.firefox # pkgs.epiphany
-      pkgs.ghostty # pkgs.gnome-console
-      pkgs.mission-center # pkgs.gnome-system-monitor
-
-      pkgs.baobab
-      pkgs.gnome-calculator
-      pkgs.gnome-shell-extensions
-      pkgs.loupe
-      pkgs.snapshot
-    ];
+    systemPackages = [ pkgs.gnome-shell-extensions ];
 
     gnome.excludePackages = [
       pkgs.adwaita-fonts
       pkgs.adwaita-icon-theme
+      pkgs.baobab
       pkgs.decibels
       pkgs.epiphany
       pkgs.evince
       pkgs.file-roller
       pkgs.geary
       pkgs.gnome-backgrounds
+      pkgs.gnome-calculator
       pkgs.gnome-calendar
       pkgs.gnome-characters
       pkgs.gnome-clocks
       pkgs.gnome-connections
       pkgs.gnome-console
       pkgs.gnome-contacts
+      pkgs.gnome-disk-utility
       pkgs.gnome-font-viewer
       pkgs.gnome-logs
       pkgs.gnome-maps
       pkgs.gnome-music
+      pkgs.gnome-shell-extensions
       pkgs.gnome-system-monitor
       pkgs.gnome-text-editor
       pkgs.gnome-themes-extra
       pkgs.gnome-tour
       pkgs.gnome-user-docs
       pkgs.gnome-weather
+      pkgs.loupe
       pkgs.nautilus
       pkgs.orca
+      pkgs.seahorse
       pkgs.simple-scan
+      pkgs.snapshot
       pkgs.sushi
       pkgs.totem
       pkgs.yelp
-
-      pkgs.baobab
-      pkgs.gnome-calculator
-      pkgs.gnome-disk-utility
-      pkgs.gnome-shell-extensions
-      pkgs.loupe
-      pkgs.seahorse
-      pkgs.snapshot
     ];
   };
 }
