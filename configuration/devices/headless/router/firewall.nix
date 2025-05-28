@@ -34,7 +34,7 @@ in {
             elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
           }
 
-          set unifi_network {
+          set default_network {
             type ipv4_addr;
             flags interval;
             elements = { 192.168.1.0/24 }
@@ -76,9 +76,9 @@ in {
           }
 
           chain lan-filter {
-            ip saddr @unifi_network ip daddr @unifi_network accept
+            ip saddr @default_network ip daddr @default_network accept
 
-            ip saddr @private_vlan ip daddr @unifi_network accept
+            ip saddr @private_vlan ip daddr @default_network accept
             ip saddr @private_vlan ip daddr @private_vlan accept
             ip saddr @private_vlan ip daddr @iot_vlan accept
             ip saddr @private_vlan ip daddr ${ips.wingoRouter} accept
@@ -88,6 +88,7 @@ in {
             ip saddr @iot_vlan ip daddr ${ips.server} udp dport { 4002 } accept # Home Assistant - Govee
 
             ip saddr @rfc1918 ip daddr ${ips.server} tcp dport { 80, 443 } accept
+            ip saddr @rfc1918 ip daddr ${ips.ulquiorra} tcp dport { 80, 443 } accept
 
             ${
               let
