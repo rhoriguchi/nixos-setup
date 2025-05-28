@@ -393,9 +393,9 @@ in {
         };
 
         script = ''
-          ${pkgs.coreutils}/bin/mkdir -p /var/lib/netdata/registry
+          mkdir -p /var/lib/netdata/registry
 
-          hash=$(echo -n "${config.networking.hostName}" | ${pkgs.coreutils}/bin/sha1sum | ${pkgs.gawk}/bin/awk '{print $1}')
+          hash=$(echo -n "${config.networking.hostName}" | sha1sum | ${pkgs.gawk}/bin/awk '{print $1}')
           printf "%s-%s-%s-%s-%s" \
             "''${hash:0:8}" \
             "''${hash:8:4}" \

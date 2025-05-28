@@ -75,8 +75,8 @@ in {
     };
 
     system.activationScripts.lancache = ''
-      ${pkgs.coreutils}/bin/mkdir -p ${cfg.cacheDir}
-      ${pkgs.coreutils}/bin/mkdir -p /var/log/lancach
+      mkdir -p ${cfg.cacheDir}
+      mkdir -p /var/log/lancach
     '';
   };
 }

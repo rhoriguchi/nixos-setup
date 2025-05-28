@@ -18,8 +18,7 @@
     };
 
     aliases = {
-      alias =
-        "! git config --get-regexp '^alias.' | ${pkgs.coreutils}/bin/sort | ${pkgs.gnused}/bin/sed -e 's/^alias\\.//' -e 's/\\ /\\ =\\ /'";
+      alias = "! git config --get-regexp '^alias.' | sort | ${pkgs.gnused}/bin/sed -e 's/^alias\\.//' -e 's/\\ /\\ =\\ /'";
 
       changes = "! git diff --stat";
       graph = "! git history --graph --all --decorate";

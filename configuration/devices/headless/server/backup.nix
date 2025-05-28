@@ -76,7 +76,7 @@ in {
       # Disable error trap since list can fail if the backup is running
       trap - ERR
 
-      ${pkgs.coreutils}/bin/mkdir -p '${backupDir}'
+      mkdir -p '${backupDir}'
 
       if ! ${pkgs.borgbackup}/bin/borg list '${backupDir}' >/dev/null 2>&1; then
         ${pkgs.borgbackup}/bin/borg init --encryption=none '${backupDir}'
@@ -87,8 +87,8 @@ in {
     '';
 
     borgmatic-postgres-dump = lib.optionalString config.services.postgresql.enable ''
-      ${pkgs.coreutils}/bin/mkdir -p '${postgresBackupDir}'
-      ${pkgs.coreutils}/bin/chmod 777 '${postgresBackupDir}'
+      mkdir -p '${postgresBackupDir}'
+      chmod 777 '${postgresBackupDir}'
     '';
   };
 }

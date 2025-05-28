@@ -73,7 +73,7 @@ in {
     systemd.services.gphotos-sync = {
       after = [ "network.target" ];
 
-      preStart = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.exportPath}"'';
+      preStart = ''mkdir -p "${cfg.exportPath}"'';
       script = ''${pkgs.gphotos-sync}/bin/gphotos-sync ${args} "${cfg.exportPath}"'';
 
       startAt = "04:00";
