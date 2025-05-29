@@ -80,15 +80,7 @@
     onedrive.enable = true;
   };
 
-  programs = {
-    steam = {
-      enable = true;
-      localNetworkGameTransfers.openFirewall = true;
-      remotePlay.openFirewall = true;
-    };
-
-    bazecor.enable = true;
-  };
+  programs.bazecor.enable = true;
 
   environment.systemPackages = [ pkgs.google-chrome pkgs.libreoffice-fresh pkgs.vlc pkgs.wpa_supplicant_gui ];
 

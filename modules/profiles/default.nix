@@ -9,6 +9,7 @@
   docker = ./docker.nix;
   fail2ban = ./fail2ban.nix;
   fwupd = ./fwupd.nix;
+  gaming = ./gaming.nix;
   git = ./git.nix;
   gnome = ./gnome;
   i18n = ./i18n.nix;

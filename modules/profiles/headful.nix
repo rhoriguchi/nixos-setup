@@ -4,6 +4,7 @@
 
     ./bluetooth.nix
     ./displaylink.nix
+    ./gaming.nix
     ./git.nix
     ./nautilus.nix
     ./printing.nix
@@ -28,7 +29,6 @@
     pkgs.loupe
     pkgs.mission-center
     pkgs.obsidian
-    pkgs.prismlauncher # Minecraft
     pkgs.qbittorrent
     pkgs.rustdesk-flutter
     pkgs.signal-desktop
