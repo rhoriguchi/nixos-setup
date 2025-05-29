@@ -57,8 +57,6 @@
 
       frontend = { };
 
-      bluetooth = { };
-
       sun = { };
 
       history = { };
