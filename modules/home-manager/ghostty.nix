@@ -47,7 +47,7 @@
         copy-on-select = false;
 
         # TODO currently does not exist https://ghostty.org/docs/config/reference#link
-        link = false;
+        # link = false;
         link-url = true;
 
         keybind = [
