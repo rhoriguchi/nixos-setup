@@ -3,6 +3,7 @@
   headful = ./headful.nix;
   headless = ./headless.nix;
 
+  bluetooth = ./bluetooth.nix;
   containers = ./containers.nix;
   displaylink = ./displaylink.nix;
   docker = ./docker.nix;

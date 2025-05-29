@@ -2,6 +2,7 @@
   imports = [
     ./_common.nix
 
+    ./bluetooth.nix
     ./displaylink.nix
     ./git.nix
     ./gnome
