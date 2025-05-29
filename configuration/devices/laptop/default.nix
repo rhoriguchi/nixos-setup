@@ -44,25 +44,16 @@
     };
   };
 
-  hardware = {
-    logitech.wireless = {
-      enable = true;
-      enableGraphical = true;
-    };
+  hardware.printers = {
+    ensureDefaultPrinter = "Home";
 
-    openrazer.enable = true;
+    ensurePrinters = [{
+      name = "Home";
 
-    printers = {
-      ensureDefaultPrinter = "Home";
-
-      ensurePrinters = [{
-        name = "Home";
-
-        deviceUri = "ipp://XXLPitu-Ulquiorra.local/printers/Default";
-        location = "Home";
-        model = "raw";
-      }];
-    };
+      deviceUri = "ipp://XXLPitu-Ulquiorra.local/printers/Default";
+      location = "Home";
+      model = "raw";
+    }];
   };
 
   services = {
@@ -79,8 +70,6 @@
 
     onedrive.enable = true;
   };
-
-  programs.bazecor.enable = true;
 
   users.users.rhoriguchi = {
     extraGroups = [ "networkmanager" "plugdev" "wheel" ] ++ (lib.optional config.hardware.openrazer.enable "openrazer")

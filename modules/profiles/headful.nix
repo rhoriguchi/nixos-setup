@@ -7,6 +7,7 @@
     ./gaming.nix
     ./git.nix
     ./nautilus.nix
+    ./peripherals.nix
     ./printing.nix
     ./trash-management.nix
     ./util.nix

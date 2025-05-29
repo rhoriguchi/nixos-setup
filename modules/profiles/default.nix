@@ -25,6 +25,7 @@
   nix = ./nix.nix;
   nix-garbage-collection = ./nix-garbage-collection.nix;
   nvd = ./nvd.nix;
+  peripherals = ./peripherals.nix;
   podman = ./podman.nix;
   printing = ./printing.nix;
   python = ./python.nix;
