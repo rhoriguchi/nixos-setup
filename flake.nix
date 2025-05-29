@@ -107,6 +107,7 @@
               inputs.nixos-hardware.nixosModules.dell-xps-13-9350
 
               self.nixosModules.profiles.headful
+              self.nixosModules.profiles.gnome
 
               self.nixosModules.profiles.laptop-power-management
               self.nixosModules.profiles.podman
