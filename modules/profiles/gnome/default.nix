@@ -2,14 +2,16 @@
   imports = [ ./settings.nix ];
 
   services = {
-    displayManager.defaultSession = "gnome";
+    displayManager = {
+      defaultSession = "gnome";
+
+      gdm.enable = true;
+    };
+
+    desktopManager.gnome.enable = true;
 
     xserver = {
       enable = true;
-
-      displayManager.gdm.enable = true;
-
-      desktopManager.gnome.enable = true;
 
       excludePackages = [ pkgs.xterm ];
     };
