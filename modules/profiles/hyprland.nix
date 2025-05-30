@@ -18,11 +18,7 @@
       fi
     '';
 
-    sessionVariables = {
-      # TODO HYPERLAND check if this is stable
-      NIXOS_OZONE_WL = "1";
-      QT_QPA_PLATFORM = "wayland";
-    };
+    sessionVariables.QT_QPA_PLATFORM = "wayland";
   };
 
   services = {
