@@ -18,6 +18,8 @@
     size = 32 * 1024;
   }];
 
+  nix.settings.access-tokens = lib.concatStringsSep " " (lib.mapAttrsToList (key: value: "${key}=${value}") secrets.git.access-tokens);
+
   networking = {
     hostName = "Ryan-Laptop";
 
