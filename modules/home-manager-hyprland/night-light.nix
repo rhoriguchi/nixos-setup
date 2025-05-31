@@ -1,5 +1,5 @@
 {
-  # TODO HYPRLAND not working
+  # TODO HYPRLAND make it more red
   services.hyprsunset = {
     enable = true;
 
