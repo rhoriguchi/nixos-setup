@@ -220,6 +220,7 @@
             "https://mail.google.com/mail/u/0/#inbox"
           ];
           "browser.startup.page" = 1;
+          "browser.tabs.groups.enabled" = false;
           "browser.tabs.warnOnClose" = false;
           "browser.toolbars.bookmarks.showOtherBookmarks" = false;
           "browser.toolbars.bookmarks.visibility" = "always";
