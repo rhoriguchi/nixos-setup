@@ -23,11 +23,6 @@
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
 
-    displaylink = super.callPackage ./displaylink {
-      inherit (super) displaylink;
-      inherit (super.linuxPackages) evdi;
-    };
-
     hs = super.callPackage ./hs { };
 
     steam-lancache-prefill = super.callPackage ./steam-lancache-prefill { };

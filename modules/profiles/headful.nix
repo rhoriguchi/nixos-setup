@@ -3,7 +3,6 @@
     ./_common.nix
 
     ./bluetooth.nix
-    ./displaylink.nix
     ./gaming.nix
     ./git.nix
     ./nautilus.nix
