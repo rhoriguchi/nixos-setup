@@ -74,6 +74,11 @@
     onedrive.enable = true;
   };
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
   users.users.rhoriguchi = {
     extraGroups = [ "networkmanager" "plugdev" "wheel" ] ++ (lib.optional config.hardware.openrazer.enable "openrazer")
       ++ (lib.optional config.programs.wireshark.enable "wireshark") ++ (lib.optional config.virtualisation.docker.enable "docker")
