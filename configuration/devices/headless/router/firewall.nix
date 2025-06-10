@@ -186,6 +186,13 @@ in {
           destination = "${ips.server}:21116";
           sourcePort = 21116;
         }
+
+        # Syncthing
+        {
+          proto = "tcp";
+          destination = "${ips.server}:22067";
+          sourcePort = 22067;
+        }
       ];
     };
   };

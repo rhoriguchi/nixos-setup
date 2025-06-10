@@ -14,6 +14,7 @@
     ./rustdesk.nix
     ./samba.nix
     ./sonarr
+    ./syncthing-relay.nix
     ./tautulli.nix
 
     ./hardware-configuration.nix

@@ -78,6 +78,7 @@
           "prowlarr.00a.ch"
           "rustdesk.00a.ch"
           "sonarr.00a.ch"
+          "syncthing.00a.ch"
           "tautulli.00a.ch"
         ]);
       };
