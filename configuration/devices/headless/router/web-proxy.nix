@@ -11,7 +11,6 @@ let
     "grafana.00a.ch"
     "home-assistant.00a.ch"
     "immich.00a.ch"
-    "minecraft.00a.ch"
     "monitoring.00a.ch"
     "prometheus.00a.ch"
     "prowlarr.00a.ch"
