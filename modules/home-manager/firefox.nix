@@ -55,6 +55,20 @@
               }];
             };
 
+            google-maps = {
+              name = "Google Maps";
+              iconMapObj."16" = "https://www.google.com/images/branding/product/ico/maps15_bnuw3a_16dp.ico";
+              definedAliases = [ "gm" ];
+
+              urls = [{
+                template = "https://www.google.com/maps";
+                params = [{
+                  name = "q";
+                  value = "{searchTerms}";
+                }];
+              }];
+            };
+
             nix-packages = {
               name = "Nix Packages";
               icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
