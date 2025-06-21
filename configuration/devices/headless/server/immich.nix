@@ -1,30 +1,4 @@
-{ config, lib, pkgs, secrets, ... }:
-let
-  rootBindmountDir = "/mnt/bindmount/immich";
-  bindmountDir = "${rootBindmountDir}/resilio-Google_Photos";
-in {
-  system.fsPackages = [ pkgs.bindfs ];
-  fileSystems.${bindmountDir} = {
-    depends = [ config.services.resilio.syncPath ];
-    device = "${config.services.resilio.syncPath}/Google_Photos";
-    fsType = "fuse.bindfs";
-    options = [
-      # `ro` causes kernel panic
-      "perms=0550"
-      "map=${
-        lib.concatStringsSep ":" [
-          "${config.services.resilio.user}/${config.services.immich.user}"
-          "@${config.services.resilio.group}/@${config.services.immich.group}"
-        ]
-      }"
-    ];
-  };
-
-  system.activationScripts.bindmount-immich = ''
-    mkdir -p ${bindmountDir}
-    chown -R ${config.services.immich.user}:${config.services.immich.group} ${rootBindmountDir}
-  '';
-
+{ config, secrets, ... }: {
   services = {
     infomaniak = {
       enable = true;

@@ -4,7 +4,6 @@
 
     ./backup.nix
     ./fancontrol.nix
-    ./gphotos-sync.nix
     ./home-assistant
     ./immich.nix
     ./log-management.nix
