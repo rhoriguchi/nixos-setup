@@ -193,6 +193,12 @@ in {
           ];
         }
       ];
+
+      loggers = [{
+        name = "kea-dhcp4.commands";
+        severity = "ERROR";
+        output_options = [{ output = "stdout"; }];
+      }];
     };
   };
 }
