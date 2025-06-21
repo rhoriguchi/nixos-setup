@@ -89,8 +89,6 @@ in {
         };
       };
 
-      immich.environment.IMMICH_TELEMETRY_INCLUDE = "all";
-
       loki.configuration.server.register_instrumentation = true;
 
       mysql.ensureUsers = [{
@@ -315,16 +313,7 @@ in {
             } ++ lib.optional config.services.grafana.enable {
               name = "Grafana";
               url = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}/metrics";
-            } ++ lib.optionals config.services.immich.enable [
-              {
-                name = "Immich server";
-                url = "http://127.0.0.1:8081/metrics";
-              }
-              {
-                name = "Immich microservice";
-                url = "http://127.0.0.1:8082/metrics";
-              }
-            ] ++ lib.optional keaEnabled {
+            } ++ lib.optional keaEnabled {
               name = "Kea";
               url = "http://127.0.0.1:${toString config.services.prometheus.exporters.kea.port}/metrics";
             } ++ lib.optional config.services.loki.enable {

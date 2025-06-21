@@ -20,7 +20,6 @@ in {
           "/var/lib/hass/backups"
           "/var/lib/private/esphome"
 
-          config.services.immich.mediaLocation
           config.services.loki.dataDir
           config.services.minecraft-servers.dataDir
           config.services.plex.dataDir

@@ -5,7 +5,6 @@
     ./backup.nix
     ./fancontrol.nix
     ./home-assistant
-    ./immich.nix
     ./log-management.nix
     ./minecraft-server
     ./monitoring.nix
