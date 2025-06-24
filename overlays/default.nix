@@ -41,6 +41,16 @@
           }
         }/pkgs/servers/home-assistant/custom-components/localtuya/package.nix") { };
     };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=419685
+    netdata = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "3f82b9d3ac9e29c1caab73f3cbd38fa53e527be8";
+          sha256 = "sha256-sPcwTGU9oY9qc6qGYMO8XsvaiBoJfeJaUzmw/Wo9Les=";
+        }
+      }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
