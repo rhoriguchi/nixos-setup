@@ -20,6 +20,16 @@
         }
       }/pkgs/by-name/pr/prowlarr/package.nix") { };
 
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=416315
+    plexRaw = super.python3Packages.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "15c6d153a65dbfde3a812632c2776f0a629dcd0f";
+          sha256 = "sha256-ejUikEW68803WUw2gj1Q50qDbVXdz15v634NYC3BJ0k=";
+        }
+      }/pkgs/servers/plex/raw.nix") { };
+
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=419064
     sonarr = super.callPackage (import "${
         super.fetchFromGitHub {
