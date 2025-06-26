@@ -98,6 +98,7 @@ in {
         excludedTvdbIds = lib.concatStringsSep ", " (map (tvdbId: toString tvdbId) [
           366924 # Reacher
           371980 # Severance
+          393204 # Ironheart
           422712 # Daredevil: Born Again
         ]);
       }));
