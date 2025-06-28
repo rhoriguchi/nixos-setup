@@ -8,7 +8,7 @@ in {
     ./dhcp
     ./dns
     ./firewall.nix
-    ./interface-names.nix
+    ./interfaces.nix
     ./lancache.nix
     ./networking.nix
     ./web-proxy.nix
