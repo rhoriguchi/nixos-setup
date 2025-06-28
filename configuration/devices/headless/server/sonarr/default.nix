@@ -41,6 +41,8 @@ in {
   services = {
     sonarr.enable = true;
 
+    prometheus.exporters.exportarr-sonarr.environment.API_KEY = secrets.sonarr.apiKey;
+
     infomaniak = {
       enable = true;
 

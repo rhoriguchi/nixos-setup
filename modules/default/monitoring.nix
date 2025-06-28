@@ -119,12 +119,39 @@ in {
         GRANT pg_monitor TO netdata;
       '';
 
-      prometheus.exporters.kea = {
-        enable = keaEnabled;
+      prometheus.exporters = {
+        exportarr-sonarr = {
+          enable = config.services.sonarr.enable;
 
-        targets = lib.optional config.services.kea.dhcp4.enable "/run/kea/kea-dhcp4.socket"
-          ++ lib.optional config.services.kea.dhcp6.enable "/run/kea/kea-dhcp6.socket";
+          port = 9708;
+
+          url = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
+
+          environment.INTERFACE = "127.0.0.1";
+        };
+
+        exportarr-prowlarr = {
+          enable = config.services.prowlarr.enable;
+
+          port = 9709;
+
+          url = "http://127.0.0.1:${toString config.services.prowlarr.settings.server.port}";
+
+          environment = {
+            INTERFACE = "127.0.0.1";
+
+            PROWLARR__BACKFILL = "true";
+          };
+        };
+
+        kea = {
+          enable = keaEnabled;
+
+          targets = lib.optional config.services.kea.dhcp4.enable "/run/kea/kea-dhcp4.socket"
+            ++ lib.optional config.services.kea.dhcp6.enable "/run/kea/kea-dhcp6.socket";
+        };
       };
+
       kea = {
         dhcp4.settings.control-socket = {
           socket-type = "unix";
@@ -325,6 +352,12 @@ in {
             } ++ lib.optional config.services.promtail.enable {
               name = "Promtail";
               url = "http://127.0.0.1:${toString config.services.promtail.configuration.server.http_listen_port}/metrics";
+            } ++ lib.optional config.services.prowlarr.enable {
+              name = "Prowlarr";
+              url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-prowlarr.port}/metrics";
+            } ++ lib.optional config.services.sonarr.enable {
+              name = "Sonarr";
+              url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-sonarr.port}/metrics";
             };
           };
         } // lib.optionalAttrs hasCerts {

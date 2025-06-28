@@ -2,6 +2,8 @@
   services = {
     prowlarr.enable = true;
 
+    prometheus.exporters.exportarr-prowlarr.environment.API_KEY = secrets.prowlarr.apiKey;
+
     flaresolverr = {
       enable = true;
       prometheusExporter.enable = true;
