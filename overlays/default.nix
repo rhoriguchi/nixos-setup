@@ -59,12 +59,20 @@
           sha256 = "sha256-StMk8vI7si8Fyghz+XGb9+1PpDkU1TfhIBk4l4M7pYg=";
         }
       }/pkgs/servers/adguardhome") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=420791
+    steam-lancache-prefill = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "9942b4c15fcb3be78abc0464e19b70c686195c73";
+          sha256 = "sha256-fx+zJym5mdABo70oGqjsJhDXKTAxvev1kMnO1CdLFXs=";
+        }
+      }/pkgs/by-name/st/steam-lancache-prefill/package.nix") { };
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };
 
     hs = super.callPackage ./hs { };
-
-    steam-lancache-prefill = super.callPackage ./steam-lancache-prefill { };
   })
 ]
