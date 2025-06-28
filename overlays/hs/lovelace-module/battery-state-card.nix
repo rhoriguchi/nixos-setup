@@ -1,5 +1,5 @@
 { stdenv, fetchurl }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "hs-lovelace-module-battery-state-card";
   version = "3.2.1";
 
@@ -17,6 +17,6 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out
-    cp $src $out/${pname}.js
+    cp $src $out/${finalAttrs.pname}.js
   '';
-}
+})
