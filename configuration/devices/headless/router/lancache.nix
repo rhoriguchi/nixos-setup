@@ -20,6 +20,7 @@
       apps = [
         105600 # Terraria
         1091500 # Cyberpunk 2077
+        1172470 # Apex Legends
         1353300 # Idle Slayer
         1366540 # Dyson Sphere Program
         1614550 # Astro Colony
