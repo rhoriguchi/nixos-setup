@@ -65,8 +65,8 @@
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "9942b4c15fcb3be78abc0464e19b70c686195c73";
-          sha256 = "sha256-fx+zJym5mdABo70oGqjsJhDXKTAxvev1kMnO1CdLFXs=";
+          rev = "69e96cf207b91a072b1b08475adbabc8cb51e5c4";
+          sha256 = "sha256-cM1nU76wdm3n8tGWk9A1AKEy3uLW7TElEvmLZJ8TUGE=";
         }
       }/pkgs/by-name/st/steam-lancache-prefill/package.nix") { };
   })
