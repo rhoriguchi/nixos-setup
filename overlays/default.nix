@@ -20,16 +20,6 @@
         }
       }/pkgs/by-name/pr/prowlarr/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=416315
-    plexRaw = super.python3Packages.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "15c6d153a65dbfde3a812632c2776f0a629dcd0f";
-          sha256 = "sha256-ejUikEW68803WUw2gj1Q50qDbVXdz15v634NYC3BJ0k=";
-        }
-      }/pkgs/servers/plex/raw.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=419064
     sonarr = super.callPackage (import "${
         super.fetchFromGitHub {
@@ -49,16 +39,6 @@
           sha256 = "sha256-sPcwTGU9oY9qc6qGYMO8XsvaiBoJfeJaUzmw/Wo9Les=";
         }
       }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=420525
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "be22bc7847046b35bda83a6a589d1d23082ef395";
-          sha256 = "sha256-StMk8vI7si8Fyghz+XGb9+1PpDkU1TfhIBk4l4M7pYg=";
-        }
-      }/pkgs/servers/adguardhome") { };
 
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=420791
     steam-lancache-prefill = super.callPackage (import "${
