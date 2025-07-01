@@ -40,6 +40,16 @@
         }
       }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
 
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=420648
+    adguardhome = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "02b56f6280bf973ca1e73b878815f391c0b57f1b";
+          sha256 = "sha256-i9bt7PDWAaKt68Q0vR12tva83SgbSDEchgawZ7BpwEg=";
+        }
+      }/pkgs/servers/adguardhome") { };
+
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=420791
     steam-lancache-prefill = super.callPackage (import "${
         super.fetchFromGitHub {
