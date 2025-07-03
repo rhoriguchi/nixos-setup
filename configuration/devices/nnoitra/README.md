@@ -8,7 +8,7 @@ Run in an elevated PowerShell
 irm "https://christitus.com/win" | iex
 ```
 
-Import [iex.json](iex.json)
+Import [iex_25.05.23.json](iex_25.05.23.json)
 
 - `Tweaks` -> `Run Tweaks`
 - `Config` -> `Install Features`
