@@ -206,18 +206,13 @@ in {
       groups.${cfg.group}.gid = config.ids.gids.rslsync;
     };
 
-    system.activationScripts.resilio = lib.mkIf cfg.systemWide ''
-      mkdir -pm 0711 "$(dirname "${cfg.logging.filePath}")"
-      chown ${cfg.user}:${cfg.group} "$(dirname "${cfg.logging.filePath}")"
-
-      mkdir -pm 0775 "${cfg.storagePath}"
-      chown ${cfg.user}:${cfg.group} "${cfg.storagePath}"
-
-      mkdir -pm 0775 "${cfg.syncPath}"
-      chown ${cfg.user}:${cfg.group} "${cfg.syncPath}"
-    '';
-
     systemd = if cfg.systemWide then {
+      tmpfiles.rules = [
+        "d ${cfg.logging.filePath} 0711 ${cfg.user} ${cfg.group}"
+        "d ${cfg.storagePath} 0775 ${cfg.user} ${cfg.group}"
+        "d ${cfg.syncPath} 0775 ${cfg.user} ${cfg.group}"
+      ];
+
       services.resilio = {
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];

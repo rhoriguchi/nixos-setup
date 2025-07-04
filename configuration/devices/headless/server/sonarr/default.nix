@@ -32,11 +32,11 @@ in {
     };
   };
 
-  system.activationScripts.bindmount-sonarr = ''
-    mkdir -p ${bindmountDir1}
-    mkdir -p ${bindmountDir2}
-    chown -R ${config.services.sonarr.user}:${config.services.sonarr.group} ${rootBindmountDir}
-  '';
+  systemd.tmpfiles.rules = [
+    "d ${rootBindmountDir} 0550 ${config.services.sonarr.user} ${config.services.sonarr.group}"
+    "d ${bindmountDir1} 0550 ${config.services.sonarr.user} ${config.services.sonarr.group}"
+    "d ${bindmountDir2} 0550 ${config.services.sonarr.user} ${config.services.sonarr.group}"
+  ];
 
   services = {
     sonarr.enable = true;

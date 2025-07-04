@@ -51,10 +51,10 @@ in {
     ];
   };
 
-  system.activationScripts.bindmount-nginx = ''
-    mkdir -p ${bindmountDir}
-    chown -R ${config.services.nginx.user}:${config.services.nginx.group} ${rootBindmountDir}
-  '';
+  systemd.tmpfiles.rules = [
+    "d ${rootBindmountDir} 0550 ${config.services.nginx.user} ${config.services.nginx.group}"
+    "d ${bindmountDir} 0550 ${config.services.nginx.user} ${config.services.nginx.group}"
+  ];
 
   services = {
     infomaniak = {
