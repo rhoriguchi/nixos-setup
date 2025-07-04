@@ -15,10 +15,7 @@ in {
     groups.deluge.gid = config.ids.gids.deluge;
   };
 
-  system.activationScripts.container-deluge = ''
-    mkdir -p ${config.services.deluge.dataDir}
-    chown -R deluge:deluge ${config.services.deluge.dataDir}
-  '';
+  systemd.tmpfiles.rules = [ "d ${config.services.deluge.dataDir} 0550 deluge deluge" ];
 
   containers.deluge = {
     autoStart = true;

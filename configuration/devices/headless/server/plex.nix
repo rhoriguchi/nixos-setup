@@ -63,13 +63,13 @@ in {
     };
   };
 
-  system.activationScripts.bindmount-plex = ''
-    mkdir -p ${bindmountDir1}
-    mkdir -p ${bindmountDir2}
-    mkdir -p ${bindmountDir3}
-    mkdir -p ${bindmountDir4}
-    chown -R ${config.services.plex.user}:${config.services.plex.group} ${rootBindmountDir}
-  '';
+  systemd.tmpfiles.rules = [
+    "d ${rootBindmountDir} 0550 ${config.services.plex.user} ${config.services.plex.group}"
+    "d ${bindmountDir1} 0550 ${config.services.plex.user} ${config.services.plex.group}"
+    "d ${bindmountDir2} 0550 ${config.services.plex.user} ${config.services.plex.group}"
+    "d ${bindmountDir3} 0550 ${config.services.plex.user} ${config.services.plex.group}"
+    "d ${bindmountDir4} 0550 ${config.services.plex.user} ${config.services.plex.group}"
+  ];
 
   services.plex = {
     enable = true;
