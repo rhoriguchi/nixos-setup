@@ -6,16 +6,16 @@ let
   localAddress = "169.254.2.1";
 in {
   users = {
-    users.deluge = {
-      group = "deluge";
+    users."${config.services.deluge.user}" = {
+      group = config.services.deluge.group;
       uid = config.ids.uids.deluge;
       home = config.services.deluge.dataDir;
     };
 
-    groups.deluge.gid = config.ids.gids.deluge;
+    groups."${config.services.deluge.group}".gid = config.ids.gids.deluge;
   };
 
-  systemd.tmpfiles.rules = [ "d ${config.services.deluge.dataDir} 0550 deluge deluge" ];
+  systemd.tmpfiles.rules = [ "d ${config.services.deluge.dataDir} 0550 ${config.services.deluge.user} ${config.services.deluge.group}" ];
 
   containers.deluge = {
     autoStart = true;
