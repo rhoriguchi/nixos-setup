@@ -1,4 +1,6 @@
-{
+rec {
+  accentName = "magenta";
+
   extra = {
     terminal = {
       background = "#303030";
@@ -8,8 +10,8 @@
     tmux.statusBackground = "#3D3D3D";
   };
 
-  normal = rec {
-    accent = magenta;
+  normal = {
+    accent = normal.${accentName};
 
     black = "#000000";
     blue = "#0074D9";
@@ -23,7 +25,7 @@
   };
 
   bright = rec {
-    accent = magenta;
+    accent = bright.${accentName};
 
     black = "#777777";
     blue = "#66ABE8";
