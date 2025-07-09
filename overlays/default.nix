@@ -25,8 +25,8 @@
         super.fetchFromGitHub {
           owner = "NixOS";
           repo = "nixpkgs";
-          rev = "2efd2058337e1d55c1e55a4caf98d72cf9e9f6f5";
-          sha256 = "sha256-4aY2JwmGCejipECGDOi/P91Zwk+FbCu/TjYCZGcxHHQ=";
+          rev = "ffb853f778daaf561750937858b37911e74125ba";
+          sha256 = "sha256-Mjvwa9zWOSg6JblYkCrLF+2P2zM2nlhyRV1ZRqKpZ/o=";
         }
       }/pkgs/servers/adguardhome") { };
 
