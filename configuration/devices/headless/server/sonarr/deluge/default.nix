@@ -24,11 +24,18 @@ in {
     privateNetwork = true;
     inherit hostAddress localAddress;
 
-    forwardPorts = [{
-      containerPort = config.services.deluge.web.port;
-      hostPort = containerCfg.services.deluge.web.port;
-      protocol = "tcp";
-    }];
+    forwardPorts = [
+      {
+        containerPort = config.services.deluge.web.port;
+        hostPort = containerCfg.services.deluge.web.port;
+        protocol = "tcp";
+      }
+      {
+        containerPort = config.services.prometheus.exporters.deluge.port;
+        hostPort = containerCfg.services.prometheus.exporters.deluge.port;
+        protocol = "tcp";
+      }
+    ];
 
     bindMounts = {
       "${config.services.deluge.dataDir}" = {
@@ -91,42 +98,53 @@ in {
         }];
       };
 
-      services.deluge = {
-        enable = true;
-
-        package = pkgs.deluge.overrideAttrs (oldAttrs: { patches = (oldAttrs.patches or [ ]) ++ [ ./remove-web-login.patch ]; });
-
-        web = {
+      services = {
+        deluge = {
           enable = true;
-          openFirewall = true;
+
+          package = pkgs.deluge.overrideAttrs (oldAttrs: { patches = (oldAttrs.patches or [ ]) ++ [ ./remove-web-login.patch ]; });
+
+          web = {
+            enable = true;
+            openFirewall = true;
+          };
+
+          declarative = true;
+
+          authFile = let
+            text = lib.concatStringsSep "\n"
+              (lib.mapAttrsToList (key: value: "${key}:${value.password}:${toString value.level}") secrets.deluge.users);
+          in pkgs.writeText "deluge-auth" text;
+
+          config = rec {
+            new_release_check = false;
+
+            download_location = "/mnt/Data/Deluge/Downloads";
+
+            copy_torrent_file = true;
+            torrentfiles_location = "/mnt/Data/Deluge/Torrents";
+
+            stop_seed_at_ratio = true;
+            stop_seed_ratio = 0.0;
+
+            max_active_downloading = 10;
+            max_active_seeding = 10;
+            max_active_limit = max_active_downloading + max_active_seeding;
+
+            queue_new_to_top = true;
+            dont_count_slow_torrents = true;
+
+            outgoing_interface = wireguardInterface;
+          };
         };
 
-        declarative = true;
+        prometheus.exporters.deluge = {
+          enable = true;
 
-        authFile = let
-          text = lib.concatStringsSep "\n"
-            (lib.mapAttrsToList (key: value: "${key}:${value.password}:${toString value.level}") secrets.deluge.users);
-        in pkgs.writeText "deluge-auth" text;
+          openFirewall = true;
 
-        config = rec {
-          new_release_check = false;
-
-          download_location = "/mnt/Data/Deluge/Downloads";
-
-          copy_torrent_file = true;
-          torrentfiles_location = "/mnt/Data/Deluge/Torrents";
-
-          stop_seed_at_ratio = true;
-          stop_seed_ratio = 0.0;
-
-          max_active_downloading = 10;
-          max_active_seeding = 10;
-          max_active_limit = max_active_downloading + max_active_seeding;
-
-          queue_new_to_top = true;
-          dont_count_slow_torrents = true;
-
-          outgoing_interface = wireguardInterface;
+          delugeUser = "metrics";
+          delugePasswordFile = pkgs.writeText "deluge-metrics-password" secrets.deluge.users.metrics.password;
         };
       };
     };
@@ -161,5 +179,10 @@ in {
         };
       };
     };
+
+    monitoring.extraPrometheusJobs = [{
+      name = "Deluge";
+      url = "http://${hostAddress}:${toString config.services.prometheus.exporters.deluge.port}/metrics";
+    }];
   };
 }
