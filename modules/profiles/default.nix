@@ -5,6 +5,7 @@
 
   bluetooth = ./bluetooth.nix;
   containers = ./containers.nix;
+  doas = ./doas.nix;
   docker = ./docker.nix;
   fail2ban = ./fail2ban.nix;
   fwupd = ./fwupd.nix;
