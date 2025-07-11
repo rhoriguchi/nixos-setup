@@ -32,7 +32,6 @@
         "homekit_controller"
         "hue"
         "mobile_app"
-        "netatmo"
         "shelly"
       ];
     };

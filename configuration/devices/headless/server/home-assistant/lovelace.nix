@@ -412,12 +412,6 @@ in {
                   to = "Sarah iPhone 15 Pro Max ";
                 }
 
-                # Netatmo valve
-                { from = " Battery"; }
-                {
-                  from = "Valve ";
-                }
-
                 # Parasoll
                 {
                   from = " Parasoll";
@@ -434,15 +428,6 @@ in {
               sort.by = "name";
 
               collapse = [
-                {
-                  name = "Netatmo valve {range}%";
-                  entities = [
-                    "sensor.valve_blue_battery"
-                    "sensor.valve_green_battery"
-                    "sensor.valve_orange_battery"
-                    "sensor.valve_yellow_battery"
-                  ];
-                }
                 {
                   name = "Parasoll {range}%";
                   entities = [ "sensor.reduit_parasoll_battery" ];
