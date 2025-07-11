@@ -1,4 +1,7 @@
-{ colors, lib, ... }: {
+{ colors, config, lib, ... }: {
+  # TODO remove when merged https://github.com/nix-community/home-manager/pull/7435
+  home.sessionVariables.STARSHIP_CONFIG = "${config.xdg.configHome}/starship.toml";
+
   programs.starship = {
     enable = true;
 
@@ -6,7 +9,14 @@
       add_newline = false;
       scan_timeout = 10;
 
-      format = lib.concatStrings [ "$nix_shell" "$python" "$directory" "$git_state" "$git_branch" "$git_status" "$character" ];
+      format = lib.concatStrings [ "$username" "$nix_shell" "$python" "$directory" "$git_state" "$git_branch" "$git_status" "$character" ];
+
+      username = {
+        format = "[\\[$user\\]]($style) ";
+        style_root = "${colors.normal.red} bold";
+
+        show_always = false;
+      };
 
       nix_shell = {
         disabled = false;
