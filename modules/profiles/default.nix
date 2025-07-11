@@ -30,6 +30,7 @@
   printing = ./printing.nix;
   python = ./python.nix;
   shell = ./shell.nix;
+  sudo-rs = ./sudo-rs.nix;
   tmp-management = ./tmp-management.nix;
   trash-management = ./trash-management.nix;
   util = ./util.nix;
