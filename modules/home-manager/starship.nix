@@ -1,7 +1,4 @@
-{ colors, config, lib, ... }: {
-  # TODO remove when merged https://github.com/nix-community/home-manager/pull/7435
-  home.sessionVariables.STARSHIP_CONFIG = "${config.xdg.configHome}/starship.toml";
-
+{ colors, lib, ... }: {
   programs.starship = {
     enable = true;
 
