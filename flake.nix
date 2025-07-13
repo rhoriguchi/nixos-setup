@@ -149,7 +149,7 @@
 
             _module.args.interfaces = {
               external = "eth0";
-              internal = "eth4";
+              internal = "eth3";
               management = "eth2";
             };
           }];
