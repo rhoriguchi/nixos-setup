@@ -1,12 +1,12 @@
-# TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=410815
+# TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=424414
 
 { modulesPath, ... }:
 let
   src = let
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "a0e8a6b5c98be4d65315ce9fe66e901edbc917f8";
-    sha256 = "sha256:0ckifnqmkkfmx7c8iwd2zglybkd0av7px9lxgnngkz1ll9pgq5i1";
+    rev = "f0140a7ca5c1e45e9195c45ff186fb74710ec77c";
+    sha256 = "sha256:1j97k3115y15qpgn5i84z4rrgrq4cbh3k50ammz4kbrr2386srr5";
   in builtins.fetchTarball {
     name = "nixpkgs";
     url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
