@@ -37,7 +37,7 @@
     };
 
     "10-wlan0" = {
-      matchConfig.PermanentMACAddress = "00:f0:cb:fe:c8:d6";
+      matchConfig.PermanentMACAddress = "4c:44:5b:7b:d4:8c";
       linkConfig.Name = "wlan0";
     };
   };
