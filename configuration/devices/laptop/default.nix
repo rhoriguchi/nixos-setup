@@ -9,6 +9,12 @@
     ./hardware-configuration.nix
   ];
 
+  documentation = {
+    doc.enable = false;
+    nixos.enable = false;
+    info.enable = false;
+  };
+
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;

@@ -1,6 +1,8 @@
 { config, lib, public-keys, secrets, ... }: {
   imports = [ ../../common.nix ];
 
+  documentation.enable = false;
+
   networking.networkmanager = {
     ethernet.macAddress = "permanent";
     wifi.macAddress = "permanent";

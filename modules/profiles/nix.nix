@@ -16,12 +16,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  documentation = {
-    doc.enable = false;
-    nixos.enable = false;
-    info.enable = false;
-  };
-
   hardware.enableRedistributableFirmware = true;
 
   environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
