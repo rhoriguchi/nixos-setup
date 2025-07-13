@@ -12,6 +12,7 @@
       pkgs.deadnix
       pkgs.dmidecode
       pkgs.dnsutils
+      pkgs.ethtool
       pkgs.expect
       pkgs.file
       pkgs.gdb
