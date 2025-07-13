@@ -9,65 +9,102 @@ in {
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   networking = {
+    useNetworkd = true;
     useDHCP = false;
 
     enableIPv6 = false;
+  };
 
-    vlans = {
+  systemd.network = {
+    enable = true;
+
+    netdevs = {
       # Private
-      "${internalInterface}.2" = {
-        id = 2;
-        interface = internalInterface;
+      "20-${internalInterface}.2" = {
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "${internalInterface}.2";
+        };
+        vlanConfig.Id = 2;
       };
 
       # IoT
-      "${internalInterface}.3" = {
-        id = 3;
-        interface = internalInterface;
+      "20-${internalInterface}.3" = {
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "${internalInterface}.3";
+        };
+        vlanConfig.Id = 3;
       };
 
       # DMZ
-      "${internalInterface}.10" = {
-        id = 10;
-        interface = internalInterface;
+      "20-${internalInterface}.10" = {
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "${internalInterface}.10";
+        };
+        vlanConfig.Id = 10;
       };
 
       # Guest
-      "${internalInterface}.100" = {
-        id = 100;
-        interface = internalInterface;
+      "20-${internalInterface}.100" = {
+        netdevConfig = {
+          Kind = "vlan";
+          Name = "${internalInterface}.100";
+        };
+        vlanConfig.Id = 100;
       };
     };
 
-    interfaces = {
-      "${externalInterface}".useDHCP = true;
+    networks = {
+      "10-${externalInterface}" = {
+        matchConfig.Name = externalInterface;
+        networkConfig.DHCP = "ipv4";
+        linkConfig.RequiredForOnline = "routable";
+      };
 
-      "${managementInterface}".ipv4.addresses = [{
-        address = "172.16.1.1";
-        prefixLength = 24;
-      }];
+      "10-${managementInterface}" = {
+        matchConfig.Name = managementInterface;
+        address = [ "172.16.1.1/24" ];
+        networkConfig.DHCP = false;
+        linkConfig.RequiredForOnline = false;
+      };
 
-      "${internalInterface}".ipv4.addresses = [{
-        address = ips.router;
-        prefixLength = 24;
-      }];
+      "10-${internalInterface}" = {
+        matchConfig.Name = internalInterface;
+        address = [ "${ips.router}/24" ];
+        vlan = [ "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.10" "${internalInterface}.100" ];
+        networkConfig.DHCP = false;
+        linkConfig.RequiredForOnline = false;
+      };
 
-      "${internalInterface}.2".ipv4.addresses = [{
-        address = "192.168.2.1";
-        prefixLength = 24;
-      }];
-      "${internalInterface}.3".ipv4.addresses = [{
-        address = "192.168.3.1";
-        prefixLength = 24;
-      }];
-      "${internalInterface}.10".ipv4.addresses = [{
-        address = "192.168.10.1";
-        prefixLength = 24;
-      }];
-      "${internalInterface}.100".ipv4.addresses = [{
-        address = "192.168.100.1";
-        prefixLength = 24;
-      }];
+      "30-${internalInterface}.2" = {
+        matchConfig.Name = "${internalInterface}.2";
+        address = [ "192.168.2.1/24" ];
+        networkConfig.DHCP = false;
+        linkConfig.RequiredForOnline = false;
+      };
+
+      "30-${internalInterface}.3" = {
+        matchConfig.Name = "${internalInterface}.3";
+        address = [ "192.168.3.1/24" ];
+        networkConfig.DHCP = false;
+        linkConfig.RequiredForOnline = false;
+      };
+
+      "30-${internalInterface}.10" = {
+        matchConfig.Name = "${internalInterface}.10";
+        address = [ "192.168.10.1/24" ];
+        networkConfig.DHCP = false;
+        linkConfig.RequiredForOnline = false;
+      };
+
+      "30-${internalInterface}.100" = {
+        matchConfig.Name = "${internalInterface}.100";
+        address = [ "192.168.100.1/24" ];
+        networkConfig.DHCP = false;
+        linkConfig.RequiredForOnline = false;
+      };
     };
   };
 

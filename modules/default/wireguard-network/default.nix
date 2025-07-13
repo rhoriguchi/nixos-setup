@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.services.wireguard-network;
 
@@ -60,7 +60,7 @@ in {
             listenPort = serverPort;
 
             ips = [ "${ips.${config.networking.hostName}}/24" ];
-            privateKey = keys.${config.networking.hostName}.private;
+            privateKeyFile = "${pkgs.writeText "private-key" keys.${config.networking.hostName}.private}";
 
             peers = lib.mapAttrsToList (hostName: value: {
               name = hostName;
@@ -72,7 +72,7 @@ in {
 
           client = {
             ips = [ "${ips.${config.networking.hostName}}/32" ];
-            privateKey = keys.${config.networking.hostName}.private;
+            privateKeyFile = "${pkgs.writeText "private-key" keys.${config.networking.hostName}.private}";
 
             peers = [{
               name = cfg.serverHostname;
