@@ -16,14 +16,24 @@
       linkConfig.Name = "eth2";
     };
 
-    # SFP+
+    # Intel 82599ES - SFP+
     "10-eth3" = {
       matchConfig.PermanentMACAddress = "00:f0:cb:fe:c8:d5";
-      linkConfig.Name = "eth3";
+      linkConfig = {
+        Name = "eth3";
+        AutoNegotiation = false;
+        BitsPerSecond = "10G";
+        Duplex = "full";
+      };
     };
     "10-eth4" = {
       matchConfig.PermanentMACAddress = "00:f0:cb:fe:c8:d6";
-      linkConfig.Name = "eth4";
+      linkConfig = {
+        Name = "eth4";
+        AutoNegotiation = false;
+        BitsPerSecond = "10G";
+        Duplex = "full";
+      };
     };
 
     "10-wlan0" = {
