@@ -51,6 +51,9 @@
           }
         }/pkgs/servers/home-assistant/custom-components/localtuya/package.nix") { };
     };
+
+    # TODO remove when https://github.com/NixOS/nixpkgs/issues/425323 fixed
+    jdk8 = super.openjdk8-bootstrap;
   })
   (_: super: {
     discord = super.callPackage ./discord.nix { inherit (super) discord; };

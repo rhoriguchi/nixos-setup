@@ -65,7 +65,7 @@
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
 
-        home-manager.imports = [ inputs.nix-index-database.hmModules.nix-index ./modules/home-manager ];
+        home-manager.imports = [ inputs.nix-index-database.homeModules.nix-index ./modules/home-manager ];
         home-manager-gnome.imports = [ ./modules/home-manager-gnome ];
       };
 
