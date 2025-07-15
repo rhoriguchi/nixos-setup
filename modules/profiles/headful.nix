@@ -23,10 +23,6 @@
     pkgs.gnome-calculator
     pkgs.google-chrome
     pkgs.inkscape
-    pkgs.jetbrains.datagrip
-    pkgs.jetbrains.idea-ultimate
-    pkgs.jetbrains.pycharm-professional
-    pkgs.jetbrains.webstorm
     pkgs.libreoffice-fresh
     pkgs.loupe
     pkgs.mission-center
