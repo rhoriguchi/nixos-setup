@@ -62,33 +62,33 @@ in {
     in {
       imports = [ (lib.custom.relativeToRoot "modules/profiles/headless.nix") ];
 
-      networking.wireguard.interfaces.${wireguardInterface} = {
-        ips = [ "${ipCdr}" ];
-        inherit privateKey;
+      networking = {
+        nameservers = [ nameserver ];
 
-        postSetup = ''
-          # https://wiki.archlinux.org/title/WireGuard#Loop_routing
-          ${pkgs.iproute2}/bin/ip route add ${endpointIp} via ${hostAddress} dev eth0
+        wireguard.interfaces.${wireguardInterface} = {
+          ips = [ "${ipCdr}" ];
+          inherit privateKey;
 
-          printf 'nameserver ${nameserver}' | ${pkgs.openresolv}/bin/resolvconf -a ${wireguardInterface} -m 0
-        '';
+          postSetup = ''
+            # https://wiki.archlinux.org/title/WireGuard#Loop_routing
+            ${pkgs.iproute2}/bin/ip route add ${endpointIp} via ${hostAddress} dev eth0
+          '';
 
-        postShutdown = ''
-          ${pkgs.openresolv}/bin/resolvconf -d ${wireguardInterface}
+          postShutdown = ''
+            ${pkgs.iproute2}/bin/ip route del ${endpointIp} via ${hostAddress} dev eth0
+          '';
 
-          ${pkgs.iproute2}/bin/ip route del ${endpointIp} via ${hostAddress} dev eth0
-        '';
+          peers = [{
+            name = "Proton-VPN";
 
-        peers = [{
-          name = "Proton-VPN";
+            inherit publicKey;
+            allowedIPs = [ "0.0.0.0/0" ];
+            inherit endpoint;
 
-          inherit publicKey;
-          allowedIPs = [ "0.0.0.0/0" ];
-          inherit endpoint;
-
-          persistentKeepalive = 25;
-          dynamicEndpointRefreshSeconds = 30;
-        }];
+            persistentKeepalive = 25;
+            dynamicEndpointRefreshSeconds = 30;
+          }];
+        };
       };
 
       services.deluge = {
