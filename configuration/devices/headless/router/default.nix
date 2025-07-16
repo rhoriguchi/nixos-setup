@@ -11,6 +11,7 @@ in {
     ./interfaces.nix
     ./lancache.nix
     ./networking.nix
+    ./unifi.nix
     ./web-proxy.nix
 
     ./hardware-configuration.nix

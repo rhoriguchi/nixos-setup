@@ -358,6 +358,9 @@ in {
             } ++ lib.optional config.services.sonarr.enable {
               name = "Sonarr";
               url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-sonarr.port}/metrics";
+            } ++ lib.optional config.services.unpoller.enable {
+              name = "Unpoller";
+              url = "http://${config.services.unpoller.prometheus.http_listen}/metrics";
             };
           };
         } // lib.optionalAttrs hasCerts {
