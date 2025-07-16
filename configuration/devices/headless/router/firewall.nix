@@ -101,6 +101,7 @@ in {
               in lib.concatStringsSep "\n" rules
             }
 
+            ip saddr ${ips.server} ip daddr @private_vlan meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 80 } accept # Home Assistant - Shelly
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 443 } accept # Home Assistant - Hue
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 3232 } accept # ESPHome - OTA
