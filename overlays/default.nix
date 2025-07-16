@@ -52,7 +52,7 @@
         }/pkgs/servers/home-assistant/custom-components/localtuya/package.nix") { };
     };
 
-    # TODO remove when https://github.com/NixOS/nixpkgs/issues/425323 fixed
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=425773
     jdk8 = super.openjdk8-bootstrap;
   })
   (_: super: {
