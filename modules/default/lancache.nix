@@ -5,8 +5,8 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "uklans";
     repo = "cache-domains";
-    rev = "67535f7b9f32ca0bdbb6210c29f16493c9112a7b";
-    hash = "sha256-GsUQYB+MpLPBKTZ+cKjjUIiag+KmZgzTe5nC+UIinKE=";
+    rev = "490f1d2c232850d3cad3ec7146e8a0d5b2dc7b27";
+    hash = "sha256-Sxx84nt64mIJMFL7ZHxmjbw2QSFrc4RkfIg8g7SGxmc=";
   };
 
   metadata = (builtins.fromJSON (builtins.readFile "${src}/cache_domains.json")).cache_domains;
@@ -44,9 +44,7 @@ in {
     };
     cacheDomains = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = cacheDomains
-        # needed for steam download to work
-        ++ lib.optional (lib.elem "steam" cfg.cachedServices) "*.steamcontent.com";
+      default = cacheDomains ++ (map (service: "${service}.cache.lancache.net") cfg.cachedServices);
       readOnly = true;
     };
   };
