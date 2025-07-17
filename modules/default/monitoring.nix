@@ -395,6 +395,8 @@ in {
         requires = [ "netdata-set-node-uuid.service" ];
 
         serviceConfig = {
+          LogNamespace = lib.mkForce null;
+
           CapabilityBoundingSet = [
             # S.M.A.R.T. collector
             "CAP_SYS_RAWIO"
