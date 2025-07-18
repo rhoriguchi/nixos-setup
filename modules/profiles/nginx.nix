@@ -12,7 +12,6 @@
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
       recommendedUwsgiSettings = true;
-      recommendedZstdSettings = true;
 
       appendHttpConfig = ''
         add_header Referrer-Policy origin-when-cross-origin;

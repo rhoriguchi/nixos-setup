@@ -23,11 +23,6 @@
             proxy_buffering off;
           '';
         };
-
-        extraConfig = ''
-          # For some reason the android home assistant app crashes nginx if zstd is enabled
-          zstd off;
-        '';
       };
     };
 
