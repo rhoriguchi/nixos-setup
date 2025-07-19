@@ -200,6 +200,7 @@ in {
           withLibbacktrace = cfg.debug.enable;
           withML = isParent;
           withNdsudo = true;
+          withSystemdJournal = false;
         };
 
         claimTokenFile = if isParent then pkgs.writeText "claimToken" cfg.claimToken else null;
