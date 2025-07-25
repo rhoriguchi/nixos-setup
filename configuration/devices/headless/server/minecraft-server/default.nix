@@ -247,8 +247,8 @@ in {
             "plugins/BlueMap.jar" = let
               owner = "BlueMap-Minecraft";
               repo = "BlueMap";
-              tag = "5.9";
-              sha256 = "sha256-XLQQ0UW+Far3oULgUbC9ddnnQR6TwrKTsz8aW60tq9o=";
+              tag = "5.10";
+              sha256 = "sha256-z5Ky1dRUlDemDI/orkLMa4oWTi9eZnizA6Npeq93QB8=";
             in pkgs.fetchurl {
               url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/bluemap-${tag}-paper.jar";
               inherit sha256;
