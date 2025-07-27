@@ -9,15 +9,6 @@
           sha256 = "sha256-jQNGd1Kmey15jq5U36m8pG+lVsxSJlDj1bJ167BjHQ4=";
         }
       }/pkgs/by-name/re/resilio-sync/package.nix") { };
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=420648
-    adguardhome = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "ffb853f778daaf561750937858b37911e74125ba";
-          sha256 = "sha256-Mjvwa9zWOSg6JblYkCrLF+2P2zM2nlhyRV1ZRqKpZ/o=";
-        }
-      }/pkgs/servers/adguardhome") { };
 
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=420791
     steam-lancache-prefill = super.callPackage (import "${
