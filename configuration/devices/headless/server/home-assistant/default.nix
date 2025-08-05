@@ -42,9 +42,9 @@
       homeassistant = {
         name = "Home";
         time_zone = config.time.timeZone;
-        latitude = secrets.homeassistant.latitude;
-        longitude = secrets.homeassistant.longitude;
-        elevation = secrets.homeassistant.elevation;
+        latitude = secrets.home.latitude;
+        longitude = secrets.home.longitude;
+        elevation = secrets.home.elevation;
         country = "CH";
         language = "en-GB";
         unit_system = "metric";
