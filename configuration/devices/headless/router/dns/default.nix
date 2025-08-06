@@ -10,7 +10,6 @@ let
     "${config.networking.hostName}" = ips.router;
 
     "unifi" = ips.cloudKey;
-    "winbox" = ips.wingoRouter;
   };
 
   reverseZones =
