@@ -189,6 +189,23 @@
         };
 
         # Raspberry Pi 4 Model B - 8GB
+        XXLPitu-Tier = lib.nixosSystem {
+          system = "aarch64-linux";
+
+          modules = [{
+            imports = [
+              commonModule
+
+              inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
+              self.nixosModules.profiles.headless
+
+              ./configuration/devices/headless/raspberry-pi-4/tier
+            ];
+          }];
+        };
+
+        # Raspberry Pi 4 Model B - 8GB
         XXLPitu-Ulquiorra = lib.nixosSystem {
           system = "aarch64-linux";
 
