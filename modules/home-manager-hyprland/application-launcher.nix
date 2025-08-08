@@ -1,38 +1,111 @@
-{ colors, config, lib, pkgs, ... }: {
+{ colors, config, pkgs, ... }: {
   home.packages = [ pkgs.nerd-fonts.roboto-mono ];
 
-  programs.fuzzel = {
+  programs.wofi = {
     enable = true;
 
     settings = {
-      main = {
-        terminal = "${pkgs.foot}/bin/foot -e";
+      prompt = "";
 
-        layer = "overlay";
+      width = 600;
+      height = 400;
+      location = "center";
 
-        font = "RobotoMono Nerd Font";
-        icon-theme = config.gtk.iconTheme.name;
-
-        # TODO HYPRLAND figure out alignment
-        prompt = ''"❯   "'';
-        inner-pad = 5;
-      };
-
-      border.width = 2;
-
-      colors = {
-        background = lib.removePrefix "#" "${colors.extra.terminal.background}E6";
-        border = lib.removePrefix "#" "${colors.normal.accent}FF";
-
-        text = lib.removePrefix "#" "${colors.normal.white}FF";
-        match = lib.removePrefix "#" "${colors.bright.accent}FF";
-
-        selection-text = lib.removePrefix "#" "${colors.normal.white}FF";
-        selection-match = lib.removePrefix "#" "${colors.normal.accent}FF";
-        selection = lib.removePrefix "#" "${colors.bright.accent}FF";
-      };
+      show = "drun";
+      matching = "fuzzy";
+      no_actions = true;
+      insensitive = true;
+      allow_images = true;
+      hide_scroll = true;
     };
+
+    # man wofi(5)
+    style = ''
+      window {
+        margin: 5px;
+        border-radius: 8px;
+        /* TODO HYPRLAND figure out how to use hex colors variable `colors.normal.black` */
+        background-color: rgba(0, 0, 0, 0.9);
+        font-family: RobotoMono Nerd Font;
+      }
+
+      #outer-box {
+        margin: 0;
+        padding: 5px;
+        background-color: transparent;
+      }
+
+      #input {
+        margin: 8px;
+        padding: 10px 12px;
+        border: 2px solid ${colors.extra.terminal.border};
+        border-radius: 8px;
+        color: ${colors.normal.white};
+        background-color: ${colors.extra.terminal.background};
+        outline: none;
+        caret-color: ${colors.normal.accent};
+        font-size: 14px;
+      }
+
+      #input:focus {
+        border-color: ${colors.normal.accent};
+        box-shadow: none;
+      }
+
+      /* magnifying glass */
+      #input > image.left {
+        color: ${colors.extra.terminal.border};
+      }
+
+      /* delete icon */
+      #input > image.right {
+        color: ${colors.extra.terminal.border};
+      }
+
+      #scroll {
+        margin: 0;
+        padding: 5px;
+      }
+
+      #inner-box {
+        margin: 8px;
+        padding-top: 5px;
+        background-color: transparent;
+      }
+
+      #entry {
+        padding: 8px;
+        margin: 2px 5px;
+        transition: all 0.2s ease;
+        box-shadow: none;
+      }
+
+      #entry:selected {
+        border: 2px solid ${colors.normal.accent};
+        border-radius: 8px;
+        box-shadow: none;
+        background-color: ${colors.extra.terminal.background};
+      }
+
+      #img {
+        margin-right: 10px;
+        margin-left: 5px;
+        background: none;
+      }
+
+      #text {
+        margin: 3px;
+        padding: 3px;
+        color: ${colors.normal.white};
+        font-size: 13px;
+      }
+
+      #text:selected {
+        color: ${colors.normal.accent};
+        font-weight: bold;
+      }
+    '';
   };
 
-  wayland.windowManager.hyprland.settings.bind = [ "$mainMod, R, exec, ${config.programs.fuzzel.package}/bin/fuzzel" ];
+  wayland.windowManager.hyprland.settings.bind = [ "$mainMod, R, exec, ${config.programs.wofi.package}/bin/wofi" ];
 }
