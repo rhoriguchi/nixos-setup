@@ -194,6 +194,20 @@ in {
       }
     ];
 
+    networking.nftables.tables.resilio = lib.optionalAttrs (lib.length (lib.attrNames config.networking.wireguard.interfaces) > 0) {
+      family = "inet";
+
+      content = ''
+        chain output {
+          type filter hook output priority filter;
+
+          oifname { ${
+            lib.concatStringsSep ", " (lib.attrNames config.networking.wireguard.interfaces)
+          } } ip daddr { 239.192.0.0, 255.255.255.255 } udp dport { 3838 } drop
+        }
+      '';
+    };
+
     users = lib.mkIf cfg.systemWide {
       users.${cfg.user} = {
         isSystemUser = true;
