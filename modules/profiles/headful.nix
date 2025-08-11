@@ -23,7 +23,6 @@
     pkgs.gnome-calculator
     pkgs.google-chrome
     pkgs.inkscape
-    pkgs.libreoffice-fresh
     pkgs.loupe
     pkgs.mission-center
     pkgs.obsidian
