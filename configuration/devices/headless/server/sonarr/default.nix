@@ -101,6 +101,7 @@ in {
           366924 # Reacher
           371980 # Severance
           393204 # Ironheart
+          397060 # Wednesday
           422712 # Daredevil: Born Again
         ]);
       }));
