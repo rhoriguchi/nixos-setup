@@ -2,8 +2,8 @@
   services.wlsunset = {
     enable = true;
 
-    latitude = secrets.location.latitude;
-    longitude = secrets.location.longitude;
+    latitude = secrets.home.latitude;
+    longitude = secrets.home.longitude;
 
     temperature = {
       day = 10000;

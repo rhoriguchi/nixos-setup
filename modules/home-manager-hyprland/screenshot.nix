@@ -16,6 +16,8 @@ let
     ${pkgs.hyprshot}/bin/hyprshot --output-folder ${screenshotsDir} --mode region
   '';
 in {
+  # TODO HYPRLAND configure with https://github.com/nix-community/home-manager/blob/master/modules/programs/hyprshot.nix
+
   home = {
     packages = [
       pkgs.hyprshot
