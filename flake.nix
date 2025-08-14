@@ -123,7 +123,10 @@
 
                   backupFileExtension = "backup";
 
-                  extraSpecialArgs.colors = self.nixosModules.colors;
+                  extraSpecialArgs = {
+                    inherit (self.nixosModules) colors;
+                    secrets = import ./secrets.nix;
+                  };
 
                   users.rhoriguchi.imports = [ self.nixosModules.home-manager self.nixosModules.home-manager-gnome ];
                 };
