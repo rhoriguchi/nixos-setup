@@ -10,6 +10,7 @@ in {
 
     gtk3.bookmarks = [
       "file://${homeDirectory}/Downloads/Browser Downloads"
+      "file://${homeDirectory}/Pictures/Screenshots"
       "file://${homeDirectory}/Sync"
       "file://${homeDirectory}/Sync/Git Sync/Git"
       "file://${homeDirectory}/Sync/Series Sync/Series"
