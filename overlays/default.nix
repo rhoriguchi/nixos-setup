@@ -32,6 +32,16 @@
         }/pkgs/servers/home-assistant/custom-components/localtuya/package.nix") { };
     };
 
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=433133
+    adguardhome = super.callPackage (import "${
+        super.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "9874f40311277522c0ee9ed30e155d27da6678ca";
+          sha256 = "sha256-DN7megy0p5CAGOts4UBnZqEiD8z87SbTWzNCwcBR/mg=";
+        }
+      }/pkgs/by-name/ad/adguardhome/package.nix") { };
+
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=433769
     plexRaw = super.python3Packages.callPackage (import "${
         super.fetchFromGitHub {
