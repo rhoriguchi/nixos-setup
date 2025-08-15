@@ -1,4 +1,4 @@
-{ config, lib, secrets, ... }: {
+{ config, lib, pkgs, secrets, ... }: {
   imports = [
     ../common.nix
 
@@ -17,18 +17,23 @@
     ./hardware-configuration.nix
   ];
 
-  boot.loader.grub = {
-    enable = true;
+  boot = {
+    loader.grub = {
+      enable = true;
 
-    efiSupport = true;
-    efiInstallAsRemovable = true;
+      efiSupport = true;
+      efiInstallAsRemovable = true;
 
-    device = "nodev";
+      device = "nodev";
 
-    mirroredBoots = [{
-      devices = [ "/dev/disk/by-uuid/6054-F72D" ];
-      path = "/boot-mirror";
-    }];
+      mirroredBoots = [{
+        devices = [ "/dev/disk/by-uuid/6054-F72D" ];
+        path = "/boot-mirror";
+      }];
+    };
+
+    # TODO unpin once zfs works with latest kernel
+    kernelPackages = pkgs.linuxPackages;
   };
 
   networking = {
