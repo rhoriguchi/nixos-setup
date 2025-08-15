@@ -247,8 +247,8 @@ in {
             "plugins/BlueMap.jar" = let
               owner = "BlueMap-Minecraft";
               repo = "BlueMap";
-              tag = "5.10";
-              sha256 = "sha256-z5Ky1dRUlDemDI/orkLMa4oWTi9eZnizA6Npeq93QB8=";
+              tag = "5.11";
+              sha256 = "sha256-PUuWF2UB6KhHt/rOMgmHkOjraaYWgOEoUZfQo9eW1cA=";
             in pkgs.fetchurl {
               url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/bluemap-${tag}-paper.jar";
               inherit sha256;
@@ -276,7 +276,9 @@ in {
               remove-caves-below-y: -10000
               cave-detection-ocean-floor: -5
 
-              min-y: 120
+              render-mask: [{
+                min-y: 120
+              }]
             '';
             "plugins/BlueMap/packs/BlueMapSpawnMarker.jar" = let
               owner = "TechnicJelle";
