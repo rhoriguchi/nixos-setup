@@ -25,6 +25,12 @@ in {
   networking = {
     hostName = "XXLPitu-Router";
 
+    wireless = {
+      enable = true;
+
+      networks.Niflheim = secrets.wifis.Niflheim;
+    };
+
     firewall.interfaces.${managementInterface}.allowedTCPPorts = config.services.openssh.ports;
   };
 

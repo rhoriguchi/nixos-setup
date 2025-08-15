@@ -148,7 +148,7 @@
             ];
 
             _module.args.interfaces = {
-              external = "eth0";
+              external = "wlan0";
               internal = "eth3";
               management = "eth2";
             };
