@@ -5,8 +5,8 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "uklans";
     repo = "cache-domains";
-    rev = "e7fc17ae5b3d4162a831259714d1ea71972f4334";
-    hash = "sha256-0fTVYqRS9kcqeWXFoLUz5dBdOmt2A7B1gJyOQmq5rfg=";
+    rev = "170c0905e4d5230833a1854b896299c743c3059e";
+    hash = "sha256-GtZQ2T7+mtITAvBN4kDqk//Jp2gdsYiknUCjuy6pPvE=";
   };
 
   metadata = (builtins.fromJSON (builtins.readFile "${src}/cache_domains.json")).cache_domains;
