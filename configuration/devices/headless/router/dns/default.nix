@@ -94,7 +94,7 @@ in {
       enable = true;
 
       forward = "first";
-      forwarders = [ "1.1.1.1 port 853 tls cloudflare-tls" "1.0.0.1 port 853 tls cloudflare-tls" ];
+      forwarders = [ "1.1.1.1 port 853 tls cloudflare-tls" "8.8.8.8 port 853 tls google-tls" "9.9.9.9 port 853 tls quad9-tls" ];
 
       cacheNetworks = [ "localhost" "localnets" ];
 
@@ -119,6 +119,16 @@ in {
         tls cloudflare-tls {
           ca-file "/etc/ssl/certs/ca-certificates.crt";
           remote-hostname "cloudflare-dns.com";
+        };
+
+        tls google-tls {
+          ca-file "/etc/ssl/certs/ca-certificates.crt";
+          remote-hostname "dns.google";
+        };
+
+        tls quad9-tls {
+          ca-file "/etc/ssl/certs/ca-certificates.crt";
+          remote-hostname "dns.quad9.net";
         };
 
         key tsig-key {
