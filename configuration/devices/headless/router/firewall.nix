@@ -85,6 +85,7 @@ in {
             ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 443 } accept # Home Assistant - Shelly
             ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 445 } accept # Samba
             ip saddr @iot_vlan ip daddr ${ips.server} udp dport { 4002 } accept # Home Assistant - Govee
+            ip saddr @iot_vlan ip daddr ${ips.server} udp dport { 32410, 32412, 32413, 32414 } accept # Plex
 
             ip saddr @rfc1918 ip daddr ${ips.server} tcp dport { 80, 443 } accept
             ip saddr @rfc1918 ip daddr ${ips.ulquiorra} tcp dport { 80, 443 } accept
