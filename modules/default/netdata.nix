@@ -7,8 +7,8 @@ let
   src = let
     owner = "rhoriguchi";
     repo = "nixpkgs";
-    rev = "e7ca22650876e270c426cf04ddebd1656e3d2ace";
-    sha256 = "sha256:1sp9klmq4qfhi5xlv1v10mm9psr7r9zz6b17vif6mfkhmjb152zb";
+    rev = "db3a22c721e220c1dd8f563250722057d8b042ad";
+    sha256 = "sha256:00jfxf0w5sj1vrxdfdj743yi1rnpram2qh2xkg70dmdqq0cmdi3v";
   in builtins.fetchTarball {
     name = "nixpkgs";
     url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
