@@ -64,6 +64,7 @@ in {
   systemd.services.fancontrol = {
     documentation = [ "man:fancontrol(8)" ];
     wantedBy = [ "multi-user.target" ];
+    # `config.systemd.services.lm_sensors.name` does not exist
     after = [ "lm_sensors.service" ];
 
     path = [ pkgs.lm_sensors pkgs.python3 ];

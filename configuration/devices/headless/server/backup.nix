@@ -44,7 +44,7 @@ in {
     services = lib.listToAttrs (map (database:
       lib.nameValuePair "borgmatic-postgres-dump-${database}" {
         wantedBy = [ "multi-user.target" ];
-        after = [ "postgresql.service" ];
+        after = [ config.systemd.services.postgresql.name ];
 
         script = ''
           ${config.services.postgresql.package}/bin/pg_dump ${

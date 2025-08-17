@@ -36,7 +36,7 @@ in {
   services = {
     # lsusb
     udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="03f0", ENV{ID_MODEL_ID}=="c511", RUN+="${pkgs.systemd}/bin/systemctl restart ensure-printers.service"
+      ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="03f0", ENV{ID_MODEL_ID}=="c511", RUN+="${pkgs.systemd}/bin/systemctl restart ${config.systemd.services.ensure-printers.name}"
     '';
 
     printing = {

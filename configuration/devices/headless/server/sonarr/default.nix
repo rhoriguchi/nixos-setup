@@ -82,7 +82,7 @@ in {
   };
 
   systemd.services.sonarr-update-tracked-series = {
-    after = [ "network.target" "sonarr.service" ];
+    after = [ "network.target" config.systemd.services.sonarr.name ];
 
     script = let
       pythonScript = pkgs.writers.writePython3 "update_series.py" {

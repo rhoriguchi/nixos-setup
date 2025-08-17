@@ -89,7 +89,7 @@ in {
   };
 
   systemd.services.add-samba-users = {
-    after = [ "network.target" "smbd.service" ];
+    after = [ config.systemd.services.samba-smbd.name ];
 
     script = lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''
       ${pkgs.expect}/bin/expect <<EOF

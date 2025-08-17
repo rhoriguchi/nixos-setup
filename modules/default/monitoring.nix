@@ -393,7 +393,7 @@ in {
 
     systemd.services = {
       netdata = {
-        requires = [ "netdata-set-node-uuid.service" ];
+        requires = [ config.systemd.services.netdata-set-node-uuid.name ];
 
         serviceConfig = {
           LogNamespace = lib.mkForce null;
@@ -411,7 +411,7 @@ in {
       };
 
       netdata-set-node-uuid = {
-        before = [ "netdata.service" ];
+        before = [ config.systemd.services.netdata.name ];
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
