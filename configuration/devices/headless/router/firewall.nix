@@ -116,10 +116,10 @@ in {
           }
 
           chain dns-filter {
-            ${lib.optionalString config.virtualisation.docker.enable "iifname docker0 accept"}
-            ${lib.optionalString config.virtualisation.podman.enable "iifname podman0 accept"}
-
-            iifname ${managementInterface} accept
+            iifname { ${
+              lib.concatStringsSep ", " ([ managementInterface ] ++ lib.optional config.virtualisation.docker.enable "docker0"
+                ++ lib.optional config.virtualisation.podman.enable "podman0")
+            } } accept
 
             reject
           }
