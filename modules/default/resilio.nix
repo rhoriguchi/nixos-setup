@@ -1,5 +1,7 @@
 { config, lib, modulesPath, pkgs, ... }:
 let
+  listeningPort = 5555;
+
   cfg = config.services.resilio;
 
   sharedFolders = lib.attrValues (lib.mapAttrs (key: value: {
@@ -17,7 +19,7 @@ let
 
   resilioConfig = {
     device_name = lib.toUpper config.networking.hostName;
-    listening_port = cfg.listeningPort;
+    listening_port = listeningPort;
     storage_path = cfg.storagePath;
     check_for_updates = cfg.webUI.enable;
     use_upnp = true;
@@ -75,10 +77,6 @@ in {
     systemWide = lib.mkOption {
       type = lib.types.bool;
       default = !cfg.webUI.enable;
-    };
-    listeningPort = lib.mkOption {
-      type = lib.types.port;
-      default = 5555;
     };
     syncPath = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
@@ -198,12 +196,20 @@ in {
       family = "inet";
 
       content = ''
+        chain input {
+          type filter hook input priority filter;
+
+          iifname { ${
+            lib.concatStringsSep ", " (lib.attrNames config.networking.wireguard.interfaces)
+          } } meta l4proto { tcp, udp } th dport { ${toString listeningPort} } drop
+        }
+
         chain output {
           type filter hook output priority filter;
 
           oifname { ${
             lib.concatStringsSep ", " (lib.attrNames config.networking.wireguard.interfaces)
-          } } ip daddr { 239.192.0.0, 255.255.255.255 } udp dport { 3838 } drop
+          } } meta l4proto { tcp, udp } th dport { ${toString listeningPort} } drop
         }
       '';
     };
@@ -280,7 +286,5 @@ in {
           };
         };
       };
-
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.systemWide [ cfg.listeningPort ];
   };
 }
