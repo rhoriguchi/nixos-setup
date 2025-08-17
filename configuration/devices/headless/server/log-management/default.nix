@@ -94,6 +94,16 @@
       provision = {
         enable = true;
 
+        dashboards.settings = {
+          apiVersion = 1;
+
+          providers = [{
+            name = "Dashboards";
+            updateIntervalSeconds = 60 * 60;
+            options.path = ./dashboards;
+          }];
+        };
+
         datasources.settings = {
           apiVersion = 1;
 

@@ -5,7 +5,7 @@
     ./backup.nix
     ./fancontrol.nix
     ./home-assistant
-    ./log-management.nix
+    ./log-management
     ./minecraft-server
     ./monitoring.nix
     ./plex.nix
