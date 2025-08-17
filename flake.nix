@@ -83,7 +83,11 @@
 
       nixosConfigurations = let
         commonModule = {
-          imports = [ self.nixosModules.default ];
+          imports = [
+            self.nixosModules.default
+
+            self.nixosModules.profiles.ssh
+          ];
 
           nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
@@ -91,7 +95,6 @@
 
           _module.args = {
             inherit (self.nixosModules) colors;
-            public-keys = import ./public-keys.nix;
             secrets = import ./secrets.nix;
           };
         };
@@ -216,7 +219,7 @@
               imports = [ "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ];
               sdImage.compressImage = false;
             }
-            ({ public-keys, secrets, ... }: {
+            ({ secrets, ... }: {
               imports = [
                 commonModule
 
@@ -225,13 +228,10 @@
                 self.nixosModules.profiles.headless
               ];
 
-              services.openssh.enable = true;
-
               users.users.xxlpitu = {
                 extraGroups = [ "wheel" ];
                 isNormalUser = true;
                 password = secrets.users.xxlpitu.password;
-                openssh.authorizedKeys.keys = [ public-keys.default ];
               };
             })
           ];

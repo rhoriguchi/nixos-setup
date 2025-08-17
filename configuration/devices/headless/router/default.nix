@@ -1,6 +1,4 @@
-{ config, interfaces, lib, secrets, ... }:
-let managementInterface = interfaces.management;
-in {
+{ lib, secrets, ... }: {
   imports = [
     ../common.nix
 
@@ -30,8 +28,6 @@ in {
 
       networks.Niflheim = secrets.wifis.Niflheim;
     };
-
-    firewall.interfaces.${managementInterface}.allowedTCPPorts = config.services.openssh.ports;
   };
 
   services = {

@@ -1,4 +1,4 @@
-{ config, lib, public-keys, secrets, ... }: {
+{ config, lib, secrets, ... }: {
   imports = [ ../../common.nix ];
 
   documentation.enable = false;
@@ -15,7 +15,6 @@
       ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
     isNormalUser = true;
     password = secrets.users.xxlpitu.password;
-    openssh.authorizedKeys.keys = [ public-keys.default ];
   };
 
   services = {
