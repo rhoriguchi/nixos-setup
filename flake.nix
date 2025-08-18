@@ -118,7 +118,7 @@
 
               ./configuration/devices/laptop
 
-              inputs.home-manager.nixosModules.home-manager
+              inputs.home-manager.nixosModules.default
               {
                 home-manager = {
                   useGlobalPkgs = true;
