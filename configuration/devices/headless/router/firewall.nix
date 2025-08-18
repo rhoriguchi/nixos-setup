@@ -72,7 +72,7 @@ in {
               (lib.filter (interface: lib.hasPrefix internalInterface interface) config.networking.nat.internalInterfaces)
             } } jump lan-filter
 
-            oifname ${config.networking.nat.externalInterface} meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
+            oifname { ${config.networking.nat.externalInterface} } meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
           }
 
           chain lan-filter {
