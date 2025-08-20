@@ -299,17 +299,30 @@ in {
           "go.d/nvme.conf" = pkgs.writers.writeYAML "nvme.conf" { jobs = [{ name = "local"; }]; };
         } // {
           "go.d/ping.conf" = pkgs.writers.writeYAML "ping.conf" {
-            jobs = [{
-              name = "internet";
-              update_every = 10;
-              autodetection_retry = 5;
-              hosts = [ "1.1.1.1" "digitec.ch" "youtube.com" ];
-            }] ++ lib.optional (config.services.wireguard-network.type == "client") {
-              name = "wireguard";
-              update_every = 10;
-              autodetection_retry = 5;
-              hosts = [ wireguardIps.${config.services.wireguard-network.serverHostname} ];
-            };
+            jobs = [
+              {
+                name = "dns";
+                update_every = 10;
+                autodetection_retry = 5;
+                hosts = [ "1.1.1.1" "8.8.8.8" "9.9.9.9" ];
+              }
+              {
+                name = "internet";
+                update_every = 10;
+                autodetection_retry = 5;
+                hosts = [ "bbc.co.uk" "digitec.ch" "youtube.com" ];
+              }
+              {
+                name = "wireguard";
+                update_every = 10;
+                autodetection_retry = 5;
+                interface = config.services.wireguard-network.interfaceName;
+                hosts = if config.services.wireguard-network.type == "client" then
+                  [ wireguardIps.${config.services.wireguard-network.serverHostname} ]
+                else
+                  lib.attrValues (lib.filterAttrs (key: _: key != config.networking.hostName) wireguardIps);
+              }
+            ];
           };
         } // lib.optionalAttrs redisEnabled {
           "go.d/redis.conf" = pkgs.writers.writeYAML "redis.conf" {
