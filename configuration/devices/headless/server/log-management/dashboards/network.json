@@ -65,7 +65,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -192,7 +193,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -319,7 +321,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -1680,6 +1683,6 @@
   "timezone": "browser",
   "title": "Network",
   "uid": "ae5yp992gp8n4f",
-  "version": 2,
+  "version": 3,
   "weekStart": "monday"
 }
