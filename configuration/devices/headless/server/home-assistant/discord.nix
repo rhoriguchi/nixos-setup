@@ -43,10 +43,6 @@
           "sensor.entrance_h_t_gen3_battery"
           "sensor.kitchen_dimmer_switch_battery"
           "sensor.reduit_parasoll_battery"
-          "sensor.valve_blue_battery"
-          "sensor.valve_green_battery"
-          "sensor.valve_orange_battery"
-          "sensor.valve_yellow_battery"
         ];
         below = 26;
       }];
