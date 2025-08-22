@@ -13,33 +13,13 @@
     }
     {
       platform = "group";
-      name = "Group Entrance";
-      entities = [ "light.entrance_lamp" "light.entrance_sideboard_lamp" ];
-    }
-    {
-      platform = "group";
-      name = "Group Hallway";
-      entities = [ "light.hallway_lamp" ];
-    }
-    {
-      platform = "group";
-      name = "Group Kitchen";
-      entities = [ "light.kitchen_standing_lamp" ];
-    }
-    {
-      platform = "group";
       name = "Group Living room";
-      entities = [
-        "light.living_room_signe_gradient_kitchen"
-        "light.living_room_signe_gradient_window"
-        "light.living_room_standing_lamp"
-        "light.living_room_table_lamp"
-      ];
+      entities = [ "light.living_room_standing_lamp" "light.living_room_table_lamp" ];
     }
     {
       platform = "group";
-      name = "Group Reduit";
-      entities = [ "light.reduit_closet_lights" ];
+      name = "Group Office";
+      entities = [ "light.office_signe_gradient_wall" "light.office_signe_gradient_window" ];
     }
 
     {
@@ -49,18 +29,13 @@
     }
     {
       platform = "group";
-      name = "Group switch entrance";
-      entities = [ "light.entrance_lamp" "light.entrance_sideboard_lamp" ];
+      name = "Group switch living room";
+      entities = [ "light.living_room_standing_lamp" ];
     }
     {
       platform = "group";
-      name = "Group switch kitchen";
-      entities = [
-        "light.kitchen_standing_lamp"
-        "light.living_room_signe_gradient_kitchen"
-        "light.living_room_signe_gradient_window"
-        "light.living_room_standing_lamp"
-      ];
+      name = "Group switch office";
+      entities = [ "light.office_signe_gradient_wall" "light.office_signe_gradient_window" ];
     }
   ];
 }

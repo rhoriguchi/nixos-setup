@@ -103,132 +103,153 @@ in {
             }
             {
               type = "entities";
-              title = "Entrance";
+              title = "Guest room";
 
               entities = [
                 {
                   name = "Temperature";
-                  entity = "sensor.entrance_h_t_gen3_temperature";
+                  entity = "sensor.guest_room_h_t_gen3_temperature";
                 }
                 {
                   name = "Humidity";
-                  entity = "sensor.entrance_h_t_gen3_humidity";
+                  entity = "sensor.guest_room_h_t_gen3_humidity";
                 }
               ];
             }
             {
               type = "entities";
-              title = "Living room";
+              title = "Office";
 
               entities = [
                 {
                   name = "Temperature";
-                  entity = "sensor.airgradient_one_temperature";
+                  entity = "sensor.office_vindstyrka_temperature_sensor";
                 }
                 {
                   name = "Humidity";
-                  entity = "sensor.airgradient_one_humidity";
-                }
-                {
-                  name = "CO2";
-                  entity = "sensor.airgradient_one_co2";
-                }
-                {
-                  name = "VOC Index";
-                  entity = "sensor.airgradient_one_voc_index";
-                }
-                {
-                  name = "NOx Index";
-                  entity = "sensor.airgradient_one_nox_index";
-                }
-                {
-                  name = "PM 1.0 μm";
-                  entity = "sensor.airgradient_one_pm_1_0";
+                  entity = "sensor.office_vindstyrka_humidity_sensor";
                 }
                 {
                   name = "PM 2.5 μm";
-                  entity = "sensor.airgradient_one_pm_10_0";
-                }
-                {
-                  name = "PM 10.0 μm";
-                  entity = "sensor.airgradient_one_pm_2_5";
+                  entity = "sensor.office_vindstyrka_pm2_5_density";
                 }
               ];
             }
-            {
-              type = "entities";
-              title = "Stadler Form Karl";
+            # TODO HS commented
+            # {
+            #   type = "entities";
+            #   title = "Living room";
 
-              entities = [
-                {
-                  name = "Power";
-                  entity = "switch.stadler_form_karl_power";
-                  icon = "mdi:power";
-                }
-                {
-                  name = "Humidity";
-                  entity = "sensor.stadler_form_karl_humidity";
-                }
-                {
-                  type = "conditional";
-                  conditions = [{
-                    entity = "switch.stadler_form_karl_power";
-                    state = "on";
-                  }];
-                  row = {
-                    name = "Auto mode";
-                    entity = "switch.stadler_form_karl_auto_mode";
-                    icon = "mdi:fan-auto";
-                  };
-                }
-                {
-                  type = "conditional";
-                  conditions = [
-                    {
-                      entity = "switch.stadler_form_karl_power";
-                      state = "on";
-                    }
-                    {
-                      entity = "switch.stadler_form_karl_auto_mode";
-                      state = "on";
-                    }
-                  ];
-                  row = {
-                    name = "Hygrostat";
-                    entity = "select.stadler_form_karl_hygrostat";
-                    icon = "mdi:water-percent";
-                  };
-                }
-                {
-                  type = "conditional";
-                  conditions = [
-                    {
-                      entity = "switch.stadler_form_karl_power";
-                      state = "on";
-                    }
-                    {
-                      entity = "switch.stadler_form_karl_auto_mode";
-                      state = "off";
-                    }
-                  ];
-                  row = {
-                    name = "Fan speed";
-                    entity = "select.stadler_form_karl_fan_speed";
-                    icon = "mdi:fan";
-                  };
-                }
-                {
-                  name = "Low water";
-                  entity = "binary_sensor.stadler_form_karl_low_water";
-                  icon = "mdi:water";
-                }
-                {
-                  name = "Filter life";
-                  entity = "sensor.stadler_form_karl_filter_life";
-                  icon = "mdi:filter";
-                }
-              ];
-            }
+            #   entities = [
+            #     {
+            #       name = "Temperature";
+            #       entity = "sensor.airgradient_one_temperature";
+            #     }
+            #     {
+            #       name = "Humidity";
+            #       entity = "sensor.airgradient_one_humidity";
+            #     }
+            #     {
+            #       name = "CO2";
+            #       entity = "sensor.airgradient_one_co2";
+            #     }
+            #     {
+            #       name = "VOC Index";
+            #       entity = "sensor.airgradient_one_voc_index";
+            #     }
+            #     {
+            #       name = "NOx Index";
+            #       entity = "sensor.airgradient_one_nox_index";
+            #     }
+            #     {
+            #       name = "PM 1.0 μm";
+            #       entity = "sensor.airgradient_one_pm_1_0";
+            #     }
+            #     {
+            #       name = "PM 2.5 μm";
+            #       entity = "sensor.airgradient_one_pm_10_0";
+            #     }
+            #     {
+            #       name = "PM 10.0 μm";
+            #       entity = "sensor.airgradient_one_pm_2_5";
+            #     }
+            #   ];
+            # }
+            # TODO HS commented
+            # {
+            #   type = "entities";
+            #   title = "Stadler Form Karl";
+
+            #   entities = [
+            #     {
+            #       name = "Power";
+            #       entity = "switch.stadler_form_karl_power";
+            #       icon = "mdi:power";
+            #     }
+            #     {
+            #       name = "Humidity";
+            #       entity = "sensor.stadler_form_karl_humidity";
+            #     }
+            #     {
+            #       type = "conditional";
+            #       conditions = [{
+            #         entity = "switch.stadler_form_karl_power";
+            #         state = "on";
+            #       }];
+            #       row = {
+            #         name = "Auto mode";
+            #         entity = "switch.stadler_form_karl_auto_mode";
+            #         icon = "mdi:fan-auto";
+            #       };
+            #     }
+            #     {
+            #       type = "conditional";
+            #       conditions = [
+            #         {
+            #           entity = "switch.stadler_form_karl_power";
+            #           state = "on";
+            #         }
+            #         {
+            #           entity = "switch.stadler_form_karl_auto_mode";
+            #           state = "on";
+            #         }
+            #       ];
+            #       row = {
+            #         name = "Hygrostat";
+            #         entity = "select.stadler_form_karl_hygrostat";
+            #         icon = "mdi:water-percent";
+            #       };
+            #     }
+            #     {
+            #       type = "conditional";
+            #       conditions = [
+            #         {
+            #           entity = "switch.stadler_form_karl_power";
+            #           state = "on";
+            #         }
+            #         {
+            #           entity = "switch.stadler_form_karl_auto_mode";
+            #           state = "off";
+            #         }
+            #       ];
+            #       row = {
+            #         name = "Fan speed";
+            #         entity = "select.stadler_form_karl_fan_speed";
+            #         icon = "mdi:fan";
+            #       };
+            #     }
+            #     {
+            #       name = "Low water";
+            #       entity = "binary_sensor.stadler_form_karl_low_water";
+            #       icon = "mdi:water";
+            #     }
+            #     {
+            #       name = "Filter life";
+            #       entity = "sensor.stadler_form_karl_filter_life";
+            #       icon = "mdi:filter";
+            #     }
+            #   ];
+            # }
             {
               type = "entities";
               title = "Lights";
@@ -247,10 +268,6 @@ in {
 
                   entities = [
                     {
-                      name = "Closet lights";
-                      entity = "light.bedroom_closet_lights";
-                    }
-                    {
                       name = "Nightstand lamp left";
                       entity = "light.bedroom_nightstand_lamp_left";
                     }
@@ -267,54 +284,6 @@ in {
                 {
                   type = "custom:fold-entity-row";
                   head = {
-                    name = "Entrance";
-                    entity = "light.group_entrance";
-                  };
-
-                  open = true;
-
-                  entities = [
-                    {
-                      name = "Sideboard lamp";
-                      entity = "light.entrance_sideboard_lamp";
-                    }
-                    {
-                      name = "Lamp";
-                      entity = "light.entrance_lamp";
-                    }
-                  ];
-                }
-                {
-                  type = "custom:fold-entity-row";
-                  head = {
-                    name = "Hallway";
-                    entity = "light.group_hallway";
-                  };
-
-                  open = true;
-
-                  entities = [{
-                    name = "Lamp";
-                    entity = "light.hallway_lamp";
-                  }];
-                }
-                {
-                  type = "custom:fold-entity-row";
-                  head = {
-                    name = "Kitchen";
-                    entity = "light.group_kitchen";
-                  };
-
-                  open = true;
-
-                  entities = [{
-                    name = "Lamp";
-                    entity = "light.kitchen_standing_lamp";
-                  }];
-                }
-                {
-                  type = "custom:fold-entity-row";
-                  head = {
                     name = "Living room";
                     entity = "light.group_living_room";
                   };
@@ -322,14 +291,12 @@ in {
                   open = true;
 
                   entities = [
-                    "light.living_room_signe_gradient_kitchen"
-                    "light.living_room_signe_gradient_window"
                     {
-                      name = "Standing lamp";
+                      name = "Living room standing lamp";
                       entity = "light.living_room_standing_lamp";
                     }
                     {
-                      name = "Table lamp";
+                      name = "Living room table lamp";
                       entity = "light.living_room_table_lamp";
                     }
                   ];
@@ -337,60 +304,68 @@ in {
                 {
                   type = "custom:fold-entity-row";
                   head = {
-                    name = "Reduit";
-                    entity = "light.group_reduit";
-                  };
-
-                  open = true;
-
-                  entities = [{
-                    name = "Lamp";
-                    entity = "light.reduit_closet_lights";
-                  }];
-                }
-                { type = "divider"; }
-                {
-                  type = "custom:fold-entity-row";
-                  head = {
-                    name = "Lego";
-                    entity = "light.group_lego";
+                    name = "Office";
+                    entity = "light.group_office";
                   };
 
                   open = true;
 
                   entities = [
                     {
-                      name = "Bonsai";
-                      entity = "light.lego_bonsai";
+                      name = "Signe Gradient wall";
+                      entity = "light.office_signe_gradient_wall";
                     }
                     {
-                      name = "Chrysanthemum";
-                      entity = "light.lego_chrysanthemum";
-                    }
-                    {
-                      name = "Tales of the Space Age";
-                      entity = "light.lego_tales_of_the_space_age";
+                      name = "Signe Gradient window";
+                      entity = "light.office_signe_gradient_window";
                     }
                   ];
                 }
-                { type = "divider"; }
-                {
-                  type = "custom:fold-entity-row";
-                  head = "light.airgradient_one";
+                # TODO HS commented
+                # { type = "divider"; }
+                # {
+                #   type = "custom:fold-entity-row";
+                #   head = {
+                #     name = "Lego";
+                #     entity = "light.group_lego";
+                #   };
 
-                  open = true;
+                #   open = true;
 
-                  entities = [
-                    {
-                      name = "Display";
-                      entity = "light.airgradient_one_display";
-                    }
-                    {
-                      name = "Led";
-                      entity = "light.airgradient_one_led_strip";
-                    }
-                  ];
-                }
+                #   entities = [
+                #     {
+                #       name = "Bonsai";
+                #       entity = "light.lego_bonsai";
+                #     }
+                #     {
+                #       name = "Chrysanthemum";
+                #       entity = "light.lego_chrysanthemum";
+                #     }
+                #     {
+                #       name = "Tales of the Space Age";
+                #       entity = "light.lego_tales_of_the_space_age";
+                #     }
+                #   ];
+                # }
+                # TODO HS commented
+                # { type = "divider"; }
+                # {
+                #   type = "custom:fold-entity-row";
+                #   head = "light.airgradient_one";
+
+                #   open = true;
+
+                #   entities = [
+                #     {
+                #       name = "Display";
+                #       entity = "light.airgradient_one_display";
+                #     }
+                #     {
+                #       name = "Led";
+                #       entity = "light.airgradient_one_led_strip";
+                #     }
+                #   ];
+                # }
               ];
             }
             {
@@ -412,11 +387,6 @@ in {
                   to = "Sarah iPhone 15 Pro Max ";
                 }
 
-                # Parasoll
-                {
-                  from = " Parasoll";
-                }
-
                 # Shelly H&T Gen3
                 {
                   from = " H&T Gen3 battery";
@@ -429,23 +399,19 @@ in {
 
               collapse = [
                 {
-                  name = "Parasoll {range}%";
-                  entities = [ "sensor.reduit_parasoll_battery" ];
-                }
-                {
                   name = "Phone {range}%";
                   entities = [ "sensor.fp5_battery_level" "sensor.iphone_von_sarah_battery_level" ];
                 }
                 {
                   name = "Shelly H&T Gen3 {range}%";
-                  entities = [ "sensor.bedroom_h_t_gen3_battery" "sensor.entrance_h_t_gen3_battery" ];
+                  entities = [ "sensor.bedroom_h_t_gen3_battery" "sensor.guest_room_h_t_gen3_battery" ];
                 }
                 {
                   name = "Hue Dimmer switche {range}%";
                   entities = [
                     "sensor.bedroom_dimmer_switch_battery"
-                    "sensor.entrance_dimmer_switch_battery"
-                    "sensor.kitchen_dimmer_switch_battery"
+                    "sensor.living_room_dimmer_switch_battery"
+                    "sensor.office_dimmer_switch_battery"
                   ];
                 }
               ];
