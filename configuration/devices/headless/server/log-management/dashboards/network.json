@@ -1622,19 +1622,19 @@
       },
       {
         "current": {
-          "text": "wlan0",
-          "value": "wlan0"
+          "text": "eth4",
+          "value": "eth4"
         },
         "hide": 2,
         "name": "externalInterface",
         "options": [
           {
             "selected": true,
-            "text": "wlan0",
-            "value": "wlan0"
+            "text": "eth4",
+            "value": "eth4"
           }
         ],
-        "query": "wlan0",
+        "query": "eth4",
         "type": "custom"
       },
       {
@@ -1683,6 +1683,6 @@
   "timezone": "browser",
   "title": "Network",
   "uid": "ae5yp992gp8n4f",
-  "version": 3,
+  "version": 4,
   "weekStart": "monday"
 }

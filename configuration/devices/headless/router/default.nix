@@ -20,15 +20,7 @@
     efi.canTouchEfiVariables = true;
   };
 
-  networking = {
-    hostName = "XXLPitu-Router";
-
-    wireless = {
-      enable = true;
-
-      networks.Niflheim = secrets.wifis.Niflheim;
-    };
-  };
+  networking.hostName = "XXLPitu-Router";
 
   services = {
     wireguard-network = lib.mkForce {
