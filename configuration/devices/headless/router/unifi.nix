@@ -22,7 +22,7 @@
         hostname = lib.toLower "${lib.replaceStrings [ " " ] [ "" ] name}.local";
         community = "public";
         options.version = 2;
-      }) [ "Cabinet - U7 Pro" "Cabinet - USW Pro XG 8 PoE" "Kitchen - U6 LR" "Tv cabinet - US 8 60W" ];
+      }) [ "Guest room - U7 Pro" "Network closet - USW Pro XG 8 PoE" "Office - US 8 PoE 150W" ];
     };
   };
 }
