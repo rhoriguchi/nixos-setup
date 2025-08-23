@@ -24,6 +24,14 @@
   - Shelly
     - Wake up sensor with button or wait till it shows up
 - Settings to change
+  - Add guest user
+    - `Settings` -> `People` -> `Add person`
+      - Name: `Guest`
+      - Allow login: `true`
+        - Password: `RANDOM_PASSWORD`
+        - Local Access only: `true`
+        - Administrator: `false`
+    - Get ID from <https://home-assistant.00a.ch/config/users> and update `trusted_users` in [default.nix](./default.nix)
   - Setup automatic backups
     - `Settings` -> `Backups` -> `Set up backups`
   - `Profile` (bottom left user icon) -> `Advanced mode = true`
