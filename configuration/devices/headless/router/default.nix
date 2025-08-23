@@ -1,4 +1,4 @@
-{ lib, secrets, ... }: {
+{ lib, pkgs, secrets, ... }: {
   imports = [
     ../common.nix
 
@@ -33,6 +33,13 @@
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
+    };
+
+    netdata.configDir."go.d/ethtool.conf" = (pkgs.formats.yaml { }).generate "ethtool.conf" {
+      jobs = [{
+        name = "local";
+        optical_interfaces = "eth4";
+      }];
     };
   };
 }

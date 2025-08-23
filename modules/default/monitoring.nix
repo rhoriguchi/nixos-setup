@@ -206,6 +206,9 @@ in {
         claimTokenFile = if isParent then pkgs.writeText "claimToken" cfg.claimToken else null;
 
         extraNdsudoPackages = [
+          # Optical modules collector
+          pkgs.ethtool
+
           # NVMe devices collector
           pkgs.nvme-cli
 
