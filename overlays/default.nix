@@ -10,16 +10,6 @@
         }
       }/pkgs/by-name/re/resilio-sync/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=420791
-    steam-lancache-prefill = super.callPackage (import "${
-        super.fetchFromGitHub {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = "69e96cf207b91a072b1b08475adbabc8cb51e5c4";
-          sha256 = "sha256-cM1nU76wdm3n8tGWk9A1AKEy3uLW7TElEvmLZJ8TUGE=";
-        }
-      }/pkgs/by-name/st/steam-lancache-prefill/package.nix") { };
-
     home-assistant-custom-components = super.home-assistant-custom-components // {
       # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=423637
       localtuya = super.callPackage (import "${

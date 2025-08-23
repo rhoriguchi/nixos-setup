@@ -60,7 +60,7 @@
         filtering.rewrites = (map (domain: {
           inherit domain;
           answer = "${config.networking.hostName}.local";
-        }) (config.services.infomaniak.hostnames ++ config.services.lancache.cacheDomains)) ++ (map (domain: {
+        }) config.services.infomaniak.hostnames) ++ (map (domain: {
           inherit domain;
           answer = "XXLPitu-Ulquiorra.local";
         }) [ "printer.00a.ch" "scanner.00a.ch" ]) ++ (map (domain: {

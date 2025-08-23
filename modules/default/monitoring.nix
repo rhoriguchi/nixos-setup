@@ -96,22 +96,7 @@ in {
         ensurePermissions."*.*" = lib.concatStringsSep ", " [ "PROCESS" "REPLICATION CLIENT" "USAGE" ];
       }];
 
-      nginx = {
-        statusPage = true;
-
-        virtualHosts."localhost" = lib.optionalAttrs config.services.lancache.enable {
-          locations."/lancache_status" = {
-            proxyPass = "http://127.0.0.1:${toString config.services.lancache.statusPort}/nginx_status";
-
-            extraConfig = ''
-              access_log off;
-              allow 127.0.0.1;
-              ${lib.optionalString config.networking.enableIPv6 "allow ::1;"}
-              deny all;
-            '';
-          };
-        };
-      };
+      nginx.statusPage = true;
 
       # TODO workaround for https://github.com/NixOS/nixpkgs/issues/204189
       postgresql.initialScript = pkgs.writeText "initialScript" ''
@@ -293,10 +278,7 @@ in {
             jobs = [{
               name = "nginx";
               url = "http://127.0.0.1/nginx_status";
-            }] ++ lib.optional config.services.lancache.enable {
-              name = "lancache";
-              url = "http://127.0.0.1/lancache_status";
-            };
+            }];
           };
         } // {
           "go.d/nvme.conf" = pkgs.writers.writeYAML "nvme.conf" { jobs = [{ name = "local"; }]; };
