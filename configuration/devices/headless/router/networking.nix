@@ -2,7 +2,6 @@
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
-  managementInterface = interfaces.management;
 
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
 in {
@@ -39,19 +38,22 @@ in {
       };
     };
 
+    # Calling bridge interface `br-management` fails
+    bridges.br0.interfaces = builtins.filter (interface: !(builtins.elem interface [ externalInterface internalInterface ])) [
+      "eth0"
+      "eth1"
+      "eth2"
+      "eth3"
+      "eth4"
+    ];
+
     interfaces = {
       "${externalInterface}".useDHCP = true;
-
-      "${managementInterface}".ipv4.addresses = [{
-        address = "172.16.1.1";
-        prefixLength = 24;
-      }];
 
       "${internalInterface}".ipv4.addresses = [{
         address = ips.router;
         prefixLength = 24;
       }];
-
       "${internalInterface}.2".ipv4.addresses = [{
         address = "192.168.2.1";
         prefixLength = 24;
@@ -66,6 +68,11 @@ in {
       }];
       "${internalInterface}.100".ipv4.addresses = [{
         address = "192.168.100.1";
+        prefixLength = 24;
+      }];
+
+      br0.ipv4.addresses = [{
+        address = "172.16.1.1";
         prefixLength = 24;
       }];
     };

@@ -1,7 +1,6 @@
 { interfaces, ... }:
 let
   internalInterface = interfaces.internal;
-  managementInterface = interfaces.management;
 
   ips = import ./ips.nix;
 in {
@@ -10,13 +9,13 @@ in {
       67 # DHCP
     ];
   in {
-    "${managementInterface}" = rules;
-
     "${internalInterface}" = rules;
     "${internalInterface}.2" = rules;
     "${internalInterface}.3" = rules;
     "${internalInterface}.10" = rules;
     "${internalInterface}.100" = rules;
+
+    br0 = rules;
   };
 
   services.kea.dhcp4 = {
@@ -33,32 +32,18 @@ in {
       valid-lifetime = 60 * 60;
 
       interfaces-config.interfaces = [
-        "${managementInterface}"
-
         "${internalInterface}"
         "${internalInterface}.2"
         "${internalInterface}.3"
         "${internalInterface}.10"
         "${internalInterface}.100"
+
+        "br0"
       ];
 
       ddns-generated-prefix = "";
 
       subnet4 = [
-        {
-          id = 999;
-          interface = managementInterface;
-          subnet = "172.16.1.0/24";
-          pools = [{ pool = "172.16.1.2 - 172.16.1.254"; }];
-
-          ddns-send-updates = false;
-
-          option-data = [{
-            name = "routers";
-            data = "172.16.1.1";
-          }];
-        }
-
         {
           id = 1;
           interface = internalInterface;
@@ -191,6 +176,20 @@ in {
               data = "local";
             }
           ];
+        }
+
+        {
+          id = 999;
+          interface = "br0";
+          subnet = "172.16.1.0/24";
+          pools = [{ pool = "172.16.1.2 - 172.16.1.254"; }];
+
+          ddns-send-updates = false;
+
+          option-data = [{
+            name = "routers";
+            data = "172.16.1.1";
+          }];
         }
       ];
 

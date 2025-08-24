@@ -2,7 +2,6 @@
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
-  managementInterface = interfaces.management;
 
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
 in {
@@ -117,7 +116,7 @@ in {
 
           chain dns-filter {
             iifname { ${
-              lib.concatStringsSep ", " ([ managementInterface ] ++ lib.optional config.virtualisation.docker.enable "docker0"
+              lib.concatStringsSep ", " ([ "br0" ] ++ lib.optional config.virtualisation.docker.enable "docker0"
                 ++ lib.optional config.virtualisation.podman.enable "podman0")
             } } accept
 
@@ -132,13 +131,13 @@ in {
 
       inherit externalInterface;
       internalInterfaces = [
-        managementInterface
-
         internalInterface
         "${internalInterface}.2"
         "${internalInterface}.3"
         "${internalInterface}.10"
         "${internalInterface}.100"
+
+        "br0"
       ];
 
       forwardPorts = [
