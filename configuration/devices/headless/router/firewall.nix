@@ -108,8 +108,6 @@ in {
             ip saddr ${ips.server} ip daddr @trusted_vlan meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 80 } accept # Home Assistant - Shelly
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 443 } accept # Home Assistant - Hue
-            ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 3232 } accept # ESPHome - OTA
-            ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 6053 } accept # Home Assistant - ESPHome
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 8000 } accept # Home Assistant - Apple HomeKit
             ip saddr ${ips.server} ip daddr @iot_vlan udp dport { 4003 } accept # Home Assistant - Govee
 

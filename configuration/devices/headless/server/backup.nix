@@ -16,7 +16,6 @@ in {
           "/var/cache/netdata"
           "/var/lib/${config.services.prometheus.stateDir}"
           "/var/lib/hass/backups"
-          "/var/lib/private/esphome"
 
           config.services.loki.dataDir
           config.services.minecraft-servers.dataDir

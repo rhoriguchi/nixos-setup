@@ -1,16 +1,12 @@
 # Home Assistant
 
 - Add integrations
+  - AirGradient
+    - Rename: `AirGradient ONE`
   - Discord
     - Get `API Token` from <https://discord.com/developers/applications> for `Home Assistant bot`
-  - ESPHome
-    - `airgradient-one.local`
   - Homekit Device
     - `DIRIGERA (Bridge)`
-  - Philips Hue
-    - Rename
-      - `light.living_room_signe_gradient_kitchen`
-      - `light.living_room_signe_gradient_window`
   - Govee lights local
     - Serial number: `C6:39:C8:35:34:31:6F:67`
       Rename: `light.bedroom_nightstand_lamp_left`
@@ -39,6 +35,8 @@ Configure:
 
 - `shellyhtg3-34b7da8ccedc`
 - `shellyhtg3-84fce639c104`
+- `shellyhtg3-e4b323327c90`
+- `shellyhtg3-e4b323327cf4`
 
 1. Open in browser:`http://HOSTNAME.local/#/settings/web-socket`
 2. Outbound websocket settings

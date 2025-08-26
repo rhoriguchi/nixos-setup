@@ -1,9 +1,0 @@
-sensor:
-  - platform: sht4x
-    temperature:
-      name: "Temperature"
-      id: temp
-    humidity:
-      name: "Humidity"
-      id: humidity
-    address: 0x44
