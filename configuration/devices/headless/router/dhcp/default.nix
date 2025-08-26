@@ -116,16 +116,10 @@ in {
               data = "local";
             }
           ];
-          reservations = [
-            {
-              hw-address = "dc:a6:32:da:9d:b3";
-              ip-address = ips.ulquiorra;
-            }
-            {
-              hw-address = "a8:80:55:9c:09:9b";
-              ip-address = ips.stadlerFormKarl;
-            }
-          ];
+          reservations = [{
+            hw-address = "dc:a6:32:da:9d:b3";
+            ip-address = ips.ulquiorra;
+          }];
         }
         {
           id = 10;

@@ -36,8 +36,6 @@
       ];
     };
 
-    customComponents = [ pkgs.home-assistant-custom-components.localtuya ];
-
     config = {
       homeassistant = {
         name = "Home";

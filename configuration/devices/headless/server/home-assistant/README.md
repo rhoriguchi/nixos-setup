@@ -16,11 +16,6 @@
       Rename: `light.bedroom_nightstand_lamp_left`
     - Serial number: `08:D5:D1:35:34:37:5C:1A`
       Rename: `light.bedroom_nightstand_lamp_right`
-  - localtuya
-    - More info here <https://community.home-assistant.io/t/localtuya-stadler-form-eva-humidifier/414349>
-    - Get credentials from <https://iot.tuya.com/cloud/basic?id=p1706658370961ww5yan>
-    - User id can be found like this <https://github.com/rospogrigio/localtuya/issues/858#issuecomment-1155201879>
-    - Add device, id can be found here <https://iot.tuya.com/cloud/basic?id=p1706658370961ww5yan&deviceTab=all>
   - Shelly
     - Wake up sensor with button or wait till it shows up
 - Settings to change

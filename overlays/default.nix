@@ -10,18 +10,6 @@
         }
       }/pkgs/by-name/re/resilio-sync/package.nix") { };
 
-    home-assistant-custom-components = super.home-assistant-custom-components // {
-      # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=423637
-      localtuya = super.callPackage (import "${
-          super.fetchFromGitHub {
-            owner = "NixOS";
-            repo = "nixpkgs";
-            rev = "423da7fd1526483bea1c3de0f3bb4541912855fb";
-            sha256 = "sha256-H7CFFHxeZowahvR4WcWQ88yYs40DSFeNtCrc95kReDI=";
-          }
-        }/pkgs/servers/home-assistant/custom-components/localtuya/package.nix") { };
-    };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=436471
     prowlarr = super.callPackage (import "${
         super.fetchFromGitHub {
