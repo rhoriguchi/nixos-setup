@@ -1,9 +1,9 @@
-{ config, lib, ... }:
+{ config, lib, osConfig, ... }:
 let
   homeDirectory = config.home.homeDirectory;
 
   wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
-  filteredWireguardIps = lib.filterAttrs (key: _: key != "Ryan-Laptop") wireguardIps;
+  filteredWireguardIps = lib.filterAttrs (key: _: key != osConfig.networking.hostName) wireguardIps;
 in {
   gtk = {
     enable = true;

@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, osConfig, ... }:
 let home = config.home.homeDirectory;
 in {
   programs.ssh = {
@@ -37,7 +37,7 @@ in {
       };
     } // (let
       wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
-      filteredWireguardIps = lib.filterAttrs (key: _: key != "Ryan-Laptop") wireguardIps;
+      filteredWireguardIps = lib.filterAttrs (key: _: key != osConfig.networking.hostName) wireguardIps;
     in lib.mapAttrs' (key: value:
       lib.nameValuePair (lib.toLower key) {
         hostname = value;
