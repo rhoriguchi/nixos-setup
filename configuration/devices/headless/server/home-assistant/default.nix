@@ -25,9 +25,9 @@
         "update"
 
         # Manual added integrations
+        "airgradient"
         "deluge"
         "discord"
-        "esphome"
         "govee_light_local"
         "homekit_controller"
         "hue"

@@ -1,4 +1,0 @@
-sensor:
-  - platform: uptime
-    name: "Uptime"
-    id: device_uptime
