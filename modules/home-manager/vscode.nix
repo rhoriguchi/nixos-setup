@@ -16,29 +16,23 @@
         pkgs.vscode-extensions.bbenoist.nix
         pkgs.vscode-extensions.cameron.vscode-pytest
         pkgs.vscode-extensions.davidanson.vscode-markdownlint
-        pkgs.vscode-extensions.dbaeumer.vscode-eslint
         pkgs.vscode-extensions.dotjoshjohnson.xml
         pkgs.vscode-extensions.eamodio.gitlens
         pkgs.vscode-extensions.editorconfig.editorconfig
-        pkgs.vscode-extensions.esbenp.prettier-vscode
         pkgs.vscode-extensions.formulahendry.auto-close-tag
         pkgs.vscode-extensions.formulahendry.auto-rename-tag
         pkgs.vscode-extensions.foxundermoon.shell-format
         pkgs.vscode-extensions.github.vscode-github-actions
         pkgs.vscode-extensions.github.vscode-pull-request-github
         pkgs.vscode-extensions.gruntfuggly.todo-tree
-        pkgs.vscode-extensions.hashicorp.terraform
         pkgs.vscode-extensions.ibm.output-colorizer
         pkgs.vscode-extensions.iliazeus.vscode-ansi
         pkgs.vscode-extensions.jock.svg
         pkgs.vscode-extensions.johnpapa.vscode-peacock
-        pkgs.vscode-extensions.ms-azuretools.vscode-docker
         pkgs.vscode-extensions.ms-python.isort
         pkgs.vscode-extensions.ms-python.python
         pkgs.vscode-extensions.ms-python.vscode-pylance
-        pkgs.vscode-extensions.ms-vscode-remote.remote-containers
         pkgs.vscode-extensions.pkief.material-icon-theme
-        pkgs.vscode-extensions.redhat.java
         pkgs.vscode-extensions.redhat.vscode-yaml
         pkgs.vscode-extensions.rubymaniac.vscode-paste-and-indent
         pkgs.vscode-extensions.ryu1kn.partial-diff
