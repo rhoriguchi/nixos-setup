@@ -195,8 +195,6 @@
     prometheus = {
       enable = true;
 
-      enableReload = true;
-
       scrapeConfigs = [{
         job_name = "netdata";
         scheme = "https";
