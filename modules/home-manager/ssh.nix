@@ -4,23 +4,21 @@ in {
   programs.ssh = {
     enable = true;
 
-    compression = true;
-    controlPath = "${home}/.ssh/master-%r@%n:%p";
-    hashKnownHosts = false;
-    addKeysToAgent = "yes";
-    serverAliveCountMax = 3;
-    serverAliveInterval = 10;
-    userKnownHostsFile = "${home}/.ssh/known_hosts";
-
-    extraConfig = ''
-      ConnectionAttempts 3
-      IdentityFile ${home}/.ssh/id_ed25519
-      NumberOfPasswordPrompts 3
-      PubkeyAuthentication yes
-      StrictHostKeyChecking ask
-    '';
+    enableDefaultConfig = false;
 
     matchBlocks = {
+      "*" = {
+        identityFile = "${home}/.ssh/id_ed25519";
+
+        compression = true;
+        controlPath = "${home}/.ssh/master-%r@%n:%p";
+        addKeysToAgent = "yes";
+        serverAliveInterval = 10;
+        userKnownHostsFile = "${home}/.ssh/known_hosts";
+
+        extraOptions.ConnectionAttempts = "3";
+      };
+
       "github.com" = {
         user = "git";
         identityFile = "${home}/.ssh/github_ed25519";
