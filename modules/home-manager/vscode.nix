@@ -30,7 +30,8 @@
         pkgs.vscode-extensions.jock.svg
         pkgs.vscode-extensions.johnpapa.vscode-peacock
         pkgs.vscode-extensions.ms-python.isort
-        pkgs.vscode-extensions.ms-python.python
+        # TODO uncomment when merged https://nixpk.gs/pr-tracker.html?pr=437306
+        # pkgs.vscode-extensions.ms-python.python
         pkgs.vscode-extensions.ms-python.vscode-pylance
         pkgs.vscode-extensions.pkief.material-icon-theme
         pkgs.vscode-extensions.redhat.vscode-yaml
