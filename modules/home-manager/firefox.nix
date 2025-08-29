@@ -16,7 +16,6 @@
           pkgs.firefox-addons.grammarly
           pkgs.firefox-addons.multi-account-containers
           pkgs.firefox-addons.octolinker
-          pkgs.firefox-addons.open-in-browser
           pkgs.firefox-addons.privacy-badger
           pkgs.firefox-addons.rabattcorner
           pkgs.firefox-addons.reddit-comment-collapser
