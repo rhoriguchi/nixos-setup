@@ -31,6 +31,7 @@
     pkgs.signal-desktop
     pkgs.snapshot
     pkgs.vlc
+    pkgs.whatsapp-electron
     pkgs.wpa_supplicant_gui
   ] ++ lib.optional config.programs.dconf.enable pkgs.dconf-editor;
 }
