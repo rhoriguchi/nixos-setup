@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, ... }: {
   programs = {
     grep = {
       enable = true;
@@ -7,6 +7,6 @@
       colors.mt = "1;38;5;127";
     };
 
-    zsh.shellAliases.grep = "${pkgs.gnugrep}/bin/grep --color=auto";
+    zsh.shellAliases.grep = "${config.programs.grep.package}/bin/grep --color=auto";
   };
 }
