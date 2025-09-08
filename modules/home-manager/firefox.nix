@@ -176,10 +176,6 @@
                 url =
                   "https://mentor.duden.de/?utm_source=duden_de&utm_medium=premium_int&utm_campaign=topnavi&utm_content=duden-mentor-textpruefung";
               }
-              {
-                name = "The Pirate Bay";
-                url = "https://thepiratebay10.org";
-              }
             ];
           }];
         };
