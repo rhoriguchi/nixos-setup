@@ -66,6 +66,8 @@
   };
 
   services = {
+    displayManager.autoLogin.user = "rhoriguchi";
+
     resilio = {
       enable = true;
 
