@@ -143,10 +143,6 @@
                 url = "https://www.google.com";
               }
               {
-                name = "WhatsApp";
-                url = "https://web.whatsapp.com";
-              }
-              {
                 name = "Gmail";
                 url = "https://mail.google.com/mail/u/0";
               }
@@ -223,11 +219,8 @@
           "browser.rights.3.shown" = true;
           "browser.search.region" = "CH";
           "browser.search.suggest.enabled.private" = true;
-          "browser.startup.homepage" = lib.concatStringsSep "|" [
-            "https://todoist.com/app/today"
-            "https://web.whatsapp.com"
-            "https://mail.google.com/mail/u/0/#inbox"
-          ];
+          "browser.startup.homepage" =
+            lib.concatStringsSep "|" [ "https://todoist.com/app/today" "https://mail.google.com/mail/u/0/#inbox" ];
           "browser.startup.page" = 1;
           "browser.tabs.groups.enabled" = false;
           "browser.tabs.warnOnClose" = false;
