@@ -31,9 +31,11 @@ in {
         code_previewer = lib.optionalString config.programs.bat.enable "bat";
 
         metadata = true;
+
+        ignore_missing_fields = true;
       };
 
-      hotkeys.pinned_directory = [ ];
+      hotkeys.pinned_folder = [ ];
 
       themes.Custom = {
         file_panel_border = colors.extra.terminal.border;
