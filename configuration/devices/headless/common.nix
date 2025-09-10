@@ -3,8 +3,6 @@
 
   documentation.enable = false;
 
-  security.polkit.enable = lib.mkForce false;
-
   networking.networkmanager = {
     ethernet.macAddress = "permanent";
     wifi.macAddress = "permanent";
