@@ -33,7 +33,7 @@ in {
             elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
           }
 
-          set default_network {
+          set management_network {
             type ipv4_addr;
             flags interval;
             elements = { 192.168.1.0/24 }
@@ -75,9 +75,9 @@ in {
           }
 
           chain lan-filter {
-            ip saddr @default_network ip daddr @default_network accept
+            ip saddr @management_network ip daddr @management_network accept
 
-            ip saddr @private_vlan ip daddr @default_network accept
+            ip saddr @private_vlan ip daddr @management_network accept
             ip saddr @private_vlan ip daddr @private_vlan accept
             ip saddr @private_vlan ip daddr @iot_vlan accept
 
