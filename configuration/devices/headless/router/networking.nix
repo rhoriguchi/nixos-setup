@@ -13,7 +13,7 @@ in {
     enableIPv6 = false;
 
     vlans = {
-      # Private
+      # Trusted
       "${internalInterface}.2" = {
         id = 2;
         interface = internalInterface;

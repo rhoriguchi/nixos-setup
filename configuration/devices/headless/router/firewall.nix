@@ -39,7 +39,7 @@ in {
             elements = { 192.168.1.0/24 }
           }
 
-          set private_vlan {
+          set trusted_vlan {
             type ipv4_addr;
             flags interval;
             elements = { 192.168.2.0/24 }
@@ -77,9 +77,9 @@ in {
           chain lan-filter {
             ip saddr @management_network ip daddr @management_network accept
 
-            ip saddr @private_vlan ip daddr @management_network accept
-            ip saddr @private_vlan ip daddr @private_vlan accept
-            ip saddr @private_vlan ip daddr @iot_vlan accept
+            ip saddr @trusted_vlan ip daddr @management_network accept
+            ip saddr @trusted_vlan ip daddr @trusted_vlan accept
+            ip saddr @trusted_vlan ip daddr @iot_vlan accept
 
             ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 443 } accept # Home Assistant - Shelly
             ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 445 } accept # Samba
@@ -101,7 +101,7 @@ in {
               in lib.concatStringsSep "\n" rules
             }
 
-            ip saddr ${ips.server} ip daddr @private_vlan meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
+            ip saddr ${ips.server} ip daddr @trusted_vlan meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 80 } accept # Home Assistant - Shelly
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 443 } accept # Home Assistant - Hue
             ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 3232 } accept # ESPHome - OTA
