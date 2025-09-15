@@ -15,7 +15,7 @@ let
 
   redisEnabled = lib.any (server: server.enable) (lib.attrValues config.services.redis.servers);
 
-  hasCerts = lib.length (lib.attrNames config.security.acme.certs) > 0;
+  hasCerts = lib.attrNames config.security.acme.certs != [ ];
 in {
   options.services.monitoring = {
     enable = lib.mkEnableOption "Monitoring with Netdata";

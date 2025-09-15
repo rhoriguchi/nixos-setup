@@ -19,12 +19,8 @@ in {
         message = "Password cannot be empty";
       }
       {
-        assertion = lib.length cfg.hostnames >= 1;
+        assertion = cfg.hostnames != [ ];
         message = "Hostnames list cannot be empty";
-      }
-      {
-        assertion = lib.length (lib.filter (hostname: hostname == "") cfg.hostnames) == 0;
-        message = "Hostname cannot be empty";
       }
     ];
 

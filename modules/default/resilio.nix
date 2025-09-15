@@ -38,7 +38,7 @@ let
       listen = "127.0.0.1:${toString cfg.webUI.port}";
     };
   } else
-    lib.optionalAttrs (lib.length sharedFolders > 0) { shared_folders = sharedFolders; });
+    lib.optionalAttrs (sharedFolders != [ ]) { shared_folders = sharedFolders; });
 
   configFile = pkgs.writers.writeJSON "config.json" resilioConfig;
 in {
@@ -182,17 +182,17 @@ in {
         message = "Every secret in secrets must be unique";
       }
       {
-        assertion = lib.length (lib.filter (readWriteDir: cfg.secrets.${readWriteDir}.readWrite == null) cfg.readWriteDirs) == 0;
+        assertion = lib.filter (readWriteDir: cfg.secrets.${readWriteDir}.readWrite == null) cfg.readWriteDirs == [ ];
         message = "All read write dirs need to have a readWrite secret";
       }
       {
         assertion = let encryptedDirs = lib.subtractLists cfg.readWriteDirs (lib.attrNames cfg.secrets);
-        in lib.length (lib.filter (encryptedDir: cfg.secrets.${encryptedDir}.encrypted == null) encryptedDirs) == 0;
+        in lib.filter (encryptedDir: cfg.secrets.${encryptedDir}.encrypted == null) encryptedDirs == [ ];
         message = "All encrypted dirs need to have an encrypted secret";
       }
     ];
 
-    networking.nftables.tables.resilio = lib.optionalAttrs (lib.length (lib.attrNames config.networking.wireguard.interfaces) > 0) {
+    networking.nftables.tables.resilio = lib.optionalAttrs (lib.attrNames config.networking.wireguard.interfaces != [ ]) {
       family = "inet";
 
       content = ''

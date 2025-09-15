@@ -20,12 +20,12 @@ in {
     };
   };
 
-  config = lib.mkIf (config.services.nginx.enable && (lib.length (lib.attrNames cfg.upstreams) > 0)) {
+  config = lib.mkIf (config.services.nginx.enable && lib.attrNames cfg.upstreams != [ ]) {
     services.nginx = {
       defaultSSLListenPort = 9443;
 
       streamConfig = ''
-        ${lib.optionalString (lib.length cfg.resolvers > 0) "resolver ${lib.concatStringsSep " " cfg.resolvers};"}
+        ${lib.optionalString (cfg.resolvers != [ ]) "resolver ${lib.concatStringsSep " " cfg.resolvers};"}
 
         ${lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''
           upstream ${key} {
