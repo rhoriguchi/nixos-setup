@@ -1,8 +1,5 @@
-{ config, interfaces, lib, ... }:
+{ config, lib, ... }:
 let
-  externalInterface = interfaces.external;
-  internalInterface = interfaces.internal;
-
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
 
   serverDomains = [
@@ -32,16 +29,7 @@ let
     };
   };
 in {
-  networking.firewall.interfaces = let rules.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort 443 ];
-  in {
-    "${externalInterface}" = rules;
-
-    "${internalInterface}" = rules;
-    "${internalInterface}.2" = rules;
-    "${internalInterface}.3" = rules;
-    "${internalInterface}.10" = rules;
-    "${internalInterface}.100" = rules;
-  };
+  networking.firewall.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort 443 ];
 
   services.nginx = {
     enable = true;
