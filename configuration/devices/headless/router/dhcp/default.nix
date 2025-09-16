@@ -12,6 +12,7 @@ in {
     "${internalInterface}" = rules;
     "${internalInterface}.2" = rules;
     "${internalInterface}.3" = rules;
+    "${internalInterface}.4" = rules;
     "${internalInterface}.10" = rules;
     "${internalInterface}.100" = rules;
 
@@ -35,6 +36,7 @@ in {
         "${internalInterface}"
         "${internalInterface}.2"
         "${internalInterface}.3"
+        "${internalInterface}.4"
         "${internalInterface}.10"
         "${internalInterface}.100"
 
@@ -120,6 +122,29 @@ in {
             hw-address = "dc:a6:32:da:9d:b3";
             ip-address = ips.ulquiorra;
           }];
+        }
+        {
+          id = 4;
+          interface = "${internalInterface}.4";
+          subnet = "192.168.4.0/24";
+          pools = [{ pool = "192.168.4.2 - 192.168.4.254"; }];
+
+          ddns-qualifying-suffix = "local";
+
+          option-data = [
+            {
+              name = "routers";
+              data = "192.168.4.1";
+            }
+            {
+              name = "domain-name-servers";
+              data = "192.168.4.1";
+            }
+            {
+              name = "domain-name";
+              data = "local";
+            }
+          ];
         }
         {
           id = 10;

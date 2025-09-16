@@ -44,8 +44,12 @@
 
       networks = lib.recursiveUpdate (lib.mapAttrs (key: value:
         value // {
-          extraConfig = lib.concatStringsSep "\n" (lib.catAttrs "extraConfig" [ value ]
-            ++ [ (if (lib.elem key [ "63466727" "63466727-IoT" "63466727-Guest" "Niflheim" ]) then "mac_addr=0" else "mac_addr=2") ]);
+          extraConfig = lib.concatStringsSep "\n" (lib.catAttrs "extraConfig" [ value ] ++ [
+            (if (lib.elem key [ "63466727" "63466727-Guest" "63466727-IoT" "63466727-Surveillance" "Niflheim" ]) then
+              "mac_addr=0"
+            else
+              "mac_addr=2")
+          ]);
         }) secrets.wifis) {
           "63466727".priority = 100;
           Niflheim.priority = 10;

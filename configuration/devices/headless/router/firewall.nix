@@ -51,6 +51,12 @@ in {
             elements = { 192.168.3.0/24 }
           }
 
+          set surveillance_vlan {
+            type ipv4_addr;
+            flags interval;
+            elements = { 192.168.4.0/24 }
+          }
+
           set dmz_vlan {
             type ipv4_addr;
             flags interval;
@@ -136,6 +142,9 @@ in {
         "${internalInterface}.3"
         "${internalInterface}.10"
         "${internalInterface}.100"
+
+        # No internet access
+        # "${internalInterface}.4"
 
         "br0"
       ];

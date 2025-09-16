@@ -25,6 +25,12 @@ in {
         interface = internalInterface;
       };
 
+      # Surveillance
+      "${internalInterface}.4" = {
+        id = 4;
+        interface = internalInterface;
+      };
+
       # DMZ
       "${internalInterface}.10" = {
         id = 10;
@@ -62,6 +68,10 @@ in {
         address = "192.168.3.1";
         prefixLength = 24;
       }];
+      "${internalInterface}.4".ipv4.addresses = [{
+        address = "192.168.4.1";
+        prefixLength = 24;
+      }];
       "${internalInterface}.10".ipv4.addresses = [{
         address = "192.168.10.1";
         prefixLength = 24;
@@ -83,7 +93,7 @@ in {
       enable = true;
 
       reflector = true;
-      allowInterfaces = [ "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.10" ];
+      allowInterfaces = [ "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.4" "${internalInterface}.10" ];
     };
 
     frr = {
@@ -99,6 +109,10 @@ in {
           ip igmp
 
         interface ${internalInterface}.3
+          ip pim
+          ip igmp
+
+        interface ${internalInterface}.4
           ip pim
           ip igmp
 

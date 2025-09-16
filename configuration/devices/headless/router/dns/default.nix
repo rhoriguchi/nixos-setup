@@ -67,6 +67,7 @@ in {
 
       "${internalInterface}.2" = rules;
       "${internalInterface}.3" = rules;
+      "${internalInterface}.4" = rules;
       "${internalInterface}.10" = rules;
       "${internalInterface}.100" = rules;
     };
