@@ -5,8 +5,7 @@
       enableGraphical = true;
     };
 
-    # TODO currently does not build
-    # openrazer.enable = true;
+    openrazer.enable = true;
   };
 
   programs.bazecor.enable = true;
