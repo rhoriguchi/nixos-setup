@@ -127,6 +127,7 @@ reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Steam" /f
 sc config TeamViewer start= disabled
 
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "RustDesk" /t REG_SZ /d "C:\Program Files\RustDesk\rustdesk.exe" /f
+"C:\Program Files\RustDesk\rustdesk.exe" --install-service
 ```
 
 ## Games
