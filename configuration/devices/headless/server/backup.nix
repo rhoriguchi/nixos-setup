@@ -32,15 +32,19 @@ in {
           path = backupDir;
         }];
 
-        hooks.postgresql_databases =
-          let sudo = if config.security.doas.enable then "${pkgs.doas}/bin/doas" else "${config.security.sudo.package}/bin/sudo";
-          in lib.optional config.services.postgresql.enable {
-            name = "all";
-            format = "custom";
-            psql_command = "${sudo} -u postgres ${config.services.postgresql.package}/bin/psql";
-            pg_dump_command = "${sudo} -u postgres ${config.services.postgresql.package}/bin/pg_dump";
-            pg_restore_command = "${sudo} -u postgres ${config.services.postgresql.package}/bin/pg_restore";
-          };
+        hooks.postgresql_databases = let
+          commands = lib.optionals config.security.sudo.enable [ "${config.security.sudo.package}/bin/sudo" ]
+            ++ lib.optionals config.security.sudo-rs.enable [ "${config.security.sudo-rs.package}/bin/sudo" ]
+            ++ lib.optionals config.security.doas.enable [ "${config.security.doas.package}/bin/doas" ];
+
+          command = lib.findFirst (command: true) "${pkgs.sudo}/bin/sudo" commands;
+        in lib.optional config.services.postgresql.enable {
+          name = "all";
+          format = "custom";
+          psql_command = "${command} -u postgres ${config.services.postgresql.package}/bin/psql";
+          pg_dump_command = "${command} -u postgres ${config.services.postgresql.package}/bin/pg_dump";
+          pg_restore_command = "${command} -u postgres ${config.services.postgresql.package}/bin/pg_restore";
+        };
       };
     };
 
