@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 15,
   "links": [],
   "panels": [
     {
@@ -89,7 +89,7 @@
         "showHeader": false,
         "sortBy": []
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -217,7 +217,7 @@
         "showHeader": false,
         "sortBy": []
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -345,7 +345,7 @@
         "showHeader": false,
         "sortBy": []
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -500,7 +500,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -606,7 +606,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -712,7 +712,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -759,7 +759,228 @@
           "color": {
             "mode": "thresholds"
           },
-          "fieldMinMax": false,
+          "mappings": [],
+          "max": 0,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "deckbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 0,
+        "y": 14
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sort(label_replace(label_replace(abs(sum_over_time(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$externalInterface\"}[$__rate_interval]) / 8), \"dimension\", \"Up\", \"dimension\", \"received\"), \"dimension\", \"Down\", \"dimension\", \"sent\"))",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{dimension}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Total: $externalInterface (External)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 0,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "deckbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 8,
+        "y": 14
+      },
+      "id": 25,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sort(label_replace(label_replace(abs(sum_over_time(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$internalInterface\"}[$__rate_interval]) / 8), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\"))",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{dimension}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Total: $internalInterface (Internal)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 0,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "deckbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 16,
+        "y": 14
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sort(label_replace(label_replace(abs(sum_over_time(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$wireguardInterface\"}[$__rate_interval]) / 8), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\"))",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{dimension}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Total: $wireguardInterface (WireGuard)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "max": 0,
           "min": 0,
@@ -780,9 +1001,9 @@
         "h": 6,
         "w": 8,
         "x": 0,
-        "y": 14
+        "y": 20
       },
-      "id": 1,
+      "id": 23,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -800,7 +1021,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -810,7 +1031,8 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$externalInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\")",
+          "expr": "sort(label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$externalInterface\"}), \"dimension\", \"Up\", \"dimension\", \"received\"), \"dimension\", \"Down\", \"dimension\", \"sent\"))",
+          "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": true,
@@ -821,7 +1043,7 @@
           "useBackend": false
         }
       ],
-      "title": "External: $externalInterface",
+      "title": "Bandwith: $externalInterface (External)",
       "type": "stat"
     },
     {
@@ -854,7 +1076,7 @@
         "h": 6,
         "w": 8,
         "x": 8,
-        "y": 14
+        "y": 20
       },
       "id": 2,
       "options": {
@@ -874,7 +1096,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -884,7 +1106,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$internalInterface\"}), \"dimension\", \"Up\", \"dimension\", \"received\"), \"dimension\", \"Down\", \"dimension\", \"sent\")",
+          "expr": "sort(label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$internalInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\"))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": true,
@@ -895,7 +1117,7 @@
           "useBackend": false
         }
       ],
-      "title": "Internal: $internalInterface",
+      "title": "Bandwith: $internalInterface (Internal)",
       "type": "stat"
     },
     {
@@ -928,7 +1150,7 @@
         "h": 6,
         "w": 8,
         "x": 16,
-        "y": 14
+        "y": 20
       },
       "id": 3,
       "options": {
@@ -948,7 +1170,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -958,7 +1180,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$wireguardInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\")",
+          "expr": "sort(label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$wireguardInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\"))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": true,
@@ -969,7 +1191,7 @@
           "useBackend": false
         }
       ],
-      "title": "WireGuard: $wireguardInterface",
+      "title": "Bandwith: $wireguardInterface (WireGuard)",
       "type": "stat"
     },
     {
@@ -1033,7 +1255,7 @@
         "h": 6,
         "w": 8,
         "x": 0,
-        "y": 20
+        "y": 26
       },
       "id": 11,
       "options": {
@@ -1049,7 +1271,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1058,7 +1280,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$externalInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\")",
+          "expr": "sort(label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$externalInterface\"}), \"dimension\", \"Up\", \"dimension\", \"received\"), \"dimension\", \"Down\", \"dimension\", \"sent\"))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{dimension}}",
@@ -1067,7 +1289,7 @@
           "useBackend": false
         }
       ],
-      "title": "External: $externalInterface",
+      "title": "Bandwith: $externalInterface (External)",
       "type": "timeseries"
     },
     {
@@ -1131,7 +1353,7 @@
         "h": 6,
         "w": 8,
         "x": 8,
-        "y": 20
+        "y": 26
       },
       "id": 13,
       "options": {
@@ -1147,7 +1369,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1156,7 +1378,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$internalInterface\"}), \"dimension\", \"Up\", \"dimension\", \"received\"), \"dimension\", \"Down\", \"dimension\", \"sent\")",
+          "expr": "sort(label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$internalInterface\"}), \"dimension\", \"Up\", \"dimension\", \"received\"), \"dimension\", \"Down\", \"dimension\", \"sent\"))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{dimension}}",
@@ -1165,7 +1387,7 @@
           "useBackend": false
         }
       ],
-      "title": "Internal: $internalInterface",
+      "title": "Bandwith: $internalInterface (Internal)",
       "type": "timeseries"
     },
     {
@@ -1229,7 +1451,7 @@
         "h": 6,
         "w": 8,
         "x": 16,
-        "y": 20
+        "y": 26
       },
       "id": 10,
       "options": {
@@ -1245,7 +1467,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1254,7 +1476,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$wireguardInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\")",
+          "expr": "sort(label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$wireguardInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\"))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{dimension}}",
@@ -1263,7 +1485,7 @@
           "useBackend": false
         }
       ],
-      "title": "WireGuard: $wireguardInterface",
+      "title": "Bandwith: $wireguardInterface (WireGuard)",
       "type": "timeseries"
     },
     {
@@ -1327,7 +1549,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 32
       },
       "id": 12,
       "options": {
@@ -1343,7 +1565,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1352,7 +1574,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", family=~\"${internalInterface}\\\\.\\\\d+\"}), \"dimension\", \"Up\", \"dimension\", \"received\"), \"dimension\", \"Down\", \"dimension\", \"sent\")",
+          "expr": "sort(label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", family=~\"${internalInterface}\\\\.\\\\d+\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\"))",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1362,7 +1584,7 @@
           "useBackend": false
         }
       ],
-      "title": "Internal: $internalInterface",
+      "title": "Bandwith: $internalInterface (Internal)",
       "type": "timeseries"
     },
     {
@@ -1371,7 +1593,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 39
       },
       "id": 7,
       "panels": [],
@@ -1417,7 +1639,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 34
+        "y": 40
       },
       "id": 14,
       "options": {
@@ -1434,7 +1656,7 @@
         "showHeader": false,
         "sortBy": []
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1557,7 +1779,7 @@
         "h": 8,
         "w": 16,
         "x": 8,
-        "y": 34
+        "y": 40
       },
       "id": 15,
       "options": {
@@ -1573,7 +1795,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1683,6 +1905,6 @@
   "timezone": "browser",
   "title": "Network",
   "uid": "ae5yp992gp8n4f",
-  "version": 4,
+  "version": 5,
   "weekStart": "monday"
 }
