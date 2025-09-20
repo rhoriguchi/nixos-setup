@@ -93,8 +93,8 @@ in {
             ip saddr @iot_vlan ip daddr ${ips.server} udp dport { 1900 } accept # Plex
             ip saddr @iot_vlan ip daddr ${ips.server} udp dport { 4002 } accept # Home Assistant - Govee
 
-            ip saddr @rfc1918 ip daddr ${ips.server} tcp dport { 80, 443 } accept
-            ip saddr @rfc1918 ip daddr ${ips.ulquiorra} tcp dport { 80, 443 } accept
+            ip saddr @rfc1918 ip daddr ${ips.server} tcp dport { 80, 443 } accept # HTTP / HTTPS
+            ip saddr @rfc1918 ip daddr ${ips.ulquiorra} tcp dport { 80, 443 } accept # HTTP / HTTPS
 
             ${
               let
