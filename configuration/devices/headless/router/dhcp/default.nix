@@ -205,10 +205,16 @@ in {
 
           ddns-send-updates = false;
 
-          option-data = [{
-            name = "routers";
-            data = "172.16.1.1";
-          }];
+          option-data = [
+            {
+              name = "routers";
+              data = "172.16.1.1";
+            }
+            {
+              name = "domain-name-servers";
+              data = "1.1.1.1, 1.0.0.1";
+            }
+          ];
         }
       ];
 
