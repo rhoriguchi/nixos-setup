@@ -1,10 +1,39 @@
-{ config, ... }: {
-  networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = config.services.openssh.ports;
+{ config, lib, ... }: {
+  networking.nftables.tables.ssh = {
+    family = "inet";
+
+    content = ''
+      set rfc1918 {
+        type ipv4_addr;
+        flags interval;
+        elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
+      }
+
+      chain input {
+        # Run after nixos-fw input chain, because of `services.openssh.openFirewall = true`
+        type filter hook input priority filter + 10;
+
+        tcp dport { ${lib.concatStringsSep ", " (map (port: toString port) config.services.openssh.ports)} } jump ssh-filter
+      }
+
+      chain ssh-filter {
+        ${
+          lib.optionalString config.services.wireguard-network.enable
+          "iifname { ${config.services.wireguard-network.interfaceName} } accept"
+        }
+        iifname { lo } accept
+
+        ip saddr @rfc1918 accept
+
+        drop
+      }
+    '';
+  };
 
   services.openssh = {
     enable = true;
 
-    openFirewall = false;
+    openFirewall = true;
 
     authorizedKeysInHomedir = false;
     authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/root" ];
