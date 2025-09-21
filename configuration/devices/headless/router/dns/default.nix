@@ -12,8 +12,14 @@ let
     "unifi" = ips.cloudKey;
   };
 
-  reverseZones =
-    [ "1.168.192.in-addr.arpa" "2.168.192.in-addr.arpa" "3.168.192.in-addr.arpa" "10.168.192.in-addr.arpa" "100.168.192.in-addr.arpa" ];
+  reverseZones = [
+    "1.168.192.in-addr.arpa"
+    "2.168.192.in-addr.arpa"
+    "3.168.192.in-addr.arpa"
+    "4.168.192.in-addr.arpa"
+    "10.168.192.in-addr.arpa"
+    "100.168.192.in-addr.arpa"
+  ];
 
   zoneHeader = let ttl = config.services.kea.dhcp4.settings.valid-lifetime;
   in ''
