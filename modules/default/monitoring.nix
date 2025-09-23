@@ -28,6 +28,15 @@ in {
       type = lib.types.port;
       default = 19999;
     };
+    extraPrometheusJobs = lib.mkOption {
+      type = lib.types.listOf (lib.types.submodule {
+        options = {
+          name = lib.mkOption { type = lib.types.str; };
+          url = lib.mkOption { type = lib.types.str; };
+        };
+      });
+      default = [ ];
+    };
     debug = lib.mkOption {
       type = lib.types.submodule {
         options = {
@@ -360,7 +369,7 @@ in {
             } ++ lib.optional config.services.unpoller.enable {
               name = "Unpoller";
               url = "http://${config.services.unpoller.prometheus.http_listen}/metrics";
-            };
+            } ++ cfg.extraPrometheusJobs;
           };
         } // lib.optionalAttrs hasCerts {
           "go.d/x509check.conf" = pkgs.writers.writeYAML "x509check.conf" {
