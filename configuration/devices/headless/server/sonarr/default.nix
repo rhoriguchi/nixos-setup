@@ -4,7 +4,7 @@ let
   bindmountDir1 = "${rootBindmountDir}/resilio-Series";
   bindmountDir2 = "${rootBindmountDir}/disk-Series";
 in {
-  imports = [ ./deluge ./prowlarr.nix ];
+  imports = [ ./deluge ./prowlarr.nix ./recyclarr.nix ];
 
   users.users.sonarr.extraGroups = [ config.services.deluge.group ];
 
