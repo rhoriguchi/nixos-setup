@@ -59,7 +59,7 @@ in {
         forceSSL = true;
 
         locations."/" = {
-          proxyPass = "http://127.0.0.1:8989";
+          proxyPass = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
           basicAuth = secrets.nginx.basicAuth."sonarr.00a.ch";
 
           recommendedProxySettings = false;
@@ -90,7 +90,7 @@ in {
 
         flakeIgnore = [ "E501" ];
       } (builtins.readFile (pkgs.replaceVars ./update_series.py {
-        sonarApiUrl = "http://127.0.0.1:8989";
+        sonarApiUrl = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
         sonarApiKey = secrets.sonarr.apiKey;
         sonarrRootDir = "${bindmountDir1}/Tv Shows";
 

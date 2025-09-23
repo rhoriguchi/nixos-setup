@@ -1,4 +1,4 @@
-{ secrets, ... }: {
+{ config, secrets, ... }: {
   services = {
     prowlarr.enable = true;
 
@@ -25,7 +25,7 @@
         forceSSL = true;
 
         locations."/" = {
-          proxyPass = "http://127.0.0.1:9696";
+          proxyPass = "http://127.0.0.1:${toString config.services.prowlarr.settings.server.port}";
           proxyWebsockets = true;
           basicAuth = secrets.nginx.basicAuth."prowlarr.00a.ch";
 
