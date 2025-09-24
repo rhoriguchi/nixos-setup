@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   environment.systemPackages = [
     pkgs.poetry
     pkgs.python3

@@ -1,6 +1,8 @@
 { config, ... }:
-let htop = config.lib.htop;
-in {
+let
+  htop = config.lib.htop;
+in
+{
   programs.htop = {
     enable = true;
 
@@ -44,7 +46,21 @@ in {
       enable_mouse = 1;
       delay = 10;
       hide_function_bar = 0;
-    } // (htop.leftMeters [ (htop.bar "LeftCPUs2") htop.blank (htop.bar "Memory") htop.blank (htop.text "NetworkIO") (htop.text "DiskIO") ])
-      // (htop.rightMeters [ (htop.bar "RightCPUs2") htop.blank (htop.bar "Swap") htop.blank (htop.text "Uptime") ]);
+    }
+    // (htop.leftMeters [
+      (htop.bar "LeftCPUs2")
+      htop.blank
+      (htop.bar "Memory")
+      htop.blank
+      (htop.text "NetworkIO")
+      (htop.text "DiskIO")
+    ])
+    // (htop.rightMeters [
+      (htop.bar "RightCPUs2")
+      htop.blank
+      (htop.bar "Swap")
+      htop.blank
+      (htop.text "Uptime")
+    ]);
   };
 }

@@ -13,7 +13,10 @@ let
     "sonarr.00a.ch"
     "tautulli.00a.ch"
   ];
-  ulquiorraDomains = [ "printer.00a.ch" "scanner.00a.ch" ];
+  ulquiorraDomains = [
+    "printer.00a.ch"
+    "scanner.00a.ch"
+  ];
 
   getVirtualHost = name: ip: domains: {
     "${name}" = {
@@ -27,8 +30,12 @@ let
       locations."/".proxyPass = "http://${ip}:80";
     };
   };
-in {
-  networking.firewall.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort 443 ];
+in
+{
+  networking.firewall.allowedTCPPorts = [
+    config.services.nginx.defaultHTTPListenPort
+    443
+  ];
 
   services.nginx = {
     enable = true;
@@ -50,7 +57,8 @@ in {
       };
     };
 
-    virtualHosts = (getVirtualHost "XXLPitu-Server.local" ips.server serverDomains)
+    virtualHosts =
+      (getVirtualHost "XXLPitu-Server.local" ips.server serverDomains)
       // (getVirtualHost "XXLPitu-Ulquiorra.local" ips.ulquiorra ulquiorraDomains);
   };
 }

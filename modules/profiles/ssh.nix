@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   networking.nftables.tables.ssh = {
     family = "inet";
 
@@ -13,14 +14,13 @@
         # Run after nixos-fw input chain, because of `services.openssh.openFirewall = true`
         type filter hook input priority filter + 10;
 
-        tcp dport { ${lib.concatStringsSep ", " (map (port: toString port) config.services.openssh.ports)} } jump ssh-filter
+        tcp dport { ${
+          lib.concatStringsSep ", " (map (port: toString port) config.services.openssh.ports)
+        } } jump ssh-filter
       }
 
       chain ssh-filter {
-        ${
-          lib.optionalString config.services.wireguard-network.enable
-          "iifname { ${config.services.wireguard-network.interfaceName} } accept"
-        }
+        ${lib.optionalString config.services.wireguard-network.enable "iifname { ${config.services.wireguard-network.interfaceName} } accept"}
         iifname { lo } accept
 
         ip saddr @rfc1918 accept
@@ -44,6 +44,7 @@
     };
   };
 
-  users.users.root.openssh.authorizedKeys.keys =
-    [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL8rD8sFsnIBybHVwViGC33aT/pgWBtRNawtmGl8g2yU ryan.horiguchi@gmail.com" ];
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL8rD8sFsnIBybHVwViGC33aT/pgWBtRNawtmGl8g2yU ryan.horiguchi@gmail.com"
+  ];
 }

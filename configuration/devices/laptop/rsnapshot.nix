@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   backupDir = "/mnt/Backup";
   snapshotDir = "${backupDir}/snapshot/Laptop";
@@ -21,89 +26,92 @@ let
     ${pkgs.cryptsetup}/bin/cryptsetup luksClose backup || true
   '';
 
-  excludeFile = pkgs.writeText "rsnapshot-default.exclude" (let
-    excludedDirs = [
-      # eCryptfs
-      ".ecryptfs"
-      ".Private"
+  excludeFile = pkgs.writeText "rsnapshot-default.exclude" (
+    let
+      excludedDirs = [
+        # eCryptfs
+        ".ecryptfs"
+        ".Private"
 
-      # Trash
-      ".local/share/Trash"
-      ".Trash-*"
+        # Trash
+        ".local/share/Trash"
+        ".Trash-*"
 
-      # Containers
-      ".local/share/containers"
+        # Containers
+        ".local/share/containers"
 
-      # Cache
-      ".cache"
+        # Cache
+        ".cache"
 
-      # Discord
-      ".config/discord"
+        # Discord
+        ".config/discord"
 
-      # deploy-rs
-      ".deploy-gc"
+        # deploy-rs
+        ".deploy-gc"
 
-      # Chrome
-      ".config/google-chrome"
+        # Chrome
+        ".config/google-chrome"
 
-      # Home Manager
-      ".local/state/home-manager"
+        # Home Manager
+        ".local/state/home-manager"
 
-      # Java
-      ".m2"
-      "target/classes"
-      "target/generated-sources"
-      "target/generated-test-sources"
-      "target/test-classes"
+        # Java
+        ".m2"
+        "target/classes"
+        "target/generated-sources"
+        "target/generated-test-sources"
+        "target/test-classes"
 
-      # JavaScript
-      ".bun"
-      ".npm"
-      "node_modules"
+        # JavaScript
+        ".bun"
+        ".npm"
+        "node_modules"
 
-      # Nix
-      ".nix-defexpr"
-      ".local/state/nix/profiles"
+        # Nix
+        ".nix-defexpr"
+        ".local/state/nix/profiles"
 
-      # Firefox
-      ".mozilla"
+        # Firefox
+        ".mozilla"
 
-      # Prism Launcher
-      ".local/share/PrismLauncher"
+        # Prism Launcher
+        ".local/share/PrismLauncher"
 
-      # Python
-      ".local/share/virtualenv"
+        # Python
+        ".local/share/virtualenv"
 
-      # Signal
-      ".config/Signal"
+        # Signal
+        ".config/Signal"
 
-      # Steam
-      ".local/share/Steam"
-      ".steam"
-      "Steam/steamapps"
+        # Steam
+        ".local/share/Steam"
+        ".steam"
+        "Steam/steamapps"
 
-      # Terraform
-      ".terraform.d"
-      "cdktf.out"
+        # Terraform
+        ".terraform.d"
+        "cdktf.out"
 
-      # Resilio Sync
-      ".config/resilio-sync"
-      ".sync"
+        # Resilio Sync
+        ".config/resilio-sync"
+        ".sync"
 
-      # Visual Studio Code
-      ".config/Code"
-      ".vscode"
+        # Visual Studio Code
+        ".config/Code"
+        ".vscode"
 
-      # Wine
-      ".wine"
+        # Wine
+        ".wine"
 
-      # Secrets
-      ".docker/config.json"
-      ".git-credentials"
-      ".gnupg"
-      ".ssh"
-    ];
-  in lib.concatStringsSep "\n" (map (dir: "- /**${dir}") excludedDirs));
+        # Secrets
+        ".docker/config.json"
+        ".git-credentials"
+        ".gnupg"
+        ".ssh"
+      ];
+    in
+    lib.concatStringsSep "\n" (map (dir: "- /**${dir}") excludedDirs)
+  );
 
   rsyncLongArgs = lib.concatStringsSep " " [
     # rsnapshot requires these args
@@ -123,7 +131,8 @@ let
     "--times"
     "--verbose"
   ];
-in {
+in
+{
   services.rsnapshot = {
     enable = true;
 

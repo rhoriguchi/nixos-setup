@@ -1,1 +1,4 @@
-{ callPackage }: { google-home = callPackage ./google-home.nix { }; }
+{ callPackage }:
+{
+  google-home = callPackage ./google-home.nix { };
+}

@@ -1,4 +1,9 @@
-{ self, inputs, system, ... }:
+{
+  self,
+  inputs,
+  system,
+  ...
+}:
 {
   pre-commit = inputs.git-hooks.lib.${system}.run {
     src = ./.;
@@ -20,7 +25,10 @@
       };
       end-of-file-fixer = {
         enable = true;
-        excludes = [ "secrets\\.nix$" "configuration\\/devices\\/nnoitra\\/iex\\.json" ];
+        excludes = [
+          "secrets\\.nix$"
+          "configuration\\/devices\\/nnoitra\\/iex\\.json"
+        ];
       };
       fix-byte-order-marker.enable = true;
       lychee = {
@@ -36,13 +44,14 @@
       };
       mixed-line-endings = {
         enable = true;
-        excludes = [ "secrets\\.nix$" "configuration\\/devices\\/nnoitra\\/iex\\.json" ];
+        excludes = [
+          "secrets\\.nix$"
+          "configuration\\/devices\\/nnoitra\\/iex\\.json"
+        ];
       };
-      nixfmt-classic = {
+      nixfmt-rfc-style = {
         enable = true;
         excludes = [ "secrets\\.nix$" ];
-
-        settings.width = 140;
       };
       trim-trailing-whitespace = {
         enable = true;
@@ -50,4 +59,5 @@
       };
     };
   };
-} // (inputs.deploy-rs.lib.${system}.deployChecks self.deploy)
+}
+// (inputs.deploy-rs.lib.${system}.deployChecks self.deploy)

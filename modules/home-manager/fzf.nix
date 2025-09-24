@@ -1,4 +1,11 @@
-{ colors, config, lib, pkgs, ... }: {
+{
+  colors,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   # TODO uncomment when https://github.com/ajeetdsouza/zoxide/issues/618 fixed
   # currently overrides all options set here
   # https://github.com/ajeetdsouza/zoxide/blob/3fe42e901e181e791e5af3ea07d7e7d7a2b915c1/src/cmd/query.rs#L92-L118
@@ -28,11 +35,13 @@
     };
 
     zsh = {
-      plugins = [{
-        name = pkgs.zsh-fzf-tab.pname;
-        file = "fzf-tab.plugin.zsh";
-        src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
-      }];
+      plugins = [
+        {
+          name = pkgs.zsh-fzf-tab.pname;
+          file = "fzf-tab.plugin.zsh";
+          src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+        }
+      ];
 
       initContent = ''
         # Use FZF_DEFAULT_OPTS
@@ -46,13 +55,19 @@
 
         # Preview directory's content when completing cd
         zstyle ':fzf-tab:complete:cd:*' fzf-preview '${
-          if config.programs.lsd.enable then "${config.programs.lsd.package}/bin/lsd --color always" else "ls --color=always"
+          if config.programs.lsd.enable then
+            "${config.programs.lsd.package}/bin/lsd --color always"
+          else
+            "ls --color=always"
         } --almost-all $realpath'
 
         ${lib.optionalString config.programs.zoxide.enable ''
           # Preview directory's content when completing zoxide
           zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview '${
-            if config.programs.lsd.enable then "${config.programs.lsd.package}/bin/lsd --color always" else "ls --color=always"
+            if config.programs.lsd.enable then
+              "${config.programs.lsd.package}/bin/lsd --color always"
+            else
+              "ls --color=always"
           } --almost-all $realpath'
         ''}
       '';

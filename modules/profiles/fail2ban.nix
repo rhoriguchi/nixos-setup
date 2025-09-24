@@ -1,10 +1,25 @@
-{ config, lib, pkgs, ... }:
-let format = pkgs.formats.ini { };
-in {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  format = pkgs.formats.ini { };
+in
+{
   services.fail2ban = {
-    enable = lib.any (service: service.enable) [ config.services.home-assistant config.services.immich config.services.nginx ];
+    enable = lib.any (service: service.enable) [
+      config.services.home-assistant
+      config.services.immich
+      config.services.nginx
+    ];
 
-    ignoreIP = [ "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" ];
+    ignoreIP = [
+      "10.0.0.0/8"
+      "172.16.0.0/12"
+      "192.168.0.0/16"
+    ];
 
     bantime = "1h";
 
@@ -86,8 +101,7 @@ in {
     "fail2ban/filter.d/nginx-basic-auth.local".source = format.generate "nginx-basic-auth.local" {
       INCLUDES.before = "nginx-error-common.conf";
 
-      Definition.failregex =
-        ''%(__prefix_line)suser "<F-USER>.*</F-USER>" was not found in "\/nix\/store\/.*\.htpasswd", client: <HOST>,.*$'';
+      Definition.failregex = ''%(__prefix_line)suser "<F-USER>.*</F-USER>" was not found in "\/nix\/store\/.*\.htpasswd", client: <HOST>,.*$'';
 
       Init.datepattern = "{^LN-BEG}";
     };

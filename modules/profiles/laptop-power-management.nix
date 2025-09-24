@@ -1,5 +1,8 @@
 {
-  boot.kernelModules = [ "coretemp" "cpuid" ];
+  boot.kernelModules = [
+    "coretemp"
+    "cpuid"
+  ];
 
   services = {
     power-profiles-daemon.enable = false;

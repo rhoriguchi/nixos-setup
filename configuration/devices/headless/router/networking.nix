@@ -4,7 +4,8 @@ let
   internalInterface = interfaces.internal;
 
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
-in {
+in
+{
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   networking = {
@@ -45,46 +46,69 @@ in {
     };
 
     # Calling bridge interface `br-management` fails
-    bridges.br0.interfaces = builtins.filter (interface: !(builtins.elem interface [ externalInterface internalInterface ])) [
-      "eth0"
-      "eth1"
-      "eth2"
-      "eth3"
-      "eth4"
-    ];
+    bridges.br0.interfaces =
+      builtins.filter
+        (
+          interface:
+          !(builtins.elem interface [
+            externalInterface
+            internalInterface
+          ])
+        )
+        [
+          "eth0"
+          "eth1"
+          "eth2"
+          "eth3"
+          "eth4"
+        ];
 
     interfaces = {
       "${externalInterface}".useDHCP = true;
 
-      "${internalInterface}".ipv4.addresses = [{
-        address = ips.router;
-        prefixLength = 24;
-      }];
-      "${internalInterface}.2".ipv4.addresses = [{
-        address = "192.168.2.1";
-        prefixLength = 24;
-      }];
-      "${internalInterface}.3".ipv4.addresses = [{
-        address = "192.168.3.1";
-        prefixLength = 24;
-      }];
-      "${internalInterface}.4".ipv4.addresses = [{
-        address = "192.168.4.1";
-        prefixLength = 24;
-      }];
-      "${internalInterface}.10".ipv4.addresses = [{
-        address = "192.168.10.1";
-        prefixLength = 24;
-      }];
-      "${internalInterface}.100".ipv4.addresses = [{
-        address = "192.168.100.1";
-        prefixLength = 24;
-      }];
+      "${internalInterface}".ipv4.addresses = [
+        {
+          address = ips.router;
+          prefixLength = 24;
+        }
+      ];
+      "${internalInterface}.2".ipv4.addresses = [
+        {
+          address = "192.168.2.1";
+          prefixLength = 24;
+        }
+      ];
+      "${internalInterface}.3".ipv4.addresses = [
+        {
+          address = "192.168.3.1";
+          prefixLength = 24;
+        }
+      ];
+      "${internalInterface}.4".ipv4.addresses = [
+        {
+          address = "192.168.4.1";
+          prefixLength = 24;
+        }
+      ];
+      "${internalInterface}.10".ipv4.addresses = [
+        {
+          address = "192.168.10.1";
+          prefixLength = 24;
+        }
+      ];
+      "${internalInterface}.100".ipv4.addresses = [
+        {
+          address = "192.168.100.1";
+          prefixLength = 24;
+        }
+      ];
 
-      br0.ipv4.addresses = [{
-        address = "172.16.1.1";
-        prefixLength = 24;
-      }];
+      br0.ipv4.addresses = [
+        {
+          address = "172.16.1.1";
+          prefixLength = 24;
+        }
+      ];
     };
   };
 
@@ -93,7 +117,12 @@ in {
       enable = true;
 
       reflector = true;
-      allowInterfaces = [ "${internalInterface}.2" "${internalInterface}.3" "${internalInterface}.4" "${internalInterface}.10" ];
+      allowInterfaces = [
+        "${internalInterface}.2"
+        "${internalInterface}.3"
+        "${internalInterface}.4"
+        "${internalInterface}.10"
+      ];
     };
 
     frr = {

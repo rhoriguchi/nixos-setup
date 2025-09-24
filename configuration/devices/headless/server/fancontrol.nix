@@ -51,9 +51,14 @@ let
     print(f'MINPWM=  {ids["nct6796"]}/pwm2=35                 {ids["corsaircpro"]}/pwm1=35                 {ids["corsaircpro"]}/pwm2=35                 {ids["corsaircpro"]}/pwm3=35                 {ids["corsaircpro"]}/pwm4=35                 {ids["corsaircpro"]}/pwm5=35')
     print(f'MAXPWM=  {ids["nct6796"]}/pwm2=160                {ids["corsaircpro"]}/pwm1=160                {ids["corsaircpro"]}/pwm2=160                {ids["corsaircpro"]}/pwm3=160                {ids["corsaircpro"]}/pwm4=160                {ids["corsaircpro"]}/pwm5=160')
   '';
-in {
+in
+{
   boot = {
-    kernelModules = [ "corsaircpro" "k10temp" "nct6775" ];
+    kernelModules = [
+      "corsaircpro"
+      "k10temp"
+      "nct6775"
+    ];
 
     # https://bbs.archlinux.org/viewtopic.php?pid=407959#p407959
     extraModprobeConfig = ''
@@ -67,7 +72,10 @@ in {
     # `config.systemd.services.lm_sensors.name` does not exist
     after = [ "lm_sensors.service" ];
 
-    path = [ pkgs.lm_sensors pkgs.python3 ];
+    path = [
+      pkgs.lm_sensors
+      pkgs.python3
+    ];
 
     script = ''
       file=$(mktemp)

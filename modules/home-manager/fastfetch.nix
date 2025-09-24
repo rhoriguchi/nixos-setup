@@ -1,4 +1,11 @@
-{ colors, config, lib, pkgs, ... }: {
+{
+  colors,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   home.packages = [ pkgs.nerd-fonts.roboto-mono ];
 
   programs.zsh.shellAliases.neofetch = "${config.programs.fastfetch.package}/bin/fastfetch --config neofetch";
@@ -41,14 +48,14 @@
           type = "command";
           key = "│ └";
           text = "birth_install=${
-              lib.concatStringsSep "; " [
-                "$(stat -c %W /)"
-                "current=$(date +%s)"
-                "time_progression=$((current - birth_install))"
-                "days_difference=$((time_progression / 86400))"
-                "echo $days_difference days"
-              ]
-            }";
+            lib.concatStringsSep "; " [
+              "$(stat -c %W /)"
+              "current=$(date +%s)"
+              "time_progression=$((current - birth_install))"
+              "days_difference=$((time_progression / 86400))"
+              "echo $days_difference days"
+            ]
+          }";
           keyColor = colors.normal.accent;
         }
 

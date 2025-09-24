@@ -1,10 +1,16 @@
-{ config, lib, osConfig, ... }:
+{
+  config,
+  lib,
+  osConfig,
+  ...
+}:
 let
   homeDirectory = config.home.homeDirectory;
 
   wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
   filteredWireguardIps = lib.filterAttrs (key: _: key != osConfig.networking.hostName) wireguardIps;
-in {
+in
+{
   gtk = {
     enable = true;
 
@@ -14,6 +20,7 @@ in {
       "file://${homeDirectory}/Sync"
       "file://${homeDirectory}/Sync/Git Sync/Git"
       "file://${homeDirectory}/Sync/Series Sync/Series"
-    ] ++ map (hostname: "sftp://root@${hostname}/ ${hostname}") (lib.attrNames filteredWireguardIps);
+    ]
+    ++ map (hostname: "sftp://root@${hostname}/ ${hostname}") (lib.attrNames filteredWireguardIps);
   };
 }

@@ -1,11 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   rootBindmountDir = "/mnt/bindmount/plex";
   bindmountDir1 = "${rootBindmountDir}/resilio-Movies";
   bindmountDir2 = "${rootBindmountDir}/resilio-Series";
   bindmountDir3 = "${rootBindmountDir}/disk-Movies";
   bindmountDir4 = "${rootBindmountDir}/disk-Series";
-in {
+in
+{
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {
@@ -47,7 +53,12 @@ in {
       options = [
         # `ro` causes kernel panic
         "perms=0550"
-        "map=${lib.concatStringsSep ":" [ "root/${config.services.plex.user}" "@root/@${config.services.plex.group}" ]}"
+        "map=${
+          lib.concatStringsSep ":" [
+            "root/${config.services.plex.user}"
+            "@root/@${config.services.plex.group}"
+          ]
+        }"
       ];
     };
 
@@ -58,7 +69,12 @@ in {
       options = [
         # `ro` causes kernel panic
         "perms=0550"
-        "map=${lib.concatStringsSep ":" [ "root/${config.services.plex.user}" "@root/@${config.services.plex.group}" ]}"
+        "map=${
+          lib.concatStringsSep ":" [
+            "root/${config.services.plex.user}"
+            "@root/@${config.services.plex.group}"
+          ]
+        }"
       ];
     };
   };

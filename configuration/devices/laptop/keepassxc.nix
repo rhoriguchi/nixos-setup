@@ -15,4 +15,7 @@ let
         --replace-fail "TryExec=keepassxc" "TryExec=${script}"
     '';
   };
-in { environment.systemPackages = [ keepassxc ]; }
+in
+{
+  environment.systemPackages = [ keepassxc ];
+}

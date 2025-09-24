@@ -49,193 +49,233 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
-  outputs = { self, ... }@inputs:
-    let lib = inputs.nixpkgs.lib.extend self.overlays.lib;
-    in {
+  outputs =
+    { self, ... }@inputs:
+    let
+      lib = inputs.nixpkgs.lib.extend self.overlays.lib;
+    in
+    {
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
-        checks = let
-          filterAttrs = attrs: lib.filterAttrs (key: _: !(lib.elem key [ "deploy-activate" "deploy-schema" ])) attrs;
-          removeChecks = checks: lib.mapAttrs (_: system: filterAttrs system) checks;
-        in lib.getAttrs [ "x86_64-linux" ] (removeChecks self.checks);
+        checks =
+          let
+            filterAttrs =
+              attrs:
+              lib.filterAttrs (
+                key: _:
+                !(lib.elem key [
+                  "deploy-activate"
+                  "deploy-schema"
+                ])
+              ) attrs;
+            removeChecks = checks: lib.mapAttrs (_: system: filterAttrs system) checks;
+          in
+          lib.getAttrs [ "x86_64-linux" ] (removeChecks self.checks);
       };
 
       nixosModules = {
-        default.imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ./modules/default ];
+        default.imports = [
+          inputs.nix-minecraft.nixosModules.minecraft-servers
+          ./modules/default
+        ];
 
         profiles = import ./modules/profiles;
         colors = import ./modules/colors.nix;
 
-        home-manager.imports = [ inputs.nix-index-database.homeModules.nix-index ./modules/home-manager ];
+        home-manager.imports = [
+          inputs.nix-index-database.homeModules.nix-index
+          ./modules/home-manager
+        ];
         home-manager-gnome.imports = [ ./modules/home-manager-gnome ];
       };
 
       overlays = {
-        default = lib.composeManyExtensions ([
-          inputs.deploy-rs.overlays.default
-          inputs.firefox-addons.overlays.default
-          inputs.nix-minecraft.overlay
+        default = lib.composeManyExtensions (
+          [
+            inputs.deploy-rs.overlays.default
+            inputs.firefox-addons.overlays.default
+            inputs.nix-minecraft.overlay
 
-          (_: super: { borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system}; })
-        ] ++ import ./overlays);
+            (_: super: { borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system}; })
+          ]
+          ++ import ./overlays
+        );
 
         lib = (_: super: { custom = import ./lib.nix { lib = super; }; });
       };
 
-      nixosConfigurations = let
-        commonModule = {
-          imports = [
-            self.nixosModules.default
-
-            self.nixosModules.profiles.ssh
-          ];
-
-          nix.registry.nixpkgs.flake = inputs.nixpkgs;
-
-          nixpkgs.overlays = [ self.overlays.default ];
-
-          _module.args = {
-            inherit (self.nixosModules) colors;
-            secrets = import ./secrets.nix;
-          };
-        };
-      in {
-        # Dell XPS 13 9350
-        Laptop = lib.nixosSystem {
-          system = "x86_64-linux";
-
-          modules = [{
+      nixosConfigurations =
+        let
+          commonModule = {
             imports = [
-              commonModule
+              self.nixosModules.default
 
-              inputs.nixos-hardware.nixosModules.dell-xps-13-9350
+              self.nixosModules.profiles.ssh
+            ];
 
-              self.nixosModules.profiles.headful
-              self.nixosModules.profiles.gnome
+            nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
-              self.nixosModules.profiles.laptop-power-management
-              self.nixosModules.profiles.podman
-              self.nixosModules.profiles.python
+            nixpkgs.overlays = [ self.overlays.default ];
 
-              ./configuration/devices/laptop
+            _module.args = {
+              inherit (self.nixosModules) colors;
+              secrets = import ./secrets.nix;
+            };
+          };
+        in
+        {
+          # Dell XPS 13 9350
+          Laptop = lib.nixosSystem {
+            system = "x86_64-linux";
 
-              inputs.home-manager.nixosModules.default
+            modules = [
               {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
+                imports = [
+                  commonModule
 
-                  backupFileExtension = "backup";
+                  inputs.nixos-hardware.nixosModules.dell-xps-13-9350
 
-                  extraSpecialArgs = {
-                    inherit (self.nixosModules) colors;
-                    secrets = import ./secrets.nix;
-                  };
+                  self.nixosModules.profiles.headful
+                  self.nixosModules.profiles.gnome
 
-                  users.rhoriguchi.imports = [ self.nixosModules.home-manager self.nixosModules.home-manager-gnome ];
+                  self.nixosModules.profiles.laptop-power-management
+                  self.nixosModules.profiles.podman
+                  self.nixosModules.profiles.python
+
+                  ./configuration/devices/laptop
+
+                  inputs.home-manager.nixosModules.default
+                  {
+                    home-manager = {
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+
+                      backupFileExtension = "backup";
+
+                      extraSpecialArgs = {
+                        inherit (self.nixosModules) colors;
+                        secrets = import ./secrets.nix;
+                      };
+
+                      users.rhoriguchi.imports = [
+                        self.nixosModules.home-manager
+                        self.nixosModules.home-manager-gnome
+                      ];
+                    };
+                  }
+                ];
+
+                boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+              }
+            ];
+          };
+
+          # Gowin R86S-N N305A
+          XXLPitu-Router = lib.nixosSystem {
+            system = "x86_64-linux";
+
+            modules = [
+              {
+                imports = [
+                  commonModule
+
+                  self.nixosModules.profiles.headless
+
+                  ./configuration/devices/headless/router
+                ];
+
+                _module.args.interfaces = {
+                  external = "eth4";
+                  internal = "eth3";
                 };
               }
             ];
+          };
 
-            boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-          }];
-        };
+          XXLPitu-Server = lib.nixosSystem {
+            system = "x86_64-linux";
 
-        # Gowin R86S-N N305A
-        XXLPitu-Router = lib.nixosSystem {
-          system = "x86_64-linux";
+            modules = [
+              {
+                imports = [
+                  commonModule
 
-          modules = [{
-            imports = [
-              commonModule
+                  self.nixosModules.profiles.headless
 
-              self.nixosModules.profiles.headless
+                  self.nixosModules.profiles.zfs
 
-              ./configuration/devices/headless/router
+                  ./configuration/devices/headless/server
+                ];
+              }
             ];
+          };
 
-            _module.args.interfaces = {
-              external = "eth4";
-              internal = "eth3";
-            };
-          }];
-        };
+          # Raspberry Pi 4 Model B - 8GB
+          XXLPitu-Grimmjow = lib.nixosSystem {
+            system = "aarch64-linux";
 
-        XXLPitu-Server = lib.nixosSystem {
-          system = "x86_64-linux";
+            modules = [
+              {
+                imports = [
+                  commonModule
 
-          modules = [{
-            imports = [
-              commonModule
+                  inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-              self.nixosModules.profiles.headless
+                  self.nixosModules.profiles.headless
 
-              self.nixosModules.profiles.zfs
-
-              ./configuration/devices/headless/server
+                  ./configuration/devices/headless/raspberry-pi-4/grimmjow
+                ];
+              }
             ];
-          }];
-        };
+          };
 
-        # Raspberry Pi 4 Model B - 8GB
-        XXLPitu-Grimmjow = lib.nixosSystem {
-          system = "aarch64-linux";
+          # Raspberry Pi 4 Model B - 8GB
+          XXLPitu-Ulquiorra = lib.nixosSystem {
+            system = "aarch64-linux";
 
-          modules = [{
-            imports = [
-              commonModule
+            modules = [
+              {
+                imports = [
+                  commonModule
 
-              inputs.nixos-hardware.nixosModules.raspberry-pi-4
+                  inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-              self.nixosModules.profiles.headless
+                  self.nixosModules.profiles.headless
 
-              ./configuration/devices/headless/raspberry-pi-4/grimmjow
+                  ./configuration/devices/headless/raspberry-pi-4/ulquiorra
+                ];
+              }
             ];
-          }];
-        };
+          };
 
-        # Raspberry Pi 4 Model B - 8GB
-        XXLPitu-Ulquiorra = lib.nixosSystem {
-          system = "aarch64-linux";
+          sdImageRaspberryPi4 = lib.nixosSystem {
+            system = "aarch64-linux";
 
-          modules = [{
-            imports = [
-              commonModule
+            modules = [
+              {
+                imports = [ "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ];
+                sdImage.compressImage = false;
+              }
+              (
+                { secrets, ... }:
+                {
+                  imports = [
+                    commonModule
 
-              inputs.nixos-hardware.nixosModules.raspberry-pi-4
+                    inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-              self.nixosModules.profiles.headless
+                    self.nixosModules.profiles.headless
+                  ];
 
-              ./configuration/devices/headless/raspberry-pi-4/ulquiorra
+                  users.users.xxlpitu = {
+                    extraGroups = [ "wheel" ];
+                    isNormalUser = true;
+                    password = secrets.users.xxlpitu.password;
+                  };
+                }
+              )
             ];
-          }];
+          };
         };
-
-        sdImageRaspberryPi4 = lib.nixosSystem {
-          system = "aarch64-linux";
-
-          modules = [
-            {
-              imports = [ "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ];
-              sdImage.compressImage = false;
-            }
-            ({ secrets, ... }: {
-              imports = [
-                commonModule
-
-                inputs.nixos-hardware.nixosModules.raspberry-pi-4
-
-                self.nixosModules.profiles.headless
-              ];
-
-              users.users.xxlpitu = {
-                extraGroups = [ "wheel" ];
-                isNormalUser = true;
-                password = secrets.users.xxlpitu.password;
-              };
-            })
-          ];
-        };
-      };
 
       images.sdImageRaspberryPi4 = self.nixosConfigurations.sdImageRaspberryPi4.config.system.build.image;
 
@@ -256,14 +296,17 @@
           sdImageRaspberryPi4.deploy = false;
         };
       };
-    } // inputs.flake-utils.lib.eachDefaultSystem (system:
+    }
+    // inputs.flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import inputs.nixpkgs {
           inherit system;
           config.allowUnfree = true;
           overlays = [ self.overlays.default ];
         };
-      in {
+      in
+      {
         checks = import ./checks.nix {
           inherit self;
           inherit inputs;
@@ -276,9 +319,11 @@
             pkgs.nixVersions.latest
 
             inputs.deploy-rs.packages.${system}.deploy-rs
-          ] ++ self.checks.${system}.pre-commit.enabledPackages;
+          ]
+          ++ self.checks.${system}.pre-commit.enabledPackages;
 
           shellHook = self.checks.${system}.pre-commit.shellHook;
         };
-      });
+      }
+    );
 }

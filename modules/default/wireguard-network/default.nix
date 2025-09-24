@@ -10,10 +10,18 @@ let
 
   isServer = cfg.type == "server";
   isClient = cfg.type == "client";
-in {
+in
+{
   options.services.wireguard-network = {
     enable = lib.mkEnableOption "Private VPN";
-    type = lib.mkOption { type = lib.types.nullOr (lib.types.enum [ "client" "server" ]); };
+    type = lib.mkOption {
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "client"
+          "server"
+        ]
+      );
+    };
     serverHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
     interfaceName = lib.mkOption {
       type = lib.types.str;
@@ -55,37 +63,41 @@ in {
       firewall.allowedUDPPorts = lib.mkIf isServer [ serverPort ];
 
       wireguard.interfaces = {
-        "${cfg.interfaceName}" = {
-          server = {
-            listenPort = serverPort;
+        "${cfg.interfaceName}" =
+          {
+            server = {
+              listenPort = serverPort;
 
-            ips = [ "${ips.${config.networking.hostName}}/24" ];
-            privateKey = keys.${config.networking.hostName}.private;
+              ips = [ "${ips.${config.networking.hostName}}/24" ];
+              privateKey = keys.${config.networking.hostName}.private;
 
-            peers = lib.mapAttrsToList (hostName: value: {
-              name = hostName;
+              peers = lib.mapAttrsToList (hostName: value: {
+                name = hostName;
 
-              publicKey = value.public;
-              allowedIPs = [ "${ips.${hostName}}/32" ];
-            }) (lib.filterAttrs (key: _: key != config.networking.hostName) keys);
-          };
+                publicKey = value.public;
+                allowedIPs = [ "${ips.${hostName}}/32" ];
+              }) (lib.filterAttrs (key: _: key != config.networking.hostName) keys);
+            };
 
-          client = {
-            ips = [ "${ips.${config.networking.hostName}}/32" ];
-            privateKey = keys.${config.networking.hostName}.private;
+            client = {
+              ips = [ "${ips.${config.networking.hostName}}/32" ];
+              privateKey = keys.${config.networking.hostName}.private;
 
-            peers = [{
-              name = cfg.serverHostname;
+              peers = [
+                {
+                  name = cfg.serverHostname;
 
-              publicKey = keys.${cfg.serverHostname}.public;
-              allowedIPs = [ "10.123.123.0/24" ];
-              endpoint = "${serverAddress}:${toString serverPort}";
+                  publicKey = keys.${cfg.serverHostname}.public;
+                  allowedIPs = [ "10.123.123.0/24" ];
+                  endpoint = "${serverAddress}:${toString serverPort}";
 
-              persistentKeepalive = 25;
-              dynamicEndpointRefreshSeconds = 30;
-            }];
-          };
-        }.${cfg.type};
+                  persistentKeepalive = 25;
+                  dynamicEndpointRefreshSeconds = 30;
+                }
+              ];
+            };
+          }
+          .${cfg.type};
       };
     };
 

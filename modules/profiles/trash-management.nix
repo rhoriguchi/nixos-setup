@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   systemd.user = {
     services.trash-management = {
       after = [ "default.target" ];
@@ -16,9 +17,11 @@
     timers.trash-management.timerConfig.Persistent = true;
   };
 
-  programs.dconf.profiles.user.databases = [{
-    lockAll = true;
+  programs.dconf.profiles.user.databases = [
+    {
+      lockAll = true;
 
-    settings."org/gnome/desktop/privacy".remove-old-trash-files = false;
-  }];
+      settings."org/gnome/desktop/privacy".remove-old-trash-files = false;
+    }
+  ];
 }

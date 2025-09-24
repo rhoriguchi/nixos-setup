@@ -1,11 +1,18 @@
-{ config, lib, pkgs, secrets, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  secrets,
+  ...
+}:
 let
   user = "samba";
   group = "samba";
 
   rootBindmountDir = "/mnt/bindmount/samba";
   bindmountDir = "${rootBindmountDir}/resilio-Series";
-in {
+in
+{
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems.${bindmountDir} = {
     depends = [ config.services.resilio.syncPath ];
@@ -14,7 +21,12 @@ in {
     options = [
       # `ro` causes kernel panic
       "perms=0550"
-      "map=${lib.concatStringsSep ":" [ "${config.services.resilio.user}/${user}" "@${config.services.resilio.group}/@${group}" ]}"
+      "map=${
+        lib.concatStringsSep ":" [
+          "${config.services.resilio.user}/${user}"
+          "@${config.services.resilio.group}/@${group}"
+        ]
+      }"
     ];
   };
 
@@ -41,7 +53,11 @@ in {
         "workgroup" = "WORKGROUP";
         "server string" = config.networking.hostName;
 
-        "hosts allow" = [ "192.168." "127.0.0.1" ] ++ lib.optional config.networking.enableIPv6 "::1";
+        "hosts allow" = [
+          "192.168."
+          "127.0.0.1"
+        ]
+        ++ lib.optional config.networking.enableIPv6 "::1";
 
         "security" = "user";
         "invalid users" = [ "root" ];
@@ -91,19 +107,21 @@ in {
   systemd.services.add-samba-users = {
     after = [ config.systemd.services.samba-smbd.name ];
 
-    script = lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: ''
-      ${pkgs.expect}/bin/expect <<EOF
-      spawn ${config.services.samba.package}/bin/smbpasswd -a ${key}
-      expect "New SMB password:"
-      send "${value.password}\n"
-      expect "Retype new SMB password:"
-      send "${value.password}\n"
-      send "quit\n"
-      interact
-      EOF
+    script = lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (key: value: ''
+        ${pkgs.expect}/bin/expect <<EOF
+        spawn ${config.services.samba.package}/bin/smbpasswd -a ${key}
+        expect "New SMB password:"
+        send "${value.password}\n"
+        expect "Retype new SMB password:"
+        send "${value.password}\n"
+        send "quit\n"
+        interact
+        EOF
 
-      ${config.services.samba.package}/bin/smbpasswd -e ${key}
-    '') secrets.samba.users);
+        ${config.services.samba.package}/bin/smbpasswd -e ${key}
+      '') secrets.samba.users
+    );
 
     serviceConfig.Type = "oneshot";
 

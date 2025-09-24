@@ -1,4 +1,10 @@
-{ lib, pkgs, secrets, ... }: {
+{
+  lib,
+  pkgs,
+  secrets,
+  ...
+}:
+{
   imports = [
     ../common.nix
 
@@ -35,10 +41,12 @@
     };
 
     netdata.configDir."go.d/ethtool.conf" = (pkgs.formats.yaml { }).generate "ethtool.conf" {
-      jobs = [{
-        name = "local";
-        optical_interfaces = "eth4";
-      }];
+      jobs = [
+        {
+          name = "local";
+          optical_interfaces = "eth4";
+        }
+      ];
     };
   };
 }

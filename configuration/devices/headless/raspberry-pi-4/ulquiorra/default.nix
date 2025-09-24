@@ -1,4 +1,5 @@
-{ config, secrets, ... }: {
+{ config, secrets, ... }:
+{
   imports = [
     ../common.nix
 
@@ -21,6 +22,9 @@
       };
     };
 
-    firewall.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort config.services.nginx.defaultSSLListenPort ];
+    firewall.allowedTCPPorts = [
+      config.services.nginx.defaultHTTPListenPort
+      config.services.nginx.defaultSSLListenPort
+    ];
   };
 }

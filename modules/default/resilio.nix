@@ -1,21 +1,29 @@
-{ config, lib, modulesPath, pkgs, ... }:
+{
+  config,
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
 let
   listeningPort = 5555;
 
   cfg = config.services.resilio;
 
-  sharedFolders = lib.attrValues (lib.mapAttrs (key: value: {
-    secret = if lib.elem key cfg.readWriteDirs then value.readWrite else value.encrypted;
-    dir = "${lib.optionalString (cfg.syncPath != null) "${cfg.syncPath}/"}${
+  sharedFolders = lib.attrValues (
+    lib.mapAttrs (key: value: {
+      secret = if lib.elem key cfg.readWriteDirs then value.readWrite else value.encrypted;
+      dir = "${lib.optionalString (cfg.syncPath != null) "${cfg.syncPath}/"}${
         if lib.elem key cfg.readWriteDirs then key else builtins.hashString "sha256" key
       }";
-    use_relay_server = true;
-    search_lan = true;
-    use_sync_trash = false;
-    overwrite_changes = true;
-    selective_sync = false;
-    known_hosts = [ ];
-  }) cfg.secrets);
+      use_relay_server = true;
+      search_lan = true;
+      use_sync_trash = false;
+      overwrite_changes = true;
+      selective_sync = false;
+      known_hosts = [ ];
+    }) cfg.secrets
+  );
 
   resilioConfig = {
     device_name = lib.toUpper config.networking.hostName;
@@ -31,17 +39,23 @@ let
     peer_expiration_days = 1;
     use_gui = false;
     disk_low_priority = true;
-  } // (if cfg.webUI.enable then {
-    webui = {
-      login = cfg.webUI.username;
-      password = cfg.webUI.password;
-      listen = "127.0.0.1:${toString cfg.webUI.port}";
-    };
-  } else
-    lib.optionalAttrs (sharedFolders != [ ]) { shared_folders = sharedFolders; });
+  }
+  // (
+    if cfg.webUI.enable then
+      {
+        webui = {
+          login = cfg.webUI.username;
+          password = cfg.webUI.password;
+          listen = "127.0.0.1:${toString cfg.webUI.port}";
+        };
+      }
+    else
+      lib.optionalAttrs (sharedFolders != [ ]) { shared_folders = sharedFolders; }
+  );
 
   configFile = pkgs.writers.writeJSON "config.json" resilioConfig;
-in {
+in
+{
   disabledModules = [ "${modulesPath}/services/networking/resilio.nix" ];
 
   options.services.resilio = {
@@ -117,18 +131,20 @@ in {
     };
     secrets = lib.mkOption {
       default = { };
-      type = lib.types.attrsOf (lib.types.submodule {
-        options = {
-          encrypted = lib.mkOption {
-            default = null;
-            type = lib.types.nullOr (lib.types.strMatching "^F[0-9A-Z]{32}$");
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            encrypted = lib.mkOption {
+              default = null;
+              type = lib.types.nullOr (lib.types.strMatching "^F[0-9A-Z]{32}$");
+            };
+            readWrite = lib.mkOption {
+              default = null;
+              type = lib.types.nullOr (lib.types.strMatching "^D[0-9A-Z]{32}$");
+            };
           };
-          readWrite = lib.mkOption {
-            default = null;
-            type = lib.types.nullOr (lib.types.strMatching "^D[0-9A-Z]{32}$");
-          };
-        };
-      });
+        }
+      );
     };
   };
 
@@ -175,44 +191,48 @@ in {
         message = "Secrets cannot be empty";
       }
       {
-        assertion = let
-          flattenedSecrets = lib.flatten (map lib.attrValues (lib.attrValues cfg.secrets));
-          secrets = lib.filter (secret: secret != null) flattenedSecrets;
-        in secrets == lib.unique secrets;
+        assertion =
+          let
+            flattenedSecrets = lib.flatten (map lib.attrValues (lib.attrValues cfg.secrets));
+            secrets = lib.filter (secret: secret != null) flattenedSecrets;
+          in
+          secrets == lib.unique secrets;
         message = "Every secret in secrets must be unique";
       }
       {
-        assertion = lib.filter (readWriteDir: cfg.secrets.${readWriteDir}.readWrite == null) cfg.readWriteDirs == [ ];
+        assertion =
+          lib.filter (readWriteDir: cfg.secrets.${readWriteDir}.readWrite == null) cfg.readWriteDirs == [ ];
         message = "All read write dirs need to have a readWrite secret";
       }
       {
-        assertion = let encryptedDirs = lib.subtractLists cfg.readWriteDirs (lib.attrNames cfg.secrets);
-        in lib.filter (encryptedDir: cfg.secrets.${encryptedDir}.encrypted == null) encryptedDirs == [ ];
+        assertion =
+          let
+            encryptedDirs = lib.subtractLists cfg.readWriteDirs (lib.attrNames cfg.secrets);
+          in
+          lib.filter (encryptedDir: cfg.secrets.${encryptedDir}.encrypted == null) encryptedDirs == [ ];
         message = "All encrypted dirs need to have an encrypted secret";
       }
     ];
 
-    networking.nftables.tables.resilio = lib.optionalAttrs (lib.attrNames config.networking.wireguard.interfaces != [ ]) {
-      family = "inet";
+    networking.nftables.tables.resilio =
+      lib.optionalAttrs (lib.attrNames config.networking.wireguard.interfaces != [ ])
+        {
+          family = "inet";
 
-      content = ''
-        chain input {
-          type filter hook input priority filter;
+          content = ''
+            chain input {
+              type filter hook input priority filter;
 
-          iifname { ${
-            lib.concatStringsSep ", " (lib.attrNames config.networking.wireguard.interfaces)
-          } } meta l4proto { tcp, udp } th dport { ${toString listeningPort} } drop
-        }
+              iifname { ${lib.concatStringsSep ", " (lib.attrNames config.networking.wireguard.interfaces)} } meta l4proto { tcp, udp } th dport { ${toString listeningPort} } drop
+            }
 
-        chain output {
-          type filter hook output priority filter;
+            chain output {
+              type filter hook output priority filter;
 
-          oifname { ${
-            lib.concatStringsSep ", " (lib.attrNames config.networking.wireguard.interfaces)
-          } } meta l4proto { tcp, udp } th dport { ${toString listeningPort} } drop
-        }
-      '';
-    };
+              oifname { ${lib.concatStringsSep ", " (lib.attrNames config.networking.wireguard.interfaces)} } meta l4proto { tcp, udp } th dport { ${toString listeningPort} } drop
+            }
+          '';
+        };
 
     users = lib.mkIf cfg.systemWide {
       users.${cfg.user} = {
@@ -226,65 +246,78 @@ in {
       groups.${cfg.group}.gid = config.ids.gids.rslsync;
     };
 
-    systemd = if cfg.systemWide then {
-      tmpfiles.rules = [
-        "d ${cfg.logging.filePath} 0711 ${cfg.user} ${cfg.group}"
-        "d ${cfg.storagePath} 0775 ${cfg.user} ${cfg.group}"
-        "d ${cfg.syncPath} 0775 ${cfg.user} ${cfg.group}"
-      ];
+    systemd =
+      if cfg.systemWide then
+        {
+          tmpfiles.rules = [
+            "d ${cfg.logging.filePath} 0711 ${cfg.user} ${cfg.group}"
+            "d ${cfg.storagePath} 0775 ${cfg.user} ${cfg.group}"
+            "d ${cfg.syncPath} 0775 ${cfg.user} ${cfg.group}"
+          ];
 
-      services.resilio = {
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+          services.resilio = {
+            after = [ "network.target" ];
+            wantedBy = [ "multi-user.target" ];
 
-        preStart = ''echo "${if cfg.logging.debug then "FFFFFFFF" else "80000000"}" > "${cfg.storagePath}/debug.txt"'';
-        script = ''${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --log "${cfg.logging.filePath}" --nodaemon'';
+            preStart = ''echo "${
+              if cfg.logging.debug then "FFFFFFFF" else "80000000"
+            }" > "${cfg.storagePath}/debug.txt"'';
+            script = ''${pkgs.resilio-sync}/bin/rslsync --config ${configFile} --log "${cfg.logging.filePath}" --nodaemon'';
 
-        serviceConfig = {
-          StandardOutput = "null";
-          StandardError = "null";
-          Restart = "on-abort";
+            serviceConfig = {
+              StandardOutput = "null";
+              StandardError = "null";
+              Restart = "on-abort";
 
-          UMask = "027";
-          User = cfg.user;
-          Group = cfg.group;
-        };
+              UMask = "027";
+              User = cfg.user;
+              Group = cfg.group;
+            };
 
-        unitConfig.ConditionPathExists = [ cfg.syncPath ];
-      };
-    } else
-      let
-        userStoragePath = ".config/resilio-sync";
-        userSyncPath = "Sync";
+            unitConfig.ConditionPathExists = [ cfg.syncPath ];
+          };
+        }
+      else
+        let
+          userStoragePath = ".config/resilio-sync";
+          userSyncPath = "Sync";
 
-        runConfigPath = "/run/user/1000/resilio-sync-config.json";
-      in {
-        user.services.resilio = {
-          after = [ "network.target" ];
-          wantedBy = [ "default.target" ];
+          runConfigPath = "/run/user/1000/resilio-sync-config.json";
+        in
+        {
+          user.services.resilio = {
+            after = [ "network.target" ];
+            wantedBy = [ "default.target" ];
 
-          script = ''${pkgs.resilio-sync}/bin/rslsync --config "${runConfigPath}" --nodaemon'';
+            script = ''${pkgs.resilio-sync}/bin/rslsync --config "${runConfigPath}" --nodaemon'';
 
-          serviceConfig = {
-            Type = "simple";
-            StandardOutput = "null";
-            StandardError = "null";
-            Restart = "on-abort";
+            serviceConfig = {
+              Type = "simple";
+              StandardOutput = "null";
+              StandardError = "null";
+              Restart = "on-abort";
 
-            # Specifiers only works in unit file
-            ExecStartPre = [
-              (let
-                operations = [ ''.directory_root = \"%h/${userSyncPath}\"'' ''.storage_path = \"%h/${userStoragePath}\"'' ]
-                  ++ lib.optional (lib.length sharedFolders > 0)
-                  ''.shared_folders = [.shared_folders[] | .dir = (\"%h/${userSyncPath}/\" + .dir)]'';
-                command = "${pkgs.jq}/bin/jq '${lib.concatStringsSep " | " operations}' ${configFile} > ${runConfigPath}";
-              in ''${pkgs.bashInteractive}/bin/sh -c "${command}"'')
+              # Specifiers only works in unit file
+              ExecStartPre = [
+                (
+                  let
+                    operations = [
+                      ''.directory_root = \"%h/${userSyncPath}\"''
+                      ''.storage_path = \"%h/${userStoragePath}\"''
+                    ]
+                    ++ lib.optional (
+                      lib.length sharedFolders > 0
+                    ) ''.shared_folders = [.shared_folders[] | .dir = (\"%h/${userSyncPath}/\" + .dir)]'';
+                    command = "${pkgs.jq}/bin/jq '${lib.concatStringsSep " | " operations}' ${configFile} > ${runConfigPath}";
+                  in
+                  ''${pkgs.bashInteractive}/bin/sh -c "${command}"''
+                )
 
-              # This needs an absolute path
-              ''${pkgs.coreutils}/bin/mkdir -p "%h/${userSyncPath}" "%h/${userStoragePath}"''
-            ];
+                # This needs an absolute path
+                ''${pkgs.coreutils}/bin/mkdir -p "%h/${userSyncPath}" "%h/${userStoragePath}"''
+              ];
+            };
           };
         };
-      };
   };
 }

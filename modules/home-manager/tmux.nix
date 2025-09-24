@@ -1,4 +1,9 @@
-{ colors, config, pkgs, ... }:
+{
+  colors,
+  config,
+  pkgs,
+  ...
+}:
 let
   homeDirectory = config.home.homeDirectory;
 
@@ -6,7 +11,8 @@ let
   tmuxp = "${pkgs.tmuxp}/bin/tmuxp";
 
   attachSession = "${tmux} has-session -t Default && ${tmux} attach-session -t Default || ${tmuxp} load Default";
-in {
+in
+{
   programs = {
     fzf.tmux.enableShellIntegration = true;
 

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  secrets,
+  ...
+}:
 let
   rootBindmountDir = "/mnt/bindmount/nginx";
   bindmountDir = "${rootBindmountDir}/blue-map-web-root";
@@ -33,7 +39,8 @@ let
 
   blueMapPort = 8100;
   blueMapWebRoot = "${config.services.minecraft-servers.dataDir}/${serverName}/bluemap/web";
-in {
+in
+{
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems.${bindmountDir} = {
     depends = [ blueMapWebRoot ];
@@ -107,18 +114,21 @@ in {
           package = pkgs.velocityServers.velocity;
 
           # https://docs.papermc.io/velocity/tuning/#tune-your-startup-flags
-          jvmOpts = let memory = 1024 * 0.5;
-          in lib.concatStringsSep " " [
-            "-Xms${toString (builtins.floor memory)}M"
-            "-Xmx${toString (builtins.floor memory)}M"
+          jvmOpts =
+            let
+              memory = 1024 * 0.5;
+            in
+            lib.concatStringsSep " " [
+              "-Xms${toString (builtins.floor memory)}M"
+              "-Xmx${toString (builtins.floor memory)}M"
 
-            "-XX:+UseG1GC"
-            "-XX:G1HeapRegionSize=4M"
-            "-XX:+UnlockExperimentalVMOptions"
-            "-XX:+ParallelRefProcEnabled"
-            "-XX:+AlwaysPreTouch"
-            "-XX:MaxInlineLevel=15"
-          ];
+              "-XX:+UseG1GC"
+              "-XX:G1HeapRegionSize=4M"
+              "-XX:+UnlockExperimentalVMOptions"
+              "-XX:+ParallelRefProcEnabled"
+              "-XX:+AlwaysPreTouch"
+              "-XX:MaxInlineLevel=15"
+            ];
 
           restart = "on-abort";
 
@@ -157,21 +167,25 @@ in {
               forced-hosts."minecraft.00a.ch" = [ serverName ];
             };
 
-            "plugins/VelocityWhitelistr.jar" = let
-              owner = "TISUnion";
-              repo = "VelocityWhitelist";
-              tag = "0.3.0";
-              sha256 = "sha256-FnVjNnuYy1Vqrh750Bf+Pmsf55dVu2ylplK3lHBf4OA=";
-            in pkgs.fetchurl {
-              url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/VelocityWhitelist-${tag}.jar";
-              inherit sha256;
-            };
+            "plugins/VelocityWhitelistr.jar" =
+              let
+                owner = "TISUnion";
+                repo = "VelocityWhitelist";
+                tag = "0.3.0";
+                sha256 = "sha256-FnVjNnuYy1Vqrh750Bf+Pmsf55dVu2ylplK3lHBf4OA=";
+              in
+              pkgs.fetchurl {
+                url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/VelocityWhitelist-${tag}.jar";
+                inherit sha256;
+              };
             "plugins/velocitywhitelist/config.yml" = pkgs.writers.writeYAML "config.yml" {
               enabled = true;
 
               identify_mode = "uuid";
             };
-            "plugins/velocitywhitelist/whitelist.yml" = pkgs.writers.writeYAML "whitelist.toml" { uuids = lib.attrValues whitelist; };
+            "plugins/velocitywhitelist/whitelist.yml" = pkgs.writers.writeYAML "whitelist.toml" {
+              uuids = lib.attrValues whitelist;
+            };
           };
         };
 
@@ -183,30 +197,33 @@ in {
           inherit package;
 
           # https://docs.papermc.io/paper/aikars-flags/#recommended-jvm-startup-flags
-          jvmOpts = let memory = 1024 * 6;
-          in lib.concatStringsSep " " [
-            "-Xms${toString (builtins.floor memory)}M"
-            "-Xmx${toString (builtins.floor memory)}M"
+          jvmOpts =
+            let
+              memory = 1024 * 6;
+            in
+            lib.concatStringsSep " " [
+              "-Xms${toString (builtins.floor memory)}M"
+              "-Xmx${toString (builtins.floor memory)}M"
 
-            "-XX:+UseG1GC"
-            "-XX:+ParallelRefProcEnabled"
-            "-XX:MaxGCPauseMillis=200"
-            "-XX:+UnlockExperimentalVMOptions"
-            "-XX:+DisableExplicitGC"
-            "-XX:+AlwaysPreTouch"
-            "-XX:G1NewSizePercent=30"
-            "-XX:G1MaxNewSizePercent=40"
-            "-XX:G1HeapRegionSize=8M"
-            "-XX:G1ReservePercent=20"
-            "-XX:G1HeapWastePercent=5"
-            "-XX:G1MixedGCCountTarget=4"
-            "-XX:InitiatingHeapOccupancyPercent=15"
-            "-XX:G1MixedGCLiveThresholdPercent=90"
-            "-XX:G1RSetUpdatingPauseTimePercent=5"
-            "-XX:SurvivorRatio=32"
-            "-XX:+PerfDisableSharedMem"
-            "-XX:MaxTenuringThreshold=1"
-          ];
+              "-XX:+UseG1GC"
+              "-XX:+ParallelRefProcEnabled"
+              "-XX:MaxGCPauseMillis=200"
+              "-XX:+UnlockExperimentalVMOptions"
+              "-XX:+DisableExplicitGC"
+              "-XX:+AlwaysPreTouch"
+              "-XX:G1NewSizePercent=30"
+              "-XX:G1MaxNewSizePercent=40"
+              "-XX:G1HeapRegionSize=8M"
+              "-XX:G1ReservePercent=20"
+              "-XX:G1HeapWastePercent=5"
+              "-XX:G1MixedGCCountTarget=4"
+              "-XX:InitiatingHeapOccupancyPercent=15"
+              "-XX:G1MixedGCLiveThresholdPercent=90"
+              "-XX:G1RSetUpdatingPauseTimePercent=5"
+              "-XX:SurvivorRatio=32"
+              "-XX:+PerfDisableSharedMem"
+              "-XX:MaxTenuringThreshold=1"
+            ];
 
           restart = "on-abort";
 
@@ -244,15 +261,17 @@ in {
           symlinks = {
             "server-icon.png" = ./server-icon.png;
 
-            "plugins/BlueMap.jar" = let
-              owner = "BlueMap-Minecraft";
-              repo = "BlueMap";
-              tag = "5.11";
-              sha256 = "sha256-PUuWF2UB6KhHt/rOMgmHkOjraaYWgOEoUZfQo9eW1cA=";
-            in pkgs.fetchurl {
-              url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/bluemap-${tag}-paper.jar";
-              inherit sha256;
-            };
+            "plugins/BlueMap.jar" =
+              let
+                owner = "BlueMap-Minecraft";
+                repo = "BlueMap";
+                tag = "5.11";
+                sha256 = "sha256-PUuWF2UB6KhHt/rOMgmHkOjraaYWgOEoUZfQo9eW1cA=";
+              in
+              pkgs.fetchurl {
+                url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/bluemap-${tag}-paper.jar";
+                inherit sha256;
+              };
             "plugins/BlueMap/core.conf" = pkgs.writeText "core.conf" ''
               accept-download: true
               render-thread-count: 4
@@ -280,25 +299,29 @@ in {
                 min-y: 120
               }]
             '';
-            "plugins/BlueMap/packs/BlueMapSpawnMarker.jar" = let
-              owner = "TechnicJelle";
-              repo = "BlueMapSpawnMarker";
-              tag = "1.1";
-              sha256 = "sha256-6wZ0Ns6RulKjIuJ3zpxg4MnmgHHD0AdByYE+s+sIk8w=";
-            in pkgs.fetchurl {
-              url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/BlueMapSpawnMarker-${tag}.jar";
-              inherit sha256;
-            };
+            "plugins/BlueMap/packs/BlueMapSpawnMarker.jar" =
+              let
+                owner = "TechnicJelle";
+                repo = "BlueMapSpawnMarker";
+                tag = "1.1";
+                sha256 = "sha256-6wZ0Ns6RulKjIuJ3zpxg4MnmgHHD0AdByYE+s+sIk8w=";
+              in
+              pkgs.fetchurl {
+                url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/BlueMapSpawnMarker-${tag}.jar";
+                inherit sha256;
+              };
 
-            "plugins/PrometheusExporter.jar" = let
-              owner = "sladkoff";
-              repo = "minecraft-prometheus-exporter";
-              tag = "3.1.2";
-              sha256 = "sha256-nfTBS/EQNMuHHSse23Hsc9CiW6mGD4uQ4JYA2D5I2js=";
-            in pkgs.fetchurl {
-              url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/minecraft-prometheus-exporter-${tag}.jar";
-              inherit sha256;
-            };
+            "plugins/PrometheusExporter.jar" =
+              let
+                owner = "sladkoff";
+                repo = "minecraft-prometheus-exporter";
+                tag = "3.1.2";
+                sha256 = "sha256-nfTBS/EQNMuHHSse23Hsc9CiW6mGD4uQ4JYA2D5I2js=";
+              in
+              pkgs.fetchurl {
+                url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/minecraft-prometheus-exporter-${tag}.jar";
+                inherit sha256;
+              };
           };
 
           operators.XXLPitu = {

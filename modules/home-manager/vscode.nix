@@ -1,5 +1,15 @@
-{ colors, config, lib, pkgs, ... }: {
-  home.packages = [ pkgs.nerd-fonts.jetbrains-mono pkgs.nerd-fonts.roboto-mono ];
+{
+  colors,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  home.packages = [
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.roboto-mono
+  ];
 
   programs.vscode = {
     enable = true;
@@ -81,7 +91,7 @@
           {
             "type" = "shell";
             "label" = "nixfmt file";
-            "command" = ''${pkgs.nixfmt-classic}/bin/nixfmt --width=140 "''${file}"'';
+            "command" = ''${pkgs.nixfmt-tree}/bin/treefmt "''${file}"'';
             "presentation" = {
               "clear" = true;
               "close" = true;
@@ -94,10 +104,7 @@
           {
             "type" = "shell";
             "label" = "nixfmt workspace";
-            "command" = lib.concatStringsSep " | " [
-              "${pkgs.findutils}/bin/find \"\${workspaceFolder}\" -name '*.nix'"
-              "${pkgs.findutils}/bin/xargs ${pkgs.nixfmt-classic}/bin/nixfmt --width=140"
-            ];
+            "command" = ''${pkgs.nixfmt-tree}/bin/treefmt "''${workspaceFolder}"'';
             "presentation" = {
               "clear" = true;
               "close" = true;
@@ -111,8 +118,15 @@
       };
 
       userSettings = {
-        "cSpell.enableFiletypes" = [ "nix" "terraform" ];
-        "cSpell.userWords" = [ "horiguchi" "rhoriguchi" "xxlpitu" ];
+        "cSpell.enableFiletypes" = [
+          "nix"
+          "terraform"
+        ];
+        "cSpell.userWords" = [
+          "horiguchi"
+          "rhoriguchi"
+          "xxlpitu"
+        ];
         "editor.bracketPairColorization.enabled" = true;
         "editor.defaultColorDecorators" = "auto";
         "editor.fontFamily" = "JetBrainsMono Nerd Font";
@@ -160,7 +174,10 @@
         "files.trimTrailingWhitespace" = true;
         "git.autofetch" = "all";
         "githubPullRequests.terminalLinksHandler" = "github";
-        "importCost.javascriptExtensions" = [ "\\.jsx?$" "\\.tsx?$" ];
+        "importCost.javascriptExtensions" = [
+          "\\.jsx?$"
+          "\\.tsx?$"
+        ];
         "javascript.updateImportsOnFileMove.enabled" = "always";
         "javascript.updateImportsOnPaste.enabled" = true;
         "peacock.affectActivityBar" = true;
@@ -171,16 +188,26 @@
           statusBar = "darken";
           titleBar = "none";
         };
-        "peacock.favoriteColors" = [{
-          name = "NixOS";
-          value = "#82BFE0";
-        }] ++ lib.sort (a: b: a.name < b.name) (lib.mapAttrsToList (key: value: {
-          name = let
-            head = lib.toUpper (lib.substring 0 1 key);
-            tail = lib.substring 1 (lib.stringLength key) key;
-          in lib.concatStrings [ head tail ];
-          inherit value;
-        }) colors.normal);
+        "peacock.favoriteColors" = [
+          {
+            name = "NixOS";
+            value = "#82BFE0";
+          }
+        ]
+        ++ lib.sort (a: b: a.name < b.name) (
+          lib.mapAttrsToList (key: value: {
+            name =
+              let
+                head = lib.toUpper (lib.substring 0 1 key);
+                tail = lib.substring 1 (lib.stringLength key) key;
+              in
+              lib.concatStrings [
+                head
+                tail
+              ];
+            inherit value;
+          }) colors.normal
+        );
         "peacock.showColorInStatusBar" = false;
         "prettier.arrowParens" = "always";
         "prettier.printWidth" = 120;
@@ -195,8 +222,13 @@
         "terminal.integrated.profiles.linux" = {
           sh.path = "${pkgs.bashInteractive}/bin/sh";
           bash.path = "${config.programs.bash.package}/bin/bash";
-        } // lib.optionalAttrs config.programs.fish.enable { fish.path = "${config.programs.fish.package}/bin/fish"; }
-          // lib.optionalAttrs config.programs.zsh.enable { zsh.path = "${config.programs.zsh.package}/bin/zsh"; };
+        }
+        // lib.optionalAttrs config.programs.fish.enable {
+          fish.path = "${config.programs.fish.package}/bin/fish";
+        }
+        // lib.optionalAttrs config.programs.zsh.enable {
+          zsh.path = "${config.programs.zsh.package}/bin/zsh";
+        };
         "terminal.integrated.smoothScrolling" = true;
         "todo-tree.highlights.customHighlight" = {
           "[ ]" = {
@@ -215,7 +247,15 @@
           foreground = "${colors.normal.green}";
           type = "text-and-comment";
         };
-        "todo-tree.general.tags" = [ "[ ]" "[x]" "BUG" "FIXME" "HACK" "TODO" "XXX" ];
+        "todo-tree.general.tags" = [
+          "[ ]"
+          "[x]"
+          "BUG"
+          "FIXME"
+          "HACK"
+          "TODO"
+          "XXX"
+        ];
         "todo-tree.regex.regexCaseSensitive" = false;
         "todo-tree.tree.expanded" = true;
         "todo-tree.tree.showCountsInTree" = true;
@@ -289,14 +329,12 @@
         {
           command = "workbench.action.terminal.focusFind";
           key = "ctrl+shift+f";
-          when =
-            "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported";
+          when = "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported";
         }
         {
           command = "workbench.action.terminal.focusNext";
           key = "ctrl+shift+down";
-          when =
-            "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus";
+          when = "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus";
         }
         {
           command = "workbench.action.terminal.focusNextPane";
@@ -306,8 +344,7 @@
         {
           command = "workbench.action.terminal.focusPrevious";
           key = "ctrl+shift+up";
-          when =
-            "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus";
+          when = "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus";
         }
         {
           command = "workbench.action.terminal.focusPreviousPane";

@@ -1,6 +1,13 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.services.infomaniak;
-in {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.services.infomaniak;
+in
+{
   options.services.infomaniak = {
     enable = lib.mkEnableOption "Infomaniak DDNS updater";
     username = lib.mkOption { type = lib.types.str; };

@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = [ pkgs.spotify ];
 
   xdg.configFile."spotify/Users/r.horiguchi-user/prefs".text = ''

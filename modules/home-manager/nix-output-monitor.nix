@@ -1,6 +1,8 @@
 { pkgs, ... }:
-let package = pkgs.nix-output-monitor;
-in {
+let
+  package = pkgs.nix-output-monitor;
+in
+{
   home.packages = [ package ];
 
   programs.zsh.shellAliases = {

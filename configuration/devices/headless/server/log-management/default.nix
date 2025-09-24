@@ -1,4 +1,10 @@
-{ config, lib, secrets, ... }: {
+{
+  config,
+  lib,
+  secrets,
+  ...
+}:
+{
   fileSystems = {
     "/mnt/Data/Monitoring/loki" = {
       depends = [ "/mnt/Data/Monitoring" ];
@@ -62,7 +68,10 @@
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "grafana.00a.ch" "prometheus.00a.ch" ];
+      hostnames = [
+        "grafana.00a.ch"
+        "prometheus.00a.ch"
+      ];
     };
 
     grafana = {
@@ -97,11 +106,13 @@
         dashboards.settings = {
           apiVersion = 1;
 
-          providers = [{
-            name = "Dashboards";
-            updateIntervalSeconds = 60 * 60;
-            options.path = ./dashboards;
-          }];
+          providers = [
+            {
+              name = "Dashboards";
+              updateIntervalSeconds = 60 * 60;
+              options.path = ./dashboards;
+            }
+          ];
         };
 
         datasources.settings = {
@@ -160,16 +171,18 @@
 
         # https://grafana.com/docs/loki/latest/operations/storage/schema
         schema_config = {
-          configs = [{
-            from = "2024-01-01";
-            object_store = "filesystem";
-            store = "tsdb";
-            schema = "v13";
-            index = {
-              prefix = "index_";
-              period = "24h";
-            };
-          }];
+          configs = [
+            {
+              from = "2024-01-01";
+              object_store = "filesystem";
+              store = "tsdb";
+              schema = "v13";
+              index = {
+                prefix = "index_";
+                period = "24h";
+              };
+            }
+          ];
         };
 
         storage_config = {
@@ -195,19 +208,24 @@
     prometheus = {
       enable = true;
 
-      scrapeConfigs = [{
-        job_name = "netdata";
-        scheme = "https";
-        metrics_path = "/api/v1/allmetrics";
-        params.format = [ "prometheus_all_hosts" ];
-        basic_auth = let basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
-        in {
-          username = lib.head (lib.attrNames basicAuth);
-          password = lib.head (lib.attrValues basicAuth);
-        };
-        static_configs = [{ targets = [ "monitoring.00a.ch" ]; }];
-        scrape_interval = "5s";
-      }];
+      scrapeConfigs = [
+        {
+          job_name = "netdata";
+          scheme = "https";
+          metrics_path = "/api/v1/allmetrics";
+          params.format = [ "prometheus_all_hosts" ];
+          basic_auth =
+            let
+              basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
+            in
+            {
+              username = lib.head (lib.attrNames basicAuth);
+              password = lib.head (lib.attrValues basicAuth);
+            };
+          static_configs = [ { targets = [ "monitoring.00a.ch" ]; } ];
+          scrape_interval = "5s";
+        }
+      ];
     };
 
     log-shipping.useLocalhost = true;

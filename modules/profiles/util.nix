@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.htop.enable = true;
 
   environment = {
@@ -25,7 +26,7 @@
       pkgs.killall
       pkgs.mtr
       pkgs.nano
-      pkgs.nixfmt-classic
+      pkgs.nixfmt-tree
       pkgs.nmap
       pkgs.openssl
       pkgs.pciutils

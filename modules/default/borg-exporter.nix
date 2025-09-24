@@ -1,6 +1,13 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.services.borg-exporter;
-in {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.services.borg-exporter;
+in
+{
   options.services.borg-exporter = {
     enable = lib.mkEnableOption "borg-exporter";
     port = lib.mkOption {
@@ -18,7 +25,11 @@ in {
 
       ports = [ "127.0.0.1:${toString cfg.port}:9884" ];
 
-      cmd = [ "borg-exporter" "--repository" "/repository" ];
+      cmd = [
+        "borg-exporter"
+        "--repository"
+        "/repository"
+      ];
 
       volumes = [ "${cfg.repository}:/repository" ];
 

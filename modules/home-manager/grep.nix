@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   programs = {
     grep = {
       enable = true;

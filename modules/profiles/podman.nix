@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   virtualisation = {
     containers.registries.search = [ "docker.io" ];
 

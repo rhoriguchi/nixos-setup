@@ -1,10 +1,16 @@
-{ config, interfaces, lib, ... }:
+{
+  config,
+  interfaces,
+  lib,
+  ...
+}:
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
 
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
-in {
+in
+{
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.accept_redirects" = 0;
     "net.ipv4.conf.default.accept_redirects" = 0;
@@ -73,8 +79,11 @@ in {
             type filter hook forward priority filter; policy accept;
 
             iifname { ${
-              lib.concatStringsSep ", "
-              (lib.filter (interface: lib.hasPrefix internalInterface interface) config.networking.nat.internalInterfaces)
+              lib.concatStringsSep ", " (
+                lib.filter (
+                  interface: lib.hasPrefix internalInterface interface
+                ) config.networking.nat.internalInterfaces
+              )
             } } jump lan-filter
 
             oifname { ${config.networking.nat.externalInterface} } meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
@@ -96,13 +105,17 @@ in {
 
             ${
               let
-                rules = map (forwardPort:
+                rules = map (
+                  forwardPort:
                   let
                     splits = lib.splitString ":" forwardPort.destination;
                     ip = lib.head splits;
                     port = lib.last splits;
-                  in "ip saddr @rfc1918 ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept") config.networking.nat.forwardPorts;
-              in lib.concatStringsSep "\n" rules
+                  in
+                  "ip saddr @rfc1918 ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept"
+                ) config.networking.nat.forwardPorts;
+              in
+              lib.concatStringsSep "\n" rules
             }
 
             ip saddr ${ips.server} ip daddr @trusted_vlan meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
@@ -118,8 +131,11 @@ in {
 
           chain dns-filter {
             iifname { ${
-              lib.concatStringsSep ", " ([ "br0" ] ++ lib.optional config.virtualisation.docker.enable "docker0"
-                ++ lib.optional config.virtualisation.podman.enable "podman0")
+              lib.concatStringsSep ", " (
+                [ "br0" ]
+                ++ lib.optional config.virtualisation.docker.enable "docker0"
+                ++ lib.optional config.virtualisation.podman.enable "podman0"
+              )
             } } accept
 
             reject

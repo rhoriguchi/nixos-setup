@@ -1,4 +1,9 @@
-{ colors, lib, pkgs, ... }:
+{
+  colors,
+  lib,
+  pkgs,
+  ...
+}:
 let
   extensions = [
     pkgs.gnomeExtensions.alphabetical-app-grid
@@ -13,7 +18,8 @@ let
     pkgs.gnomeExtensions.user-themes
     pkgs.gnomeExtensions.window-is-ready-remover
   ];
-in {
+in
+{
   home.packages = extensions;
 
   dconf = {
@@ -31,8 +37,16 @@ in {
       "org/gnome/desktop/calendar".show-weekdate = true;
       "org/gnome/desktop/datetime".automatic-timezone = true;
       # needed for US keyboard
-      "org/gnome/desktop/input-sources".sources =
-        [ (lib.hm.gvariant.mkTuple [ "xkb" "ch+de_nodeadkeys" ]) (lib.hm.gvariant.mkTuple [ "xkb" "us" ]) ];
+      "org/gnome/desktop/input-sources".sources = [
+        (lib.hm.gvariant.mkTuple [
+          "xkb"
+          "ch+de_nodeadkeys"
+        ])
+        (lib.hm.gvariant.mkTuple [
+          "xkb"
+          "us"
+        ])
+      ];
       "org/gnome/desktop/interface" = {
         clock-show-seconds = true;
         clock-show-weekday = true;
@@ -109,8 +123,9 @@ in {
       };
       "org/gnome/shell" = {
         app-picker-layout = [ ];
-        enabled-extensions =
-          map (extension: if lib.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid) extensions;
+        enabled-extensions = map (
+          extension: if lib.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid
+        ) extensions;
         favorite-apps = [ ];
         welcome-dialog-last-shown-version = "9999999999";
       };
@@ -249,7 +264,11 @@ in {
         icon-shadow-position = "(0,2,5)";
         maximized-opacity = 255;
         maximized-text-color = "(255,255,255)";
-        panel-color = [ 0 0 0 ];
+        panel-color = [
+          0
+          0
+          0
+        ];
         remove-panel-styling = true;
         text-color = "(255,255,255)";
         text-shadow = false;

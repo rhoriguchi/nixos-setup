@@ -1,4 +1,10 @@
-{ config, lib, secrets, ... }: {
+{
+  config,
+  lib,
+  secrets,
+  ...
+}:
+{
   imports = [
     ../common.nix
 
@@ -25,10 +31,12 @@
 
     device = "nodev";
 
-    mirroredBoots = [{
-      devices = [ "/dev/disk/by-uuid/6054-F72D" ];
-      path = "/boot-mirror";
-    }];
+    mirroredBoots = [
+      {
+        devices = [ "/dev/disk/by-uuid/6054-F72D" ];
+        path = "/boot-mirror";
+      }
+    ];
   };
 
   networking = {
@@ -40,7 +48,10 @@
       wlp11s0.useDHCP = true;
     };
 
-    firewall.allowedTCPPorts = [ config.services.nginx.defaultHTTPListenPort config.services.nginx.defaultSSLListenPort ];
+    firewall.allowedTCPPorts = [
+      config.services.nginx.defaultHTTPListenPort
+      config.services.nginx.defaultSSLListenPort
+    ];
   };
 
   services.resilio = {

@@ -1,4 +1,5 @@
-{ config, secrets, ... }: {
+{ config, secrets, ... }:
+{
   services.recyclarr = {
     enable = true;
 

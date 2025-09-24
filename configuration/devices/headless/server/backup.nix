@@ -1,6 +1,13 @@
-{ config, lib, pkgs, ... }:
-let backupDir = "/mnt/Data/Backup/${config.networking.hostName}";
-in {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  backupDir = "/mnt/Data/Backup/${config.networking.hostName}";
+in
+{
   services = {
     borgmatic = {
       enable = true;
@@ -26,24 +33,29 @@ in {
           config.services.tautulli.dataDir
         ];
 
-        repositories = [{
-          label = "local";
-          path = backupDir;
-        }];
+        repositories = [
+          {
+            label = "local";
+            path = backupDir;
+          }
+        ];
 
-        hooks.postgresql_databases = let
-          commands = lib.optionals config.security.sudo.enable [ "${config.security.sudo.package}/bin/sudo" ]
-            ++ lib.optionals config.security.sudo-rs.enable [ "${config.security.sudo-rs.package}/bin/sudo" ]
-            ++ lib.optionals config.security.doas.enable [ "${config.security.doas.package}/bin/doas" ];
+        hooks.postgresql_databases =
+          let
+            commands =
+              lib.optionals config.security.sudo.enable [ "${config.security.sudo.package}/bin/sudo" ]
+              ++ lib.optionals config.security.sudo-rs.enable [ "${config.security.sudo-rs.package}/bin/sudo" ]
+              ++ lib.optionals config.security.doas.enable [ "${config.security.doas.package}/bin/doas" ];
 
-          command = lib.findFirst (command: true) "${pkgs.sudo}/bin/sudo" commands;
-        in lib.optional config.services.postgresql.enable {
-          name = "all";
-          format = "custom";
-          psql_command = "${command} -u postgres ${config.services.postgresql.package}/bin/psql";
-          pg_dump_command = "${command} -u postgres ${config.services.postgresql.package}/bin/pg_dump";
-          pg_restore_command = "${command} -u postgres ${config.services.postgresql.package}/bin/pg_restore";
-        };
+            command = lib.findFirst (_: true) "${pkgs.sudo}/bin/sudo" commands;
+          in
+          lib.optional config.services.postgresql.enable {
+            name = "all";
+            format = "custom";
+            psql_command = "${command} -u postgres ${config.services.postgresql.package}/bin/psql";
+            pg_dump_command = "${command} -u postgres ${config.services.postgresql.package}/bin/pg_dump";
+            pg_restore_command = "${command} -u postgres ${config.services.postgresql.package}/bin/pg_restore";
+          };
       };
     };
 

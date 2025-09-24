@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   programs = {
     ghostty.settings.shell-integration = "zsh";
     tmux.shell = "${config.programs.zsh.package}/bin/zsh";
@@ -28,11 +34,13 @@
         share = true;
       };
 
-      plugins = [{
-        name = pkgs.zsh-nix-shell.pname;
-        file = "nix-shell.plugin.zsh";
-        src = "${pkgs.zsh-nix-shell}/share/${pkgs.zsh-nix-shell.pname}";
-      }];
+      plugins = [
+        {
+          name = pkgs.zsh-nix-shell.pname;
+          file = "nix-shell.plugin.zsh";
+          src = "${pkgs.zsh-nix-shell}/share/${pkgs.zsh-nix-shell.pname}";
+        }
+      ];
 
       sessionVariables = {
         DIRSTACKSIZE = "20";

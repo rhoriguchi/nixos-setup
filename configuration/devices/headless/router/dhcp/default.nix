@@ -3,21 +3,24 @@ let
   internalInterface = interfaces.internal;
 
   ips = import ./ips.nix;
-in {
-  networking.firewall.interfaces = let
-    rules.allowedUDPPorts = [
-      67 # DHCP
-    ];
-  in {
-    "${internalInterface}" = rules;
-    "${internalInterface}.2" = rules;
-    "${internalInterface}.3" = rules;
-    "${internalInterface}.4" = rules;
-    "${internalInterface}.10" = rules;
-    "${internalInterface}.100" = rules;
+in
+{
+  networking.firewall.interfaces =
+    let
+      rules.allowedUDPPorts = [
+        67 # DHCP
+      ];
+    in
+    {
+      "${internalInterface}" = rules;
+      "${internalInterface}.2" = rules;
+      "${internalInterface}.3" = rules;
+      "${internalInterface}.4" = rules;
+      "${internalInterface}.10" = rules;
+      "${internalInterface}.100" = rules;
 
-    br0 = rules;
-  };
+      br0 = rules;
+    };
 
   services.kea.dhcp4 = {
     enable = true;
@@ -50,7 +53,7 @@ in {
           id = 1;
           interface = internalInterface;
           subnet = "192.168.1.0/24";
-          pools = [{ pool = "192.168.1.2 - 192.168.1.254"; }];
+          pools = [ { pool = "192.168.1.2 - 192.168.1.254"; } ];
 
           ddns-qualifying-suffix = "local";
 
@@ -68,16 +71,18 @@ in {
               data = "local";
             }
           ];
-          reservations = [{
-            hw-address = "74:83:c2:74:90:b7";
-            ip-address = ips.cloudKey;
-          }];
+          reservations = [
+            {
+              hw-address = "74:83:c2:74:90:b7";
+              ip-address = ips.cloudKey;
+            }
+          ];
         }
         {
           id = 2;
           interface = "${internalInterface}.2";
           subnet = "192.168.2.0/24";
-          pools = [{ pool = "192.168.2.2 - 192.168.2.254"; }];
+          pools = [ { pool = "192.168.2.2 - 192.168.2.254"; } ];
 
           ddns-qualifying-suffix = "local";
 
@@ -100,7 +105,7 @@ in {
           id = 3;
           interface = "${internalInterface}.3";
           subnet = "192.168.3.0/24";
-          pools = [{ pool = "192.168.3.2 - 192.168.3.254"; }];
+          pools = [ { pool = "192.168.3.2 - 192.168.3.254"; } ];
 
           ddns-qualifying-suffix = "local";
 
@@ -118,16 +123,18 @@ in {
               data = "local";
             }
           ];
-          reservations = [{
-            hw-address = "dc:a6:32:da:9d:b3";
-            ip-address = ips.ulquiorra;
-          }];
+          reservations = [
+            {
+              hw-address = "dc:a6:32:da:9d:b3";
+              ip-address = ips.ulquiorra;
+            }
+          ];
         }
         {
           id = 4;
           interface = "${internalInterface}.4";
           subnet = "192.168.4.0/24";
-          pools = [{ pool = "192.168.4.2 - 192.168.4.254"; }];
+          pools = [ { pool = "192.168.4.2 - 192.168.4.254"; } ];
 
           ddns-qualifying-suffix = "local";
 
@@ -150,7 +157,7 @@ in {
           id = 10;
           interface = "${internalInterface}.10";
           subnet = "192.168.10.0/24";
-          pools = [{ pool = "192.168.10.2 - 192.168.10.254"; }];
+          pools = [ { pool = "192.168.10.2 - 192.168.10.254"; } ];
 
           ddns-qualifying-suffix = "local";
 
@@ -168,16 +175,18 @@ in {
               data = "local";
             }
           ];
-          reservations = [{
-            hw-address = "c8:7f:54:03:bd:79";
-            ip-address = ips.server;
-          }];
+          reservations = [
+            {
+              hw-address = "c8:7f:54:03:bd:79";
+              ip-address = ips.server;
+            }
+          ];
         }
         {
           id = 100;
           interface = "${internalInterface}.100";
           subnet = "192.168.100.0/24";
-          pools = [{ pool = "192.168.100.2 - 192.168.100.254"; }];
+          pools = [ { pool = "192.168.100.2 - 192.168.100.254"; } ];
 
           ddns-qualifying-suffix = "local";
 
@@ -201,7 +210,7 @@ in {
           id = 999;
           interface = "br0";
           subnet = "172.16.1.0/24";
-          pools = [{ pool = "172.16.1.2 - 172.16.1.254"; }];
+          pools = [ { pool = "172.16.1.2 - 172.16.1.254"; } ];
 
           ddns-send-updates = false;
 
@@ -218,11 +227,13 @@ in {
         }
       ];
 
-      loggers = [{
-        name = "kea-dhcp4.commands";
-        severity = "ERROR";
-        output_options = [{ output = "stdout"; }];
-      }];
+      loggers = [
+        {
+          name = "kea-dhcp4.commands";
+          severity = "ERROR";
+          output_options = [ { output = "stdout"; } ];
+        }
+      ];
     };
   };
 }

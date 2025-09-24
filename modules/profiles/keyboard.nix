@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   console.useXkbConfig = true;
 
   services.xserver.xkb = {
@@ -7,8 +8,14 @@
     variant = "de_nodeadkeys";
   };
 
-  programs.dconf.profiles.user.databases = [{
-    settings."org/gnome/desktop/input-sources".sources =
-      [ (lib.gvariant.mkTuple [ "xkb" "${config.services.xserver.xkb.layout}+${config.services.xserver.xkb.variant}" ]) ];
-  }];
+  programs.dconf.profiles.user.databases = [
+    {
+      settings."org/gnome/desktop/input-sources".sources = [
+        (lib.gvariant.mkTuple [
+          "xkb"
+          "${config.services.xserver.xkb.layout}+${config.services.xserver.xkb.variant}"
+        ])
+      ];
+    }
+  ];
 }

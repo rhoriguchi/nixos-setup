@@ -30,196 +30,231 @@ let
     };
   };
 
-  createSwitchAutomations = let steps = 6;
-  in data: [
-    {
-      alias = "Toggle ${data.name} lights";
-      triggers = [{
-        trigger = "event";
-        event_type = "hue_event";
-        event_data = {
-          id = data.switch.id;
-          unique_id = data.switch.buttons.power;
-          type = "initial_press";
-        };
-      }];
-      actions = [{
-        action = "light.toggle";
-        target.entity_id = data.targetId;
-      }];
-    }
-    {
-      alias = "Brighten ${data.name} lights";
-      triggers = [
-        {
-          trigger = "event";
-          event_type = "hue_event";
-          event_data = {
-            id = data.switch.id;
-            unique_id = data.switch.buttons.up;
-            type = "initial_press";
-          };
-        }
-        {
-          trigger = "event";
-          event_type = "hue_event";
-          event_data = {
-            id = data.switch.id;
-            unique_id = data.switch.buttons.up;
-            type = "repeat";
-          };
-        }
-      ];
-      conditions = [{
-        condition = "numeric_state";
-        entity_id = data.targetId;
-        attribute = "brightness";
-        above = 0;
-      }];
-      actions = [{
-        action = "light.turn_on";
-        target.entity_id = data.targetId;
-        data.brightness = ''
-          {% set step = (255 / ${toString steps}) | int %}
-          {% set current_brightness = state_attr('${data.targetId}', 'brightness') | int(0) %}
-          {% set new_brightness = current_brightness + step %}
+  createSwitchAutomations =
+    let
+      steps = 6;
+    in
+    data: [
+      {
+        alias = "Toggle ${data.name} lights";
+        triggers = [
+          {
+            trigger = "event";
+            event_type = "hue_event";
+            event_data = {
+              id = data.switch.id;
+              unique_id = data.switch.buttons.power;
+              type = "initial_press";
+            };
+          }
+        ];
+        actions = [
+          {
+            action = "light.toggle";
+            target.entity_id = data.targetId;
+          }
+        ];
+      }
+      {
+        alias = "Brighten ${data.name} lights";
+        triggers = [
+          {
+            trigger = "event";
+            event_type = "hue_event";
+            event_data = {
+              id = data.switch.id;
+              unique_id = data.switch.buttons.up;
+              type = "initial_press";
+            };
+          }
+          {
+            trigger = "event";
+            event_type = "hue_event";
+            event_data = {
+              id = data.switch.id;
+              unique_id = data.switch.buttons.up;
+              type = "repeat";
+            };
+          }
+        ];
+        conditions = [
+          {
+            condition = "numeric_state";
+            entity_id = data.targetId;
+            attribute = "brightness";
+            above = 0;
+          }
+        ];
+        actions = [
+          {
+            action = "light.turn_on";
+            target.entity_id = data.targetId;
+            data.brightness = ''
+              {% set step = (255 / ${toString steps}) | int %}
+              {% set current_brightness = state_attr('${data.targetId}', 'brightness') | int(0) %}
+              {% set new_brightness = current_brightness + step %}
 
 
-          {% if current_brightness == 0 %}
-            0
-          {% elif new_brightness >= (255 - step) %}
-            255
-          {% else %}
-            {{ new_brightness }}
-          {% endif %}
-        '';
-      }];
-    }
-    {
-      alias = "Dim ${data.name} lights";
-      triggers = [
-        {
-          trigger = "event";
-          event_type = "hue_event";
-          event_data = {
-            id = data.switch.id;
-            unique_id = data.switch.buttons.down;
-            type = "initial_press";
-          };
-        }
-        {
-          trigger = "event";
-          event_type = "hue_event";
-          event_data = {
-            id = data.switch.id;
-            unique_id = data.switch.buttons.down;
-            type = "repeat";
-          };
-        }
-      ];
-      conditions = [{
-        condition = "numeric_state";
-        entity_id = data.targetId;
-        attribute = "brightness";
-        above = 0;
-      }];
-      actions = [{
-        action = "light.turn_on";
-        target.entity_id = data.targetId;
-        data.brightness = ''
-          {% set step = (255 / ${toString steps}) | int %}
-          {% set current_brightness = state_attr('${data.targetId}', 'brightness') | int(0) %}
-          {% set new_brightness = current_brightness - step %}
+              {% if current_brightness == 0 %}
+                0
+              {% elif new_brightness >= (255 - step) %}
+                255
+              {% else %}
+                {{ new_brightness }}
+              {% endif %}
+            '';
+          }
+        ];
+      }
+      {
+        alias = "Dim ${data.name} lights";
+        triggers = [
+          {
+            trigger = "event";
+            event_type = "hue_event";
+            event_data = {
+              id = data.switch.id;
+              unique_id = data.switch.buttons.down;
+              type = "initial_press";
+            };
+          }
+          {
+            trigger = "event";
+            event_type = "hue_event";
+            event_data = {
+              id = data.switch.id;
+              unique_id = data.switch.buttons.down;
+              type = "repeat";
+            };
+          }
+        ];
+        conditions = [
+          {
+            condition = "numeric_state";
+            entity_id = data.targetId;
+            attribute = "brightness";
+            above = 0;
+          }
+        ];
+        actions = [
+          {
+            action = "light.turn_on";
+            target.entity_id = data.targetId;
+            data.brightness = ''
+              {% set step = (255 / ${toString steps}) | int %}
+              {% set current_brightness = state_attr('${data.targetId}', 'brightness') | int(0) %}
+              {% set new_brightness = current_brightness - step %}
 
-          {% if current_brightness == 0 %}
-            0
-          {% elif new_brightness <= step %}
-            {{ current_brightness }}
-          {% else %}
-            {{ new_brightness }}
-          {% endif %}
-        '';
-      }];
-    }
-  ];
-in {
+              {% if current_brightness == 0 %}
+                0
+              {% elif new_brightness <= step %}
+                {{ current_brightness }}
+              {% else %}
+                {{ new_brightness }}
+              {% endif %}
+            '';
+          }
+        ];
+      }
+    ];
+in
+{
   services.home-assistant.config.automation = [
     {
       alias = "Reset office Signe Gradient wall when turned on";
-      triggers = [{
-        trigger = "state";
-        entity_id = "light.office_signe_gradient_wall";
-        from = "off";
-        to = "on";
-      }];
-      actions = [{
-        action = "light.turn_on";
-        target.entity_id = "light.office_signe_gradient_wall";
-        data.color_temp_kelvin = 3600;
-      }];
+      triggers = [
+        {
+          trigger = "state";
+          entity_id = "light.office_signe_gradient_wall";
+          from = "off";
+          to = "on";
+        }
+      ];
+      actions = [
+        {
+          action = "light.turn_on";
+          target.entity_id = "light.office_signe_gradient_wall";
+          data.color_temp_kelvin = 3600;
+        }
+      ];
     }
     {
       alias = "Reset office Signe Gradient door when turned on";
-      triggers = [{
-        trigger = "state";
-        entity_id = "light.office_signe_gradient_door";
-        from = "off";
-        to = "on";
-      }];
-      actions = [{
-        action = "light.turn_on";
-        target.entity_id = "light.office_signe_gradient_door";
-        data.color_temp_kelvin = 3600;
-      }];
+      triggers = [
+        {
+          trigger = "state";
+          entity_id = "light.office_signe_gradient_door";
+          from = "off";
+          to = "on";
+        }
+      ];
+      actions = [
+        {
+          action = "light.turn_on";
+          target.entity_id = "light.office_signe_gradient_door";
+          data.color_temp_kelvin = 3600;
+        }
+      ];
     }
 
     {
       alias = "Toggle dining room standing light";
-      triggers = [{
-        trigger = "event";
-        event_type = "hue_event";
-        event_data = {
-          id = switches.bedroom.id;
-          unique_id = switches.bedroom.buttons.hue;
-          type = "initial_press";
-        };
-      }];
-      actions = [{
-        action = "light.toggle";
-        target.entity_id = "light.dining_room_standing_lamp";
-      }];
+      triggers = [
+        {
+          trigger = "event";
+          event_type = "hue_event";
+          event_data = {
+            id = switches.bedroom.id;
+            unique_id = switches.bedroom.buttons.hue;
+            type = "initial_press";
+          };
+        }
+      ];
+      actions = [
+        {
+          action = "light.toggle";
+          target.entity_id = "light.dining_room_standing_lamp";
+        }
+      ];
     }
     {
       alias = "Toggle living room table light";
-      triggers = [{
-        trigger = "event";
-        event_type = "hue_event";
-        event_data = {
-          id = switches.living_room.id;
-          unique_id = switches.living_room.buttons.hue;
-          type = "initial_press";
-        };
-      }];
-      actions = [{
-        action = "light.toggle";
-        target.entity_id = "light.living_room_table_lamp";
-      }];
+      triggers = [
+        {
+          trigger = "event";
+          event_type = "hue_event";
+          event_data = {
+            id = switches.living_room.id;
+            unique_id = switches.living_room.buttons.hue;
+            type = "initial_press";
+          };
+        }
+      ];
+      actions = [
+        {
+          action = "light.toggle";
+          target.entity_id = "light.living_room_table_lamp";
+        }
+      ];
     }
-  ] ++ lib.flatten (map (data: createSwitchAutomations data) [
-    {
-      name = "bedroom";
-      targetId = "light.group_switch_bedroom";
-      switch = switches.bedroom;
-    }
-    {
-      name = "living room";
-      targetId = "light.group_switch_living_room";
-      switch = switches.living_room;
-    }
-    {
-      name = "office";
-      targetId = "light.group_switch_office";
-      switch = switches.office;
-    }
-  ]);
+  ]
+  ++ lib.flatten (
+    map (data: createSwitchAutomations data) [
+      {
+        name = "bedroom";
+        targetId = "light.group_switch_bedroom";
+        switch = switches.bedroom;
+      }
+      {
+        name = "living room";
+        targetId = "light.group_switch_living_room";
+        switch = switches.living_room;
+      }
+      {
+        name = "office";
+        targetId = "light.group_switch_office";
+        switch = switches.office;
+      }
+    ]
+  );
 }

@@ -1,40 +1,49 @@
-{ config, lib, pkgs, secrets, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  secrets,
+  ...
+}:
+{
   imports = lib.custom.getImports ./.;
 
   services.home-assistant = {
     enable = true;
 
-    package = (pkgs.home-assistant.overrideAttrs (oldAttrs: {
-      doCheck = false;
-      doInstallCheck = false;
+    package =
+      (pkgs.home-assistant.overrideAttrs (oldAttrs: {
+        doCheck = false;
+        doInstallCheck = false;
 
-      patches = (oldAttrs.patches or [ ]) ++ [ ./patches/govee-light-local-scane-interval.patch ];
-    })).override {
-      extraPackages = ps: [
-        # Discord
-        ps.setuptools
+        patches = (oldAttrs.patches or [ ]) ++ [ ./patches/govee-light-local-scane-interval.patch ];
+      })).override
+        {
+          extraPackages = ps: [
+            # Discord
+            ps.setuptools
 
-        # Postgres
-        ps.psycopg2
-      ];
+            # Postgres
+            ps.psycopg2
+          ];
 
-      extraComponents = [
-        "default_config"
+          extraComponents = [
+            "default_config"
 
-        "repairs"
-        "update"
+            "repairs"
+            "update"
 
-        # Manual added integrations
-        "airgradient"
-        "deluge"
-        "discord"
-        "govee_light_local"
-        "homekit_controller"
-        "hue"
-        "mobile_app"
-        "shelly"
-      ];
-    };
+            # Manual added integrations
+            "airgradient"
+            "deluge"
+            "discord"
+            "govee_light_local"
+            "homekit_controller"
+            "hue"
+            "mobile_app"
+            "shelly"
+          ];
+        };
 
     config = {
       homeassistant = {

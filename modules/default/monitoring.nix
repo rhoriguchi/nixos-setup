@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.monitoring;
 
@@ -9,17 +14,33 @@ let
 
   wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
 
-  keaEnabled = lib.any (service: service.enable) [ config.services.kea.dhcp4 config.services.kea.dhcp6 ];
+  keaEnabled = lib.any (service: service.enable) [
+    config.services.kea.dhcp4
+    config.services.kea.dhcp6
+  ];
 
-  frrEnabled = lib.any (service: config.services.frr.${service}.enable) [ "bfdd" "bgpd" "ospfd" "pimd" ];
+  frrEnabled = lib.any (service: config.services.frr.${service}.enable) [
+    "bfdd"
+    "bgpd"
+    "ospfd"
+    "pimd"
+  ];
 
   redisEnabled = lib.any (server: server.enable) (lib.attrValues config.services.redis.servers);
 
   hasCerts = lib.attrNames config.security.acme.certs != [ ];
-in {
+in
+{
   options.services.monitoring = {
     enable = lib.mkEnableOption "Monitoring with Netdata";
-    type = lib.mkOption { type = lib.types.nullOr (lib.types.enum [ "parent" "child" ]); };
+    type = lib.mkOption {
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "parent"
+          "child"
+        ]
+      );
+    };
     parentHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
     apiKey = lib.mkOption { type = lib.types.str; };
     claimToken = lib.mkOption { type = lib.types.nullOr lib.types.str; };
@@ -91,10 +112,16 @@ in {
 
       loki.configuration.server.register_instrumentation = true;
 
-      mysql.ensureUsers = [{
-        name = "netdata";
-        ensurePermissions."*.*" = lib.concatStringsSep ", " [ "PROCESS" "REPLICATION CLIENT" "USAGE" ];
-      }];
+      mysql.ensureUsers = [
+        {
+          name = "netdata";
+          ensurePermissions."*.*" = lib.concatStringsSep ", " [
+            "PROCESS"
+            "REPLICATION CLIENT"
+            "USAGE"
+          ];
+        }
+      ];
 
       nginx.statusPage = true;
 
@@ -132,7 +159,8 @@ in {
         kea = {
           enable = keaEnabled;
 
-          targets = lib.optional config.services.kea.dhcp4.enable "/run/kea/kea-dhcp4.socket"
+          targets =
+            lib.optional config.services.kea.dhcp4.enable "/run/kea/kea-dhcp4.socket"
             ++ lib.optional config.services.kea.dhcp6.enable "/run/kea/kea-dhcp6.socket";
         };
       };
@@ -155,17 +183,19 @@ in {
             http-host = "127.0.0.1";
             http-port = 8000;
 
-            control-sockets = lib.optionalAttrs config.services.kea.dhcp4.enable {
-              dhcp4 = {
-                socket-type = "unix";
-                socket-name = "/run/kea/kea-dhcp4.socket";
+            control-sockets =
+              lib.optionalAttrs config.services.kea.dhcp4.enable {
+                dhcp4 = {
+                  socket-type = "unix";
+                  socket-name = "/run/kea/kea-dhcp4.socket";
+                };
+              }
+              // lib.optionalAttrs config.services.kea.dhcp6.enable {
+                dhcp6 = {
+                  socket-type = "unix";
+                  socket-name = "/run/kea/kea-dhcp6.socket";
+                };
               };
-            } // lib.optionalAttrs config.services.kea.dhcp6.enable {
-              dhcp6 = {
-                socket-type = "unix";
-                socket-name = "/run/kea/kea-dhcp6.socket";
-              };
-            };
           };
         };
       };
@@ -199,184 +229,239 @@ in {
 
           # S.M.A.R.T. collector
           pkgs.smartmontools
-        ] ++ lib.optional config.services.fail2ban.enable config.services.fail2ban.package
-          ++ lib.optional config.services.samba.enable config.services.samba.package;
+        ]
+        ++ lib.optional config.services.fail2ban.enable config.services.fail2ban.package
+        ++ lib.optional config.services.samba.enable config.services.samba.package;
 
-        config = {
-          parent = {
-            db = {
-              mode = "dbengine";
-              "storage tiers" = 3;
+        config =
+          {
+            parent = {
+              db = {
+                mode = "dbengine";
+                "storage tiers" = 3;
 
-              # Tier 0, per second data
-              "dbengine tier 0 disk space MB" = 0;
-              "dbengine tier 0 retention days" = 14;
+                # Tier 0, per second data
+                "dbengine tier 0 disk space MB" = 0;
+                "dbengine tier 0 retention days" = 14;
 
-              # Tier 1, per minute data
-              "dbengine tier 1 disk space MB" = 0;
-              "dbengine tier 1 retention days" = 30 * 3;
+                # Tier 1, per minute data
+                "dbengine tier 1 disk space MB" = 0;
+                "dbengine tier 1 retention days" = 30 * 3;
 
-              # Tier 2, per hour data
-              "dbengine tier 2 disk space MB" = 0;
-              "dbengine tier 2 retention days" = 30 * 12;
+                # Tier 2, per hour data
+                "dbengine tier 2 disk space MB" = 0;
+                "dbengine tier 2 retention days" = 30 * 12;
+              };
+
+              web = {
+                "bind to" = lib.concatStringsSep " " [
+                  "127.0.0.1:${toString cfg.webPort}=dashboard|registry|badges|management|netdata.conf"
+                  "${wireguardIps.${config.networking.hostName}}:${toString streamPort}=streaming"
+                ];
+
+                "enable gzip compression" = "no";
+              };
             };
 
-            web = {
-              "bind to" = lib.concatStringsSep " " [
-                "127.0.0.1:${toString cfg.webPort}=dashboard|registry|badges|management|netdata.conf"
-                "${wireguardIps.${config.networking.hostName}}:${toString streamPort}=streaming"
-              ];
+            child = {
+              db.mode = "ram";
 
-              "enable gzip compression" = "no";
+              web.mode = "none";
             };
-          };
-
-          child = {
-            db.mode = "ram";
-
-            web.mode = "none";
-          };
-        }.${cfg.type};
+          }
+          .${cfg.type};
 
         configDir = {
-          "stream.conf" = (pkgs.formats.ini { }).generate "stream.conf" {
-            parent.${cfg.apiKey}.enabled = "yes";
+          "stream.conf" =
+            (pkgs.formats.ini { }).generate "stream.conf"
+              {
+                parent.${cfg.apiKey}.enabled = "yes";
 
-            child.stream = {
-              enabled = "yes";
+                child.stream = {
+                  enabled = "yes";
 
-              "api key" = cfg.apiKey;
-              destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
-            };
-          }.${cfg.type};
-        } // lib.optionalAttrs config.services.bind.enable {
+                  "api key" = cfg.apiKey;
+                  destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
+                };
+              }
+              .${cfg.type};
+        }
+        // lib.optionalAttrs config.services.bind.enable {
           "go.d/bind.conf" = pkgs.writers.writeYAML "bind.conf" {
-            jobs = [{
-              name = "local";
-              url = "http://127.0.0.1:8653/xml/v3";
-            }];
+            jobs = [
+              {
+                name = "local";
+                url = "http://127.0.0.1:8653/xml/v3";
+              }
+            ];
           };
-        } // lib.optionalAttrs config.services.dnsmasq.enable {
+        }
+        // lib.optionalAttrs config.services.dnsmasq.enable {
           "go.d/dnsmasq_dhcp.conf" = pkgs.writers.writeYAML "dnsmasq_dhcp.conf" {
-            jobs = [{
-              name = "local";
-              leases_path = "/var/lib/dnsmasq/dnsmasq.leases";
-              conf_path = config.services.dnsmasq.finalConfigFile;
-            }];
+            jobs = [
+              {
+                name = "local";
+                leases_path = "/var/lib/dnsmasq/dnsmasq.leases";
+                conf_path = config.services.dnsmasq.finalConfigFile;
+              }
+            ];
           };
-        } // lib.optionalAttrs config.services.dnsmasq.enable {
+        }
+        // lib.optionalAttrs config.services.dnsmasq.enable {
           "go.d/dnsmasq.conf" = pkgs.writers.writeYAML "dnsmasq.conf" {
-            jobs = [{
-              name = "local";
-              address = "127.0.0.1:${toString config.services.dnsmasq.settings.port}";
-            }];
+            jobs = [
+              {
+                name = "local";
+                address = "127.0.0.1:${toString config.services.dnsmasq.settings.port}";
+              }
+            ];
           };
-        } // lib.optionalAttrs config.services.fail2ban.enable {
-          "go.d/fail2ban.conf" = pkgs.writers.writeYAML "fail2ban.conf" { jobs = [{ name = "local"; }]; };
-        } // lib.optionalAttrs config.services.nginx.enable {
+        }
+        // lib.optionalAttrs config.services.fail2ban.enable {
+          "go.d/fail2ban.conf" = pkgs.writers.writeYAML "fail2ban.conf" { jobs = [ { name = "local"; } ]; };
+        }
+        // lib.optionalAttrs config.services.nginx.enable {
           "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
-            jobs = [{
-              name = "nginx";
-              url = "http://127.0.0.1/nginx_status";
-            }];
+            jobs = [
+              {
+                name = "nginx";
+                url = "http://127.0.0.1/nginx_status";
+              }
+            ];
           };
-        } // {
-          "go.d/nvme.conf" = pkgs.writers.writeYAML "nvme.conf" { jobs = [{ name = "local"; }]; };
-        } // {
+        }
+        // {
+          "go.d/nvme.conf" = pkgs.writers.writeYAML "nvme.conf" { jobs = [ { name = "local"; } ]; };
+        }
+        // {
           "go.d/ping.conf" = pkgs.writers.writeYAML "ping.conf" {
             jobs = [
               {
                 name = "dns";
                 update_every = 10;
                 autodetection_retry = 5;
-                hosts = [ "1.1.1.1" "8.8.8.8" "9.9.9.9" ];
+                hosts = [
+                  "1.1.1.1"
+                  "8.8.8.8"
+                  "9.9.9.9"
+                ];
               }
               {
                 name = "internet";
                 update_every = 10;
                 autodetection_retry = 5;
-                hosts = [ "bbc.co.uk" "digitec.ch" "youtube.com" ];
+                hosts = [
+                  "bbc.co.uk"
+                  "digitec.ch"
+                  "youtube.com"
+                ];
               }
               {
                 name = "wireguard";
                 update_every = 10;
                 autodetection_retry = 5;
                 interface = config.services.wireguard-network.interfaceName;
-                hosts = if config.services.wireguard-network.type == "client" then
-                  [ wireguardIps.${config.services.wireguard-network.serverHostname} ]
-                else
-                  lib.attrValues (lib.filterAttrs (key: _: key != config.networking.hostName) wireguardIps);
+                hosts =
+                  if config.services.wireguard-network.type == "client" then
+                    [ wireguardIps.${config.services.wireguard-network.serverHostname} ]
+                  else
+                    lib.attrValues (lib.filterAttrs (key: _: key != config.networking.hostName) wireguardIps);
               }
             ];
           };
-        } // lib.optionalAttrs redisEnabled {
+        }
+        // lib.optionalAttrs redisEnabled {
           "go.d/redis.conf" = pkgs.writers.writeYAML "redis.conf" {
             jobs = lib.mapAttrsToList (key: value: {
               name = key;
               address = "unix://@${value.unixSocket}";
             }) config.services.redis.servers;
           };
-        } // {
-          "go.d/smartctl.conf" = pkgs.writers.writeYAML "smartctl.conf" { jobs = [{ name = "local"; }]; };
-        } // {
+        }
+        // {
+          "go.d/smartctl.conf" = pkgs.writers.writeYAML "smartctl.conf" { jobs = [ { name = "local"; } ]; };
+        }
+        // {
           "go.d/sensors.conf" = pkgs.writers.writeYAML "sensors.conf" {
-            jobs = [{
-              name = "local";
-              binary_path = "${pkgs.lm_sensors}/bin/sensors";
-            }];
+            jobs = [
+              {
+                name = "local";
+                binary_path = "${pkgs.lm_sensors}/bin/sensors";
+              }
+            ];
           };
-        } // {
+        }
+        // {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
-            jobs = lib.optional config.services.borgmatic.enable {
-              name = "Borg";
-              url = "http://127.0.0.1:${toString config.services.borg-exporter.port}/metrics";
-            } ++ lib.optional (config.services.flaresolverr.enable && config.services.flaresolverr.prometheusExporter.enable) {
-              name = "FlareSolverr";
-              url = "http://127.0.0.1:${toString config.services.flaresolverr.prometheusExporter.port}/metrics";
-            } ++ lib.optional frrEnabled {
-              name = "FRRouting";
-              url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
-            } ++ lib.optional config.services.grafana.enable {
-              name = "Grafana";
-              url = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}/metrics";
-            } ++ lib.optional keaEnabled {
-              name = "Kea";
-              url = "http://127.0.0.1:${toString config.services.prometheus.exporters.kea.port}/metrics";
-            } ++ lib.optional config.services.loki.enable {
-              name = "Loki";
-              url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/metrics";
-            } ++ lib.optional config.services.minecraft-servers.enable {
-              name = "Minecraft";
-              url = "http://127.0.0.1:9940/metrics";
-            } ++ lib.optional config.services.promtail.enable {
-              name = "Promtail";
-              url = "http://127.0.0.1:${toString config.services.promtail.configuration.server.http_listen_port}/metrics";
-            } ++ lib.optional config.services.prowlarr.enable {
-              name = "Prowlarr";
-              url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-prowlarr.port}/metrics";
-            } ++ lib.optional config.services.sonarr.enable {
-              name = "Sonarr";
-              url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-sonarr.port}/metrics";
-            } ++ lib.optional config.services.unpoller.enable {
-              name = "Unpoller";
-              url = "http://${config.services.unpoller.prometheus.http_listen}/metrics";
-            };
+            jobs =
+              lib.optional config.services.borgmatic.enable {
+                name = "Borg";
+                url = "http://127.0.0.1:${toString config.services.borg-exporter.port}/metrics";
+              }
+              ++
+                lib.optional
+                  (config.services.flaresolverr.enable && config.services.flaresolverr.prometheusExporter.enable)
+                  {
+                    name = "FlareSolverr";
+                    url = "http://127.0.0.1:${toString config.services.flaresolverr.prometheusExporter.port}/metrics";
+                  }
+              ++ lib.optional frrEnabled {
+                name = "FRRouting";
+                url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
+              }
+              ++ lib.optional config.services.grafana.enable {
+                name = "Grafana";
+                url = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}/metrics";
+              }
+              ++ lib.optional keaEnabled {
+                name = "Kea";
+                url = "http://127.0.0.1:${toString config.services.prometheus.exporters.kea.port}/metrics";
+              }
+              ++ lib.optional config.services.loki.enable {
+                name = "Loki";
+                url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/metrics";
+              }
+              ++ lib.optional config.services.minecraft-servers.enable {
+                name = "Minecraft";
+                url = "http://127.0.0.1:9940/metrics";
+              }
+              ++ lib.optional config.services.promtail.enable {
+                name = "Promtail";
+                url = "http://127.0.0.1:${toString config.services.promtail.configuration.server.http_listen_port}/metrics";
+              }
+              ++ lib.optional config.services.prowlarr.enable {
+                name = "Prowlarr";
+                url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-prowlarr.port}/metrics";
+              }
+              ++ lib.optional config.services.sonarr.enable {
+                name = "Sonarr";
+                url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-sonarr.port}/metrics";
+              }
+              ++ lib.optional config.services.unpoller.enable {
+                name = "Unpoller";
+                url = "http://${config.services.unpoller.prometheus.http_listen}/metrics";
+              };
           };
-        } // lib.optionalAttrs hasCerts {
+        }
+        // lib.optionalAttrs hasCerts {
           "go.d/x509check.conf" = pkgs.writers.writeYAML "x509check.conf" {
             jobs = map (hostname: {
               name = lib.replaceStrings [ "." ] [ "_" ] hostname;
               source = "file:///var/lib/acme/${hostname}/cert.pem";
             }) (lib.attrNames config.security.acme.certs);
           };
-        } // lib.optionalAttrs config.boot.zfs.enabled {
+        }
+        // lib.optionalAttrs config.boot.zfs.enabled {
           "go.d/zfspool.conf" = pkgs.writers.writeYAML "zfspool.conf" {
-            jobs = [{
-              name = "local";
-              binary_path = "${config.boot.zfs.package}/bin/zpool";
-            }];
+            jobs = [
+              {
+                name = "local";
+                binary_path = "${config.boot.zfs.package}/bin/zpool";
+              }
+            ];
           };
-        } // lib.optionalAttrs isParent {
+        }
+        // lib.optionalAttrs isParent {
           "health_alarm_notify.conf" = pkgs.writeTextFile {
             name = "health_alarm_notify.conf";
             text = ''
@@ -434,15 +519,23 @@ in {
 
     users.users.${config.services.netdata.user}.extraGroups =
       # Redis collector
-      lib.optionals redisEnabled (map (server: server.group) (lib.attrValues config.services.redis.servers))
+      lib.optionals redisEnabled (
+        map (server: server.group) (lib.attrValues config.services.redis.servers)
+      )
 
       # Web server collector
       ++ lib.optional config.services.nginx.enable config.services.nginx.group
 
       # X.509 certificate collector
-      ++ (let acmeGroups = lib.unique (map (acme: acme.group) (lib.attrValues config.security.acme.certs));
-      in lib.optionals hasCerts acmeGroups);
+      ++ (
+        let
+          acmeGroups = lib.unique (map (acme: acme.group) (lib.attrValues config.security.acme.certs));
+        in
+        lib.optionals hasCerts acmeGroups
+      );
 
-    networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts = lib.mkIf isParent [ streamPort ];
+    networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts =
+      lib.mkIf isParent
+        [ streamPort ];
   };
 }

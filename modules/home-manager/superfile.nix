@@ -1,16 +1,33 @@
-{ colors, config, lib, pkgs, ... }:
+{
+  colors,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  bookmarks = (map (bookmark:
-    let splits = lib.splitString " " bookmark;
-    in {
-      name = lib.replaceStrings [ "file://${config.home.homeDirectory}/" ] [ "" ] (builtins.elemAt splits (builtins.length splits - 1));
-      location = lib.replaceStrings [ "file://" ] [ "" ] (lib.head splits);
-    }) (lib.filter (bookmark: !(lib.hasPrefix "sftp://" bookmark)) config.gtk.gtk3.bookmarks));
-in {
+  bookmarks = (
+    map (
+      bookmark:
+      let
+        splits = lib.splitString " " bookmark;
+      in
+      {
+        name = lib.replaceStrings [ "file://${config.home.homeDirectory}/" ] [ "" ] (
+          builtins.elemAt splits (builtins.length splits - 1)
+        );
+        location = lib.replaceStrings [ "file://" ] [ "" ] (lib.head splits);
+      }
+    ) (lib.filter (bookmark: !(lib.hasPrefix "sftp://" bookmark)) config.gtk.gtk3.bookmarks)
+  );
+in
+{
   home.file = {
     # TODO do something like this and upstream https://github.com/nix-community/home-manager/blob/f9186c64fcc6ee5f0114547acf9e814c806a640b/modules/programs/superfile.nix#L144-L149
     # "${lib.strings.removePrefix "${config.home.homeDirectory}/" "${config.xdg.dataHome}/superfile/pinned.json"}".source =
-    ".local/share/superfile/pinned.json".source = (pkgs.formats.json { }).generate "pinned.json" bookmarks;
+    ".local/share/superfile/pinned.json".source =
+      (pkgs.formats.json { }).generate "pinned.json"
+        bookmarks;
 
     ".local/share/superfile/firstUseCheck".text = "";
   };
@@ -64,7 +81,10 @@ in {
         error = colors.normal.red;
         hint = "#73c7ec";
         cancel = colors.bright.red;
-        gradient_color = [ colors.normal.white colors.normal.white ];
+        gradient_color = [
+          colors.normal.white
+          colors.normal.white
+        ];
 
         file_panel_top_directory_icon = colors.normal.white;
         file_panel_top_path = colors.normal.white;

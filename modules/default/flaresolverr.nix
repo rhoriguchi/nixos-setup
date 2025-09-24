@@ -1,6 +1,13 @@
-{ config, lib, modulesPath, ... }:
-let cfg = config.services.flaresolverr;
-in {
+{
+  config,
+  lib,
+  modulesPath,
+  ...
+}:
+let
+  cfg = config.services.flaresolverr;
+in
+{
   # TODO switch to nix package and module once no more broken
 
   disabledModules = [ "${modulesPath}/services/misc/flaresolverr.nix" ];
@@ -33,10 +40,15 @@ in {
     virtualisation.oci-containers.containers.flaresolverr = {
       image = "flaresolverr/flaresolverr:v3.4.1";
 
-      ports = [ "127.0.0.1:${toString cfg.port}:8191" ]
-        ++ lib.optional cfg.prometheusExporter.enable "127.0.0.1:${toString cfg.prometheusExporter.port}:8192";
+      ports = [
+        "127.0.0.1:${toString cfg.port}:8191"
+      ]
+      ++ lib.optional cfg.prometheusExporter.enable "127.0.0.1:${toString cfg.prometheusExporter.port}:8192";
 
-      environment = { TZ = config.time.timeZone; } // lib.optionalAttrs cfg.prometheusExporter.enable { PROMETHEUS_ENABLED = "true"; };
+      environment = {
+        TZ = config.time.timeZone;
+      }
+      // lib.optionalAttrs cfg.prometheusExporter.enable { PROMETHEUS_ENABLED = "true"; };
     };
   };
 }

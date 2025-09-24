@@ -1,10 +1,21 @@
-{ config, lib, pkgs, secrets, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  secrets,
+  ...
+}:
 let
   rootBindmountDir = "/mnt/bindmount/sonarr";
   bindmountDir1 = "${rootBindmountDir}/resilio-Series";
   bindmountDir2 = "${rootBindmountDir}/disk-Series";
-in {
-  imports = [ ./deluge ./prowlarr.nix ./recyclarr.nix ];
+in
+{
+  imports = [
+    ./deluge
+    ./prowlarr.nix
+    ./recyclarr.nix
+  ];
 
   users.users.sonarr.extraGroups = [ config.services.deluge.group ];
 
@@ -28,7 +39,14 @@ in {
       depends = [ "/mnt/Data/Series" ];
       device = "/mnt/Data/Series";
       fsType = "fuse.bindfs";
-      options = [ "map=${lib.concatStringsSep ":" [ "root/${config.services.sonarr.user}" "@root/@${config.services.sonarr.group}" ]}" ];
+      options = [
+        "map=${
+          lib.concatStringsSep ":" [
+            "root/${config.services.sonarr.user}"
+            "@root/@${config.services.sonarr.group}"
+          ]
+        }"
+      ];
     };
   };
 
@@ -82,30 +100,47 @@ in {
   };
 
   systemd.services.sonarr-update-tracked-series = {
-    after = [ "network.target" config.systemd.services.sonarr.name ];
+    after = [
+      "network.target"
+      config.systemd.services.sonarr.name
+    ];
 
-    script = let
-      pythonScript = pkgs.writers.writePython3 "update_series.py" {
-        libraries = [ pkgs.python3Packages.pyjwt pkgs.python3Packages.requests ];
+    script =
+      let
+        pythonScript =
+          pkgs.writers.writePython3 "update_series.py"
+            {
+              libraries = [
+                pkgs.python3Packages.pyjwt
+                pkgs.python3Packages.requests
+              ];
 
-        flakeIgnore = [ "E501" ];
-      } (builtins.readFile (pkgs.replaceVars ./update_series.py {
-        sonarApiUrl = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
-        sonarApiKey = secrets.sonarr.apiKey;
-        sonarrRootDir = "${bindmountDir1}/Tv Shows";
+              flakeIgnore = [ "E501" ];
+            }
+            (
+              builtins.readFile (
+                pkgs.replaceVars ./update_series.py {
+                  sonarApiUrl = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
+                  sonarApiKey = secrets.sonarr.apiKey;
+                  sonarrRootDir = "${bindmountDir1}/Tv Shows";
 
-        tvTimeUsername = secrets.tvTime.username;
-        tvTimePassword = secrets.tvTime.password;
+                  tvTimeUsername = secrets.tvTime.username;
+                  tvTimePassword = secrets.tvTime.password;
 
-        excludedTvdbIds = lib.concatStringsSep ", " (map (tvdbId: toString tvdbId) [
-          366924 # Reacher
-          371980 # Severance
-          393204 # Ironheart
-          397060 # Wednesday
-          422712 # Daredevil: Born Again
-        ]);
-      }));
-    in "${pythonScript}";
+                  excludedTvdbIds = lib.concatStringsSep ", " (
+                    map (tvdbId: toString tvdbId) [
+                      366924 # Reacher
+                      371980 # Severance
+                      393204 # Ironheart
+                      397060 # Wednesday
+                      422712 # Daredevil: Born Again
+                    ]
+                  );
+                }
+              )
+            );
+      in
+      "${pythonScript}";
 
     startAt = "*:0/15";
 

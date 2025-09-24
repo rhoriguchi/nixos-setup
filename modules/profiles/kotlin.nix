@@ -1,1 +1,7 @@
-{ pkgs, ... }: { environment.systemPackages = [ pkgs.gradle pkgs.kotlin ]; }
+{ pkgs, ... }:
+{
+  environment.systemPackages = [
+    pkgs.gradle
+    pkgs.kotlin
+  ];
+}

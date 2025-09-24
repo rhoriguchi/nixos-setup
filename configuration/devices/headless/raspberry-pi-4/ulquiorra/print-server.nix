@@ -1,30 +1,42 @@
-{ config, pkgs, secrets, ... }:
-let cupsPort = 631;
-in {
+{
+  config,
+  pkgs,
+  secrets,
+  ...
+}:
+let
+  cupsPort = 631;
+in
+{
   # Required for sane
-  boot.kernelModules = [ "sg" "usblp" ];
+  boot.kernelModules = [
+    "sg"
+    "usblp"
+  ];
 
   hardware = {
-    printers.ensurePrinters = [{
-      name = "Default";
+    printers.ensurePrinters = [
+      {
+        name = "Default";
 
-      # lpinfo -v
-      deviceUri = "hp:/usb/ENVY_4500_series?serial=CN4CS2325205X4";
+        # lpinfo -v
+        deviceUri = "hp:/usb/ENVY_4500_series?serial=CN4CS2325205X4";
 
-      # lpinfo -m
-      model = "HP/hp-envy_4500_series.ppd.gz";
+        # lpinfo -m
+        model = "HP/hp-envy_4500_series.ppd.gz";
 
-      # lpoptions -p Default -l
-      ppdOptions = {
-        ColorModel = "KGray";
-        Duplex = "None";
-        InputSlot = "Auto";
-        MediaType = "Plain";
-        OptionDuplex = "False";
-        OutputMode = "Normal";
-        PageSize = "A4";
-      };
-    }];
+        # lpoptions -p Default -l
+        ppdOptions = {
+          ColorModel = "KGray";
+          Duplex = "None";
+          InputSlot = "Auto";
+          MediaType = "Plain";
+          OptionDuplex = "False";
+          OutputMode = "Normal";
+          PageSize = "A4";
+        };
+      }
+    ];
 
     sane = {
       enable = true;
@@ -50,7 +62,10 @@ in {
       # Firewall port needs to be open and listen address needs to be 0.0.0.0 else discovery does not work
       openFirewall = true;
       listenAddresses = [ "0.0.0.0:${toString cupsPort}" ];
-      allowFrom = [ "127.0.0.1" "192.168.2.*" ];
+      allowFrom = [
+        "127.0.0.1"
+        "192.168.2.*"
+      ];
       browsing = true;
       defaultShared = true;
 
@@ -84,7 +99,10 @@ in {
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "printer.00a.ch" "scanner.00a.ch" ];
+      hostnames = [
+        "printer.00a.ch"
+        "scanner.00a.ch"
+      ];
     };
 
     nginx = {

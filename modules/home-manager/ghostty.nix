@@ -1,4 +1,11 @@
-{ colors, config, lib, pkgs, ... }: {
+{
+  colors,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   home = {
     packages = [ pkgs.nerd-fonts.roboto-mono ];
 
@@ -33,7 +40,11 @@
         font-style-bold = "RobotoMono Nerd Font Bd";
         font-style-italic = "RobotoMono Nerd Font It";
         font-style-bold-italic = "RobotoMono Nerd Font Bd It";
-        font-feature = [ "-calt" "-dlig" "-liga" ];
+        font-feature = [
+          "-calt"
+          "-dlig"
+          "-liga"
+        ];
 
         adjust-cursor-thickness = "150%";
 

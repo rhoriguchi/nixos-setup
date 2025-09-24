@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ./_common.nix
 
@@ -33,5 +39,6 @@
     pkgs.vlc
     pkgs.whatsapp-electron
     pkgs.wpa_supplicant_gui
-  ] ++ lib.optional config.programs.dconf.enable pkgs.dconf-editor;
+  ]
+  ++ lib.optional config.programs.dconf.enable pkgs.dconf-editor;
 }

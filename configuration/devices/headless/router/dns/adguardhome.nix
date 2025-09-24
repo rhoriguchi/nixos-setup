@@ -1,4 +1,11 @@
-{ config, lib, pkgs, secrets, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  secrets,
+  ...
+}:
+{
   services = {
     bind = {
       listenOn = lib.mkForce [ "127.0.0.1" ];
@@ -46,39 +53,53 @@
       host = "127.0.0.1";
 
       mutableSettings = false;
-      settings = assert pkgs.adguardhome.schema_version == 30; {
-        dns = rec {
-          bootstrap_dns = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
-          upstream_dns = bootstrap_dns;
+      settings =
+        assert pkgs.adguardhome.schema_version == 30;
+        {
+          dns = rec {
+            bootstrap_dns = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
+            upstream_dns = bootstrap_dns;
 
-          local_ptr_upstreams = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
+            local_ptr_upstreams = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
 
-          cache_enabled = false;
-          ratelimit = 0;
+            cache_enabled = false;
+            ratelimit = 0;
+          };
+
+          filtering.rewrites =
+            (map (domain: {
+              inherit domain;
+              answer = "${config.networking.hostName}.local";
+            }) config.services.infomaniak.hostnames)
+            ++ (map
+              (domain: {
+                inherit domain;
+                answer = "XXLPitu-Ulquiorra.local";
+              })
+              [
+                "printer.00a.ch"
+                "scanner.00a.ch"
+              ]
+            )
+            ++ (map
+              (domain: {
+                inherit domain;
+                answer = "XXLPitu-Server.local";
+              })
+              [
+                "deluge.00a.ch"
+                "grafana.00a.ch"
+                "home-assistant.00a.ch"
+                "minecraft.00a.ch"
+                "monitoring.00a.ch"
+                "prometheus.00a.ch"
+                "prowlarr.00a.ch"
+                "rustdesk.00a.ch"
+                "sonarr.00a.ch"
+                "tautulli.00a.ch"
+              ]
+            );
         };
-
-        filtering.rewrites = (map (domain: {
-          inherit domain;
-          answer = "${config.networking.hostName}.local";
-        }) config.services.infomaniak.hostnames) ++ (map (domain: {
-          inherit domain;
-          answer = "XXLPitu-Ulquiorra.local";
-        }) [ "printer.00a.ch" "scanner.00a.ch" ]) ++ (map (domain: {
-          inherit domain;
-          answer = "XXLPitu-Server.local";
-        }) [
-          "deluge.00a.ch"
-          "grafana.00a.ch"
-          "home-assistant.00a.ch"
-          "minecraft.00a.ch"
-          "monitoring.00a.ch"
-          "prometheus.00a.ch"
-          "prowlarr.00a.ch"
-          "rustdesk.00a.ch"
-          "sonarr.00a.ch"
-          "tautulli.00a.ch"
-        ]);
-      };
     };
   };
 }

@@ -1,4 +1,5 @@
-{ colors, pkgs, ... }: {
+{ colors, pkgs, ... }:
+{
   # needed for copy
   home.packages = [ pkgs.wl-clipboard ];
 

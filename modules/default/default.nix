@@ -1,1 +1,4 @@
-{ lib, ... }: { imports = lib.custom.getImports ./.; }
+{ lib, ... }:
+{
+  imports = lib.custom.getImports ./.;
+}

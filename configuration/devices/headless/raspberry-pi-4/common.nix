@@ -1,5 +1,9 @@
-{ lib, pkgs, ... }: {
-  imports = [ ../common.nix ./hardware-configuration.nix ];
+{ lib, pkgs, ... }:
+{
+  imports = [
+    ../common.nix
+    ./hardware-configuration.nix
+  ];
 
   boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_rpi4;
 

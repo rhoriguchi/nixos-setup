@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
@@ -8,7 +14,8 @@
 
   time.timeZone = "Europe/Zurich";
 
-  nixpkgs.config.permittedInsecurePackages = [ ]
+  nixpkgs.config.permittedInsecurePackages =
+    [ ]
     # TODO remove when https://github.com/project-chip/connectedhomeip/issues/25688 fixed
     ++ lib.optionals config.services.home-assistant.enable [ "openssl-1.1.1w" ];
 

@@ -1,4 +1,5 @@
-{ colors, lib, ... }: {
+{ colors, lib, ... }:
+{
   programs.starship = {
     enable = true;
 
@@ -6,7 +7,16 @@
       add_newline = false;
       scan_timeout = 10;
 
-      format = lib.concatStrings [ "$username" "$nix_shell" "$python" "$directory" "$git_state" "$git_branch" "$git_status" "$character" ];
+      format = lib.concatStrings [
+        "$username"
+        "$nix_shell"
+        "$python"
+        "$directory"
+        "$git_state"
+        "$git_branch"
+        "$git_status"
+        "$character"
+      ];
 
       username = {
         format = "[\\[$user\\]]($style) ";
