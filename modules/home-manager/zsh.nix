@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -33,14 +32,6 @@
         saveNoDups = true;
         share = true;
       };
-
-      plugins = [
-        {
-          name = pkgs.zsh-nix-shell.pname;
-          file = "nix-shell.plugin.zsh";
-          src = "${pkgs.zsh-nix-shell}/share/${pkgs.zsh-nix-shell.pname}";
-        }
-      ];
 
       sessionVariables = {
         DIRSTACKSIZE = "20";
