@@ -20,9 +20,5 @@
       }
     }/pkgs/servers/plex/raw.nix") { };
   })
-  (_: super: {
-    discord = super.callPackage ./discord.nix { inherit (super) discord; };
-
-    hs = super.callPackage ./hs { };
-  })
+  (_: super: { hs = super.callPackage ./hs { }; })
 ]
