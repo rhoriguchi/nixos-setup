@@ -215,6 +215,7 @@ in
           withLibbacktrace = cfg.debug.enable;
           withML = isParent;
           withNdsudo = true;
+          withOtel = false;
           withSystemdJournal = false;
         };
 

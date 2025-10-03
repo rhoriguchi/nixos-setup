@@ -20,6 +20,16 @@
       }
     }/pkgs/servers/plex/raw.nix") { };
 
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=446721
+    netdata = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "260fa1eda21617509fd2696881efce5960e37a3c";
+        sha256 = "sha256-9Tmbbk8MbdcIcWUXBRyskxAOANCQ/sbXKnQRl2AtQcM=";
+      }
+    }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
+
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=446779
     onedrive = super.python3Packages.callPackage (import "${
       super.fetchFromGitHub {
