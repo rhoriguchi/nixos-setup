@@ -150,6 +150,7 @@
                       useUserPackages = true;
 
                       backupFileExtension = "backup";
+                      overwriteBackup = true;
 
                       extraSpecialArgs = {
                         inherit (self.nixosModules) colors;
