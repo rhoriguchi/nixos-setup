@@ -36,6 +36,8 @@
             basicAuth = secrets.nginx.basicAuth."grafana.00a.ch";
 
             extraConfig = ''
+              proxy_buffering off;
+
               satisfy any;
 
               allow 192.168.2.0/24;
