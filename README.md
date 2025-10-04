@@ -10,7 +10,7 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 
 ### Laptop
 
-### disko
+#### disko
 
 ```console
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode destroy,format,mount ./disko/Laptop.nix
@@ -139,8 +139,6 @@ zfs create \
   -o quota=512G \
   data/sync
 ```
-
-### Router
 
 ## Update flake
 
