@@ -214,26 +214,6 @@ in
       }
     ];
 
-    networking.nftables.tables.resilio =
-      lib.optionalAttrs (lib.attrNames config.networking.wireguard.interfaces != [ ])
-        {
-          family = "inet";
-
-          content = ''
-            chain input {
-              type filter hook input priority filter;
-
-              iifname { ${lib.concatStringsSep ", " (lib.attrNames config.networking.wireguard.interfaces)} } meta l4proto { tcp, udp } th dport { ${toString listeningPort} } drop
-            }
-
-            chain output {
-              type filter hook output priority filter;
-
-              oifname { ${lib.concatStringsSep ", " (lib.attrNames config.networking.wireguard.interfaces)} } meta l4proto { tcp, udp } th dport { ${toString listeningPort} } drop
-            }
-          '';
-        };
-
     users = lib.mkIf cfg.systemWide {
       users.${cfg.user} = {
         isSystemUser = true;
