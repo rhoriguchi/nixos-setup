@@ -26,6 +26,18 @@
     serverHostname = "XXLPitu-Router";
   };
 
+  services.tailscale = {
+    enable = true;
+
+    # TODo allow traffic in between vlans? services.tailscale.port (41641)
+    openFirewall = true;
+
+    authKeyFile = "";
+    extraUpFlags = [ "--login-server headscale.00a.ch" ];
+    # TODO maybe
+    # extraSetFlags = [ "--accept-dns" ];
+  };
+
   users = {
     mutableUsers = false;
 

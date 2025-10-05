@@ -165,6 +165,8 @@ in
         };
       };
 
+      headscale.settings.metrics_listen_addr = "127.0.0.1:9090";
+
       kea = {
         dhcp4.settings.control-socket = {
           socket-type = "unix";
@@ -413,6 +415,10 @@ in
               ++ lib.optional config.services.grafana.enable {
                 name = "Grafana";
                 url = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}/metrics";
+              }
+              ++ lib.optional config.services.headscale.enable {
+                name = "Headscale";
+                url = "http://${config.services.headscale.settings.metrics_listen_addr}/metrics";
               }
               ++ lib.optional keaEnabled {
                 name = "Kea";

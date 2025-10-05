@@ -1,6 +1,7 @@
 {
   colors,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -17,7 +18,8 @@ let
     pkgs.gnomeExtensions.unite
     pkgs.gnomeExtensions.user-themes
     pkgs.gnomeExtensions.window-is-ready-remover
-  ];
+  ]
+  ++ lib.optional osConfig.services.tailscale.enable pkgs.gnomeExtensions.tailscale-status;
 in
 {
   home.packages = extensions;
