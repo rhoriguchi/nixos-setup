@@ -46,7 +46,6 @@ Run in an elevated cmd
 cd %userprofile%/Downloads
 
 curl --location --output NVIDIA_app.exe --url "https://us.download.nvidia.com/nvapp/client/11.0.1.189/NVIDIA_app_v11.0.1.189.exe"
-curl --location --output Razer_Synapse_legacy.exe --url "https://rzr.to/synapse-pc-download"
 
 start %userprofile%/Downloads
 ```
