@@ -140,6 +140,14 @@ zfs create \
   data/sync
 ```
 
+### Router
+
+#### Headscale
+
+```console
+headscale namespaces create tailnet
+```
+
 ## Update flake
 
 ```console
