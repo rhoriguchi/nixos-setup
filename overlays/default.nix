@@ -39,6 +39,16 @@
         sha256 = "sha256-fKimQxk9aReZSS8KufLpR+f/mWDOmcjQ7MwLmGwLVsY=";
       }
     }/pkgs/by-name/on/onedrive/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=449677
+    borgmatic = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "95ead6d497513f80646da927d1d86390ade713ed";
+        sha256 = "sha256-cYswH0Cs+1HVj/KWnTLmDTB4A1t18rcs+yD5N6QWJLA=";
+      }
+    }/pkgs/by-name/bo/borgmatic/package.nix") { };
   })
   (_: super: { hs = super.callPackage ./hs { }; })
 ]
