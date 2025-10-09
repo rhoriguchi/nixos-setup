@@ -85,8 +85,8 @@
       super.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
-        rev = "d06436e1b2c110780a55c92042491c663efd4aae";
-        sha256 = "sha256-BkBu6bPNeadSwQamNvTzS+TQR/G0+i5ainEXT/5Wnas=";
+        rev = "2dca904c1d47a06ae19a9dcfdb74c8e0e599c523";
+        sha256 = "sha256-xsQ0fDEuA7/nAf1mjEQiHv7KJgh8iDdV+D/4n7Kb6z0=";
       }
     }/pkgs/by-name/rt/rtrlib/package.nix") { };
   })
