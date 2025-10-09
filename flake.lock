@@ -307,15 +307,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1758765258,
-        "narHash": "sha256-orU21BYUJn/7zMhIYbY7T5EDqZ8NtRMSH/f8Qtu047Q=",
-        "owner": "Infinidoge",
+        "lastModified": 1759884851,
+        "narHash": "sha256-KoTTx4EBnGfz2Khd6RgB0FAJGZ4+MLgd1dtzMAACre4=",
+        "owner": "PistachioCake",
         "repo": "nix-minecraft",
-        "rev": "5a6c66b90ab4519b7578b54300abc308008c544e",
+        "rev": "06942b0921992dbf960c5fea5759e17a8e6db2ab",
         "type": "github"
       },
       "original": {
-        "owner": "Infinidoge",
+        "owner": "PistachioCake",
         "repo": "nix-minecraft",
         "type": "github"
       }
