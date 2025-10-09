@@ -49,6 +49,46 @@
         sha256 = "sha256-cYswH0Cs+1HVj/KWnTLmDTB4A1t18rcs+yD5N6QWJLA=";
       }
     }/pkgs/by-name/bo/borgmatic/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=448946
+    brlaser = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "c9c2a2f91687c76a9deabb168c18d16612c68432";
+        sha256 = "sha256-jlx0xGYCEgTunCH4wH3KDIKdmujSKPfLSGQ38BGO3O4=";
+      }
+    }/pkgs/by-name/br/brlaser/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=449133
+    intel-graphics-compiler = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "ac194b0e0dd1ad78620bb77c31c6ca54b6ef8caf";
+        sha256 = "sha256-uYoWkJDyKTKoTcCDwMhiHiwjygidMM7kkG+o3i9pKZ0=";
+      }
+    }/pkgs/by-name/in/intel-graphics-compiler/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=449772
+    libraspberrypi = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "fe9c50a981240746b37b1d2966b4c06576278ee0";
+        sha256 = "sha256-staO0aKIMTLVbNdqdqqN8BM7JJSXCc0qeoOTpO7fPGg=";
+      }
+    }/pkgs/by-name/li/libraspberrypi/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=450064
+    rtrlib = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "d06436e1b2c110780a55c92042491c663efd4aae";
+        sha256 = "sha256-BkBu6bPNeadSwQamNvTzS+TQR/G0+i5ainEXT/5Wnas=";
+      }
+    }/pkgs/by-name/rt/rtrlib/package.nix") { };
   })
   (_: super: { hs = super.callPackage ./hs { }; })
 ]

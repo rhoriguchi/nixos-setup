@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   secrets,
   ...
 }:
@@ -23,20 +24,24 @@
     ./hardware-configuration.nix
   ];
 
-  boot.loader.grub = {
-    enable = true;
+  boot = {
+    loader.grub = {
+      enable = true;
 
-    efiSupport = true;
-    efiInstallAsRemovable = true;
+      efiSupport = true;
+      efiInstallAsRemovable = true;
 
-    device = "nodev";
+      device = "nodev";
 
-    mirroredBoots = [
-      {
-        devices = [ "/dev/disk/by-uuid/6054-F72D" ];
-        path = "/boot-mirror";
-      }
-    ];
+      mirroredBoots = [
+        {
+          devices = [ "/dev/disk/by-uuid/6054-F72D" ];
+          path = "/boot-mirror";
+        }
+      ];
+    };
+
+    kernelPackages = pkgs.linuxPackages;
   };
 
   networking = {
