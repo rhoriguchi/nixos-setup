@@ -42,9 +42,7 @@
     };
 
     nix-minecraft = {
-      # TODO switch back when https://github.com/Infinidoge/nix-minecraft/pull/176 merged
-      # url = "github:Infinidoge/nix-minecraft";
-      url = "github:PistachioCake/nix-minecraft";
+      url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
