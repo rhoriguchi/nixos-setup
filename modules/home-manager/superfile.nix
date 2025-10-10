@@ -44,9 +44,11 @@ in
 
         code_previewer = lib.optionalString config.programs.bat.enable "bat";
 
-        metadata = true;
-
         ignore_missing_fields = true;
+
+        # Plugins
+        metadata = true;
+        zoxide_support = true;
       };
 
       hotkeys.pinned_folder = [ ];

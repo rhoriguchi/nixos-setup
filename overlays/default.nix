@@ -89,6 +89,16 @@
         sha256 = "sha256-xsQ0fDEuA7/nAf1mjEQiHv7KJgh8iDdV+D/4n7Kb6z0=";
       }
     }/pkgs/by-name/rt/rtrlib/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=450661
+    superfile = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "7191882b004e3d572286737f1afc1e0c783997c5";
+        sha256 = "sha256-reDPwf05bbh0NGCeAy3bGRuIDoINMdpJB4BZy3q+Imw=";
+      }
+    }/pkgs/by-name/su/superfile/package.nix") { };
   })
   (_: super: { hs = super.callPackage ./hs { }; })
 ]
