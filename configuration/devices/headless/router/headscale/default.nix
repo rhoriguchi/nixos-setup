@@ -1,0 +1,298 @@
+{
+  config,
+  lib,
+  pkgs,
+  secrets,
+  ...
+}:
+let
+  hostnames = lib.attrNames secrets.headscale.preAuthKeys;
+  tailscaleIps = import ./ips.nix;
+
+  unixEpoch = "1970-01-01 00:00:00.000000000+00:00";
+  expiration = "2099-01-01 00:00:00.000000000+00:00";
+
+  addApiKeySql = ''
+    DELETE FROM api_keys;
+
+    INSERT OR REPLACE INTO api_keys (
+      id,
+      created_at,
+      expiration,
+      hash,
+      prefix
+    ) VALUES (
+      1,
+      '${unixEpoch}',
+      '${expiration}',
+      X'${secrets.headscale.apiKey.hash}',
+      '${secrets.headscale.apiKey.prefix}'
+    );
+  '';
+
+  addUserSql =
+    let
+      addUser = index: hostname: ''
+        INSERT OR REPLACE INTO users (
+          id,
+          created_at,
+          updated_at,
+          name
+        ) VALUES (
+          ${toString index},
+          '${unixEpoch}',
+          '${expiration}',
+          '${hostname}'
+        );
+      '';
+    in
+    ''
+      DELETE FROM users;
+
+      ${lib.concatStringsSep "\n" (lib.imap1 (index: hostname: addUser index hostname) hostnames)}
+      ${addUser (lib.length hostnames + 1) config.services.headplane.settings.integration.agent.host_name}
+    '';
+
+  addPreAuthKeySql =
+    let
+      addPreAuthKey = index: preAuthKey: ''
+        INSERT INTO pre_auth_keys (
+          ID,
+          USER_ID,
+          created_at,
+          expiration,
+          key,
+          tags,
+          ephemeral,
+          reusable
+        ) VALUES (
+          ${toString index},
+          ${toString index},
+          '${unixEpoch}',
+          '${expiration}',
+          '${preAuthKey}',
+          '[]',
+          0,
+          1
+        );
+      '';
+    in
+    ''
+      DELETE FROM pre_auth_keys;
+
+      ${lib.concatStringsSep "\n" (
+        lib.imap1 (index: hostname: addPreAuthKey index secrets.headscale.preAuthKeys.${hostname}) hostnames
+      )}
+      ${addPreAuthKey (lib.length hostnames + 1) secrets.headplane.agent.preAuthKey}
+    '';
+
+  removeOldNodeSql = ''
+    DELETE FROM nodes
+    WHERE user_id > ${toString (lib.length hostnames + 1)};
+
+    DELETE
+    FROM nodes
+    WHERE id NOT IN
+        (SELECT id
+         FROM nodes AS n1
+         WHERE n1.last_seen =
+             (SELECT MAX(n2.last_seen)
+              FROM nodes AS n2
+              WHERE n2.user_id = n1.user_id));
+  '';
+
+  updateNodeSql = lib.concatStringsSep "\n" (
+    lib.imap1 (index: hostname: ''
+      UPDATE nodes
+      SET given_name = '${lib.toLower hostname}',
+          ipv4 = '${tailscaleIps.${hostname}}'
+      WHERE user_id = ${toString index};
+    '') hostnames
+  );
+in
+{
+  services = {
+    headscale = {
+      enable = true;
+
+      settings = {
+        server_url = "https://headscale.00a.ch";
+
+        prefixes = {
+          allocation = "random";
+          v4 = "100.123.123.0/24";
+          v6 = "fd7a:115c:a1e0::/48";
+        };
+
+        dns = {
+          magic_dns = true;
+          base_domain = "tailnet";
+          override_local_dns = false;
+        };
+
+        derp = {
+          server = {
+            enabled = true;
+
+            stun_listen_addr = "0.0.0.0:3478";
+
+            region_id = 999;
+            region_code = "headscale";
+            region_name = "Headscale Embedded DERP";
+
+            automatically_add_embedded_derp_region = true;
+          };
+
+          urls = [ ];
+          auto_update_enabled = false;
+        };
+      };
+    };
+
+    headplane = {
+      enable = true;
+
+      settings = {
+        server = {
+          host = "127.0.0.1";
+          port = 3001;
+
+          cookie_secret_path = pkgs.writeText "cookieSecret" secrets.headplane.cookieSecret;
+          cookie_secure = true;
+        };
+
+        headscale = {
+          url = "http://127.0.0.1:${toString config.services.headscale.port}";
+          public_url = "https://headscale.00a.ch";
+
+          config_path = (pkgs.formats.yaml { }).generate "headscale.yml" (
+            lib.recursiveUpdate config.services.headscale.settings {
+              acme_email = "/dev/null";
+              tls_cert_path = "/dev/null";
+              tls_key_path = "/dev/null";
+              policy.path = "/dev/null";
+              oidc.client_secret_path = "/dev/null";
+            }
+          );
+
+          config_strict = true;
+        };
+
+        integration = {
+          agent = {
+            enabled = true;
+
+            pre_authkey_path = pkgs.writeText "authKeyFile" secrets.headplane.agent.preAuthKey;
+          };
+
+          proc.enabled = true;
+        };
+      };
+    };
+
+    infomaniak = {
+      enable = true;
+
+      username = secrets.infomaniak.username;
+      password = secrets.infomaniak.password;
+      hostnames = [
+        "headplane.00a.ch"
+        "headscale.00a.ch"
+      ];
+    };
+
+    nginx = {
+      enable = true;
+
+      virtualHosts = {
+        "headplane.00a.ch" = {
+          enableACME = true;
+          forceSSL = true;
+
+          locations = {
+            "/".extraConfig = ''
+              rewrite ^/$ /admin last;
+            '';
+
+            "/admin" = {
+              proxyPass = "http://127.0.0.1:${toString config.services.headplane.settings.server.port}/admin";
+              basicAuth = secrets.nginx.basicAuth."headplane.00a.ch";
+
+              extraConfig = ''
+                satisfy any;
+
+                allow 192.168.2.0/24;
+                deny all;
+              '';
+            };
+          };
+        };
+
+        "headscale.00a.ch" = {
+          enableACME = true;
+          forceSSL = true;
+
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.headscale.port}";
+            proxyWebsockets = true;
+
+            extraConfig = ''
+              proxy_buffering off;
+            '';
+          };
+        };
+      };
+    };
+  };
+
+  systemd.services = {
+    headscale-setup = {
+      enable = config.services.headscale.enable;
+
+      after = [ config.systemd.services.headscale.name ];
+      wants = [ config.systemd.services.headscale.name ];
+
+      script = ''
+        ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+          ${addApiKeySql}
+          ${addUserSql}
+          ${addPreAuthKeySql}
+        EOF
+      '';
+
+      serviceConfig = {
+        User = config.services.headscale.user;
+        Group = config.services.headscale.group;
+        Type = "oneshot";
+      };
+    };
+
+    headscale-update-nodes = {
+      enable = config.services.headscale.enable;
+
+      after = [ config.systemd.services.headscale.name ];
+      wants = [ config.systemd.services.headscale.name ];
+
+      script = ''
+        ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+          ${removeOldNodeSql}
+          ${updateNodeSql}
+        EOF
+      '';
+
+      serviceConfig = {
+        User = config.services.headscale.user;
+        Group = config.services.headscale.group;
+        Type = "oneshot";
+      };
+
+      startAt = "*:*:0/30";
+    };
+  };
+
+  networking.firewall.allowedUDPPorts = [
+    (lib.toIntBase10 (
+      lib.last (lib.splitString ":" config.services.headscale.settings.derp.server.stun_listen_addr)
+    ))
+  ];
+}

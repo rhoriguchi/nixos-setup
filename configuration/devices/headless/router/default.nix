@@ -12,6 +12,7 @@
     ./dhcp
     ./dns
     ./firewall.nix
+    ./headscale
     ./interfaces.nix
     ./networking.nix
     ./unifi.nix
