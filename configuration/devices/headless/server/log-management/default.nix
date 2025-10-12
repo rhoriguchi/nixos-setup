@@ -233,6 +233,7 @@
     log-shipping.useLocalhost = true;
   };
 
-  networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts =
-    [ config.services.loki.configuration.server.http_listen_port ];
+  networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [
+    config.services.loki.configuration.server.http_listen_port
+  ];
 }

@@ -20,7 +20,6 @@
       }
 
       chain ssh-filter {
-        ${lib.optionalString config.services.wireguard-network.enable "iifname { ${config.services.wireguard-network.interfaceName} } accept"}
         ${lib.optionalString config.services.tailscale.enable "iifname { ${config.services.tailscale.interfaceName} } accept"}
         iifname { lo } accept
 

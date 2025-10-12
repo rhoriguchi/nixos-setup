@@ -12,7 +12,9 @@ let
   isParent = cfg.type == "parent";
   isChild = cfg.type == "child";
 
-  wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
+  tailscaleIps = import (
+    lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
+  );
 
   keaEnabled = lib.any (service: service.enable) [
     config.services.kea.dhcp4
@@ -65,12 +67,12 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = config.services.wireguard-network.enable;
-        message = "wireguard-network service must be enabled";
+        assertion = config.services.tailscale.enable;
+        message = "tailscale service must be enabled";
       }
       {
-        assertion = isParent -> lib.elem config.networking.hostName (lib.attrNames wireguardIps);
-        message = "When type is parent hostname must be wireguard host";
+        assertion = isParent -> lib.elem config.networking.hostName (lib.attrNames tailscaleIps);
+        message = "When type is parent hostname must be tailscale host";
       }
       {
         assertion = isParent -> cfg.discordWebhookUrl != null;
@@ -85,8 +87,8 @@ in
         message = "When type is child parentHostname must be set";
       }
       {
-        assertion = isChild -> lib.elem cfg.parentHostname (lib.attrNames wireguardIps);
-        message = "When type is child parentHostname must be wireguard host";
+        assertion = isChild -> lib.elem cfg.parentHostname (lib.attrNames tailscaleIps);
+        message = "When type is child parentHostname must be tailscale host";
       }
     ];
 
@@ -259,7 +261,7 @@ in
               web = {
                 "bind to" = lib.concatStringsSep " " [
                   "127.0.0.1:${toString cfg.webPort}=dashboard|registry|badges|management|netdata.conf"
-                  "${wireguardIps.${config.networking.hostName}}:${toString streamPort}=streaming"
+                  "${tailscaleIps.${config.networking.hostName}}:${toString streamPort}=streaming"
                 ];
 
                 "enable gzip compression" = "no";
@@ -284,7 +286,7 @@ in
                   enabled = "yes";
 
                   "api key" = cfg.apiKey;
-                  destination = "${wireguardIps.${cfg.parentHostname}}:${toString streamPort}";
+                  destination = "${tailscaleIps.${cfg.parentHostname}}:${toString streamPort}";
                 };
               }
               .${cfg.type};
@@ -360,15 +362,11 @@ in
                 ];
               }
               {
-                name = "wireguard";
-                update_every = 10;
+                name = "tailscale";
+                update_every = 60;
                 autodetection_retry = 5;
-                interface = config.services.wireguard-network.interfaceName;
-                hosts =
-                  if config.services.wireguard-network.type == "client" then
-                    [ wireguardIps.${config.services.wireguard-network.serverHostname} ]
-                  else
-                    lib.attrValues (lib.filterAttrs (key: _: key != config.networking.hostName) wireguardIps);
+                interface = config.services.tailscale.interfaceName;
+                hosts = lib.attrValues (lib.filterAttrs (key: _: key != config.networking.hostName) tailscaleIps);
               }
             ];
           };
@@ -541,7 +539,7 @@ in
         lib.optionals hasCerts acmeGroups
       );
 
-    networking.firewall.interfaces.${config.services.wireguard-network.interfaceName}.allowedTCPPorts =
+    networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts =
       lib.mkIf isParent
         [ streamPort ];
   };

@@ -43,8 +43,10 @@ in
     }
     // (
       let
-        wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
-        filteredWireguardIps = lib.filterAttrs (key: _: key != osConfig.networking.hostName) wireguardIps;
+        tailscaleIps = import (
+          lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
+        );
+        filteredTailscaleIps = lib.filterAttrs (key: _: key != osConfig.networking.hostName) tailscaleIps;
       in
       lib.mapAttrs' (
         key: value:
@@ -53,7 +55,7 @@ in
           user = "xxlpitu";
           extraOptions.HostKeyAlias = lib.toLower key;
         }
-      ) filteredWireguardIps
+      ) filteredTailscaleIps
     );
   };
 }

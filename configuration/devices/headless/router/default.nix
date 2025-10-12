@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   secrets,
   ...
@@ -29,11 +28,6 @@
   networking.hostName = "XXLPitu-Router";
 
   services = {
-    wireguard-network = lib.mkForce {
-      enable = true;
-      type = "server";
-    };
-
     infomaniak = {
       enable = true;
 

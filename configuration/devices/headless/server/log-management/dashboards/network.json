@@ -355,7 +355,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "netdata_ping_host_rtt_milliseconds_average{exported_instance=\"$instanceName\", dimension=\"avg\", chart=~\"ping_wireguard\\\\..+\"}",
+          "expr": "netdata_ping_host_rtt_milliseconds_average{exported_instance=\"$instanceName\", dimension=\"avg\", chart=~\"ping_tailscale\\\\..+\"}",
           "format": "table",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -366,7 +366,7 @@
           "useBackend": false
         }
       ],
-      "title": "WireGuard",
+      "title": "Tailscale",
       "transformations": [
         {
           "id": "organize",
@@ -722,7 +722,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "netdata_ping_host_rtt_milliseconds_average{exported_instance=\"$instanceName\", dimension=\"avg\", chart=~\"ping_wireguard\\\\..+\"}",
+          "expr": "netdata_ping_host_rtt_milliseconds_average{exported_instance=\"$instanceName\", dimension=\"avg\", chart=~\"ping_tailscale\\\\..+\"}",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -733,7 +733,7 @@
           "useBackend": false
         }
       ],
-      "title": "WireGuard",
+      "title": "Tailscale",
       "type": "timeseries"
     },
     {
@@ -957,7 +957,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "label_replace(label_replace(abs(sum_over_time(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$wireguardInterface\"}[$__rate_interval]) / 8), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\")",
+          "expr": "label_replace(label_replace(abs(sum_over_time(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$tailscaleInterface\"}[$__rate_interval]) / 8), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\")",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -968,7 +968,7 @@
           "useBackend": false
         }
       ],
-      "title": "Total: $wireguardInterface (WireGuard)",
+      "title": "Total: $tailscaleInterface (Tailscale)",
       "type": "stat"
     },
     {
@@ -1180,7 +1180,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$wireguardInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\")",
+          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$tailscaleInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\")",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": true,
@@ -1191,7 +1191,7 @@
           "useBackend": false
         }
       ],
-      "title": "Bandwith: $wireguardInterface (WireGuard)",
+      "title": "Bandwith: $tailscaleInterface (Tailscale)",
       "type": "stat"
     },
     {
@@ -1476,7 +1476,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$wireguardInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\")",
+          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{exported_instance=\"$instanceName\", device=\"$tailscaleInterface\"}), \"dimension\", \"Down\", \"dimension\", \"received\"), \"dimension\", \"Up\", \"dimension\", \"sent\")",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{dimension}}",
@@ -1485,7 +1485,7 @@
           "useBackend": false
         }
       ],
-      "title": "Bandwith: $wireguardInterface (WireGuard)",
+      "title": "Bandwith: $tailscaleInterface (Tailscale)",
       "type": "timeseries"
     },
     {
@@ -1879,20 +1879,20 @@
       },
       {
         "current": {
-          "text": "wg-management",
-          "value": "wg-management"
+          "text": "tailscale0",
+          "value": "tailscale0"
         },
         "description": "",
         "hide": 2,
-        "name": "wireguardInterface",
+        "name": "tailscaleInterface",
         "options": [
           {
             "selected": true,
-            "text": "wg-management",
-            "value": "wg-management"
+            "text": "tailscale0",
+            "value": "tailscale0"
           }
         ],
-        "query": "wg-management",
+        "query": "tailscale0",
         "type": "custom"
       }
     ]
@@ -1905,6 +1905,6 @@
   "timezone": "browser",
   "title": "Network",
   "uid": "ae5yp992gp8n4f",
-  "version": 8,
+  "version": 9,
   "weekStart": "monday"
 }

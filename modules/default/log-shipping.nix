@@ -2,7 +2,9 @@
 let
   cfg = config.services.log-shipping;
 
-  wireguardIps = import (lib.custom.relativeToRoot "modules/default/wireguard-network/ips.nix");
+  tailscaleIps = import (
+    lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
+  );
 in
 {
   options.services.log-shipping = {
@@ -17,8 +19,8 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = config.services.wireguard-network.enable;
-        message = "wireguard-network service must be enabled";
+        assertion = config.services.tailscale.enable;
+        message = "tailscale service must be enabled";
       }
     ];
 
@@ -38,7 +40,7 @@ in
         clients = [
           {
             url = "http://${
-              if cfg.useLocalhost then "127.0.0.1" else wireguardIps.${cfg.receiverHostname}
+              if cfg.useLocalhost then "127.0.0.1" else tailscaleIps.${cfg.receiverHostname}
             }:3100/loki/api/v1/push";
           }
         ];
