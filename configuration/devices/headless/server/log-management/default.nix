@@ -85,7 +85,7 @@
           root_url = "https://${domain}";
         };
 
-        security.secret_key = secrets.grafana.secret_key;
+        security.secret_key = secrets.grafana.secretKey;
 
         auth.disable_login_form = true;
 

@@ -34,7 +34,7 @@
   ];
 
   nix.settings.access-tokens = lib.concatStringsSep " " (
-    lib.mapAttrsToList (key: value: "${key}=${value}") secrets.git.access-tokens
+    lib.mapAttrsToList (key: value: "${key}=${value}") secrets.git.accessTokens
   );
 
   networking = {
