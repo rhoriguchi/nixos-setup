@@ -96,8 +96,9 @@ class TVTimeRequestHandler(object):
             unwatched_episodes = []
 
             for episode in season['episodes']:
-                if not episode['is_watched']:
-                    unwatched_episodes.append(episode['number'])
+                if not episode['is_special']:
+                    if not episode['is_watched']:
+                        unwatched_episodes.append(episode['number'])
 
             if unwatched_episodes:
                 unwatched[season['number']] = unwatched_episodes
