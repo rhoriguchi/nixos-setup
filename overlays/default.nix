@@ -10,16 +10,6 @@
       }
     }/pkgs/by-name/re/resilio-sync/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=445527
-    plexRaw = super.python3Packages.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "01374ab240719dab48d2eec7bab357c3f5b17cef";
-        sha256 = "sha256-cN8LdLctC59z/dzvqUlCCNIriRlfVw96mcSPR90ELXI=";
-      }
-    }/pkgs/servers/plex/raw.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=446721
     netdata = super.callPackage (import "${
       super.fetchFromGitHub {
@@ -49,26 +39,6 @@
         sha256 = "sha256-cYswH0Cs+1HVj/KWnTLmDTB4A1t18rcs+yD5N6QWJLA=";
       }
     }/pkgs/by-name/bo/borgmatic/package.nix") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=448946
-    brlaser = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "c9c2a2f91687c76a9deabb168c18d16612c68432";
-        sha256 = "sha256-jlx0xGYCEgTunCH4wH3KDIKdmujSKPfLSGQ38BGO3O4=";
-      }
-    }/pkgs/by-name/br/brlaser/package.nix") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=449133
-    intel-graphics-compiler = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "ac194b0e0dd1ad78620bb77c31c6ca54b6ef8caf";
-        sha256 = "sha256-uYoWkJDyKTKoTcCDwMhiHiwjygidMM7kkG+o3i9pKZ0=";
-      }
-    }/pkgs/by-name/in/intel-graphics-compiler/package.nix") { };
 
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=449772
     libraspberrypi = super.callPackage (import "${
