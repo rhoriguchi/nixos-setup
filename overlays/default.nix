@@ -50,16 +50,6 @@
       }
     }/pkgs/by-name/li/libraspberrypi/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=450064
-    rtrlib = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "2dca904c1d47a06ae19a9dcfdb74c8e0e599c523";
-        sha256 = "sha256-xsQ0fDEuA7/nAf1mjEQiHv7KJgh8iDdV+D/4n7Kb6z0=";
-      }
-    }/pkgs/by-name/rt/rtrlib/package.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=450661
     superfile = super.callPackage (import "${
       super.fetchFromGitHub {
