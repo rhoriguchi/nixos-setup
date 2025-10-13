@@ -342,16 +342,6 @@ in
           "go.d/ping.conf" = pkgs.writers.writeYAML "ping.conf" {
             jobs = [
               {
-                name = "dns";
-                update_every = 10;
-                autodetection_retry = 5;
-                hosts = [
-                  "1.1.1.1"
-                  "8.8.8.8"
-                  "9.9.9.9"
-                ];
-              }
-              {
                 name = "internet";
                 update_every = 10;
                 autodetection_retry = 5;
@@ -363,12 +353,22 @@ in
               }
               {
                 name = "tailscale";
-                update_every = 60;
+                update_every = 10;
                 autodetection_retry = 5;
                 interface = config.services.tailscale.interfaceName;
                 hosts = lib.attrValues (lib.filterAttrs (key: _: key != config.networking.hostName) tailscaleIps);
               }
-            ];
+            ]
+            ++ lib.optional (config.services.bind.enable || config.services.dnsmasq.enable) {
+              name = "dns";
+              update_every = 10;
+              autodetection_retry = 5;
+              hosts = [
+                "1.1.1.1"
+                "8.8.8.8"
+                "9.9.9.9"
+              ];
+            };
           };
         }
         // lib.optionalAttrs redisEnabled {
