@@ -101,6 +101,18 @@ let
               WHERE n2.user_id = n1.user_id));
   '';
 
+  selectNodeDifferencesSql = lib.concatStringsSep "\nUNION ALL\n" (
+    lib.imap1 (index: hostname: ''
+      SELECT id,
+             given_name,
+             ipv4
+      FROM nodes
+      WHERE user_id = ${toString index}
+        AND (given_name IS NOT '${lib.toLower hostname}'
+             OR ipv4 IS NOT '${tailscaleIps.${hostname}}')
+    '') hostnames
+  );
+
   updateNodeSql = lib.concatStringsSep "\n" (
     lib.imap1 (index: hostname: ''
       UPDATE nodes
@@ -276,8 +288,22 @@ in
       script = ''
         ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
           ${removeOldNodeSql}
-          ${updateNodeSql}
         EOF
+
+        differences=$(${pkgs.sqlite-interactive}/bin/sqlite3 -csv ${config.services.headscale.settings.database.sqlite.path} << EOF
+          ${selectNodeDifferencesSql}
+        EOF
+        )
+
+        if [ -n "$differences" ]; then
+          echo "Updating nodes"
+
+          ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+            ${updateNodeSql}
+        EOF
+
+          systemctl restart ${config.systemd.services.headscale.name}
+        fi
       '';
 
       serviceConfig = {
