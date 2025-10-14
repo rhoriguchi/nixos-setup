@@ -8,6 +8,12 @@ let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
 
+  internalInterfaces = lib.filter (
+    interface: lib.hasPrefix internalInterface interface
+  ) config.networking.nat.internalInterfaces;
+
+  noInternetAccessInterfaces = [ "${internalInterface}.4" ];
+
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
 in
 {
@@ -78,13 +84,9 @@ in
           chain forward {
             type filter hook forward priority filter; policy accept;
 
-            iifname { ${
-              lib.concatStringsSep ", " (
-                lib.filter (
-                  interface: lib.hasPrefix internalInterface interface
-                ) config.networking.nat.internalInterfaces
-              )
-            } } jump lan-filter
+            iifname { ${lib.concatStringsSep ", " noInternetAccessInterfaces} } oifname { ${config.networking.nat.externalInterface} } drop
+
+            iifname { ${lib.concatStringsSep ", " internalInterfaces} } oifname { ${lib.concatStringsSep ", " internalInterfaces} } jump lan-filter
 
             oifname { ${config.networking.nat.externalInterface} } meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
           }
@@ -150,18 +152,9 @@ in
       enable = true;
 
       inherit externalInterface;
-      internalInterfaces = [
-        internalInterface
-        "${internalInterface}.2"
-        "${internalInterface}.3"
-        "${internalInterface}.10"
-        "${internalInterface}.100"
-
-        # No internet access
-        # "${internalInterface}.4"
-
-        "br0"
-      ];
+      internalInterfaces = lib.filter (interface: externalInterface != interface) (
+        lib.attrNames config.networking.interfaces
+      );
 
       forwardPorts = [
         # Minecraft
