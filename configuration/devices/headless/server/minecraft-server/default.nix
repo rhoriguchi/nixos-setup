@@ -106,7 +106,7 @@ in
       managementSystem.systemd-socket.enable = true;
 
       servers = {
-        proxy = rec {
+        proxy = {
           enable = true;
 
           openFirewall = true;
@@ -189,7 +189,7 @@ in
           };
         };
 
-        "${serverName}" = rec {
+        "${serverName}" = {
           enable = true;
 
           openFirewall = false;

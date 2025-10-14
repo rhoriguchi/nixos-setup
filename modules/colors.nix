@@ -24,7 +24,7 @@ rec {
     yellow = "#FFDC00";
   };
 
-  bright = rec {
+  bright = {
     accent = bright.${accentName};
 
     black = "#777777";
