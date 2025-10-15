@@ -33,6 +33,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland = {
+      url = "github:hyprwm/Hyprland?ref=v0.52.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-github-actions = {
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -113,7 +118,9 @@
       nixosModules = {
         default.imports = [
           inputs.headplane.nixosModules.headplane
+          inputs.hyprland.nixosModules.default
           inputs.nix-minecraft.nixosModules.minecraft-servers
+
           ./modules/default
         ];
 
@@ -126,6 +133,10 @@
           ./modules/home-manager
         ];
         home-manager-gnome.imports = [ ./modules/home-manager-gnome ];
+        home-manager-hyprland.imports = [
+          inputs.hyprland.homeManagerModules.default
+          ./modules/home-manager-hyprland
+        ];
       };
 
       overlays = {
@@ -134,6 +145,7 @@
             inputs.deploy-rs.overlays.default
             inputs.firefox-addons.overlays.default
             inputs.headplane.overlays.default
+            inputs.hyprland.overlays.default
             inputs.nix-minecraft.overlay
           ]
           ++ import ./overlays
@@ -174,7 +186,7 @@
                   inputs.nixos-hardware.nixosModules.dell-xps-13-9350
 
                   self.nixosModules.profiles.headful
-                  self.nixosModules.profiles.gnome
+                  self.nixosModules.profiles.hyprland
 
                   self.nixosModules.profiles.laptop-power-management
                   self.nixosModules.profiles.podman
@@ -195,7 +207,7 @@
 
                       users.rhoriguchi.imports = [
                         self.nixosModules.home-manager
-                        self.nixosModules.home-manager-gnome
+                        self.nixosModules.home-manager-hyprland
                       ];
                     };
                   }
