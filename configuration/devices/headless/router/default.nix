@@ -1,8 +1,4 @@
-{
-  pkgs,
-  secrets,
-  ...
-}:
+{ pkgs, ... }:
 {
   imports = [
     ../common.nix
@@ -27,21 +23,12 @@
 
   networking.hostName = "XXLPitu-Router";
 
-  services = {
-    infomaniak = {
-      enable = true;
-
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
-    };
-
-    netdata.configDir."go.d/ethtool.conf" = (pkgs.formats.yaml { }).generate "ethtool.conf" {
-      jobs = [
-        {
-          name = "local";
-          optical_interfaces = "eth4";
-        }
-      ];
-    };
+  services.netdata.configDir."go.d/ethtool.conf" = (pkgs.formats.yaml { }).generate "ethtool.conf" {
+    jobs = [
+      {
+        name = "local";
+        optical_interfaces = "eth4";
+      }
+    ];
   };
 }
