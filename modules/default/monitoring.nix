@@ -338,39 +338,6 @@ in
         // {
           "go.d/nvme.conf" = pkgs.writers.writeYAML "nvme.conf" { jobs = [ { name = "local"; } ]; };
         }
-        // {
-          "go.d/ping.conf" = pkgs.writers.writeYAML "ping.conf" {
-            jobs = [
-              {
-                name = "internet";
-                update_every = 10;
-                autodetection_retry = 5;
-                hosts = [
-                  "bbc.co.uk"
-                  "digitec.ch"
-                  "youtube.com"
-                ];
-              }
-              {
-                name = "tailscale";
-                update_every = 10;
-                autodetection_retry = 5;
-                interface = config.services.tailscale.interfaceName;
-                hosts = lib.attrValues (lib.filterAttrs (key: _: key != config.networking.hostName) tailscaleIps);
-              }
-            ]
-            ++ lib.optional (config.services.bind.enable || config.services.dnsmasq.enable) {
-              name = "dns";
-              update_every = 10;
-              autodetection_retry = 5;
-              hosts = [
-                "1.1.1.1"
-                "8.8.8.8"
-                "9.9.9.9"
-              ];
-            };
-          };
-        }
         // lib.optionalAttrs redisEnabled {
           "go.d/redis.conf" = pkgs.writers.writeYAML "redis.conf" {
             jobs = lib.mapAttrsToList (key: value: {

@@ -1,4 +1,14 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  tailscaleIps = import (
+    lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
+  );
+in
 {
   imports = [
     ../common.nix
@@ -23,12 +33,46 @@
 
   networking.hostName = "XXLPitu-Router";
 
-  services.netdata.configDir."go.d/ethtool.conf" = (pkgs.formats.yaml { }).generate "ethtool.conf" {
-    jobs = [
-      {
-        name = "local";
-        optical_interfaces = "eth4";
-      }
-    ];
+  services.netdata.configDir = {
+    "go.d/ethtool.conf" = (pkgs.formats.yaml { }).generate "ethtool.conf" {
+      jobs = [
+        {
+          name = "local";
+          optical_interfaces = "eth4";
+        }
+      ];
+    };
+
+    "go.d/ping.conf" = pkgs.writers.writeYAML "ping.conf" {
+      jobs = [
+        {
+          name = "dns";
+          update_every = 10;
+          autodetection_retry = 5;
+          hosts = [
+            "1.1.1.1"
+            "8.8.8.8"
+            "9.9.9.9"
+          ];
+        }
+        {
+          name = "internet";
+          update_every = 10;
+          autodetection_retry = 5;
+          hosts = [
+            "bbc.co.uk"
+            "digitec.ch"
+            "youtube.com"
+          ];
+        }
+        {
+          name = "tailscale";
+          update_every = 10;
+          autodetection_retry = 5;
+          interface = config.services.tailscale.interfaceName;
+          hosts = lib.attrValues (lib.filterAttrs (key: _: key != config.networking.hostName) tailscaleIps);
+        }
+      ];
+    };
   };
 }
