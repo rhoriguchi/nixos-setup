@@ -8,9 +8,9 @@ let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
 
-  internalInterfaces = lib.filter (
-    interface: lib.hasPrefix internalInterface interface
-  ) config.networking.nat.internalInterfaces;
+  internalInterfaces = lib.filter (interface: lib.hasPrefix internalInterface interface) (
+    lib.attrNames config.networking.interfaces
+  );
 
   noInternetAccessInterfaces = [ "${internalInterface}.4" ];
 
@@ -152,9 +152,7 @@ in
       enable = true;
 
       inherit externalInterface;
-      internalInterfaces = lib.filter (interface: externalInterface != interface) (
-        lib.attrNames config.networking.interfaces
-      );
+      internalInterfaces = [ "br0" ] ++ internalInterfaces;
 
       forwardPorts = [
         # Minecraft
