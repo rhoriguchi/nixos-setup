@@ -25,6 +25,7 @@
     pkgs.google-chrome
     pkgs.loupe
     pkgs.obsidian
+    pkgs.pavucontrol
     pkgs.qbittorrent
     pkgs.rustdesk-flutter
     pkgs.signal-desktop
