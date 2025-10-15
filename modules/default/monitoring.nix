@@ -101,6 +101,11 @@ in
 
       borg-exporter.enable = config.services.borgmatic.enable;
 
+      corerad.settings.debug = {
+        address = "127.0.0.1:9430";
+        prometheus = true;
+      };
+
       frr_exporter = {
         enable = frrEnabled;
 
@@ -365,6 +370,10 @@ in
               lib.optional config.services.borgmatic.enable {
                 name = "Borg";
                 url = "http://127.0.0.1:${toString config.services.borg-exporter.port}/metrics";
+              }
+              ++ lib.optional config.services.corerad.enable {
+                name = "CoreRAD";
+                url = "http://${config.services.corerad.settings.debug.address}/metrics";
               }
               ++
                 lib.optional

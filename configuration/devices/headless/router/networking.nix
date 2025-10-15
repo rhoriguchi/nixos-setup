@@ -1,17 +1,41 @@
-{ interfaces, lib, ... }:
+{
+  config,
+  interfaces,
+  lib,
+  ...
+}:
 let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
 
+  internalInterfaces = lib.filter (interface: lib.hasPrefix internalInterface interface) (
+    lib.attrNames config.networking.interfaces
+  );
+
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
 in
 {
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
 
   networking = {
     useDHCP = false;
 
-    enableIPv6 = false;
+    dhcpcd = {
+      IPv6rs = false;
+      extraConfig = ''
+        interface ${externalInterface}
+          ipv6rs
+          ia_na 1
+          ia_pd 2 ${
+            lib.concatStringsSep " " (
+              lib.imap0 (index: interface: "${interface}/${toString index}") internalInterfaces
+            )
+          }
+      '';
+    };
 
     vlans = {
       # Trusted
@@ -149,6 +173,27 @@ in
           ip pim
           ip igmp
       '';
+    };
+
+    corerad = {
+      enable = true;
+
+      settings.interfaces = [
+        {
+          name = externalInterface;
+          monitor = true;
+        }
+      ]
+      ++ map (interface: {
+        name = interface;
+        advertise = true;
+
+        prefix = [
+          {
+            on_link = false;
+          }
+        ];
+      }) internalInterfaces;
     };
   };
 }

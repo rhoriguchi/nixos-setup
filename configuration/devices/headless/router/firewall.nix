@@ -29,6 +29,9 @@ in
 
     "net.ipv4.conf.all.secure_redirects" = 0;
     "net.ipv4.conf.default.secure_redirects" = 0;
+
+    "net.ipv6.conf.all.accept_redirects" = 0;
+    "net.ipv6.conf.default.accept_redirects" = 0;
   };
 
   networking = {
@@ -92,6 +95,8 @@ in
           }
 
           chain lan-filter {
+            ip6 daddr ::/0 drop
+
             ip saddr @management_network ip daddr @management_network accept
 
             ip saddr @trusted_vlan ip daddr @rfc1918 accept
