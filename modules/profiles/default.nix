@@ -12,6 +12,7 @@
   gaming = ./gaming.nix;
   git = ./git.nix;
   gnome = ./gnome;
+  hyprland = ./hyprland.nix;
   i18n = ./i18n.nix;
   java = ./java.nix;
   javascript = ./javascript.nix;
