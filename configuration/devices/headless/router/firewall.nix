@@ -12,8 +12,6 @@ let
     lib.attrNames config.networking.interfaces
   );
 
-  noInternetAccessInterfaces = [ "${internalInterface}.4" ];
-
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
 in
 {
@@ -42,75 +40,95 @@ in
         family = "inet";
 
         content = ''
-          set rfc1918 {
-            type ipv4_addr;
-            flags interval;
-            elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
+          set management_network_interface {
+            type ifname;
+            elements = { ${internalInterface} }
           }
 
-          set management_network {
-            type ipv4_addr;
-            flags interval;
-            elements = { 192.168.1.0/24 }
+          set trusted_vlan_interface {
+            type ifname;
+            elements = { ${internalInterface}.2 }
           }
 
-          set trusted_vlan {
-            type ipv4_addr;
-            flags interval;
-            elements = { 192.168.2.0/24 }
+          set iot_vlan_interface {
+            type ifname;
+            elements = { ${internalInterface}.3 }
           }
 
-          set iot_vlan {
-            type ipv4_addr;
-            flags interval;
-            elements = { 192.168.3.0/24 }
+          set surveillance_vlan_interface {
+            type ifname;
+            elements = { ${internalInterface}.4 }
           }
 
-          set surveillance_vlan {
-            type ipv4_addr;
-            flags interval;
-            elements = { 192.168.4.0/24 }
+          set dmz_vlan_interface {
+            type ifname;
+            elements = { ${internalInterface}.10 }
           }
 
-          set dmz_vlan {
-            type ipv4_addr;
-            flags interval;
-            elements = { 192.168.10.0/24 }
+          set guest_vlan_interface {
+            type ifname;
+            elements = { ${internalInterface}.100 }
           }
 
-          set guest_vlan {
+          set multicast_ipv4_address {
             type ipv4_addr;
             flags interval;
-            elements = { 192.168.100.0/24 }
+            elements = { 224.0.1.0/24, 224.0.2.0/24, 239.0.0.0/8 }
           }
 
           chain forward {
             type filter hook forward priority filter; policy accept;
 
-            iifname { ${lib.concatStringsSep ", " noInternetAccessInterfaces} } oifname { ${config.networking.nat.externalInterface} } drop
-
-            iifname { ${lib.concatStringsSep ", " internalInterfaces} } oifname { ${lib.concatStringsSep ", " internalInterfaces} } jump lan-filter
-
-            oifname { ${config.networking.nat.externalInterface} } meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
+            iifname { ${lib.concatStringsSep ", " internalInterfaces} } oifname { ${config.networking.nat.externalInterface} } jump lan-to-wan-filter
+            iifname { ${config.networking.nat.externalInterface} } oifname { ${lib.concatStringsSep ", " internalInterfaces} } jump wan-to-lan-filter
+            iifname { ${lib.concatStringsSep ", " internalInterfaces} } oifname { ${lib.concatStringsSep ", " internalInterfaces} } jump lan-to-lan-filter
           }
 
-          chain lan-filter {
-            ip6 daddr ::/0 drop
+          chain wan-to-lan-filter {
+            ct state { established, related } accept
 
-            ip saddr @management_network ip daddr @management_network accept
+            drop
+          }
 
-            ip saddr @trusted_vlan ip daddr @rfc1918 accept
+          chain lan-to-wan-filter {
+            meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
 
-            ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 443 } accept # Home Assistant - Shelly
-            ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 445 } accept # Samba
-            ip saddr @iot_vlan ip daddr ${ips.server} tcp dport { 8324, 32469 } accept # Plex
-            ip saddr @iot_vlan ip daddr ${ips.server} udp dport { 1900 } accept # Plex
-            ip saddr @iot_vlan ip daddr ${ips.server} udp dport { 4002 } accept # Home Assistant - Govee
+            iifname @surveillance_vlan_interface drop
 
-            ip saddr @rfc1918 ip daddr @rfc1918 udp dport { 41641 } accept # Tailscale
+            accept
+          }
 
-            ip saddr @rfc1918 ip daddr ${ips.server} tcp dport { 80, 443 } accept # HTTP / HTTPS
-            ip saddr @rfc1918 ip daddr ${ips.ulquiorra} tcp dport { 80, 443 } accept # HTTP / HTTPS
+          chain lan-to-lan-filter {
+            ct state { established, related } accept
+
+            meta nfproto ipv6 drop
+
+            meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
+            udp dport { 41641 } accept # Tailscale
+
+            ip daddr @multicast_ipv4_address accept
+
+            iifname @management_network_interface oifname @management_network_interface accept
+
+            iifname @trusted_vlan_interface oifname @management_network_interface accept
+            iifname @trusted_vlan_interface oifname @trusted_vlan_interface accept
+            iifname @trusted_vlan_interface oifname @iot_vlan_interface accept
+            iifname @trusted_vlan_interface oifname @surveillance_vlan_interface accept
+            iifname @trusted_vlan_interface oifname @dmz_vlan_interface accept
+
+            iifname @iot_vlan_interface ip daddr ${ips.server} tcp dport { 443 } accept # Home Assistant - Shelly
+            iifname @iot_vlan_interface ip daddr ${ips.server} tcp dport { 445 } accept # Samba
+            iifname @iot_vlan_interface ip daddr ${ips.server} tcp dport { 8324, 32469 } accept # Plex
+            iifname @iot_vlan_interface ip daddr ${ips.server} udp dport { 1900 } accept # Plex
+            iifname @iot_vlan_interface ip daddr ${ips.server} udp dport { 4002 } accept # Home Assistant - Govee
+
+            ip saddr ${ips.server} oifname @iot_vlan_interface tcp dport { 80 } accept # Home Assistant - Shelly
+            ip saddr ${ips.server} oifname @iot_vlan_interface tcp dport { 443 } accept # Home Assistant - Hue
+            ip saddr ${ips.server} oifname @iot_vlan_interface tcp dport { 8000 } accept # Home Assistant - Apple HomeKit
+            ip saddr ${ips.server} oifname @iot_vlan_interface udp dport { 4003 } accept # Home Assistant - Govee
+
+            ip daddr ${ips.server} tcp dport { 80, 443 } accept # HTTP / HTTPS
+            ip daddr ${ips.ulquiorra} tcp dport { 80, 443 } accept # HTTP / HTTPS
 
             ${
               let
@@ -121,21 +139,13 @@ in
                     ip = lib.head splits;
                     port = lib.last splits;
                   in
-                  "ip saddr @rfc1918 ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept"
+                  "ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept"
                 ) config.networking.nat.forwardPorts;
               in
               lib.concatStringsSep "\n" rules
             }
 
-            ip saddr ${ips.server} ip daddr @trusted_vlan meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
-            ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 80 } accept # Home Assistant - Shelly
-            ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 443 } accept # Home Assistant - Hue
-            ip saddr ${ips.server} ip daddr @iot_vlan tcp dport { 8000 } accept # Home Assistant - Apple HomeKit
-            ip saddr ${ips.server} ip daddr @iot_vlan udp dport { 4003 } accept # Home Assistant - Govee
-
-            ip saddr @rfc1918 ip daddr @rfc1918 ct state established accept
-
-            ip saddr @rfc1918 ip daddr @rfc1918 drop
+            drop
           }
 
           chain dns-filter {
