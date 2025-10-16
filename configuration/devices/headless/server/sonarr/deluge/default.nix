@@ -65,7 +65,7 @@ in
           in
           lib.removePrefix "${key} = " matchingLine;
 
-        configText = builtins.readFile ./wireguard-config;
+        configText = lib.readFile ./wireguard-config;
 
         privateKey = getValue configText "PrivateKey";
         publicKey = getValue configText "PublicKey";

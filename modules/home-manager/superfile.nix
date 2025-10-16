@@ -14,7 +14,7 @@ let
       in
       {
         name = lib.replaceStrings [ "file://${config.home.homeDirectory}/" ] [ "" ] (
-          builtins.elemAt splits (builtins.length splits - 1)
+          lib.elemAt splits (lib.length splits - 1)
         );
         location = lib.replaceStrings [ "file://" ] [ "" ] (lib.head splits);
       }

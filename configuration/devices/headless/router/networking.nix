@@ -71,10 +71,10 @@ in
 
     # Calling bridge interface `br-management` fails
     bridges.br0.interfaces =
-      builtins.filter
+      lib.filter
         (
           interface:
-          !(builtins.elem interface [
+          !(lib.elem interface [
             externalInterface
             internalInterface
           ])
