@@ -40,16 +40,6 @@
       }
     }/pkgs/by-name/bo/borgmatic/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=449772
-    libraspberrypi = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "fe9c50a981240746b37b1d2966b4c06576278ee0";
-        sha256 = "sha256-staO0aKIMTLVbNdqdqqN8BM7JJSXCc0qeoOTpO7fPGg=";
-      }
-    }/pkgs/by-name/li/libraspberrypi/package.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=450661
     superfile = super.callPackage (import "${
       super.fetchFromGitHub {
