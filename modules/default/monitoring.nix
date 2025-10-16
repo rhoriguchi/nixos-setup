@@ -21,13 +21,6 @@ let
     config.services.kea.dhcp6
   ];
 
-  frrEnabled = lib.any (service: config.services.frr.${service}.enable) [
-    "bfdd"
-    "bgpd"
-    "ospfd"
-    "pimd"
-  ];
-
   redisEnabled = lib.any (server: server.enable) (lib.attrValues config.services.redis.servers);
 
   hasCerts = lib.attrNames config.security.acme.certs != [ ];
@@ -107,7 +100,12 @@ in
       };
 
       frr_exporter = {
-        enable = frrEnabled;
+        enable = lib.any (service: config.services.frr.${service}.enable) [
+          "bfdd"
+          "bgpd"
+          "ospfd"
+          "pimd"
+        ];
 
         collectors = {
           bfd = config.services.frr.bfdd.enable;
@@ -367,7 +365,7 @@ in
         // {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
             jobs =
-              lib.optional config.services.borgmatic.enable {
+              lib.optional config.services.borg-exporter.enable {
                 name = "Borg";
                 url = "http://127.0.0.1:${toString config.services.borg-exporter.port}/metrics";
               }
@@ -382,7 +380,7 @@ in
                     name = "FlareSolverr";
                     url = "http://127.0.0.1:${toString config.services.flaresolverr.prometheusExporter.port}/metrics";
                   }
-              ++ lib.optional frrEnabled {
+              ++ lib.optional config.services.frr_exporter.enable {
                 name = "FRRouting";
                 url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
               }
@@ -394,7 +392,7 @@ in
                 name = "Headscale";
                 url = "http://${config.services.headscale.settings.metrics_listen_addr}/metrics";
               }
-              ++ lib.optional keaEnabled {
+              ++ lib.optional config.services.prometheus.exporters.kea.enable {
                 name = "Kea";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.kea.port}/metrics";
               }
@@ -410,11 +408,11 @@ in
                 name = "Promtail";
                 url = "http://127.0.0.1:${toString config.services.promtail.configuration.server.http_listen_port}/metrics";
               }
-              ++ lib.optional config.services.prowlarr.enable {
+              ++ lib.optional config.services.prometheus.exporters.exportarr-prowlarr.enable {
                 name = "Prowlarr";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-prowlarr.port}/metrics";
               }
-              ++ lib.optional config.services.sonarr.enable {
+              ++ lib.optional config.services.prometheus.exporters.exportarr-sonarr.enable {
                 name = "Sonarr";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-sonarr.port}/metrics";
               }
