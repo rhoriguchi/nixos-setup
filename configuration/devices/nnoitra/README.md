@@ -99,7 +99,7 @@ set TMPDIR="%TEMP%\tempdir_%RANDOM%"
 mkdir %TMPDIR%
 cd /d %TMPDIR%
 
-curl --location --output Netdata.msi --url "https://github.com/netdata/netdata/releases/download/v2.6.3/netdata-x64.msi"
+curl --location --output Netdata.msi --url "https://github.com/netdata/netdata/releases/download/v2.7.2/netdata-x64.msi"
 start /wait msiexec /quiet /qn /norestart /i Netdata.msi TOKEN="CLAIM_TOKEN" ROOMS="2c7b66ac-c84e-4909-9efe-9f1de72d765a"
 
 del /f Netdata.msi
