@@ -10,12 +10,6 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 
 ### Laptop
 
-#### disko
-
-```console
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode destroy,format,mount ./disko/Laptop.nix
-```
-
 #### Manual setup
 
 - Discord
@@ -26,12 +20,6 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
   - Grammarly
   - Tab Session Manager
   - RabattCorner
-- JetBrains
-  - DataGrip
-  - IntelliJ IDEA Ultimate
-  - PyCharm Professional
-  - WebStorm
-- ProtonVPN Gui
 - qBittorrent
 - Resilio Sync
 - RustDesk
@@ -140,32 +128,10 @@ zfs create \
   data/sync
 ```
 
-## Update flake
+## disko
 
 ```console
-nix flake update |& nom
-```
-
-## Setup direnv
-
-Navigate to directory and run command
-
-```console
-direnv allow .
-```
-
-## deploy-rs
-
-### Deploy all
-
-```console
-deploy --keep-result . |& nom
-```
-
-### Deploy single
-
-```console
-deploy --keep-result '.#Laptop' |& nom
+nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode destroy,format,mount ./disko/Laptop.nix
 ```
 
 ## Encrypt backup drive
