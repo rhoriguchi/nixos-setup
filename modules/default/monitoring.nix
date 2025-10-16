@@ -99,22 +99,6 @@ in
         prometheus = true;
       };
 
-      frr_exporter = {
-        enable = lib.any (service: config.services.frr.${service}.enable) [
-          "bfdd"
-          "bgpd"
-          "ospfd"
-          "pimd"
-        ];
-
-        collectors = {
-          bfd = config.services.frr.bfdd.enable;
-          bgp = config.services.frr.bgpd.enable;
-          ospf = config.services.frr.ospfd.enable;
-          pim = config.services.frr.pimd.enable;
-        };
-      };
-
       loki.configuration.server.register_instrumentation = true;
 
       mysql.ensureUsers = [
@@ -160,6 +144,72 @@ in
             PROWLARR__BACKFILL = "true";
           };
         };
+
+        frr =
+          let
+            collectors = [
+              "bfd"
+              "bgp"
+              "bgp6"
+              "bgpl2vpn"
+              "ospf"
+              "pim"
+              "route"
+              "vrrp"
+            ];
+
+            enabledCollectors =
+              lib.optional config.services.frr.bfdd.enable "bfd"
+              ++ lib.optionals config.services.frr.bgpd.enable (
+                [
+                  "bgp"
+                  "bgpl2vpn"
+                ]
+                ++ lib.optional config.networking.enableIPv6 "bgp6"
+              )
+              ++ lib.optional (config.services.frr.ospfd.enable || config.services.frr.ospf6d.enable) "ospf"
+              ++ lib.optional config.services.frr.pimd.enable "pim"
+              ++ lib.optional (lib.any (module: module ? enable && module.enable == true) (
+                lib.attrValues (
+                  # Filter all keys that where renamed or removed
+                  lib.filterAttrs (
+                    key: _:
+                    !(lib.elem key [
+                      "babel"
+                      "bfd"
+                      "bgp"
+                      "eigrp"
+                      "fabric"
+                      "isis"
+                      "ldp"
+                      "mgmt"
+                      "nhrp"
+                      "ospf"
+                      "ospf6"
+                      "pbr"
+                      "pim"
+                      "rip"
+                      "ripng"
+                      "sharp"
+                      "static"
+                      "zebra"
+                    ])
+                  ) config.services.frr
+                )
+              )) "route"
+              ++ lib.optional config.services.frr.vrrpd.enable "vrrp";
+          in
+          {
+            enable = lib.length enabledCollectors > 0;
+
+            port = 9342;
+            listenAddress = "127.0.0.1";
+
+            group = "frrvty";
+
+            inherit enabledCollectors;
+            disabledCollectors = lib.filter (collector: !(lib.elem collector enabledCollectors)) collectors;
+          };
 
         kea = {
           enable = keaEnabled;
@@ -380,9 +430,9 @@ in
                     name = "FlareSolverr";
                     url = "http://127.0.0.1:${toString config.services.flaresolverr.prometheusExporter.port}/metrics";
                   }
-              ++ lib.optional config.services.frr_exporter.enable {
+              ++ lib.optional config.services.prometheus.exporters.frr.enable {
                 name = "FRRouting";
-                url = "http://127.0.0.1:${toString config.services.frr_exporter.port}/metrics";
+                url = "http://127.0.0.1:${toString config.services.prometheus.exporters.frr.port}/metrics";
               }
               ++ lib.optional config.services.grafana.enable {
                 name = "Grafana";
