@@ -526,11 +526,7 @@ in
         before = [ config.systemd.services.netdata.name ];
         wantedBy = [ "multi-user.target" ];
 
-        serviceConfig = {
-          Type = "oneshot";
-          User = config.services.netdata.user;
-          Group = config.services.netdata.group;
-        };
+        serviceConfig.Type = "oneshot";
 
         script = ''
           mkdir -p /var/lib/netdata/registry
@@ -542,6 +538,8 @@ in
             "''${hash:12:4}" \
             "''${hash:16:4}" \
             "''${hash:20:12}" > /var/lib/netdata/registry/netdata.public.unique.id
+
+          chown -R ${config.services.netdata.user}:${config.services.netdata.group} /var/lib/netdata/registry
         '';
       };
     };
