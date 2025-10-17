@@ -30,9 +30,11 @@ let
     );
   '';
 
-  addUserSql =
-    let
-      addUser = index: hostname: ''
+  addUserSql = ''
+    DELETE FROM users;
+
+    ${lib.concatStringsSep "\n" (
+      lib.imap1 (index: hostname: ''
         INSERT OR REPLACE INTO users (
           id,
           created_at,
@@ -44,18 +46,15 @@ let
           '${expiration}',
           '${hostname}'
         );
-      '';
-    in
-    ''
-      DELETE FROM users;
+      '') hostnames
+    )}
+  '';
 
-      ${lib.concatStringsSep "\n" (lib.imap1 (index: hostname: addUser index hostname) hostnames)}
-      ${addUser (lib.length hostnames + 1) config.services.headplane.settings.integration.agent.host_name}
-    '';
+  addPreAuthKeySql = ''
+    DELETE FROM pre_auth_keys;
 
-  addPreAuthKeySql =
-    let
-      addPreAuthKey = index: preAuthKey: ''
+    ${lib.concatStringsSep "\n" (
+      lib.imap1 (index: hostname: ''
         INSERT INTO pre_auth_keys (
           ID,
           USER_ID,
@@ -70,25 +69,18 @@ let
           ${toString index},
           '${unixEpoch}',
           '${expiration}',
-          '${preAuthKey}',
+          '${secrets.headscale.preAuthKeys.${hostname}}',
           '[]',
           0,
           1
         );
-      '';
-    in
-    ''
-      DELETE FROM pre_auth_keys;
-
-      ${lib.concatStringsSep "\n" (
-        lib.imap1 (index: hostname: addPreAuthKey index secrets.headscale.preAuthKeys.${hostname}) hostnames
-      )}
-      ${addPreAuthKey (lib.length hostnames + 1) secrets.headplane.agent.preAuthKey}
-    '';
+      '') hostnames
+    )}
+  '';
 
   removeOldNodeSql = ''
     DELETE FROM nodes
-    WHERE user_id > ${toString (lib.length hostnames + 1)};
+    WHERE user_id > ${toString (lib.length hostnames)};
 
     DELETE
     FROM nodes

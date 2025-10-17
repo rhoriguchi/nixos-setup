@@ -6,6 +6,17 @@
 }:
 let
   home = config.home.homeDirectory;
+
+  tailscaleIps = import (
+    lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
+  );
+  filteredTailscaleIps = lib.filterAttrs (
+    key: _:
+    !(lib.elem key [
+      osConfig.networking.hostName
+      "headplane-agent"
+    ])
+  ) tailscaleIps;
 in
 {
   programs.ssh = {
@@ -41,21 +52,13 @@ in
         port = 10022;
       };
     }
-    // (
-      let
-        tailscaleIps = import (
-          lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
-        );
-        filteredTailscaleIps = lib.filterAttrs (key: _: key != osConfig.networking.hostName) tailscaleIps;
-      in
-      lib.mapAttrs' (
-        key: value:
-        lib.nameValuePair (lib.toLower key) {
-          hostname = value;
-          user = "xxlpitu";
-          extraOptions.HostKeyAlias = lib.toLower key;
-        }
-      ) filteredTailscaleIps
-    );
+    // (lib.mapAttrs' (
+      key: value:
+      lib.nameValuePair (lib.toLower key) {
+        hostname = value;
+        user = "xxlpitu";
+        extraOptions.HostKeyAlias = lib.toLower key;
+      }
+    ) filteredTailscaleIps);
   };
 }

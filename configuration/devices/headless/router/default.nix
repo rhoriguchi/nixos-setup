@@ -8,6 +8,13 @@ let
   tailscaleIps = import (
     lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
   );
+  filteredTailscaleIps = lib.filterAttrs (
+    key: _:
+    !(lib.elem key [
+      osConfig.networking.hostName
+      "headplane-agent"
+    ])
+  ) tailscaleIps;
 in
 {
   imports = [
@@ -60,7 +67,9 @@ in
         update_every = 10;
         autodetection_retry = 5;
         interface = config.services.tailscale.interfaceName;
-        hosts = lib.attrValues (lib.filterAttrs (key: _: key != config.networking.hostName) tailscaleIps);
+        hosts = lib.attrValues (
+          lib.filterAttrs (key: _: key != config.networking.hostName) filteredTailscaleIps
+        );
       }
     ];
   };

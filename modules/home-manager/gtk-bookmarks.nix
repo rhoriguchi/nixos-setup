@@ -10,7 +10,13 @@ let
   tailscaleIps = import (
     lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
   );
-  filteredTailscaleIps = lib.filterAttrs (key: _: key != osConfig.networking.hostName) tailscaleIps;
+  filteredTailscaleIps = lib.filterAttrs (
+    key: _:
+    !(lib.elem key [
+      osConfig.networking.hostName
+      "headplane-agent"
+    ])
+  ) tailscaleIps;
 in
 {
   gtk = {
