@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   networking.usePredictableInterfaceNames = false;
 
@@ -40,5 +41,14 @@
       matchConfig.PermanentMACAddress = "4c:44:5b:7b:d4:8c";
       linkConfig.Name = "wlan0";
     };
+  };
+
+  services.netdata.configDir."go.d/ethtool.conf" = (pkgs.formats.yaml { }).generate "ethtool.conf" {
+    jobs = [
+      {
+        name = "local";
+        optical_interfaces = "eth4";
+      }
+    ];
   };
 }
