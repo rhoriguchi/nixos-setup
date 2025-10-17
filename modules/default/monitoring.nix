@@ -466,6 +466,10 @@ in
                 name = "Sonarr";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-sonarr.port}/metrics";
               }
+              ++ lib.optional config.services.tailscale.enable {
+                name = "Tailscale Client";
+                url = "http://100.100.100.100/metrics";
+              }
               ++ lib.optional config.services.unpoller.enable {
                 name = "Unpoller";
                 url = "http://${config.services.unpoller.prometheus.http_listen}/metrics";
