@@ -217,6 +217,23 @@
             ];
           };
 
+          # Hetzner cx23
+          XXLPitu-Nelliel = lib.nixosSystem {
+            system = "x86_64-linux";
+
+            modules = [
+              {
+                imports = [
+                  commonModule
+
+                  self.nixosModules.profiles.headless
+
+                  ./configuration/devices/headless/nelliel
+                ];
+              }
+            ];
+          };
+
           # Raspberry Pi 4 Model B - 8GB
           XXLPitu-Grimmjow = lib.nixosSystem {
             system = "aarch64-linux";
