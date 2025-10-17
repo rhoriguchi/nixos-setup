@@ -10,6 +10,12 @@
         elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
       }
 
+      set rfc4193 {
+        type ipv6_addr;
+        flags interval;
+        elements = { fc00::/8 }
+      }
+
       chain input {
         # Run after nixos-fw input chain, because of `services.openssh.openFirewall = true`
         type filter hook input priority filter + 10;
@@ -24,6 +30,7 @@
         iifname { lo } accept
 
         ip saddr @rfc1918 accept
+        ip6 saddr @rfc4193 accept
 
         drop
       }
