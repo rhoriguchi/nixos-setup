@@ -33,14 +33,14 @@
     log-shipping = {
       enable = true;
 
-      receiverHostname = "XXLPitu-Server";
+      receiverHostname = "XXLPitu-Tier";
     };
 
     monitoring = {
       enable = true;
 
       type = "child";
-      parentHostname = "XXLPitu-Server";
+      parentHostname = "XXLPitu-Tier";
       apiKey = secrets.monitoring.apiKey;
     };
   };

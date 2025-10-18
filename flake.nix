@@ -199,7 +199,7 @@
             ];
           };
 
-          XXLPitu-Server = lib.nixosSystem {
+          XXLPitu-Tier = lib.nixosSystem {
             system = "x86_64-linux";
 
             modules = [
@@ -211,7 +211,7 @@
 
                   self.nixosModules.profiles.zfs
 
-                  ./configuration/devices/headless/server
+                  ./configuration/devices/headless/tier
                 ];
               }
             ];

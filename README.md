@@ -62,7 +62,7 @@ EOF
 nix-shell -p libsecret --run 'secret-tool store --label=KeePass KeePass 2FA'
 ```
 
-### Server
+### XXLPitu-Tier
 
 #### Setup Plex over `http://IP:32400/web`
 
@@ -70,7 +70,7 @@ nix-shell -p libsecret --run 'secret-tool store --label=KeePass KeePass 2FA'
 
 Set any username and password. Will be removed after restart of service.
 
-#### [Home Assistant](configuration/devices/headless/server/home-assistant/README.md)
+#### [Home Assistant](configuration/devices/headless/tier/home-assistant/README.md)
 
 #### Google Photos Sync
 

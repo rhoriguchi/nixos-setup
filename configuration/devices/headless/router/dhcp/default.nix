@@ -178,7 +178,7 @@ in
           reservations = [
             {
               hw-address = "c8:7f:54:03:bd:79";
-              ip-address = ips.server;
+              ip-address = ips.tier;
             }
           ];
         }

@@ -51,14 +51,14 @@ in
         hostnames = ulquiorraDomains;
       };
 
-      XXLPitu-Server = {
-        server = "${ips.server}:443";
+      XXLPitu-Tier = {
+        server = "${ips.tier}:443";
         hostnames = serverDomains;
       };
     };
 
     virtualHosts =
-      (getVirtualHost "XXLPitu-Server.local" ips.server serverDomains)
+      (getVirtualHost "XXLPitu-Tier.local" ips.tier serverDomains)
       // (getVirtualHost "XXLPitu-Ulquiorra.local" ips.ulquiorra ulquiorraDomains);
   };
 }

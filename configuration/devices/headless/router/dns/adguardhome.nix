@@ -84,7 +84,7 @@
             ++ (map
               (domain: {
                 inherit domain;
-                answer = "XXLPitu-Server.local";
+                answer = "XXLPitu-Tier.local";
               })
               [
                 "deluge.00a.ch"

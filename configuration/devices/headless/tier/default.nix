@@ -46,7 +46,7 @@
 
   networking = {
     hostId = "c270d3cf";
-    hostName = "XXLPitu-Server";
+    hostName = "XXLPitu-Tier";
 
     interfaces = {
       eno1.useDHCP = true;

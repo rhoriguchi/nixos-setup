@@ -116,18 +116,18 @@ in
             iifname @trusted_vlan_interface oifname @surveillance_vlan_interface accept
             iifname @trusted_vlan_interface oifname @dmz_vlan_interface accept
 
-            iifname @iot_vlan_interface ip daddr ${ips.server} tcp dport { 443 } accept # Home Assistant - Shelly
-            iifname @iot_vlan_interface ip daddr ${ips.server} tcp dport { 445 } accept # Samba
-            iifname @iot_vlan_interface ip daddr ${ips.server} tcp dport { 8324, 32469 } accept # Plex
-            iifname @iot_vlan_interface ip daddr ${ips.server} udp dport { 1900 } accept # Plex
-            iifname @iot_vlan_interface ip daddr ${ips.server} udp dport { 4002 } accept # Home Assistant - Govee
+            iifname @iot_vlan_interface ip daddr ${ips.tier} tcp dport { 443 } accept # Home Assistant - Shelly
+            iifname @iot_vlan_interface ip daddr ${ips.tier} tcp dport { 445 } accept # Samba
+            iifname @iot_vlan_interface ip daddr ${ips.tier} tcp dport { 8324, 32469 } accept # Plex
+            iifname @iot_vlan_interface ip daddr ${ips.tier} udp dport { 1900 } accept # Plex
+            iifname @iot_vlan_interface ip daddr ${ips.tier} udp dport { 4002 } accept # Home Assistant - Govee
 
-            ip saddr ${ips.server} oifname @iot_vlan_interface tcp dport { 80 } accept # Home Assistant - Shelly
-            ip saddr ${ips.server} oifname @iot_vlan_interface tcp dport { 443 } accept # Home Assistant - Hue
-            ip saddr ${ips.server} oifname @iot_vlan_interface tcp dport { 8000 } accept # Home Assistant - Apple HomeKit
-            ip saddr ${ips.server} oifname @iot_vlan_interface udp dport { 4003 } accept # Home Assistant - Govee
+            ip saddr ${ips.tier} oifname @iot_vlan_interface tcp dport { 80 } accept # Home Assistant - Shelly
+            ip saddr ${ips.tier} oifname @iot_vlan_interface tcp dport { 443 } accept # Home Assistant - Hue
+            ip saddr ${ips.tier} oifname @iot_vlan_interface tcp dport { 8000 } accept # Home Assistant - Apple HomeKit
+            ip saddr ${ips.tier} oifname @iot_vlan_interface udp dport { 4003 } accept # Home Assistant - Govee
 
-            ip daddr ${ips.server} tcp dport { 80, 443 } accept # HTTP / HTTPS
+            ip daddr ${ips.tier} tcp dport { 80, 443 } accept # HTTP / HTTPS
             ip daddr ${ips.ulquiorra} tcp dport { 80, 443 } accept # HTTP / HTTPS
 
             ${
@@ -173,46 +173,46 @@ in
         # Minecraft
         {
           proto = "tcp";
-          destination = "${ips.server}:25565";
+          destination = "${ips.tier}:25565";
           sourcePort = 25565;
         }
 
         # Plex
         {
           proto = "tcp";
-          destination = "${ips.server}:32400";
+          destination = "${ips.tier}:32400";
           sourcePort = 32400;
         }
 
         # RustDesk
         {
           proto = "tcp";
-          destination = "${ips.server}:21115";
+          destination = "${ips.tier}:21115";
           sourcePort = 21115;
         }
         {
           proto = "tcp";
-          destination = "${ips.server}:21116";
+          destination = "${ips.tier}:21116";
           sourcePort = 21116;
         }
         {
           proto = "tcp";
-          destination = "${ips.server}:21117";
+          destination = "${ips.tier}:21117";
           sourcePort = 21117;
         }
         {
           proto = "tcp";
-          destination = "${ips.server}:21118";
+          destination = "${ips.tier}:21118";
           sourcePort = 21118;
         }
         {
           proto = "tcp";
-          destination = "${ips.server}:21119";
+          destination = "${ips.tier}:21119";
           sourcePort = 21119;
         }
         {
           proto = "udp";
-          destination = "${ips.server}:21116";
+          destination = "${ips.tier}:21116";
           sourcePort = 21116;
         }
       ];
