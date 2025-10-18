@@ -151,8 +151,8 @@ in
             stun_listen_addr = "0.0.0.0:3478";
 
             region_id = 999;
-            region_code = "headscale";
-            region_name = "Headscale Embedded DERP";
+            region_code = "zrh";
+            region_name = "Zurich";
 
             automatically_add_embedded_derp_region = true;
           };
