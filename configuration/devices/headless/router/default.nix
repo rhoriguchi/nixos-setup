@@ -11,7 +11,7 @@ let
   filteredTailscaleIps = lib.filterAttrs (
     key: _:
     !(lib.elem key [
-      osConfig.networking.hostName
+      config.networking.hostName
       "headplane-agent"
     ])
   ) tailscaleIps;
