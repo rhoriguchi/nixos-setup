@@ -67,9 +67,7 @@ in
         update_every = 10;
         autodetection_retry = 5;
         interface = config.services.tailscale.interfaceName;
-        hosts = lib.attrValues (
-          lib.filterAttrs (key: _: key != config.networking.hostName) filteredTailscaleIps
-        );
+        hosts = lib.attrValues filteredTailscaleIps;
       }
     ];
   };
