@@ -14,6 +14,20 @@
   networking = {
     hostName = "XXLPitu-Nelliel";
 
-    interfaces.enp1s0.useDHCP = true;
+    interfaces.enp1s0 = {
+      useDHCP = true;
+
+      ipv6.addresses = [
+        {
+          address = "2a01:4f8:1c1a:6e76::";
+          prefixLength = 64;
+        }
+      ];
+    };
+
+    defaultGateway6 = {
+      address = "fe80::1";
+      interface = "enp1s0";
+    };
   };
 }
