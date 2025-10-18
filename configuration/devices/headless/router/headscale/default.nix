@@ -115,7 +115,10 @@ let
   );
 in
 {
-  imports = [ ./headplane.nix ];
+  imports = [
+    ./derper.nix
+    ./headplane.nix
+  ];
 
   services = {
     headscale = {
@@ -137,17 +140,24 @@ in
         };
 
         derp = {
-          server = {
-            enabled = true;
+          server.enabled = false;
 
-            stun_listen_addr = "0.0.0.0:3478";
+          paths = [
+            # `(pkgs.formats.yaml { }).generate` does not support keys as number
+            (pkgs.writeText "derpmap.yaml" ''
+              regions:
+                999:
+                  regionid: 999
+                  regioncode: zrh
+                  regionname: Zurich
 
-            region_id = 999;
-            region_code = "zrh";
-            region_name = "Zurich";
-
-            automatically_add_embedded_derp_region = true;
-          };
+                  nodes:
+                    - name: Tailscale Embedded DERP
+                      regionid: 999
+                      hostname: ${config.services.tailscale.derper.domain}
+                      canport80: true
+            '')
+          ];
 
           urls = [ ];
           auto_update_enabled = false;
@@ -242,10 +252,4 @@ in
       startAt = "*:*:0/30";
     };
   };
-
-  networking.firewall.allowedUDPPorts = [
-    (lib.toIntBase10 (
-      lib.last (lib.splitString ":" config.services.headscale.settings.derp.server.stun_listen_addr)
-    ))
-  ];
 }
