@@ -20,7 +20,6 @@
   laptop-power-management = ./laptop-power-management.nix;
   nano = ./nano.nix;
   nautilus = ./nautilus.nix;
-  ssh = ./ssh.nix;
   nftables = ./nftables.nix;
   nginx = ./nginx.nix;
   nix = ./nix.nix;
@@ -31,6 +30,7 @@
   printing = ./printing.nix;
   python = ./python.nix;
   shell = ./shell.nix;
+  ssh = ./ssh.nix;
   sudo-rs = ./sudo-rs.nix;
   tmp-management = ./tmp-management.nix;
   trash-management = ./trash-management.nix;
