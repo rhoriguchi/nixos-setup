@@ -26,12 +26,16 @@
     openFirewall = true;
 
     useRoutingFeatures = "client";
+    disableUpstreamLogging = true;
 
     authKeyFile =
       pkgs.writeText "authKeyFile"
         secrets.headscale.preAuthKeys.${config.networking.hostName};
 
-    extraSetFlags = [ "--accept-dns=false" ];
+    extraSetFlags = [
+      "--accept-dns=false"
+      "--update-check=false"
+    ];
 
     extraUpFlags = [
       "--force-reauth"
