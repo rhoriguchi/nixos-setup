@@ -23,6 +23,8 @@
         - Local Access only: `true`
         - Administrator: `false`
     - Get ID from <https://home-assistant.00a.ch/config/users> and update `trusted_users` in [default.nix](./default.nix)
+  - Configure default network interface
+    - `Settings` -> `System` -> `Network` -> `Network adapter`
   - Setup automatic backups
     - `Settings` -> `Backups` -> `Set up backups`
   - `Profile` (bottom left user icon) -> `Advanced mode = true`
