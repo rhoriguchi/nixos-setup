@@ -70,7 +70,6 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 winget install --accept-source-agreements --exact --silent --uninstall-previous AppWork.JDownloader
 winget install --accept-source-agreements --exact --silent --uninstall-previous Blitz.Blitz
 winget install --accept-source-agreements --exact --silent --uninstall-previous Discord.Discord
-winget install --accept-source-agreements --exact --silent --uninstall-previous IObit.DriverBooster
 winget install --accept-source-agreements --exact --silent --uninstall-previous IObit.Uninstaller
 winget install --accept-source-agreements --exact --silent --uninstall-previous MartiCliment.UniGetUI
 winget install --accept-source-agreements --exact --silent --uninstall-previous Mojang.MinecraftLauncher
@@ -118,6 +117,7 @@ net use X: \\XXLPitu-Tier.local\Series /user:samba /persistent:yes
 Run in an elevated cmd
 
 ```cmd
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "com.blitz.app" /f
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Discord" /f
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "org.whispersystems.signal-desktop" /f
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "RiotClient" /f
@@ -127,6 +127,17 @@ sc config TeamViewer start= disabled
 
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "RustDesk" /t REG_SZ /d "C:\Program Files\RustDesk\rustdesk.exe" /f
 "C:\Program Files\RustDesk\rustdesk.exe" --install-service
+```
+
+## Update drivers
+
+```cmd
+cd %userprofile%/Downloads
+
+curl --location --output SDI.7z --url "https://driveroff.net/drv/SDI_1.25.3.7z"
+
+start %userprofile%/Downloads
+
 ```
 
 ## Games
