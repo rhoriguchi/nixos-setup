@@ -423,7 +423,6 @@ in
                       "sensor.bedroom_h_t_gen3_battery"
                       "sensor.guest_room_h_t_gen3_battery"
                       "sensor.living_room_h_t_gen3_battery"
-                      "sensor.network_closet_h_t_gen3_battery"
                     ];
                   }
                   {
