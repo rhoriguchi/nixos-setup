@@ -162,6 +162,8 @@ in
           urls = [ ];
           auto_update_enabled = false;
         };
+
+        logtail.enabled = false;
       };
     };
 
