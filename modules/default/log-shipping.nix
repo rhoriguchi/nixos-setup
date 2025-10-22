@@ -3,7 +3,7 @@ let
   cfg = config.services.log-shipping;
 
   tailscaleIps = import (
-    lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
+    lib.custom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
 in
 {

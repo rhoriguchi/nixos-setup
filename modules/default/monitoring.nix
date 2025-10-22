@@ -13,7 +13,7 @@ let
   isChild = cfg.type == "child";
 
   tailscaleIps = import (
-    lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
+    lib.custom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
 
   keaEnabled = lib.any (service: service.enable) [

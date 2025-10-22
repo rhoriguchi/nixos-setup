@@ -1,6 +1,9 @@
+{ config, ... }:
 {
   imports = [
     ../common.nix
+
+    ./headscale
 
     ./hardware-configuration.nix
   ];
@@ -29,5 +32,10 @@
       address = "fe80::1";
       interface = "enp1s0";
     };
+
+    firewall.allowedTCPPorts = [
+      config.services.nginx.defaultSSLListenPort
+      config.services.nginx.defaultHTTPListenPort
+    ];
   };
 }

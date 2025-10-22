@@ -116,7 +116,6 @@ let
 in
 {
   imports = [
-    ./derper.nix
     ./headplane.nix
   ];
 
@@ -154,7 +153,7 @@ in
                   nodes:
                     - name: Tailscale Embedded DERP
                       regionid: 999
-                      hostname: ${config.services.tailscale.derper.domain}
+                      hostname: derp.00a.ch
                       canport80: true
             '')
           ];

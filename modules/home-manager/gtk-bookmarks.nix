@@ -8,7 +8,7 @@ let
   homeDirectory = config.home.homeDirectory;
 
   tailscaleIps = import (
-    lib.custom.relativeToRoot "configuration/devices/headless/router/headscale/ips.nix"
+    lib.custom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
   filteredTailscaleIps = lib.filterAttrs (
     key: _:
