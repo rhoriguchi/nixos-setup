@@ -91,9 +91,9 @@ in
           }
 
           chain lan-to-wan-filter {
-            meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
-
             iifname @surveillance_vlan_interface drop
+
+            meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
 
             accept
           }
@@ -101,11 +101,16 @@ in
           chain lan-to-lan-filter {
             ct state { established, related } accept
 
-            meta nfproto ipv6 drop
-
             meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
             udp dport { 41641 } accept # Tailscale
 
+            meta nfproto ipv4 jump lan-to-lan-ipv4
+            meta nfproto ipv6 jump lan-to-lan-ipv6
+
+            drop
+          }
+
+          chain lan-to-lan-ipv4 {
             ip daddr @multicast_ipv4_address accept
 
             iifname @management_network_interface oifname @management_network_interface accept
@@ -144,7 +149,9 @@ in
               in
               lib.concatStringsSep "\n" rules
             }
+          }
 
+          chain lan-to-lan-ipv6 {
             drop
           }
 
