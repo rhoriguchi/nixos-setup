@@ -169,7 +169,10 @@
           "**/flake.lock" = true;
           "**/node_modules" = true;
           "**/package-lock.json" = true;
+          "**/pnpm-lock.yaml" = true;
+          "**/poetry.lock" = true;
           "**/target" = true;
+          "**/uv.lock" = true;
         };
         "files.trimTrailingWhitespace" = true;
         "git.autofetch" = "all";

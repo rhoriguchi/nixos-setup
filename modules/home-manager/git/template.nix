@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  programs.git.extraConfig.init.templatedir = "${config.home.homeDirectory}/.git_template";
+  programs.git.settings.init.templatedir = "${config.home.homeDirectory}/.git_template";
 
   home.file = {
     ".git_template/hooks/commit-msg".source = pkgs.writers.writeBash "commit-msg" ''

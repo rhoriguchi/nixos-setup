@@ -20,7 +20,7 @@
     '';
   };
 
-  programs.git.extraConfig = {
+  programs.git.settings = {
     core.editor = "nano";
     diff.tool = "nano";
     merge.tool = "nano";

@@ -15,35 +15,31 @@
   programs.git = {
     enable = true;
 
-    userName = "Ryan Horiguchi";
-    userEmail = "ryan.horiguchi@gmail.com";
+    settings = {
+      user = {
+        name = "Ryan Horiguchi";
+        email = "ryan.horiguchi@gmail.com";
+      };
 
-    signing = {
-      format = "openpgp";
-      key = "5CC220FFA648E8A6C3D21D96CA7EE98D45A1132A";
-      signByDefault = true;
-    };
+      alias = {
+        alias = "! git config --get-regexp '^alias.' | sort | ${pkgs.gnused}/bin/sed -e 's/^alias\\.//' -e 's/\\ /\\ =\\ /'";
 
-    aliases = {
-      alias = "! git config --get-regexp '^alias.' | sort | ${pkgs.gnused}/bin/sed -e 's/^alias\\.//' -e 's/\\ /\\ =\\ /'";
+        changes = "! git diff --stat";
+        graph = "! git history --graph --all --decorate";
+        history = "! git log --pretty='%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ar %C(auto)%d %C(reset)%s'";
+        last = "! git history -1";
+        own-history = ''! git history --all --decorate --author="$(git config user.name)"'';
+        tracked =
+          let
+            colorize = color: text: "${color}${text}\\e[0m";
 
-      changes = "! git diff --stat";
-      graph = "! git history --graph --all --decorate";
-      history = "! git log --pretty='%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ar %C(auto)%d %C(reset)%s'";
-      last = "! git history -1";
-      own-history = ''! git history --all --decorate --author="$(git config user.name)"'';
-      tracked =
-        let
-          colorize = color: text: "${color}${text}\\e[0m";
+            # TODO figure out how to use hex colors variable
+            red = colorize "\\x1b[1;38;5;203m";
+            green = colorize "\\x1b[1;38;5;41m";
+          in
+          ''! f() { if [ $# -eq 0 ]; then echo -e '${red "Missing file or directory"}'; else tracked=$(git ls-files ''${1}); if [[ -z ''${tracked} ]]; then echo -e "${red "Not tracked"} ''${1}"; else echo -e "${green "Tracked"} ''${1}"; fi; fi; }; f'';
+      };
 
-          # TODO figure out how to use hex colors variable
-          red = colorize "\\x1b[1;38;5;203m";
-          green = colorize "\\x1b[1;38;5;41m";
-        in
-        ''! f() { if [ $# -eq 0 ]; then echo -e '${red "Missing file or directory"}'; else tracked=$(git ls-files ''${1}); if [[ -z ''${tracked} ]]; then echo -e "${red "Not tracked"} ''${1}"; else echo -e "${green "Tracked"} ''${1}"; fi; fi; }; f'';
-    };
-
-    extraConfig = {
       # TODO remove when https://github.com/libgit2/libgit2/issues/6531 fixed
       index.skipHash = false;
 
@@ -54,6 +50,12 @@
       feature.manyFiles = true;
 
       fetch.prune = true;
+    };
+
+    signing = {
+      format = "openpgp";
+      key = "5CC220FFA648E8A6C3D21D96CA7EE98D45A1132A";
+      signByDefault = true;
     };
 
     ignores = [
