@@ -119,10 +119,7 @@
 
       userSettings = {
         "chat.disableAIFeatures" = true;
-        "cSpell.enableFiletypes" = [
-          "nix"
-          "terraform"
-        ];
+        "cSpell.enabledFileTypes"."*" = true;
         "cSpell.userWords" = [
           "horiguchi"
           "rhoriguchi"
