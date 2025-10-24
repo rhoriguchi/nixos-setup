@@ -265,8 +265,8 @@ in
               let
                 owner = "BlueMap-Minecraft";
                 repo = "BlueMap";
-                tag = "5.12";
-                sha256 = "sha256-Y6lfLXOwigYrCxx4+Wlmd3gdDzuvPiDrAxg4oRzv0KI=";
+                tag = "5.13";
+                sha256 = "sha256-KkMLP09ZZN+Ev4WhRp4BA6l+applaGAJbwurzwTsUqc=";
               in
               pkgs.fetchurl {
                 url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/bluemap-${tag}-paper.jar";
