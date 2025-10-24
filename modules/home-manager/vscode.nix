@@ -118,6 +118,7 @@
       };
 
       userSettings = {
+        "chat.disableAIFeatures" = true;
         "cSpell.enableFiletypes" = [
           "nix"
           "terraform"
