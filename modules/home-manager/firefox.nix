@@ -126,6 +126,28 @@
               ];
             };
 
+            home-manager-options = {
+              name = "Home Manager Options";
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "ho" ];
+
+              urls = [
+                {
+                  template = "https://home-manager-options.extranix.com";
+                  params = [
+                    {
+                      name = "release";
+                      value = "master";
+                    }
+                    {
+                      name = "query";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+            };
+
             youtube = {
               name = "YouTube";
               iconMapObj."16" = "https://www.youtube.com/favicon.ico";
