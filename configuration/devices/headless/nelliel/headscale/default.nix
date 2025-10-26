@@ -15,7 +15,7 @@ let
   addApiKeySql = ''
     DELETE FROM api_keys;
 
-    INSERT OR REPLACE INTO api_keys (
+    INSERT INTO api_keys (
       id,
       created_at,
       expiration,
@@ -35,7 +35,7 @@ let
 
     ${lib.concatStringsSep "\n" (
       lib.imap1 (index: hostname: ''
-        INSERT OR REPLACE INTO users (
+        INSERT INTO users (
           id,
           created_at,
           updated_at,
