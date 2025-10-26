@@ -171,6 +171,7 @@
             "ebay-ch".metaData.hidden = true;
             ecosia.metaData.hidden = true;
             google.metaData.hidden = true;
+            perplexity.metaData.hidden = true;
             qwant.metaData.hidden = true;
             wikipedia.metaData.hidden = true;
           };
