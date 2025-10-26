@@ -477,6 +477,10 @@ in
               ++ lib.optional config.services.unpoller.enable {
                 name = "Unpoller";
                 url = "http://${config.services.unpoller.prometheus.http_listen}/metrics";
+              }
+              ++ lib.optional config.services.uptime-kuma.enable {
+                name = "Uptime Kuma";
+                url = "http://127.0.0.1:${toString config.services.uptime-kuma.settings.PORT}/metrics";
               };
           };
         }
