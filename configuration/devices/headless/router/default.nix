@@ -1,21 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  tailscaleIps = import (
-    lib.custom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
-  );
-  filteredTailscaleIps = lib.filterAttrs (
-    key: _:
-    !(lib.elem key [
-      config.networking.hostName
-      "headplane-agent"
-    ])
-  ) tailscaleIps;
-in
+{ pkgs, ... }:
 {
   imports = [
     ../common.nix
@@ -61,13 +44,6 @@ in
           "digitec.ch"
           "youtube.com"
         ];
-      }
-      {
-        name = "tailscale";
-        update_every = 10;
-        autodetection_retry = 5;
-        interface = config.services.tailscale.interfaceName;
-        hosts = lib.attrValues filteredTailscaleIps;
       }
     ];
   };
