@@ -20,16 +20,6 @@
       }
     }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=446779
-    onedrive = super.python3Packages.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "b1ce8d19eabffd8b2ca466a631850f605f5736a2";
-        sha256 = "sha256-fKimQxk9aReZSS8KufLpR+f/mWDOmcjQ7MwLmGwLVsY=";
-      }
-    }/pkgs/by-name/on/onedrive/package.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=449677
     borgmatic = super.callPackage (import "${
       super.fetchFromGitHub {
@@ -49,6 +39,16 @@
         sha256 = "sha256-reDPwf05bbh0NGCeAy3bGRuIDoINMdpJB4BZy3q+Imw=";
       }
     }/pkgs/by-name/su/superfile/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=455217
+    onedrive = super.python3Packages.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "514f43f77c269e4476e19acd1b0b32bde13f9b35";
+        sha256 = "sha256-BwXAufAeXfPaoo7UxJaxpz8ng1/O9EdWup8ukrkfprA=";
+      }
+    }/pkgs/by-name/on/onedrive/package.nix") { };
 
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=454342
     adguardhome = super.callPackage (import "${
