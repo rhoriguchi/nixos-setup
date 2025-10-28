@@ -166,3 +166,11 @@ mkdir -p /mnt/FIRMWARE && mount /dev/disk/by-label/FIRMWARE /mnt/FIRMWARE
 BOOTFS=/mnt/FIRMWARE FIRMWARE_RELEASE_STATUS=stable rpi-eeprom-update -d -a
 umount /mnt/FIRMWARE && rm -rf /mnt/FIRMWARE
 ```
+
+## Build VM Image for XXLPitu-Baraggan
+
+Comment `./hardware-configuration.nix` import
+
+```console
+nix build '.#images.XXLPitu-Baraggan'
+```
