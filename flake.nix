@@ -36,6 +36,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-github-actions = {
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -81,6 +86,8 @@
         default.imports = [
           inputs.headplane.nixosModules.headplane
           inputs.nix-minecraft.nixosModules.minecraft-servers
+          inputs.nixos-generators.nixosModules.all-formats
+
           ./modules/default
         ];
 
@@ -89,6 +96,7 @@
 
         home-manager.imports = [
           inputs.nix-index-database.homeModules.nix-index
+
           ./modules/home-manager
         ];
         home-manager-gnome.imports = [ ./modules/home-manager-gnome ];
@@ -234,6 +242,23 @@
             ];
           };
 
+          # Unraid VM
+          XXLPitu-Baraggan = lib.nixosSystem {
+            system = "x86_64-linux";
+
+            modules = [
+              {
+                imports = [
+                  commonModule
+
+                  self.nixosModules.profiles.headless
+
+                  ./configuration/devices/headless/baraggan
+                ];
+              }
+            ];
+          };
+
           # Raspberry Pi 4 Model B - 8GB
           XXLPitu-Grimmjow = lib.nixosSystem {
             system = "aarch64-linux";
@@ -302,7 +327,17 @@
           };
         };
 
-      images.sdImageRaspberryPi4 = self.nixosConfigurations.sdImageRaspberryPi4.config.system.build.image;
+      images = {
+        XXLPitu-Baraggan =
+          (
+            self.nixosConfigurations.XXLPitu-Baraggan
+            // {
+              virtualisation.diskSize = builtins.floor (1024 * 1024 * 1.5);
+            }
+          ).config.formats.qcow;
+
+        sdImageRaspberryPi4 = self.nixosConfigurations.sdImageRaspberryPi4.config.system.build.image;
+      };
 
       deploy = lib.custom.mkDeploy {
         inherit (inputs) deploy-rs;
