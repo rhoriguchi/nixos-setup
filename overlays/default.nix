@@ -69,6 +69,16 @@
         sha256 = "sha256-Zt0e/eLT+Y8QL+gyJvY9K/9IR05hfM6IvuRNYnE6SRA=";
       }
     }/pkgs/by-name/he/headscale/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=456352
+    prowlarr = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "c744a05c0e75caa4df8fb2e16b4ea5a72829da97";
+        sha256 = "sha256-ppEm09taEVZqnC4agf+MdBQsc7vn5ZtAIzjZ0O29zYg=";
+      }
+    }/pkgs/by-name/pr/prowlarr/package.nix") { };
   })
   (_: super: { hs = super.callPackage ./hs { }; })
 ]
