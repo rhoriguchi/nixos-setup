@@ -520,8 +520,6 @@ in
         requires = [ config.systemd.services.netdata-set-node-uuid.name ];
 
         serviceConfig = {
-          LogNamespace = lib.mkForce null;
-
           CapabilityBoundingSet = [
             # S.M.A.R.T. collector
             "CAP_SYS_RAWIO"
