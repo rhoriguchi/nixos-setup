@@ -1,8 +1,5 @@
-{ colors, pkgs, ... }:
+{ colors, ... }:
 {
-  # needed for copy
-  home.packages = [ pkgs.wl-clipboard ];
-
   programs.jqp = {
     enable = true;
 
