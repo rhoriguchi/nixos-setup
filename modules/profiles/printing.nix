@@ -7,8 +7,14 @@
       webInterface = false;
 
       drivers = [
+        pkgs.cups-browsed
+        pkgs.cups-filters
+
         pkgs.brgenml1lpr
         pkgs.brlaser
+        pkgs.cnijfilter2
+        pkgs.epson-escpr
+        pkgs.epson-escpr2
         pkgs.gutenprint
         pkgs.gutenprintBin
         pkgs.hplipWithPlugin
