@@ -40,7 +40,7 @@
             options.version = 2;
           })
           [
-            "Guest room - U7 Pro"
+            "Guest room - U7 Pro XG"
             "Living room - U6 LR"
             "Living room - US 8 60W"
             "Network closet - USW Pro XG 8 PoE"
