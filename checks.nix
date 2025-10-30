@@ -35,7 +35,7 @@
         enable = true;
         types = [ "markdown" ];
 
-        settings.flags = "--cache --verbose";
+        settings.flags = "--cache --offline --verbose";
       };
       markdownlint = {
         enable = true;
