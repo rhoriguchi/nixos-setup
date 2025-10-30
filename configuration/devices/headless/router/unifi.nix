@@ -29,6 +29,7 @@
           hostname = "unifi.local";
           community = "public";
           options.version = 2;
+          autodetection_retry = 30;
         }
       ]
       ++
@@ -38,6 +39,7 @@
             hostname = lib.toLower "${lib.replaceStrings [ " " ] [ "" ] name}.local";
             community = "public";
             options.version = 2;
+            autodetection_retry = 30;
           })
           [
             "Guest room - U7 Pro XG"
