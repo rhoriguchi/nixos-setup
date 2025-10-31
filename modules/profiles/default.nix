@@ -5,6 +5,7 @@
 
   bluetooth = ./bluetooth.nix;
   containers = ./containers.nix;
+  dconf-editor = ./dconf-editor.nix;
   doas = ./doas.nix;
   docker = ./docker.nix;
   fail2ban = ./fail2ban.nix;

@@ -1,14 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   imports = [
     ./_common.nix
 
     ./bluetooth.nix
+    ./dconf-editor.nix
     ./gaming.nix
     ./git.nix
     ./mission-center.nix
@@ -39,6 +35,5 @@
     pkgs.vlc
     pkgs.whatsapp-electron
     pkgs.wpa_supplicant_gui
-  ]
-  ++ lib.optional config.programs.dconf.enable pkgs.dconf-editor;
+  ];
 }

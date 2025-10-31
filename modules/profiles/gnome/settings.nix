@@ -19,11 +19,6 @@ in
     enable = true;
 
     profiles.user.databases = [
-      # Dconf Editor
-      {
-        settings."ca/desrt/dconf-editor/Settings".show-warning = false;
-      }
-
       # Security
       {
         lockAll = true;
