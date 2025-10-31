@@ -70,7 +70,7 @@
             (map (domain: {
               inherit domain;
               answer = "${config.networking.hostName}.local";
-            }) config.services.infomaniak.hostnames)
+            }) (config.services.infomaniak.hostnames ++ config.services.lancache.cacheDomains))
             ++ (map
               (domain: {
                 inherit domain;

@@ -9,6 +9,7 @@
     ./dns
     ./firewall.nix
     ./interfaces.nix
+    ./lancache.nix
     ./networking.nix
     ./unifi.nix
     ./web-proxy.nix
