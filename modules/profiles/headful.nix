@@ -11,6 +11,7 @@
     ./bluetooth.nix
     ./gaming.nix
     ./git.nix
+    ./mission-center.nix
     ./nautilus.nix
     ./peripherals.nix
     ./printing.nix
@@ -30,7 +31,6 @@
     pkgs.google-chrome
     pkgs.inkscape
     pkgs.loupe
-    pkgs.mission-center
     pkgs.obsidian
     pkgs.qbittorrent
     pkgs.rustdesk-flutter

@@ -24,14 +24,6 @@ in
         settings."ca/desrt/dconf-editor/Settings".show-warning = false;
       }
 
-      # Mission Center
-      {
-        settings."io/missioncenter/MissionCenter" = {
-          performance-page-cpu-graph = lib.gvariant.mkInt32 2;
-          performance-page-network-use-bytes = false;
-        };
-      }
-
       # Security
       {
         lockAll = true;

@@ -18,6 +18,7 @@
   keyboard = ./keyboard.nix;
   kotlin = ./kotlin.nix;
   laptop-power-management = ./laptop-power-management.nix;
+  mission-center = ./mission-center.nix;
   nano = ./nano.nix;
   nautilus = ./nautilus.nix;
   nftables = ./nftables.nix;
