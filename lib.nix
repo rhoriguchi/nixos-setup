@@ -29,7 +29,7 @@
       nodes = lib.foldl (
         result: name:
         let
-          inherit (host.pkgs) system;
+          inherit (host.pkgs.stdenv.hostPlatform) system;
           host = hosts.${name};
         in
         result

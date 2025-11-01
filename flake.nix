@@ -102,7 +102,9 @@
             inputs.headplane.overlays.default
             inputs.nix-minecraft.overlay
 
-            (_: super: { borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.system}; })
+            (_: super: {
+              borg-exporter-image = inputs.borg-exporter.defaultPackage.${super.stdenv.hostPlatform.system};
+            })
           ]
           ++ import ./overlays
         );

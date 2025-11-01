@@ -20,16 +20,6 @@
       }
     }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=449677
-    borgmatic = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "95ead6d497513f80646da927d1d86390ade713ed";
-        sha256 = "sha256-cYswH0Cs+1HVj/KWnTLmDTB4A1t18rcs+yD5N6QWJLA=";
-      }
-    }/pkgs/by-name/bo/borgmatic/package.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=450661
     superfile = super.callPackage (import "${
       super.fetchFromGitHub {
@@ -40,16 +30,6 @@
       }
     }/pkgs/by-name/su/superfile/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=455217
-    onedrive = super.python3Packages.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "514f43f77c269e4476e19acd1b0b32bde13f9b35";
-        sha256 = "sha256-BwXAufAeXfPaoo7UxJaxpz8ng1/O9EdWup8ukrkfprA=";
-      }
-    }/pkgs/by-name/on/onedrive/package.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=454342
     adguardhome = super.callPackage (import "${
       super.fetchFromGitHub {
@@ -59,26 +39,6 @@
         sha256 = "sha256-+VNeNOVFpxu5l32BYQPqcY95+/PMjiHsWKpIG3kP2+8=";
       }
     }/pkgs/by-name/ad/adguardhome/package.nix") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=456217
-    headscale = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "d81caeb6f4851abdff8f50cf065971ce41d5121a";
-        sha256 = "sha256-Zt0e/eLT+Y8QL+gyJvY9K/9IR05hfM6IvuRNYnE6SRA=";
-      }
-    }/pkgs/by-name/he/headscale/package.nix") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=456352
-    prowlarr = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "c744a05c0e75caa4df8fb2e16b4ea5a72829da97";
-        sha256 = "sha256-ppEm09taEVZqnC4agf+MdBQsc7vn5ZtAIzjZ0O29zYg=";
-      }
-    }/pkgs/by-name/pr/prowlarr/package.nix") { };
   })
   (_: super: { hs = super.callPackage ./hs { }; })
 ]
