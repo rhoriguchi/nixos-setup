@@ -3,8 +3,8 @@
   imports = [
     ../common.nix
 
-    ./uptime-kuma.nix
     ./headscale
+    ./uptime-kuma.nix
 
     ./hardware-configuration.nix
   ];
