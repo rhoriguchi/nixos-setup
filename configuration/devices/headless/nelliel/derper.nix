@@ -8,7 +8,7 @@
 
       verifyClients = false;
 
-      domain = "derp-zrh.00a.ch";
+      domain = "derp-nbg.00a.ch";
       configureNginx = true;
     };
 
@@ -18,10 +18,10 @@
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
       hostnames = [
-        "derp-zrh.00a.ch"
+        "derp-nbg.00a.ch"
       ];
     };
 
-    nginx.virtualHosts."derp-zrh.00a.ch".enableACME = true;
+    nginx.virtualHosts."derp-nbg.00a.ch".enableACME = true;
   };
 }

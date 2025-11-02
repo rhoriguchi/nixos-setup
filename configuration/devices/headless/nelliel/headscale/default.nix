@@ -145,15 +145,26 @@ in
             # `(pkgs.formats.yaml { }).generate` does not support keys as number
             (pkgs.writeText "derpmap.yaml" ''
               regions:
+                998:
+                  regionid: 998
+                  regioncode: nbg
+                  regionname: Nuremberg
+
+                  nodes:
+                    - name: Tailscale Embedded DERP - Nuremberg
+                      regionid: 998
+                      hostname: derp-nbg.00a.ch
+                      canport80: true
+
                 999:
                   regionid: 999
                   regioncode: zrh
                   regionname: Zurich
 
                   nodes:
-                    - name: Tailscale Embedded DERP
+                    - name: Tailscale Embedded DERP - Zurich
                       regionid: 999
-                      hostname: derp.00a.ch
+                      hostname: derp-zrh.00a.ch
                       canport80: true
             '')
           ];
