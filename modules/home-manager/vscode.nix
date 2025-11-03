@@ -266,7 +266,7 @@
         "window.autoDetectColorScheme" = true;
         "window.newWindowDimensions" = "maximized";
         "window.openFoldersInNewWindow" = "on";
-        "window.restoreFullscreen" = true;
+        "window.restoreFullscreen" = false;
         "window.zoomLevel" = 0;
         "workbench.colorTheme" = "Default Light+";
         "workbench.editor.highlightModifiedTabs" = true;
