@@ -343,9 +343,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = [
             pkgs.nix-output-monitor
-            # TODO switch back when https://github.com/serokell/deploy-rs/issues/340 resolved
-            # pkgs.nixVersions.latest
-            pkgs.nixVersions.nix_2_31
+            pkgs.nixVersions.latest
 
             inputs.deploy-rs.packages.${system}.deploy-rs
           ]
