@@ -2,7 +2,6 @@
   colors,
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -22,18 +21,13 @@ let
   );
 in
 {
-  # TODO use options merged https://github.com/nix-community/home-manager/pull/7806
-  xdg.dataFile = {
-    "superfile/pinned.json".source = (pkgs.formats.json { }).generate "pinned.json" bookmarks;
-
-    "superfile/firstUseCheck".text = "";
-  };
-
   programs = {
     zsh.shellAliases.spf = "${config.programs.superfile.package}/bin/superfile";
 
     superfile = {
       enable = true;
+
+      firstUseCheck = false;
 
       settings = {
         theme = "Custom";
@@ -50,6 +44,8 @@ in
         metadata = true;
         zoxide_support = true;
       };
+
+      pinnedFolders = bookmarks;
 
       hotkeys.pinned_folder = [ ];
 

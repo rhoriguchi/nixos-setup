@@ -1,12 +1,17 @@
+{ config, ... }:
 {
-  programs.zoxide = {
-    enable = true;
+  programs = {
+    zoxide = {
+      enable = true;
 
-    enableBashIntegration = true;
-    enableFishIntegration = true;
-    enableNushellIntegration = true;
-    enableZshIntegration = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableNushellIntegration = true;
+      enableZshIntegration = true;
 
-    options = [ "--cmd cd" ];
+      options = [ "--cmd cd" ];
+    };
+
+    superfile.zoxidePackage = config.programs.zoxide.package;
   };
 }
