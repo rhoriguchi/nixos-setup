@@ -72,10 +72,6 @@ Set any username and password. Will be removed after restart of service.
 
 #### [Home Assistant](configuration/devices/headless/tier/home-assistant/README.md)
 
-#### Google Photos Sync
-
-Run the command the service `gphotos-sync.service` calls and authenticate the application with Google.
-
 #### Setup ZFS
 
 ```console
