@@ -106,10 +106,15 @@ del /f Netdata.msi
 
 ## Samba share
 
-Manually enter password found in [secrets.nix](../../../secrets.nix).samba.users.password and save credentials
+Replace `PASSWORD` with value from [secrets.nix](../../../secrets.nix).samba.users.password and save credentials
 
 ```cmd
-net use X: \\XXLPitu-Tier.local\Series /user:samba /persistent:yes
+set "FilePath=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\mount_shares.cmd"
+type NUL > "%FilePath%"
+
+echo @echo off >> "%FilePath%"
+echo. >> "%FilePath%"
+echo net use Z: "\\XXLPitu-Tier.local\Series" /user:samba "PASSWORD" >> "%FilePath%"
 ```
 
 ## Autostart
