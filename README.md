@@ -64,13 +64,13 @@ nix-shell -p libsecret --run 'secret-tool store --label=KeePass KeePass 2FA'
 
 ### XXLPitu-Tier
 
+#### [Home Assistant](configuration/devices/headless/tier/home-assistant/README.md)
+
 #### Setup Plex over `http://IP:32400/web`
 
 #### Setup Tautulli `https://tautulli.00a.ch:8181`
 
 Set any username and password. Will be removed after restart of service.
-
-#### [Home Assistant](configuration/devices/headless/tier/home-assistant/README.md)
 
 #### Setup ZFS
 
