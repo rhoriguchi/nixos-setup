@@ -273,54 +273,19 @@
               }
             ];
           };
-
-          sdImageRaspberryPi4 = lib.nixosSystem {
-            system = "aarch64-linux";
-
-            modules = [
-              {
-                imports = [ "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ];
-                sdImage.compressImage = false;
-              }
-              (
-                { secrets, ... }:
-                {
-                  imports = [
-                    commonModule
-
-                    inputs.nixos-hardware.nixosModules.raspberry-pi-4
-
-                    self.nixosModules.profiles.headless
-                  ];
-
-                  users.users.xxlpitu = {
-                    extraGroups = [ "wheel" ];
-                    isNormalUser = true;
-                    password = secrets.users.xxlpitu.password;
-                  };
-                }
-              )
-            ];
-          };
         };
-
-      images.sdImageRaspberryPi4 = self.nixosConfigurations.sdImageRaspberryPi4.config.system.build.image;
 
       deploy = lib.custom.mkDeploy {
         inherit (inputs) deploy-rs;
         inherit (self) nixosConfigurations;
 
-        overrides = {
-          Laptop = {
-            hostname = "127.0.0.1";
+        overrides.Laptop = {
+          hostname = "127.0.0.1";
 
-            extraOptions = {
-              autoRollback = false;
-              magicRollback = false;
-            };
+          extraOptions = {
+            autoRollback = false;
+            magicRollback = false;
           };
-
-          sdImageRaspberryPi4.deploy = false;
         };
       };
     }
