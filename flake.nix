@@ -163,7 +163,7 @@
 
                       extraSpecialArgs = {
                         inherit (self.nixosModules) colors;
-                        secrets = import ./secrets.nix;
+                        inherit (self.nixosConfigurations.Laptop._module.args) secrets;
                       };
 
                       users.rhoriguchi.imports = [
