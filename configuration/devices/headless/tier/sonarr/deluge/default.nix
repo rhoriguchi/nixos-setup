@@ -75,8 +75,6 @@ in
         nameserver = getValue configText "DNS";
       in
       {
-        imports = [ (lib.custom.relativeToRoot "modules/profiles/headless.nix") ];
-
         networking = {
           nameservers = [ nameserver ];
 
