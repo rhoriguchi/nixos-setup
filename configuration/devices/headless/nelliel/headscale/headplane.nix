@@ -15,6 +15,7 @@
           host = "127.0.0.1";
           port = 3001;
 
+          cookie_domain = "headplane.00a.ch";
           cookie_secret_path = pkgs.writeText "cookieSecret" secrets.headplane.cookieSecret;
           cookie_secure = true;
         };
