@@ -34,6 +34,7 @@
   shell = ./shell.nix;
   ssh = ./ssh.nix;
   sudo-rs = ./sudo-rs.nix;
+  tailscale = ./tailscale.nix;
   tmp-management = ./tmp-management.nix;
   trash-management = ./trash-management.nix;
   util = ./util.nix;
