@@ -11,6 +11,7 @@
 
     ./backup.nix
     ./fancontrol.nix
+    ./geforce-gt-730.nix
     ./home-assistant
     ./log-management
     ./minecraft-server
