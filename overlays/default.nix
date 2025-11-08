@@ -40,5 +40,9 @@
       }
     }/pkgs/by-name/ad/adguardhome/package.nix") { };
   })
-  (_: super: { hs = super.callPackage ./hs { }; })
+  (_: super: {
+    hs = super.callPackage ./hs { };
+
+    wallpaper = super.callPackage ./wallpaper { };
+  })
 ]

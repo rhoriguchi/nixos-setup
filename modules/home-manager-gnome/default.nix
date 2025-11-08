@@ -33,7 +33,7 @@ in
         transparency = 0;
       };
       "org/gnome/desktop/background" = rec {
-        picture-uri = "file://${./wallpaper.jpg}";
+        picture-uri = "file://${pkgs.wallpaper}/share/icons/hicolor/3840x2160/apps/wallpaper.jpg";
         picture-uri-dark = picture-uri;
       };
       "org/gnome/desktop/calendar".show-weekdate = true;
