@@ -75,6 +75,10 @@ in
         nameserver = getValue configText "DNS";
       in
       {
+        system = {
+          inherit (config.system) stateVersion;
+        };
+
         networking = {
           nameservers = [ nameserver ];
 
