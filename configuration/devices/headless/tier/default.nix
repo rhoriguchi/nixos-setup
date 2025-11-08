@@ -31,12 +31,15 @@
       efiSupport = true;
       efiInstallAsRemovable = true;
 
-      device = "nodev";
-
+      devices = lib.mkForce [ ];
       mirroredBoots = [
         {
-          devices = [ "/dev/disk/by-uuid/6054-F72D" ];
-          path = "/boot-mirror";
+          devices = [ "nodev" ];
+          path = "/boot1";
+        }
+        {
+          devices = [ "nodev" ];
+          path = "/boot2";
         }
       ];
     };

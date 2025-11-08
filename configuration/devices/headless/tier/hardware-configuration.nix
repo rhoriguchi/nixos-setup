@@ -26,21 +26,25 @@
     fsType = "zfs";
   };
 
-  fileSystems."/boot" = {
+  fileSystems."/boot1" = {
     device = "/dev/disk/by-uuid/5FB8-953C";
     fsType = "vfat";
     options = [
       "fmask=0022"
       "dmask=0022"
+
+      "nofail"
     ];
   };
 
-  fileSystems."/boot-mirror" = {
+  fileSystems."/boot2" = {
     device = "/dev/disk/by-uuid/6054-F72D";
     fsType = "vfat";
     options = [
       "fmask=0022"
       "dmask=0022"
+
+      "nofail"
     ];
   };
 
