@@ -4,6 +4,11 @@
   secrets,
   ...
 }:
+let
+  tailscaleIps = import (
+    lib.custom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
+  );
+in
 {
   imports = [ ../../common.nix ];
 
@@ -42,6 +47,21 @@
       type = "child";
       parentHostname = "XXLPitu-Tier";
       apiKey = secrets.monitoring.apiKey;
+    };
+
+    # TODO create module?
+    netvisor.daemon = {
+      enable = true;
+
+      name = config.networking.hostName;
+
+      serverTarget = "http://${tailscaleIps.XXLPitu-Tier}";
+      daemonApiKey = "${secrets.netvisor.apiKey}";
+      # TODO expose readonly in module
+      networkId = "92e3eb07-8cd7-4c8b-bfa4-3e67c109eebd";
+
+      # TODO REMOVE ME
+      logLevel = "debug";
     };
   };
 }
