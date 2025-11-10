@@ -16,6 +16,7 @@
     ./log-management
     ./minecraft-server
     ./monitoring.nix
+    ./netvisor.nix
     ./plex.nix
     ./rustdesk.nix
     ./samba.nix
