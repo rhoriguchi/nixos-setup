@@ -43,5 +43,12 @@
       parentHostname = "XXLPitu-Tier";
       apiKey = secrets.monitoring.apiKey;
     };
+
+    networkTopology = {
+      enable = true;
+
+      serverHostname = "XXLPitu-Tier";
+      inherit (secrets.netvisor) apiKey;
+    };
   };
 }

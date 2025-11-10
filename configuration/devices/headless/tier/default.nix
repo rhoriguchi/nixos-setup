@@ -17,6 +17,7 @@
     ./loki.nix
     ./minecraft-server
     ./monitoring.nix
+    ./netvisor.nix
     ./plex.nix
     ./prometheus.nix
     ./rustdesk.nix
