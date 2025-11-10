@@ -85,6 +85,25 @@ let
       ${lib.concatStringsSep "\n" (
         lib.imap1 (index: hostname: addMonitor index hostname) filteredTailscaleHostnames
       )}
+
+      INSERT INTO monitor (
+        id,
+        name,
+        user_id,
+        type,
+        hostname,
+        interval,
+        retry_interval
+      )
+      VALUES (
+        ${toString ((lib.length filteredTailscaleHostnames) + 1)},
+        '${config.networking.hostName}',
+        1,
+        'ping',
+        '${config.networking.hostName}',
+        60,
+        60
+      );
     '';
 in
 {
@@ -149,6 +168,8 @@ in
         ${addUser}
         ${addMonitors}
       EOF
+
+      systemctl restart ${config.systemd.services.uptime-kuma.name}
     '';
 
     serviceConfig.Type = "oneshot";
