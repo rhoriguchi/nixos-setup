@@ -58,6 +58,37 @@
     { self, ... }@inputs:
     let
       lib = inputs.nixpkgs.lib.extend self.overlays.lib;
+
+      # Adapted from https://github.com/hmajid2301/nixicle/blob/8e8f5b1f2612a441b9f9da3e893af60774448836/lib/deploy/default.nix
+      mkDeploy =
+        {
+          overrides ? { },
+        }:
+        let
+          hosts = self.nixosConfigurations;
+          names = lib.attrNames hosts;
+        in
+        {
+          nodes = lib.foldl (
+            result: name:
+            let
+              inherit (host.pkgs.stdenv.hostPlatform) system;
+              host = hosts.${name};
+            in
+            result
+            // lib.optionalAttrs (overrides.${name}.deploy or true) {
+              "${name}" = {
+                hostname = lib.toLower (overrides.${name}.hostname or "${name}");
+
+                profiles.system = {
+                  sshUser = "root";
+                  path = inputs.deploy-rs.lib.${system}.activate.nixos host;
+                }
+                // (overrides.${name}.extraOptions or { });
+              };
+            }
+          ) { } names;
+        };
     in
     {
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
@@ -275,10 +306,7 @@
           };
         };
 
-      deploy = lib.custom.mkDeploy {
-        inherit (inputs) deploy-rs;
-        inherit (self) nixosConfigurations;
-
+      deploy = mkDeploy {
         overrides.Laptop = {
           hostname = "127.0.0.1";
 
