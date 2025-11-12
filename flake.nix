@@ -192,10 +192,7 @@
                       backupFileExtension = "backup";
                       overwriteBackup = true;
 
-                      extraSpecialArgs = {
-                        inherit (self.nixosModules) colors;
-                        inherit (commonModule._module.args) secrets;
-                      };
+                      extraSpecialArgs = commonModule._module.args;
 
                       users.rhoriguchi.imports = [
                         self.nixosModules.home-manager
