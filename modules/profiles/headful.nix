@@ -20,12 +20,10 @@
     pkgs.discord
     pkgs.firefox
     pkgs.ghostty
-    pkgs.gimp3
     pkgs.gitkraken
     pkgs.glow
     pkgs.gnome-calculator
     pkgs.google-chrome
-    pkgs.inkscape
     pkgs.loupe
     pkgs.obsidian
     pkgs.qbittorrent
