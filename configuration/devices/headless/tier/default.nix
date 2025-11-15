@@ -15,6 +15,7 @@
     ./geforce-gt-730.nix
     ./grafana
     ./home-assistant
+    ./jellyfin.nix
     ./loki.nix
     ./minecraft-server
     ./monitoring.nix
