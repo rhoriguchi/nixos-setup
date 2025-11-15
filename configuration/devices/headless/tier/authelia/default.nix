@@ -11,6 +11,7 @@ in
 {
   imports = [
     ./home-assistant.nix
+    ./jellyfin.nix
   ];
 
   users.users.${cfg.user}.extraGroups = [ config.services.redis.servers.authelia.group ];
