@@ -26,6 +26,7 @@ in
           "/var/lib/${config.services.prometheus.stateDir}"
           "/var/lib/hass/backups"
 
+          config.services.jellyfin.dataDir
           config.services.loki.dataDir
           config.services.minecraft-servers.dataDir
           config.services.plex.dataDir

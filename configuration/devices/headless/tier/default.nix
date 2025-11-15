@@ -13,6 +13,7 @@
     ./fancontrol.nix
     ./geforce-gt-730.nix
     ./home-assistant
+    ./jellyfin.nix
     ./log-management
     ./minecraft-server
     ./monitoring.nix

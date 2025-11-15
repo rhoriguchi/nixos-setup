@@ -459,6 +459,10 @@ in
                   url = "http://127.0.0.1:${toString config.immich.environment.IMMICH_MICROSERVICES_METRICS_PORT}/metrics";
                 }
               ]
+              ++ lib.optional config.services.jellyfin.enable {
+                name = "Jellyfin";
+                url = "http://127.0.0.1:8096/metrics";
+              }
               ++ lib.optional config.services.prometheus.exporters.kea.enable {
                 name = "Kea";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.kea.port}/metrics";
