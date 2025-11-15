@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
+    declarative-jellyfin = {
+      url = "github:Sveske-Juice/declarative-jellyfin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -122,6 +127,7 @@
 
       nixosModules = {
         default.imports = [
+          inputs.declarative-jellyfin.nixosModules.default
           inputs.headplane.nixosModules.headplane
           inputs.hyprland.nixosModules.default
           inputs.nix-flatpak.nixosModules.nix-flatpak
