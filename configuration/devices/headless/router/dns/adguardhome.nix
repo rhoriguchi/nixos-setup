@@ -54,7 +54,7 @@
 
       mutableSettings = false;
       settings =
-        assert pkgs.adguardhome.schema_version == 30;
+        assert pkgs.adguardhome.schema_version == 31;
         {
           dns = rec {
             bootstrap_dns = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
@@ -70,11 +70,13 @@
             (map (domain: {
               inherit domain;
               answer = "${config.networking.hostName}.local";
+              enabled = true;
             }) config.services.infomaniak.hostnames)
             ++ (map
               (domain: {
                 inherit domain;
                 answer = "XXLPitu-Ulquiorra.local";
+                enabled = true;
               })
               [
                 "printer.00a.ch"
@@ -85,6 +87,7 @@
               (domain: {
                 inherit domain;
                 answer = "XXLPitu-Tier.local";
+                enabled = true;
               })
               [
                 "deluge.00a.ch"
