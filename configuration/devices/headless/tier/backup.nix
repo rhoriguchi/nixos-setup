@@ -35,6 +35,7 @@ in
         "/var/lib/terraria"
 
         config.services.home-assistant.configDir
+        config.services.jellyfin.dataDir
         config.services.loki.dataDir
         config.services.minecraft-servers.dataDir
         config.services.plex.dataDir

@@ -103,6 +103,8 @@ in
         };
       '';
 
+      declarative-jellyfin.system.enableMetrics = true;
+
       corerad.settings.debug = {
         address = "127.0.0.1:9430";
         prometheus = true;
@@ -507,6 +509,10 @@ in
                   url = "http://127.0.0.1:${toString config.immich.environment.IMMICH_MICROSERVICES_METRICS_PORT}/metrics";
                 }
               ]
+              ++ lib.optional config.services.declarative-jellyfin.system.enableMetrics {
+                name = "Jellyfin";
+                url = "http://127.0.0.1:8096/metrics";
+              }
               ++ lib.optional config.services.prometheus.exporters.kea.enable {
                 name = "Kea";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.kea.port}/metrics";

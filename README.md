@@ -83,6 +83,13 @@ nix-shell -p libsecret --run 'secret-tool store --label=KeePass KeePass 2FA'
 
 Set any username and password. Will be removed after restart of service.
 
+#### Setup Jellyfin
+
+- Install plugins `Dashboard` -> `Plugins`
+  - `AniDB`
+  - `Intro Skipper`
+  - `SSO Authentication`
+
 #### Setup ZFS
 
 ```console
