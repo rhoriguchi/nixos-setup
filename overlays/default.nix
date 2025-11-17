@@ -29,26 +29,6 @@
         sha256 = "sha256-reDPwf05bbh0NGCeAy3bGRuIDoINMdpJB4BZy3q+Imw=";
       }
     }/pkgs/by-name/su/superfile/package.nix") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=461052
-    adguardhome = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "c870ad4862046e20d63947bad6bf3eb4450d6aac";
-        sha256 = "sha256-CGSmZ08yEEhNUoUNEyrEVs4CRI0aL6wIta6QaJBpWj8=";
-      }
-    }/pkgs/by-name/ad/adguardhome/package.nix") { };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=461661
-    rustdesk-flutter = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "45667c9df233b49115c7aca6bd8c68b2a46a6037";
-        sha256 = "sha256-HSM1nF/URWYRyn98Z2i0RhsHH88DFecLep8k6J4ZV7A=";
-      }
-    }/pkgs/by-name/ru/rustdesk-flutter/package.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
