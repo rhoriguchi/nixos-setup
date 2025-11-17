@@ -70,10 +70,10 @@
       pkgs.orca
       pkgs.papers
       pkgs.seahorse
+      pkgs.showtime
       pkgs.simple-scan
       pkgs.snapshot
       pkgs.sushi
-      pkgs.totem
       pkgs.yelp
     ];
   };
