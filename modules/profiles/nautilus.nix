@@ -7,8 +7,6 @@
   };
 
   programs = {
-    evince.enable = true;
-
     file-roller.enable = true;
 
     dconf = {

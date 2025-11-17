@@ -43,7 +43,6 @@
       pkgs.baobab
       pkgs.decibels
       pkgs.epiphany
-      pkgs.evince
       pkgs.file-roller
       pkgs.geary
       pkgs.gnome-backgrounds
@@ -69,6 +68,7 @@
       pkgs.loupe
       pkgs.nautilus
       pkgs.orca
+      pkgs.papers
       pkgs.seahorse
       pkgs.simple-scan
       pkgs.snapshot
