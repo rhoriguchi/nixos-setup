@@ -423,13 +423,10 @@ in
                 name = "CoreRAD";
                 url = "http://${config.services.corerad.settings.debug.address}/metrics";
               }
-              ++
-                lib.optional
-                  (config.services.flaresolverr.enable && config.services.flaresolverr.prometheusExporter.enable)
-                  {
-                    name = "FlareSolverr";
-                    url = "http://127.0.0.1:${toString config.services.flaresolverr.prometheusExporter.port}/metrics";
-                  }
+              ++ lib.optional config.services.flaresolverr.prometheusExporter.enable {
+                name = "FlareSolverr";
+                url = "http://127.0.0.1:${toString config.services.flaresolverr.prometheusExporter.port}/metrics";
+              }
               ++ lib.optional config.services.prometheus.exporters.frr.enable {
                 name = "FRRouting";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.frr.port}/metrics";
