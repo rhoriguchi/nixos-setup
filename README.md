@@ -40,7 +40,7 @@ gpg --output private.gpg --armor --export-secret-key ryan.horiguchi@gmail.com
 ```console
 gpg --import private.gpg
 
-expect << EOF
+expect << 'EOF'
 spawn gpg --edit-key ryan.horiguchi@gmail.com
 expect "gpg>"
 send "trust\n"

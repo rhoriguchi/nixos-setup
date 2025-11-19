@@ -211,7 +211,7 @@ in
       wants = [ config.systemd.services.headscale.name ];
 
       script = ''
-        ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+        ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
           ${addApiKeySql}
           ${addUserSql}
           ${addPreAuthKeySql}
@@ -232,11 +232,11 @@ in
       wants = [ config.systemd.services.headscale.name ];
 
       script = ''
-        ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+        ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
           ${removeOldNodeSql}
         EOF
 
-        differences=$(${pkgs.sqlite-interactive}/bin/sqlite3 -csv ${config.services.headscale.settings.database.sqlite.path} << EOF
+        differences=$(${pkgs.sqlite-interactive}/bin/sqlite3 -csv ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
           ${selectNodeDifferencesSql}
         EOF
         )
@@ -244,7 +244,7 @@ in
         if [ -n "$differences" ]; then
           echo "Updating nodes"
 
-          ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+          ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
             ${updateNodeSql}
         EOF
 
