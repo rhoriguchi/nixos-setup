@@ -267,7 +267,8 @@ in
         package = pkgs.netdata.override {
           withCloudUi = isParent;
           withCups = true;
-          withDBengine = isParent;
+          # TODO uncomment when https://github.com/netdata/netdata/issues/21321 fixed
+          # withDBengine = isParent;
           withDebug = cfg.debug.enable;
           withLibbacktrace = cfg.debug.enable;
           withML = isParent;
