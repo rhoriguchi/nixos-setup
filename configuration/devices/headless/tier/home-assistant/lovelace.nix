@@ -21,7 +21,6 @@ let
         color: var(--ha-card-header-color) !important;
         font-size: var(--ha-card-header-font-size, 24px) !important;
         font-weight: normal !important;
-        margin-top: 10px !important;
         opacity: 1 !important;
       }
     '';
