@@ -10,16 +10,6 @@
       }
     }/pkgs/by-name/re/resilio-sync/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=446721
-    netdata = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "bd25e53de06dc2433a640176e141b84751d3d4e6";
-        sha256 = "sha256-8eE0tCtND6LAw2H3uHw7eN0iXaSj4Ccyp2FGxeSZtPs=";
-      }
-    }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=450661
     superfile = super.callPackage (import "${
       super.fetchFromGitHub {
@@ -49,6 +39,16 @@
         sha256 = "sha256-H9J75I57PF1Xig5YiUmewqAu8ZfejtVcCkCdOTnl4l0=";
       }
     }/pkgs/by-name/so/sonarr/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=463836
+    netdata = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "14e83ae1734195fa17e9444658a02bb3e8de3192";
+        sha256 = "sha256-El4TTv1N75WJTe+janjWnPRbvxyarwk5GPmL2zjn4KE=";
+      }
+    }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
