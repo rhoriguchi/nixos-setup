@@ -207,7 +207,7 @@
             ];
           };
 
-          # Gowin R86S-N N305A
+          # GoWin R86S-N N305A
           XXLPitu-Router = lib.nixosSystem {
             system = "x86_64-linux";
 
