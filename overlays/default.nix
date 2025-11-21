@@ -25,8 +25,8 @@
       super.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
-        rev = "7191882b004e3d572286737f1afc1e0c783997c5";
-        sha256 = "sha256-reDPwf05bbh0NGCeAy3bGRuIDoINMdpJB4BZy3q+Imw=";
+        rev = "ca65ed64dc813ba6e23c2d4cb9555fbdfa13aa3e";
+        sha256 = "sha256-i0PoR19YmstJwWMKTh9Opl8Qc4rp1qmo7m/9BkbUkEs=";
       }
     }/pkgs/by-name/su/superfile/package.nix") { };
 
