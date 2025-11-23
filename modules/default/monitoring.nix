@@ -546,6 +546,8 @@ in
       };
 
       netdata-set-node-uuid = {
+        enable = config.services.netdata.enable;
+
         before = [ config.systemd.services.netdata.name ];
         wantedBy = [ "multi-user.target" ];
 
