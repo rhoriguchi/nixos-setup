@@ -222,6 +222,12 @@ in
 
       headscale.settings.metrics_listen_addr = "127.0.0.1:9090";
 
+      immich.environment = {
+        IMMICH_TELEMETRY_INCLUDE = "all";
+        IMMICH_API_METRICS_PORT = 8081;
+        IMMICH_MICROSERVICES_METRICS_PORT = 8082;
+      };
+
       kea = {
         dhcp4.settings.control-socket = {
           socket-type = "unix";
@@ -439,6 +445,16 @@ in
                 name = "Headscale";
                 url = "http://${config.services.headscale.settings.metrics_listen_addr}/metrics";
               }
+              ++ lib.optionals config.services.immich.enable [
+                {
+                  name = "Immich server";
+                  url = "http://127.0.0.1:${toString config.immich.environment.IMMICH_API_METRICS_PORT}/metrics";
+                }
+                {
+                  name = "Immich microservice";
+                  url = "http://127.0.0.1:${toString config.immich.environment.IMMICH_MICROSERVICES_METRICS_PORT}/metrics";
+                }
+              ]
               ++ lib.optional config.services.prometheus.exporters.kea.enable {
                 name = "Kea";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.kea.port}/metrics";
