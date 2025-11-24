@@ -381,6 +381,27 @@
         "type": "github"
       }
     },
+    "nixkraken": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": "treefmt-nix"
+      },
+      "locked": {
+        "lastModified": 1763083160,
+        "narHash": "sha256-adIdUGmLsqQdLPvelqDATlDx8f1bLdRjvqaNEROjSWQ=",
+        "owner": "nicolas-goudry",
+        "repo": "nixkraken",
+        "rev": "b544752247bbf2b2681b620943360ca8e18a9a91",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nicolas-goudry",
+        "repo": "nixkraken",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1762847253,
@@ -424,6 +445,7 @@
         "nix-github-actions": "nix-github-actions",
         "nix-index-database": "nix-index-database",
         "nix-minecraft": "nix-minecraft",
+        "nixkraken": "nixkraken",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs"
       }
@@ -517,6 +539,27 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixkraken",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744961264,
+        "narHash": "sha256-aRmUh0AMwcbdjJHnytg1e5h5ECcaWtIFQa6d9gI85AI=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "8d404a69efe76146368885110f29a2ca3700bee6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
         "type": "github"
       }
     },

@@ -18,6 +18,8 @@
       "terminal.external.linuxExec" = "${config.programs.ghostty.package}/bin/ghostty";
     };
 
+    nixkraken.tools.terminal.package = config.programs.ghostty.package;
+
     ghostty = {
       enable = true;
 

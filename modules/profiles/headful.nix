@@ -20,7 +20,6 @@
     pkgs.discord
     pkgs.firefox
     pkgs.ghostty
-    pkgs.gitkraken
     pkgs.glow
     pkgs.gnome-calculator
     pkgs.google-chrome

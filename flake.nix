@@ -51,6 +51,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixkraken = {
+      url = "github:nicolas-goudry/nixkraken";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
@@ -120,6 +125,7 @@
 
         home-manager.imports = [
           inputs.nix-index-database.homeModules.nix-index
+          inputs.nixkraken.homeManagerModules.nixkraken
           ./modules/home-manager
         ];
         home-manager-gnome.imports = [ ./modules/home-manager-gnome ];
