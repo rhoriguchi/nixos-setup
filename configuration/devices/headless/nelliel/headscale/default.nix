@@ -218,11 +218,7 @@ in
         EOF
       '';
 
-      serviceConfig = {
-        User = config.services.headscale.user;
-        Group = config.services.headscale.group;
-        Type = "oneshot";
-      };
+      serviceConfig.Type = "oneshot";
     };
 
     headscale-update-nodes = {
@@ -252,11 +248,7 @@ in
         fi
       '';
 
-      serviceConfig = {
-        User = config.services.headscale.user;
-        Group = config.services.headscale.group;
-        Type = "oneshot";
-      };
+      serviceConfig.Type = "oneshot";
 
       startAt = "*:*:0/30";
     };
