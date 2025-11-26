@@ -10,6 +10,7 @@ let
   tailscaleIps = import ./ips.nix;
 
   unixEpoch = "1970-01-01 00:00:00.000000000+00:00";
+  expiration = "2099-01-01 00:00:00.000000000+00:00";
 
   addApiKeySql = ''
     DELETE FROM api_keys;
@@ -23,7 +24,7 @@ let
     ) VALUES (
       1,
       '${unixEpoch}',
-      null,
+      '${expiration}',
       X'${secrets.headscale.apiKey.hash}',
       '${secrets.headscale.apiKey.prefix}'
     );
@@ -65,7 +66,7 @@ let
           ${toString index},
           ${toString index},
           '${unixEpoch}',
-          null,
+          '${expiration}',
           '${secrets.headscale.preAuthKeys.${hostname}}',
           '[]',
           0,
