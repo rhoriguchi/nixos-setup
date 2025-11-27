@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   secrets,
   ...
@@ -11,31 +10,7 @@
       enable = true;
 
       settings = {
-        server = {
-          host = "127.0.0.1";
-          port = 3001;
-
-          cookie_domain = "headplane.00a.ch";
-          cookie_secret_path = pkgs.writeText "cookieSecret" secrets.headplane.cookieSecret;
-          cookie_secure = true;
-        };
-
-        headscale = {
-          url = "http://127.0.0.1:${toString config.services.headscale.port}";
-          public_url = config.services.headscale.settings.server_url;
-
-          config_path = (pkgs.formats.yaml { }).generate "headscale.yml" (
-            lib.recursiveUpdate config.services.headscale.settings {
-              acme_email = "/dev/null";
-              tls_cert_path = "/dev/null";
-              tls_key_path = "/dev/null";
-              policy.path = "/dev/null";
-              oidc.client_secret_path = "/dev/null";
-            }
-          );
-
-          config_strict = true;
-        };
+        server.cookie_secret_path = pkgs.writeText "cookieSecret" secrets.headplane.cookieSecret;
 
         integration = {
           agent = {
