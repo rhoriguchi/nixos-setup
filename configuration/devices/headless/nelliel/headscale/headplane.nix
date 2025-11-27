@@ -11,19 +11,10 @@
       enable = true;
 
       settings = {
-        server = {
-          host = "127.0.0.1";
-          port = 3001;
-
-          cookie_domain = "headplane.00a.ch";
-          cookie_secret_path = pkgs.writeText "cookieSecret" secrets.headplane.cookieSecret;
-          cookie_secure = true;
-        };
+        server.cookie_secret_path = pkgs.writeText "cookieSecret" secrets.headplane.cookieSecret;
 
         headscale = {
-          url = "http://127.0.0.1:${toString config.services.headscale.port}";
-          public_url = config.services.headscale.settings.server_url;
-
+          # TODO can probably be removed in the future
           config_path = (pkgs.formats.yaml { }).generate "headscale.yml" (
             lib.recursiveUpdate config.services.headscale.settings {
               acme_email = "/dev/null";
@@ -33,8 +24,8 @@
               oidc.client_secret_path = "/dev/null";
             }
           );
-
-          config_strict = true;
+          # TODO if config_path comes from headscale
+          # config_strict = false;
         };
 
         integration = {
@@ -43,8 +34,6 @@
 
             pre_authkey_path = pkgs.writeText "authKeyFile" secrets.headscale.preAuthKeys.headplane-agent;
           };
-
-          proc.enabled = true;
         };
       };
     };
