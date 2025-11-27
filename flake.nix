@@ -21,11 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    headplane = {
-      url = "github:tale/headplane";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -117,7 +112,6 @@
 
       nixosModules = {
         default.imports = [
-          inputs.headplane.nixosModules.headplane
           inputs.hyprland.nixosModules.default
           inputs.nix-minecraft.nixosModules.minecraft-servers
 
@@ -144,7 +138,6 @@
           [
             inputs.deploy-rs.overlays.default
             inputs.firefox-addons.overlays.default
-            inputs.headplane.overlays.default
             inputs.hyprland.overlays.default
             inputs.nix-minecraft.overlay
           ]
