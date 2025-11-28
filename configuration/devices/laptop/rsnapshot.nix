@@ -86,7 +86,6 @@ let
         # Steam
         ".local/share/Steam"
         ".steam"
-        "Steam/steamapps"
 
         # Terraform
         ".terraform.d"
