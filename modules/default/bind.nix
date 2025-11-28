@@ -1,4 +1,4 @@
-# TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=455222
+# TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=455222
 
 { modulesPath, ... }:
 let

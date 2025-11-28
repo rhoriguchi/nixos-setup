@@ -10,7 +10,7 @@
       }
     }/pkgs/by-name/re/resilio-sync/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=450661
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=450661
     superfile = super.callPackage (import "${
       super.fetchFromGitHub {
         owner = "NixOS";
@@ -20,7 +20,7 @@
       }
     }/pkgs/by-name/su/superfile/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=463572
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=463572
     prowlarr = super.callPackage (import "${
       super.fetchFromGitHub {
         owner = "NixOS";
@@ -30,7 +30,7 @@
       }
     }/pkgs/by-name/pr/prowlarr/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=463836
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=463836
     netdata = super.callPackage (import "${
       super.fetchFromGitHub {
         owner = "NixOS";
