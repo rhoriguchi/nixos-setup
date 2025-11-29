@@ -337,6 +337,8 @@ in
 
                 "enable gzip compression" = "no";
               };
+
+              logs.access = "off";
             };
 
             child = {
