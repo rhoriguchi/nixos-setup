@@ -30,7 +30,7 @@
   };
 
   services = {
-    log-shipping = {
+    logShipping = {
       enable = true;
 
       receiverHostname = "XXLPitu-Tier";

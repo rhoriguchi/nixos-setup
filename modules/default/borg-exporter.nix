@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.services.borg-exporter;
+  cfg = config.services.borgExporter;
 in
 {
-  options.services.borg-exporter = {
+  options.services.borgExporter = {
     enable = lib.mkEnableOption "borg-exporter";
     port = lib.mkOption {
       type = lib.types.port;

@@ -45,7 +45,7 @@ in
       };
     };
 
-    borg-exporter.repository = backupDir;
+    borgExporter.repository = backupDir;
   };
 
   # Workaround for peer based authentication and privileges escalation since service is hardened

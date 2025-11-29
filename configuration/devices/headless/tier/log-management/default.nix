@@ -230,7 +230,7 @@
       ];
     };
 
-    log-shipping.useLocalhost = true;
+    logShipping.useLocalhost = true;
   };
 
   networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [

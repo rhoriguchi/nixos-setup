@@ -4,14 +4,14 @@
   ...
 }:
 let
-  cfg = config.services.log-shipping;
+  cfg = config.services.logShipping;
 
   tailscaleIps = import (
     lib.custom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
 in
 {
-  options.services.log-shipping = {
+  options.services.logShipping = {
     enable = lib.mkEnableOption "Ship logs with Promtail to Loki";
     receiverHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
     useLocalhost = lib.mkOption {
