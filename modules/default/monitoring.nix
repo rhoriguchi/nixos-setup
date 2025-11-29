@@ -441,6 +441,10 @@ in
                 name = "FRRouting";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.frr.port}/metrics";
               }
+              ++ lib.optional config.services.alloy.enable {
+                name = "Grafana Alloy";
+                url = "http://localhost:12345/metrics";
+              }
               ++ lib.optional config.services.grafana.enable {
                 name = "Grafana";
                 url = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}/metrics";

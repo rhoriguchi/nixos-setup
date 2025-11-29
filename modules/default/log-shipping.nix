@@ -1,4 +1,8 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.services.log-shipping;
 
@@ -24,62 +28,51 @@ in
       }
     ];
 
-    services.promtail = {
-      enable = true;
+    services.alloy.enable = true;
 
-      configuration = {
-        server = {
-          http_listen_address = "127.0.0.1";
-          http_listen_port = 9080;
+    environment.etc."alloy/loki.alloy".text = ''
+      loki.write "endpoint" {
+        endpoint {
+          url = "http://${
+            if cfg.useLocalhost then "127.0.0.1" else tailscaleIps.${cfg.receiverHostname}
+          }:3100/loki/api/v1/push"
+        }
+      }
 
-          grpc_listen_port = 0;
-        };
+      loki.relabel "journal" {
+        forward_to = []
 
-        positions.filename = "/tmp/positions.yaml";
+        rule {
+          source_labels = ["__journal__hostname"]
+          target_label = "host"
+        }
 
-        clients = [
-          {
-            url = "http://${
-              if cfg.useLocalhost then "127.0.0.1" else tailscaleIps.${cfg.receiverHostname}
-            }:3100/loki/api/v1/push";
-          }
-        ];
+        rule {
+          source_labels = ["__journal_priority_keyword"]
+          target_label = "severity"
+        }
 
-        scrape_configs = [
-          {
-            job_name = "systemd";
+        rule {
+          source_labels = ["__journal__systemd_unit"]
+          target_label = "unit"
+          regex = "(.+\\.service)"
+        }
 
-            journal = {
-              max_age = "24h";
+        rule {
+          source_labels = ["__journal__systemd_user_unit"]
+          target_label = "user_unit"
+          regex = "(.+\\.service)"
+        }
+      }
 
-              labels.job = "systemd";
+      loki.source.journal "systemd" {
+        forward_to    = [loki.write.endpoint.receiver]
+        relabel_rules = loki.relabel.journal.rules
 
-              path = "/var/log/journal";
-            };
-
-            relabel_configs = [
-              {
-                source_labels = [ "__journal__hostname" ];
-                target_label = "host";
-              }
-              {
-                source_labels = [ "__journal_priority_keyword" ];
-                target_label = "severity";
-              }
-              {
-                source_labels = [ "__journal__systemd_unit" ];
-                target_label = "unit";
-                regex = "(.+\\.service)";
-              }
-              {
-                source_labels = [ "__journal__systemd_user_unit" ];
-                target_label = "user_unit";
-                regex = "(.+\\.service)";
-              }
-            ];
-          }
-        ];
-      };
-    };
+        labels = {
+          job = "systemd",
+        }
+      }
+    '';
   };
 }
