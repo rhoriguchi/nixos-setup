@@ -30,7 +30,7 @@ in
 
     services.alloy.enable = true;
 
-    environment.etc."alloy/loki.alloy".text = ''
+    environment.etc."alloy/systemd.alloy".text = ''
       loki.write "endpoint" {
         endpoint {
           url = "http://${
