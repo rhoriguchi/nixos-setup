@@ -38,7 +38,7 @@ in
   config = lib.mkIf cfg.enable {
     # https://hub.docker.com/r/flaresolverr/flaresolverr
     virtualisation.oci-containers.containers.flaresolverr = {
-      image = "flaresolverr/flaresolverr:v3.4.5";
+      image = "flaresolverr/flaresolverr:v3.4.6";
 
       ports = [
         "127.0.0.1:${toString cfg.port}:8191"
