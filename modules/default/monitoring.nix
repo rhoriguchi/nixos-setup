@@ -319,8 +319,20 @@ in
 
               web = {
                 "bind to" = lib.concatStringsSep " " [
-                  "127.0.0.1:${toString cfg.webPort}=dashboard|registry|badges|management|netdata.conf"
-                  "${tailscaleIps.${config.networking.hostName}}:${toString streamPort}=streaming"
+                  "127.0.0.1:${toString cfg.webPort}=${
+                    lib.concatStringsSep "|" [
+                      "badges"
+                      "dashboard"
+                      "management"
+                      "netdata.conf"
+                      "registry"
+                    ]
+                  }"
+                  "${tailscaleIps.${config.networking.hostName}}:${toString streamPort}=${
+                    lib.concatStringsSep "|" [
+                      "streaming"
+                    ]
+                  }"
                 ];
 
                 "enable gzip compression" = "no";
