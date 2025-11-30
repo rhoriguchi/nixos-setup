@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   secrets,
   ...
 }:
@@ -210,24 +209,7 @@
     prometheus = {
       enable = true;
 
-      scrapeConfigs = [
-        {
-          job_name = "netdata";
-          scheme = "https";
-          metrics_path = "/api/v1/allmetrics";
-          params.format = [ "prometheus_all_hosts" ];
-          basic_auth =
-            let
-              basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
-            in
-            {
-              username = lib.head (lib.attrNames basicAuth);
-              password = lib.head (lib.attrValues basicAuth);
-            };
-          static_configs = [ { targets = [ "monitoring.00a.ch" ]; } ];
-          scrape_interval = "5s";
-        }
-      ];
+      extraFlags = [ "--web.enable-remote-write-receiver" ];
     };
 
     logShipping.useLocalhost = true;
