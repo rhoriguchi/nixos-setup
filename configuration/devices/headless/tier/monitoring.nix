@@ -64,7 +64,7 @@
         {
           __address__ = "127.0.0.1:${toString config.services.monitoring.webPort}",
           __metrics_path__ = "/api/v1/allmetrics",
-          __params_format = "prometheus_all_hosts",
+          __param_format = "prometheus_all_hosts",
         },
       ]
     }
