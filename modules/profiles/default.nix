@@ -20,6 +20,7 @@
   keyboard = ./keyboard.nix;
   kotlin = ./kotlin.nix;
   laptop-power-management = ./laptop-power-management.nix;
+  loki = ./loki.nix;
   mission-center = ./mission-center.nix;
   nano = ./nano.nix;
   nautilus = ./nautilus.nix;

@@ -64,7 +64,6 @@
           compactor_ring.kvstore.store = "inmemory";
         };
 
-        analytics.reporting_enabled = false;
         tracing.enabled = false;
       };
     };
