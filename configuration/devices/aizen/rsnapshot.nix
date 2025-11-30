@@ -6,7 +6,7 @@
 }:
 let
   backupDir = "/mnt/Backup";
-  snapshotDir = "${backupDir}/snapshot/Laptop";
+  snapshotDir = "${backupDir}/snapshot/XXLPitu-Aizen";
   keyPath = "${config.users.users.rhoriguchi.home}/Sync/Storage/Luks/backup.key";
 
   preExecShellScript = pkgs.writeShellScript "rsnapshot-preExec" ''

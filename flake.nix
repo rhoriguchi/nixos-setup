@@ -170,7 +170,7 @@
         in
         {
           # Dell XPS 13 9350
-          Laptop = lib.nixosSystem {
+          XXLPitu-Aizen = lib.nixosSystem {
             system = "x86_64-linux";
 
             modules = [
@@ -187,7 +187,7 @@
                   self.nixosModules.profiles.podman
                   self.nixosModules.profiles.python
 
-                  ./configuration/devices/laptop
+                  ./configuration/devices/aizen
 
                   inputs.home-manager.nixosModules.default
                   {
@@ -310,7 +310,7 @@
         };
 
       deploy = mkDeploy {
-        overrides.Laptop = {
+        overrides.XXLPitu-Aizen = {
           hostname = "127.0.0.1";
 
           extraOptions = {

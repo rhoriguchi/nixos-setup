@@ -38,7 +38,7 @@
   );
 
   networking = {
-    hostName = "Ryan-Laptop";
+    hostName = "XXLPitu-Aizen";
 
     interfaces.wlp0s20f3.useDHCP = true; # WiFi
 

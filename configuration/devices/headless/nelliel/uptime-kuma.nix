@@ -14,7 +14,7 @@ let
     !(lib.elem hostname [
       config.networking.hostName
       "headplane-agent"
-      "Ryan-Laptop"
+      "XXLPitu-Aizen"
     ])
   ) (lib.attrNames tailscaleIps);
 

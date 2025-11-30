@@ -8,7 +8,7 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 
 ## Devices
 
-### Laptop
+### XXLPitu-Aizen
 
 #### Manual setup
 
@@ -127,7 +127,7 @@ zfs create \
 ## disko
 
 ```console
-nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode destroy,format,mount ./disko/Laptop.nix
+nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode destroy,format,mount ./disko/XXLPitu-Aizen.nix
 ```
 
 ## Encrypt backup drive
