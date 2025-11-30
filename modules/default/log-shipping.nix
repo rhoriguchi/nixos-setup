@@ -30,8 +30,8 @@ in
 
     services.alloy.enable = true;
 
-    environment.etc."alloy/systemd.alloy".text = ''
-      loki.write "endpoint" {
+    environment.etc."alloy/journal.alloy".text = ''
+      loki.write "journal_endpoint" {
         endpoint {
           url = "http://${
             if cfg.useLocalhost then "127.0.0.1" else tailscaleIps.${cfg.receiverHostname}
@@ -65,8 +65,8 @@ in
         }
       }
 
-      loki.source.journal "systemd" {
-        forward_to    = [loki.write.endpoint.receiver]
+      loki.source.journal "journal" {
+        forward_to    = [loki.write.journal_endpoint.receiver]
         relabel_rules = loki.relabel.journal.rules
 
         labels = {
