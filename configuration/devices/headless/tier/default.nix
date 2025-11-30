@@ -12,11 +12,13 @@
     ./backup.nix
     ./fancontrol.nix
     ./geforce-gt-730.nix
+    ./grafana
     ./home-assistant
-    ./log-management
+    ./loki.nix
     ./minecraft-server
     ./monitoring.nix
     ./plex.nix
+    ./prometheus.nix
     ./rustdesk.nix
     ./samba.nix
     ./sonarr
