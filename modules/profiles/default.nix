@@ -3,6 +3,7 @@
   headful = ./headful.nix;
   headless = ./headless.nix;
 
+  alloy = ./alloy;
   bluetooth = ./bluetooth.nix;
   containers = ./containers.nix;
   dconf-editor = ./dconf-editor.nix;
