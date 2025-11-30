@@ -58,11 +58,6 @@
           org_name = "Main Org.";
           org_role = "Editor";
         };
-
-        analytics = {
-          enabled = false;
-          check_for_updates = false;
-        };
       };
 
       provision = {
