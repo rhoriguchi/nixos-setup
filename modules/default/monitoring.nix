@@ -505,10 +505,11 @@ in
                 name = "Tailscale Client";
                 url = "http://100.100.100.100/metrics";
               }
-              ++ lib.optional config.services.tailscale.derper.enable {
-                name = "Tailscale Embedded DERP";
-                url = "http://127.0.0.1:${toString config.services.tailscale.derper.port}/debug/varz";
-              }
+              # TODO uncomment when https://github.com/netdata/netdata/issues/21368 fixed
+              # ++ lib.optional config.services.tailscale.derper.enable {
+              #   name = "Tailscale Embedded DERP";
+              #   url = "http://127.0.0.1:${toString config.services.tailscale.derper.port}/debug/varz";
+              # }
               ++ lib.optional config.services.unpoller.enable {
                 name = "Unpoller";
                 url = "http://${config.services.unpoller.prometheus.http_listen}/metrics";
