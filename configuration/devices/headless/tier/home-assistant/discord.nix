@@ -11,9 +11,9 @@
           entity_id = [
             "sensor.bedroom_dimmer_switch_battery"
             "sensor.bedroom_h_t_gen3_battery"
-            "sensor.living_room_h_t_gen3_battery"
             "sensor.guest_room_h_t_gen3_battery"
             "sensor.living_room_dimmer_switch_battery"
+            "sensor.living_room_h_t_gen3_battery"
             "sensor.office_dimmer_switch_battery"
           ];
           below = 26;
