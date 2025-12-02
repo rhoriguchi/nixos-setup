@@ -135,6 +135,7 @@ in
 
           serverProperties.server-port = proxyPort;
 
+          # `server-uuid` is random id that `bStats` uses to identify server
           files."plugins/bStats/config.txt" = pkgs.writeText "config.txt" ''
             enabled=false
 
