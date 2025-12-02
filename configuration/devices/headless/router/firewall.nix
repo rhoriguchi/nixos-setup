@@ -86,6 +86,7 @@ in
 
           chain wan-to-lan-filter {
             ct state { established, related } accept
+            ct status dnat accept
 
             drop
           }
