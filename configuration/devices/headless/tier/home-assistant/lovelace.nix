@@ -214,6 +214,17 @@ in
               }
               {
                 type = "entities";
+                title = "Reduit";
+
+                entities = [
+                  {
+                    name = "Badring";
+                    entity = "binary_sensor.reduit_badring";
+                  }
+                ];
+              }
+              {
+                type = "entities";
                 title = "Network closet";
 
                 entities = [
@@ -404,6 +415,9 @@ in
 
                   # Hue Dimmer switch
                   { from = " Dimmer switch"; }
+
+                  # Ikea Badring
+                  { from = " badring"; }
                 ];
                 sort.by = "name";
 
@@ -430,6 +444,12 @@ in
                       "sensor.bedroom_dimmer_switch_battery"
                       "sensor.living_room_dimmer_switch_battery"
                       "sensor.office_dimmer_switch_battery"
+                    ];
+                  }
+                  {
+                    name = "Ikea Badring {range}%";
+                    entities = [
+                      "sensor.reduit_badring_battery"
                     ];
                   }
                 ];
