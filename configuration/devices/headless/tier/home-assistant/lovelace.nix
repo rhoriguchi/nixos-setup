@@ -402,7 +402,7 @@ in
                     from = " H&T Gen3 battery";
                   }
 
-                  # Hue Dimmer switche
+                  # Hue Dimmer switch
                   { from = " Dimmer switch"; }
                 ];
                 sort.by = "name";
