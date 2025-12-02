@@ -246,6 +246,11 @@ in
             max-players = lib.length (lib.attrNames whitelist);
           };
 
+          extraStartPost = ''
+            ${pkgs.yq-go}/bin/yq -i '.entities.behavior.zombie-villager-infection-chance = 100.0' \
+              ${config.services.minecraft-servers.dataDir}/${serverName}/config/paper-world-defaults.yml
+          '';
+
           files = {
             # https://docs.papermc.io/paper/reference/global-configuration#proxies_velocity
             "config/paper-global.yml" = pkgs.writers.writeYAML "paper-global.yml" {
