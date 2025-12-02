@@ -368,6 +368,12 @@ in
               }
               .${cfg.type};
         }
+        // {
+          "exporting.conf" = (pkgs.formats.ini { }).generate "exporting.conf" {
+            # Workaround for https://github.com/netdata/netdata/issues/21368
+            "prometheus:exporter"."netdata label prefix" = "netdata_";
+          };
+        }
         // lib.optionalAttrs config.services.bind.enable {
           "go.d/bind.conf" = pkgs.writers.writeYAML "bind.conf" {
             jobs = [
@@ -505,11 +511,10 @@ in
                 name = "Tailscale Client";
                 url = "http://100.100.100.100/metrics";
               }
-              # TODO uncomment when https://github.com/netdata/netdata/issues/21368 fixed
-              # ++ lib.optional config.services.tailscale.derper.enable {
-              #   name = "Tailscale Embedded DERP";
-              #   url = "http://127.0.0.1:${toString config.services.tailscale.derper.port}/debug/varz";
-              # }
+              ++ lib.optional config.services.tailscale.derper.enable {
+                name = "Tailscale Embedded DERP";
+                url = "http://127.0.0.1:${toString config.services.tailscale.derper.port}/debug/varz";
+              }
               ++ lib.optional config.services.unpoller.enable {
                 name = "Unpoller";
                 url = "http://${config.services.unpoller.prometheus.http_listen}/metrics";
