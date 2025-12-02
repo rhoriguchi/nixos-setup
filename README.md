@@ -64,6 +64,17 @@ nix-shell -p libsecret --run 'secret-tool store --label=KeePass KeePass 2FA'
 
 ### XXLPitu-Tier
 
+#### Bios
+
+- `Advanced mode(F7)` -> `Advanced` -> `AMD CBS` ->  `ECC` -> `Enabled`
+- `Advanced mode(F7)` -> `Advanced` -> `APM Configuration` -> `Restore AC Power Loss` -> `Last State`
+- `Advanced mode(F7)` -> `Boot` -> `Boot Configuration` -> `Wait For [F1] If Error` -> `Disabled`
+- `Advanced mode(F7)` -> `Boot` `Secure Boot` -> `OS Type` -> `Other OS`
+- `Advanced mode(F7)` -> `Boot` `Secure Boot` -> `Secure Boot Mode` -> `Custom`
+- `Advanced mode(F7)` -> `Tool` -> `ASUS Armoury Crate` -> `Download & Install ARMOURY CRATE app` -> `Disabled`
+- `AURA(F4)` -> `Aura Off`
+- `ReSizable BAR` -> `ON`
+
 #### [Home Assistant](configuration/devices/headless/tier/home-assistant/README.md)
 
 #### Setup Plex over `http://IP:32400/web`
