@@ -347,11 +347,7 @@ in
               web.mode = "none";
             };
           }
-          .${cfg.type}
-          # TODO remove when https://github.com/netdata/netdata/issues/21343 fixed
-          // {
-            "plugin:go.d"."command options" = "-c /etc/netdata/conf.d";
-          };
+          .${cfg.type};
 
         configDir = {
           "stream.conf" =
