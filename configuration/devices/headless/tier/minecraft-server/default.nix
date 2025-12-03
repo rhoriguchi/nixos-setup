@@ -288,24 +288,6 @@ in
               ip: "127.0.0.1"
               port: ${toString blueMapPort}
             '';
-            "plugins/BlueMap/maps/world_nether_ceiling.conf" = pkgs.writeText "world_nether_ceiling.conf" ''
-              world: "world_nether"
-              dimension: "minecraft:the_nether"
-              name: "world_nether_ceiling (the_nether)"
-
-              sorting: 101
-
-              sky-color: "#290000"
-              void-color: "#150000"
-
-              ambient-light: 0.6
-              remove-caves-below-y: -10000
-              cave-detection-ocean-floor: -5
-
-              render-mask: [{
-                min-y: 120
-              }]
-            '';
             "plugins/BlueMap/packs/BlueMapSpawnMarker.jar" =
               let
                 owner = "TechnicJelle";
