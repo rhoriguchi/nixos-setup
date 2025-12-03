@@ -19,7 +19,6 @@ let
   whitelist = {
     _Selenia_ = "566e0135-4676-4a70-bf1c-705649629a7e"; # Jenny
     _wiesel_ = "bf879f6a-b1f1-42b4-8407-60ba33d95263"; # Joël
-    BlueSwordLily = "fae3385f-2716-496a-9741-011c7774cf31"; # Nadja
     DrGolden = "f3cc5386-5866-4e39-b73e-ffd63abc5bec"; # Jeremy
     GhostMoon = "0da68ac3-aa82-442b-b12e-42d864c629b7"; # Rabia
     Ice3ider = "375fd1d3-f816-43ab-813d-19e907f4769f"; # Matteo
