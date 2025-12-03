@@ -21,7 +21,6 @@
         extensions.packages = [
           pkgs.firefox-addons.bitwarden
           pkgs.firefox-addons.export-tabs-urls-and-titles
-          pkgs.firefox-addons.grammarly
           pkgs.firefox-addons.multi-account-containers
           pkgs.firefox-addons.octolinker
           pkgs.firefox-addons.privacy-badger
@@ -361,7 +360,6 @@
           "extensions.ui.locale.hidden" = true;
           "extensions.update.enabled" = false;
           "findbar.highlightAll" = true;
-          "layout.spellcheckDefault" = 0;
           "media.eme.enabled" = true;
           "network.dns.disablePrefetch" = true;
           "network.predictor.enabled" = false;
