@@ -18,6 +18,10 @@ let
     ])
   ) (lib.attrNames tailscaleIps);
 
+  clearHistory = ''
+    DELETE FROM heartbeat;
+  '';
+
   updateSettings =
     let
       updateSetting = key: value: ''
@@ -160,6 +164,7 @@ in
 
     script = ''
       ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.uptime-kuma.settings.DATA_DIR}kuma.db << 'EOF'
+        ${clearHistory}
         ${updateSettings}
         ${addUser}
         ${addMonitors}
