@@ -40,4 +40,6 @@
       config.services.nginx.defaultHTTPListenPort
     ];
   };
+
+  services.infomaniak.enableIPv6 = true;
 }

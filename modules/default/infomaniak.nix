@@ -13,6 +13,10 @@ in
     username = lib.mkOption { type = lib.types.str; };
     password = lib.mkOption { type = lib.types.str; };
     hostnames = lib.mkOption { type = lib.types.listOf lib.types.str; };
+    enableIPv6 = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -42,6 +46,9 @@ in
       inherit (cfg) username;
       passwordFile = "${pkgs.writeText "ddclient-password" cfg.password}";
       domains = cfg.hostnames;
+    }
+    // lib.optionalAttrs (!cfg.enableIPv6) {
+      usev6 = "";
     };
   };
 }
