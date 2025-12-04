@@ -58,7 +58,7 @@ let
 
   addMonitors =
     let
-      addMonitor = id: hostname: ''
+      addTailscaleMonitor = id: hostname: ''
         INSERT INTO monitor (
           id,
           name,
@@ -83,7 +83,7 @@ let
       DELETE FROM monitor;
 
       ${lib.concatStringsSep "\n" (
-        lib.imap1 (index: hostname: addMonitor index hostname) filteredTailscaleHostnames
+        lib.imap1 (index: hostname: addTailscaleMonitor index hostname) filteredTailscaleHostnames
       )}
 
       INSERT INTO monitor (
