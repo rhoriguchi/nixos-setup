@@ -60,6 +60,48 @@ let
     );
   '';
 
+  addNotification = ''
+    DELETE FROM notification;
+
+    INSERT INTO notification (
+      id,
+      name,
+      user_id,
+      active,
+      is_default,
+      config
+    )
+    VALUES (
+      1,
+      'Discord',
+      1,
+      1,
+      0,
+      '${
+        builtins.toJSON {
+          name = "Discord";
+          type = "discord";
+          isDefault = false;
+          applyExisting = false;
+          inherit (secrets.uptime-kuma) discordWebhookUrl;
+        }
+      }'
+    );
+
+    DELETE FROM monitor_notification;
+
+    INSERT INTO monitor_notification (
+      notification_id,
+      monitor_id,
+      id
+    )
+    VALUES (
+      1,
+      1,
+      1
+    );
+  '';
+
   addMonitors =
     let
       addTailscaleMonitor = hostname: ''
@@ -83,6 +125,29 @@ let
     in
     ''
       DELETE FROM monitor;
+
+      INSERT INTO monitor (
+        id,
+        name,
+        user_id,
+        type,
+        game,
+        hostname,
+        port,
+        interval,
+        retry_interval
+      )
+      VALUES (
+        1,
+        'Minecraft',
+        1,
+        'gamedig',
+        'minecraft',
+        'minecraft.00a.ch',
+        25565,
+        60,
+        60
+      );
 
       INSERT INTO monitor (
         name,
@@ -119,7 +184,12 @@ in
 
         postBuild = ''
           wrapProgram $out/bin/uptime-kuma-server \
-            --prefix PATH : ${lib.makeBinPath [ config.services.tailscale.package ]}
+            --prefix PATH : ${
+              lib.makeBinPath [
+                config.services.tailscale.package
+                pkgs.gamedig
+              ]
+            }
         '';
       };
 
@@ -168,6 +238,7 @@ in
         ${updateSettings}
         ${addUser}
         ${addMonitors}
+        ${addNotification}
       EOF
 
       systemctl restart ${config.systemd.services.uptime-kuma.name}
