@@ -58,9 +58,8 @@ let
 
   addMonitors =
     let
-      addTailscaleMonitor = id: hostname: ''
+      addTailscaleMonitor = hostname: ''
         INSERT INTO monitor (
-          id,
           name,
           user_id,
           type,
@@ -69,7 +68,6 @@ let
           retry_interval
         )
         VALUES (
-          ${toString id},
           '${hostname}',
           1,
           'tailscale-ping',
@@ -82,12 +80,7 @@ let
     ''
       DELETE FROM monitor;
 
-      ${lib.concatStringsSep "\n" (
-        lib.imap1 (index: hostname: addTailscaleMonitor index hostname) filteredTailscaleHostnames
-      )}
-
       INSERT INTO monitor (
-        id,
         name,
         user_id,
         type,
@@ -96,7 +89,6 @@ let
         retry_interval
       )
       VALUES (
-        ${toString ((lib.length filteredTailscaleHostnames) + 1)},
         '${config.networking.hostName}',
         1,
         'ping',
@@ -104,6 +96,10 @@ let
         60,
         60
       );
+
+      ${lib.concatStringsSep "\n" (
+        map (hostname: addTailscaleMonitor hostname) filteredTailscaleHostnames
+      )}
     '';
 in
 {
