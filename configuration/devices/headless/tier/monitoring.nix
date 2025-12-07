@@ -80,6 +80,7 @@
     script = ''
       ${pkgs.iproute2}/bin/ip monitor address dev ${config.services.tailscale.interfaceName} | while read -r line; do
         if [[ "$line" == *"inet"* ]] && [[ "$line" != Deleted* ]]; then
+          echo 'Restarting ${config.systemd.services.netdata.name}'
           systemctl restart ${config.systemd.services.netdata.name}
         fi
       done

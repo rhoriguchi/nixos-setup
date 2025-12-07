@@ -245,6 +245,7 @@ in
             ${updateNodeSql}
         EOF
 
+          echo 'Restarting ${config.systemd.services.headscale.name}'
           systemctl restart ${config.systemd.services.headscale.name}
         fi
       '';
