@@ -78,8 +78,10 @@
     wants = [ config.systemd.services.netdata.name ];
 
     script = ''
-      ${pkgs.iproute2}/bin/ip monitor address dev ${config.services.tailscale.interfaceName} | while read -r line; do
-        if [[ "$line" == *"inet"* ]] && [[ "$line" != Deleted* ]]; then
+      ${pkgs.iproute2}/bin/ip monitor address | while read -r line; do
+        interface=$(${pkgs.gawk}/bin/awk '{print $2}' <<< "$line")
+
+        if [[ "$line" =~ inet\  ]] && [[ "$line" != *"Deleted"* ]]; then
           echo 'Restarting ${config.systemd.services.netdata.name}'
           systemctl restart ${config.systemd.services.netdata.name}
         fi
