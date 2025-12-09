@@ -107,6 +107,7 @@ let
           type,
           hostname,
           interval,
+          maxretries,
           retry_interval
         )
         VALUES (
@@ -115,6 +116,7 @@ let
           'tailscale-ping',
           '${hostname}',
           60,
+          5,
           60
         );
       '';
@@ -141,8 +143,8 @@ let
         'minecraft',
         'minecraft.00a.ch',
         25565,
-        60,
-        60
+        15,
+        15
       );
 
       INSERT INTO monitor (
