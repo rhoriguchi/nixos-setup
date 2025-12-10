@@ -94,7 +94,7 @@ zpool create -f \
   os \
   mirror \
     nvme-WD_BLACK_SN850X_2000GB_24271Z801901_1-part2 \
-    nvme-WD_BLACK_SN850X_2000GB_24271Z801902_1-part2
+    nvme-WD_BLACK_SN850X_2000GB_25256R803288_1-part2
 
 zfs create \
   os/root
