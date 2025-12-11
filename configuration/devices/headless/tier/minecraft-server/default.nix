@@ -271,8 +271,8 @@ in
               let
                 owner = "BlueMap-Minecraft";
                 repo = "BlueMap";
-                tag = "5.14";
-                sha256 = "sha256-gt2YGH0et80vkWgSIm7XL9JC+wib3woP8QbcGexPnv8=";
+                tag = "5.15";
+                sha256 = "sha256-FgWc3yM8CqDS2n2Lat0eOyCQfxokE0zCB/VX18Gy444=";
               in
               pkgs.fetchurl {
                 url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/bluemap-${tag}-paper.jar";
@@ -291,8 +291,8 @@ in
               let
                 owner = "TechnicJelle";
                 repo = "BlueMapSpawnMarker";
-                tag = "1.1";
-                sha256 = "sha256-6wZ0Ns6RulKjIuJ3zpxg4MnmgHHD0AdByYE+s+sIk8w=";
+                tag = "1.2";
+                sha256 = "sha256-jjrJ5nl7ETsGBMyx8OC//8AXcQ0DbU7jpGeHjeGZEsM=";
               in
               pkgs.fetchurl {
                 url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/BlueMapSpawnMarker-${tag}.jar";
