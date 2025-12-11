@@ -355,6 +355,8 @@
           "devtools.styleeditor.enabled" = false;
           "extensions.activeThemeID" = "default-theme@mozilla.org";
           "extensions.autoDisableScopes" = 0;
+          "extensions.formautofill.addresses.enabled" = false;
+          "extensions.formautofill.creditCards.enabled" = false;
           "extensions.pocket.enabled" = false;
           "extensions.ui.extension.hidden" = false;
           "extensions.ui.locale.hidden" = true;
