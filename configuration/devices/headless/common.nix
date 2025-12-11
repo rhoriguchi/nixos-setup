@@ -7,6 +7,12 @@
 {
   imports = [ ../../common.nix ];
 
+  # https://docs.kernel.org/next/admin-guide/sysctl/kernel.html
+  boot.kernel.sysctl = {
+    "kernel.panic" = 60;
+    "kernel.panic_on_oops" = 1;
+  };
+
   documentation.enable = false;
 
   networking.networkmanager = {
