@@ -310,6 +310,13 @@ in
                 url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/minecraft-prometheus-exporter-${tag}.jar";
                 inherit sha256;
               };
+
+            "plugins/WorldEdit.jar" =
+              assert lib.versionAtLeast package.version "1.21.3" || lib.versionOlder package.version "1.21.10";
+              pkgs.fetchurl {
+                url = "https://hangarcdn.papermc.io/plugins/EngineHub/WorldEdit/versions/7.3.17/PAPER/worldedit-bukkit-7.3.17.jar";
+                sha256 = "sha256-3qkEeVVV6zNy4nFCA/E5TYxdz+C/ROgEuShOdbrnQEg=";
+              };
           };
 
           operators.XXLPitu = {
