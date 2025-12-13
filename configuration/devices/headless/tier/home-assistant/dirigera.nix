@@ -69,46 +69,62 @@
       #   }
     ];
 
-    light = [
+    template = [
       {
-        platform = "template";
-        lights = {
-          dining_room_standing_lamp = {
-            friendly_name = "Dining room standing lamp";
-            value_template = "{{ states('switch.dining_room_standing_lamp') }}";
-            turn_on = {
-              service = "switch.turn_on";
-              target.entity_id = "switch.dining_room_standing_lamp";
-            };
-            turn_off = {
-              service = "switch.turn_off";
-              target.entity_id = "switch.dining_room_standing_lamp";
-            };
-          };
-          living_room_standing_lamp = {
-            friendly_name = "Living room standing lamp";
-            value_template = "{{ states('switch.living_room_standing_lamp') }}";
-            turn_on = {
-              service = "switch.turn_on";
-              target.entity_id = "switch.living_room_standing_lamp";
-            };
-            turn_off = {
-              service = "switch.turn_off";
-              target.entity_id = "switch.living_room_standing_lamp";
-            };
-          };
-          living_room_table_lamp = {
-            friendly_name = "Living room table lamp";
-            value_template = "{{ states('switch.living_room_table_lamp') }}";
-            turn_on = {
-              service = "switch.turn_on";
-              target.entity_id = "switch.living_room_table_lamp";
-            };
-            turn_off = {
-              service = "switch.turn_off";
-              target.entity_id = "switch.living_room_table_lamp";
-            };
-          };
+        light = {
+          name = "Dining room standing lamp";
+          default_entity_id = "light.dining_room_standing_lamp";
+          state = "{{ states('switch.dining_room_standing_lamp') }}";
+          turn_on = [
+            {
+              target.entity_id = [ "switch.dining_room_standing_lamp" ];
+              action = "switch.turn_on";
+            }
+          ];
+          turn_off = [
+            {
+              target.entity_id = [ "switch.dining_room_standing_lamp" ];
+              action = "switch.turn_off";
+            }
+          ];
+        };
+      }
+      {
+        light = {
+          name = "Living room standing lamp";
+          default_entity_id = "light.living_room_standing_lamp";
+          state = "{{ states('switch.living_room_standing_lamp') }}";
+          turn_on = [
+            {
+              target.entity_id = [ "switch.living_room_standing_lamp" ];
+              action = "switch.turn_on";
+            }
+          ];
+          turn_off = [
+            {
+              target.entity_id = [ "switch.living_room_standing_lamp" ];
+              action = "switch.turn_off";
+            }
+          ];
+        };
+      }
+      {
+        light = {
+          name = "Living room table lamp";
+          default_entity_id = "light.living_room_table_lamp";
+          state = "{{ states('switch.living_room_table_lamp') }}";
+          turn_on = [
+            {
+              target.entity_id = [ "switch.living_room_table_lamp" ];
+              action = "switch.turn_on";
+            }
+          ];
+          turn_off = [
+            {
+              target.entity_id = [ "switch.living_room_table_lamp" ];
+              action = "switch.turn_off";
+            }
+          ];
         };
       }
     ];
