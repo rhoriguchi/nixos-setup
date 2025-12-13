@@ -233,7 +233,7 @@ in
             server-port = serverPort;
             server-ip = "127.0.0.1";
 
-            #https://mctools.org/motd-creator?text=%26d%26lPingu+Land
+            # https://mctools.org/motd-creator?text=%26d%26lPingu+Land
             motd = "\\u00A7d\\u00A7lPingu Land";
 
             online-mode = false; # done by velocity
