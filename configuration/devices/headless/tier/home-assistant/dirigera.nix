@@ -74,7 +74,7 @@
         platform = "template";
         lights = {
           dining_room_standing_lamp = {
-            friendly_name = "Living room standing lamp";
+            friendly_name = "Dining room standing lamp";
             value_template = "{{ states('switch.dining_room_standing_lamp') }}";
             turn_on = {
               service = "switch.turn_on";
