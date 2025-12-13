@@ -13,7 +13,7 @@ let
 
   serverPort = 25566;
   serverName = "world";
-  package = pkgs.paper-server;
+  package = pkgs.paperServers.paper-1_21_10;
 
   # https://mcuuid.net
   whitelist = {
