@@ -55,11 +55,6 @@ in
             elements = { ${internalInterface}.3 }
           }
 
-          set surveillance_vlan_interface {
-            type ifname;
-            elements = { ${internalInterface}.4 }
-          }
-
           set dmz_vlan_interface {
             type ifname;
             elements = { ${internalInterface}.10 }
@@ -92,8 +87,6 @@ in
           }
 
           chain lan-to-wan-filter {
-            iifname @surveillance_vlan_interface drop
-
             meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
 
             accept
@@ -119,7 +112,6 @@ in
             iifname @trusted_vlan_interface oifname @management_network_interface accept
             iifname @trusted_vlan_interface oifname @trusted_vlan_interface accept
             iifname @trusted_vlan_interface oifname @iot_vlan_interface accept
-            iifname @trusted_vlan_interface oifname @surveillance_vlan_interface accept
             iifname @trusted_vlan_interface oifname @dmz_vlan_interface accept
 
             iifname @iot_vlan_interface ip daddr ${ips.tier} tcp dport { 443 } accept # Home Assistant - Shelly
