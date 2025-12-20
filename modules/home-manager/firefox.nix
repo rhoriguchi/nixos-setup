@@ -15,6 +15,11 @@
     firefox = {
       enable = true;
 
+      languagePacks = [
+        "de"
+        "en-us"
+      ];
+
       profiles.default = {
         id = 0;
 
