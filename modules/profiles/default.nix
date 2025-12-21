@@ -6,6 +6,7 @@
   alloy = ./alloy;
   bluetooth = ./bluetooth.nix;
   containers = ./containers.nix;
+  cosmic = ./cosmic.nix;
   dconf-editor = ./dconf-editor.nix;
   doas = ./doas.nix;
   docker = ./docker.nix;

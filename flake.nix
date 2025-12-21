@@ -128,6 +128,7 @@
           inputs.nixkraken.homeManagerModules.nixkraken
           ./modules/home-manager
         ];
+        home-manager-cosmic.imports = [ ./modules/home-manager-cosmic ];
         home-manager-gnome.imports = [ ./modules/home-manager-gnome ];
       };
 
@@ -181,7 +182,7 @@
                   inputs.nixos-hardware.nixosModules.dell-xps-13-9350
 
                   self.nixosModules.profiles.headful
-                  self.nixosModules.profiles.gnome
+                  self.nixosModules.profiles.cosmic
 
                   self.nixosModules.profiles.laptop-power-management
                   self.nixosModules.profiles.podman
@@ -202,7 +203,7 @@
 
                       users.rhoriguchi.imports = [
                         self.nixosModules.home-manager
-                        self.nixosModules.home-manager-gnome
+                        self.nixosModules.home-manager-cosmic
                       ];
                     };
                   }
