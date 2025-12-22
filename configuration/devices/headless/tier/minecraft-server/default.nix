@@ -313,7 +313,7 @@ in
 
             # https://hangar.papermc.io/EngineHub/WorldEdit/versions
             "plugins/WorldEdit.jar" =
-              assert lib.versionAtLeast package.version "1.21.3" || lib.versionOlder package.version "1.21.10";
+              assert lib.versionAtLeast package.version "1.21.3" && lib.versionOlder package.version "1.21.11";
               pkgs.fetchurl {
                 url = "https://hangarcdn.papermc.io/plugins/EngineHub/WorldEdit/versions/7.3.17/PAPER/worldedit-bukkit-7.3.17.jar";
                 sha256 = "sha256-3qkEeVVV6zNy4nFCA/E5TYxdz+C/ROgEuShOdbrnQEg=";
