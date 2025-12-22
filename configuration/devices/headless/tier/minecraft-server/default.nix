@@ -311,6 +311,7 @@ in
                 inherit sha256;
               };
 
+            # https://hangar.papermc.io/EngineHub/WorldEdit/versions
             "plugins/WorldEdit.jar" =
               assert lib.versionAtLeast package.version "1.21.3" || lib.versionOlder package.version "1.21.10";
               pkgs.fetchurl {
