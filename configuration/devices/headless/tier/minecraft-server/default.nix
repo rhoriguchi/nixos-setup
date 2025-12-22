@@ -13,7 +13,7 @@ let
 
   serverPort = 25566;
   serverName = "world";
-  package = pkgs.paperServers.paper-1_21_10;
+  package = pkgs.paperServers.paper-1_21_11;
 
   # https://mcuuid.net
   whitelist = {
@@ -313,10 +313,10 @@ in
 
             # https://hangar.papermc.io/EngineHub/WorldEdit/versions
             "plugins/WorldEdit.jar" =
-              assert lib.versionAtLeast package.version "1.21.3" && lib.versionOlder package.version "1.21.11";
+              assert lib.versionAtLeast package.version "1.21.4" && lib.versionOlder package.version "1.21.12";
               pkgs.fetchurl {
-                url = "https://hangarcdn.papermc.io/plugins/EngineHub/WorldEdit/versions/7.3.17/PAPER/worldedit-bukkit-7.3.17.jar";
-                sha256 = "sha256-3qkEeVVV6zNy4nFCA/E5TYxdz+C/ROgEuShOdbrnQEg=";
+                url = "https://hangarcdn.papermc.io/plugins/EngineHub/WorldEdit/versions/7.3.18-beta-01/PAPER/worldedit-bukkit-7.3.18-beta-01.jar";
+                sha256 = "sha256-/TRUrwHhjnyBuCVyS34IWzvILz79RhZjS6k2DLwkUk0=";
               };
           };
 
