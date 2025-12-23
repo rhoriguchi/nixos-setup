@@ -6,6 +6,15 @@
 
       webInterface = false;
 
+      package = pkgs.symlinkJoin {
+        inherit (pkgs.cups) name;
+        paths = [ pkgs.cups ];
+
+        postBuild = ''
+          rm $out/share/applications/cups.desktop
+        '';
+      };
+
       drivers = [
         pkgs.cups-browsed
         pkgs.cups-filters
