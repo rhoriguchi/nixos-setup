@@ -501,6 +501,37 @@
         "type": "github"
       }
     },
+    "hyprland-plugins": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ],
+        "nixpkgs": [
+          "hyprland-plugins",
+          "hyprland",
+          "nixpkgs"
+        ],
+        "systems": [
+          "hyprland-plugins",
+          "hyprland",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762115485,
+        "narHash": "sha256-hr53AWO96ooLCwS1a2v416eT1/aWQZmuQV0ULqhaBTY=",
+        "owner": "hyprwm",
+        "repo": "hyprland-plugins",
+        "rev": "bbb8d2cb0eb667f2911103eadb3d1e8176f4462c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hyprwm",
+        "ref": "v0.52.0",
+        "repo": "hyprland-plugins",
+        "type": "github"
+      }
+    },
     "hyprland-protocols": {
       "inputs": {
         "nixpkgs": [
@@ -853,6 +884,7 @@
         "headplane": "headplane",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "hyprland-plugins": "hyprland-plugins",
         "nix-github-actions": "nix-github-actions",
         "nix-index-database": "nix-index-database",
         "nix-minecraft": "nix-minecraft",

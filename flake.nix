@@ -41,6 +41,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins?ref=v0.52.0";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     nix-github-actions = {
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -148,6 +153,7 @@
             inputs.deploy-rs.overlays.default
             inputs.firefox-addons.overlays.default
             inputs.headplane.overlays.default
+            inputs.hyprland-plugins.overlays.default
             inputs.hyprland.overlays.default
             inputs.nix-minecraft.overlay
 
