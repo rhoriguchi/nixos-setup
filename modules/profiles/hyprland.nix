@@ -5,14 +5,6 @@
   networking.networkmanager.enable = true;
 
   environment = {
-    loginShellInit = ''
-      if (( EUID != 0 )) && [[ $- == *i* ]]; then
-        if ${config.programs.uwsm.package}/bin/uwsm check may-start >/dev/null 2>&1; then
-          exec ${config.programs.uwsm.package}/bin/uwsm start hyprland-uwsm.desktop
-        fi
-      fi
-    '';
-
     sessionVariables.QT_QPA_PLATFORM = "wayland";
 
     systemPackages = [
@@ -38,6 +30,16 @@
   ];
 
   services = {
+    displayManager = {
+      defaultSession = "hyprland-uwsm";
+
+      sddm = {
+        enable = true;
+
+        wayland.enable = true;
+      };
+    };
+
     gnome = {
       gnome-keyring.enable = true;
 
