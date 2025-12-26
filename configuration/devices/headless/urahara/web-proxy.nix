@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
+  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 
   tierDomains = [
     "deluge.00a.ch"

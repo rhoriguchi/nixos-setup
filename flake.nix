@@ -214,7 +214,7 @@
           };
 
           # GoWin R86S-N N305A
-          XXLPitu-Router = lib.nixosSystem {
+          XXLPitu-Urahara = lib.nixosSystem {
             system = "x86_64-linux";
 
             modules = [
@@ -224,7 +224,7 @@
 
                   self.nixosModules.profiles.headless
 
-                  ./configuration/devices/headless/router
+                  ./configuration/devices/headless/urahara
                 ];
 
                 _module.args.interfaces = {

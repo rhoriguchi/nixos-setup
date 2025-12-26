@@ -21,7 +21,7 @@
     efi.canTouchEfiVariables = true;
   };
 
-  networking.hostName = "XXLPitu-Router";
+  networking.hostName = "XXLPitu-Urahara";
 
   services = {
     infomaniak.enableIPv6 = true;

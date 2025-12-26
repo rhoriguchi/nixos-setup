@@ -12,7 +12,7 @@ let
     lib.attrNames config.networking.interfaces
   );
 
-  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
+  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 in
 {
   boot.kernel.sysctl = {
@@ -86,7 +86,7 @@ in
 
       "${internalInterface}".ipv4.addresses = [
         {
-          address = ips.router;
+          address = ips.urahara;
           prefixLength = 24;
         }
       ];
@@ -140,9 +140,9 @@ in
       pimd.enable = true;
 
       config = ''
-        ip pim rp ${ips.router} 224.0.1.0/24
-        ip pim rp ${ips.router} 224.0.2.0/24
-        ip pim rp ${ips.router} 239.0.0.0/8
+        ip pim rp ${ips.urahara} 224.0.1.0/24
+        ip pim rp ${ips.urahara} 224.0.2.0/24
+        ip pim rp ${ips.urahara} 239.0.0.0/8
 
         interface ${internalInterface}.2
           ip pim

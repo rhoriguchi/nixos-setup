@@ -12,7 +12,7 @@ let
     lib.attrNames config.networking.interfaces
   );
 
-  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
+  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 in
 {
   boot.kernel.sysctl = {

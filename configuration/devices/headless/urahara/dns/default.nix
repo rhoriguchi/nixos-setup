@@ -9,12 +9,12 @@
 let
   internalInterface = interfaces.internal;
 
-  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
+  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 
   dnsZoneDir = "/var/lib/named";
 
   localARecords = {
-    "${config.networking.hostName}" = ips.router;
+    "${config.networking.hostName}" = ips.urahara;
 
     "unifi" = ips.cloudKey;
   };

@@ -1325,8 +1325,8 @@
     "list": [
       {
         "current": {
-          "text": "XXLPitu-Router",
-          "value": "XXLPitu-Router"
+          "text": "XXLPitu-Urahara",
+          "value": "XXLPitu-Urahara"
         },
         "description": "",
         "hide": 2,
@@ -1334,11 +1334,11 @@
         "options": [
           {
             "selected": true,
-            "text": "XXLPitu-Router",
-            "value": "XXLPitu-Router"
+            "text": "XXLPitu-Urahara",
+            "value": "XXLPitu-Urahara"
           }
         ],
-        "query": "XXLPitu-Router",
+        "query": "XXLPitu-Urahara",
         "type": "custom"
       },
       {
