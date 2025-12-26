@@ -2,7 +2,7 @@
 let
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/router/dhcp/ips.nix");
 
-  serverDomains = [
+  tierDomains = [
     "deluge.00a.ch"
     "grafana.00a.ch"
     "home-assistant.00a.ch"
@@ -53,12 +53,12 @@ in
 
       XXLPitu-Tier = {
         server = "${ips.tier}:443";
-        hostnames = serverDomains;
+        hostnames = tierDomains;
       };
     };
 
     virtualHosts =
-      (getVirtualHost "XXLPitu-Tier.local" ips.tier serverDomains)
+      (getVirtualHost "XXLPitu-Tier.local" ips.tier tierDomains)
       // (getVirtualHost "XXLPitu-Ulquiorra.local" ips.ulquiorra ulquiorraDomains);
   };
 }
