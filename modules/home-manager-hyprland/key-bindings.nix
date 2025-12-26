@@ -153,7 +153,6 @@ in
 
       gesture = [
         "3, horizontal, workspace"
-        "3, swipe, mod: $mainMod, resize"
       ];
     };
 
