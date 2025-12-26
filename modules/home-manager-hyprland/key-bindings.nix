@@ -94,7 +94,10 @@ in
 
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
+      ];
 
+      # r	release	Will trigger on release of a key.
+      bindr = [
         "$mainMod, M, submap, move"
         "$mainMod, N, submap, resize"
       ];
@@ -156,7 +159,11 @@ in
 
     submaps = {
       move.settings = {
-        bind = [ ", escape, submap, reset" ];
+        # r	release	Will trigger on release of a key.
+        bindr = [
+          ", escape, submap, reset"
+          "$mainMod, M, submap, reset"
+        ];
 
         # e	repeat	Will repeat when held.
         binde = [
@@ -168,7 +175,11 @@ in
       };
 
       resize.settings = {
-        bind = [ ", escape, submap, reset" ];
+        # r	release	Will trigger on release of a key.
+        bindr = [
+          ", escape, submap, reset"
+          "$mainMod, N, submap, reset"
+        ];
 
         # e	repeat	Will repeat when held.
         binde = [
