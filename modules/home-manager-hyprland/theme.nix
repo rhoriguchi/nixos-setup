@@ -42,10 +42,10 @@
 
     windowrule = [
       # Smart gaps
-      "bordersize 0, floating:0, onworkspace:f[1]"
-      "rounding 0, floating:0, onworkspace:f[1]"
-      "bordersize 0, floating:0, onworkspace:w[tv1]"
-      "rounding 0, floating:0, onworkspace:w[tv1]"
+      "border_size 0, match:float false, match:workspace f[1]"
+      "rounding 0, match:float false, match:workspace f[1]"
+      "border_size 0, match:float false, match:workspace w[tv1]"
+      "rounding 0, match:float false, match:workspace w[tv1]"
     ];
 
     general = {
