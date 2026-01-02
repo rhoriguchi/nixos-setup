@@ -29,6 +29,36 @@
         sha256 = "sha256-CY0Liw7AnigI8Ca/KHj1Ya6u15eZOtMz1wRDFdekRAw=";
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=475761
+    libraspberrypi = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "9892566a660e493b35d14227531588e2ccce4734";
+        sha256 = "sha256-qxaGBVx65b5aagSe2CPwREoGZzWFwkIfwFQtSWDCF5A=";
+      }
+    }/pkgs/by-name/li/libraspberrypi/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=475893
+    rustdesk-flutter = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "d639b220b06a865352bbeaf2e3deee5258c57480";
+        sha256 = "sha256-ijHT+oyQZrvkbdAscA3oJo40S9UYVlAeAWOn7I1VtCE=";
+      }
+    }/pkgs/by-name/ru/rustdesk-flutter/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=476341
+    cnijfilter2 = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "24057499adc8517a346556dfd8976ab0103da08b";
+        sha256 = "sha256-3E14017rm4JQK9SOzog6DAkOHy3dPRRBOCRjbhs6yfs=";
+      }
+    }/pkgs/by-name/cn/cnijfilter2/package.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
