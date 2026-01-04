@@ -201,11 +201,6 @@
                   url = "https://www.youtube.com";
                 }
                 {
-                  # Check https://gogotaku.info for latest active domain
-                  name = "Gogoanime";
-                  url = "https://anitaku.io";
-                }
-                {
                   name = "TV Time";
                   url = "https://app.tvtime.com";
                 }
@@ -214,12 +209,8 @@
                   url = "https://todoist.com/app?lang=en#start";
                 }
                 {
-                  name = "reddit";
+                  name = "Reddit";
                   url = "https://www.reddit.com";
-                }
-                {
-                  name = "Rechtschreibprüfung";
-                  url = "https://mentor.duden.de/?utm_source=duden_de&utm_medium=premium_int&utm_campaign=topnavi&utm_content=duden-mentor-textpruefung";
                 }
               ];
             }
@@ -275,14 +266,14 @@
           "browser.search.region" = "CH";
           "browser.search.suggest.enabled.private" = true;
           "browser.startup.homepage" = lib.concatStringsSep "|" [
-            "https://todoist.com/app/today"
             "https://mail.google.com/mail/u/0/#inbox"
+            "https://todoist.com/app/today"
           ];
           "browser.startup.page" = 1;
           "browser.tabs.groups.enabled" = false;
           "browser.tabs.warnOnClose" = false;
           "browser.toolbars.bookmarks.showOtherBookmarks" = false;
-          "browser.toolbars.bookmarks.visibility" = "always";
+          "browser.toolbars.bookmarks.visibility" = "newtab";
           "browser.translations.automaticallyPopup" = false;
           "browser.uiCustomization.state" =
             let
