@@ -23,6 +23,7 @@
     ./samba.nix
     ./sonarr
     ./tautulli.nix
+    ./terraria.nix
 
     ./hardware-configuration.nix
   ];

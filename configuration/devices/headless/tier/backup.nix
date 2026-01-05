@@ -25,6 +25,7 @@ in
           "/var/cache/netdata"
           "/var/lib/${config.services.prometheus.stateDir}"
           "/var/lib/hass/backups"
+          "/var/lib/terraria"
 
           config.services.loki.dataDir
           config.services.minecraft-servers.dataDir

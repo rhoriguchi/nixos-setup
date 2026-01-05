@@ -215,6 +215,18 @@ in
           destination = "${ips.tier}:21116";
           sourcePort = 21116;
         }
+
+        # Terraria
+        {
+          proto = "tcp";
+          destination = "${ips.tier}:7777";
+          sourcePort = 7777;
+        }
+        {
+          proto = "udp";
+          destination = "${ips.tier}:7777";
+          sourcePort = 7777;
+        }
       ];
     };
   };
