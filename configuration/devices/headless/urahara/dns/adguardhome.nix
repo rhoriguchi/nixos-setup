@@ -54,7 +54,7 @@
 
       mutableSettings = false;
       settings =
-        assert pkgs.adguardhome.schema_version == 31;
+        assert pkgs.adguardhome.schema_version == 32;
         {
           dns = rec {
             bootstrap_dns = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
@@ -63,6 +63,7 @@
             local_ptr_upstreams = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
 
             cache_enabled = false;
+            cache_optimistic = false;
             ratelimit = 0;
           };
 
