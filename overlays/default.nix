@@ -10,6 +10,16 @@
       }
     }/pkgs/by-name/re/resilio-sync/package.nix") { };
 
+    # TODO remove when hyprland flake input updated, hyprtoolkit>=0.4.1
+    hyprpaper = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "d12cf61ec1b2a2e06f7bcb2c54c70a74b5aac6a6";
+        sha256 = "sha256-lZEiIXjpDJRax7VTdL5lAkgkHmZ0GvLNCmONy4WjZds=";
+      }
+    }/pkgs/by-name/hy/hyprpaper/package.nix") { };
+
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=450661
     superfile = super.callPackage (import "${
       super.fetchFromGitHub {
