@@ -30,16 +30,6 @@
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=476979
-    adguardhome = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "5fc995e36dc7b361dd72e90258ecaac93c67d4ca";
-        sha256 = "sha256-+noDrRMnRHkH9rbuNxLEStSlJ6pJAAv3YkGe7mMSUVY=";
-      }
-    }/pkgs/by-name/ad/adguardhome/package.nix") { };
-
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=477193
     cnijfilter2 = super.callPackage (import "${
       super.fetchFromGitHub {
