@@ -26,7 +26,7 @@
       pkgs.killall
       pkgs.mtr
       pkgs.nano
-      pkgs.nixfmt-rfc-style
+      pkgs.nixfmt
       pkgs.nixfmt-tree
       pkgs.nmap
       pkgs.openssl

@@ -49,7 +49,7 @@
           "configuration\\/devices\\/nnoitra\\/iex\\.json"
         ];
       };
-      nixfmt-rfc-style = {
+      nixfmt = {
         enable = true;
         excludes = [ "secrets\\.nix$" ];
       };
