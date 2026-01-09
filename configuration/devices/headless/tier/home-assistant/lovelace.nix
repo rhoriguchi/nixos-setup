@@ -226,7 +226,7 @@ in
                     entity = "sensor.reduit_h_t_gen3_humidity";
                   }
                   {
-                    name = "Badring";
+                    name = "Floor";
                     entity = "binary_sensor.reduit_badring";
                   }
                 ];
