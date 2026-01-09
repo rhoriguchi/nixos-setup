@@ -37,6 +37,7 @@ Configure:
 
 - `shellyhtg3-34b7da8ccedc`
 - `shellyhtg3-84fce639c104`
+- `shellyhtg3-e4b3232ff0fc`
 - `shellyhtg3-e4b323327c90`
 - `shellyhtg3-e4b323327cf4`
 

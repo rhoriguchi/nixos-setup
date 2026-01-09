@@ -16,6 +16,7 @@
             "sensor.living_room_h_t_gen3_battery"
             "sensor.office_dimmer_switch_battery"
             "sensor.reduit_badring_battery"
+            "sensor.reduit_h_t_gen3_battery"
           ];
           below = 26;
         }

@@ -218,6 +218,14 @@ in
 
                 entities = [
                   {
+                    name = "Temperature";
+                    entity = "sensor.reduit_h_t_gen3_temperature";
+                  }
+                  {
+                    name = "Humidity";
+                    entity = "sensor.reduit_h_t_gen3_humidity";
+                  }
+                  {
                     name = "Badring";
                     entity = "binary_sensor.reduit_badring";
                   }
@@ -436,6 +444,7 @@ in
                       "sensor.bedroom_h_t_gen3_battery"
                       "sensor.guest_room_h_t_gen3_battery"
                       "sensor.living_room_h_t_gen3_battery"
+                      "sensor.reduit_h_t_gen3_battery"
                     ];
                   }
                   {
