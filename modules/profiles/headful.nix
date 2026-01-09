@@ -22,7 +22,6 @@
     pkgs.ghostty
     pkgs.glow
     pkgs.gnome-calculator
-    pkgs.google-chrome
     pkgs.loupe
     pkgs.obsidian
     pkgs.qbittorrent
