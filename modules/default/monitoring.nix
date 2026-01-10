@@ -344,7 +344,14 @@ in
             child = {
               db.mode = "ram";
 
-              web.mode = "none";
+              web."bind to" = lib.concatStringsSep " " [
+                "127.0.0.1:${toString cfg.webPort}=${
+                  lib.concatStringsSep "|" [
+                    "dashboard"
+                    "netdata.conf"
+                  ]
+                }"
+              ];
             };
           }
           .${cfg.type};

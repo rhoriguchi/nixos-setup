@@ -42,6 +42,12 @@
       receiverHostname = "XXLPitu-Tier";
     };
 
+    metricShipping = {
+      enable = true;
+
+      receiverHostname = "XXLPitu-Tier";
+    };
+
     monitoring = {
       enable = true;
 

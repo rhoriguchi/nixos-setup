@@ -49,4 +49,8 @@
       extraFlags = [ "--web.enable-remote-write-receiver" ];
     };
   };
+
+  networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [
+    config.services.prometheus.port
+  ];
 }

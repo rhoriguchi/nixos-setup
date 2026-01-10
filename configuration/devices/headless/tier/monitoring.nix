@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   secrets,
   ...
 }:
@@ -28,8 +27,6 @@
       };
     };
 
-    alloy.enable = true;
-
     infomaniak = {
       enable = true;
 
@@ -46,48 +43,5 @@
       apiKey = secrets.monitoring.apiKey;
       discordWebhookUrl = secrets.monitoring.discordWebhookUrl;
     };
-  };
-
-  environment.etc."alloy/netdata.alloy".text = ''
-    prometheus.remote_write "netdata_endpoint" {
-      endpoint {
-        url = "http://127.0.0.1:${toString config.services.prometheus.port}/api/v1/write"
-      }
-    }
-
-    prometheus.scrape "netdata" {
-      forward_to = [prometheus.remote_write.netdata_endpoint.receiver]
-
-      scrape_interval = "5s"
-      scrape_timeout = "5s"
-
-      targets = [
-        {
-          __address__ = "127.0.0.1:${toString config.services.monitoring.webPort}",
-          __metrics_path__ = "/api/v1/allmetrics",
-          __param_format = "prometheus_all_hosts",
-        },
-      ]
-    }
-  '';
-
-  systemd.services.netdata-tailscale-monitor = {
-    enable = config.services.netdata.enable && config.services.tailscale.enable;
-
-    after = [ config.systemd.services.netdata.name ];
-    wants = [ config.systemd.services.netdata.name ];
-
-    script = ''
-      ${pkgs.iproute2}/bin/ip monitor address | while read -r line; do
-        interface=$(${pkgs.gawk}/bin/awk '{print $2}' <<< "$line")
-
-        if [[ "$line" =~ inet\  ]] && [[ "$line" != *"Deleted"* ]]; then
-          echo 'Restarting ${config.systemd.services.netdata.name}'
-          systemctl restart ${config.systemd.services.netdata.name}
-        fi
-      done
-    '';
-
-    serviceConfig.Restart = "on-failure";
   };
 }
