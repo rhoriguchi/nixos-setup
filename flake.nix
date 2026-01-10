@@ -34,7 +34,9 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.53.1";
+      # TODO uncomment after version > 0.53.1
+      # url = "github:hyprwm/Hyprland?ref=v0.53.1";
+      url = "github:hyprwm/Hyprland?rev=81e7498ec27156ee97aabba6fe4993412d98d1ab";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
