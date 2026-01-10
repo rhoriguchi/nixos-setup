@@ -14,10 +14,6 @@ in
   options.services.logShipping = {
     enable = lib.mkEnableOption "Ship logs with Promtail to Loki";
     receiverHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
-    useLocalhost = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -34,7 +30,10 @@ in
       loki.write "journal_endpoint" {
         endpoint {
           url = "http://${
-            if cfg.useLocalhost then "127.0.0.1" else tailscaleIps.${cfg.receiverHostname}
+            if (config.networking.hostName == cfg.receiverHostname) then
+              "127.0.0.1"
+            else
+              tailscaleIps.${cfg.receiverHostname}
           }:3100/loki/api/v1/push"
         }
       }
