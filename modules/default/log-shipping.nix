@@ -12,7 +12,7 @@ let
 in
 {
   options.services.logShipping = {
-    enable = lib.mkEnableOption "Ship logs with Promtail to Loki";
+    enable = lib.mkEnableOption "Ship metrics with Grafana Alloy to Prometheus";
     receiverHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
   };
 
