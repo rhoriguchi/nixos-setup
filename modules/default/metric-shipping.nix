@@ -44,7 +44,7 @@ in
 
           rule {
             action       = "replace"
-            target_label = "netdata_instance"
+            target_label = "hostname"
             replacement  = "${config.networking.hostName}"
           }
         }

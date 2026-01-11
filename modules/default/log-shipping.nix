@@ -43,7 +43,7 @@ in
 
         rule {
           source_labels = ["__journal__hostname"]
-          target_label = "host"
+          target_label = "hostname"
         }
 
         rule {

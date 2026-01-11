@@ -96,7 +96,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "netdata_ping_host_rtt_milliseconds_average{netdata_instance=\"$instanceName\", netdata_dimension=\"avg\", netdata_chart=~\"ping_dns\\\\..+\"}",
+          "expr": "netdata_ping_host_rtt_milliseconds_average{hostname=\"$hostname\", netdata_dimension=\"avg\", netdata_chart=~\"ping_dns\\\\..+\"}",
           "format": "table",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -120,7 +120,7 @@
               "netdata_chart": true,
               "netdata_dimension": true,
               "netdata_family": true,
-              "netdata_instance": true
+              "hostname": true
             },
             "includeByName": {},
             "indexByName": {
@@ -133,7 +133,7 @@
               "netdata_chart": 6,
               "netdata_dimension": 7,
               "netdata_family": 8,
-              "netdata_instance": 9
+              "hostname": 9
             },
             "renameByName": {}
           }
@@ -214,7 +214,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "netdata_ping_host_rtt_milliseconds_average{netdata_instance=\"$instanceName\", netdata_dimension=\"avg\", netdata_chart=~\"ping_internet\\\\..+\"}",
+          "expr": "netdata_ping_host_rtt_milliseconds_average{hostname=\"$hostname\", netdata_dimension=\"avg\", netdata_chart=~\"ping_internet\\\\..+\"}",
           "format": "table",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -238,7 +238,7 @@
               "netdata_chart": true,
               "netdata_dimension": true,
               "netdata_family": true,
-              "netdata_instance": true
+              "hostname": true
             },
             "includeByName": {},
             "indexByName": {
@@ -251,7 +251,7 @@
               "netdata_chart": 6,
               "netdata_dimension": 7,
               "netdata_family": 8,
-              "netdata_instance": 9
+              "hostname": 9
             },
             "renameByName": {}
           }
@@ -363,7 +363,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "netdata_ping_host_rtt_milliseconds_average{netdata_instance=\"$instanceName\", netdata_dimension=\"avg\", netdata_chart=~\"ping_dns\\\\..+\"}",
+          "expr": "netdata_ping_host_rtt_milliseconds_average{hostname=\"$hostname\", netdata_dimension=\"avg\", netdata_chart=~\"ping_dns\\\\..+\"}",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -470,7 +470,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "netdata_ping_host_rtt_milliseconds_average{netdata_instance=\"$instanceName\", netdata_dimension=\"avg\", netdata_chart=~\"ping_internet\\\\..+\"}",
+          "expr": "netdata_ping_host_rtt_milliseconds_average{hostname=\"$hostname\", netdata_dimension=\"avg\", netdata_chart=~\"ping_internet\\\\..+\"}",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -557,7 +557,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "label_replace(label_replace(abs(sum_over_time(netdata_net_net_kilobits_persec_average{netdata_instance=\"$instanceName\", device=\"$externalInterface\"}[$__rate_interval]) / 8), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"sent\")",
+          "expr": "label_replace(label_replace(abs(sum_over_time(netdata_net_net_kilobits_persec_average{hostname=\"$hostname\", device=\"$externalInterface\"}[$__rate_interval]) / 8), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"sent\")",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -631,7 +631,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "label_replace(label_replace(abs(sum_over_time(netdata_net_net_kilobits_persec_average{netdata_instance=\"$instanceName\", device=\"$internalInterface\"}[$__rate_interval]) / 8), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"sent\")",
+          "expr": "label_replace(label_replace(abs(sum_over_time(netdata_net_net_kilobits_persec_average{hostname=\"$hostname\", device=\"$internalInterface\"}[$__rate_interval]) / 8), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"sent\")",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -705,7 +705,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{netdata_instance=\"$instanceName\", device=\"$externalInterface\"}), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"sent\")",
+          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{hostname=\"$hostname\", device=\"$externalInterface\"}), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"sent\")",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -780,7 +780,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{netdata_instance=\"$instanceName\", device=\"$internalInterface\"}), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"sent\")",
+          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{hostname=\"$hostname\", device=\"$internalInterface\"}), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"sent\")",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": true,
@@ -881,7 +881,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{netdata_instance=\"$instanceName\", device=\"$externalInterface\"}), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"sent\")",
+          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{hostname=\"$hostname\", device=\"$externalInterface\"}), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"sent\")",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{netdata_dimension}}",
@@ -980,7 +980,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{netdata_instance=\"$instanceName\", device=\"$internalInterface\"}), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"sent\")",
+          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{hostname=\"$hostname\", device=\"$internalInterface\"}), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"sent\")",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{netdata_dimension}}",
@@ -1079,7 +1079,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{netdata_instance=\"$instanceName\", netdata_family=~\"${internalInterface}\\\\.\\\\d+\"}), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"sent\")",
+          "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{hostname=\"$hostname\", netdata_family=~\"${internalInterface}\\\\.\\\\d+\"}), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"sent\")",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1168,7 +1168,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "netdata_prometheus_Kea_kea_dhcp4_addresses_assigned_total_assigned_average{netdata_instance=\"$instanceName\", pool!=\"[none]\"}",
+          "expr": "netdata_prometheus_Kea_kea_dhcp4_addresses_assigned_total_assigned_average{hostname=\"$hostname\", pool!=\"[none]\"}",
           "format": "table",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -1192,7 +1192,7 @@
               "netdata_chart": true,
               "netdata_dimension": true,
               "netdata_family": true,
-              "netdata_instance": true,
+              "hostname": true,
               "pool": true,
               "subnet_id": true
             },
@@ -1206,7 +1206,7 @@
               "netdata_chart": 6,
               "netdata_dimension": 7,
               "netdata_family": 8,
-              "netdata_instance": 9,
+              "hostname": 9,
               "pool": 10,
               "subnet": 0,
               "subnet_id": 11
@@ -1303,7 +1303,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "netdata_prometheus_Kea_kea_dhcp4_addresses_assigned_total_assigned_average{netdata_instance=\"$instanceName\", pool!=\"[none]\"}",
+          "expr": "netdata_prometheus_Kea_kea_dhcp4_addresses_assigned_total_assigned_average{hostname=\"$hostname\", pool!=\"[none]\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -1330,7 +1330,7 @@
         },
         "description": "",
         "hide": 2,
-        "name": "instanceName",
+        "name": "hostname",
         "options": [
           {
             "selected": true,
@@ -1386,6 +1386,6 @@
   "timezone": "browser",
   "title": "Network",
   "uid": "ae5yp992gp8n4f",
-  "version": 11,
+  "version": 12,
   "weekStart": "monday"
 }
