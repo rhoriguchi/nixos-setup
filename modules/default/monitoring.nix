@@ -620,5 +620,24 @@ in
     networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts =
       lib.mkIf isParent
         [ streamPort ];
+
+    environment.etc = lib.optionalAttrs config.services.alloy.enable {
+      "alloy/prometheus.netdata.alloy".text = ''
+        prometheus.scrape "netdata" {
+          forward_to = [prometheus.relabel.default.receiver]
+
+          scrape_interval = "5s"
+          scrape_timeout = "5s"
+
+          targets = [
+            {
+              __address__ = "127.0.0.1:${toString cfg.webPort}",
+              __metrics_path__ = "/api/v1/allmetrics",
+              __param_format = "prometheus",
+            },
+          ]
+        }
+      '';
+    };
   };
 }

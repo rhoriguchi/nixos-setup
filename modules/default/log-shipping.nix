@@ -26,52 +26,66 @@ in
 
     services.alloy.enable = true;
 
-    environment.etc."alloy/journal.alloy".text = ''
-      loki.write "journal_endpoint" {
-        endpoint {
-          url = "http://${
-            if (config.networking.hostName == cfg.receiverHostname) then
-              "127.0.0.1"
-            else
-              tailscaleIps.${cfg.receiverHostname}
-          }:3100/loki/api/v1/push"
-        }
-      }
-
-      loki.relabel "journal" {
-        forward_to = []
-
-        rule {
-          source_labels = ["__journal__hostname"]
-          target_label = "hostname"
+    environment.etc = {
+      "alloy/loki.alloy".text = ''
+        loki.write "default" {
+          endpoint {
+            url = "http://${
+              if (config.networking.hostName == cfg.receiverHostname) then
+                "127.0.0.1"
+              else
+                tailscaleIps.${cfg.receiverHostname}
+            }:3100/loki/api/v1/push"
+          }
         }
 
-        rule {
-          source_labels = ["__journal_priority_keyword"]
-          target_label = "severity"
+        loki.relabel "default" {
+          forward_to = [loki.write.default.receiver]
+
+          rule {
+            target_label = "hostname"
+            replacement = "${config.networking.hostName}"
+          }
+        }
+      '';
+
+      "alloy/loki.systemd.alloy".text = ''
+        loki.relabel "systemd" {
+          forward_to = [loki.relabel.default.receiver]
+
+          rule {
+            target_label = "job"
+            replacement = "systemd"
+          }
         }
 
-        rule {
-          source_labels = ["__journal__systemd_unit"]
-          target_label = "unit"
-          regex = "(.+\\.service)"
+        loki.relabel "raw_journal" {
+          forward_to = []
+
+          rule {
+            source_labels = ["__journal_priority_keyword"]
+            target_label = "severity"
+          }
+
+          rule {
+            source_labels = ["__journal__systemd_unit"]
+            target_label = "unit"
+            regex = "(.+\\.service)"
+          }
+
+          rule {
+            source_labels = ["__journal__systemd_user_unit"]
+            target_label = "user_unit"
+            regex = "(.+\\.service)"
+          }
         }
 
-        rule {
-          source_labels = ["__journal__systemd_user_unit"]
-          target_label = "user_unit"
-          regex = "(.+\\.service)"
-        }
-      }
+        loki.source.journal "systemd" {
+          forward_to = [loki.relabel.systemd.receiver]
 
-      loki.source.journal "journal" {
-        forward_to    = [loki.write.journal_endpoint.receiver]
-        relabel_rules = loki.relabel.journal.rules
-
-        labels = {
-          job = "systemd",
+          relabel_rules = loki.relabel.raw_journal.rules
         }
-      }
-    '';
+      '';
+    };
   };
 }
