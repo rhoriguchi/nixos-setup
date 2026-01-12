@@ -230,6 +230,7 @@
         // lib.optionalAttrs config.programs.zsh.enable {
           zsh.path = "${config.programs.zsh.package}/bin/zsh";
         };
+        "terminal.integrated.shellIntegration.enabled" = false;
         "terminal.integrated.smoothScrolling" = true;
         "todo-tree.highlights.customHighlight" = {
           "[ ]" = {
