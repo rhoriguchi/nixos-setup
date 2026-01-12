@@ -119,9 +119,6 @@ zfs create \
   data/deluge
 
 zfs create \
-  data/loki
-
-zfs create \
   data/monitoring
 
 zfs create \
