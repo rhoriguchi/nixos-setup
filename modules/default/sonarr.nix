@@ -34,7 +34,7 @@ in
             expression = "${
               lib.escape [
                 "\\"
-              ] ''^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d\|(?P<severity>[[:alpha:]]+)|''
+              ] ''^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d)\|(?P<severity>[[:alpha:]]+)|''
             }"
           }
 
