@@ -112,7 +112,7 @@ zpool create -f \
     ata-Samsung_SSD_870_EVO_2TB_S6PPNM0TB06013H
 
 zfs create \
-  -o compression=zstd \
+  -o compression=lz4 \
   data/backup
 
 zfs create \
