@@ -42,11 +42,12 @@
             autodetection_retry = 30;
           })
           [
-            "Guest room - U7 Pro XG"
+            "Bedroom - U7 Pro XG"
             "Living room - U6 LR"
             "Living room - US 8 60W"
             "Network closet - USW Pro XG 8 PoE"
-            "Office - US 8 PoE 150W"
+            "Office - U7 Pro XG"
+            "Office - USW Pro XG 8 PoE"
           ];
     };
   };
