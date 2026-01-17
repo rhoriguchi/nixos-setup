@@ -92,8 +92,6 @@ in
         };
       '';
 
-      borgExporter.enable = config.services.borgmatic.enable;
-
       corerad.settings.debug = {
         address = "127.0.0.1:9430";
         prometheus = true;
@@ -448,11 +446,7 @@ in
         // {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
             jobs =
-              lib.optional config.services.borgExporter.enable {
-                name = "Borg";
-                url = "http://127.0.0.1:${toString config.services.borgExporter.port}/metrics";
-              }
-              ++ lib.optional config.services.corerad.enable {
+              lib.optional config.services.corerad.enable {
                 name = "CoreRAD";
                 url = "http://${config.services.corerad.settings.debug.address}/metrics";
               }

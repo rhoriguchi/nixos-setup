@@ -10,43 +10,39 @@ let
   backupDir = "/mnt/Data/Backup/${config.networking.hostName}";
 in
 {
-  services = {
-    borgmatic = {
-      enable = true;
+  services.borgmatic = {
+    enable = true;
 
-      settings = {
-        keep_daily = 7;
-        keep_weekly = 4;
-        keep_monthly = 3;
+    settings = {
+      keep_daily = 7;
+      keep_weekly = 4;
+      keep_monthly = 3;
 
-        source_directories = [
-          "/mnt/Data/Movies"
-          "/mnt/Data/Series"
-          "/var/cache/netdata"
-          "/var/lib/${config.services.prometheus.stateDir}"
-          "/var/lib/hass/backups"
-          "/var/lib/terraria"
+      source_directories = [
+        "/mnt/Data/Movies"
+        "/mnt/Data/Series"
+        "/var/cache/netdata"
+        "/var/lib/${config.services.prometheus.stateDir}"
+        "/var/lib/hass/backups"
+        "/var/lib/terraria"
 
-          config.services.loki.dataDir
-          config.services.minecraft-servers.dataDir
-          config.services.plex.dataDir
-          config.services.prowlarr.dataDir
-          config.services.resilio.syncPath
-          config.services.sonarr.dataDir
-          config.services.tautulli.dataDir
-        ]
-        ++ lib.optional config.services.postgresql.enable postgresBackupDir;
+        config.services.loki.dataDir
+        config.services.minecraft-servers.dataDir
+        config.services.plex.dataDir
+        config.services.prowlarr.dataDir
+        config.services.resilio.syncPath
+        config.services.sonarr.dataDir
+        config.services.tautulli.dataDir
+      ]
+      ++ lib.optional config.services.postgresql.enable postgresBackupDir;
 
-        repositories = [
-          {
-            label = "local";
-            path = backupDir;
-          }
-        ];
-      };
+      repositories = [
+        {
+          label = "local";
+          path = backupDir;
+        }
+      ];
     };
-
-    borgExporter.repository = backupDir;
   };
 
   # Workaround for peer based authentication and privileges escalation since service is hardened
