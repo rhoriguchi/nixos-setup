@@ -9,7 +9,7 @@
 
     systemPackages = [
       (pkgs.symlinkJoin {
-        inherit (pkgs.kitty) name;
+        inherit (pkgs.kitty) name pname version;
         paths = [ pkgs.kitty ];
 
         postBuild = ''
@@ -73,7 +73,7 @@
     };
 
     uwsm.package = pkgs.symlinkJoin {
-      inherit (pkgs.uwsm) name;
+      inherit (pkgs.uwsm) name pname version;
       paths = [ pkgs.uwsm ];
 
       postBuild = ''
@@ -88,7 +88,7 @@
     (_: super: {
       # Required for Signal to work with GNOME Keyring
       signal-desktop = super.symlinkJoin {
-        inherit (super.signal-desktop) name;
+        inherit (super.signal-desktop) name pname version;
         paths = [ super.signal-desktop ];
 
         nativeBuildInputs = [ super.makeWrapper ];
