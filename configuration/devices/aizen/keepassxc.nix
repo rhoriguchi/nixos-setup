@@ -5,7 +5,7 @@ let
   '';
 
   keepassxc = pkgs.symlinkJoin {
-    inherit (pkgs.keepassxc) name;
+    inherit (pkgs.keepassxc) name pname version;
     paths = [ pkgs.keepassxc ];
 
     postBuild = ''

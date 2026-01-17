@@ -7,7 +7,7 @@
       webInterface = false;
 
       package = pkgs.symlinkJoin {
-        inherit (pkgs.cups) name;
+        inherit (pkgs.cups) name pname version;
         paths = [ pkgs.cups ];
 
         postBuild = ''

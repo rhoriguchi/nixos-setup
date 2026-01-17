@@ -175,7 +175,7 @@ in
       enable = true;
 
       package = pkgs.symlinkJoin {
-        inherit (pkgs.uptime-kuma) name;
+        inherit (pkgs.uptime-kuma) name pname version;
         paths = [ pkgs.uptime-kuma ];
 
         nativeBuildInputs = [ pkgs.makeWrapper ];
