@@ -8,8 +8,8 @@ let
 in
 {
   programs.zsh.shellAliases = {
-    "repl flake" =
+    "repl-flake" =
       ''${osConfig.system.build.nixos-rebuild}/bin/nixos-rebuild repl --flake "${homeDirectory}/Sync/Git/nixos-setup"'';
-    "repl pkgs" = ''${config.nix.package}/bin/nix repl --expr "import <nixpkgs> {}"'';
+    "repl-pkgs" = ''${config.nix.package}/bin/nix repl --expr "import <nixpkgs> {}"'';
   };
 }
