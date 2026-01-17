@@ -29,6 +29,16 @@
         sha256 = "sha256-CY0Liw7AnigI8Ca/KHj1Ya6u15eZOtMz1wRDFdekRAw=";
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=480880
+    borgmatic = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "28a66fd11cafbbb4508f6240b9ed02bae7b7fa36";
+        sha256 = "sha256-h05YUEmeppFJsw7210gxHIDm0Adv5UTGQtv+V5tMDto=";
+      }
+    }/pkgs/by-name/bo/borgmatic/package.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
