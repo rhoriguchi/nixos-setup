@@ -4,7 +4,7 @@
     enable = true;
 
     configuration.sonarr.main = {
-      base_url = "http://localhost:${toString config.services.sonarr.settings.server.port}";
+      base_url = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
       api_key = secrets.sonarr.apiKey;
 
       media_naming = {
