@@ -14,6 +14,12 @@ in
     enable = true;
 
     settings = {
+      statistics = true;
+      list_details = true;
+
+      verbosity = 0;
+      syslog_verbosity = 1;
+
       keep_daily = 7;
       keep_weekly = 4;
       keep_monthly = 3;
