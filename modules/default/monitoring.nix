@@ -119,6 +119,13 @@ in
       '';
 
       prometheus.exporters = {
+        borgmatic = {
+          enable = config.services.borgmatic.enable;
+
+          user = "root";
+          listenAddress = "127.0.0.1";
+        };
+
         exportarr-sonarr = {
           enable = config.services.sonarr.enable;
 
@@ -446,7 +453,11 @@ in
         // {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
             jobs =
-              lib.optional config.services.corerad.enable {
+              lib.optional config.services.borgmatic.enable {
+                name = "Borgmatic";
+                url = "http://127.0.0.1:${toString config.services.prometheus.exporters.borgmatic.port}/metrics";
+              }
+              ++ lib.optional config.services.corerad.enable {
                 name = "CoreRAD";
                 url = "http://${config.services.corerad.settings.debug.address}/metrics";
               }
