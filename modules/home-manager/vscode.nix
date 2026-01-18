@@ -16,6 +16,8 @@
 
     mutableExtensionsDir = false;
 
+    argvSettings.enable-crash-reporter = false;
+
     profiles.default = {
       enableUpdateCheck = false;
       enableExtensionUpdateCheck = false;
