@@ -48,11 +48,15 @@ in
               severity = "",
             }
           }
+
+          stage.drop {
+            source = "severity"
+            value = "debug"
+          }
         }
 
         loki.source.file "sonarr" {
           targets = [
-            {__path__ = "${cfg.dataDir}/logs/sonarr.txt"},
             {__path__ = "${cfg.dataDir}/logs/sonarr.debug.txt"},
           ]
 
