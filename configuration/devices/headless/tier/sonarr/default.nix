@@ -15,6 +15,7 @@ in
     ./deluge
     ./prowlarr.nix
     ./recyclarr.nix
+    ./sonarr-tv-time-updater
   ];
 
   users.users.sonarr.extraGroups = [ config.services.deluge.group ];
@@ -96,58 +97,6 @@ in
           '';
         };
       };
-    };
-  };
-
-  systemd.services.sonarr-update-tracked-series = {
-    after = [
-      "network.target"
-      config.systemd.services.sonarr.name
-    ];
-
-    script =
-      let
-        pythonScript =
-          pkgs.writers.writePython3 "update_series.py"
-            {
-              libraries = [
-                pkgs.python3Packages.pyjwt
-                pkgs.python3Packages.requests
-              ];
-
-              flakeIgnore = [ "E501" ];
-            }
-            (
-              lib.readFile (
-                pkgs.replaceVars ./update_series.py {
-                  sonarApiUrl = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
-                  sonarApiKey = secrets.sonarr.apiKey;
-                  sonarrRootDir = "${bindmountDir1}/Tv Shows";
-
-                  tvTimeUsername = secrets.tvTime.username;
-                  tvTimePassword = secrets.tvTime.password;
-
-                  excludedTvdbIds = lib.concatStringsSep ", " (
-                    map (tvdbId: toString tvdbId) [
-                      366924 # Reacher
-                      371980 # Severance
-                      393204 # Ironheart
-                      397060 # Wednesday
-                      422712 # Daredevil: Born Again
-                    ]
-                  );
-                }
-              )
-            );
-      in
-      "${pythonScript}";
-
-    startAt = "*:0/15";
-
-    serviceConfig = {
-      DynamicUser = true;
-      Restart = "on-abort";
-      Type = "oneshot";
     };
   };
 }
