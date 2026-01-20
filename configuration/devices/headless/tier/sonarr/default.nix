@@ -58,7 +58,16 @@ in
   ];
 
   services = {
-    sonarr.enable = true;
+    sonarr = {
+      enable = true;
+
+      # https://wiki.servarr.com/sonarr/environment-variables
+      settings.auth = {
+        apikey = secrets.sonarr.apiKey;
+        method = "Forms";
+        required = "DisabledForLocalAddresses";
+      };
+    };
 
     prometheus.exporters.exportarr-sonarr.environment.API_KEY = secrets.sonarr.apiKey;
 

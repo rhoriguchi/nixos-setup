@@ -1,7 +1,15 @@
 { config, secrets, ... }:
 {
   services = {
-    prowlarr.enable = true;
+    prowlarr = {
+      enable = true;
+
+      # https://wiki.servarr.com/prowlarr/environment-variables
+      settings.auth = {
+        method = "Forms";
+        required = "DisabledForLocalAddresses";
+      };
+    };
 
     prometheus.exporters.exportarr-prowlarr.environment.API_KEY = secrets.prowlarr.apiKey;
 
