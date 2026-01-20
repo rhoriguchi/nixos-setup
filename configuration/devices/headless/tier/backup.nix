@@ -27,6 +27,7 @@ in
       source_directories = [
         "/mnt/Data/Movies"
         "/mnt/Data/Series"
+
         "/var/cache/netdata"
         "/var/lib/${config.services.prometheus.stateDir}"
         "/var/lib/hass/backups"
