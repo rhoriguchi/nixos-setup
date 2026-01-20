@@ -7,9 +7,6 @@
 }:
 let
   containerCfg = config.containers.deluge.config;
-
-  hostAddress = "169.254.1.1";
-  localAddress = "169.254.2.1";
 in
 {
   users = {
@@ -31,7 +28,8 @@ in
     ephemeral = true;
 
     privateNetwork = true;
-    inherit hostAddress localAddress;
+    hostAddress = "169.254.1.1";
+    localAddress = "169.254.2.1";
 
     forwardPorts = [
       {
@@ -88,11 +86,11 @@ in
 
             postSetup = ''
               # https://wiki.archlinux.org/title/WireGuard#Loop_routing
-              ${pkgs.iproute2}/bin/ip route add ${endpointIp} via ${hostAddress} dev eth0
+              ${pkgs.iproute2}/bin/ip route add ${endpointIp} via ${config.containers.deluge.hostAddress} dev eth0
             '';
 
             postShutdown = ''
-              ${pkgs.iproute2}/bin/ip route del ${endpointIp} via ${hostAddress} dev eth0
+              ${pkgs.iproute2}/bin/ip route del ${endpointIp} via ${config.containers.deluge.hostAddress} dev eth0
             '';
 
             peers = [
