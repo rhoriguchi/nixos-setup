@@ -194,6 +194,13 @@ in
     nginx = {
       enable = true;
 
+      appendHttpConfig = ''
+        split_clients "''${request_id}" $sonarr_redirect {
+          50% /anime;
+          50% /series;
+        }
+      '';
+
       virtualHosts."sonarr.00a.ch" = {
         enableACME = true;
         forceSSL = true;
@@ -210,7 +217,7 @@ in
           "/anime" = createNginxVirtualHostLocation "anime";
           "/series" = createNginxVirtualHostLocation "series";
 
-          "/".return = 444;
+          "/".return = "302 $sonarr_redirect";
         };
       };
     };
