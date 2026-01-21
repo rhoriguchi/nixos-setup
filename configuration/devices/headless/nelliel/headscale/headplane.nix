@@ -66,22 +66,21 @@
         enableACME = true;
         forceSSL = true;
 
+        basicAuth = secrets.nginx.basicAuth."headplane.00a.ch";
+
+        extraConfig = ''
+          satisfy any;
+          allow 192.168.2.0/24;
+          deny all;
+        '';
+
         locations = {
           "/".extraConfig = ''
             rewrite ^/$ /admin last;
           '';
 
-          "/admin" = {
-            proxyPass = "http://127.0.0.1:${toString config.services.headplane.settings.server.port}/admin";
-            basicAuth = secrets.nginx.basicAuth."headplane.00a.ch";
-
-            extraConfig = ''
-              satisfy any;
-
-              allow 192.168.2.0/24;
-              deny all;
-            '';
-          };
+          "/admin".proxyPass =
+            "http://127.0.0.1:${toString config.services.headplane.settings.server.port}/admin";
         };
       };
     };

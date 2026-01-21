@@ -13,17 +13,15 @@
         enableACME = true;
         forceSSL = true;
 
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.monitoring.webPort}";
-          basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
+        basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
 
-          extraConfig = ''
-            satisfy any;
+        extraConfig = ''
+          satisfy any;
+          allow 192.168.2.0/24;
+          deny all;
+        '';
 
-            allow 192.168.2.0/24;
-            deny all;
-          '';
-        };
+        locations."/".proxyPass = "http://127.0.0.1:${toString config.services.monitoring.webPort}";
       };
     };
 

@@ -12,18 +12,21 @@
         enableACME = true;
         forceSSL = true;
 
+        basicAuth = secrets.nginx.basicAuth."grafana.00a.ch";
+
+        extraConfig = ''
+          satisfy any;
+          allow 192.168.2.0/24;
+          deny all;
+        '';
+
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
+
           proxyWebsockets = true;
-          basicAuth = secrets.nginx.basicAuth."grafana.00a.ch";
 
           extraConfig = ''
             proxy_buffering off;
-
-            satisfy any;
-
-            allow 192.168.2.0/24;
-            deny all;
           '';
         };
       };

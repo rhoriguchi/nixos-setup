@@ -33,12 +33,20 @@
         enableACME = true;
         forceSSL = true;
 
+        basicAuth = secrets.nginx.basicAuth."prowlarr.00a.ch";
+
+        extraConfig = ''
+          satisfy any;
+          allow 192.168.2.0/24;
+          deny all;
+        '';
+
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.prowlarr.settings.server.port}";
-          proxyWebsockets = true;
-          basicAuth = secrets.nginx.basicAuth."prowlarr.00a.ch";
 
+          proxyWebsockets = true;
           recommendedProxySettings = false;
+
           extraConfig = ''
             proxy_buffering off;
 
@@ -48,11 +56,6 @@
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header X-Forwarded-Host $host;
             proxy_set_header X-Forwarded-Server $host;
-
-            satisfy any;
-
-            allow 192.168.2.0/24;
-            deny all;
           '';
         };
       };
