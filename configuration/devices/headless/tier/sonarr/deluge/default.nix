@@ -173,7 +173,7 @@ in
         forceSSL = true;
 
         locations."/" = {
-          proxyPass = "http://deluge.containers:${toString config.services.deluge.web.port}";
+          proxyPass = "http://${config.containers.deluge.localAddress}:${toString config.services.deluge.web.port}";
           basicAuth = secrets.nginx.basicAuth."deluge.00a.ch";
 
           extraConfig = ''
