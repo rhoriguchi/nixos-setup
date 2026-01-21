@@ -29,7 +29,7 @@ in
 
     privateNetwork = true;
     hostAddress = "169.254.1.1";
-    localAddress = "169.254.2.1";
+    localAddress = "169.254.1.2";
 
     forwardPorts = [
       {
@@ -151,6 +151,10 @@ in
             dont_count_slow_torrents = true;
 
             outgoing_interface = wireguardInterface;
+
+            enabled_plugins = [
+              "Label"
+            ];
           };
         };
       };

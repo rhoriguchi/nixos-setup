@@ -31,6 +31,8 @@ in
         "/var/cache/netdata"
         "/var/lib/${config.services.prometheus.stateDir}"
         "/var/lib/hass/backups"
+        "/var/lib/sonarr-anime"
+        "/var/lib/sonarr-series"
         "/var/lib/terraria"
 
         config.services.loki.dataDir
@@ -38,7 +40,6 @@ in
         config.services.plex.dataDir
         config.services.prowlarr.dataDir
         config.services.resilio.syncPath
-        config.services.sonarr.dataDir
         config.services.tautulli.dataDir
       ]
       ++ lib.optional config.services.postgresql.enable postgresBackupDir;

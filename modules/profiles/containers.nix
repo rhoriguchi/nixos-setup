@@ -1,8 +1,17 @@
 { config, lib, ... }:
+let
+  interface = "ve-${if config.networking.nftables.enable then "*" else "+"}";
+in
 {
-  networking.nat = {
-    enable = lib.mkDefault (lib.any (value: value.privateNetwork) (lib.attrValues config.containers));
+  networking = {
+    firewall.trustedInterfaces = [
+      interface
+    ];
 
-    internalInterfaces = [ "ve-${if config.networking.nftables.enable then "*" else "+"}" ];
+    nat = {
+      enable = lib.mkDefault (lib.any (value: value.privateNetwork) (lib.attrValues config.containers));
+
+      internalInterfaces = [ interface ];
+    };
   };
 }

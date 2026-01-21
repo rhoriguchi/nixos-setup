@@ -9,7 +9,7 @@
   systemd.services.sonarr-tv-time-updater = {
     after = [
       "network.target"
-      config.systemd.services.sonarr.name
+      config.systemd.services."container@sonarr-series".name
     ];
 
     script =
@@ -27,7 +27,7 @@
             (
               lib.readFile (
                 pkgs.replaceVars ./script.py {
-                  sonarApiUrl = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
+                  sonarApiUrl = "http://${config.containers.sonarr-series.localAddress}:${toString config.services.sonarr.settings.server.port}";
                   sonarApiKey = secrets.sonarr.apiKey;
                   sonarrRootDir = "/mnt/bindmount/sonarr/resilio-Series/Tv Shows";
 
