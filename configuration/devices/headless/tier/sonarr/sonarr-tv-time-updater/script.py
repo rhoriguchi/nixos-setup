@@ -281,9 +281,10 @@ filtered_tvdb_ids = [tvdb_id for tvdb_id in tvdb_ids if tvdb_id not in excluded_
 sonar_helper.delete_all_missing_series(filtered_tvdb_ids)
 
 for tvdb_id in filtered_tvdb_ids:
-    sonar_helper.add_series(tvdb_id)
-
     unwatched = tv_time_request_handler.get_unwatched_episodes(tvdb_id)
-    sonar_helper.set_series_monitored(tvdb_id, unwatched)
+
+    if len(unwatched) > 0:
+        sonar_helper.add_series(tvdb_id)
+        sonar_helper.set_series_monitored(tvdb_id, unwatched)
 
 sonar_helper.refresh_series()
