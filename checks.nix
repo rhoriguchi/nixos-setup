@@ -21,13 +21,13 @@
       check-symlinks.enable = true;
       deadnix = {
         enable = true;
-        excludes = [ "hardware-configuration\\.nix$" ];
+        excludes = [ ''hardware-configuration\.nix$'' ];
       };
       end-of-file-fixer = {
         enable = true;
         excludes = [
-          "secrets\\.nix$"
-          "configuration\\/devices\\/nnoitra\\/iex\\.json"
+          ''secrets\.nix$''
+          ''configuration\/devices\/nnoitra\/iex\.json''
         ];
       };
       fix-byte-order-marker.enable = true;
@@ -45,17 +45,17 @@
       mixed-line-endings = {
         enable = true;
         excludes = [
-          "secrets\\.nix$"
-          "configuration\\/devices\\/nnoitra\\/iex\\.json"
+          ''secrets\.nix$''
+          ''configuration\/devices\/nnoitra\/iex\.json''
         ];
       };
       nixfmt = {
         enable = true;
-        excludes = [ "secrets\\.nix$" ];
+        excludes = [ ''secrets\.nix$'' ];
       };
       trim-trailing-whitespace = {
         enable = true;
-        excludes = [ "secrets\\.nix$" ];
+        excludes = [ ''secrets\.nix$'' ];
       };
     };
   };

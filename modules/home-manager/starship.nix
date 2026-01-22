@@ -19,7 +19,7 @@
       ];
 
       username = {
-        format = "[\\[$user\\]]($style) ";
+        format = ''[\[$user\]]($style) '';
         style_root = "${colors.normal.red} bold";
 
         show_always = false;
@@ -28,12 +28,12 @@
       nix_shell = {
         disabled = false;
 
-        format = "[\\[nix-shell\\]]($style) ";
+        format = ''[\[nix-shell\]]($style) '';
         style = "${colors.normal.cyan} bold";
       };
 
       python = {
-        format = "[\\[virtualenv $version\\]]($style) ";
+        format = ''[\[virtualenv $version\]]($style) '';
         style = "${colors.normal.green} bold";
 
         detect_extensions = [ ];

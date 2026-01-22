@@ -178,8 +178,8 @@
         "git.autofetch" = "all";
         "githubPullRequests.terminalLinksHandler" = "github";
         "importCost.javascriptExtensions" = [
-          "\\.jsx?$"
-          "\\.tsx?$"
+          ''\.jsx?$''
+          ''\.tsx?$''
         ];
         "javascript.updateImportsOnFileMove.enabled" = "always";
         "javascript.updateImportsOnPaste.enabled" = true;
