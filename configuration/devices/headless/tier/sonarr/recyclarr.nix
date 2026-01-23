@@ -3,7 +3,7 @@ let
   createConfig = type: {
     base_url = "http://${
       config.containers."sonarr-${type}".localAddress
-    }:${toString config.services.sonarr.settings.server.port}";
+    }:${toString config.services.sonarr.settings.server.port}/${type}";
     api_key = secrets.sonarr.apiKey;
 
     media_naming = {
