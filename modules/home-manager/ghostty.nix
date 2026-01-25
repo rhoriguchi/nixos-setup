@@ -14,7 +14,7 @@
 
   programs = {
     # Don't set if `null`, `userSettings` uses mkMerge so options can't be overwritten
-    vscode.profiles.default.userSettings = lib.optionalAttrs (config.programs.ghostty.package != null) {
+    vscode.profiles.default.userSettings = lib.mkIf (config.programs.ghostty.package != null) {
       "terminal.external.linuxExec" = "${config.programs.ghostty.package}/bin/ghostty";
     };
 

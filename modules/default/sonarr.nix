@@ -11,7 +11,7 @@ in
       ];
     };
 
-    environment.etc = lib.optionalAttrs config.services.alloy.enable {
+    environment.etc = lib.mkIf config.services.alloy.enable {
       "alloy/loki.sonarr.alloy".text = ''
         loki.relabel "sonarr" {
           forward_to = [loki.relabel.default.receiver]

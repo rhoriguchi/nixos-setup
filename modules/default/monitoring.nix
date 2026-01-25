@@ -626,7 +626,7 @@ in
       lib.mkIf isParent
         [ streamPort ];
 
-    environment.etc = lib.optionalAttrs config.services.alloy.enable {
+    environment.etc = lib.mkIf config.services.alloy.enable {
       "alloy/prometheus.netdata.alloy".text = ''
         prometheus.scrape "netdata" {
           forward_to = [prometheus.relabel.default.receiver]
