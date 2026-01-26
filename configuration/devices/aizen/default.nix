@@ -123,18 +123,19 @@
       extraGroups = [
         "networkmanager"
         "plugdev"
+
         "wheel"
       ]
       ++ (lib.optional config.hardware.openrazer.enable "openrazer")
       ++ (lib.optional config.networking.wireless.enable "wpa_supplicant")
       ++ (lib.optional config.programs.wireshark.enable "wireshark")
       ++ (lib.optional config.virtualisation.docker.enable "docker")
+      ++ (lib.optional config.virtualisation.podman.enable "podman")
+      ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers")
       ++ (lib.optionals config.virtualisation.libvirtd.enable [
         "kvm"
         "libvirtd"
-      ])
-      ++ (lib.optional config.virtualisation.podman.enable "podman")
-      ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
+      ]);
       isNormalUser = true;
       password = secrets.users.rhoriguchi.password;
     };
