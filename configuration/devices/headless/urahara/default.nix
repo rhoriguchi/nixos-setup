@@ -43,8 +43,15 @@
           update_every = 10;
           autodetection_retry = 5;
           hosts = [
+            "apple.com"
             "bbc.co.uk"
+            "cloudflare.com"
             "digitec.ch"
+            "github.com"
+            "instagram.com"
+            "reddit.com"
+            "spiegel.de"
+            "wikipedia.org"
             "youtube.com"
           ];
         }
