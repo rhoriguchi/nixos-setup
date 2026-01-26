@@ -126,6 +126,7 @@
         "wheel"
       ]
       ++ (lib.optional config.hardware.openrazer.enable "openrazer")
+      ++ (lib.optional config.networking.wireless.enable "wpa_supplicant")
       ++ (lib.optional config.programs.wireshark.enable "wireshark")
       ++ (lib.optional config.virtualisation.docker.enable "docker")
       ++ (lib.optionals config.virtualisation.libvirtd.enable [
@@ -143,7 +144,8 @@
         "networkmanager"
         "plugdev"
       ]
-      ++ (lib.optional config.hardware.openrazer.enable "openrazer");
+      ++ (lib.optional config.hardware.openrazer.enable "openrazer")
+      ++ (lib.optional config.networking.wireless.enable "wpa_supplicant");
       isNormalUser = true;
       password = secrets.users.sillert.password;
     };
