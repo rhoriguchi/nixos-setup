@@ -67,7 +67,6 @@
                         "63466727"
                         "63466727-Guest"
                         "63466727-IoT"
-                        "63466727-Surveillance"
                         "Niflheim"
                       ])
                     then
