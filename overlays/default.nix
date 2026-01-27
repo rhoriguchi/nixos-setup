@@ -39,6 +39,16 @@
         sha256 = "sha256-h05YUEmeppFJsw7210gxHIDm0Adv5UTGQtv+V5tMDto=";
       }
     }/pkgs/by-name/bo/borgmatic/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=484458
+    terraria-server = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "6e273221ced0615bb00a4a6110ab19b224976a77";
+        sha256 = "sha256-YQHl85EtHLQPzABnfR+oIEeWIA930KyeU7tt+C6tyV4=";
+      }
+    }/pkgs/by-name/te/terraria-server/package.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
