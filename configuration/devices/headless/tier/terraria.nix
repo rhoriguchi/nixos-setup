@@ -45,7 +45,12 @@ in
   systemd = {
     services.terraria = {
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      after = [
+        "network.target"
+        config.systemd.sockets.terraria.name
+      ];
+      requires = [ config.systemd.sockets.terraria.name ];
+      partOf = [ config.systemd.sockets.terraria.name ];
 
       script = "${pkgs.terraria-server}/bin/TerrariaServer ${toString args}";
 
