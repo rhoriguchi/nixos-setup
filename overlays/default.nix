@@ -49,6 +49,16 @@
         sha256 = "sha256-YQHl85EtHLQPzABnfR+oIEeWIA930KyeU7tt+C6tyV4=";
       }
     }/pkgs/by-name/te/terraria-server/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=484733
+    plexRaw = super.python3Packages.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "ddafe6abe1e1836a1cc596010d6d7daa70d36fb5";
+        sha256 = "sha256-rwLP4kWOlOIwLzmivOpwdHISls9MVeqAnntBDxlgq0c=";
+      }
+    }/pkgs/servers/plex/raw.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
