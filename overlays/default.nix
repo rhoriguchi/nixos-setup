@@ -50,16 +50,6 @@
       }
     }/pkgs/by-name/bo/borgmatic/package.nix") { };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=484458
-    terraria-server = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "6e273221ced0615bb00a4a6110ab19b224976a77";
-        sha256 = "sha256-YQHl85EtHLQPzABnfR+oIEeWIA930KyeU7tt+C6tyV4=";
-      }
-    }/pkgs/by-name/te/terraria-server/package.nix") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=484733
     plexRaw = super.python3Packages.callPackage (import "${
       super.fetchFromGitHub {
@@ -69,6 +59,16 @@
         sha256 = "sha256-rwLP4kWOlOIwLzmivOpwdHISls9MVeqAnntBDxlgq0c=";
       }
     }/pkgs/servers/plex/raw.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=485637
+    terraria-server = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "45dbc7635f4da827ad84c014ef434389a4917349";
+        sha256 = "sha256-oztGp+Qdl/qXWrvsD3DPUy4UkXHKByDR8wSktrqdXjs=";
+      }
+    }/pkgs/by-name/te/terraria-server/package.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
