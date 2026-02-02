@@ -42,16 +42,15 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1767558108,
+        "lastModified": 1770019181,
         "narHash": "sha256-hwsYgDnby50JNVpTRYlF3UR/Rrpt01OrxVuryF40CFY=",
-        "owner": "szlend",
+        "owner": "serokell",
         "repo": "deploy-rs",
-        "rev": "7edf1f4fd866fc5718aa5358dc720f4ee90909e3",
+        "rev": "77c906c0ba56aabdbc72041bf9111b565cdd6171",
         "type": "github"
       },
       "original": {
-        "owner": "szlend",
-        "ref": "fix-show-derivation-parsing",
+        "owner": "serokell",
         "repo": "deploy-rs",
         "type": "github"
       }

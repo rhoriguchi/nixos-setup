@@ -5,9 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
     deploy-rs = {
-      # TODO uncomment when https://github.com/serokell/deploy-rs/pull/359 merged
-      # url = "github:serokell/deploy-rs";
-      url = "github:szlend/deploy-rs?ref=fix-show-derivation-parsing";
+      url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
