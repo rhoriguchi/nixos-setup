@@ -17,16 +17,18 @@ let
   };
 
   args = lib.cli.toCommandLine optionFormat {
+    # 1 (Small) / 2 (Medium) / 3 (Large)
+    autocreate = "3";
     worldname = "World";
     world = "${dataDir}/.local/share/Terraria/Worlds/World.wld";
 
     port = port;
     password = secrets.terraria.password;
 
-    # 1 (Small) / 2 (Medium) / 3 (Large)
-    autocreate = "3";
-    secure = true;
+    # Triggers `Projectile Spam`
+    secure = false;
     noupnp = true;
+
     maxPlayers = 16;
   };
 in
