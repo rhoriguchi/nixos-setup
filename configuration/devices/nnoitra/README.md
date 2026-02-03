@@ -128,6 +128,7 @@ reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "org.whispers
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "RiotClient" /f
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Spotify" /f
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Steam" /f
+
 sc config TeamViewer start= disabled
 
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "RustDesk" /t REG_SZ /d "C:\Program Files\RustDesk\rustdesk.exe" /f
