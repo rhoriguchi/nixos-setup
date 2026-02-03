@@ -71,6 +71,7 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 winget install --accept-source-agreements --exact --silent --uninstall-previous Blitz.Blitz
 winget install --accept-source-agreements --exact --silent --uninstall-previous Discord.Discord
 winget install --accept-source-agreements --exact --silent --uninstall-previous IObit.Uninstaller
+winget install --accept-source-agreements --exact --silent --uninstall-previous LocalSend.LocalSend
 winget install --accept-source-agreements --exact --silent --uninstall-previous MartiCliment.UniGetUI
 winget install --accept-source-agreements --exact --silent --uninstall-previous Mojang.MinecraftLauncher
 winget install --accept-source-agreements --exact --silent --uninstall-previous Mozilla.Firefox
@@ -133,6 +134,8 @@ sc config TeamViewer start= disabled
 
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "RustDesk" /t REG_SZ /d "C:\Program Files\RustDesk\rustdesk.exe" /f
 "C:\Program Files\RustDesk\rustdesk.exe" --install-service
+
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "LocalSend" /t REG_SZ /d " C:\Users\ryanh\AppData\Local\Programs\LocalSend\localsend_app.exe --hidden"
 ```
 
 ## Update drivers

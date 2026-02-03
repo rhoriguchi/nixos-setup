@@ -96,6 +96,7 @@ in
             ct state { established, related } accept
 
             meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
+            tcp dport { 53317 } accept # LocalSend
             udp dport { 41641 } accept # Tailscale
 
             meta nfproto ipv4 jump lan-to-lan-ipv4
