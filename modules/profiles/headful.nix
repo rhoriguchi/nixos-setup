@@ -12,7 +12,6 @@
     ./peripherals.nix
     ./printing.nix
     ./trash-management.nix
-    ./util.nix
   ];
 
   environment.systemPackages = [
