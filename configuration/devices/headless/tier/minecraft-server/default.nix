@@ -265,7 +265,10 @@ in
           };
 
           symlinks = {
-            "server-icon.png" = ./server-icon.png;
+            # Make sure that this path does not change after every commit
+            "server-icon.png" = pkgs.runCommand "server-icon.png" { } ''
+              cp ${./server-icon.png} $out
+            '';
 
             "plugins/BlueMap.jar" =
               let
