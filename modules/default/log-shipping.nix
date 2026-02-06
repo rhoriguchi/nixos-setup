@@ -43,8 +43,11 @@ in
           forward_to = [loki.write.default.receiver]
 
           rule {
+            source_labels = ["hostname"]
             target_label = "hostname"
+            regex = "^$"
             replacement = "${config.networking.hostName}"
+            action = "replace"
           }
         }
       '';
