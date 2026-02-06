@@ -61,6 +61,7 @@ in
       bind = [
         "$mainMod, Q, exec, $terminal"
         "$mainMod, C, killactive,"
+        "ALT, F4, killactive,"
         "$mainMod, V, togglefloating,"
         "$mainMod, F, fullscreen,"
         "$mainMod, P, pseudo,"
