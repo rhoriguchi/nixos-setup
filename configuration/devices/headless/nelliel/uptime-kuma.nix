@@ -209,9 +209,17 @@ in
         enableACME = true;
         forceSSL = true;
 
-        basicAuth = secrets.nginx.basicAuth."uptime-kuma.00a.ch";
+        extraConfig = ''
+          include /run/nginx-authelia/location.conf;
+        '';
 
-        locations."/".proxyPass = "http://127.0.0.1:${toString config.services.uptime-kuma.settings.PORT}";
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString config.services.uptime-kuma.settings.PORT}";
+
+          extraConfig = ''
+            include /run/nginx-authelia/auth.conf;
+          '';
+        };
       };
     };
   };

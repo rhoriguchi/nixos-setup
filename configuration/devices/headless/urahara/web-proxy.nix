@@ -3,6 +3,7 @@ let
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 
   tierDomains = [
+    "authelia.00a.ch"
     "deluge.00a.ch"
     "grafana.00a.ch"
     "home-assistant.00a.ch"

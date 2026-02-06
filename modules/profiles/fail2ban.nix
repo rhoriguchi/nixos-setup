@@ -32,6 +32,15 @@ in
     maxretry = 3;
 
     jails = {
+      authelia = {
+        enabled = lib.any (instance: instance.enable) (lib.attrValues config.services.authelia.instances);
+
+        settings = {
+          filter = "authelia";
+          action = "%(banaction_allports)s";
+        };
+      };
+
       home-assistant = {
         enabled = config.services.home-assistant.enable;
 
@@ -79,6 +88,19 @@ in
       Definition.rule_stat = "<addr_family> saddr @<addr_set> <blocktype>";
 
       Init.blocktype = "drop";
+    };
+
+    # https://www.authelia.com/overview/security/measures/#more-protections-measures-with-fail2ban
+    "fail2ban/filter.d/authelia.local".source = format.generate "authelia.local" {
+      INCLUDES.before = "common.conf";
+
+      Definition.failregex = ''
+        ^.*Unsuccessful (1FA|TOTP|Duo|U2F) authentication attempt by user .*remote_ip"?(:|=)"?<HOST>"?.*$
+        ^.*user not found.*path=/api/reset-password/identity/start remote_ip"?(:|=)"?<HOST>"?.*$
+        ^.*Sending an email to user.*path=/api/.*/start remote_ip"?(:|=)"?<HOST>"?.*$
+      '';
+
+      Init.datepattern = "%%Y-%%m-%%dT%%H:%%M:%%S%%z";
     };
 
     # https://www.home-assistant.io/integrations/fail2ban/#create-a-filter-for-the-home-assistant-jail

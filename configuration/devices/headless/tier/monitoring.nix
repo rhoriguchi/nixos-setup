@@ -13,15 +13,21 @@
         enableACME = true;
         forceSSL = true;
 
-        basicAuth = secrets.nginx.basicAuth."monitoring.00a.ch";
-
         extraConfig = ''
-          satisfy any;
-          allow 192.168.2.0/24;
-          deny all;
+          include /run/nginx-authelia/location.conf;
         '';
 
-        locations."/".proxyPass = "http://127.0.0.1:${toString config.services.monitoring.webPort}";
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString config.services.monitoring.webPort}";
+
+          extraConfig = ''
+            include /run/nginx-authelia/auth.conf;
+
+            satisfy any;
+            allow 192.168.2.0/24;
+            deny all;
+          '';
+        };
       };
     };
 

@@ -66,15 +66,22 @@
         enableACME = true;
         forceSSL = true;
 
-        basicAuth = secrets.nginx.basicAuth."headplane.00a.ch";
+        extraConfig = ''
+          include /run/nginx-authelia/location.conf;
+        '';
 
         locations = {
           "/".extraConfig = ''
             rewrite ^/$ /admin last;
           '';
 
-          "/admin".proxyPass =
-            "http://127.0.0.1:${toString config.services.headplane.settings.server.port}/admin";
+          "/admin" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.headplane.settings.server.port}/admin";
+
+            extraConfig = ''
+              include /run/nginx-authelia/auth.conf;
+            '';
+          };
         };
       };
     };

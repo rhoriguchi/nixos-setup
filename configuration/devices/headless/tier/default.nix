@@ -9,6 +9,7 @@
   imports = [
     ../common.nix
 
+    ./authelia.nix
     ./backup.nix
     ./fancontrol.nix
     ./geforce-gt-730.nix

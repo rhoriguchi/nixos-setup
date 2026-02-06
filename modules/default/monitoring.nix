@@ -44,6 +44,17 @@ in
       type = lib.types.port;
       default = 19999;
     };
+    extraPrometheusJobs = lib.mkOption {
+      type = lib.types.listOf (
+        lib.types.submodule {
+          options = {
+            name = lib.mkOption { type = lib.types.str; };
+            url = lib.mkOption { type = lib.types.str; };
+          };
+        }
+      );
+      default = [ ];
+    };
     debug = lib.mkOption {
       type = lib.types.submodule {
         options = {
@@ -530,7 +541,8 @@ in
               ++ lib.optional config.services.uptime-kuma.enable {
                 name = "Uptime Kuma";
                 url = "http://127.0.0.1:${toString config.services.uptime-kuma.settings.PORT}/metrics";
-              };
+              }
+              ++ cfg.extraPrometheusJobs;
           };
         }
         // lib.optionalAttrs hasCerts {

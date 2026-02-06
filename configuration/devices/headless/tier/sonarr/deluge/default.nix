@@ -176,16 +176,21 @@ in
         enableACME = true;
         forceSSL = true;
 
-        basicAuth = secrets.nginx.basicAuth."deluge.00a.ch";
-
         extraConfig = ''
-          satisfy any;
-          allow 192.168.2.0/24;
-          deny all;
+          include /run/nginx-authelia/location.conf;
         '';
 
-        locations."/".proxyPass =
-          "http://${config.containers.deluge.localAddress}:${toString config.services.deluge.web.port}";
+        locations."/" = {
+          proxyPass = "http://${config.containers.deluge.localAddress}:${toString config.services.deluge.web.port}";
+
+          extraConfig = ''
+            include /run/nginx-authelia/auth.conf;
+
+            satisfy any;
+            allow 192.168.2.0/24;
+            deny all;
+          '';
+        };
       };
     };
   };

@@ -115,6 +115,12 @@ let
       proxy_set_header X-Forwarded-Proto $scheme;
       proxy_set_header X-Forwarded-Host $host;
       proxy_set_header X-Forwarded-Server $host;
+
+      include /run/nginx-authelia/auth.conf;
+
+      satisfy any;
+      allow 192.168.2.0/24;
+      deny all;
     '';
   };
 in
@@ -198,12 +204,8 @@ in
         enableACME = true;
         forceSSL = true;
 
-        basicAuth = secrets.nginx.basicAuth."sonarr.00a.ch";
-
         extraConfig = ''
-          satisfy any;
-          allow 192.168.2.0/24;
-          deny all;
+          include /run/nginx-authelia/location.conf;
         '';
 
         locations = {

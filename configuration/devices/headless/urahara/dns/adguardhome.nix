@@ -30,12 +30,8 @@
         enableACME = true;
         forceSSL = true;
 
-        basicAuth = secrets.nginx.basicAuth."adguardhome.00a.ch";
-
         extraConfig = ''
-          satisfy any;
-          allow 192.168.2.0/24;
-          deny all;
+          include /run/nginx-authelia/location.conf;
         '';
 
         locations."/" = {
@@ -45,6 +41,12 @@
 
           extraConfig = ''
             proxy_buffering off;
+
+            include /run/nginx-authelia/auth.conf;
+
+            satisfy any;
+            allow 192.168.2.0/24;
+            deny all;
           '';
         };
       };
@@ -94,6 +96,7 @@
                 enabled = true;
               })
               [
+                "authelia.00a.ch"
                 "deluge.00a.ch"
                 "grafana.00a.ch"
                 "home-assistant.00a.ch"
