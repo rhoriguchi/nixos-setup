@@ -103,7 +103,7 @@ in
 
       Definition.failregex = ''%(__prefix_line)suser "<F-USER>.*</F-USER>" was not found in "\/nix\/store\/.*\.htpasswd", client: <HOST>,.*$'';
 
-      Init.datepattern = "{^LN-BEG}";
+      Init.datepattern = "%%Y/%%m/%%d %%H:%%M:%%S";
     };
   };
 }
