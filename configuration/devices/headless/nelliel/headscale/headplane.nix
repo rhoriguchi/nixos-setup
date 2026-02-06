@@ -68,12 +68,6 @@
 
         basicAuth = secrets.nginx.basicAuth."headplane.00a.ch";
 
-        extraConfig = ''
-          satisfy any;
-          allow 192.168.2.0/24;
-          deny all;
-        '';
-
         locations = {
           "/".extraConfig = ''
             rewrite ^/$ /admin last;

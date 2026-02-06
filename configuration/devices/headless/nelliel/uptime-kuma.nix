@@ -211,12 +211,6 @@ in
 
         basicAuth = secrets.nginx.basicAuth."uptime-kuma.00a.ch";
 
-        extraConfig = ''
-          satisfy any;
-          allow 192.168.2.0/24;
-          deny all;
-        '';
-
         locations."/".proxyPass = "http://127.0.0.1:${toString config.services.uptime-kuma.settings.PORT}";
       };
     };
