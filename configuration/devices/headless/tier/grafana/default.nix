@@ -48,9 +48,10 @@
       enable = true;
 
       settings = {
-        server = rec {
+        server = {
           domain = "grafana.00a.ch";
-          root_url = "https://${domain}";
+
+          enforce_domain = true;
         };
 
         security.secret_key = secrets.grafana.secretKey;
