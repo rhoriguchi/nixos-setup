@@ -1,5 +1,5 @@
 { stdenv }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "wallpaper-icons";
   version = "1.0.0";
 
