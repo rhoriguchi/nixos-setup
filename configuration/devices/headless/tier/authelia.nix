@@ -7,17 +7,6 @@
 }:
 let
   cfg = config.services.authelia.instances.main;
-
-  localDomains = [
-    "adguardhome.00a.ch"
-    "deluge.00a.ch"
-    "grafana.00a.ch"
-    "monitoring.00a.ch"
-    "prometheus.00a.ch"
-    "prowlarr.00a.ch"
-    "sonarr.00a.ch"
-    "tautulli.00a.ch"
-  ];
 in
 {
   services = {
@@ -47,17 +36,7 @@ in
           }
         ];
 
-        access_control = {
-          default_policy = "one_factor";
-
-          rules = [
-            {
-              domain = localDomains;
-              policy = "bypass";
-              networks = [ "192.168.2.0/24" ];
-            }
-          ];
-        };
+        access_control.default_policy = "one_factor";
 
         authentication_backend = {
           file.path = (pkgs.formats.yaml { }).generate "authelia-users" {
