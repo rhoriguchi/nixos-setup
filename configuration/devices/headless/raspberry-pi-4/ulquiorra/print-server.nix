@@ -117,6 +117,7 @@ in
             proxyPass = "http://127.0.0.1:${toString cupsPort}";
 
             recommendedProxySettings = false;
+
             extraConfig = ''
               # cups won't work if this is not 127.0.0.1
               proxy_set_header Host 127.0.0.1;
