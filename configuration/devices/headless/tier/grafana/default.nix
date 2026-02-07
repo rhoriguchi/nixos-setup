@@ -87,7 +87,7 @@
             {
               name = "Loki";
               type = "loki";
-              access = "direct";
+              access = "proxy";
               url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
               isDefault = true;
             }
