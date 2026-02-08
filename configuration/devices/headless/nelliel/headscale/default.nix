@@ -12,22 +12,28 @@ let
   unixEpoch = "1970-01-01 00:00:00.000000000+00:00";
   expiration = "2099-01-01 00:00:00.000000000+00:00";
 
-  addApiKeySql = ''
-    DELETE FROM api_keys;
+  addApiKey = ''
+    apiKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${lib.last (lib.splitString "." secrets.headscale.apiKey)}" \
+      | cut -d: -f2 \
+      | ${pkgs.busybox}/bin/xxd -p -c 256)"
 
-    INSERT INTO api_keys (
-      id,
-      created_at,
-      expiration,
-      hash,
-      prefix
-    ) VALUES (
-      1,
-      '${unixEpoch}',
-      '${expiration}',
-      X'${secrets.headscale.apiKey.hash}',
-      '${secrets.headscale.apiKey.prefix}'
-    );
+    ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+      DELETE FROM api_keys;
+
+      INSERT INTO api_keys (
+        id,
+        created_at,
+        expiration,
+        hash,
+        prefix
+      ) VALUES (
+        1,
+        '${unixEpoch}',
+        '${expiration}',
+        X'$apiKey',
+        '${lib.head (lib.splitString "." secrets.headscale.apiKey)}'
+      );
+    EOF
   '';
 
   addUserSql = ''
@@ -213,8 +219,9 @@ in
       wants = [ config.systemd.services.headscale.name ];
 
       script = ''
+        ${addApiKey}
+
         ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
-          ${addApiKeySql}
           ${addUserSql}
           ${addPreAuthKeySql}
         EOF
