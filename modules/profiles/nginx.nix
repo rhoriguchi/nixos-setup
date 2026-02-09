@@ -16,7 +16,7 @@ let
       proxy_set_header Connection "";
 
       proxy_pass_request_body off;
-      proxy_next_upstream error timeout invalid_header http_500 http_502 http_503; # Timeout if the real server is dead
+      proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
       proxy_redirect http:// $scheme://;
       proxy_http_version 1.1;
       proxy_cache_bypass $cookie_session;
@@ -24,12 +24,16 @@ let
       proxy_buffers 4 32k;
       client_body_buffer_size 128k;
     }
+
+    location @authelia_redirect {
+      return 302 https://authelia.00a.ch/?rd=$scheme://$host$request_uri;
+    }
   '';
 
   autheliaAuthFile = pkgs.writeText "auth.conf" ''
     auth_request /internal/authelia;
 
-    error_page 401 =302 https://authelia.00a.ch/?rd=$scheme://$host$request_uri;
+    error_page 401 403 = @authelia_redirect;
   '';
 in
 {
