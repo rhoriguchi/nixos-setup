@@ -4,6 +4,7 @@
   headless = ./headless.nix;
 
   alloy = ./alloy.nix;
+  authelia = ./authelia.nix;
   bluetooth = ./bluetooth.nix;
   containers = ./containers.nix;
   dconf-editor = ./dconf-editor.nix;

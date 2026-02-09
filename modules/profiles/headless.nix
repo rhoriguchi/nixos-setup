@@ -3,6 +3,7 @@
     ./_common.nix
 
     ./alloy.nix
+    ./authelia.nix
     ./containers.nix
     ./fail2ban.nix
     ./grafana.nix
