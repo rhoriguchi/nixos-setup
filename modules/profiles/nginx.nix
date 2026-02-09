@@ -13,7 +13,7 @@
       recommendedTlsSettings = true;
       recommendedUwsgiSettings = true;
 
-      appendHttpConfig = ''
+      commonHttpConfig = ''
         add_header Referrer-Policy origin-when-cross-origin;
         add_header X-Content-Type-Options nosniff;
         add_header X-Frame-Options DENY;
