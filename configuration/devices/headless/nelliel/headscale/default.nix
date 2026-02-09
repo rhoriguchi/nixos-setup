@@ -111,7 +111,8 @@ let
     lib.imap1 (index: hostname: ''
       UPDATE nodes
       SET given_name = '${lib.toLower hostname}',
-          ipv4 = '${tailscaleIps.${hostname}}'
+          ipv4 = '${tailscaleIps.${hostname}}',
+          tags = (SELECT tags FROM pre_auth_keys WHERE id = ${toString index})
       WHERE auth_key_id = ${toString index};
     '') hostnames
   );
