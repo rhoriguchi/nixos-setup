@@ -61,7 +61,7 @@ let
           preAuthKey = secrets.headscale.preAuthKeys.${hostname};
 
           key = parseKey preAuthKey.key;
-          tags = preAuthKey.tags or [ ];
+          tags = (preAuthKey.tags or [ ]) ++ [ hostname ];
         in
         ''
           preAuthKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"
@@ -138,6 +138,26 @@ in
           magic_dns = true;
           base_domain = "tailnet";
           override_local_dns = false;
+        };
+
+        policy.path = (pkgs.formats.json { }).generate "policy.json" {
+          tagOwners = {
+            "tag:headful" = [ ];
+            "tag:headless" = [ ];
+          };
+
+          acls = [
+            {
+              action = "accept";
+              src = [ "tag:headful" ];
+              dst = [ "tag:headless:*" ];
+            }
+            {
+              action = "accept";
+              src = [ "tag:headless" ];
+              dst = [ "tag:headless:*" ];
+            }
+          ];
         };
 
         derp = {
