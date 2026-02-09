@@ -10,10 +10,12 @@ let
   bindmountDir1 = "${rootBindmountDir}/resilio-Series";
   bindmountDir2 = "${rootBindmountDir}/disk-Series";
 
+  getContainerCfg = type: config.containers."sonarr-${type}".config;
+
   createContainer =
     type:
     let
-      containerCfg = config.containers."sonarr-${type}".config;
+      containerCfg = getContainerCfg type;
     in
     {
       autoStart = true;
@@ -27,14 +29,6 @@ let
           series = "169.254.1.4";
         }
         .${type};
-
-      forwardPorts = [
-        {
-          containerPort = config.services.sonarr.settings.server.port;
-          hostPort = containerCfg.services.sonarr.settings.server.port;
-          protocol = "tcp";
-        }
-      ];
 
       bindMounts = {
         "${containerCfg.services.sonarr.dataDir}" = {
@@ -98,31 +92,36 @@ let
       };
     };
 
-  createNginxVirtualHostLocation = type: {
-    proxyPass = "http://${
-      config.containers."sonarr-${type}".localAddress
-    }:${toString config.services.sonarr.settings.server.port}";
+  createNginxVirtualHostLocation =
+    type:
+    let
+      containerCfg = getContainerCfg type;
+    in
+    {
+      proxyPass = "http://${
+        config.containers."sonarr-${type}".localAddress
+      }:${toString containerCfg.services.sonarr.settings.server.port}";
 
-    proxyWebsockets = true;
-    recommendedProxySettings = false;
+      proxyWebsockets = true;
+      recommendedProxySettings = false;
 
-    extraConfig = ''
-      proxy_buffering off;
+      extraConfig = ''
+        proxy_buffering off;
 
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP 127.0.0.1;
-      proxy_set_header X-Forwarded-For 127.0.0.1;
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_set_header X-Forwarded-Host $host;
-      proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP 127.0.0.1;
+        proxy_set_header X-Forwarded-For 127.0.0.1;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
 
-      include /run/nginx-authelia/auth.conf;
+        include /run/nginx-authelia/auth.conf;
 
-      satisfy any;
-      allow 192.168.2.0/24;
-      deny all;
-    '';
-  };
+        satisfy any;
+        allow 192.168.2.0/24;
+        deny all;
+      '';
+    };
 in
 {
   imports = [

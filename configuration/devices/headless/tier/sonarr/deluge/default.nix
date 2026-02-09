@@ -31,14 +31,6 @@ in
     hostAddress = "169.254.1.1";
     localAddress = "169.254.1.2";
 
-    forwardPorts = [
-      {
-        containerPort = config.services.deluge.web.port;
-        hostPort = containerCfg.services.deluge.web.port;
-        protocol = "tcp";
-      }
-    ];
-
     bindMounts = {
       "${config.services.deluge.dataDir}" = {
         isReadOnly = false;
@@ -181,7 +173,7 @@ in
         '';
 
         locations."/" = {
-          proxyPass = "http://${config.containers.deluge.localAddress}:${toString config.services.deluge.web.port}";
+          proxyPass = "http://${config.containers.deluge.localAddress}:${toString containerCfg.services.deluge.web.port}";
 
           extraConfig = ''
             include /run/nginx-authelia/auth.conf;
