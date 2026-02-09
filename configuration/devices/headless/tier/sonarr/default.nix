@@ -71,22 +71,36 @@ let
           groups.${config.services.deluge.group}.gid = config.ids.gids.deluge;
         };
 
-        services.sonarr = {
-          enable = true;
+        services = {
+          sonarr = {
+            enable = true;
 
-          openFirewall = true;
+            openFirewall = true;
 
-          # https://wiki.servarr.com/sonarr/environment-variables
-          settings = {
-            app.instancename = "Sonarr ${lib.toSentenceCase type}";
+            # https://wiki.servarr.com/sonarr/environment-variables
+            settings = {
+              app.instancename = "Sonarr ${lib.toSentenceCase type}";
 
-            server.urlbase = "/${type}";
+              server.urlbase = "/${type}";
 
-            auth = {
-              apikey = secrets.sonarr.apiKey;
-              method = "Forms";
-              required = "DisabledForLocalAddresses";
+              auth = {
+                apikey = secrets.sonarr.apiKey;
+                method = "Forms";
+                required = "DisabledForLocalAddresses";
+              };
             };
+          };
+
+          prometheus.exporters.exportarr-sonarr = {
+            enable = true;
+
+            openFirewall = true;
+
+            port = 9708;
+
+            url = "http://127.0.0.1:${toString containerCfg.services.sonarr.settings.server.port}/${type}";
+
+            environment.API_KEY = containerCfg.services.sonarr.settings.auth.apikey;
           };
         };
       };
@@ -186,6 +200,25 @@ in
   };
 
   services = {
+    monitoring.extraPrometheusJobs =
+      map
+        (
+          type:
+          let
+            containerCfg = getContainerCfg type;
+          in
+          {
+            name = "Sonarr ${lib.toSentenceCase type}";
+            url = "http://${
+              config.containers."sonarr-${type}".localAddress
+            }:${toString containerCfg.services.prometheus.exporters.exportarr-sonarr.port}/metrics";
+          }
+        )
+        [
+          "anime"
+          "series"
+        ];
+
     infomaniak = {
       enable = true;
 
