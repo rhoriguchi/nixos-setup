@@ -60,6 +60,16 @@
       }
     }/pkgs/servers/plex/raw.nix") { };
 
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=487100
+    headscale = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "41e87b6fb60dd56fe7ac404ca6aac81a7094c589";
+        sha256 = "sha256-sHa4pJNPK+nQy4Sce11flnQVDNq4+PISOzBmtk7MEkA=";
+      }
+    }/pkgs/by-name/he/headscale/package.nix") { };
+
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=487794
     terraria-server = super.callPackage (import "${
       super.fetchFromGitHub {

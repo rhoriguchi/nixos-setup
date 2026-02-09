@@ -9,82 +9,89 @@ let
   hostnames = lib.attrNames secrets.headscale.preAuthKeys;
   tailscaleIps = import ./ips.nix;
 
+  parseKey =
+    key:
+    let
+      rawKey = lib.replaceStrings [ "hskey-api-" "hskey-auth-" ] [ "" "" ] key;
+      prefix = lib.substring 0 12 rawKey;
+    in
+    {
+      inherit prefix;
+      secret = lib.replaceStrings [ "${prefix}-" ] [ "" ] rawKey;
+    };
+
   unixEpoch = "1970-01-01 00:00:00.000000000+00:00";
   expiration = "2099-01-01 00:00:00.000000000+00:00";
 
-  addApiKey = ''
-    apiKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${lib.last (lib.splitString "." secrets.headscale.apiKey)}" \
-      | cut -d: -f2 \
-      | ${pkgs.busybox}/bin/xxd -p -c 256)"
+  addApiKey =
+    let
+      key = parseKey secrets.headscale.apiKey;
+    in
+    ''
+      apiKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"
 
-    ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
-      DELETE FROM api_keys;
+      ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+        DELETE FROM api_keys;
 
-      INSERT INTO api_keys (
-        id,
-        created_at,
-        expiration,
-        hash,
-        prefix
-      ) VALUES (
-        1,
-        '${unixEpoch}',
-        '${expiration}',
-        X'$apiKey',
-        '${lib.head (lib.splitString "." secrets.headscale.apiKey)}'
-      );
-    EOF
-  '';
-
-  addUserSql = ''
-    DELETE FROM users;
-
-    ${lib.concatStringsSep "\n" (
-      lib.imap1 (index: hostname: ''
-        INSERT INTO users (
+        INSERT INTO api_keys (
           id,
           created_at,
-          name
-        ) VALUES (
-          ${toString index},
-          '${unixEpoch}',
-          '${hostname}'
-        );
-      '') hostnames
-    )}
-  '';
-
-  addPreAuthKeySql = ''
-    DELETE FROM pre_auth_keys;
-
-    ${lib.concatStringsSep "\n" (
-      lib.imap1 (index: hostname: ''
-        INSERT INTO pre_auth_keys (
-          ID,
-          USER_ID,
-          created_at,
           expiration,
-          key,
-          tags,
-          ephemeral,
-          reusable
+          prefix,
+          hash
         ) VALUES (
-          ${toString index},
-          ${toString index},
+          1,
           '${unixEpoch}',
           '${expiration}',
-          '${secrets.headscale.preAuthKeys.${hostname}}',
-          '[]',
-          0,
-          1
+          '${key.prefix}',
+          '$apiKey'
         );
-      '') hostnames
+      EOF
+    '';
+
+  addPreAuthKeys = ''
+    ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
+      DELETE FROM pre_auth_keys;
+    EOF
+
+    ${lib.concatStringsSep "\n" (
+      lib.imap1 (
+        index: hostname:
+        let
+          key = parseKey secrets.headscale.preAuthKeys.${hostname};
+        in
+        ''
+          preAuthKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"
+
+          ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+            INSERT INTO pre_auth_keys (
+              id,
+              created_at,
+              expiration,
+              tags,
+              ephemeral,
+              reusable,
+              prefix,
+              hash
+            ) VALUES (
+              ${toString index},
+              '${unixEpoch}',
+              '${expiration}',
+              '["tag:${hostname}"]',
+              0,
+              1,
+              '${key.prefix}',
+              '$preAuthKey'
+            );
+          EOF
+        ''
+      ) hostnames
     )}
   '';
 
   removeOldNodeSql = ''
     DELETE FROM nodes
-    WHERE user_id > ${toString (lib.length hostnames)};
+    WHERE auth_key_id > ${toString (lib.length hostnames)};
 
     DELETE
     FROM nodes
@@ -94,7 +101,7 @@ let
          WHERE n1.last_seen =
              (SELECT MAX(n2.last_seen)
               FROM nodes AS n2
-              WHERE n2.user_id = n1.user_id));
+              WHERE n2.auth_key_id = n1.auth_key_id));
   '';
 
   selectNodeDifferencesSql = lib.concatStringsSep "\nUNION ALL\n" (
@@ -103,7 +110,7 @@ let
              given_name,
              ipv4
       FROM nodes
-      WHERE user_id = ${toString index}
+      WHERE auth_key_id = ${toString index}
         AND (given_name IS NOT '${lib.toLower hostname}'
              OR ipv4 IS NOT '${tailscaleIps.${hostname}}')
     '') hostnames
@@ -114,7 +121,7 @@ let
       UPDATE nodes
       SET given_name = '${lib.toLower hostname}',
           ipv4 = '${tailscaleIps.${hostname}}'
-      WHERE user_id = ${toString index};
+      WHERE auth_key_id = ${toString index};
     '') hostnames
   );
 in
@@ -220,11 +227,7 @@ in
 
       script = ''
         ${addApiKey}
-
-        ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
-          ${addUserSql}
-          ${addPreAuthKeySql}
-        EOF
+        ${addPreAuthKeys}
       '';
 
       serviceConfig.Type = "oneshot";
