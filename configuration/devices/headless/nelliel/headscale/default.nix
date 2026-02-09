@@ -252,9 +252,6 @@ in
         )
 
         if [ "$deleted_nodes" -gt 0 ] || [ "$updated_nodes" -gt 0 ]; then
-          echo "Deleted nodes: $deleted_nodes"
-          echo "Updated nodes: $updated_nodes"
-
           echo 'Restarting ${config.systemd.services.headscale.name}'
           systemctl restart ${config.systemd.services.headscale.name}
         fi
