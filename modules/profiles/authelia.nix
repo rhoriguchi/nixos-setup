@@ -33,6 +33,11 @@ let
   authFile = pkgs.writeText "auth.conf" ''
     auth_request /internal/authelia;
 
+    auth_request_set $authelia_user $upstream_http_remote_user;
+    auth_request_set $authelia_groups $upstream_http_remote_groups;
+    auth_request_set $authelia_name $upstream_http_remote_name;
+    auth_request_set $authelia_email $upstream_http_remote_email;
+
     error_page 401 403 = @authelia_redirect;
   '';
 in
