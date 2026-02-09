@@ -58,7 +58,10 @@ let
       lib.imap1 (
         index: hostname:
         let
-          key = parseKey secrets.headscale.preAuthKeys.${hostname};
+          preAuthKey = secrets.headscale.preAuthKeys.${hostname};
+
+          key = parseKey preAuthKey.key;
+          tags = preAuthKey.tags or [ ];
         in
         ''
           preAuthKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"
@@ -77,7 +80,7 @@ let
               ${toString index},
               '${unixEpoch}',
               '${expiration}',
-              '["tag:${hostname}"]',
+              '[${lib.concatStringsSep "," (map (tag: ''"tag:${tag}"'') tags)}]',
               0,
               1,
               '${key.prefix}',

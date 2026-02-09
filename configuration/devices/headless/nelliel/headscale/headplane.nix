@@ -41,7 +41,7 @@
           agent = {
             enabled = true;
 
-            pre_authkey_path = pkgs.writeText "authKeyFile" secrets.headscale.preAuthKeys.headplane-agent;
+            pre_authkey_path = pkgs.writeText "authKeyFile" secrets.headscale.preAuthKeys.headplane-agent.key;
           };
 
           proc.enabled = true;
