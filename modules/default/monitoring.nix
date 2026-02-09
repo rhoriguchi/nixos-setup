@@ -144,7 +144,11 @@ in
 
           url = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
 
-          environment.INTERFACE = "127.0.0.1";
+          environment = {
+            INTERFACE = "127.0.0.1";
+
+            API_KEY = config.services.sonarr.settings.auth.apikey;
+          };
         };
 
         exportarr-prowlarr = {
@@ -157,6 +161,7 @@ in
           environment = {
             INTERFACE = "127.0.0.1";
 
+            API_KEY = config.services.prowlarr.settings.auth.apikey;
             PROWLARR__BACKFILL = "true";
           };
         };
