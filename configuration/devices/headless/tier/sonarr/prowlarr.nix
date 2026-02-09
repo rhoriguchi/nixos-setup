@@ -6,6 +6,7 @@
 
       # https://wiki.servarr.com/prowlarr/environment-variables
       settings.auth = {
+        apikey = secrets.prowlarr.apiKey;
         method = "Forms";
         required = "DisabledForLocalAddresses";
       };
