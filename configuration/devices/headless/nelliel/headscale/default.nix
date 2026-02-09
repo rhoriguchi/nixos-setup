@@ -89,7 +89,7 @@ let
     )}
   '';
 
-  removeOldNodeSql = ''
+  deleteNodesSql = ''
     DELETE FROM nodes
     WHERE auth_key_id > ${toString (lib.length hostnames)};
 
@@ -104,19 +104,7 @@ let
               WHERE n2.auth_key_id = n1.auth_key_id));
   '';
 
-  selectNodeDifferencesSql = lib.concatStringsSep "\nUNION ALL\n" (
-    lib.imap1 (index: hostname: ''
-      SELECT id,
-             given_name,
-             ipv4
-      FROM nodes
-      WHERE auth_key_id = ${toString index}
-        AND (given_name IS NOT '${lib.toLower hostname}'
-             OR ipv4 IS NOT '${tailscaleIps.${hostname}}')
-    '') hostnames
-  );
-
-  updateNodeSql = lib.concatStringsSep "\n" (
+  updateNodesSql = lib.concatStringsSep "\n" (
     lib.imap1 (index: hostname: ''
       UPDATE nodes
       SET given_name = '${lib.toLower hostname}',
@@ -233,28 +221,36 @@ in
       serviceConfig.Type = "oneshot";
     };
 
-    headscale-update-nodes = {
+    headscale-cleanup-nodes = {
       enable = config.services.headscale.enable;
 
       after = [ config.systemd.services.headscale.name ];
       wants = [ config.systemd.services.headscale.name ];
 
       script = ''
-        ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
-          ${removeOldNodeSql}
-        EOF
+        deleted_nodes=$(${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
+          BEGIN;
 
-        differences=$(${pkgs.sqlite-interactive}/bin/sqlite3 -csv ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
-          ${selectNodeDifferencesSql}
+          ${deleteNodesSql}
+          SELECT changes();
+
+          COMMIT;
         EOF
         )
 
-        if [ -n "$differences" ]; then
-          echo "Updating nodes"
+        updated_nodes=$(${pkgs.sqlite-interactive}/bin/sqlite3 -csv ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
+          BEGIN;
 
-          ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
-            ${updateNodeSql}
+          ${updateNodesSql}
+          SELECT changes();
+
+          COMMIT;
         EOF
+        )
+
+        if [ "$deleted_nodes" -gt 0 ] || [ "$updated_nodes" -gt 0 ]; then
+          echo "Deleted nodes: $deleted_nodes"
+          echo "Updated nodes: $updated_nodes"
 
           echo 'Restarting ${config.systemd.services.headscale.name}'
           systemctl restart ${config.systemd.services.headscale.name}
