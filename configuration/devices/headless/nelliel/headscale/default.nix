@@ -293,7 +293,7 @@ in
 
       serviceConfig.Type = "oneshot";
 
-      startAt = "*:*:0/30";
+      startAt = "*:0/5:0";
     };
   };
 }
