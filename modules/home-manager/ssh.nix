@@ -15,6 +15,7 @@ let
     !(lib.elem key [
       osConfig.networking.hostName
       "headplane-agent"
+      "XXLPitu-Nnoitra"
     ])
   ) tailscaleIps;
 in

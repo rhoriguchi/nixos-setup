@@ -83,6 +83,7 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 winget install --accept-source-agreements --exact --silent --uninstall-previous RiotGames.LeagueOfLegends.EUW
 winget install --accept-source-agreements --exact --silent --uninstall-previous RustDesk.RustDesk
 winget install --accept-source-agreements --exact --silent --uninstall-previous Spotify.Spotify
+winget install --accept-source-agreements --exact --silent --uninstall-previous Tailscale.Tailscale
 winget install --accept-source-agreements --exact --silent --uninstall-previous TeamViewer.TeamViewer
 winget install --accept-source-agreements --exact --silent --uninstall-previous Valve.Steam
 winget install --accept-source-agreements --exact --silent --uninstall-previous VideoLAN.VLC
@@ -133,6 +134,7 @@ reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Spotify" /f
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Steam" /f
 
 sc config TeamViewer start= disabled
+sc config Tailscale start= auto
 
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "RustDesk" /t REG_SZ /d "C:\Program Files\RustDesk\rustdesk.exe" /f
 "C:\Program Files\RustDesk\rustdesk.exe" --install-service /f
@@ -148,6 +150,20 @@ cd %userprofile%/Downloads
 curl --location --output SDI.7z --url "https://driveroff.net/drv/SDI_1.25.3.7z"
 
 start %userprofile%/Downloads
+```
+
+## Tailscale
+
+Run in an elevated cmd
+
+- Replace `PRE_AUTH_KEY` with value form [secrets.nix](../../../secrets.nix).headscale.preAuthKeys.XXLPitu-Nnoitra.key
+
+```cmd
+tailscale login --login-server=https://headscale.00a.ch --auth-key PRE_AUTH_KEY
+
+tailscale set --accept-dns=false
+tailscale set --accept-routes=false
+tailscale set --update-check=false
 ```
 
 ## Games

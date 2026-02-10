@@ -6,6 +6,7 @@
   XXLPitu-Aizen = "100.123.123.35";
   XXLPitu-Grimmjow = "100.123.123.214";
   XXLPitu-Nelliel = "100.123.123.251";
+  XXLPitu-Nnoitra = "100.123.123.77";
   XXLPitu-Tier = "100.123.123.92";
   XXLPitu-Ulquiorra = "100.123.123.39";
   XXLPitu-Urahara = "100.123.123.113";

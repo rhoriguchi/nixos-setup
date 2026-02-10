@@ -15,6 +15,7 @@ let
       config.networking.hostName
       "headplane-agent"
       "XXLPitu-Aizen"
+      "XXLPitu-Nnoitra"
     ])
   ) (lib.attrNames tailscaleIps);
 
