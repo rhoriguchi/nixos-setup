@@ -65,8 +65,8 @@
       super.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
-        rev = "41e87b6fb60dd56fe7ac404ca6aac81a7094c589";
-        sha256 = "sha256-sHa4pJNPK+nQy4Sce11flnQVDNq4+PISOzBmtk7MEkA=";
+        rev = "abd7393918e27f81534ce312cfe3c005da8f924d";
+        sha256 = "sha256-hRK2C8+lfFLDkCpAmeoCKaFhTeRMVkhh6AlovJFGp9g=";
       }
     }/pkgs/by-name/he/headscale/package.nix") { };
 
