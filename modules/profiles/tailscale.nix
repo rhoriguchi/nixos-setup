@@ -19,6 +19,7 @@
 
     extraSetFlags = [
       "--accept-dns=false"
+      "--accept-routes=false"
       "--update-check=false"
     ];
 
