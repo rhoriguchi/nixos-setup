@@ -25,6 +25,8 @@ tzutil /s "W. Europe Standard Time"
 
 REM Power tuning
 powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+powercfg -change -monitor-timeout-ac 15
+powercfg -change -monitor-timeout-dc 5
 
 REM Windows Explorer tuning
 reg add HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v HideFileExt /t REG_DWORD /d 0 /f
@@ -133,9 +135,9 @@ reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "Steam" /f
 sc config TeamViewer start= disabled
 
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "RustDesk" /t REG_SZ /d "C:\Program Files\RustDesk\rustdesk.exe" /f
-"C:\Program Files\RustDesk\rustdesk.exe" --install-service
+"C:\Program Files\RustDesk\rustdesk.exe" --install-service /f
 
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "LocalSend" /t REG_SZ /d " C:\Users\ryanh\AppData\Local\Programs\LocalSend\localsend_app.exe --hidden"
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "LocalSend" /t REG_SZ /d " C:\Users\ryanh\AppData\Local\Programs\LocalSend\localsend_app.exe --hidden" /f
 ```
 
 ## Update drivers
@@ -146,7 +148,6 @@ cd %userprofile%/Downloads
 curl --location --output SDI.7z --url "https://driveroff.net/drv/SDI_1.25.3.7z"
 
 start %userprofile%/Downloads
-
 ```
 
 ## Games
