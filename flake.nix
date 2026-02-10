@@ -186,8 +186,8 @@
                   inputs.nixos-hardware.nixosModules.dell-xps-13-9350
 
                   self.nixosModules.profiles.headful
-                  self.nixosModules.profiles.hyprland
 
+                  self.nixosModules.profiles.hyprland
                   self.nixosModules.profiles.laptop-power-management
                   self.nixosModules.profiles.podman
                   self.nixosModules.profiles.python
