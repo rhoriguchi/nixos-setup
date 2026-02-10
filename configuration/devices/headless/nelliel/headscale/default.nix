@@ -143,6 +143,8 @@ in
 
         policy.path = (pkgs.formats.json { }).generate "policy.json" {
           tagOwners = {
+            "tag:admin" = [ ];
+
             "tag:headful" = [ ];
             "tag:headless" = [ ];
           };
@@ -150,10 +152,17 @@ in
           acls = [
             {
               action = "accept";
+              src = [ "tag:admin" ];
+              dst = [
+                "tag:headless:22" # SSH
+              ];
+            }
+
+            {
+              action = "accept";
               src = [ "tag:headful" ];
               dst = [
                 "tag:headful:53317" # LocalSend
-                "tag:headless:22" # SSH
               ];
             }
 
