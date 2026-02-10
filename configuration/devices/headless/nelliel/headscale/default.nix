@@ -80,7 +80,7 @@ let
               ${toString index},
               '${unixEpoch}',
               '${expiration}',
-              '[${lib.concatStringsSep "," (map (tag: ''"tag:${tag}"'') tags)}]',
+              '[${lib.concatStringsSep "," (map (tag: ''"tag:${lib.toLower tag}"'') tags)}]',
               0,
               1,
               '${key.prefix}',
