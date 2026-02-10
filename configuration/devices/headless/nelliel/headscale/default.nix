@@ -152,9 +152,17 @@ in
               action = "accept";
               src = [ "tag:headful" ];
               dst = [
+                "tag:headful:53317" # LocalSend
+              ];
+            }
+            {
+              action = "accept";
+              src = [ "tag:headful" ];
+              dst = [
                 "tag:headless:22" # SSH
               ];
             }
+
             {
               action = "accept";
               src = [ "tag:headless" ];
