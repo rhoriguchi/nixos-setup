@@ -144,10 +144,12 @@ in
         policy.path = (pkgs.formats.json { }).generate "policy.json" {
           tagOwners = {
             "tag:admin" = [ ];
-
+            "tag:exit-node" = [ ];
             "tag:headful" = [ ];
             "tag:headless" = [ ];
           };
+
+          autoApprovers.exitNode = [ "tag:exit-node" ];
 
           acls = [
             {
@@ -163,6 +165,8 @@ in
               src = [ "tag:headful" ];
               dst = [
                 "tag:headful:53317" # LocalSend
+
+                "autogroup:internet:*"
               ];
             }
 

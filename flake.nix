@@ -229,6 +229,8 @@
 
                   self.nixosModules.profiles.headless
 
+                  self.nixosModules.profiles.tailscale-exit-node
+
                   ./configuration/devices/headless/urahara
                 ];
 

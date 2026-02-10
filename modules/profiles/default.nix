@@ -41,6 +41,7 @@
   ssh = ./ssh.nix;
   sudo-rs = ./sudo-rs.nix;
   tailscale = ./tailscale.nix;
+  tailscale-exit-node = ./tailscale-exit-node.nix;
   tmp-management = ./tmp-management.nix;
   trash-management = ./trash-management.nix;
   util = ./util.nix;
