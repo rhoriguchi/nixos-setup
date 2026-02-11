@@ -36,10 +36,19 @@ in
           }
         ];
 
-        access_control.default_policy = "one_factor";
+        access_control = {
+          default_policy = "deny";
+          rules = [
+            {
+              domain = "*.00a.ch";
+              subject = [ "group:admin" ];
+              policy = "one_factor";
+            }
+          ];
+        };
 
         authentication_backend = {
-          file.path = (pkgs.formats.yaml { }).generate "authelia-users" {
+          file.path = (pkgs.formats.yaml { }).generate "authelia-users.yaml" {
             users = lib.mapAttrs (
               key: value:
               {
