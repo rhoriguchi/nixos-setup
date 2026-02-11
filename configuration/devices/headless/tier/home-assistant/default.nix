@@ -60,16 +60,6 @@
         unit_system = "metric";
         temperature_unit = "C";
         currency = "CHF";
-
-        auth_providers = [
-          { type = "homeassistant"; }
-          {
-            type = "trusted_networks";
-            allow_bypass_login = true;
-            trusted_networks = [ "192.168.100.0/24" ];
-            trusted_users."192.168.100.0/24" = [ "41ca5ba9634b43f2b1d6f3b8d038c4cb" ];
-          }
-        ];
       };
 
       mobile_app = { };
