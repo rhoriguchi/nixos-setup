@@ -32,10 +32,6 @@
 
           extraConfig = ''
             include /run/nginx-authelia/auth.conf;
-
-            satisfy any;
-            allow 192.168.2.0/24;
-            deny all;
           '';
         };
       };
