@@ -27,6 +27,7 @@
     - `Settings` -> `System` -> `Network` -> `Network adapter`
   - Setup automatic backups
     - `Settings` -> `Backups` -> `Set up backups`
+    - `Settings` -> `Backups` -> `Configure backup settings` -> `Locations` -> `This system` -> `[COG ICON]` -> `Encryption` -> `Turn off`
   - `Profile` (bottom left user icon) -> `Advanced mode = true`
   - Delete all areas
     - `Settings` -> `Areas & zones` -> `Areas`
