@@ -1,5 +1,7 @@
 # Home Assistant
 
+## Setup
+
 - Add integrations
   - AirGradient
     - Rename: `AirGradient ONE`
@@ -32,7 +34,7 @@
   - Delete all areas
     - `Settings` -> `Areas & zones` -> `Areas`
 
-## Shelly
+## Configure Shelly devices
 
 Configure:
 
