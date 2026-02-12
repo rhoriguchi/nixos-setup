@@ -4,7 +4,8 @@
 
 - Add integrations
   - AirGradient
-    - Rename: `AirGradient ONE`
+    - Host: `esp32c3-0259c0.local`
+      Rename: `AirGradient ONE`
   - Discord
     - Get `API Token` from <https://discord.com/developers/applications> for `Home Assistant bot`
   - Homekit Device
@@ -14,6 +15,8 @@
       Rename: `light.bedroom_nightstand_lamp_left`
     - Serial number: `08:D5:D1:35:34:37:5C:1A`
       Rename: `light.bedroom_nightstand_lamp_right`
+  - Philips Hue
+    - Host: `ecb5faac6110.local`
   - Shelly
     - Wake up sensor with button or wait till it shows up
 - Settings to change
@@ -24,12 +27,12 @@
         - Password: `RANDOM_PASSWORD`
         - Local Access only: `true`
         - Administrator: `false`
-    - Get ID from <https://home-assistant.00a.ch/config/users> and update `trusted_users` in [default.nix](./default.nix)
+    - Get ID from <https://home-assistant.00a.ch/config/users> and update `trusted_users` in [auth.nix](./auth.nix)
   - Configure default network interface
     - `Settings` -> `System` -> `Network` -> `Network adapter`
   - Setup automatic backups
-    - `Settings` -> `Backups` -> `Set up backups`
-    - `Settings` -> `Backups` -> `Configure backup settings` -> `Locations` -> `This system` -> `[COG ICON]` -> `Encryption` -> `Turn off`
+    - `Settings` -> `System` -> `Backups` -> `Set up backups`
+    - `Settings` -> `System` -> `Backups` -> `Configure backup settings` -> `Locations` -> `This system` -> `[COG ICON]` -> `Encryption` -> `Turn off`
   - `Profile` (bottom left user icon) -> `Advanced mode = true`
   - Delete all areas
     - `Settings` -> `Areas & zones` -> `Areas`
