@@ -52,7 +52,7 @@ in
             users = lib.mapAttrs (
               key: value:
               {
-                displayname = lib.toSentenceCase key;
+                displayname = lib.toLower key;
               }
               // value
             ) secrets.authelia.users;
