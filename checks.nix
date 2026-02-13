@@ -27,6 +27,8 @@
         enable = true;
         excludes = [
           ''secrets\.nix$''
+
+          ''configuration\/devices\/headless\/tier\/authelia\/rsa.2048.key''
           ''configuration\/devices\/nnoitra\/iex\.json''
         ];
       };
@@ -46,6 +48,8 @@
         enable = true;
         excludes = [
           ''secrets\.nix$''
+
+          ''configuration\/devices\/headless\/tier\/authelia\/rsa.2048.key''
           ''configuration\/devices\/nnoitra\/iex\.json''
         ];
       };
