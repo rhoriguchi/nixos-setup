@@ -18,31 +18,6 @@
           }
         ];
       }
-      # TODO HS commented
-      #   {
-      #     alias = "Dim bedroom closet lights when sunset";
-      #     triggers = [{
-      #       trigger = "sun";
-      #       event = "sunset";
-      #     }];
-      #     actions = [{
-      #       action = "light.turn_on";
-      #       target.entity_id = "light.bedroom_closet_lights";
-      #       data.brightness = 1;
-      #     }];
-      #   }
-      #   {
-      #     alias = "Brighten bedroom closet lights when sunrise";
-      #     triggers = [{
-      #       trigger = "sun";
-      #       event = "sunrise";
-      #     }];
-      #     actions = [{
-      #       action = "light.turn_off";
-      #       target.entity_id = "light.bedroom_closet_lights";
-      #       data.brightness = 255;
-      #     }];
-      #   }
 
       # TODO HS commented
       #   {

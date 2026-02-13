@@ -375,25 +375,6 @@ in
                   #     }
                   #   ];
                   # }
-                  # TODO HS commented
-                  # { type = "divider"; }
-                  # {
-                  #   type = "custom:fold-entity-row";
-                  #   head = "light.airgradient_one";
-
-                  #   open = true;
-
-                  #   entities = [
-                  #     {
-                  #       name = "Display";
-                  #       entity = "light.airgradient_one_display";
-                  #     }
-                  #     {
-                  #       name = "Led";
-                  #       entity = "light.airgradient_one_led_strip";
-                  #     }
-                  #   ];
-                  # }
                 ];
               }
               {
