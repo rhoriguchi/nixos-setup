@@ -227,7 +227,7 @@ in
                   }
                   {
                     name = "Floor";
-                    entity = "binary_sensor.reduit_badring";
+                    entity = "binary_sensor.reduit_badring_leak_sensor";
                   }
                 ];
               }
