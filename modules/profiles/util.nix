@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   programs.htop.enable = true;
 
@@ -16,7 +21,6 @@
       pkgs.ethtool
       pkgs.expect
       pkgs.file
-      pkgs.gdb
       pkgs.git
       pkgs.gnugrep
       pkgs.gnutar
@@ -31,7 +35,6 @@
       pkgs.nmap
       pkgs.openssl
       pkgs.pciutils
-      pkgs.postgresql
       pkgs.procps
       pkgs.rsync
       pkgs.smartmontools
@@ -45,6 +48,7 @@
       pkgs.usbutils
       pkgs.yq-go
       pkgs.zip
-    ];
+    ]
+    ++ lib.optional config.services.postgresql.enable pkgs.postgresql;
   };
 }
