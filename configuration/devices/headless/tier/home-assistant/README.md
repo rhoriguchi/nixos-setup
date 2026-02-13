@@ -1,5 +1,9 @@
 # Home Assistant
 
+## Login
+
+<https://home-assistant.00a.ch/auth/oidc/redirect>
+
 ## Setup
 
 - Add integrations

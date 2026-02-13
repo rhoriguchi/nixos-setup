@@ -9,6 +9,10 @@ let
   cfg = config.services.authelia.instances.main;
 in
 {
+  imports = [
+    ./home-assistant.nix
+  ];
+
   services = {
     authelia.instances.main = {
       enable = true;
@@ -46,6 +50,12 @@ in
             }
           ];
         };
+
+        identity_providers.oidc.jwks = [
+          {
+            key = lib.readFile ./rsa.2048.key;
+          }
+        ];
 
         authentication_backend = {
           file.path = (pkgs.formats.yaml { }).generate "authelia-users.yaml" {
