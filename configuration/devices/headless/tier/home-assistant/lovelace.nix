@@ -386,15 +386,16 @@ in
                 title = "Battery";
 
                 bulk_rename = [
-                  # Phone (has to be on top else rename does not work)
                   {
                     from = "FP5 Battery level";
                     to = "Ryan Fairphone 5";
                   }
-                  # TODO HS does not work
                   {
-                    from = "IPhone SAMI Battery Level";
-                    to = "Sarah iPhone XS";
+                    from = "iPhone von ";
+                  }
+                  {
+                    from = "Battery Level";
+                    to = "iPhone 17 Pro Max";
                   }
 
                   # Shelly H&T Gen3
@@ -416,7 +417,7 @@ in
                     name = "Phone {range}%";
                     entities = [
                       "sensor.fp5_battery_level"
-                      "sensor.iphone_sami_battery_level"
+                      "sensor.iphone_von_sarah_battery_level"
                     ];
                   }
                   {
