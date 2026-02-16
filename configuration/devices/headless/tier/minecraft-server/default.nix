@@ -294,8 +294,8 @@ in
               let
                 owner = "TechnicJelle";
                 repo = "BlueMapSpawnMarker";
-                tag = "1.2";
-                sha256 = "sha256-jjrJ5nl7ETsGBMyx8OC//8AXcQ0DbU7jpGeHjeGZEsM=";
+                tag = "1.3";
+                sha256 = "sha256-/tAdODdf2lSxeqk1Cv4YJX/Ox4YIxUKEz+3o7cCeASk=";
               in
               pkgs.fetchurl {
                 url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/BlueMapSpawnMarker-${tag}.jar";
