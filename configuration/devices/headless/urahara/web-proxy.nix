@@ -14,10 +14,6 @@ let
     "sonarr.00a.ch"
     "tautulli.00a.ch"
   ];
-  ulquiorraDomains = [
-    "printer.00a.ch"
-    "scanner.00a.ch"
-  ];
 
   getVirtualHost = name: ip: domains: {
     "${name}" = {
@@ -47,19 +43,12 @@ in
         hostnames = config.services.infomaniak.hostnames;
       };
 
-      XXLPitu-Ulquiorra = {
-        server = "${ips.ulquiorra}:443";
-        hostnames = ulquiorraDomains;
-      };
-
       XXLPitu-Tier = {
         server = "${ips.tier}:443";
         hostnames = tierDomains;
       };
     };
 
-    virtualHosts =
-      (getVirtualHost "XXLPitu-Tier.local" ips.tier tierDomains)
-      // (getVirtualHost "XXLPitu-Ulquiorra.local" ips.ulquiorra ulquiorraDomains);
+    virtualHosts = (getVirtualHost "XXLPitu-Tier.local" ips.tier tierDomains);
   };
 }
