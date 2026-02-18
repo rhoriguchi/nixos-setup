@@ -14,6 +14,7 @@
 
       virtualHosts."home-assistant.00a.ch" = {
         enableACME = true;
+        acmeRoot = null;
         forceSSL = true;
 
         locations."/" = {

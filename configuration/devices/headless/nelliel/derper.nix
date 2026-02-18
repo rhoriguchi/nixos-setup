@@ -22,6 +22,9 @@
       ];
     };
 
-    nginx.virtualHosts."derp-nbg.00a.ch".enableACME = true;
+    nginx.virtualHosts."derp-nbg.00a.ch" = {
+      enableACME = true;
+      acmeRoot = null;
+    };
   };
 }

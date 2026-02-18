@@ -1,7 +1,17 @@
+{ pkgs, secrets, ... }:
 {
   security.acme = {
     acceptTerms = true;
-    defaults.email = "contact@00a.ch";
+
+    defaults = {
+      email = "contact@00a.ch";
+
+      # https://go-acme.github.io/lego/dns/infomaniak
+      dnsProvider = "infomaniak";
+      credentialFiles.INFOMANIAK_ACCESS_TOKEN_FILE = pkgs.writeText "infomaniak_access_token" secrets.infomaniak.accessToken;
+
+      dnsPropagationCheck = false;
+    };
   };
 
   services = {
