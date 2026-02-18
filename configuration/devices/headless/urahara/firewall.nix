@@ -65,10 +65,29 @@ in
             elements = { ${internalInterface}.100 }
           }
 
+          set rfc1918 {
+            type ipv4_addr;
+            flags interval;
+            elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
+          }
+
+          set rfc4193 {
+            type ipv6_addr;
+            flags interval;
+            elements = { fc00::/8 }
+          }
+
           set multicast_ipv4_address {
             type ipv4_addr;
             flags interval;
             elements = { 224.0.1.0/24, 224.0.2.0/24, 239.0.0.0/8 }
+          }
+
+          chain output {
+            type filter hook output priority filter; policy accept;
+
+            oifname { ${config.networking.nat.externalInterface} } ip  daddr @rfc1918 reject
+            oifname { ${config.networking.nat.externalInterface} } ip6 daddr @rfc4193 reject
           }
 
           chain forward {
@@ -87,6 +106,9 @@ in
           }
 
           chain lan-to-wan-filter {
+            ip daddr @rfc1918 drop
+            ip6 daddr @rfc4193 drop
+
             meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
 
             accept
