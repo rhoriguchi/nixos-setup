@@ -143,6 +143,10 @@ in
             proxyPass = "http://127.0.0.1:${toString config.services.scanservjs.settings.port}";
 
             extraConfig = ''
+              proxy_read_timeout 300s;
+              proxy_connect_timeout 300s;
+              proxy_send_timeout 300s;
+
               allow 192.168.2.0/24;
               deny all;
             '';
