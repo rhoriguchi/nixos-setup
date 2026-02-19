@@ -60,26 +60,6 @@
       }
     }/pkgs/servers/plex/raw.nix") { };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=487100
-    headscale = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "abd7393918e27f81534ce312cfe3c005da8f924d";
-        sha256 = "sha256-hRK2C8+lfFLDkCpAmeoCKaFhTeRMVkhh6AlovJFGp9g=";
-      }
-    }/pkgs/by-name/he/headscale/package.nix") { };
-
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=491157
-    tautulli = super.python3Packages.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "216593833dcbf5158922282ac364d632cc9cd93b";
-        sha256 = "sha256-AEKpVThCP/KF7ljiuoFT7tWOTL+dEBL1vLR3UGyIdcg=";
-      }
-    }/pkgs/servers/tautulli") { };
-
     # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=491477
     netdata = super.callPackage (import "${
       super.fetchFromGitHub {
