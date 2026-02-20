@@ -55,8 +55,8 @@
       super.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
-        rev = "ddafe6abe1e1836a1cc596010d6d7daa70d36fb5";
-        sha256 = "sha256-rwLP4kWOlOIwLzmivOpwdHISls9MVeqAnntBDxlgq0c=";
+        rev = "d89511b8bc3a29eccc34bebf5fcfaf0f0ff47914";
+        sha256 = "sha256-MZCupUOTpVPrMvdSpQ+JmF8+TcojJiNJqTGt+RQtF9I=";
       }
     }/pkgs/servers/plex/raw.nix") { };
 
