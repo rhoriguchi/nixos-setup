@@ -332,5 +332,12 @@ in
         };
       };
     };
+
+    monitoring.extraPrometheusJobs = [
+      {
+        name = "Minecraft";
+        url = "http://127.0.0.1:9940/metrics";
+      }
+    ];
   };
 }
