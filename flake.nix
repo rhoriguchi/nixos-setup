@@ -38,6 +38,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+
     nix-github-actions = {
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -119,6 +121,7 @@
         default.imports = [
           inputs.headplane.nixosModules.headplane
           inputs.hyprland.nixosModules.default
+          inputs.nix-flatpak.nixosModules.nix-flatpak
           inputs.nix-minecraft.nixosModules.minecraft-servers
 
           ./modules/default
