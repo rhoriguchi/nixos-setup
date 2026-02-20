@@ -35,8 +35,8 @@
       super.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
-        rev = "e20b67922abcee860daa553bc3b86248c2179863";
-        sha256 = "sha256-em1mxsHT02vtqIN3Pw1OyuWZ9nJUp2dTrb8ROg1Cspc=";
+        rev = "291e9536cde499e7f08b23ab2e5ca909b7dec406";
+        sha256 = "sha256-xBIxmaqc1lGgX8BTbjtGSu8pCENK+oR9gPm7rEHEGrA=";
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
 
