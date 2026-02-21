@@ -70,18 +70,6 @@ let
       zone: lib.nameValuePair "${dnsZoneDir}/${zone}.zone" (pkgs.writeText "${zone}.zone" zoneHeader)
     ) reverseZones
   );
-
-  addStatisticsToZones =
-    zones:
-    lib.mapAttrs (
-      _: value:
-      value
-      // {
-        extraConfig = value.extraConfig or "" + ''
-          zone-statistics yes;
-        '';
-      }
-    ) zones;
 in
 {
   imports = [ ./adguardhome.nix ];
@@ -145,28 +133,28 @@ in
         "localnets"
       ];
 
-      zones = addStatisticsToZones (
-        {
-          local = {
+      zones = {
+        local = {
+          master = true;
+          file = "${dnsZoneDir}/local.zone";
+          extraConfig = ''
+            allow-update { key tsig-key; };
+            zone-statistics yes;
+          '';
+        };
+      }
+      // lib.listToAttrs (
+        map (
+          zone:
+          lib.nameValuePair zone {
             master = true;
-            file = "${dnsZoneDir}/local.zone";
+            file = "${dnsZoneDir}/${zone}.zone";
             extraConfig = ''
               allow-update { key tsig-key; };
+              zone-statistics yes;
             '';
-          };
-        }
-        // lib.listToAttrs (
-          map (
-            zone:
-            lib.nameValuePair zone {
-              master = true;
-              file = "${dnsZoneDir}/${zone}.zone";
-              extraConfig = ''
-                allow-update { key tsig-key; };
-              '';
-            }
-          ) reverseZones
-        )
+          }
+        ) reverseZones
       );
 
       extraConfig = ''
