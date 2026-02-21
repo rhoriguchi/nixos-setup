@@ -30,10 +30,10 @@ in
     ];
   };
 
-  system.activationScripts.bindmount-samba = ''
-    mkdir -p ${bindmountDir}
-    chown -R ${user}:${group} ${rootBindmountDir}
-  '';
+  systemd.tmpfiles.rules = [
+    "d ${rootBindmountDir} 0550 ${user} ${group}"
+    "d ${bindmountDir} 0550 ${user} ${group}"
+  ];
 
   users = {
     users.${user} = {
