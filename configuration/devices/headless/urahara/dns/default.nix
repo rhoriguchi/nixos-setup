@@ -19,13 +19,21 @@ let
     "unifi" = ips.cloudKey;
   };
 
-  reverseZones = [
-    "1.168.192.in-addr.arpa"
-    "2.168.192.in-addr.arpa"
-    "3.168.192.in-addr.arpa"
-    "10.168.192.in-addr.arpa"
-    "100.168.192.in-addr.arpa"
-  ];
+  reverseZones = map (
+    subnet:
+    let
+      parts = lib.splitString "/" subnet.subnet;
+      ip = lib.elemAt parts 0;
+      prefix = lib.elemAt parts 1;
+
+      octets = lib.splitString "." ip;
+      octetCount = (lib.toInt prefix) / 8;
+
+      relevant = lib.sublist 0 octetCount octets;
+      reversed = lib.reverseList relevant;
+    in
+    "${lib.concatStringsSep "." reversed}.in-addr.arpa"
+  ) config.services.kea.dhcp4.settings.subnet4;
 
   zoneHeader =
     let
