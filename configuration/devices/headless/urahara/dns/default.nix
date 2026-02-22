@@ -34,44 +34,47 @@ let
 
   zones = [ "local" ] ++ reverseZones;
 
-  zoneHeader =
+  baseZone =
     let
       ttl = config.services.kea.dhcp4.settings.valid-lifetime;
     in
-    ''
-      $TTL ${toString ttl}
-      @ IN SOA ${config.networking.hostName}.local. ${
-        lib.replaceStrings [ "@" ] [ "." ] config.security.acme.defaults.email
-      }. (${
-        lib.concatStringsSep " " [
-          "1" # Serial
-          (toString ttl) # Refresh
-          (toString (ttl / 10)) # Retry
-          (toString (ttl * 24 * 7)) # Expire
-          (toString ttl) # Minimum TTL
-        ]
-      })
+    {
+      TTL = ttl;
 
-        IN NS ${config.networking.hostName}.local.
-    '';
+      SOA = {
+        serial = 1;
 
-  localARecords = {
-    "${config.networking.hostName}" = ips.urahara;
+        nameServer = "${config.networking.hostName}.local.";
+        adminEmail = config.security.acme.defaults.email;
 
-    "unifi" = ips.cloudKey;
-  };
+        refresh = ttl;
+        retry = ttl / 10;
+        expire = ttl * 24 * 7;
+        minimum = ttl;
+      };
+
+      NS = [
+        "${config.networking.hostName}.local."
+      ];
+    };
 
   zoneFiles = {
-    "local" = pkgs.writeText "local.zone" ''
-      ${zoneHeader}
-
-      ${lib.concatStringsSep "\n" (
-        lib.mapAttrsToList (domain: ip: "${domain}.local. A ${ip}") localARecords
-      )}
-    '';
+    "local" = pkgs.writeText "local.zone" (
+      lib.dns.toString "local" (
+        baseZone
+        // {
+          subdomains = {
+            "${config.networking.hostName}".A = [ ips.urahara ];
+            "unifi".A = [ ips.cloudKey ];
+          };
+        }
+      )
+    );
   }
   // lib.listToAttrs (
-    map (zone: lib.nameValuePair zone (pkgs.writeText "${zone}.zone" zoneHeader)) reverseZones
+    map (
+      zone: lib.nameValuePair zone (pkgs.writeText "${zone}.zone" (lib.dns.toString zone baseZone))
+    ) reverseZones
   );
 in
 {

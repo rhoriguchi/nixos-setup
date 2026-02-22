@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    dns = {
+      url = "github:kirelagin/dns.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -154,7 +159,12 @@
           ++ import ./overlays
         );
 
-        lib = (_: super: { custom = import ./lib.nix { lib = super; }; });
+        lib = (
+          _: super: {
+            custom = import ./lib.nix { lib = super; };
+            dns = inputs.dns.lib;
+          }
+        );
       };
 
       nixosConfigurations =
