@@ -14,13 +14,7 @@ let
 
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 
-  dnsZoneDir = "/var/lib/named";
-
-  localARecords = {
-    "${config.networking.hostName}" = ips.urahara;
-
-    "unifi" = ips.cloudKey;
-  };
+  rootDir = "/var/lib/named";
 
   reverseZones = map (
     subnet:
@@ -37,6 +31,8 @@ let
     in
     "${lib.concatStringsSep "." reversed}.in-addr.arpa"
   ) config.services.kea.dhcp4.settings.subnet4;
+
+  zones = [ "local" ] ++ reverseZones;
 
   zoneHeader =
     let
@@ -59,8 +55,14 @@ let
         IN NS ${config.networking.hostName}.local.
     '';
 
+  localARecords = {
+    "${config.networking.hostName}" = ips.urahara;
+
+    "unifi" = ips.cloudKey;
+  };
+
   zoneFiles = {
-    "${dnsZoneDir}/local.zone" = pkgs.writeText "local.zone" ''
+    "local" = pkgs.writeText "local.zone" ''
       ${zoneHeader}
 
       ${lib.concatStringsSep "\n" (
@@ -69,9 +71,7 @@ let
     '';
   }
   // lib.listToAttrs (
-    map (
-      zone: lib.nameValuePair "${dnsZoneDir}/${zone}.zone" (pkgs.writeText "${zone}.zone" zoneHeader)
-    ) reverseZones
+    map (zone: lib.nameValuePair zone (pkgs.writeText "${zone}.zone" zoneHeader)) reverseZones
   );
 in
 {
@@ -97,19 +97,12 @@ in
   };
 
   # TODO figure out how to replace zone file if static ip gets added or removed
-  system.activationScripts.bind = ''
-    mkdir -p ${dnsZoneDir}
-
-    ${lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (zoneFile: templateFile: ''
-        if [ ! -f "${zoneFile}" ]; then
-          cat ${templateFile} > "${zoneFile}"
-        fi
-      '') zoneFiles
-    )}
-
-    chown -R named:named ${dnsZoneDir}
-  '';
+  systemd.tmpfiles.rules = lib.flatten (
+    map (zone: [
+      "d ${rootDir} 0550 named named"
+      "C ${rootDir}/${zone}.zone 0640 named named - ${zoneFiles.${zone}}"
+    ]) zones
+  );
 
   systemd.services.bind.restartTriggers = lib.unique (lib.attrValues zoneFiles);
 
@@ -131,28 +124,18 @@ in
         "localnets"
       ];
 
-      zones = {
-        local = {
-          master = true;
-          file = "${dnsZoneDir}/local.zone";
-          extraConfig = ''
-            allow-update { key tsig-key; };
-            zone-statistics yes;
-          '';
-        };
-      }
-      // lib.listToAttrs (
+      zones = lib.listToAttrs (
         map (
           zone:
           lib.nameValuePair zone {
             master = true;
-            file = "${dnsZoneDir}/${zone}.zone";
+            file = "${rootDir}/${zone}.zone";
             extraConfig = ''
               allow-update { key tsig-key; };
               zone-statistics yes;
             '';
           }
-        ) reverseZones
+        ) zones
       );
 
       extraConfig = ''
