@@ -1,25 +1,27 @@
-{ interfaces, ... }:
+{
+  config,
+  lib,
+  interfaces,
+  ...
+}:
 let
   internalInterface = interfaces.internal;
+
+  interfaceNames = map (subnet: subnet.interface) config.services.kea.dhcp4.settings.subnet4;
 
   ips = import ./ips.nix;
 in
 {
-  networking.firewall.interfaces =
-    let
-      rules.allowedUDPPorts = [
-        67 # DHCP
-      ];
-    in
-    {
-      "${internalInterface}" = rules;
-      "${internalInterface}.2" = rules;
-      "${internalInterface}.3" = rules;
-      "${internalInterface}.10" = rules;
-      "${internalInterface}.100" = rules;
-
-      br0 = rules;
-    };
+  networking.firewall.interfaces = lib.listToAttrs (
+    map (
+      interfaceName:
+      lib.nameValuePair interfaceName {
+        allowedUDPPorts = [
+          67 # DHCP
+        ];
+      }
+    ) interfaceNames
+  );
 
   services.kea = {
     dhcp4 = {
@@ -35,15 +37,7 @@ in
         authoritative = true;
         valid-lifetime = 60 * 60;
 
-        interfaces-config.interfaces = [
-          "${internalInterface}"
-          "${internalInterface}.2"
-          "${internalInterface}.3"
-          "${internalInterface}.10"
-          "${internalInterface}.100"
-
-          "br0"
-        ];
+        interfaces-config.interfaces = interfaceNames;
 
         ddns-generated-prefix = "";
 
