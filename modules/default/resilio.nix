@@ -231,8 +231,8 @@ in
         {
           tmpfiles.rules = [
             "d ${cfg.logging.filePath} 0711 ${cfg.user} ${cfg.group}"
-            "d ${cfg.storagePath} 0775 ${cfg.user} ${cfg.group}"
-            "d ${cfg.syncPath} 0775 ${cfg.user} ${cfg.group}"
+            "d ${cfg.storagePath} 0750 ${cfg.user} ${cfg.group}"
+            "d ${cfg.syncPath} 0770 ${cfg.user} ${cfg.group}"
           ];
 
           services.resilio = {
