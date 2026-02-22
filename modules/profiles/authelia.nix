@@ -43,7 +43,7 @@ let
 in
 {
   systemd.tmpfiles.rules = [
-    "d /run/nginx-authelia 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
+    "d /run/nginx-authelia 0550 ${config.services.nginx.user} ${config.services.nginx.group}"
     "L+ /run/nginx-authelia/location.conf - - - - ${locationFile}"
     "L+ /run/nginx-authelia/auth.conf - - - - ${authFile}"
   ];

@@ -34,7 +34,7 @@ let
 in
 {
   systemd.tmpfiles.rules = [
-    "d /run/nginx-hass/img 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
+    "d /run/nginx-hass/img 0550 ${config.services.nginx.user} ${config.services.nginx.group}"
     "L+ /run/nginx-hass/img/wifi-guest-qr.png - - - - ${qrCode}"
   ];
 }

@@ -20,7 +20,7 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d ${config.services.deluge.dataDir} 0550 ${config.services.deluge.user} ${config.services.deluge.group}"
+    "d ${config.services.deluge.dataDir} 0750 ${config.services.deluge.user} ${config.services.deluge.group}"
   ];
 
   containers.deluge = {

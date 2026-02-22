@@ -41,8 +41,8 @@ let
 in
 {
   systemd.tmpfiles.rules = [
-    "d /run/nginx-hass 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
-    "d /run/nginx-hass/js 0700 ${config.services.nginx.user} ${config.services.nginx.group}"
+    "d /run/nginx-hass 0550 ${config.services.nginx.user} ${config.services.nginx.group}"
+    "d /run/nginx-hass/js 0550 ${config.services.nginx.user} ${config.services.nginx.group}"
   ]
   ++ map (
     lovelaceModule:

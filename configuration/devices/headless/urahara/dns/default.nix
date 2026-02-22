@@ -102,7 +102,7 @@ in
   # TODO figure out how to replace zone file if static ip gets added or removed
   systemd.tmpfiles.rules = lib.flatten (
     map (zone: [
-      "d ${rootDir} 0550 named named"
+      "d ${rootDir} 0750 named named"
       "C ${rootDir}/${zone}.zone 0640 named named - ${zoneFiles.${zone}}"
     ]) zones
   );
