@@ -8,6 +8,9 @@
 }:
 let
   internalInterface = interfaces.internal;
+  internalInterfaces = lib.filter (interface: lib.hasPrefix internalInterface interface) (
+    lib.attrNames config.networking.interfaces
+  );
 
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 
@@ -77,9 +80,10 @@ in
   networking = {
     nameservers = [ "127.0.0.1" ];
 
-    firewall.interfaces =
-      let
-        rules = {
+    firewall.interfaces = lib.listToAttrs (
+      map (
+        interface:
+        lib.nameValuePair interface {
           allowedUDPPorts = [
             53 # DNS
           ];
@@ -87,15 +91,9 @@ in
           allowedTCPPorts = [
             53 # DNS
           ];
-        };
-      in
-      {
-        "${internalInterface}" = rules;
-        "${internalInterface}.2" = rules;
-        "${internalInterface}.3" = rules;
-        "${internalInterface}.10" = rules;
-        "${internalInterface}.100" = rules;
-      };
+        }
+      ) internalInterfaces
+    );
   };
 
   # TODO figure out how to replace zone file if static ip gets added or removed
