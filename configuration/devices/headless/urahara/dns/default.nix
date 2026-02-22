@@ -99,15 +99,12 @@ in
     );
   };
 
-  # TODO figure out how to replace zone file if static ip gets added or removed
-  systemd.tmpfiles.rules = lib.flatten (
-    map (zone: [
-      "d ${rootDir} 0750 named named"
-      "C ${rootDir}/${zone}.zone 0640 named named - ${zoneFiles.${zone}}"
-    ]) zones
-  );
-
-  systemd.services.bind.restartTriggers = lib.unique (lib.attrValues zoneFiles);
+  systemd.tmpfiles.rules = [
+    "d ${rootDir} 0750 named named"
+  ]
+  ++ lib.mapAttrsToList (
+    key: value: "C ${rootDir}/${key}.zone 0640 named named - ${value}"
+  ) zoneFiles;
 
   services = {
     nginx.stream.resolvers = [ "127.0.0.1" ];
