@@ -32,7 +32,7 @@ let
     "${lib.concatStringsSep "." reversed}.in-addr.arpa"
   ) config.services.kea.dhcp4.settings.subnet4;
 
-  zones = [ "local" ] ++ reverseZones;
+  ddnsZones = [ "local" ] ++ reverseZones;
 
   baseZone =
     let
@@ -70,6 +70,46 @@ let
         }
       )
     );
+
+    "rpz.00a.ch" =
+      let
+        cnames =
+          answer: domains:
+          lib.listToAttrs (
+            map (
+              domain:
+              lib.nameValuePair domain {
+                CNAME = [ "${answer}." ];
+              }
+            ) domains
+          );
+      in
+      pkgs.writeText "rpz.00a.ch.zone" (
+        lib.dns.toString "rpz.00a.ch" (
+          baseZone
+          // {
+            subdomains =
+              (cnames "${config.networking.hostName}.local" config.services.infomaniak.hostnames)
+              // (cnames "XXLPitu-Ulquiorra.local" [
+                "printer.00a.ch"
+                "scanner.00a.ch"
+              ])
+              // (cnames "XXLPitu-Tier.local" [
+                "authelia.00a.ch"
+                "deluge.00a.ch"
+                "grafana.00a.ch"
+                "home-assistant.00a.ch"
+                "minecraft.00a.ch"
+                "monitoring.00a.ch"
+                "prometheus.00a.ch"
+                "prowlarr.00a.ch"
+                "rustdesk.00a.ch"
+                "sonarr.00a.ch"
+                "tautulli.00a.ch"
+              ]);
+          }
+        )
+      );
   }
   // lib.listToAttrs (
     map (
@@ -99,12 +139,17 @@ in
     );
   };
 
-  systemd.tmpfiles.rules = [
-    "d ${rootDir} 0750 named named"
-  ]
-  ++ lib.mapAttrsToList (
-    key: value: "C ${rootDir}/${key}.zone 0640 named named - ${value}"
-  ) zoneFiles;
+  systemd = {
+    tmpfiles.rules = [
+      "d ${rootDir} 0750 named named"
+      "L+ ${rootDir}/rpz.00a.ch.zone - - - - ${zoneFiles."rpz.00a.ch"}"
+    ]
+    ++ map (zone: "C ${rootDir}/${zone}.zone 0640 named named - ${zoneFiles.${zone}}") ddnsZones;
+
+    services.bind.restartTriggers = lib.attrValues (
+      lib.filterAttrs (key: _: !(lib.elem key ddnsZones)) zoneFiles
+    );
+  };
 
   services = {
     nginx.stream.resolvers = [ "127.0.0.1" ];
@@ -124,22 +169,25 @@ in
         "localnets"
       ];
 
-      zones = lib.listToAttrs (
-        map (
-          zone:
-          lib.nameValuePair zone {
-            master = true;
-            file = "${rootDir}/${zone}.zone";
-            extraConfig = ''
-              allow-update {
-                key tsig-key;
-              };
+      zones = lib.mapAttrs (key: _: {
+        master = true;
+        file = "${rootDir}/${key}.zone";
+        extraConfig = ''
+          zone-statistics yes;
 
-              zone-statistics yes;
-            '';
-          }
-        ) zones
-      );
+          ${lib.optionalString (lib.elem key ddnsZones) ''
+            allow-update {
+              key tsig-key;
+            };
+          ''}
+        '';
+      }) zoneFiles;
+
+      extraOptions = ''
+        response-policy {
+          zone "rpz.00a.ch";
+        };
+      '';
 
       extraConfig = ''
         tls cloudflare-tls {
@@ -160,6 +208,10 @@ in
         key tsig-key {
           algorithm hmac-sha256;
           secret "${secrets.kea.ddnsKey}";
+        };
+
+        logging {
+          category rpz { null; };
         };
       '';
     };

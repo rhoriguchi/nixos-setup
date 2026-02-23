@@ -68,44 +68,6 @@
             cache_optimistic = false;
             ratelimit = 0;
           };
-
-          filtering.rewrites =
-            (map (domain: {
-              inherit domain;
-              answer = "${config.networking.hostName}.local";
-              enabled = true;
-            }) config.services.infomaniak.hostnames)
-            ++ (map
-              (domain: {
-                inherit domain;
-                answer = "XXLPitu-Ulquiorra.local";
-                enabled = true;
-              })
-              [
-                "printer.00a.ch"
-                "scanner.00a.ch"
-              ]
-            )
-            ++ (map
-              (domain: {
-                inherit domain;
-                answer = "XXLPitu-Tier.local";
-                enabled = true;
-              })
-              [
-                "authelia.00a.ch"
-                "deluge.00a.ch"
-                "grafana.00a.ch"
-                "home-assistant.00a.ch"
-                "minecraft.00a.ch"
-                "monitoring.00a.ch"
-                "prometheus.00a.ch"
-                "prowlarr.00a.ch"
-                "rustdesk.00a.ch"
-                "sonarr.00a.ch"
-                "tautulli.00a.ch"
-              ]
-            );
         };
     };
   };
