@@ -131,7 +131,10 @@ in
             master = true;
             file = "${rootDir}/${zone}.zone";
             extraConfig = ''
-              allow-update { key tsig-key; };
+              allow-update {
+                key tsig-key;
+              };
+
               zone-statistics yes;
             '';
           }
