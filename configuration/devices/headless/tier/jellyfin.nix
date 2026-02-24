@@ -206,7 +206,7 @@ in
 
       branding = {
         loginDisclaimer = ''
-          <form action="https://jellyfin.example.com/sso/OID/start/authelia">
+          <form action="https://jellyfin.00a.ch/sso/OID/start/authelia">
             <button class="raised block emby-button button-submit">
               Sign in with SSO
             </button>
@@ -259,7 +259,7 @@ in
     };
   };
 
-  # TODO add delay before running, maybe some check if jellyfin is up?
+  # TODO add delay before running, maybe some check if jellyfin is up and ready?
   systemd.services.jellyfin-configure = {
     enable = config.services.jellyfin.enable;
 
@@ -267,18 +267,84 @@ in
     wants = [ config.systemd.services.jellyfin.name ];
 
     script = ''
-      ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
-        -u '/PluginConfiguration/WebConfig/EnableTrailers' \
-          -v 'false' \
-        -u '/PluginConfiguration/WebConfig/MaxItems' \
-          -v '10' \
-        ${config.services.jellyfin.dataDir}/plugins/configurations/Jellyfin.Plugin.MediaBar.xml
+      reload=0
+
+      mediaBarFile="${config.services.jellyfin.dataDir}/plugins/configurations/Jellyfin.Plugin.MediaBar.xml"
+      if [ -f "$mediaBarFile" ]; then
+        old_hash="$(sha256sum "$mediaBarFile" | awk '{print $1}')"
+
+        ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
+          -u "/PluginConfiguration/WebConfig/EnableTrailers" \
+            -v "false" \
+          -u "/PluginConfiguration/WebConfig/MaxItems" \
+            -v "10" \
+          "$mediaBarFile"
+
+        new_hash="$(sha256sum "$mediaBarFile" | awk '{print $1}')"
+
+        if [ "$old_hash" != "$new_hash" ]; then
+            reload=1
+        fi
+      fi
+
+      ssoAuthFile="${config.services.jellyfin.dataDir}/plugins/configurations/SSO-Auth.xml"
+      if [ -f "$ssoAuthFile" ]; then
+        old_hash="$(sha256sum "$ssoAuthFile" | awk '{print $1}')"
+
+        ${pkgs.xmlstarlet}/bin/xmlstarlet ed -L \
+          -d "/PluginConfiguration/OidConfigs/item" \
+          -s "/PluginConfiguration/OidConfigs" -t elem -n "item" \
+          -s "/PluginConfiguration/OidConfigs/item" -t elem -n "key" \
+          -s "/PluginConfiguration/OidConfigs/item/key" -t elem -n "string" \
+            -v "authelia" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']" -t elem -n "value" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value" -t elem -n "PluginConfiguration" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "Enabled" \
+            -v "true" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "OidEndpoint" \
+            -v "https://authelia.00a.ch" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "OidClientId" \
+            -v "jellyfin" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "OidSecret" \
+            -v "${secrets.authelia.oidcClientSecrets.jellyfin.secret}" \
+            -v "jellyfin" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "DisablePushedAuthorization" \
+            -v "true" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "OidScopes" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration/OidScopes" -t elem -n "string" \
+            -v "groups" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "EnableAuthorization" \
+            -v "true" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "RoleClaim" \
+            -v "groups" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "EnableAllFolders" \
+            -v "true" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "AdminRoles" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration/AdminRoles" -t elem -n "string" \
+            -v "admin" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "Roles" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration/Roles" -t elem -n "string" \
+            -v "admin" \
+          -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration/Roles" -t elem -n "string" \
+            -v "jellyfin" \
+          "$ssoAuthFile"
+
+        new_hash="$(sha256sum "$ssoAuthFile" | awk '{print $1}')"
+
+        if [ "$old_hash" != "$new_hash" ]; then
+            reload=1
+        fi
+      fi
+
+      if [ "$reload" -eq 1 ]; then
+        echo "Restarting ${config.systemd.services.jellyfin.name}"
+        systemctl restart ${config.systemd.services.jellyfin.name}
+      fi
     '';
 
-    serviceConfig = {
-      User = config.services.jellyfin.user;
-      Group = config.services.jellyfin.group;
-      Type = "oneshot";
-    };
+    serviceConfig.Type = "oneshot";
   };
 }
+
+# TODO check if any firewall rules are needed https://jellyfin.org/docs/general/post-install/networking/
+# TODO create module for https://github.com/CyferShepard/Jellystat
