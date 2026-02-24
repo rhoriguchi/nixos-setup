@@ -60,7 +60,7 @@
       }
     }/pkgs/servers/plex/raw.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=491477
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=491477
     netdata = super.callPackage (import "${
       super.fetchFromGitHub {
         owner = "NixOS";
