@@ -34,7 +34,7 @@ let
 
   ddnsZones = [ "local" ] ++ reverseZones;
 
-  baseZone =
+  ddnsZone =
     let
       ttl = config.services.kea.dhcp4.settings.valid-lifetime;
     in
@@ -58,10 +58,21 @@ let
       ];
     };
 
+  rpzZone = ddnsZone // {
+    TTL = 60;
+
+    SOA = ddnsZone.SOA // {
+      refresh = 60 * 60;
+      retry = 60 * 15;
+      expire = 60 * 60 * 14;
+      minimum = 60;
+    };
+  };
+
   zoneFiles = {
     "local" = pkgs.writeText "local.zone" (
       lib.dns.toString "local" (
-        baseZone
+        ddnsZone
         // {
           subdomains = {
             "${config.networking.hostName}".A = [ ips.urahara ];
@@ -86,7 +97,7 @@ let
       in
       pkgs.writeText "rpz.00a.ch.zone" (
         lib.dns.toString "rpz.00a.ch" (
-          baseZone
+          rpzZone
           // {
             subdomains =
               (cnames "${config.networking.hostName}.local" config.services.infomaniak.hostnames)
@@ -113,7 +124,7 @@ let
   }
   // lib.listToAttrs (
     map (
-      zone: lib.nameValuePair zone (pkgs.writeText "${zone}.zone" (lib.dns.toString zone baseZone))
+      zone: lib.nameValuePair zone (pkgs.writeText "${zone}.zone" (lib.dns.toString zone ddnsZone))
     ) reverseZones
   );
 in
