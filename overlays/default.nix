@@ -51,7 +51,7 @@
     }/pkgs/by-name/bo/borgmatic/package.nix") { };
 
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=484733
-    plexRaw = super.python3Packages.callPackage (import "${
+    plexRaw = super.callPackage (import "${
       super.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
