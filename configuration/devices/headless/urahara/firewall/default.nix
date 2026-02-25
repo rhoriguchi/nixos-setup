@@ -15,6 +15,8 @@ let
   ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 in
 {
+  imports = [ ./dns.nix ];
+
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.accept_redirects" = 0;
     "net.ipv4.conf.default.accept_redirects" = 0;
@@ -109,8 +111,6 @@ in
             ip daddr @rfc1918 drop
             ip6 daddr @rfc4193 drop
 
-            meta l4proto { tcp, udp } th dport { 53, 853 } jump dns-filter
-
             accept
           }
 
@@ -169,18 +169,6 @@ in
 
           chain lan-to-lan-ipv6 {
             drop
-          }
-
-          chain dns-filter {
-            iifname { ${
-              lib.concatStringsSep ", " (
-                [ "br0" ]
-                ++ lib.optional config.virtualisation.docker.enable "docker0"
-                ++ lib.optional config.virtualisation.podman.enable "podman0"
-              )
-            } } accept
-
-            reject
           }
         '';
       };

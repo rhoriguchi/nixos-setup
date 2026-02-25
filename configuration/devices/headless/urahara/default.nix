@@ -7,7 +7,7 @@
     ./derper.nix
     ./dhcp
     ./dns
-    ./firewall.nix
+    ./firewall
     ./interfaces.nix
     ./networking.nix
     ./unifi.nix
