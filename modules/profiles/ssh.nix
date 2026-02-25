@@ -17,7 +17,7 @@
       }
 
       chain input {
-        # Run after nixos-fw input chain, because of `services.openssh.openFirewall = true`
+        # Run after `nixos-fw` input chain, because of `services.openssh.openFirewall = true`
         type filter hook input priority filter + 10;
 
         tcp dport { ${
