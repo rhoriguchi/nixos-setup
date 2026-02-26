@@ -121,13 +121,13 @@ in
             tcp dport { 53317 } accept # LocalSend
             udp dport { 41641 } accept # Tailscale
 
-            meta nfproto ipv4 jump lan-to-lan-ipv4
-            meta nfproto ipv6 jump lan-to-lan-ipv6
+            meta nfproto ipv4 jump lan-to-lan-ipv4-filter
+            meta nfproto ipv6 jump lan-to-lan-ipv6-filter
 
             drop
           }
 
-          chain lan-to-lan-ipv4 {
+          chain lan-to-lan-ipv4-filter {
             ip daddr @multicast_ipv4_address accept
 
             iifname @management_network_interface oifname @management_network_interface accept
@@ -167,7 +167,7 @@ in
             }
           }
 
-          chain lan-to-lan-ipv6 {
+          chain lan-to-lan-ipv6-filter {
             drop
           }
         '';

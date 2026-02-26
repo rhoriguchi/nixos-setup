@@ -53,10 +53,10 @@ in
             # Run before `nixos-nat` prerouting chain
             type nat hook prerouting priority dstnat - 10;
 
-            meta l4proto { tcp, udp } th dport { 53 } jump dns-dnat
+            meta l4proto { tcp, udp } th dport { 53 } jump dns-dnat-filter
           }
 
-          chain dns-dnat {
+          chain dns-dnat-filter {
             ${lib.concatStringsSep "\n" (
               lib.mapAttrsToList (interface: dnsIp: ''
                 iifname { ${interface} } \
