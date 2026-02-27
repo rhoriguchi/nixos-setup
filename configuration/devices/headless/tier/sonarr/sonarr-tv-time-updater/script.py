@@ -3,8 +3,6 @@ import requests
 
 
 class TVTimeRequestHandler(object):
-    URL = 'https://app.tvtime.com/sidecar'
-
     def __init__(self, username, password):
         self._session = self._get_session()
         self._username = username
@@ -19,13 +17,11 @@ class TVTimeRequestHandler(object):
 
     def _login(self):
         anonymous_tokens = self._session.post(
-            self.URL,
-            params={'o': 'https://api2.tozelabs.com/v2/user'}
+            'https://api2.tozelabs.com/v2/user',
         ).json()['tvst_access_token']
 
         response = self._session.post(
-            self.URL,
-            params={'o': 'https://auth.tvtime.com/v1/login'},
+            'https://auth.tvtime.com/v1/login',
             headers={'Authorization': f'Bearer {anonymous_tokens}'},
             json={'username': self._username, 'password': self._password}
         )
@@ -40,7 +36,7 @@ class TVTimeRequestHandler(object):
 
         return jwt.decode(token, options={"verify_signature": False})['id']
 
-    def _get_tvdb_ids(self, params):
+    def _get_tvdb_ids(self, type):
         ids = set()
 
         limit = 500
@@ -48,13 +44,11 @@ class TVTimeRequestHandler(object):
 
         while True:
             response = self._session.get(
-                self.URL,
+                f'https://api2.tozelabs.com/v2/user/{self._profile_id}/to_watch',
                 params={
-                    **params,
-                    **{
-                        'offset': f'{offset}',
-                        'limit': f'{limit}'
-                    }
+                    'filter': type,
+                    'offset': str(offset),
+                    'limit': str(limit)
                 }
             )
 
@@ -73,21 +67,14 @@ class TVTimeRequestHandler(object):
     def get_tvdb_ids(self):
         ids = set()
 
-        ids = ids.union(self._get_tvdb_ids({
-            'o': f'https://api2.tozelabs.com/v2/user/{self._profile_id}/to_watch',
-            'filter': 'continue_watching'
-        }))
-        ids = ids.union(self._get_tvdb_ids({
-            'o': f'https://api2.tozelabs.com/v2/user/{self._profile_id}/to_watch',
-            'filter': 'not_watched_for_a_while'
-        }))
+        ids = ids.union(self._get_tvdb_ids('continue_watching'))
+        ids = ids.union(self._get_tvdb_ids('not_watched_for_a_while'))
 
         return ids
 
     def get_unwatched_episodes(self, tvdb_id):
         response = self._session.get(
-            self.URL,
-            params={'o': f'https://api2.tozelabs.com/v2/show/{tvdb_id}/extended'}
+            f'https://api2.tozelabs.com/v2/show/{tvdb_id}/extended',
         )
 
         unwatched = {}
