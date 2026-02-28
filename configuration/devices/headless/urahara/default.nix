@@ -10,6 +10,7 @@
     ./firewall
     ./interfaces.nix
     ./networking.nix
+    ./tv7.nix
     ./unifi.nix
     ./web-proxy.nix
 
