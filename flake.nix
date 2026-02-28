@@ -37,9 +37,7 @@
     };
 
     hyprland = {
-      # TODO uncomment after version > 0.53.3, providedSessions `hyprland-uwsm` missing
-      # url = "github:hyprwm/Hyprland?ref=v0.53.3";
-      url = "github:hyprwm/Hyprland?rev=81e7498ec27156ee97aabba6fe4993412d98d1ab";
+      url = "github:hyprwm/Hyprland?ref=v0.54.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
