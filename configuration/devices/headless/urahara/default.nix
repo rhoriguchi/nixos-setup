@@ -12,7 +12,7 @@
     ./networking.nix
     ./ntp.nix
     ./unifi.nix
-    ./web-proxy.nix
+    ./web-proxy
 
     ./hardware-configuration.nix
   ];
