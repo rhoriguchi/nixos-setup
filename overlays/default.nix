@@ -69,16 +69,6 @@
         sha256 = "sha256-L34ZhkplmlAEjC1VPrBaZplPd/J0vNoxg32TiC2I3LE=";
       }
     }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
-
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=493668
-    tmuxp = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "69e1dc6843dd8e27d7d70905857535c65146764a";
-        sha256 = "sha256-cudCqxbNYP2FON0TU/rAmGvewR6OEBCc4+UhTbpF3L4=";
-      }
-    }/pkgs/by-name/tm/tmuxp/package.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
