@@ -11,7 +11,7 @@
     ./interfaces.nix
     ./networking.nix
     ./unifi.nix
-    ./web-proxy.nix
+    ./web-proxy
 
     ./hardware-configuration.nix
   ];
