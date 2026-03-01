@@ -22,6 +22,10 @@ in
         }
       );
     };
+    transparent = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 
   config = lib.mkIf (config.services.nginx.enable && lib.attrNames cfg.upstreams != [ ]) {
@@ -57,6 +61,7 @@ in
           ssl_preread on;
 
           proxy_pass $upstream;
+          proxy_bind $remote_addr ${lib.optionalString cfg.transparent "transparent"};
         }
       '';
     };

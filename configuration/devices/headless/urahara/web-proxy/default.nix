@@ -39,6 +39,8 @@ let
   };
 in
 {
+  imports = [ ./transparent.nix ];
+
   networking.firewall.allowedTCPPorts = [
     config.services.nginx.defaultHTTPListenPort
     443
