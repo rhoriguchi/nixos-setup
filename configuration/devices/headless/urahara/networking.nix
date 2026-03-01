@@ -148,13 +148,19 @@ in
           ip pim
           ip igmp
 
+          ip igmp proxy
+
         interface ${internalInterface}.3
           ip pim
           ip igmp
 
+          ip igmp proxy
+
         interface ${internalInterface}.10
           ip pim
           ip igmp
+
+          ip igmp proxy
       '';
     };
 
