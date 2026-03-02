@@ -6,8 +6,8 @@ let
     let
       owner = "NixOS";
       repo = "nixpkgs";
-      rev = "9d171f0f9fd8260b7e0662bc6691303583ab353d";
-      sha256 = "sha256:1wlqfrb19nisi7phl87gbv5clcmli117m6r1waq5cbxdln042202";
+      rev = "cb63144f5dff4fae01d8eaccbeaba916348dbc8a";
+      sha256 = "sha256:115yr8apxh9di840bf8hhxipq24dk8an4zhgd1mx7j0571vyqpzc";
     in
     builtins.fetchTarball {
       name = "nixpkgs";
