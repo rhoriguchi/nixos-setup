@@ -18,14 +18,14 @@
             "sensor.reduit_badring_battery"
             "sensor.reduit_h_t_gen3_battery"
           ];
-          below = 26;
+          below = 11;
         }
       ];
       actions = [
         {
           action = "notify.home_assistant_bot";
           data = {
-            message = "{{ trigger.to_state.name }} has 25% or less battery";
+            message = "{{ trigger.to_state.name }} has 10% or less battery";
             target = [ "1285383628527763579" ];
           };
         }
