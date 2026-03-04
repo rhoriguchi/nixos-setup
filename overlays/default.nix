@@ -40,16 +40,6 @@
       }
     }/pkgs/by-name/bo/borgmatic/package.nix") { };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=484733
-    plexRaw = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "d89511b8bc3a29eccc34bebf5fcfaf0f0ff47914";
-        sha256 = "sha256-MZCupUOTpVPrMvdSpQ+JmF8+TcojJiNJqTGt+RQtF9I=";
-      }
-    }/pkgs/servers/plex/raw.nix") { };
-
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=491477
     netdata = super.callPackage (import "${
       super.fetchFromGitHub {
