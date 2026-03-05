@@ -13,7 +13,7 @@
       set rfc4193 {
         type ipv6_addr;
         flags interval;
-        elements = { fc00::/8 }
+        elements = { fc00::/7 }
       }
 
       chain input {
