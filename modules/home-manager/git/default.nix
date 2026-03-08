@@ -6,7 +6,10 @@
   ...
 }:
 {
-  imports = [ ./template.nix ];
+  imports = [
+    ./diffnav.nix
+    ./template.nix
+  ];
 
   home.activation.deleteGitconfig = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
     rm -f '${config.home.homeDirectory}/.gitconfig'
