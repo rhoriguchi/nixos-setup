@@ -27,6 +27,7 @@
       "--force-reauth"
       "--login-server=https://headscale.00a.ch"
       "--reset"
+      "--ssh=false"
     ];
   };
 }
