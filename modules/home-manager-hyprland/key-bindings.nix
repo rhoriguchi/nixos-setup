@@ -99,8 +99,8 @@ in
 
       # r	release	Will trigger on release of a key.
       bindr = [
-        "$mainMod, M, submap, move"
-        "$mainMod, N, submap, resize"
+        "$mainMod, M, submap, Move"
+        "$mainMod, N, submap, Resize"
       ];
 
       # e	repeat	Will repeat when held.
@@ -158,7 +158,7 @@ in
     };
 
     submaps = {
-      move.settings = {
+      Move.settings = {
         # r	release	Will trigger on release of a key.
         bindr = [
           ", escape, submap, reset"
@@ -174,7 +174,7 @@ in
         ];
       };
 
-      resize.settings = {
+      Resize.settings = {
         # r	release	Will trigger on release of a key.
         bindr = [
           ", escape, submap, reset"

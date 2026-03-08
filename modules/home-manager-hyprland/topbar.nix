@@ -258,7 +258,6 @@ in
       };
 
       # TODO HYPRLAND make red or accent background?
-      # TODO HYPRLAND capitalize first letter or all?
       "hyprland/submap" = {
         format = "  {}";
 
