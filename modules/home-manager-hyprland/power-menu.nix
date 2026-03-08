@@ -19,8 +19,6 @@
     {
       label = "Shutdown";
       exec = "${osConfig.systemd.package}/bin/systemctl poweroff";
-      # TODO HYPRLAND do i need `-i` which ignores inhibitors
-      # exec = "${config.systemd.package}/bin/systemctl -i poweroff";
       icon = "${pkgs.nwg-bar}/share/nwg-bar/images/system-shutdown.svg";
     }
     {
