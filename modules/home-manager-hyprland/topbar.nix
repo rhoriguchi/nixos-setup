@@ -11,7 +11,6 @@ in
 {
   # TODO HYPRLAND add to the right side power button which calls power menu
   # TODO HYPRLAND add custom icon module to show nightlight state and toggle it
-  # TODO HYPRLAND icon theme not working
 
   programs.waybar = {
     enable = true;
