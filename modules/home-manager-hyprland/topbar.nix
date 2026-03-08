@@ -343,13 +343,13 @@ in
         border-bottom: 3px solid #ffffff;
       }
 
-      menu {
+      menu, tooltip {
         background-color: ${colors.extra.terminal.background};
         border: 1px solid ${colors.extra.terminal.border};
         padding: 5px;
       }
 
-      menuitem label {
+      menuitem label, tooltip label {
         color: ${colors.normal.white};
       }
 
