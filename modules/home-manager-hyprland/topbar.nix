@@ -279,6 +279,7 @@ in
       * {
         font-family: ${config.gtk.font.name};
         font-size: 17px;
+        font-feature-settings: "tnum";
         color: ${colors.normal.white};
       }
 
