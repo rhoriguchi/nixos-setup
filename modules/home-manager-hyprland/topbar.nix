@@ -251,7 +251,6 @@ in
         on-scroll-down = "${pkgs.wireplumber}/bin/wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-";
       };
 
-      # TODO HYPRLAND right click styling is unreadable
       # TODO HYPRLAND add css to align center
       tray = {
         icon-size = 22;
@@ -342,6 +341,20 @@ in
       #mode {
         background-color:rgb(0, 255, 47);
         border-bottom: 3px solid #ffffff;
+      }
+
+      menu {
+        background-color: ${colors.extra.terminal.background};
+        border: 1px solid ${colors.extra.terminal.border};
+        padding: 5px;
+      }
+
+      menuitem label {
+        color: ${colors.normal.white};
+      }
+
+      menuitem:hover {
+        background-color: ${colors.normal.accent};
       }
 
       ${
