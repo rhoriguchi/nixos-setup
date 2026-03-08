@@ -35,6 +35,9 @@ in
 
         # TODO HYPRLAND move to center?
         "hyprland/submap"
+
+        # Needed for `window#waybar.empty`
+        "hyprland/window"
       ];
       modules-center = [ "hyprland/workspaces" ];
       modules-right = [
@@ -265,6 +268,8 @@ in
         tooltip = false;
       };
 
+      "hyprland/window".format = "";
+
       "hyprland/workspaces" = {
         sort-by-number = true;
 
@@ -281,13 +286,10 @@ in
 
       window#waybar {
         background-color: ${colors.normal.black};
-        border-bottom: none;
+        border: none;
       }
 
-      /* TODO HYPRLAND https://github.com/Alexays/Waybar/issues/1399 */
-      /* TODO HYPRLAND https://github.com/Alexays/Waybar/issues/1634 */
-      /* TODO HYPRLAND does not work */
-      window#waybar.hidden {
+      window#waybar.empty {
         background-color: transparent;
       }
 
