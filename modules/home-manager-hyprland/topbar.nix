@@ -70,8 +70,8 @@ in
 
         scroll-step = 1;
         smooth-scrolling-threshold = 1;
-        on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl -e4 -n2 set 3%+";
-        on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl -e4 -n2 set 3%-";
+        on-scroll-up = "${pkgs.wtype}/bin/wtype -k XF86MonBrightnessUp";
+        on-scroll-down = "${pkgs.wtype}/bin/wtype -k XF86MonBrightnessDown";
 
         tooltip = false;
       };
@@ -243,12 +243,12 @@ in
 
         tooltip = false;
 
-        on-click = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        on-click = "${pkgs.wtype}/bin/wtype -k XF86AudioMute";
 
         scroll-step = 5;
         smooth-scrolling-threshold = 1;
-        on-scroll-up = "${pkgs.wireplumber}/bin/wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+";
-        on-scroll-down = "${pkgs.wireplumber}/bin/wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-";
+        on-scroll-up = "${pkgs.wtype}/bin/wtype -k XF86AudioRaiseVolume";
+        on-scroll-down = "${pkgs.wtype}/bin/wtype -k XF86AudioLowerVolume";
       };
 
       # TODO HYPRLAND add css to align center
