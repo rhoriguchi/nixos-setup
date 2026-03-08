@@ -51,9 +51,8 @@
     general = {
       layout = "dwindle";
 
-      # TODO HYPRLAND only add spacing on none screen sides https://github.com/hyprwm/Hyprland/issues/2324
       gaps_in = 5;
-      gaps_out = 5;
+      gaps_out = 0;
       border_size = 3;
 
       "col.active_border" = "rgb(${lib.removePrefix "#" colors.normal.accent})";
