@@ -31,8 +31,6 @@ in
         "pulseaudio"
         "bluetooth"
         "network"
-
-        # TODO HYPRLAND move to center?
         "hyprland/submap"
 
         # Needed for `window#waybar.empty`
@@ -142,9 +140,6 @@ in
       };
 
       "custom/notification" = {
-        # TODO HYPRLAND maybe add notification count?
-        #  Alternatively, the number of notifications can be shown by adding `{}` anywhere in the `format` field in the Waybar config
-        # format = "{} {icon}";
         format = "{icon}";
         format-icons = {
           notification = " <sup> </sup>";
@@ -160,8 +155,6 @@ in
         exec = "${config.services.swaync.package}/bin/swaync-client --subscribe-waybar";
         on-click = "${config.services.swaync.package}/bin/swaync-client --toggle-dnd";
         on-click-right = "${config.services.swaync.package}/bin/swaync-client --toggle-panel";
-        # TODO HYPRLAND what does this do?
-        escape = true;
 
         tooltip = false;
       };
@@ -177,7 +170,6 @@ in
       idle_inhibitor = {
         format = "{icon}";
         format-icons = {
-          # TODO HYPRLAND change color when active?
           activated = " ";
           deactivated = "<span color='${disabledColor}'> </span>";
         };
