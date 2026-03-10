@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = [
+    pkgs.jetbrains.pycharm-oss
     pkgs.poetry
     pkgs.python3
     pkgs.python3Packages.black
