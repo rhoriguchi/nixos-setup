@@ -18,16 +18,16 @@
         secrets.headscale.preAuthKeys.${config.networking.hostName}.key;
 
     extraSetFlags = [
-      "--accept-dns=false"
-      "--accept-routes=false"
       "--update-check=false"
     ];
 
     extraUpFlags = [
-      "--force-reauth"
+      "--accept-dns=false"
+      "--accept-routes=false"
       "--login-server=https://headscale.00a.ch"
-      "--reset"
       "--ssh=false"
+
+      "--force-reauth"
     ];
   };
 }
