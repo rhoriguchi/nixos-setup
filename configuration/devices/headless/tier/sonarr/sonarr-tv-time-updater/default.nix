@@ -36,11 +36,11 @@
 
                   excludedTvdbIds = lib.concatStringsSep ", " (
                     map (tvdbId: toString tvdbId) [
-                      366924 # Reacher
-                      371980 # Severance
-                      393204 # Ironheart
-                      397060 # Wednesday
-                      422712 # Daredevil: Born Again
+                      366924 # Reacher(2022)
+                      371980 # Severance(2022)
+                      393204 # Ironheart(2025)
+                      397060 # Wednesday(2022)
+                      422712 # Daredevil: Born Again(2025)
                     ]
                   );
                 }
