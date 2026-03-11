@@ -130,10 +130,13 @@
         "editor.bracketPairColorization.enabled" = true;
         "editor.defaultColorDecorators" = "auto";
         "editor.fontFamily" = "JetBrainsMono Nerd Font";
+        "editor.formatOnSave" = true;
         "editor.guides.bracketPairs" = true;
+        "editor.insertSpaces" = true;
         "editor.linkedEditing" = true;
         "editor.renderWhitespace" = "trailing";
         "editor.suggestSelection" = "first";
+        "editor.tabSize" = 4;
         "editor.tokenColorCustomizations".comments = "#767676";
         "editor.unicodeHighlight.includeComments" = true;
         "explorer.compactFolders" = false;
@@ -177,10 +180,6 @@
         "files.trimTrailingWhitespace" = true;
         "git.autofetch" = "all";
         "githubPullRequests.terminalLinksHandler" = "github";
-        "importCost.javascriptExtensions" = [
-          ''\.jsx?$''
-          ''\.tsx?$''
-        ];
         "javascript.updateImportsOnFileMove.enabled" = "always";
         "javascript.updateImportsOnPaste.enabled" = true;
         "peacock.affectActivityBar" = true;
