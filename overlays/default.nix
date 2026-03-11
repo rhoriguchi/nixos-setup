@@ -59,6 +59,16 @@
         sha256 = "sha256-XPwb9JOhdsqMzK0yzegD2nZqK/lIUAez7kWbv943kXQ=";
       }
     }/pkgs/by-name/di/diffnav/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=498634
+    adguardhome = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "9e1cc056207e0d6ca2eb9222f60065fa6680b810";
+        sha256 = "sha256-ZHYlQokZKMBFC+pQGa7FWYeUGluhcPwLmdyASrRwH/4=";
+      }
+    }/pkgs/by-name/ad/adguardhome/package.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
