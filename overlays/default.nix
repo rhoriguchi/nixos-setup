@@ -60,6 +60,16 @@
       }
     }/pkgs/by-name/di/diffnav/package.nix") { };
 
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=498283
+    ghostty = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "85c85d3c50308c91aac766d7ba897d07d95c533d";
+        sha256 = "sha256-mzyfVmmcDW6qa2scyrPZ0RoKKDC3DYfkEe23ly7I3aM=";
+      }
+    }/pkgs/by-name/gh/ghostty/package.nix") { };
+
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=498634
     adguardhome = super.callPackage (import "${
       super.fetchFromGitHub {

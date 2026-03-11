@@ -37,6 +37,8 @@
         theme = "Custom";
         selection-invert-fg-bg = true;
 
+        scrollbar = if config.programs.tmux.enable then "never" else "system";
+
         font-size = 10;
         font-style = "RobotoMono Nerd Font";
         font-style-bold = "RobotoMono Nerd Font Bd";
@@ -59,8 +61,6 @@
         clipboard-paste-protection = false;
         copy-on-select = false;
 
-        # TODO currently does not exist https://ghostty.org/docs/config/reference#link
-        # link = false;
         link-url = true;
 
         keybind = [
