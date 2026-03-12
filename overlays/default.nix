@@ -50,26 +50,6 @@
       }
     }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=491135
-    diffnav = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "f0878737b9eff6f8c67338b4872eb409b675e359";
-        sha256 = "sha256-XPwb9JOhdsqMzK0yzegD2nZqK/lIUAez7kWbv943kXQ=";
-      }
-    }/pkgs/by-name/di/diffnav/package.nix") { };
-
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=498283
-    ghostty = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "85c85d3c50308c91aac766d7ba897d07d95c533d";
-        sha256 = "sha256-mzyfVmmcDW6qa2scyrPZ0RoKKDC3DYfkEe23ly7I3aM=";
-      }
-    }/pkgs/by-name/gh/ghostty/package.nix") { };
-
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=498634
     adguardhome = super.callPackage (import "${
       super.fetchFromGitHub {
