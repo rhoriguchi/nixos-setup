@@ -23,6 +23,7 @@
     "no_screen_share on, match:class firefox, match:title .*Gmail — Mozilla Firefox"
     "no_screen_share on, match:class firefox, match:title .*WhatsApp — Mozilla Firefox"
     "no_screen_share on, match:class firefox, match:title ^(Extension: \\(Bitwarden Password Manager\\) - Bitwarden — Mozilla Firefox)$"
+    "no_screen_share on, match:class firefox, match:title Cashew — Mozilla Firefox"
     "no_screen_share on, match:class org.gnome.seahorse.Application"
     "no_screen_share on, match:class org.keepassxc.KeePassXC"
     "no_screen_share on, match:class org.telegram.desktop"
