@@ -59,10 +59,12 @@ in
 
         privateKey = getValue configText "PrivateKey";
         publicKey = getValue configText "PublicKey";
-        ipCdr = getValue configText "Address";
+        addresses = getValue configText "Address";
+        ipCdr = lib.head (lib.splitString ", " addresses);
         endpoint = getValue configText "Endpoint";
         endpointIp = lib.head (lib.splitString ":" endpoint);
-        nameserver = getValue configText "DNS";
+        nameservers = getValue configText "DNS";
+        nameserver = lib.head (lib.splitString ", " nameservers);
       in
       {
         system = {
