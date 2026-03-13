@@ -6,7 +6,9 @@
   ...
 }:
 {
-  home.sessionVariables.BROWSER = "${config.programs.firefox.package}/bin/firefox";
+  home.sessionVariables.BROWSER = lib.mkIf (
+    config.programs.firefox.package != null
+  ) "${config.programs.firefox.package}/bin/firefox";
 
   programs = {
     # Don't set if `null`, `userSettings` uses mkMerge so options can't be overwritten
