@@ -46,6 +46,7 @@ in
     depends = [ blueMapWebRoot ];
     device = blueMapWebRoot;
     fsType = "fuse.bindfs";
+    noCheck = true;
     options = [
       # `ro` causes kernel panic
       "perms=0550"

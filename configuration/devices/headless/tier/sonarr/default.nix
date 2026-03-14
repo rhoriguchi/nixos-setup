@@ -156,6 +156,7 @@ in
       depends = [ config.services.resilio.syncPath ];
       device = "${config.services.resilio.syncPath}/Series";
       fsType = "fuse.bindfs";
+      noCheck = true;
       options = [
         "map=${
           lib.concatStringsSep ":" [
@@ -170,6 +171,7 @@ in
       depends = [ "/mnt/Data/Series" ];
       device = "/mnt/Data/Series";
       fsType = "fuse.bindfs";
+      noCheck = true;
       options = [
         "map=${
           lib.concatStringsSep ":" [

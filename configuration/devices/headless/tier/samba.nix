@@ -18,6 +18,7 @@ in
     depends = [ config.services.resilio.syncPath ];
     device = "${config.services.resilio.syncPath}/Series";
     fsType = "fuse.bindfs";
+    noCheck = true;
     options = [
       # `ro` causes kernel panic
       "perms=0550"

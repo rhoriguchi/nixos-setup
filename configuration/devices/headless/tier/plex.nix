@@ -18,6 +18,7 @@ in
       depends = [ config.services.resilio.syncPath ];
       device = "${config.services.resilio.syncPath}/Movies";
       fsType = "fuse.bindfs";
+      noCheck = true;
       options = [
         # `ro` causes kernel panic
         "perms=0550"
@@ -34,6 +35,7 @@ in
       depends = [ config.services.resilio.syncPath ];
       device = "${config.services.resilio.syncPath}/Series";
       fsType = "fuse.bindfs";
+      noCheck = true;
       options = [
         # `ro` causes kernel panic
         "perms=0550"
@@ -50,6 +52,7 @@ in
       depends = [ "/mnt/Data/Movies" ];
       device = "/mnt/Data/Movies";
       fsType = "fuse.bindfs";
+      noCheck = true;
       options = [
         # `ro` causes kernel panic
         "perms=0550"
@@ -66,6 +69,7 @@ in
       depends = [ "/mnt/Data/Series" ];
       device = "/mnt/Data/Series";
       fsType = "fuse.bindfs";
+      noCheck = true;
       options = [
         # `ro` causes kernel panic
         "perms=0550"
