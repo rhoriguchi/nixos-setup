@@ -10,30 +10,130 @@ let
   group = "samba";
 
   rootBindmountDir = "/mnt/bindmount/samba";
-  bindmountDir = "${rootBindmountDir}/resilio-Series";
+  bindmountDir1 = "${rootBindmountDir}/resilio-Movies";
+  bindmountDir2 = "${rootBindmountDir}/resilio-Series";
+  bindmountDir3 = "${rootBindmountDir}/disk-Movies";
+  bindmountDir4 = "${rootBindmountDir}/disk-Series";
+
+  rootMergerfsDir = "/mnt/mergerfs/samba";
+  mergerfsDir1 = "${rootMergerfsDir}/Movies";
+  mergerfsDir2 = "${rootMergerfsDir}/Series";
 in
 {
-  system.fsPackages = [ pkgs.bindfs ];
-  fileSystems.${bindmountDir} = {
-    depends = [ config.services.resilio.syncPath ];
-    device = "${config.services.resilio.syncPath}/Series";
-    fsType = "fuse.bindfs";
-    noCheck = true;
-    options = [
-      # `ro` causes kernel panic
-      "perms=0550"
-      "map=${
-        lib.concatStringsSep ":" [
-          "${config.services.resilio.user}/${user}"
-          "@${config.services.resilio.group}/@${group}"
-        ]
-      }"
-    ];
+  system.fsPackages = [ pkgs.mergerfs ];
+  fileSystems = {
+    "${bindmountDir1}" = {
+      depends = [ config.services.resilio.syncPath ];
+      device = "${config.services.resilio.syncPath}/Movies";
+      fsType = "fuse.bindfs";
+      noCheck = true;
+      options = [
+        # `ro` causes kernel panic
+        "perms=0550"
+        "map=${
+          lib.concatStringsSep ":" [
+            "${config.services.resilio.user}/${user}"
+            "@${config.services.resilio.group}/@${group}"
+          ]
+        }"
+      ];
+    };
+
+    "${bindmountDir2}" = {
+      depends = [ config.services.resilio.syncPath ];
+      device = "${config.services.resilio.syncPath}/Series";
+      fsType = "fuse.bindfs";
+      noCheck = true;
+      options = [
+        # `ro` causes kernel panic
+        "perms=0550"
+        "map=${
+          lib.concatStringsSep ":" [
+            "${config.services.resilio.user}/${user}"
+            "@${config.services.resilio.group}/@${group}"
+          ]
+        }"
+      ];
+    };
+
+    "${bindmountDir3}" = {
+      depends = [ "/mnt/Data/Movies" ];
+      device = "/mnt/Data/Movies";
+      fsType = "fuse.bindfs";
+      noCheck = true;
+      options = [
+        # `ro` causes kernel panic
+        "perms=0550"
+        "map=${
+          lib.concatStringsSep ":" [
+            "root/${user}"
+            "@root/@${group}"
+          ]
+        }"
+      ];
+    };
+
+    "${bindmountDir4}" = {
+      depends = [ "/mnt/Data/Series" ];
+      device = "/mnt/Data/Series";
+      fsType = "fuse.bindfs";
+      noCheck = true;
+      options = [
+        # `ro` causes kernel panic
+        "perms=0550"
+        "map=${
+          lib.concatStringsSep ":" [
+            "root/${user}"
+            "@root/@${group}"
+          ]
+        }"
+      ];
+    };
+
+    "${mergerfsDir1}" = {
+      depends = [
+        bindmountDir1
+        bindmountDir3
+      ];
+      device = lib.concatStringsSep ":" [
+        "${bindmountDir1}/Anime"
+        "${bindmountDir1}/Movies"
+        bindmountDir3
+      ];
+      fsType = "fuse.mergerfs";
+      noCheck = true;
+      options = [
+        "allow_other"
+      ];
+    };
+
+    "${mergerfsDir2}" = {
+      depends = [
+        bindmountDir2
+        bindmountDir4
+      ];
+      device = lib.concatStringsSep ":" [
+        bindmountDir2
+        bindmountDir4
+      ];
+      fsType = "fuse.mergerfs";
+      noCheck = true;
+      options = [
+        "allow_other"
+      ];
+    };
   };
 
   systemd.tmpfiles.rules = [
     "d ${rootBindmountDir} 0550 ${user} ${group}"
-    "d ${bindmountDir} 0550 ${user} ${group}"
+    "d ${bindmountDir1} 0550 ${user} ${group}"
+    "d ${bindmountDir2} 0550 ${user} ${group}"
+    "d ${bindmountDir3} 0550 ${user} ${group}"
+    "d ${bindmountDir4} 0550 ${user} ${group}"
+
+    "d ${rootMergerfsDir} 0550 ${user} ${group}"
+    "d ${mergerfsDir1} 0550 ${user} ${group}"
+    "d ${mergerfsDir2} 0550 ${user} ${group}"
   ];
 
   users = {
@@ -92,8 +192,20 @@ in
         "show add printer wizard" = "no";
       };
 
+      Movies = {
+        "path" = mergerfsDir1;
+        "browseable" = "yes";
+        "read only" = "yes";
+
+        "valid users" = [ user ];
+        "force user" = user;
+        "force group" = group;
+
+        "veto files" = lib.concatStringsSep "/" [ ".sync" ];
+      };
+
       Series = {
-        "path" = bindmountDir;
+        "path" = mergerfsDir2;
         "browseable" = "yes";
         "read only" = "yes";
 

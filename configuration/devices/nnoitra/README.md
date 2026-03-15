@@ -118,7 +118,8 @@ type NUL > "%FilePath%"
 
 echo @echo off >> "%FilePath%"
 echo. >> "%FilePath%"
-echo net use Z: "\\XXLPitu-Tier.local\Series" /user:samba "PASSWORD" >> "%FilePath%"
+echo net use X: "\\XXLPitu-Tier.local\Movies" /user:samba "PASSWORD" >> "%FilePath%"
+echo net use Y: "\\XXLPitu-Tier.local\Series" /user:samba "PASSWORD" >> "%FilePath%"
 ```
 
 ## Autostart
