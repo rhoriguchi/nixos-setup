@@ -48,7 +48,6 @@ in
     fsType = "fuse.bindfs";
     noCheck = true;
     options = [
-      # `ro` causes kernel panic
       "perms=0550"
       "map=${
         lib.concatStringsSep ":" [
