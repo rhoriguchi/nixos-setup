@@ -128,6 +128,8 @@ in
     avahi = {
       enable = true;
 
+      ipv6 = false;
+
       reflector = true;
       allowInterfaces = [
         "${internalInterface}.2"
