@@ -27,6 +27,10 @@ let
   );
 in
 {
+  # TODO
+  # Block with AdGuard Home all DoH domains https://github.com/hagezi/dns-blocklists/blob/main/domains/doh.txt
+  # DNAT all DoH ips https://github.com/hagezi/dns-blocklists/blob/main/ips/doh.txt might break other stuff?
+
   networking = {
     nftables = {
       enable = true;
