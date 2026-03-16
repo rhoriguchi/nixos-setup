@@ -385,29 +385,27 @@ in
                 type = "custom:battery-state-card";
                 title = "Battery";
 
+                filters = { };
+
                 bulk_rename = [
                   {
                     from = "FP5 Battery level";
                     to = "Ryan Fairphone 5";
                   }
-                  {
-                    from = "iPhone von ";
-                  }
+                  { from = "iPhone von "; }
                   {
                     from = "Battery Level";
                     to = "iPhone 17 Pro Max";
                   }
 
                   # Shelly H&T Gen3
-                  {
-                    from = " H&T Gen3 battery";
-                  }
+                  { from = " H&T Gen3 Battery"; }
 
                   # Hue Dimmer switch
-                  { from = " Dimmer switch"; }
+                  { from = " Dimmer switch Battery"; }
 
                   # Ikea Badring
-                  { from = " badring"; }
+                  { from = " Badring Battery"; }
                 ];
                 sort.by = "name";
 
