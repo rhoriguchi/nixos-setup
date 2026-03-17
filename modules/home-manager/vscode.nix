@@ -120,7 +120,6 @@
       };
 
       userSettings = {
-        "chat.disableAIFeatures" = true;
         "cSpell.enabledFileTypes"."*" = true;
         "cSpell.userWords" = [
           "horiguchi"
