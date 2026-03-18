@@ -24,28 +24,28 @@
         "break"
 
         {
-          type = "os";
+          type = "OS";
           key = " DISTRO";
           format = "{name} {version-id} ({codename}) {arch}";
           keyColor = colors.normal.accent;
         }
         {
-          type = "kernel";
+          type = "Kernel";
           key = "│ ├";
           keyColor = colors.normal.accent;
         }
         {
-          type = "packages";
+          type = "Packages";
           key = "│ ├󰏖";
           keyColor = colors.normal.accent;
         }
         {
-          type = "shell";
+          type = "Shell";
           key = "│ ├";
           keyColor = colors.normal.accent;
         }
         {
-          type = "command";
+          type = "Command";
           key = "│ └";
           text = "birth_install=${
             lib.concatStringsSep "; " [
@@ -60,74 +60,74 @@
         }
 
         {
-          type = "wm";
+          type = "WM";
           key = " DE/WM";
           keyColor = colors.normal.accent;
         }
         {
-          type = "theme";
+          type = "WMTheme";
           key = "│ ├󰉼";
           keyColor = colors.normal.accent;
         }
         {
-          type = "icons";
+          type = "Icons";
           key = "│ ├󰀻";
           keyColor = colors.normal.accent;
         }
         {
-          type = "cursor";
+          type = "Cursor";
           key = "│ ├";
           keyColor = colors.normal.accent;
         }
         {
-          type = "terminalfont";
+          type = "TerminalFont";
           key = "│ ├";
           keyColor = colors.normal.accent;
         }
         {
-          type = "terminal";
+          type = "Terminal";
           key = "│ └";
           keyColor = colors.normal.accent;
         }
 
         {
-          type = "host";
+          type = "Host";
           key = "󰌢 SYSTEM";
           keyColor = colors.normal.accent;
         }
         {
-          type = "cpu";
+          type = "CPU";
           key = "│ ├󰻠";
           format = "{name}";
           keyColor = colors.normal.accent;
         }
         {
-          type = "gpu";
+          type = "GPU";
           key = "│ ├󰻑";
           format = "{name}";
           keyColor = colors.normal.accent;
         }
         {
-          type = "display";
+          type = "Display";
           key = "│ ├󰍹";
           compactType = "original-with-refresh-rate";
           keyColor = colors.normal.accent;
         }
         {
-          type = "memory";
+          type = "Memory";
           key = "│ ├󰾆";
           percent.type = [ "num" ];
           keyColor = colors.normal.accent;
         }
         {
-          type = "disk";
+          type = "Disk";
           key = "│ ├󰉉";
           format = "({mountpoint}) {size-used} / {size-total} ({size-percentage})";
           percent.type = [ "num" ];
           keyColor = colors.normal.accent;
         }
         {
-          type = "uptime";
+          type = "Uptime";
           key = "│ └󰅐";
           keyColor = colors.normal.accent;
         }
