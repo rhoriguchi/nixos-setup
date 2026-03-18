@@ -125,9 +125,7 @@ in
       };
       "org/gnome/shell" = {
         app-picker-layout = [ ];
-        enabled-extensions = map (
-          extension: if lib.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid
-        ) extensions;
+        enabled-extensions = map (extension: extension.extensionUuid or extension.uuid) extensions;
         favorite-apps = [ ];
         welcome-dialog-last-shown-version = "9999999999";
       };

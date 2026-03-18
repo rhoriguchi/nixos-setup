@@ -48,9 +48,7 @@ in
             disable-extension-version-validation = true;
             disable-user-extensions = false;
             disabled-extensions = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
-            enabled-extensions = map (
-              extension: if lib.hasAttr "extensionUuid" extension then extension.extensionUuid else extension.uuid
-            ) extensions;
+            enabled-extensions = map (extension: extension.extensionUuid or extension.uuid) extensions;
           };
           "org/gnome/shell/extensions/user-theme".name = "Yaru";
         };
