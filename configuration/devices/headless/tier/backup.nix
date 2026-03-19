@@ -5,8 +5,6 @@
   ...
 }:
 let
-  postgresBackupDir = "/var/lib/borgmatic/postgres";
-
   backupDir = "/mnt/Data/Backup/${config.networking.hostName}";
 in
 {
@@ -41,8 +39,7 @@ in
         config.services.prowlarr.dataDir
         config.services.resilio.syncPath
         config.services.tautulli.dataDir
-      ]
-      ++ lib.optional config.services.postgresql.enable postgresBackupDir;
+      ];
 
       repositories = [
         {
@@ -50,71 +47,26 @@ in
           path = backupDir;
         }
       ];
+    }
+    // lib.optionalAttrs config.services.postgresql.enable {
+      postgresql_databases = map (database: {
+        name = database;
+        username = database;
+      }) config.services.postgresql.ensureDatabases;
     };
   };
 
-  # Workaround for peer based authentication and privileges escalation since service is hardened
-  systemd = {
-    services = lib.listToAttrs (
-      map (
-        database:
-        lib.nameValuePair "borgmatic-postgres-dump-${database}" {
-          wantedBy = [ "multi-user.target" ];
-          after = [ config.systemd.services.postgresql.name ];
+  system.activationScripts.borgmatic = ''
+    # Disable error trap since list can fail if the backup is running
+    trap - ERR
 
-          script = ''
-            ${config.services.postgresql.package}/bin/pg_dump ${
-              lib.concatStringsSep " " [
-                "--blobs"
-                "--clean"
-                "--format custom"
-                "--if-exists"
-              ]
-            } ${database} > '${postgresBackupDir}/${database}.sql'
-          '';
+    mkdir -p '${backupDir}'
 
-          serviceConfig = {
-            User = database;
-            Restart = "on-abort";
-            Type = "oneshot";
-          };
-        }
-      ) config.services.postgresql.ensureDatabases
-    );
+    if ! ${pkgs.borgbackup}/bin/borg list '${backupDir}' >/dev/null 2>&1; then
+      ${pkgs.borgbackup}/bin/borg init --encryption=none '${backupDir}'
+    fi
 
-    timers = lib.listToAttrs (
-      map (
-        database:
-        lib.nameValuePair "borgmatic-postgres-dump-${database}" {
-          wantedBy = [ "timers.target" ];
-
-          timerConfig = {
-            OnCalendar = "daily";
-            RandomizedDelaySec = 60 * 60;
-          };
-        }
-      ) config.services.postgresql.ensureDatabases
-    );
-  };
-
-  system.activationScripts = {
-    borgmatic = ''
-      # Disable error trap since list can fail if the backup is running
-      trap - ERR
-
-      mkdir -p '${backupDir}'
-
-      if ! ${pkgs.borgbackup}/bin/borg list '${backupDir}' >/dev/null 2>&1; then
-        ${pkgs.borgbackup}/bin/borg init --encryption=none '${backupDir}'
-      fi
-
-      # Enable error trap again
-      trap "_status=1 _localstatus=\$?" ERR
-    '';
-
-    borgmatic-postgres-dump = lib.optionalString config.services.postgresql.enable ''
-      mkdir -p '${postgresBackupDir}'
-      chmod 777 '${postgresBackupDir}'
-    '';
-  };
+    # Enable error trap again
+    trap "_status=1 _localstatus=\$?" ERR
+  '';
 }
