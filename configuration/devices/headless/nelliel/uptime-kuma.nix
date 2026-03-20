@@ -107,6 +107,25 @@ let
       );
 
       INSERT INTO monitor (
+        id,
+        name,
+        user_id,
+        type,
+        push_token,
+        interval,
+        retry_interval
+      )
+      VALUES (
+        '2',
+        'Borgmatic backup',
+        1,
+        'push',
+        '${secrets.uptime-kuma.pushTokens.borgmaticBackup}',
+        ${toString ((60 * 60 * 24) + (60 * 60 * 6))},
+        0
+      );
+
+      INSERT INTO monitor (
         name,
         user_id,
         type,
@@ -128,47 +147,52 @@ let
       )}
     '';
 
-  addNotification = ''
-    DELETE FROM notification;
+  addNotification =
+    let
+      addMonitorNotification = monitorId: ''
+        INSERT INTO monitor_notification (
+          notification_id,
+          monitor_id
+        )
+        VALUES (
+          1,
+          ${toString monitorId}
+        );
+      '';
+    in
+    ''
+      DELETE FROM notification;
 
-    INSERT INTO notification (
-      id,
-      name,
-      user_id,
-      active,
-      is_default,
-      config
-    )
-    VALUES (
-      1,
-      'Discord',
-      1,
-      1,
-      0,
-      '${
-        builtins.toJSON {
-          name = "Discord";
-          type = "discord";
-          isDefault = false;
-          applyExisting = false;
-          inherit (secrets.uptime-kuma) discordWebhookUrl;
-        }
-      }'
-    );
+      INSERT INTO notification (
+        id,
+        name,
+        user_id,
+        active,
+        is_default,
+        config
+      )
+      VALUES (
+        1,
+        'Discord',
+        1,
+        1,
+        0,
+        '${
+          builtins.toJSON {
+            name = "Discord";
+            type = "discord";
+            isDefault = false;
+            applyExisting = false;
+            inherit (secrets.uptime-kuma) discordWebhookUrl;
+          }
+        }'
+      );
 
-    DELETE FROM monitor_notification;
+      DELETE FROM monitor_notification;
 
-    INSERT INTO monitor_notification (
-      notification_id,
-      monitor_id,
-      id
-    )
-    VALUES (
-      1,
-      1,
-      1
-    );
-  '';
+      ${addMonitorNotification 1}
+      ${addMonitorNotification 2}
+    '';
 in
 {
   services = {
@@ -215,12 +239,16 @@ in
           include /run/nginx-authelia/location.conf;
         '';
 
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.uptime-kuma.settings.PORT}";
+        locations = {
+          "/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.uptime-kuma.settings.PORT}";
 
-          extraConfig = ''
-            include /run/nginx-authelia/auth.conf;
-          '';
+            extraConfig = ''
+              include /run/nginx-authelia/auth.conf;
+            '';
+          };
+
+          "/api/push".proxyPass = "http://127.0.0.1:${toString config.services.uptime-kuma.settings.PORT}";
         };
       };
     };
