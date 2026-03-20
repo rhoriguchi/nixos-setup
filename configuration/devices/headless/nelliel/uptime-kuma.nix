@@ -57,48 +57,6 @@ let
     );
   '';
 
-  addNotification = ''
-    DELETE FROM notification;
-
-    INSERT INTO notification (
-      id,
-      name,
-      user_id,
-      active,
-      is_default,
-      config
-    )
-    VALUES (
-      1,
-      'Discord',
-      1,
-      1,
-      0,
-      '${
-        builtins.toJSON {
-          name = "Discord";
-          type = "discord";
-          isDefault = false;
-          applyExisting = false;
-          inherit (secrets.uptime-kuma) discordWebhookUrl;
-        }
-      }'
-    );
-
-    DELETE FROM monitor_notification;
-
-    INSERT INTO monitor_notification (
-      notification_id,
-      monitor_id,
-      id
-    )
-    VALUES (
-      1,
-      1,
-      1
-    );
-  '';
-
   addMonitors =
     let
       addTailscaleMonitor = hostname: ''
@@ -169,6 +127,48 @@ let
         map (hostname: addTailscaleMonitor hostname) filteredTailscaleHostnames
       )}
     '';
+
+  addNotification = ''
+    DELETE FROM notification;
+
+    INSERT INTO notification (
+      id,
+      name,
+      user_id,
+      active,
+      is_default,
+      config
+    )
+    VALUES (
+      1,
+      'Discord',
+      1,
+      1,
+      0,
+      '${
+        builtins.toJSON {
+          name = "Discord";
+          type = "discord";
+          isDefault = false;
+          applyExisting = false;
+          inherit (secrets.uptime-kuma) discordWebhookUrl;
+        }
+      }'
+    );
+
+    DELETE FROM monitor_notification;
+
+    INSERT INTO monitor_notification (
+      notification_id,
+      monitor_id,
+      id
+    )
+    VALUES (
+      1,
+      1,
+      1
+    );
+  '';
 in
 {
   services = {
