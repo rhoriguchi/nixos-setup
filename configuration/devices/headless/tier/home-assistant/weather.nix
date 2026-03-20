@@ -14,7 +14,7 @@ let
   url = "${apiUrl}/weather?appid=${apiKey}&lat=${toString lat}&lon=${toString lon}&units=${units}";
 
   script = pkgs.writeShellScript "openweather.sh" ''
-    output="$(${pkgs.curl}/bin/curl -s '${url}' | ${pkgs.jq}/bin/jq '.main.temp')"
+    output="$(${pkgs.curl}/bin/curl --silent '${url}' | ${pkgs.jq}/bin/jq '.main.temp')"
     echo "''${output:-0}"
   '';
 in
