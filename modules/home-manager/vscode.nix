@@ -272,7 +272,10 @@
         "workbench.colorTheme" = "Default Light+";
         "workbench.editor.highlightModifiedTabs" = true;
         "workbench.editor.restoreViewState" = true;
-        "workbench.editorAssociations"."*.md" = "vscode.markdown.preview.editor";
+        "workbench.editorAssociations" = {
+          "*.md" = "vscode.markdown.preview.editor";
+          "git-rebase-todo" = "default";
+        };
         "workbench.iconTheme" = "material-icon-theme";
         "workbench.list.smoothScrolling" = true;
         "workbench.preferredDarkColorTheme" = "Default Dark+";
