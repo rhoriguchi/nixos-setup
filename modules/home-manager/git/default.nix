@@ -54,6 +54,8 @@
       feature.manyFiles = true;
 
       fetch.prune = true;
+
+      advice.skippedCherryPicks = false;
     };
 
     signing = {
