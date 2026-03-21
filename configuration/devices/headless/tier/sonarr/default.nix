@@ -53,9 +53,8 @@ let
       };
 
       config = {
-        system = {
-          inherit (config.system) stateVersion;
-        };
+        nixpkgs.pkgs = pkgs;
+        system.stateVersion = config.system.stateVersion;
 
         users = {
           users = {

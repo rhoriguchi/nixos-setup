@@ -67,9 +67,8 @@ in
         nameserver = lib.head (lib.splitString ", " nameservers);
       in
       {
-        system = {
-          inherit (config.system) stateVersion;
-        };
+        nixpkgs.pkgs = pkgs;
+        system.stateVersion = config.system.stateVersion;
 
         networking = {
           nameservers = [ nameserver ];
