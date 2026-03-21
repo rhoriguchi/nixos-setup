@@ -2,6 +2,8 @@
   config,
   interfaces,
   lib,
+  libCustom,
+  libDns,
   pkgs,
   secrets,
   ...
@@ -12,7 +14,7 @@ let
     lib.attrNames config.networking.interfaces
   );
 
-  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
+  ips = import (libCustom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 
   rootDir = "/var/lib/named";
 
@@ -71,7 +73,7 @@ let
 
   zoneFiles = {
     "local" = pkgs.writeText "local.zone" (
-      lib.dns.toString "local" (
+      libDns.toString "local" (
         ddnsZone
         // {
           subdomains = {
@@ -96,7 +98,7 @@ let
           );
       in
       pkgs.writeText "rpz.00a.ch.zone" (
-        lib.dns.toString "rpz.00a.ch" (
+        libDns.toString "rpz.00a.ch" (
           rpzZone
           // {
             subdomains =
@@ -124,7 +126,7 @@ let
   }
   // lib.listToAttrs (
     map (
-      zone: lib.nameValuePair zone (pkgs.writeText "${zone}.zone" (lib.dns.toString zone ddnsZone))
+      zone: lib.nameValuePair zone (pkgs.writeText "${zone}.zone" (libDns.toString zone ddnsZone))
     ) reverseZones
   );
 in

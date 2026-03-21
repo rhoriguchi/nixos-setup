@@ -64,7 +64,10 @@
   outputs =
     { self, ... }@inputs:
     let
-      lib = inputs.nixpkgs.lib.extend self.overlays.lib;
+      lib = inputs.nixpkgs.lib;
+
+      libCustom = import ./lib.nix { inherit lib; };
+      libDns = inputs.dns.lib;
 
       # Adapted from https://github.com/hmajid2301/nixicle/blob/8e8f5b1f2612a441b9f9da3e893af60774448836/lib/deploy/default.nix
       mkDeploy =
@@ -98,6 +101,8 @@
         };
     in
     {
+      lib = libCustom;
+
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
         checks =
           let
@@ -149,17 +154,16 @@
           ]
           ++ import ./overlays
         );
-
-        lib = (
-          _: super: {
-            custom = import ./lib.nix { lib = super; };
-            dns = inputs.dns.lib;
-          }
-        );
       };
 
       nixosConfigurations =
         let
+          specialArgs = {
+            inherit libCustom libDns;
+            inherit (self.nixosModules) colors;
+            secrets = import ./secrets.nix;
+          };
+
           commonModule = {
             imports = [
               self.nixosModules.default
@@ -170,16 +174,12 @@
             nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
             nixpkgs.overlays = [ self.overlays.default ];
-
-            _module.args = {
-              inherit (self.nixosModules) colors;
-              secrets = import ./secrets.nix;
-            };
           };
         in
         {
           # Dell XPS 13 9350
           XXLPitu-Aizen = lib.nixosSystem {
+            inherit specialArgs;
             system = "x86_64-linux";
 
             modules = [
@@ -207,7 +207,7 @@
                       backupFileExtension = "backup";
                       overwriteBackup = true;
 
-                      extraSpecialArgs = commonModule._module.args;
+                      extraSpecialArgs = specialArgs;
 
                       users.rhoriguchi.imports = [
                         self.nixosModules.home-manager
@@ -244,6 +244,8 @@
                 };
               }
             ];
+
+            inherit specialArgs;
           };
 
           XXLPitu-Tier = lib.nixosSystem {
@@ -262,6 +264,8 @@
                 ];
               }
             ];
+
+            inherit specialArgs;
           };
 
           # Hetzner cx23
@@ -279,6 +283,8 @@
                 ];
               }
             ];
+
+            inherit specialArgs;
           };
 
           # Raspberry Pi 4 Model B - 8GB
@@ -298,6 +304,8 @@
                 ];
               }
             ];
+
+            inherit specialArgs;
           };
 
           # Raspberry Pi 4 Model B - 8GB
@@ -317,6 +325,8 @@
                 ];
               }
             ];
+
+            inherit specialArgs;
           };
         };
 

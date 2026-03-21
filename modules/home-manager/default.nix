@@ -1,6 +1,6 @@
-{ lib, ... }:
+{ libCustom, ... }:
 {
-  imports = lib.custom.getImports ./.;
+  imports = libCustom.getImports ./.;
 
   home.stateVersion = "26.05";
 

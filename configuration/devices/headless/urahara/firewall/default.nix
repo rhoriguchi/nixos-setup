@@ -2,6 +2,7 @@
   config,
   interfaces,
   lib,
+  libCustom,
   ...
 }:
 let
@@ -12,7 +13,7 @@ let
     lib.attrNames config.networking.interfaces
   );
 
-  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
+  ips = import (libCustom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 in
 {
   imports = [ ./dns.nix ];

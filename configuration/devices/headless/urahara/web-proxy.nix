@@ -1,6 +1,10 @@
-{ config, lib, ... }:
+{
+  config,
+  libCustom,
+  ...
+}:
 let
-  ips = import (lib.custom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
+  ips = import (libCustom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 
   tierDomains = [
     "authelia.00a.ch"

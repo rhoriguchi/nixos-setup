@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  libCustom,
   osConfig,
   ...
 }:
@@ -8,7 +9,7 @@ let
   home = config.home.homeDirectory;
 
   tailscaleIps = import (
-    lib.custom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
+    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
   filteredTailscaleIps = lib.filterAttrs (
     key: _:

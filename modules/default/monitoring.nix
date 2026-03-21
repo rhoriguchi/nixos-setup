@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  libCustom,
   pkgs,
   ...
 }:
@@ -13,7 +14,7 @@ let
   isChild = cfg.type == "child";
 
   tailscaleIps = import (
-    lib.custom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
+    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
 
   keaEnabled = lib.any (service: service.enable) [

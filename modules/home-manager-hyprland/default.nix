@@ -1,6 +1,6 @@
-{ lib, ... }:
+{ libCustom, ... }:
 {
-  imports = lib.custom.getImports ./.;
+  imports = libCustom.getImports ./.;
 
   wayland.windowManager.hyprland = {
     enable = true;

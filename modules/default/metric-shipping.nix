@@ -1,13 +1,14 @@
 {
   config,
   lib,
+  libCustom,
   ...
 }:
 let
   cfg = config.services.metricShipping;
 
   tailscaleIps = import (
-    lib.custom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
+    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
 in
 {

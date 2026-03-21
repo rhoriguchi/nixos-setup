@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ libCustom, ... }:
 {
-  imports = lib.custom.getImports ./.;
+  imports = libCustom.getImports ./.;
 }

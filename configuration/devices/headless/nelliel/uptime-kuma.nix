@@ -1,13 +1,14 @@
 {
   config,
   lib,
+  libCustom,
   pkgs,
   secrets,
   ...
 }:
 let
   tailscaleIps = import (
-    lib.custom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
+    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
   filteredTailscaleHostnames = lib.filter (
     hostname:
