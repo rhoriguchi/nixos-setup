@@ -32,6 +32,7 @@
         history = "! git log --pretty='%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ar %C(auto)%d %C(reset)%s'";
         last = "! git history -1";
         own-history = ''! git history --all --decorate --author="$(git config user.name)"'';
+        patch = "! git --no-pager diff";
         tracked =
           let
             colorize = color: text: ''${color}${text}\e[0m'';
