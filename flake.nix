@@ -36,6 +36,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     nix-github-actions = {
@@ -150,6 +155,7 @@
             inputs.deploy-rs.overlays.default
             inputs.firefox-addons.overlays.default
             inputs.hyprland.overlays.default
+            inputs.llm-agents.overlays.default
             inputs.nix-minecraft.overlay
           ]
           ++ import ./overlays
