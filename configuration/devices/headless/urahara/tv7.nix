@@ -28,9 +28,16 @@ in
     family = "inet";
 
     content = ''
+      chain prerouting {
+        # Run before `nixos-fw` rpfilter
+        type filter hook prerouting priority mangle - 100;
+
+        ip protocol { pim, igmp } accept
+      }
+
       chain input {
         # Run before `firewall` and `nixos-fw` input chains
-        type filter hook input priority filter - 100;
+        type filter hook input priority -100;
 
         ip protocol { pim, igmp } accept
 
@@ -42,7 +49,7 @@ in
 
       chain forward {
         # Run before `firewall` forward chain
-        type filter hook forward priority filter - 100;
+        type filter hook forward priority -100;
 
         ip protocol { pim, igmp } accept
 
@@ -55,8 +62,10 @@ in
     pimd.enable = true;
 
     config = ''
-      # Support ASM for Init7 TV7
+      # Support ASM and SSM for Init7 TV7
       ip pim rp ${ips.urahara} 233.50.230.0/24
+      ip pim ssm prefix-list TV7-SSM
+      ip prefix-list TV7-SSM permit 233.50.230.0/24
 
       # Static RPF to ensure pimd knows to pull from eth4
       ip mroute 0.0.0.0/0 ${externalInterface}
