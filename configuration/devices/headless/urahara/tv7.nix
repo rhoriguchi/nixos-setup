@@ -24,6 +24,13 @@ in
     "net.ipv4.conf.${internalInterface}.100.rp_filter" = lib.mkForce 0;
   };
 
+  networking.nftables.tables.firewall.content = lib.mkAfter ''
+    chain input {
+      type filter hook input priority filter;
+      ip protocol igmp accept
+    }
+  '';
+
   networking.nftables.tables.tv7 = {
     family = "ip";
 
@@ -55,8 +62,8 @@ in
     pimd.enable = true;
 
     config = ''
-      ip pim ssm prefix-list TV7-SSM
-      ip prefix-list TV7-SSM permit 233.50.230.0/24
+      # Support ASM for Init7 TV7
+      ip pim rp ${ips.urahara} 233.50.230.0/24
 
       # Static RPF to ensure pimd knows to pull from eth4
       ip mroute 0.0.0.0/0 ${externalInterface}
@@ -65,13 +72,16 @@ in
         ip pim
         ip igmp
         ip igmp version 3
+        ip igmp proxy
 
       interface ${internalInterface}.2
         ip pim
+        ip igmp
         ip igmp version 3
 
       interface ${internalInterface}.3
         ip pim
+        ip igmp
         ip igmp version 3
 
       # Enable PIM on the interface holding the RP address (192.168.1.1)

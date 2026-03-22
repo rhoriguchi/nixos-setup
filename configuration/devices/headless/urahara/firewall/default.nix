@@ -83,7 +83,7 @@ in
           set multicast_ipv4_address {
             type ipv4_addr;
             flags interval;
-            elements = { 224.0.1.0/24, 224.0.2.0/24, 239.0.0.0/8 }
+            elements = { 224.0.1.0/24, 224.0.2.0/24, 233.50.230.0/24, 239.0.0.0/8 }
           }
 
           chain output {
