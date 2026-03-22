@@ -16,7 +16,7 @@ in
 
     content = ''
       chain input {
-        # Run before firewall input chain
+        # Run before `firewall` input chain
         type filter hook input priority filter - 10;
 
         ip protocol { pim, igmp } accept
@@ -25,7 +25,7 @@ in
       }
 
       chain forward {
-        # Run before firewall input chain
+        # Run before `firewall` forward chain
         type filter hook forward priority filter - 10;
 
         ip protocol { pim, igmp } accept
