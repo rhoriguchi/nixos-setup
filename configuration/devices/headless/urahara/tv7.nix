@@ -5,11 +5,17 @@
 }:
 let
   externalInterface = interfaces.external;
+  internalInterface = interfaces.internal;
 
   ips = import (libCustom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 in
 {
-  boot.kernel.sysctl."net.ipv4.conf.${externalInterface}.rp_filter" = 0;
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.${externalInterface}.rp_filter" = 0;
+    "net.ipv4.conf.${internalInterface}.2.rp_filter" = 0;
+    "net.ipv4.conf.${internalInterface}.3.rp_filter" = 0;
+    "net.ipv4.conf.${internalInterface}.100.rp_filter" = 0;
+  };
 
   networking.nftables.tables.tv7 = {
     family = "ip";
@@ -40,7 +46,6 @@ in
 
     config = ''
       ip pim rp ${ips.urahara} 233.50.230.0/24
-      ip pim ssm range 233.50.230.0/24
 
       interface ${externalInterface}
         ip pim
