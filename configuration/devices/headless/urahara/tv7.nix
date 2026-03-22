@@ -24,20 +24,13 @@ in
     "net.ipv4.conf.${internalInterface}.100.rp_filter" = lib.mkForce 0;
   };
 
-  networking.nftables.tables.firewall.content = lib.mkAfter ''
-    chain input {
-      type filter hook input priority filter;
-      ip protocol igmp accept
-    }
-  '';
-
   networking.nftables.tables.tv7 = {
-    family = "ip";
+    family = "inet";
 
     content = ''
       chain input {
-        # Run before `firewall` input chain
-        type filter hook input priority filter - 10;
+        # Run before `firewall` and `nixos-fw` input chains
+        type filter hook input priority filter - 100;
 
         ip protocol { pim, igmp } accept
 
@@ -49,7 +42,7 @@ in
 
       chain forward {
         # Run before `firewall` forward chain
-        type filter hook forward priority filter - 10;
+        type filter hook forward priority filter - 100;
 
         ip protocol { pim, igmp } accept
 
