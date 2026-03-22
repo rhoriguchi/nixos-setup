@@ -105,6 +105,8 @@ in
             ct state { established, related } accept
             ct status dnat accept
 
+            ip daddr 233.50.230.0/24 accept
+
             drop
           }
 
