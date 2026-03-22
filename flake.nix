@@ -64,6 +64,11 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -295,7 +300,9 @@
           };
 
           # Raspberry Pi 4 Model B - 8GB
-          XXLPitu-Grimmjow = lib.nixosSystem {
+          XXLPitu-Grimmjow = inputs.nixos-raspberrypi.lib.nixosSystem {
+            trustCaches = false;
+
             system = "aarch64-linux";
 
             modules = [
@@ -303,7 +310,7 @@
                 imports = [
                   commonModule
 
-                  inputs.nixos-hardware.nixosModules.raspberry-pi-4
+                  inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
 
                   self.nixosModules.profiles.headless
 
@@ -312,11 +319,15 @@
               }
             ];
 
-            inherit specialArgs;
+            specialArgs = specialArgs // {
+              inherit (inputs) nixos-raspberrypi;
+            };
           };
 
           # Raspberry Pi 4 Model B - 8GB
-          XXLPitu-Ulquiorra = lib.nixosSystem {
+          XXLPitu-Ulquiorra = inputs.nixos-raspberrypi.lib.nixosSystem {
+            trustCaches = false;
+
             system = "aarch64-linux";
 
             modules = [
@@ -324,7 +335,7 @@
                 imports = [
                   commonModule
 
-                  inputs.nixos-hardware.nixosModules.raspberry-pi-4
+                  inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
 
                   self.nixosModules.profiles.headless
 
@@ -333,7 +344,9 @@
               }
             ];
 
-            inherit specialArgs;
+            specialArgs = specialArgs // {
+              inherit (inputs) nixos-raspberrypi;
+            };
           };
         };
 
