@@ -11,6 +11,7 @@
     ./interfaces.nix
     ./networking.nix
     ./ntp.nix
+    ./tv7.nix
     ./unifi.nix
     ./web-proxy.nix
 
