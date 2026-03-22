@@ -179,7 +179,6 @@
         {
           # Dell XPS 13 9350
           XXLPitu-Aizen = lib.nixosSystem {
-            inherit specialArgs;
             system = "x86_64-linux";
 
             modules = [
@@ -220,6 +219,8 @@
                 boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
               }
             ];
+
+            inherit specialArgs;
           };
 
           # GoWin R86S-N N305A
