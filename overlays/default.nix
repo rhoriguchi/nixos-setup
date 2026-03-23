@@ -40,17 +40,7 @@
       }
     }/pkgs/by-name/bo/borgmatic/package.nix") { };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=491477
-    netdata = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "1954c5e568e4a47f5848fef72aa13cbfc1b1c264";
-        sha256 = "sha256-L34ZhkplmlAEjC1VPrBaZplPd/J0vNoxg32TiC2I3LE=";
-      }
-    }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
-
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=501809
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=501809
     sonarr = super.callPackage (import "${
       super.fetchFromGitHub {
         owner = "NixOS";
