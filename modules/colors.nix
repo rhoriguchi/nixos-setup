@@ -8,6 +8,8 @@ rec {
     };
 
     tmux.statusBackground = "#3D3D3D";
+
+    comment = "#767676";
   };
 
   normal = {

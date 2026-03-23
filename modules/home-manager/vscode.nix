@@ -136,7 +136,7 @@
         "editor.renderWhitespace" = "trailing";
         "editor.suggestSelection" = "first";
         "editor.tabSize" = 4;
-        "editor.tokenColorCustomizations".comments = "#767676";
+        "editor.tokenColorCustomizations".comments = colors.extra.comment;
         "editor.unicodeHighlight.includeComments" = true;
         "explorer.compactFolders" = false;
         "explorer.confirmDelete" = false;

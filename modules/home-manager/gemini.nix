@@ -60,7 +60,7 @@
             };
 
             ui = {
-              comment = colors.normal.gray;
+              comment = colors.extra.comment;
               # TODO figure out what this does and change
               symbol = colors.normal.blue;
               gradient = [ colors.normal.white ];

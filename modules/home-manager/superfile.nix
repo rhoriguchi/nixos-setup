@@ -74,7 +74,7 @@ in
         cursor = colors.normal.accent;
         correct = colors.normal.green;
         error = colors.normal.red;
-        hint = "#73c7ec";
+        hint = colors.normal.cyan;
         cancel = colors.bright.red;
         gradient_color = [
           colors.normal.white
