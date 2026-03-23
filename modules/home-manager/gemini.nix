@@ -1,7 +1,9 @@
 { colors, pkgs, ... }:
 {
   programs = {
-    vscode.extensions = [ pkgs.vscode-extensions.Google.gemini-cli-vscode-ide-companion ];
+    vscode.profiles.default.extensions = [
+      pkgs.vscode-extensions.Google.gemini-cli-vscode-ide-companion
+    ];
 
     gemini-cli = {
       enable = true;
