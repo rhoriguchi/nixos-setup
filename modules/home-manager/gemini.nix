@@ -22,6 +22,11 @@
           allowed = map (command: "run_shell_command(${command})") [ ];
         };
 
+        mcpServers.nixos = {
+          command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+          args = [ "--" ];
+        };
+
         ui = {
           hideBanner = true;
           showMemoryUsage = true;
