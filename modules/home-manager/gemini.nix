@@ -1,4 +1,9 @@
-{ colors, pkgs, ... }:
+{
+  colors,
+  config,
+  pkgs,
+  ...
+}:
 {
   programs = {
     vscode.profiles.default.extensions = [
@@ -20,7 +25,7 @@
 
         tools = {
           shell.showColor = true;
-
+          enableHooks = true;
           allowed = map (command: "run_shell_command(${command})") [ ];
         };
 
@@ -28,6 +33,31 @@
           command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
           args = [ "--" ];
         };
+
+        hooks.BeforeModel = [
+          {
+            matcher = "*";
+            hooks = [
+              {
+                name = "sync-git-crypt-to-geminiignore";
+                type = "command";
+                command = pkgs.writeShellScript "sync-git-crypt-to-geminiignore.sh" ''
+                  GIT_ROOT=$(${config.programs.git.package}/bin/git rev-parse --show-toplevel 2>/dev/null)
+
+                  if [ -n "$GIT_ROOT" ]; then
+                    ENCRYPTED_FILES=$(${pkgs.git-crypt}/bin/git-crypt status |
+                      ${pkgs.gnugrep}/bin/grep -v 'not encrypted' |
+                      ${pkgs.gawk}/bin/awk '{print $2}')
+
+                    if [ -n "$ENCRYPTED_FILES" ]; then
+                      echo "$ENCRYPTED_FILES" > "$GIT_ROOT/.geminiignore"
+                    fi
+                  fi
+                '';
+              }
+            ];
+          }
+        ];
 
         ui = {
           hideBanner = true;

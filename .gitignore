@@ -1,4 +1,5 @@
 .deploy-gc/
+.geminiignore
 .lycheecache
 .pre-commit-config.yaml
 result
