@@ -95,8 +95,8 @@
             background = {
               primary = colors.extra.terminal.background;
               diff = {
-                added = colors.normal.green;
-                removed = colors.normal.red;
+                added = colors.extra.diff.added;
+                removed = colors.extra.diff.removed;
               };
             };
 

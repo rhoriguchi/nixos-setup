@@ -10,6 +10,11 @@ rec {
     tmux.statusBackground = "#3D3D3D";
 
     comment = "#767676";
+
+    diff = {
+      added = "#005F00";
+      removed = "#5F0000";
+    };
   };
 
   normal = {

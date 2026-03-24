@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  # TODO use `colors.extra.diff.added` and `colors.extra.diff.removed`
   # TODO replace with https://github.com/nix-community/home-manager/pull/8530 when merged
   home.packages = [ pkgs.diffnav ];
 
