@@ -38,6 +38,7 @@
                     map (tvdbId: toString tvdbId) [
                       366924 # Reacher(2022)
                       371980 # Severance(2022)
+                      422712 # Daredevil: Born Again
                     ]
                   );
                 }
