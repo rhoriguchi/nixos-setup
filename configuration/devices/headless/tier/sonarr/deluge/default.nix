@@ -7,6 +7,36 @@
 }:
 let
   containerCfg = config.containers.deluge.config;
+
+  wireguardInterface = "wg-deluge";
+
+  parseWireguardConfig =
+    file:
+    let
+      content = lib.readFile file;
+      getValue =
+        key:
+        let
+          lines = lib.splitString "\n" content;
+          matchingLine = lib.findFirst (line: lib.hasPrefix key line) "" lines;
+        in
+        lib.removePrefix "${key} = " matchingLine;
+
+      isIpv4 = string: !(lib.hasInfix ":" string);
+
+      rawAddresses = lib.splitString ", " (getValue "Address");
+      rawNameserver = lib.splitString ", " (getValue "DNS");
+    in
+    rec {
+      privateKey = getValue "PrivateKey";
+      publicKey = getValue "PublicKey";
+      address = lib.head (lib.filter isIpv4 rawAddresses);
+      endpoint = getValue "Endpoint";
+      endpointIp = lib.head (lib.splitString ":" endpoint);
+      nameserver = lib.head (lib.filter isIpv4 rawNameserver);
+    };
+
+  wgConfig = parseWireguardConfig ./wireguard-config;
 in
 {
   users = {
@@ -43,114 +73,91 @@ in
       };
     };
 
-    config =
-      let
-        wireguardInterface = "wg-deluge";
+    config = {
+      nixpkgs.pkgs = pkgs;
+      system.stateVersion = config.system.stateVersion;
 
-        getValue =
-          string: key:
-          let
-            lines = lib.splitString "\n" string;
-            matchingLine = lib.findFirst (line: lib.hasPrefix key line) "" lines;
-          in
-          lib.removePrefix "${key} = " matchingLine;
+      networking = {
+        nameservers = [ wgConfig.nameserver ];
 
-        configText = lib.readFile ./wireguard-config;
+        wireguard.interfaces.${wireguardInterface} = {
+          ips = [ wgConfig.address ];
+          inherit (wgConfig) privateKey;
 
-        privateKey = getValue configText "PrivateKey";
-        publicKey = getValue configText "PublicKey";
-        addresses = getValue configText "Address";
-        ipCdr = lib.head (lib.splitString ", " addresses);
-        endpoint = getValue configText "Endpoint";
-        endpointIp = lib.head (lib.splitString ":" endpoint);
-        nameservers = getValue configText "DNS";
-        nameserver = lib.head (lib.splitString ", " nameservers);
-      in
-      {
-        nixpkgs.pkgs = pkgs;
-        system.stateVersion = config.system.stateVersion;
+          postSetup = ''
+            # https://wiki.archlinux.org/title/WireGuard#Loop_routing
+            ${pkgs.iproute2}/bin/ip route add ${wgConfig.endpointIp} via ${config.containers.deluge.hostAddress} dev eth0
+          '';
 
-        networking = {
-          nameservers = [ nameserver ];
+          postShutdown = ''
+            ${pkgs.iproute2}/bin/ip route del ${wgConfig.endpointIp} via ${config.containers.deluge.hostAddress} dev eth0
+          '';
 
-          wireguard.interfaces.${wireguardInterface} = {
-            ips = [ "${ipCdr}" ];
-            inherit privateKey;
+          peers = [
+            {
+              name = "Proton-VPN";
 
-            postSetup = ''
-              # https://wiki.archlinux.org/title/WireGuard#Loop_routing
-              ${pkgs.iproute2}/bin/ip route add ${endpointIp} via ${config.containers.deluge.hostAddress} dev eth0
-            '';
+              inherit (wgConfig) publicKey;
+              allowedIPs = [ "0.0.0.0/0" ];
+              inherit (wgConfig) endpoint;
 
-            postShutdown = ''
-              ${pkgs.iproute2}/bin/ip route del ${endpointIp} via ${config.containers.deluge.hostAddress} dev eth0
-            '';
-
-            peers = [
-              {
-                name = "Proton-VPN";
-
-                inherit publicKey;
-                allowedIPs = [ "0.0.0.0/0" ];
-                inherit endpoint;
-
-                persistentKeepalive = 25;
-                dynamicEndpointRefreshSeconds = 30;
-              }
-            ];
-          };
-        };
-
-        services.deluge = {
-          enable = true;
-
-          package = pkgs.deluge.overrideAttrs (oldAttrs: {
-            patches = (oldAttrs.patches or [ ]) ++ [ ./remove-web-login.patch ];
-          });
-
-          web = {
-            enable = true;
-            openFirewall = true;
-          };
-
-          declarative = true;
-
-          authFile =
-            let
-              text = lib.concatStringsSep "\n" (
-                lib.mapAttrsToList (
-                  key: value: "${key}:${value.password}:${toString value.level}"
-                ) secrets.deluge.users
-              );
-            in
-            pkgs.writeText "deluge-auth" text;
-
-          config = rec {
-            new_release_check = false;
-
-            download_location = "/mnt/Data/Deluge/Downloads";
-
-            copy_torrent_file = true;
-            torrentfiles_location = "/mnt/Data/Deluge/Torrents";
-
-            stop_seed_at_ratio = true;
-            stop_seed_ratio = 0.0;
-
-            max_active_downloading = 10;
-            max_active_seeding = 10;
-            max_active_limit = max_active_downloading + max_active_seeding;
-
-            queue_new_to_top = true;
-            dont_count_slow_torrents = true;
-
-            outgoing_interface = wireguardInterface;
-
-            enabled_plugins = [
-              "Label"
-            ];
-          };
+              persistentKeepalive = 25;
+              dynamicEndpointRefreshSeconds = 30;
+            }
+          ];
         };
       };
+
+      services.deluge = {
+        enable = true;
+
+        package = pkgs.deluge.overrideAttrs (oldAttrs: {
+          patches = (oldAttrs.patches or [ ]) ++ [ ./remove-web-login.patch ];
+        });
+
+        web = {
+          enable = true;
+          openFirewall = true;
+        };
+
+        declarative = true;
+
+        authFile =
+          let
+            text = lib.concatStringsSep "\n" (
+              lib.mapAttrsToList (
+                key: value: "${key}:${value.password}:${toString value.level}"
+              ) secrets.deluge.users
+            );
+          in
+          pkgs.writeText "deluge-auth" text;
+
+        config = rec {
+          new_release_check = false;
+
+          download_location = "/mnt/Data/Deluge/Downloads";
+
+          copy_torrent_file = true;
+          torrentfiles_location = "/mnt/Data/Deluge/Torrents";
+
+          stop_seed_at_ratio = true;
+          stop_seed_ratio = 0.0;
+
+          max_active_downloading = 10;
+          max_active_seeding = 10;
+          max_active_limit = max_active_downloading + max_active_seeding;
+
+          queue_new_to_top = true;
+          dont_count_slow_torrents = true;
+
+          outgoing_interface = wireguardInterface;
+
+          enabled_plugins = [
+            "Label"
+          ];
+        };
+      };
+    };
   };
 
   services = {
