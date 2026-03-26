@@ -8,8 +8,6 @@
 let
   containerCfg = config.containers.deluge.config;
 
-  wireguardInterface = "wg-deluge";
-
   parseWireguardConfig =
     file:
     let
@@ -36,7 +34,11 @@ let
       nameserver = lib.head (lib.filter isIpv4 rawNameserver);
     };
 
-  wgConfig = parseWireguardConfig ./wireguard-config;
+  wgConfigDir = ./wireguard-configs;
+  wgConfigFiles = lib.attrNames (lib.readDir wgConfigDir);
+  wgConfigs = map (wgConfigFile: parseWireguardConfig "${wgConfigDir}/${wgConfigFile}") wgConfigFiles;
+
+  wgInterfaces = lib.attrNames containerCfg.networking.wireguard.interfaces;
 in
 {
   users = {
@@ -77,35 +79,120 @@ in
       nixpkgs.pkgs = pkgs;
       system.stateVersion = config.system.stateVersion;
 
+      boot.kernel.sysctl = lib.listToAttrs (
+        map (interface: lib.nameValuePair "net.ipv4.conf.${interface}.rp_filter" 2) wgInterfaces
+      );
+
       networking = {
-        nameservers = [ wgConfig.nameserver ];
+        enableIPv6 = false;
 
-        wireguard.interfaces.${wireguardInterface} = {
-          ips = [ wgConfig.address ];
-          inherit (wgConfig) privateKey;
+        nftables = {
+          enable = true;
 
-          postSetup = ''
-            # https://wiki.archlinux.org/title/WireGuard#Loop_routing
-            ${pkgs.iproute2}/bin/ip route add ${wgConfig.endpointIp} via ${config.containers.deluge.hostAddress} dev eth0
-          '';
+          tables.deluge = {
+            family = "inet";
 
-          postShutdown = ''
-            ${pkgs.iproute2}/bin/ip route del ${wgConfig.endpointIp} via ${config.containers.deluge.hostAddress} dev eth0
-          '';
+            content =
+              let
+                wgNameservers = map (wgConfig: wgConfig.nameserver) wgConfigs;
+              in
+              assert lib.length (lib.unique (wgNameservers)) == 1;
+              ''
+                chain output {
+                  type filter hook output priority mangle; policy accept;
 
-          peers = [
-            {
-              name = "Proton-VPN";
+                  skuid ${toString containerCfg.ids.uids.deluge} meta l4proto { tcp, udp } th dport { 53 } \
+                    dnat ip to ${lib.head wgNameservers}:53
 
-              inherit (wgConfig) publicKey;
-              allowedIPs = [ "0.0.0.0/0" ];
-              inherit (wgConfig) endpoint;
-
-              persistentKeepalive = 25;
-              dynamicEndpointRefreshSeconds = 30;
-            }
-          ];
+                  skuid ${toString containerCfg.ids.uids.deluge} meta mark set 1
+                }
+              '';
+          };
         };
+
+        iproute2 = {
+          enable = true;
+
+          rttablesExtraConfig = ''
+            100 deluge
+          '';
+        };
+
+        localCommands = ''
+          ${pkgs.iproute2}/bin/ip rule add fwmark 1 table deluge
+          ${pkgs.iproute2}/bin/ip route add prohibit default table deluge metric 999
+        '';
+
+        wireguard.interfaces = lib.listToAttrs (
+          lib.imap0 (
+            index: wgConfig:
+            lib.nameValuePair "wg${toString index}" {
+              ips = [ wgConfig.address ];
+              inherit (wgConfig) privateKey;
+
+              allowedIPsAsRoutes = false;
+
+              postSetup = ''
+                # https://wiki.archlinux.org/title/WireGuard#Loop_routing
+                ${pkgs.iproute2}/bin/ip route add ${wgConfig.endpointIp} via ${config.containers.deluge.hostAddress} dev eth0
+              '';
+
+              postShutdown = ''
+                ${pkgs.iproute2}/bin/ip route del ${wgConfig.endpointIp} via ${config.containers.deluge.hostAddress} dev eth0
+              '';
+
+              peers = [
+                {
+                  inherit (wgConfig) publicKey;
+                  allowedIPs = [ "0.0.0.0/0" ];
+                  inherit (wgConfig) endpoint;
+
+                  persistentKeepalive = 25;
+                  dynamicEndpointRefreshSeconds = 30;
+                }
+              ];
+            }
+          ) wgConfigs
+        );
+      };
+
+      systemd.services.wireguard-ecmp = {
+        after = [
+          "network-online.target"
+        ]
+        ++ map (interface: "wireguard-${interface}.service") wgInterfaces;
+        wantedBy = [ "network-online.target" ];
+
+        script =
+          let
+            nexthops = lib.concatStringsSep " " (
+              map (interface: "nexthop dev ${interface} weight 1") wgInterfaces
+            );
+          in
+          ''
+            all_up=0
+
+            while [ "$all_up" -eq 0 ]; do
+                all_up=1
+
+                for interface in ${lib.concatStringsSep " " wgInterfaces}; do
+                    if ! ${pkgs.iproute2}/bin/ip link show "$interface" | ${pkgs.gnugrep}/bin/grep -q "<.*UP.*>"; then
+                        all_up=0
+                    fi
+                done
+
+                if [ "$all_up" -eq 0 ]; then
+                    echo "Waiting for interfaces to be up..."
+                    sleep 1
+                fi
+            done
+
+            echo "All interfaces are up"
+
+            ${pkgs.iproute2}/bin/ip route replace default table deluge ${nexthops}
+          '';
+
+        serviceConfig.Type = "oneshot";
       };
 
       services.deluge = {
@@ -149,8 +236,6 @@ in
 
           queue_new_to_top = true;
           dont_count_slow_torrents = true;
-
-          outgoing_interface = wireguardInterface;
 
           enabled_plugins = [
             "Label"
