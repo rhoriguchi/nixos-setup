@@ -170,6 +170,9 @@ in
     bind = {
       enable = true;
 
+      # Fails with `loading from master file /var/lib/named/*.zone failed: file not found`
+      checkConfig = false;
+
       forward = "first";
       forwarders = [
         "1.1.1.1 port 853 tls cloudflare-tls"
