@@ -13,6 +13,8 @@ in
     ./home-assistant.nix
   ];
 
+  users.users.${cfg.user}.extraGroups = [ config.services.redis.servers.authelia.group ];
+
   services = {
     authelia.instances.main = {
       enable = true;
@@ -33,12 +35,18 @@ in
           buffers.read = 8192;
         };
 
-        session.cookies = [
-          {
-            authelia_url = "https://authelia.00a.ch";
-            domain = "00a.ch";
-          }
-        ];
+        session = {
+          secret = secrets.authelia.sessionSecret;
+
+          cookies = [
+            {
+              authelia_url = "https://authelia.00a.ch";
+              domain = "00a.ch";
+            }
+          ];
+
+          redis.host = config.services.redis.servers.authelia.unixSocket;
+        };
 
         access_control = {
           default_policy = "deny";
@@ -96,6 +104,12 @@ in
           ensureDBOwnership = true;
         }
       ];
+    };
+
+    redis.servers.authelia = {
+      enable = true;
+
+      port = 0;
     };
 
     monitoring.extraPrometheusJobs = [
