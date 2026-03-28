@@ -49,6 +49,16 @@
         sha256 = "sha256-6966MIYqP/363jEQ6r4/GE9i8ruv0R3A4wf9b9HURu4=";
       }
     }/pkgs/by-name/so/sonarr/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=504386
+    tautulli = super.callPackage (import "${
+      super.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "7e77fe418b1c54522f07fbeff0b0b37a274f80f9";
+        sha256 = "sha256-MaP3+Z9t8MSp2ftxiIAbssH1xkS03qQ9gRTkK0YDcfU=";
+      }
+    }/pkgs/by-name/ta/tautulli/package.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
