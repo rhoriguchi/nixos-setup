@@ -86,41 +86,15 @@ in
       networking = {
         enableIPv6 = false;
 
-        nftables = {
-          enable = true;
-
-          tables.deluge = {
-            family = "inet";
-
-            content =
-              let
-                wgNameservers = map (wgConfig: wgConfig.nameserver) wgConfigs;
-              in
-              assert lib.length (lib.unique (wgNameservers)) == 1;
-              ''
-                chain output {
-                  type filter hook output priority mangle; policy accept;
-
-                  skuid ${toString containerCfg.ids.uids.deluge} meta l4proto { tcp, udp } th dport { 53 } \
-                    dnat ip to ${lib.head wgNameservers}:53
-
-                  skuid ${toString containerCfg.ids.uids.deluge} meta mark set 1
-                }
-              '';
-          };
-        };
-
-        iproute2 = {
-          enable = true;
-
-          rttablesExtraConfig = ''
-            100 deluge
-          '';
-        };
+        nameservers =
+          let
+            wgNameservers = map (wgConfig: wgConfig.nameserver) wgConfigs;
+          in
+          assert lib.length (lib.unique (wgNameservers)) == 1;
+          lib.unique wgNameservers;
 
         localCommands = ''
-          ${pkgs.iproute2}/bin/ip rule add fwmark 1 table deluge
-          ${pkgs.iproute2}/bin/ip route add prohibit default table deluge metric 999
+          ${pkgs.iproute2}/bin/ip route del default || true
         '';
 
         wireguard.interfaces = lib.listToAttrs (
@@ -163,36 +137,35 @@ in
         ++ map (interface: "wireguard-${interface}.service") wgInterfaces;
         wantedBy = [ "network-online.target" ];
 
-        script =
-          let
-            nexthops = lib.concatStringsSep " " (
-              map (interface: "nexthop dev ${interface} weight 1") wgInterfaces
-            );
-          in
-          ''
-            all_up=0
+        script = ''
+          update_routes() {
+            nexthops=""
 
-            while [ "$all_up" -eq 0 ]; do
-                all_up=1
-
-                for interface in ${lib.concatStringsSep " " wgInterfaces}; do
-                    if ! ${pkgs.iproute2}/bin/ip link show "$interface" | ${pkgs.gnugrep}/bin/grep -q "<.*UP.*>"; then
-                        all_up=0
-                    fi
-                done
-
-                if [ "$all_up" -eq 0 ]; then
-                    echo "Waiting for interfaces to be up..."
-                    sleep 1
-                fi
+            for interface in ${lib.concatStringsSep " " wgInterfaces}; do
+              if ${pkgs.iproute2}/bin/ip link show "$interface" 2>/dev/null | ${pkgs.gnugrep}/bin/grep -q "<.*UP.*>"; then
+                nexthops="$nexthops nexthop dev $interface weight 1"
+              fi
             done
 
-            echo "All interfaces are up"
+            if [ -n "$nexthops" ]; then
+              ${pkgs.iproute2}/bin/ip route replace default $nexthops
+            else
+              ${pkgs.iproute2}/bin/ip route del default 2>/dev/null || true
+            fi
+          }
 
-            ${pkgs.iproute2}/bin/ip route replace default table deluge ${nexthops}
-          '';
+          update_routes
 
-        serviceConfig.Type = "oneshot";
+          ${pkgs.iproute2}/bin/ip monitor link | while read line; do
+            update_routes
+          done
+        '';
+
+        serviceConfig = {
+          Type = "simple";
+          Restart = "always";
+          RestartSec = "5s";
+        };
       };
 
       services.deluge = {
