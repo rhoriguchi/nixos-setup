@@ -131,6 +131,9 @@ in
       };
 
       systemd.services.wireguard-ecmp = {
+        wants = [
+          "network-online.target"
+        ];
         after = [
           "network-online.target"
         ]
