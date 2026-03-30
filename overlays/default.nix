@@ -40,16 +40,6 @@
       }
     }/pkgs/by-name/bo/borgmatic/package.nix") { };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=501809
-    sonarr = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "265d204da2c6616afd5356c935779004b5625d7b";
-        sha256 = "sha256-6966MIYqP/363jEQ6r4/GE9i8ruv0R3A4wf9b9HURu4=";
-      }
-    }/pkgs/by-name/so/sonarr/package.nix") { };
-
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=504386
     tautulli = super.callPackage (import "${
       super.fetchFromGitHub {
