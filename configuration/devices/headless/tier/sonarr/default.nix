@@ -102,6 +102,8 @@ let
             environment.API_KEY = containerCfg.services.sonarr.settings.auth.apikey;
           };
         };
+
+        systemd.services.sonarr.serviceConfig.PrivateUsers = lib.mkForce false;
       };
     };
 
