@@ -39,16 +39,6 @@
         sha256 = "sha256-h05YUEmeppFJsw7210gxHIDm0Adv5UTGQtv+V5tMDto=";
       }
     }/pkgs/by-name/bo/borgmatic/package.nix") { };
-
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=504386
-    tautulli = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "7e77fe418b1c54522f07fbeff0b0b37a274f80f9";
-        sha256 = "sha256-MaP3+Z9t8MSp2ftxiIAbssH1xkS03qQ9gRTkK0YDcfU=";
-      }
-    }/pkgs/by-name/ta/tautulli/package.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
