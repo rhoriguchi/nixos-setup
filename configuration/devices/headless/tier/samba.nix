@@ -141,75 +141,106 @@ in
     groups.${group} = { };
   };
 
-  services.samba = {
-    enable = true;
-    winbindd.enable = false;
+  services = {
+    avahi = {
+      enable = true;
 
-    settings = {
-      global = {
-        "workgroup" = "WORKGROUP";
-        "server string" = config.networking.hostName;
+      openFirewall = true;
 
-        "hosts allow" = [
-          "192.168."
-          "127.0.0.1"
+      nssmdns4 = true;
+      nssmdns6 = true;
 
-          "::1"
-        ];
-
-        "security" = "user";
-        "invalid users" = [ "root" ];
-        "passdb backend" = "tdbsam";
-        "obey pam restrictions" = "yes";
-        "pam password change" = "yes";
-
-        "map to guest" = "Never";
-        "restrict anonymous" = 2;
-
-        "server min protocol" = "SMB2";
-        "client min protocol" = "SMB2";
-
-        "disable netbios" = "yes";
-        "wins support" = "no";
-
-        "smb encrypt" = "required";
-        "client ipc signing" = "mandatory";
-        "server signing" = "mandatory";
-        "client signing" = "mandatory";
-
-        # Enable server-side copy for macOS clients
-        "fruit:copyfile" = "yes";
-
-        # Disable printer support
-        "load printers" = "no";
-        "printing" = "bsd";
-        "printcap name" = "/dev/null";
-        "disable spoolss" = "yes";
-        "show add printer wizard" = "no";
+      publish = {
+        enable = true;
+        userServices = true;
       };
 
-      Movies = {
-        "path" = mergerfsDir1;
-        "browseable" = "yes";
-        "read only" = "yes";
+      extraServiceFiles.smb = ''
+        <?xml version="1.0" standalone='no'?><!--*-nxml-*-->
+        <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
 
-        "valid users" = [ user ];
-        "force user" = user;
-        "force group" = group;
+        <service-group>
+          <name replace-wildcards="yes">%h</name>
 
-        "veto files" = lib.concatStringsSep "/" [ ".sync" ];
-      };
+          <service>
+            <type>_smb._tcp</type>
+            <port>445</port>
+          </service>
+        </service-group>
+      '';
 
-      Series = {
-        "path" = mergerfsDir2;
-        "browseable" = "yes";
-        "read only" = "yes";
+    };
 
-        "valid users" = [ user ];
-        "force user" = user;
-        "force group" = group;
+    samba = {
+      enable = true;
+      winbindd.enable = false;
 
-        "veto files" = lib.concatStringsSep "/" [ ".sync" ];
+      settings = {
+        global = {
+          "workgroup" = "WORKGROUP";
+          "server string" = config.networking.hostName;
+
+          "hosts allow" = [
+            "192.168."
+            "127.0.0.1"
+
+            "::1"
+          ];
+
+          "security" = "user";
+          "invalid users" = [ "root" ];
+          "passdb backend" = "tdbsam";
+          "obey pam restrictions" = "yes";
+          "pam password change" = "yes";
+
+          "map to guest" = "Never";
+          "restrict anonymous" = 2;
+
+          "server min protocol" = "SMB2";
+          "client min protocol" = "SMB2";
+
+          "disable netbios" = "yes";
+          "wins support" = "no";
+
+          "smb encrypt" = "required";
+          "client ipc signing" = "mandatory";
+          "server signing" = "mandatory";
+          "client signing" = "mandatory";
+
+          # Enable server-side copy for macOS clients
+          "fruit:copyfile" = "yes";
+
+          # Disable printer support
+          "load printers" = "no";
+          "printing" = "bsd";
+          "printcap name" = "/dev/null";
+          "disable spoolss" = "yes";
+          "show add printer wizard" = "no";
+        };
+
+        Movies = {
+          "path" = mergerfsDir1;
+          "browseable" = "yes";
+          "read only" = "yes";
+
+          "valid users" = [ user ];
+          "force user" = user;
+          "force group" = group;
+
+          "veto files" = lib.concatStringsSep "/" [ ".sync" ];
+        };
+
+        Series = {
+          "path" = mergerfsDir2;
+          "browseable" = "yes";
+          "read only" = "yes";
+
+          "valid users" = [ user ];
+          "force user" = user;
+          "force group" = group;
+
+          "veto files" = lib.concatStringsSep "/" [ ".sync" ];
+        };
       };
     };
   };
