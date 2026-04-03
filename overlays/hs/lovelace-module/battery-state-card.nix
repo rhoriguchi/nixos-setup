@@ -1,14 +1,14 @@
 { stdenv, fetchurl }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "hs-lovelace-module-battery-state-card";
-  version = "4.1.0";
+  version = "4.2.0";
 
   src =
     let
       owner = "maxwroc";
       repo = "battery-state-card";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-N+8Eod4+GQIM8aGDqmVzkf8w9Kj3iA2lyXyZLshvh6k=";
+      hash = "sha256-MfGiIRk1oKc48W4T8xjxJ/tXjQEgMJZNLYwrp+9sEF0=";
     in
     fetchurl {
       url = "https://github.com/${owner}/${repo}/releases/download/${tag}/battery-state-card.js";
