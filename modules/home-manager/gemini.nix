@@ -60,7 +60,7 @@
                   GIT_ROOT=$(${config.programs.git.package}/bin/git rev-parse --show-toplevel 2>/dev/null)
 
                   if [ -n "$GIT_ROOT" ]; then
-                    ENCRYPTED_FILES=$(${pkgs.git-crypt}/bin/git-crypt status |
+                    ENCRYPTED_FILES=$(${pkgs.coreutils}/bin/timeout 5s ${pkgs.git-crypt}/bin/git-crypt status 2>/dev/null |
                       ${pkgs.gnugrep}/bin/grep -v 'not encrypted' |
                       ${pkgs.gawk}/bin/awk '{print $2}')
 
