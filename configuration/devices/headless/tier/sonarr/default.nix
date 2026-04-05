@@ -95,8 +95,6 @@ let
 
             openFirewall = true;
 
-            port = 9708;
-
             url = "http://127.0.0.1:${toString containerCfg.services.sonarr.settings.server.port}/${type}";
 
             environment.API_KEY = containerCfg.services.sonarr.settings.auth.apikey;
