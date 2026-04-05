@@ -16,7 +16,7 @@
     "float on, match:class udiskie"
     "float on, match:class wpa_gui"
 
-    "no_screen_share on, match:class code, match:title secrets.nix - .* - Visual Studio Code"
+    "no_screen_share on, match:class code, match:title .*secrets.nix - .* - Visual Studio Code"
     "no_screen_share on, match:class discord"
     "no_screen_share on, match:class firefox, match:title .* \\| Bitwarden Web vault — Mozilla Firefox"
     "no_screen_share on, match:class firefox, match:title .* Discord \\| .* — Mozilla Firefox"
@@ -28,6 +28,6 @@
     "no_screen_share on, match:class org.keepassxc.KeePassXC"
     "no_screen_share on, match:class org.telegram.desktop"
     "no_screen_share on, match:class signal"
-    "no_screen_share on, match:class whatsapp-electron"
+    "no_screen_share on, match:title WhatsApp .*"
   ];
 }
