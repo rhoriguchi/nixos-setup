@@ -278,8 +278,8 @@
         };
         "workbench.iconTheme" = "material-icon-theme";
         "workbench.list.smoothScrolling" = true;
-        "workbench.preferredDarkColorTheme" = "Default Dark+";
-        "workbench.preferredLightColorTheme" = "Default Light+";
+        "workbench.preferredDarkColorTheme" = "Dark+";
+        "workbench.preferredLightColorTheme" = "Light+";
         "workbench.startupEditor" = "none";
         "[html]"."editor.defaultFormatter" = "vscode.html-language-features";
         "[javascript]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
