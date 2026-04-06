@@ -109,6 +109,7 @@ let
               ])
               // (cnames "XXLPitu-Tier.local" [
                 "authelia.00a.ch"
+                "bazarr.00a.ch"
                 "deluge.00a.ch"
                 "grafana.00a.ch"
                 "home-assistant.00a.ch"

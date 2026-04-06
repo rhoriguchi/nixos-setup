@@ -134,6 +134,7 @@ let
 in
 {
   imports = [
+    ./bazarr.nix
     ./deluge
     ./prowlarr.nix
     ./recyclarr.nix

@@ -33,6 +33,7 @@ in
         "/var/lib/sonarr-series"
         "/var/lib/terraria"
 
+        config.services.bazarr.dataDir
         config.services.home-assistant.configDir
         config.services.loki.dataDir
         config.services.minecraft-servers.dataDir
