@@ -20,13 +20,9 @@
     '';
   };
 
-  programs = {
-    git.settings = {
-      core.editor = "nano";
-      diff.tool = "nano";
-      merge.tool = "nano";
-    };
-
-    gemini-cli.settings.general.preferredEditor = "nano";
+  programs.git.settings = {
+    core.editor = "nano";
+    diff.tool = "nano";
+    merge.tool = "nano";
   };
 }
