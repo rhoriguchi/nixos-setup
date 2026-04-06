@@ -30,7 +30,7 @@ let
     ''
       apiKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"
 
-      ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+      ${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" << EOF
         DELETE FROM api_keys;
 
         INSERT INTO api_keys (
@@ -50,7 +50,7 @@ let
     '';
 
   addPreAuthKeys = ''
-    ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
+    ${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" << 'EOF'
       DELETE FROM pre_auth_keys;
     EOF
 
@@ -66,7 +66,7 @@ let
         ''
           preAuthKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"
 
-          ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << EOF
+          ${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" << EOF
             INSERT INTO pre_auth_keys (
               id,
               created_at,
@@ -270,7 +270,7 @@ in
       wants = [ config.systemd.services.headscale.name ];
 
       script = ''
-        deleted_nodes=$(${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
+        deleted_nodes=$(${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" << 'EOF'
           BEGIN;
 
           ${deleteNodesSql}
@@ -280,7 +280,7 @@ in
         EOF
         )
 
-        updated_nodes=$(${pkgs.sqlite-interactive}/bin/sqlite3 -csv ${config.services.headscale.settings.database.sqlite.path} << 'EOF'
+        updated_nodes=$(${pkgs.sqlite-interactive}/bin/sqlite3 -csv "${config.services.headscale.settings.database.sqlite.path}" << 'EOF'
           BEGIN;
 
           ${updateNodesSql}
