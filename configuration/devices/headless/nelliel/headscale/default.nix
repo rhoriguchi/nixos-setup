@@ -253,21 +253,23 @@ in
       enable = config.services.headscale.enable;
 
       after = [ config.systemd.services.headscale.name ];
-      wants = [ config.systemd.services.headscale.name ];
+      requires = [ config.systemd.services.headscale.name ];
 
       script = ''
         ${addApiKey}
         ${addPreAuthKeys}
       '';
 
-      serviceConfig.Type = "oneshot";
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
     };
 
     headscale-cleanup-nodes = {
       enable = config.services.headscale.enable;
 
       after = [ config.systemd.services.headscale.name ];
-      wants = [ config.systemd.services.headscale.name ];
 
       script = ''
         deleted_nodes=$(${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" << 'EOF'

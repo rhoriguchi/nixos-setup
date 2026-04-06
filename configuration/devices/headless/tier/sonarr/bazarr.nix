@@ -69,7 +69,7 @@
     enable = config.services.bazarr.enable;
 
     after = [ config.systemd.services.bazarr.name ];
-    wants = [ config.systemd.services.bazarr.name ];
+    requires = [ config.systemd.services.bazarr.name ];
 
     script = ''
       configFile="${config.services.bazarr.dataDir}/config/config.yaml"
@@ -131,6 +131,9 @@
       fi
     '';
 
-    serviceConfig.Type = "oneshot";
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
   };
 }

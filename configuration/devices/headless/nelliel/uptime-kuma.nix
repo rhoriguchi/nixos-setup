@@ -259,7 +259,7 @@ in
     enable = config.services.uptime-kuma.enable;
 
     after = [ config.systemd.services.uptime-kuma.name ];
-    wants = [ config.systemd.services.uptime-kuma.name ];
+    requires = [ config.systemd.services.uptime-kuma.name ];
 
     script = ''
       dbFile="${config.services.uptime-kuma.settings.DATA_DIR}kuma.db"
@@ -276,6 +276,9 @@ in
       fi
     '';
 
-    serviceConfig.Type = "oneshot";
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
   };
 }
