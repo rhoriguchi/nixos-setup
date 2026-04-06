@@ -138,10 +138,24 @@ in
           listenAddress = "127.0.0.1";
         };
 
+        exportarr-bazarr = {
+          enable = config.services.bazarr.enable;
+
+          port = 9708;
+
+          url = "http://127.0.0.1:${toString config.services.bazarr.listenPort}";
+
+          environment = {
+            INTERFACE = "127.0.0.1";
+
+            API_KEY = config.services.bazarr.settings.auth.apikey;
+          };
+        };
+
         exportarr-sonarr = {
           enable = config.services.sonarr.enable;
 
-          port = 9708;
+          port = 9709;
 
           url = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
 
@@ -155,7 +169,7 @@ in
         exportarr-prowlarr = {
           enable = config.services.prowlarr.enable;
 
-          port = 9709;
+          port = 9710;
 
           url = "http://127.0.0.1:${toString config.services.prowlarr.settings.server.port}";
 
@@ -470,7 +484,11 @@ in
         // {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
             jobs =
-              lib.optional config.services.borgmatic.enable {
+              lib.optional config.services.prometheus.exporters.exportarr-bazarr.enable {
+                name = "Bazarr";
+                url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-bazarr.port}/metrics";
+              }
+              ++ lib.optional config.services.borgmatic.enable {
                 name = "Borgmatic";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.borgmatic.port}/metrics";
               }
