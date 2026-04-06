@@ -9,6 +9,59 @@ let
   rootBindmountDir = "/mnt/bindmount/bazarr";
   bindmountDir1 = "${rootBindmountDir}/resilio";
   bindmountDir2 = "${rootBindmountDir}/disk";
+
+  bazarrConfig = (pkgs.formats.yaml { }).generate "bazarr-config.yaml" {
+    auth.apikey = secrets.bazarr.apiKey;
+
+    general = {
+      hostname = config.networking.hostName;
+
+      path_mappings = [
+        [
+          "/mnt/bindmount/sonarr/resilio-Series"
+          bindmountDir1
+        ]
+        [
+          "/mnt/bindmount/sonarr/disk-Series"
+          bindmountDir2
+        ]
+      ];
+
+      serie_default_enabled = true;
+      serie_default_profile = 1;
+
+      enabled_providers = [
+        "animetosho"
+        "opensubtitlescom"
+        "supersubtitles"
+        "tvsubtitles"
+        "yifysubtitles"
+      ];
+      enabled_integrations = [ "anidb" ];
+
+      use_sonarr = true;
+    };
+
+    opensubtitlescom = {
+      username = secrets.opensSubtitles.username;
+      password = secrets.opensSubtitles.password;
+    };
+
+    anidb = {
+      api_client = secrets.bazarr.anidb.apiClient;
+      api_client_ver = 1;
+    };
+
+    sonarr = {
+      apikey = secrets.sonarr.apiKey;
+      ip = config.containers.sonarr-anime.localAddress;
+      port = config.containers.sonarr-anime.config.services.sonarr.settings.server.port;
+      sync_only_monitored_series = true;
+      series_sync = 15;
+    };
+
+    analytics.enabled = false;
+  };
 in
 {
   system.fsPackages = [ pkgs.bindfs ];
@@ -62,45 +115,8 @@ in
         dbFile="${config.services.bazarr.dataDir}/db/bazarr.db"
 
         if [ -f "$configFile" ] && [ -f "$dbFile" ]; then
-          ${pkgs.yq-go}/bin/yq -i '
-            .auth.apikey = "${secrets.bazarr.apiKey}" |
-
-            .general.hostname = "${config.networking.hostName}" |
-            .general.path_mappings = [${
-              lib.concatStringsSep ", " [
-                ''["/mnt/bindmount/sonarr/resilio-Series", "${bindmountDir1}"]''
-                ''["/mnt/bindmount/sonarr/disk-Series", "${bindmountDir2}"]''
-              ]
-            }] |
-            .general.serie_default_enabled = true |
-            .general.serie_default_profile = 1 |
-
-            .general.enabled_providers = ["${
-              lib.concatStringsSep ''", "'' [
-                "animetosho"
-                "opensubtitlescom"
-                "supersubtitles"
-                "tvsubtitles"
-                "yifysubtitles"
-              ]
-            }"] |
-            .general.enabled_integrations = ["anidb"] |
-
-            .opensubtitlescom.username = "${secrets.opensSubtitles.username}" |
-            .opensubtitlescom.password = "${secrets.opensSubtitles.password}" |
-
-            .anidb.api_client = "${secrets.bazarr.anidb.apiClient}" |
-            .anidb.api_client_ver = 1 |
-
-            .general.use_sonarr = true |
-            .sonarr.apikey = "${secrets.sonarr.apiKey}" |
-            .sonarr.ip = "${config.containers.sonarr-anime.localAddress}" |
-            .sonarr.port = ${toString config.containers.sonarr-anime.config.services.sonarr.settings.server.port} |
-            .sonarr.sync_only_monitored_series = true |
-            .sonarr.series_sync = 15 |
-
-            .analytics.enabled = false
-          ' "$configFile"
+          ${pkgs.yaml-merge}/bin/yaml-merge "$configFile" "${bazarrConfig}" > "$configFile.tmp"
+          mv "$configFile.tmp" "$configFile"
 
           ${pkgs.sqlite-interactive}/bin/sqlite3 "$dbFile" << 'EOF'
             DELETE FROM table_languages_profiles;
