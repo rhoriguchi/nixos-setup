@@ -269,7 +269,7 @@ in
           ${addUser}
           ${addMonitors}
           ${addNotification}
-        EOF
+      EOF
 
         echo 'Restarting ${config.systemd.services.uptime-kuma.name}'
         systemctl restart ${config.systemd.services.uptime-kuma.name}
