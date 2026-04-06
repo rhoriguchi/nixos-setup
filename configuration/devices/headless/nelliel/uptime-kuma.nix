@@ -262,15 +262,18 @@ in
     wants = [ config.systemd.services.uptime-kuma.name ];
 
     script = ''
-      ${pkgs.sqlite-interactive}/bin/sqlite3 ${config.services.uptime-kuma.settings.DATA_DIR}kuma.db << 'EOF'
-        ${updateSettings}
-        ${addUser}
-        ${addMonitors}
-        ${addNotification}
-      EOF
+      dbFile="${config.services.uptime-kuma.settings.DATA_DIR}kuma.db"
+      if [ -f "$dbFile" ]; then
+        ${pkgs.sqlite-interactive}/bin/sqlite3 "$dbFile" << 'EOF'
+          ${updateSettings}
+          ${addUser}
+          ${addMonitors}
+          ${addNotification}
+        EOF
 
-      echo 'Restarting ${config.systemd.services.uptime-kuma.name}'
-      systemctl restart ${config.systemd.services.uptime-kuma.name}
+        echo 'Restarting ${config.systemd.services.uptime-kuma.name}'
+        systemctl restart ${config.systemd.services.uptime-kuma.name}
+      fi
     '';
 
     serviceConfig.Type = "oneshot";
