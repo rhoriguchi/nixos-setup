@@ -299,8 +299,6 @@ in
         };
       };
 
-      promtail.configuration.server.register_instrumentation = true;
-
       samba.settings.global."smbd profiling level" = "count";
 
       netdata = {
@@ -533,10 +531,6 @@ in
               ++ lib.optional config.services.loki.enable {
                 name = "Loki";
                 url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/metrics";
-              }
-              ++ lib.optional config.services.promtail.enable {
-                name = "Promtail";
-                url = "http://127.0.0.1:${toString config.services.promtail.configuration.server.http_listen_port}/metrics";
               }
               ++ lib.optional config.services.prometheus.exporters.exportarr-prowlarr.enable {
                 name = "Prowlarr";
