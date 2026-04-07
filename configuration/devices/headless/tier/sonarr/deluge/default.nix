@@ -45,7 +45,6 @@ in
     users.${config.services.deluge.user} = {
       group = config.services.deluge.group;
       uid = config.ids.uids.deluge;
-      home = config.services.deluge.dataDir;
     };
 
     groups.${config.services.deluge.group}.gid = config.ids.gids.deluge;
