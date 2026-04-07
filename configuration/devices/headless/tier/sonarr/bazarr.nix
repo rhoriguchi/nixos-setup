@@ -102,6 +102,8 @@ in
         auth.apikey = secrets.bazarr.apiKey;
 
         general = {
+          ip = "127.0.0.1";
+
           path_mappings = [
             [
               "/mnt/bindmount/sonarr/resilio-Series"
