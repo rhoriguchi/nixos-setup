@@ -1,11 +1,9 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../common.nix
     ./hardware-configuration.nix
   ];
-
-  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_rpi4;
 
   networking.interfaces = {
     eth0.useDHCP = true; # Ethernet
