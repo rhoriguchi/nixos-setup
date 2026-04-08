@@ -51,7 +51,7 @@
           };
         };
 
-        hooks.BeforeModel = [
+        hooks.SessionStart = [
           {
             matcher = "*";
             hooks = [
