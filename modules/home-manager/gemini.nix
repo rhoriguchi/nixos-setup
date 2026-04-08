@@ -16,13 +16,6 @@
 
       package = pkgs.llm-agents.gemini-cli;
 
-      policies."run_shell_command".rule = map (command: {
-        toolName = "run_shell_command";
-        commandPrefix = command;
-        decision = "allow";
-        priority = 100;
-      }) [ ];
-
       settings = {
         ide = {
           enabled = true;
