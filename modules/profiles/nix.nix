@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   system.stateVersion = "26.05";
 
@@ -12,6 +17,11 @@
         "@wheel"
         "root"
       ];
+      allowed-users = [
+        "@wheel"
+        "root"
+      ]
+      ++ lib.attrNames (lib.filterAttrs (_: value: value.isNormalUser) config.users.users);
       auto-optimise-store = true;
       warn-dirty = false;
       experimental-features = [
