@@ -29,8 +29,8 @@ let
       hostAddress = "169.254.1.1";
       localAddress =
         {
-          anime = "169.254.1.5";
-          series = "169.254.1.6";
+          anime = "169.254.1.178";
+          series = "169.254.1.193";
         }
         .${type};
 

@@ -60,7 +60,7 @@ in
 
     privateNetwork = true;
     hostAddress = "169.254.1.1";
-    localAddress = "169.254.1.2";
+    localAddress = "169.254.1.41";
 
     bindMounts = {
       "${config.services.deluge.dataDir}" = {
