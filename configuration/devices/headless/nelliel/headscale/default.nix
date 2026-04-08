@@ -252,8 +252,9 @@ in
     headscale-setup = {
       enable = config.services.headscale.enable;
 
+      wants = [ config.systemd.services.headscale.name ];
       after = [ config.systemd.services.headscale.name ];
-      requires = [ config.systemd.services.headscale.name ];
+      wantedBy = [ "multi-user.target" ];
 
       script = ''
         ${addApiKey}

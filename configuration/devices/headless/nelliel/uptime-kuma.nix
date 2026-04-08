@@ -258,8 +258,9 @@ in
   systemd.services.uptime-kuma-setup = {
     enable = config.services.uptime-kuma.enable;
 
+    wants = [ config.systemd.services.uptime-kuma.name ];
     after = [ config.systemd.services.uptime-kuma.name ];
-    requires = [ config.systemd.services.uptime-kuma.name ];
+    wantedBy = [ "multi-user.target" ];
 
     script = ''
       dbFile="${config.services.uptime-kuma.settings.DATA_DIR}kuma.db"

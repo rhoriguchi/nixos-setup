@@ -70,8 +70,9 @@ let
         systemd.services.bazarr-setup = {
           enable = true;
 
-          after = [ "bazarr.service" ];
-          requires = [ "bazarr.service" ];
+          wants = [ containerCfg.systemd.services.bazarr.name ];
+          after = [ containerCfg.systemd.services.bazarr.name ];
+          wantedBy = [ "multi-user.target" ];
 
           script = ''
             dbFile="${containerCfg.services.bazarr.dataDir}/db/bazarr.db"
