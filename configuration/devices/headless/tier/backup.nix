@@ -29,11 +29,12 @@ in
 
         "/var/cache/netdata"
         "/var/lib/${config.services.prometheus.stateDir}"
+        "/var/lib/bazarr-anime"
+        "/var/lib/bazarr-series"
         "/var/lib/sonarr-anime"
         "/var/lib/sonarr-series"
         "/var/lib/terraria"
 
-        config.services.bazarr.dataDir
         config.services.home-assistant.configDir
         config.services.loki.dataDir
         config.services.minecraft-servers.dataDir
