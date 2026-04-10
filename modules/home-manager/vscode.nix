@@ -22,6 +22,8 @@
       enableUpdateCheck = false;
       enableExtensionUpdateCheck = false;
 
+      enableMcpIntegration = true;
+
       extensions = [
         pkgs.vscode-extensions.adpyke.codesnap
         pkgs.vscode-extensions.alexdima.copy-relative-path
