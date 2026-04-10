@@ -41,6 +41,13 @@ let
   wgInterfaces = lib.attrNames containerCfg.networking.wireguard.interfaces;
 in
 {
+  assertions = [
+    {
+      assertion = lib.length (lib.unique (map (wgConfig: wgConfig.nameserver) wgConfigs)) == 1;
+      message = "All WireGuard configurations must use the same nameserver.";
+    }
+  ];
+
   users = {
     users.${config.services.deluge.user} = {
       group = config.services.deluge.group;
@@ -85,12 +92,7 @@ in
       networking = {
         enableIPv6 = false;
 
-        nameservers =
-          let
-            wgNameservers = map (wgConfig: wgConfig.nameserver) wgConfigs;
-          in
-          assert lib.length (lib.unique (wgNameservers)) == 1;
-          lib.unique wgNameservers;
+        nameservers = lib.unique (map (wgConfig: wgConfig.nameserver) wgConfigs);
 
         localCommands = ''
           ${pkgs.iproute2}/bin/ip route del default || true

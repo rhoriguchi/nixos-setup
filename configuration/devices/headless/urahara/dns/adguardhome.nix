@@ -6,6 +6,13 @@
   ...
 }:
 {
+  assertions = [
+    {
+      assertion = pkgs.adguardhome.schema_version == 33;
+      message = "AdGuard Home schema version changed.";
+    }
+  ];
+
   services = {
     bind = {
       listenOn = lib.mkForce [ "127.0.0.1" ];
@@ -55,20 +62,18 @@
       host = "127.0.0.1";
 
       mutableSettings = false;
-      settings =
-        assert pkgs.adguardhome.schema_version == 33;
-        {
-          dns = rec {
-            bootstrap_dns = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
-            upstream_dns = bootstrap_dns;
+      settings = {
+        dns = rec {
+          bootstrap_dns = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
+          upstream_dns = bootstrap_dns;
 
-            local_ptr_upstreams = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
+          local_ptr_upstreams = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
 
-            cache_enabled = false;
-            cache_optimistic = false;
-            ratelimit = 0;
-          };
+          cache_enabled = false;
+          cache_optimistic = false;
+          ratelimit = 0;
         };
+      };
     };
   };
 }

@@ -41,6 +41,14 @@ let
   blueMapWebRoot = "${config.services.minecraft-servers.dataDir}/${serverName}/bluemap/web";
 in
 {
+  assertions = [
+    {
+      assertion =
+        lib.versionAtLeast package.version "1.21.4" && lib.versionOlder package.version "1.21.12";
+      message = "WorldEdit has unsupported Paper version.";
+    }
+  ];
+
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems.${bindmountDir} = {
     depends = [ blueMapWebRoot ];
@@ -316,12 +324,10 @@ in
               };
 
             # https://hangar.papermc.io/EngineHub/WorldEdit/versions
-            "plugins/WorldEdit.jar" =
-              assert lib.versionAtLeast package.version "1.21.4" && lib.versionOlder package.version "1.21.12";
-              pkgs.fetchurl {
-                url = "https://hangarcdn.papermc.io/plugins/EngineHub/WorldEdit/versions/7.4.2/PAPER/worldedit-bukkit-7.4.2.jar";
-                sha256 = "sha256-DuFSsb5d+1FQBQXiv1qMnWbwnH+khL+a6jhNfntFmwY=";
-              };
+            "plugins/WorldEdit.jar" = pkgs.fetchurl {
+              url = "https://hangarcdn.papermc.io/plugins/EngineHub/WorldEdit/versions/7.4.2/PAPER/worldedit-bukkit-7.4.2.jar";
+              sha256 = "sha256-DuFSsb5d+1FQBQXiv1qMnWbwnH+khL+a6jhNfntFmwY=";
+            };
           };
 
           operators.XXLPitu = {
