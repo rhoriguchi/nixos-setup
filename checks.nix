@@ -33,12 +33,6 @@
         ];
       };
       fix-byte-order-marker.enable = true;
-      lychee = {
-        enable = true;
-        types = [ "markdown" ];
-
-        settings.flags = "--cache --offline --verbose";
-      };
       markdownlint = {
         enable = true;
 
