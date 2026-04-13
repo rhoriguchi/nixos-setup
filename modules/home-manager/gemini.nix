@@ -29,6 +29,12 @@
           enableHooks = true;
         };
 
+        context.fileName = [
+          "AGENTS.md"
+          "CONTEXT.md"
+          "GEMINI.md"
+        ];
+
         mcpServers = lib.mkIf config.programs.mcp.enable (
           lib.mapAttrs (_: server: server // { trust = true; }) config.programs.mcp.servers
         );
