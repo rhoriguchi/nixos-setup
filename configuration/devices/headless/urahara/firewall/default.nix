@@ -141,7 +141,6 @@ in
             iifname @iot_vlan_interface ip daddr ${ips.tier} tcp dport { 443 } accept # Home Assistant - Shelly
             iifname @iot_vlan_interface ip daddr ${ips.tier} tcp dport { 445 } accept # Samba
             iifname @iot_vlan_interface ip daddr ${ips.tier} tcp dport { 8324, 32469 } accept # Plex
-            iifname @iot_vlan_interface ip daddr ${ips.tier} udp dport { 1900 } accept # Plex
             iifname @iot_vlan_interface ip daddr ${ips.tier} udp dport { 4002 } accept # Home Assistant - Govee
 
             ip saddr ${ips.tier} oifname @iot_vlan_interface tcp dport { 80 } accept # Home Assistant - Shelly
