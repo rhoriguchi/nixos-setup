@@ -19,12 +19,11 @@
     ./loki.nix
     ./minecraft-server
     ./monitoring.nix
-    ./plex.nix
+    ./plex
     ./prometheus.nix
     ./rustdesk.nix
     ./samba.nix
     ./sonarr
-    ./tautulli.nix
     ./terraria.nix
 
     ./hardware-configuration.nix

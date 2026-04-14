@@ -12,6 +12,8 @@ let
   bindmountDir4 = "${rootBindmountDir}/disk-Series";
 in
 {
+  imports = [ ./tautulli.nix ];
+
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {
