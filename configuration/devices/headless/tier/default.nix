@@ -9,6 +9,7 @@
   imports = [
     ../common.nix
 
+    ./arr
     ./authelia
     ./backup.nix
     ./fancontrol.nix
@@ -23,7 +24,6 @@
     ./prometheus.nix
     ./rustdesk.nix
     ./samba.nix
-    ./sonarr
     ./terraria.nix
 
     ./hardware-configuration.nix

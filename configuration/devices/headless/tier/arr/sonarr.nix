@@ -133,14 +133,6 @@ let
     };
 in
 {
-  imports = [
-    ./bazarr.nix
-    ./deluge
-    ./prowlarr.nix
-    ./recyclarr.nix
-    ./sonarr-tv-time-updater
-  ];
-
   users = {
     users.${config.services.sonarr.user} = {
       group = config.services.sonarr.group;
