@@ -271,7 +271,7 @@
         "window.openFoldersInNewWindow" = "on";
         "window.restoreFullscreen" = false;
         "window.zoomLevel" = 0;
-        "workbench.colorTheme" = "Default Light+";
+        "workbench.colorTheme" = "Light+";
         "workbench.editor.highlightModifiedTabs" = true;
         "workbench.editor.restoreViewState" = true;
         "workbench.editorAssociations" = {
