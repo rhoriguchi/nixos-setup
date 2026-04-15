@@ -40,7 +40,7 @@
       }
     }/pkgs/by-name/pr/prowlarr/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=508784
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=508784
     netdata = super.callPackage (import "${
       super.fetchFromGitHub {
         owner = "NixOS";
@@ -50,7 +50,7 @@
       }
     }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=510318
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=510318
     plexRaw = super.python3Packages.callPackage (import "${
       super.fetchFromGitHub {
         owner = "NixOS";
