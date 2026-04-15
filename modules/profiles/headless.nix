@@ -4,7 +4,6 @@
 
     ./alloy.nix
     ./authelia.nix
-    ./containers.nix
     ./fail2ban.nix
     ./grafana.nix
     ./loki.nix

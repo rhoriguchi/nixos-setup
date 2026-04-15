@@ -108,7 +108,10 @@ in
         };
       };
 
-      network.enableRemoteAccess = false;
+      network = {
+        localNetworkAddresses = [ "127.0.0.1" ];
+        enableRemoteAccess = false;
+      };
 
       system = {
         serverName = config.networking.hostName;
