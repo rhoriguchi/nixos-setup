@@ -2,7 +2,6 @@
   config,
   lib,
   libCustom,
-  osConfig,
   ...
 }:
 let
@@ -14,7 +13,6 @@ let
   filteredTailscaleIps = lib.filterAttrs (
     key: _:
     !(lib.elem key [
-      osConfig.networking.hostName
       "headplane-agent"
       "XXLPitu-Nnoitra"
     ])
