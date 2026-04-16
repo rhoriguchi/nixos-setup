@@ -25,6 +25,12 @@
         client_secret = secrets.authelia.oidcClientSecrets.jellyfin.digest;
         token_endpoint_auth_method = "client_secret_post";
 
+        scopes = [
+          "openid"
+          "profile"
+          "groups"
+        ];
+
         authorization_policy = "jellyfin";
       }
     ];
