@@ -6,6 +6,7 @@
   alloy = ./alloy.nix;
   authelia = ./authelia.nix;
   bluetooth = ./bluetooth.nix;
+  chrony = ./chrony.nix;
   dconf-editor = ./dconf-editor.nix;
   doas = ./doas.nix;
   docker = ./docker.nix;

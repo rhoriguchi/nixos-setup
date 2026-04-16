@@ -423,6 +423,11 @@ in
             ];
           };
         }
+        // lib.optionalAttrs config.services.chrony.enable {
+          "go.d/chrony.conf" = pkgs.writers.writeYAML "chrony.conf" {
+            jobs = [ { name = "local"; } ];
+          };
+        }
         // lib.optionalAttrs config.services.dnsmasq.enable {
           "go.d/dnsmasq_dhcp.conf" = pkgs.writers.writeYAML "dnsmasq_dhcp.conf" {
             jobs = [

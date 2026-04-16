@@ -63,6 +63,10 @@ in
                 name = "domain-name";
                 data = "local";
               }
+              {
+                name = "ntp-servers";
+                data = "192.168.1.1";
+              }
             ];
             reservations = [
               {
@@ -92,6 +96,10 @@ in
                 name = "domain-name";
                 data = "local";
               }
+              {
+                name = "ntp-servers";
+                data = "192.168.2.1";
+              }
             ];
           }
           {
@@ -114,6 +122,10 @@ in
               {
                 name = "domain-name";
                 data = "local";
+              }
+              {
+                name = "ntp-servers";
+                data = "192.168.3.1";
               }
             ];
             reservations = [
@@ -144,6 +156,10 @@ in
                 name = "domain-name";
                 data = "local";
               }
+              {
+                name = "ntp-servers";
+                data = "192.168.10.1";
+              }
             ];
             reservations = [
               {
@@ -172,6 +188,10 @@ in
               {
                 name = "domain-name";
                 data = "local";
+              }
+              {
+                name = "ntp-servers";
+                data = "192.168.100.1";
               }
             ];
           }
