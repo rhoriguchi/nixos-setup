@@ -10,6 +10,7 @@ let
 in
 {
   imports = [
+    ./grafana.nix
     ./home-assistant.nix
     ./jellyfin.nix
   ];
