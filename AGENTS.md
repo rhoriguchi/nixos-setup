@@ -21,7 +21,7 @@ nix develop                    # Enter dev shell with all tools
 ### Formatting (ALWAYS run before committing)
 
 ```bash
-nixfmt default.nix             # Format a Nix files
+nixfmt default.nix             # Format a Nix file
 treefmt .                      # Format all Nix files
 ```
 
