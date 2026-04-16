@@ -9,7 +9,6 @@
           policy = "one_factor";
           subject = [
             "group:admin"
-
             "group:home-assistant"
           ];
         }

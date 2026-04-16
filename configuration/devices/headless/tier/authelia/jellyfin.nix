@@ -10,7 +10,6 @@
           policy = "one_factor";
           subject = [
             "group:admin"
-
             "group:jellyfin"
           ];
         }
