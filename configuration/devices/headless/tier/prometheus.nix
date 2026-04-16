@@ -48,6 +48,8 @@
       enable = true;
 
       extraFlags = [ "--web.enable-remote-write-receiver" ];
+
+      retentionTime = "1y";
     };
   };
 
