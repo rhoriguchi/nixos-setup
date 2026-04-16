@@ -88,6 +88,8 @@
             {
               name = "Loki";
               type = "loki";
+              uid = "P8E80F9AEF21F6940";
+
               access = "proxy";
               url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
               isDefault = true;
@@ -95,6 +97,8 @@
             {
               name = "Prometheus";
               type = "prometheus";
+              uid = "PBFA97CFB590B2093";
+
               access = "proxy";
               url = "http://127.0.0.1:${toString config.services.prometheus.port}";
 
