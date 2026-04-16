@@ -54,6 +54,39 @@ nix flake show --json
 ssh root@hostname
 ```
 
+### Deployment (deploy-rs)
+
+Flags are added to make the build fast and prevent hosts getting stuck
+
+#### Dry run (build only, no changes applied)
+
+Use this to verify that configurations evaluate and build correctly.
+
+```bash
+# All hosts
+deploy --keep-result --skip-checks --dry-activate '.'
+
+# Single host
+deploy --keep-result --skip-checks --dry-activate '.#hostname'
+```
+
+Deploy (applies changes to hosts)
+
+⚠️ This will apply changes immediately. Ensure that ssh host connection does not break.
+
+```bash
+# Build and deploy all host deployments
+deploy --magic-rollback false --rollback-succeeded false --auto-rollback false --keep-result --skip-checks '.'
+# Build and deploy a single host deployment
+deploy --magic-rollback false --rollback-succeeded false --auto-rollback false --keep-result --skip-checks '.#hostname'
+```
+
+#### Notes for agents
+
+- Prefer deploying a single host unless explicitly instructed otherwise
+- Do not modify deployment flags without understanding rollback implications
+- If a deployment fails, do not retry automatically without inspection
+
 ## Code Style Guidelines
 
 ### Nix Formatting
