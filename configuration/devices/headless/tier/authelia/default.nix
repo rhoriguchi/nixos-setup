@@ -9,11 +9,7 @@ let
   cfg = config.services.authelia.instances.main;
 in
 {
-  imports = [
-    ./grafana.nix
-    ./home-assistant.nix
-    ./jellyfin.nix
-  ];
+  imports = [ ./clients ];
 
   users.users.${cfg.user}.extraGroups = [ config.services.redis.servers.authelia.group ];
 
@@ -75,7 +71,7 @@ in
                 displayname = lib.toLower key;
               }
               // value
-            ) secrets.authelia.users;
+            ) (import ./users.nix);
           };
 
           password_reset.disable = true;

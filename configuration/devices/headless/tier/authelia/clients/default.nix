@@ -1,0 +1,4 @@
+{ libCustom, ... }:
+{
+  imports = libCustom.getImports ./.;
+}
