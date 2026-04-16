@@ -44,6 +44,7 @@
           ''secrets\.nix$''
 
           ''configuration\/devices\/headless\/tier\/authelia\/rsa.2048.key''
+          ''configuration\/devices\/headless\/tier\/authelia\/users.nix''
           ''configuration\/devices\/nnoitra\/iex\.json''
         ];
       };
