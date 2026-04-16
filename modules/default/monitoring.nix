@@ -337,20 +337,21 @@ in
           {
             parent = {
               db = {
+                # https://learn.netdata.cloud/docs/netdata-agent/configuration/database
                 mode = "dbengine";
                 "storage tiers" = 3;
 
                 # Tier 0, per second data
                 "dbengine tier 0 disk space MB" = 0;
-                "dbengine tier 0 retention days" = 14;
+                "dbengine tier 0 retention time" = "30d";
 
                 # Tier 1, per minute data
                 "dbengine tier 1 disk space MB" = 0;
-                "dbengine tier 1 retention days" = 30 * 3;
+                "dbengine tier 1 retention time" = 0;
 
                 # Tier 2, per hour data
                 "dbengine tier 2 disk space MB" = 0;
-                "dbengine tier 2 retention days" = 30 * 12;
+                "dbengine tier 2 retention time" = 0;
               };
 
               web = {
