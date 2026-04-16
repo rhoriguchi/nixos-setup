@@ -30,16 +30,6 @@
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=506785
-    prowlarr = super.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "ce780f2f83fa281f43ad70b249c45747dbf571af";
-        sha256 = "sha256-rE+JifHmCcDWEo1v59lkgN6uGZ7HynGTi3SyeGa56fQ=";
-      }
-    }/pkgs/by-name/pr/prowlarr/package.nix") { };
-
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=508784
     netdata = super.callPackage (import "${
       super.fetchFromGitHub {
