@@ -6,10 +6,16 @@
 }:
 let
   format = pkgs.formats.ini { };
+
+  autheliaEnabled = lib.any (instance: instance.enable) (
+    lib.attrValues config.services.authelia.instances
+  );
 in
 {
   services.fail2ban = {
     enable = lib.any (service: service.enable) [
+      { enable = autheliaEnabled; }
+
       config.services.home-assistant
       config.services.immich
       config.services.nginx
@@ -33,7 +39,7 @@ in
 
     jails = {
       authelia = {
-        enabled = lib.any (instance: instance.enable) (lib.attrValues config.services.authelia.instances);
+        enabled = autheliaEnabled;
 
         settings = {
           filter = "authelia";
