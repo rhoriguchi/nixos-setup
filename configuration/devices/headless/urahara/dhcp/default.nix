@@ -213,6 +213,10 @@ in
                 name = "domain-name-servers";
                 data = "1.1.1.1, 1.0.0.1";
               }
+              {
+                name = "ntp-servers";
+                data = "172.16.1.1";
+              }
             ];
           }
         ];
