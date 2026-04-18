@@ -261,7 +261,7 @@ in
             proxyPass = "http://127.0.0.1:${toString config.services.declarative-jellyfin.network.internalHttpPort}";
 
             extraConfig = ''
-              # Needed for SSO Authentication
+              # Needed for OIDC Authentication
               add_header Referrer-Policy "origin-when-cross-origin" always;
               add_header X-Content-Type-Options "nosniff" always;
               add_header X-Frame-Options "SAMEORIGIN" always;
