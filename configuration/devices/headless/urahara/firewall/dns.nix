@@ -7,24 +7,22 @@
 let
   internalInterface = interfaces.internal;
 
-  internalInterfaces = lib.filter (interface: lib.hasPrefix internalInterface interface) (
-    lib.attrNames config.networking.interfaces
-  );
-
   internalSubnets = lib.filter (
     subnet: lib.hasPrefix internalInterface subnet.interface
   ) config.services.kea.dhcp4.settings.subnet4;
-  subnetsWithDns = lib.filter (
+  internalSubnetsWithDns = lib.filter (
     subnet: lib.any (opt: opt.name == "domain-name-servers") (subnet.option-data or [ ])
   ) internalSubnets;
 
-  dnsByInterface = lib.listToAttrs (
+  internalSubnetsByInterface = lib.listToAttrs (
     map (
       subnet:
       lib.nameValuePair subnet.interface
         (lib.findFirst (opt: opt.name == "domain-name-servers") null (subnet.option-data or [ ])).data
-    ) subnetsWithDns
+    ) internalSubnetsWithDns
   );
+
+  internalDnsInterfaces = map (subnet: subnet.interface) internalSubnetsWithDns;
 in
 {
   # TODO
@@ -43,11 +41,11 @@ in
             # Run before `firewall` forward chain
             type filter hook forward priority filter - 10; policy accept;
 
-            iifname { ${lib.concatStringsSep ", " internalInterfaces} } oifname { ${config.networking.nat.externalInterface} } \
+            iifname { ${lib.concatStringsSep ", " internalDnsInterfaces} } oifname { ${config.networking.nat.externalInterface} } \
               meta l4proto { tcp, udp } th dport { 853 } \
               reject
 
-            iifname { ${lib.concatStringsSep ", " internalInterfaces} } oifname { ${config.networking.nat.externalInterface} } \
+            iifname { ${lib.concatStringsSep ", " internalDnsInterfaces} } oifname { ${config.networking.nat.externalInterface} } \
               meta nfproto ipv6 \
               meta l4proto { tcp, udp } th dport { 53 } \
               reject
@@ -67,7 +65,7 @@ in
                   ip daddr != ${dnsIp} \
                   meta l4proto { tcp, udp } \
                   dnat ip to ${dnsIp}:53
-              '') dnsByInterface
+              '') internalSubnetsByInterface
             )}
 
             accept

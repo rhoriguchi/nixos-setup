@@ -10,9 +10,15 @@
 }:
 let
   internalInterface = interfaces.internal;
-  internalInterfaces = lib.filter (interface: lib.hasPrefix internalInterface interface) (
-    lib.attrNames config.networking.interfaces
-  );
+
+  internalSubnets = lib.filter (
+    subnet: lib.hasPrefix internalInterface subnet.interface
+  ) config.services.kea.dhcp4.settings.subnet4;
+  internalSubnetsWithDns = lib.filter (
+    subnet: lib.any (opt: opt.name == "domain-name-servers") (subnet.option-data or [ ])
+  ) internalSubnets;
+
+  internalDnsInterfaces = map (subnet: subnet.interface) internalSubnetsWithDns;
 
   ips = import (libCustom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 
@@ -150,7 +156,7 @@ in
             53 # DNS
           ];
         }
-      ) internalInterfaces
+      ) internalDnsInterfaces
     );
   };
 
