@@ -29,6 +29,7 @@
           ''secrets\.nix$''
 
           ''configuration\/devices\/headless\/tier\/authelia\/rsa.2048.key''
+          ''configuration\/devices\/headless\/tier\/authelia\/users.nix''
           ''configuration\/devices\/nnoitra\/iex\.json''
         ];
       };
@@ -50,7 +51,13 @@
       };
       nixfmt = {
         enable = true;
-        excludes = [ ''secrets\.nix$'' ];
+        excludes = [
+          ''secrets\.nix$''
+
+          ''configuration\/devices\/headless\/tier\/authelia\/rsa.2048.key''
+          ''configuration\/devices\/headless\/tier\/authelia\/users.nix''
+          ''configuration\/devices\/nnoitra\/iex\.json''
+        ];
       };
       trim-trailing-whitespace = {
         enable = true;
