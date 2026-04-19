@@ -50,6 +50,28 @@
           order = [ "google-custom" ];
 
           engines = {
+            github = {
+              name = "GitHub";
+              iconMapObj."16" = "https://github.githubassets.com/favicons/favicon.png";
+              definedAliases = [ "git" ];
+
+              urls = [
+                {
+                  template = "https://github.com/search";
+                  params = [
+                    {
+                      name = "type";
+                      value = "code";
+                    }
+                    {
+                      name = "q";
+                      value = "{searchTerms}";
+                    }
+                  ];
+                }
+              ];
+            };
+
             google-custom = {
               name = "Google (Custom)";
               iconMapObj."16" = "https://www.google.com/favicon.ico";
