@@ -13,6 +13,7 @@
     ./authelia
     ./backup.nix
     ./fancontrol.nix
+    ./fitnesspark.nix
     ./geforce-gt-730.nix
     ./grafana
     ./home-assistant
