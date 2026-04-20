@@ -48,6 +48,7 @@ in
 
         access_control = {
           default_policy = "deny";
+
           rules = [
             {
               domain = "*.00a.ch";
