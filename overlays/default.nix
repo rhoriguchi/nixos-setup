@@ -39,16 +39,6 @@
         sha256 = "sha256-iNSn5p2XwIL2dkP1uV/xxIHcmIiVThoNSAkKKpFiDOc=";
       }
     }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
-
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=510318
-    plexRaw = super.python3Packages.callPackage (import "${
-      super.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "609b063a11e504c48e78ff38509abd49edf061a2";
-        sha256 = "sha256-+RnW1vQXK+mML7ND2p+p/c6Y96CIrIr872epeSciD8M=";
-      }
-    }/pkgs/by-name/pl/plexRaw/package.nix") { };
   })
   (_: super: {
     hs = super.callPackage ./hs { };
