@@ -318,9 +318,9 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by(state) (fitnesspark_visitors{state=~\"$state\"} >= 0)",
+          "expr": "sum(fitnesspark_visitors{state=~\"$state\"} >= 0)",
           "instant": false,
-          "legendFormat": "{{state}}",
+          "legendFormat": "Total",
           "range": true,
           "refId": "A"
         }
@@ -373,6 +373,6 @@
   "timezone": "browser",
   "title": "Fitnesspark",
   "uid": "ryxxtsc",
-  "version": 1,
+  "version": 2,
   "weekStart": "monday"
 }
