@@ -114,7 +114,7 @@ in
       };
 
       system = {
-        serverName = config.networking.hostName;
+        serverName = "Jellyfin";
 
         pluginRepositories =
           lib.mapAttrsToList
