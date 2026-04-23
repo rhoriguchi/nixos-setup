@@ -18,7 +18,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 32,
   "links": [],
   "panels": [
     {
@@ -86,7 +85,7 @@
         "showHeader": false,
         "sortBy": []
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -115,12 +114,12 @@
             "excludeByName": {
               "Time": true,
               "__name__": true,
+              "hostname": true,
               "instance": true,
               "job": true,
               "netdata_chart": true,
               "netdata_dimension": true,
-              "netdata_family": true,
-              "hostname": true
+              "netdata_family": true
             },
             "includeByName": {},
             "indexByName": {
@@ -128,13 +127,14 @@
               "Value": 1,
               "__name__": 3,
               "host": 0,
+              "hostname": 9,
               "instance": 4,
               "job": 5,
               "netdata_chart": 6,
               "netdata_dimension": 7,
-              "netdata_family": 8,
-              "hostname": 9
+              "netdata_family": 8
             },
+            "orderByMode": "auto",
             "renameByName": {}
           }
         },
@@ -204,7 +204,7 @@
         "showHeader": false,
         "sortBy": []
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -233,12 +233,12 @@
             "excludeByName": {
               "Time": true,
               "__name__": true,
+              "hostname": true,
               "instance": true,
               "job": true,
               "netdata_chart": true,
               "netdata_dimension": true,
-              "netdata_family": true,
-              "hostname": true
+              "netdata_family": true
             },
             "includeByName": {},
             "indexByName": {
@@ -246,13 +246,14 @@
               "Value": 1,
               "__name__": 3,
               "host": 0,
+              "hostname": 9,
               "instance": 4,
               "job": 5,
               "netdata_chart": 6,
               "netdata_dimension": 7,
-              "netdata_family": 8,
-              "hostname": 9
+              "netdata_family": 8
             },
+            "orderByMode": "auto",
             "renameByName": {}
           }
         },
@@ -353,7 +354,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -460,7 +461,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -547,7 +548,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -621,7 +622,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -695,7 +696,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -770,7 +771,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -872,7 +873,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -971,7 +972,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1070,7 +1071,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1081,7 +1082,6 @@
           "editorMode": "builder",
           "expr": "label_replace(label_replace(abs(netdata_net_net_kilobits_persec_average{hostname=\"$hostname\", netdata_family=~\"${internalInterface}\\\\.\\\\d+\"}), \"netdata_dimension\", \"Up\", \"netdata_dimension\", \"received\"), \"netdata_dimension\", \"Down\", \"netdata_dimension\", \"sent\")",
           "fullMetaSearch": false,
-          "hide": false,
           "includeNullMetadata": true,
           "legendFormat": "{{netdata_dimension}} {{netdata_family}}",
           "range": true,
@@ -1158,7 +1158,7 @@
         "showHeader": false,
         "sortBy": []
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1187,12 +1187,12 @@
             "excludeByName": {
               "Time": true,
               "__name__": true,
+              "hostname": true,
               "instance": true,
               "job": true,
               "netdata_chart": true,
               "netdata_dimension": true,
               "netdata_family": true,
-              "hostname": true,
               "pool": true,
               "subnet_id": true
             },
@@ -1201,16 +1201,17 @@
               "Time": 2,
               "Value": 1,
               "__name__": 3,
+              "hostname": 9,
               "instance": 4,
               "job": 5,
               "netdata_chart": 6,
               "netdata_dimension": 7,
               "netdata_family": 8,
-              "hostname": 9,
               "pool": 10,
               "subnet": 0,
               "subnet_id": 11
             },
+            "orderByMode": "auto",
             "renameByName": {}
           }
         }
@@ -1294,7 +1295,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.4.2",
       "targets": [
         {
           "datasource": {
@@ -1305,7 +1306,6 @@
           "editorMode": "builder",
           "expr": "netdata_prometheus_Kea_kea_dhcp4_addresses_assigned_total_assigned_average{hostname=\"$hostname\", pool!=\"[none]\"}",
           "fullMetaSearch": false,
-          "hide": false,
           "includeNullMetadata": true,
           "legendFormat": "{{subnet}}",
           "range": true,
@@ -1331,15 +1331,10 @@
         "description": "",
         "hide": 2,
         "name": "hostname",
-        "options": [
-          {
-            "selected": true,
-            "text": "XXLPitu-Urahara",
-            "value": "XXLPitu-Urahara"
-          }
-        ],
+        "options": [],
         "query": "XXLPitu-Urahara",
-        "type": "custom"
+        "type": "custom",
+        "valuesFormat": "csv"
       },
       {
         "current": {
@@ -1348,15 +1343,10 @@
         },
         "hide": 2,
         "name": "externalInterface",
-        "options": [
-          {
-            "selected": true,
-            "text": "eth4",
-            "value": "eth4"
-          }
-        ],
+        "options": [],
         "query": "eth4",
-        "type": "custom"
+        "type": "custom",
+        "valuesFormat": "csv"
       },
       {
         "current": {
@@ -1366,15 +1356,10 @@
         "description": "",
         "hide": 2,
         "name": "internalInterface",
-        "options": [
-          {
-            "selected": true,
-            "text": "eth3",
-            "value": "eth3"
-          }
-        ],
+        "options": [],
         "query": "eth3",
-        "type": "custom"
+        "type": "custom",
+        "valuesFormat": "csv"
       }
     ]
   },
@@ -1386,6 +1371,6 @@
   "timezone": "browser",
   "title": "Network",
   "uid": "ae5yp992gp8n4f",
-  "version": 12,
+  "version": 13,
   "weekStart": "monday"
 }
