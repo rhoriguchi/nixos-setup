@@ -89,8 +89,8 @@ in
           chain output {
             type filter hook output priority filter; policy accept;
 
-            oifname { ${config.networking.nat.externalInterface} } ip  daddr @rfc1918 reject
-            oifname { ${config.networking.nat.externalInterface} } ip6 daddr @rfc4193 reject
+            oifname { ${config.networking.nat.externalInterface} } ip  daddr @rfc1918 drop
+            oifname { ${config.networking.nat.externalInterface} } ip6 daddr @rfc4193 drop
           }
 
           chain forward {
@@ -101,13 +101,6 @@ in
             iifname { ${lib.concatStringsSep ", " internalInterfaces} } oifname { ${lib.concatStringsSep ", " internalInterfaces} } jump lan-to-lan-filter
           }
 
-          chain wan-to-lan-filter {
-            ct state { established, related } accept
-            ct status dnat accept
-
-            drop
-          }
-
           chain lan-to-wan-filter {
             ip daddr @rfc1918 drop
             ip6 daddr @rfc4193 drop
@@ -115,12 +108,15 @@ in
             accept
           }
 
+          chain wan-to-lan-filter {
+            ct state { established, related } accept
+            ct status dnat accept
+
+            drop
+          }
+
           chain lan-to-lan-filter {
             ct state { established, related } accept
-
-            meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
-            tcp dport { 53317 } accept # LocalSend
-            udp dport { 41641 } accept # Tailscale
 
             meta nfproto ipv4 jump lan-to-lan-ipv4-filter
             meta nfproto ipv6 jump lan-to-lan-ipv6-filter
@@ -166,6 +162,12 @@ in
               in
               lib.concatStringsSep "\n" rules
             }
+
+            meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
+            tcp dport { 53317 } accept # LocalSend
+            udp dport { 41641 } accept # Tailscale
+
+            drop
           }
 
           chain lan-to-lan-ipv6-filter {
