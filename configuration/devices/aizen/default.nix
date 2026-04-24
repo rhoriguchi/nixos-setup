@@ -102,18 +102,16 @@
   services = {
     displayManager.autoLogin.user = "rhoriguchi";
 
-    resilio = {
-      enable = true;
-
-      webUI = {
-        enable = true;
-
-        username = "admin";
-        password = secrets.resilio.webUI.password;
-      };
-    };
-
     onedrive.enable = true;
+
+    custom-syncthing = {
+      user = "rhoriguchi";
+      group = "users";
+
+      syncDir = "${config.users.users.rhoriguchi.home}/Sync";
+
+      trashcan.enable = true;
+    };
   };
 
   programs.gnupg.agent.enable = true;
@@ -155,7 +153,7 @@
   system.activationScripts.rhoriguchiSetup =
     let
       home = config.users.users.rhoriguchi.home;
-      syncPath = "${home}/Sync";
+      syncDir = config.services.custom-syncthing.syncDir;
 
       downloadDirs = map (path: "'${home}/Downloads/${path}'") [
         "Browser"
@@ -173,8 +171,8 @@
       mkdir -p ${lib.concatStringsSep " " downloadDirs}
       chown -R rhoriguchi:${config.users.users.rhoriguchi.group} ${lib.concatStringsSep " " downloadDirs}
 
-      ${createSymlink "${syncPath}/Git" "${home}/Git"}
-      ${createSymlink "${syncPath}/KeePass" "${home}/Documents/KeePass"}
-      ${createSymlink "${syncPath}/Storage/Recipes" "${home}/Documents/Recipes"}
+      ${createSymlink "${syncDir}/Git" "${home}/Git"}
+      ${createSymlink "${syncDir}/KeePass" "${home}/Documents/KeePass"}
+      ${createSymlink "${syncDir}/Storage/Recipes" "${home}/Documents/Recipes"}
     '';
 }

@@ -21,7 +21,6 @@ sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
   - Tab Session Manager
   - RabattCorner
 - qBittorrent
-- Resilio Sync
 - RustDesk
 - Signal
 - Spotify

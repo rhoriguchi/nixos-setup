@@ -95,6 +95,9 @@ let
         ".config/resilio-sync"
         ".sync"
 
+        # Syncthing
+        ".stfolder"
+
         # Visual Studio Code
         ".config/Code"
         ".vscode"

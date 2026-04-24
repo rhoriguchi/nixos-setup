@@ -166,6 +166,9 @@ in
               dst = [
                 "tag:headful:53317" # LocalSend
 
+                "tag:headless:21027" # Syncthing
+                "tag:headless:22000" # Syncthing
+
                 "autogroup:internet:*"
               ];
             }

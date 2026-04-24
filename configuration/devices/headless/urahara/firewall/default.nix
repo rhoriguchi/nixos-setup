@@ -163,8 +163,9 @@ in
               lib.concatStringsSep "\n" rules
             }
 
-            meta l4proto { tcp, udp } th dport { 5555 } accept # Resilio Sync
+            tcp dport { 21027, 22000 } accept # Syncthing
             tcp dport { 53317 } accept # LocalSend
+            udp dport { 22000 } accept # Syncthing
             udp dport { 41641 } accept # Tailscale
 
             drop
@@ -228,6 +229,13 @@ in
           proto = "udp";
           destination = "${ips.tier}:21116";
           sourcePort = 21116;
+        }
+
+        # Syncthing Relay
+        {
+          proto = "tcp";
+          destination = "${ips.tier}:22067";
+          sourcePort = 22067;
         }
 
         # Terraria

@@ -16,16 +16,16 @@ in
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {
-      depends = [ config.services.resilio.syncPath ];
-      device = "${config.services.resilio.syncPath}/Series";
+      depends = [ config.services.syncthing.dataDir ];
+      device = "${config.services.syncthing.dataDir}/Series";
       fsType = "fuse.bindfs";
       noCheck = true;
       options = [
         "perms=0550"
         "map=${
           lib.concatStringsSep ":" [
-            "${config.services.resilio.user}/${config.services.plex.user}"
-            "@${config.services.resilio.group}/@${config.services.plex.group}"
+            "${config.services.syncthing.user}/${config.services.plex.user}"
+            "@${config.services.syncthing.group}/@${config.services.plex.group}"
           ]
         }"
       ];

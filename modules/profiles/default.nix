@@ -40,6 +40,7 @@
   shell = ./shell.nix;
   ssh = ./ssh.nix;
   sudo-rs = ./sudo-rs.nix;
+  syncthing = ./syncthing.nix;
   tailscale = ./tailscale.nix;
   tailscale-exit-node = ./tailscale-exit-node.nix;
   tmp-management = ./tmp-management.nix;

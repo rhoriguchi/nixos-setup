@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  secrets,
   ...
 }:
 {
@@ -25,6 +24,7 @@
     ./prometheus.nix
     ./rustdesk.nix
     ./samba.nix
+    ./syncthing-relay.nix
     ./terraria.nix
 
     ./hardware-configuration.nix
@@ -68,11 +68,5 @@
     ];
   };
 
-  services.resilio = {
-    enable = true;
-
-    readWriteDirs = lib.attrNames secrets.resilio.secrets;
-    secrets = secrets.resilio.secrets;
-    syncPath = "/mnt/Data/Sync";
-  };
+  services.custom-syncthing.syncDir = "/mnt/Data/Sync";
 }

@@ -16,21 +16,30 @@ let
 
   rootMergerfsDir = "/mnt/mergerfs/samba";
   mergerfsDir1 = "${rootMergerfsDir}/Series";
+
+  hiddenFiles = map (file: "/${file}") [
+    # Resilio Sync
+    ".sync/"
+
+    # syncthing
+    ".stfolder/"
+    ".stignore"
+  ];
 in
 {
   system.fsPackages = [ pkgs.mergerfs ];
   fileSystems = {
     "${bindmountDir1}" = {
-      depends = [ config.services.resilio.syncPath ];
-      device = "${config.services.resilio.syncPath}/Series";
+      depends = [ config.services.syncthing.dataDir ];
+      device = "${config.services.syncthing.dataDir}/Series";
       fsType = "fuse.bindfs";
       noCheck = true;
       options = [
         "perms=0550"
         "map=${
           lib.concatStringsSep ":" [
-            "${config.services.resilio.user}/${user}"
-            "@${config.services.resilio.group}/@${group}"
+            "${config.services.syncthing.user}/${user}"
+            "@${config.services.syncthing.group}/@${group}"
           ]
         }"
       ];
@@ -131,7 +140,6 @@ in
           </service>
         </service-group>
       '';
-
     };
 
     samba = {
@@ -190,7 +198,7 @@ in
           "force user" = user;
           "force group" = group;
 
-          "veto files" = lib.concatStringsSep "/" [ ".sync" ];
+          "veto files" = lib.concatStringsSep " " hiddenFiles;
         };
 
         Series = {
@@ -202,7 +210,7 @@ in
           "force user" = user;
           "force group" = group;
 
-          "veto files" = lib.concatStringsSep "/" [ ".sync" ];
+          "veto files" = lib.concatStringsSep " " hiddenFiles;
         };
       };
     };
