@@ -303,6 +303,8 @@ in
 
       samba.settings.global."smbd profiling level" = "count";
 
+      syncthing.settings.gui.metricsWithoutAuth = true;
+
       netdata = {
         enable = true;
 
@@ -551,6 +553,11 @@ in
               ++ lib.optional config.services.prometheus.exporters.exportarr-sonarr.enable {
                 name = "Sonarr";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-sonarr.port}/metrics";
+              }
+              # TODO test
+              ++ lib.optional config.services.syncthing.enable {
+                name = "Syncthing";
+                url = "http://${config.services.syncthing.guiAddress}/metrics";
               }
               ++ lib.optional config.services.tailscale.enable {
                 name = "Tailscale Client";

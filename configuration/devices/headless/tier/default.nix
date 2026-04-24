@@ -25,6 +25,7 @@
     ./prometheus.nix
     ./rustdesk.nix
     ./samba.nix
+    ./syncthing-relay.nix
     ./terraria.nix
 
     ./hardware-configuration.nix

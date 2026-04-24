@@ -206,6 +206,7 @@
                   self.nixosModules.profiles.laptop-power-management
                   self.nixosModules.profiles.podman
                   self.nixosModules.profiles.python
+                  self.nixosModules.profiles.syncthing
 
                   ./configuration/devices/aizen
 
@@ -271,6 +272,7 @@
 
                   self.nixosModules.profiles.headless
 
+                  self.nixosModules.profiles.syncthing
                   self.nixosModules.profiles.zfs
 
                   ./configuration/devices/headless/tier
@@ -312,6 +314,8 @@
                   inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
                   self.nixosModules.profiles.headless
+
+                  self.nixosModules.profiles.syncthing
 
                   ./configuration/devices/headless/raspberry-pi-4/grimmjow
                 ];

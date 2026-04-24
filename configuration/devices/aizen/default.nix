@@ -11,6 +11,7 @@
     ./hp-g4.nix
     ./keepassxc.nix
     ./rsnapshot.nix
+    ./syncthing.nix
 
     ./hardware-configuration.nix
   ];
