@@ -18,9 +18,9 @@ in
   imports = [ "${src}/nixos/modules/services/networking/headplane.nix" ];
 
   nixpkgs.overlays = [
-    (_: super: {
-      headplane = super.callPackage "${src}/pkgs/by-name/he/headplane/package.nix" { };
-      headplane-agent = super.callPackage "${src}/pkgs/by-name/he/headplane-agent/package.nix" { };
+    (_: prev: {
+      headplane = prev.callPackage "${src}/pkgs/by-name/he/headplane/package.nix" { };
+      headplane-agent = prev.callPackage "${src}/pkgs/by-name/he/headplane-agent/package.nix" { };
     })
   ];
 }

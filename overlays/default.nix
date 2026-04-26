@@ -1,8 +1,8 @@
 [
-  (_: super: {
+  (_: prev: {
     # Resilio Sync 3.0.2.1058 will break after a while
-    resilio-sync = super.callPackage (import "${
-      super.fetchFromGitHub {
+    resilio-sync = prev.callPackage (import "${
+      prev.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
         rev = "4f0dadbf38ee4cf4cc38cbc232b7708fddf965bc";
@@ -11,8 +11,8 @@
     }/pkgs/by-name/re/resilio-sync/package.nix") { };
 
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=450661
-    superfile = super.callPackage (import "${
-      super.fetchFromGitHub {
+    superfile = prev.callPackage (import "${
+      prev.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
         rev = "905e73f3e7fc9d96b106cbb2dea3cda885226971";
@@ -21,8 +21,8 @@
     }/pkgs/by-name/su/superfile/package.nix") { };
 
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
-    gamedig = super.callPackage (import "${
-      super.fetchFromGitHub {
+    gamedig = prev.callPackage (import "${
+      prev.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
         rev = "96a1de845c46bff135a97ea91ce9508e9fd78e7a";
@@ -31,18 +31,35 @@
     }/pkgs/by-name/ga/gamedig/package.nix") { };
 
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=508784
-    netdata = super.callPackage (import "${
-      super.fetchFromGitHub {
+    netdata = prev.callPackage (import "${
+      prev.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
         rev = "2a682cc0cafc12542fee6a79a1dd7f32005feac5";
         sha256 = "sha256-iNSn5p2XwIL2dkP1uV/xxIHcmIiVThoNSAkKKpFiDOc=";
       }
-    }/pkgs/tools/system/netdata") { protobuf = super.protobuf_21; };
+    }/pkgs/tools/system/netdata") { protobuf = prev.protobuf_21; };
   })
-  (_: super: {
-    hs = super.callPackage ./hs { };
+  (_: prev: {
+    hs = prev.callPackage ./hs { };
 
-    wallpaper = super.callPackage ./wallpaper { };
+    wallpaper = prev.callPackage ./wallpaper { };
+  })
+  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=513680
+  (final: prev: {
+    python3 = prev.python3.override {
+      packageOverrides = _: _: {
+        aioboto3 = prev.python3Packages.callPackage (import "${
+          prev.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "bba77e69fc1642c39698af393c4e379cfe26cf8e";
+            sha256 = "sha256-uUZKxM2uzrvOKMHIShfv3zJXeS0uTIeuYPkqXJaogUQ=";
+          }
+        }/pkgs/development/python-modules/aioboto3/default.nix") { };
+      };
+    };
+
+    python3Packages = final.python3.pkgs;
   })
 ]

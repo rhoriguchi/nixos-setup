@@ -21,8 +21,8 @@ in
   imports = [ "${src}/nixos/modules/services/hardware/scanservjs.nix" ];
 
   nixpkgs.overlays = [
-    (_: super: {
-      scanservjs = super.callPackage (import "${src}/pkgs/by-name/sc/scanservjs/package.nix") { };
+    (_: prev: {
+      scanservjs = prev.callPackage (import "${src}/pkgs/by-name/sc/scanservjs/package.nix") { };
     })
   ];
 }

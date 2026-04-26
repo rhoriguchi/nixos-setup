@@ -85,13 +85,13 @@
   };
 
   nixpkgs.overlays = [
-    (_: super: {
+    (_: prev: {
       # Required for Signal to work with GNOME Keyring
-      signal-desktop = super.symlinkJoin {
-        inherit (super.signal-desktop) name pname version;
-        paths = [ super.signal-desktop ];
+      signal-desktop = prev.symlinkJoin {
+        inherit (prev.signal-desktop) name pname version;
+        paths = [ prev.signal-desktop ];
 
-        nativeBuildInputs = [ super.makeWrapper ];
+        nativeBuildInputs = [ prev.makeWrapper ];
 
         postBuild = ''
           wrapProgram $out/bin/signal-desktop \
