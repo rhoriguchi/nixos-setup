@@ -14,7 +14,7 @@ in
 {
   options.services.metricShipping = {
     enable = lib.mkEnableOption "Ship logs with Grafana Alloy to Loki";
-    receiverHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
+    receiverHostname = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
   };
 
   config = lib.mkIf cfg.enable {

@@ -10,9 +10,9 @@ in
 {
   options.services.infomaniak = {
     enable = lib.mkEnableOption "Infomaniak DDNS updater";
-    username = lib.mkOption { type = lib.types.str; };
-    password = lib.mkOption { type = lib.types.str; };
-    hostnames = lib.mkOption { type = lib.types.listOf lib.types.str; };
+    username = lib.mkOption { type = lib.types.nonEmptyStr; };
+    password = lib.mkOption { type = lib.types.nonEmptyStr; };
+    hostnames = lib.mkOption { type = lib.types.listOf lib.types.nonEmptyStr; };
     enableIPv6 = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -20,21 +20,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.username != "";
-        message = "Username cannot be empty";
-      }
-      {
-        assertion = cfg.password != "";
-        message = "Password cannot be empty";
-      }
-      {
-        assertion = cfg.hostnames != [ ];
-        message = "Hostnames list cannot be empty";
-      }
-    ];
-
     services.ddclient = {
       enable = true;
 

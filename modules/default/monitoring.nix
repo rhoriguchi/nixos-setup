@@ -37,10 +37,10 @@ in
         ]
       );
     };
-    parentHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
-    apiKey = lib.mkOption { type = lib.types.str; };
-    claimToken = lib.mkOption { type = lib.types.nullOr lib.types.str; };
-    discordWebhookUrl = lib.mkOption { type = lib.types.nullOr lib.types.str; };
+    parentHostname = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
+    apiKey = lib.mkOption { type = lib.types.nonEmptyStr; };
+    claimToken = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
+    discordWebhookUrl = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
     webPort = lib.mkOption {
       type = lib.types.port;
       default = 19999;
@@ -49,8 +49,8 @@ in
       type = lib.types.listOf (
         lib.types.submodule {
           options = {
-            name = lib.mkOption { type = lib.types.str; };
-            url = lib.mkOption { type = lib.types.str; };
+            name = lib.mkOption { type = lib.types.nonEmptyStr; };
+            url = lib.mkOption { type = lib.types.nonEmptyStr; };
           };
         }
       );

@@ -14,7 +14,7 @@ in
 {
   options.services.logShipping = {
     enable = lib.mkEnableOption "Ship metrics with Grafana Alloy to Prometheus";
-    receiverHostname = lib.mkOption { type = lib.types.nullOr lib.types.str; };
+    receiverHostname = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
   };
 
   config = lib.mkIf cfg.enable {

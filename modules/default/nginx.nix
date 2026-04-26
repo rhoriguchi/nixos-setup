@@ -5,7 +5,7 @@ in
 {
   options.services.nginx.stream = {
     resolvers = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
+      type = lib.types.listOf lib.types.nonEmptyStr;
       default = [ ];
     };
     upstreams = lib.mkOption {
@@ -13,9 +13,9 @@ in
       type = lib.types.attrsOf (
         lib.types.submodule {
           options = {
-            server = lib.mkOption { type = lib.types.str; };
+            server = lib.mkOption { type = lib.types.nonEmptyStr; };
             hostnames = lib.mkOption {
-              type = lib.types.listOf lib.types.str;
+              type = lib.types.listOf lib.types.nonEmptyStr;
               default = [ ];
             };
           };

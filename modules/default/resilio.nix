@@ -61,11 +61,11 @@ in
   options.services.resilio = {
     enable = lib.mkEnableOption "Resilio Sync";
     user = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.nonEmptyStr;
       default = "rslsync";
     };
     group = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.nonEmptyStr;
       default = "rslsync";
     };
     webUI = lib.mkOption {
@@ -76,10 +76,13 @@ in
             default = false;
           };
           username = lib.mkOption {
-            type = lib.types.str;
+            type = lib.types.nonEmptyStr;
             default = "admin";
           };
-          password = lib.mkOption { type = lib.types.str; };
+          password = lib.mkOption {
+            type = lib.types.nullOr lib.types.nonEmptyStr;
+            default = null;
+          };
           port = lib.mkOption {
             type = lib.types.port;
             default = 8888;
@@ -126,7 +129,7 @@ in
       default = 0;
     };
     readWriteDirs = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
+      type = lib.types.listOf lib.types.nonEmptyStr;
       default = [ ];
     };
     secrets = lib.mkOption {
@@ -150,10 +153,6 @@ in
 
   config = lib.mkIf cfg.enable {
     assertions = [
-      {
-        assertion = cfg.syncPath != "";
-        message = "Sync path cannot be empty";
-      }
       {
         assertion = cfg.systemWide -> !cfg.webUI.enable;
         message = "When running system wide web ui can't be enabled";
@@ -179,11 +178,7 @@ in
         message = "When not running system wide syncPath can't be set";
       }
       {
-        assertion = cfg.webUI.enable -> cfg.webUI.username != "";
-        message = "When web ui is enabled username must be set";
-      }
-      {
-        assertion = cfg.webUI.enable -> cfg.webUI.password != "";
+        assertion = cfg.webUI.enable -> cfg.webUI.password != null;
         message = "When web ui is enabled password must be set";
       }
       {
