@@ -19,13 +19,17 @@
     firefox = {
       enable = true;
 
+      # TODO PR https://github.com/nix-community/home-manager/pull/9180 seems to not apply extensions and settings
+      # when removed firefox profile has to be migrated
+      configPath = ".mozilla/firefox";
+
       languagePacks = [
         "de"
         "en-us"
       ];
 
       profiles.default = {
-        id = 0;
+        isDefault = true;
 
         extensions.packages = [
           pkgs.firefox-addons.bitwarden
