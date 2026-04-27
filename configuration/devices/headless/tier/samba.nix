@@ -10,35 +10,17 @@ let
   group = "samba";
 
   rootBindmountDir = "/mnt/bindmount/samba";
-  bindmountDir1 = "${rootBindmountDir}/resilio-Movies";
-  bindmountDir2 = "${rootBindmountDir}/resilio-Series";
-  bindmountDir3 = "${rootBindmountDir}/disk-Movies";
-  bindmountDir4 = "${rootBindmountDir}/disk-Series";
+  bindmountDir1 = "${rootBindmountDir}/resilio-Series";
+  bindmountDir2 = "${rootBindmountDir}/disk-Movies";
+  bindmountDir3 = "${rootBindmountDir}/disk-Series";
 
   rootMergerfsDir = "/mnt/mergerfs/samba";
-  mergerfsDir1 = "${rootMergerfsDir}/Movies";
-  mergerfsDir2 = "${rootMergerfsDir}/Series";
+  mergerfsDir1 = "${rootMergerfsDir}/Series";
 in
 {
   system.fsPackages = [ pkgs.mergerfs ];
   fileSystems = {
     "${bindmountDir1}" = {
-      depends = [ config.services.resilio.syncPath ];
-      device = "${config.services.resilio.syncPath}/Movies";
-      fsType = "fuse.bindfs";
-      noCheck = true;
-      options = [
-        "perms=0550"
-        "map=${
-          lib.concatStringsSep ":" [
-            "${config.services.resilio.user}/${user}"
-            "@${config.services.resilio.group}/@${group}"
-          ]
-        }"
-      ];
-    };
-
-    "${bindmountDir2}" = {
       depends = [ config.services.resilio.syncPath ];
       device = "${config.services.resilio.syncPath}/Series";
       fsType = "fuse.bindfs";
@@ -54,7 +36,7 @@ in
       ];
     };
 
-    "${bindmountDir3}" = {
+    "${bindmountDir2}" = {
       depends = [ "/mnt/Data/Movies" ];
       device = "/mnt/Data/Movies";
       fsType = "fuse.bindfs";
@@ -70,7 +52,7 @@ in
       ];
     };
 
-    "${bindmountDir4}" = {
+    "${bindmountDir3}" = {
       depends = [ "/mnt/Data/Series" ];
       device = "/mnt/Data/Series";
       fsType = "fuse.bindfs";
@@ -92,25 +74,8 @@ in
         bindmountDir3
       ];
       device = lib.concatStringsSep ":" [
-        "${bindmountDir1}/Anime"
-        "${bindmountDir1}/Movies"
+        bindmountDir1
         bindmountDir3
-      ];
-      fsType = "fuse.mergerfs";
-      noCheck = true;
-      options = [
-        "allow_other"
-      ];
-    };
-
-    "${mergerfsDir2}" = {
-      depends = [
-        bindmountDir2
-        bindmountDir4
-      ];
-      device = lib.concatStringsSep ":" [
-        bindmountDir2
-        bindmountDir4
       ];
       fsType = "fuse.mergerfs";
       noCheck = true;
@@ -125,11 +90,9 @@ in
     "d ${bindmountDir1} 0550 ${user} ${group}"
     "d ${bindmountDir2} 0550 ${user} ${group}"
     "d ${bindmountDir3} 0550 ${user} ${group}"
-    "d ${bindmountDir4} 0550 ${user} ${group}"
 
     "d ${rootMergerfsDir} 0550 ${user} ${group}"
     "d ${mergerfsDir1} 0550 ${user} ${group}"
-    "d ${mergerfsDir2} 0550 ${user} ${group}"
   ];
 
   users = {
@@ -219,7 +182,7 @@ in
         };
 
         Movies = {
-          "path" = mergerfsDir1;
+          "path" = bindmountDir2;
           "browseable" = "yes";
           "read only" = "yes";
 
@@ -231,7 +194,7 @@ in
         };
 
         Series = {
-          "path" = mergerfsDir2;
+          "path" = mergerfsDir1;
           "browseable" = "yes";
           "read only" = "yes";
 

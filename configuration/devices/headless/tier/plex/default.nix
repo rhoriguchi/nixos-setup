@@ -6,10 +6,9 @@
 }:
 let
   rootBindmountDir = "/mnt/bindmount/plex";
-  bindmountDir1 = "${rootBindmountDir}/resilio-Movies";
-  bindmountDir2 = "${rootBindmountDir}/resilio-Series";
-  bindmountDir3 = "${rootBindmountDir}/disk-Movies";
-  bindmountDir4 = "${rootBindmountDir}/disk-Series";
+  bindmountDir1 = "${rootBindmountDir}/resilio-Series";
+  bindmountDir2 = "${rootBindmountDir}/disk-Movies";
+  bindmountDir3 = "${rootBindmountDir}/disk-Series";
 in
 {
   imports = [ ./tautulli.nix ];
@@ -17,22 +16,6 @@ in
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {
-      depends = [ config.services.resilio.syncPath ];
-      device = "${config.services.resilio.syncPath}/Movies";
-      fsType = "fuse.bindfs";
-      noCheck = true;
-      options = [
-        "perms=0550"
-        "map=${
-          lib.concatStringsSep ":" [
-            "${config.services.resilio.user}/${config.services.plex.user}"
-            "@${config.services.resilio.group}/@${config.services.plex.group}"
-          ]
-        }"
-      ];
-    };
-
-    "${bindmountDir2}" = {
       depends = [ config.services.resilio.syncPath ];
       device = "${config.services.resilio.syncPath}/Series";
       fsType = "fuse.bindfs";
@@ -48,7 +31,7 @@ in
       ];
     };
 
-    "${bindmountDir3}" = {
+    "${bindmountDir2}" = {
       depends = [ "/mnt/Data/Movies" ];
       device = "/mnt/Data/Movies";
       fsType = "fuse.bindfs";
@@ -64,7 +47,7 @@ in
       ];
     };
 
-    "${bindmountDir4}" = {
+    "${bindmountDir3}" = {
       depends = [ "/mnt/Data/Series" ];
       device = "/mnt/Data/Series";
       fsType = "fuse.bindfs";
@@ -86,7 +69,6 @@ in
     "d ${bindmountDir1} 0550 ${config.services.plex.user} ${config.services.plex.group}"
     "d ${bindmountDir2} 0550 ${config.services.plex.user} ${config.services.plex.group}"
     "d ${bindmountDir3} 0550 ${config.services.plex.user} ${config.services.plex.group}"
-    "d ${bindmountDir4} 0550 ${config.services.plex.user} ${config.services.plex.group}"
   ];
 
   services.plex = {

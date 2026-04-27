@@ -7,31 +7,14 @@
 }:
 let
   rootBindmountDir = "/mnt/bindmount/jellyfin";
-  bindmountDir1 = "${rootBindmountDir}/resilio-Movies";
-  bindmountDir2 = "${rootBindmountDir}/resilio-Series";
-  bindmountDir3 = "${rootBindmountDir}/disk-Movies";
-  bindmountDir4 = "${rootBindmountDir}/disk-Series";
+  bindmountDir1 = "${rootBindmountDir}/resilio-Series";
+  bindmountDir2 = "${rootBindmountDir}/disk-Movies";
+  bindmountDir3 = "${rootBindmountDir}/disk-Series";
 in
 {
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {
-      depends = [ config.services.resilio.syncPath ];
-      device = "${config.services.resilio.syncPath}/Movies";
-      fsType = "fuse.bindfs";
-      noCheck = true;
-      options = [
-        "perms=0550"
-        "map=${
-          lib.concatStringsSep ":" [
-            "${config.services.resilio.user}/${config.services.jellyfin.user}"
-            "@${config.services.resilio.group}/@${config.services.jellyfin.group}"
-          ]
-        }"
-      ];
-    };
-
-    "${bindmountDir2}" = {
       depends = [ config.services.resilio.syncPath ];
       device = "${config.services.resilio.syncPath}/Series";
       fsType = "fuse.bindfs";
@@ -47,7 +30,7 @@ in
       ];
     };
 
-    "${bindmountDir3}" = {
+    "${bindmountDir2}" = {
       depends = [ "/mnt/Data/Movies" ];
       device = "/mnt/Data/Movies";
       fsType = "fuse.bindfs";
@@ -63,7 +46,7 @@ in
       ];
     };
 
-    "${bindmountDir4}" = {
+    "${bindmountDir3}" = {
       depends = [ "/mnt/Data/Series" ];
       device = "/mnt/Data/Series";
       fsType = "fuse.bindfs";
@@ -85,7 +68,6 @@ in
     "d ${bindmountDir1} 0550 ${config.services.jellyfin.user} ${config.services.jellyfin.group}"
     "d ${bindmountDir2} 0550 ${config.services.jellyfin.user} ${config.services.jellyfin.group}"
     "d ${bindmountDir3} 0550 ${config.services.jellyfin.user} ${config.services.jellyfin.group}"
-    "d ${bindmountDir4} 0550 ${config.services.jellyfin.user} ${config.services.jellyfin.group}"
   ];
 
   services = {
@@ -160,14 +142,13 @@ in
             "Movies" = {
               contentType = "movies";
               pathInfos = [
-                "${bindmountDir1}/Movies"
-                bindmountDir3
+                "${bindmountDir2}/Movies"
               ];
             };
             "Anime Movies" = {
               contentType = "movies";
               pathInfos = [
-                "${bindmountDir1}/Anime"
+                "${bindmountDir2}/Anime"
               ];
 
               typeOptions.Movie = {
@@ -183,15 +164,15 @@ in
             "TV Shows" = {
               contentType = "tvshows";
               pathInfos = [
-                "${bindmountDir2}/Tv Shows"
-                "${bindmountDir4}/Tv Shows"
+                "${bindmountDir1}/Tv Shows"
+                "${bindmountDir3}/Tv Shows"
               ];
             };
             "Anime" = {
               contentType = "tvshows";
               pathInfos = [
-                "${bindmountDir2}/Anime"
-                "${bindmountDir4}/Anime"
+                "${bindmountDir1}/Anime"
+                "${bindmountDir3}/Anime"
               ];
 
               typeOptions = {
