@@ -45,21 +45,4 @@
 
     wallpaper = prev.callPackage ./wallpaper { };
   })
-  # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=513680
-  (final: prev: {
-    python3 = prev.python3.override {
-      packageOverrides = _: _: {
-        aioboto3 = prev.python3Packages.callPackage (import "${
-          prev.fetchFromGitHub {
-            owner = "NixOS";
-            repo = "nixpkgs";
-            rev = "bba77e69fc1642c39698af393c4e379cfe26cf8e";
-            sha256 = "sha256-uUZKxM2uzrvOKMHIShfv3zJXeS0uTIeuYPkqXJaogUQ=";
-          }
-        }/pkgs/development/python-modules/aioboto3/default.nix") { };
-      };
-    };
-
-    python3Packages = final.python3.pkgs;
-  })
 ]

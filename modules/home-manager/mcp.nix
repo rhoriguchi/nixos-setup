@@ -10,10 +10,12 @@
         env.GITHUB_PERSONAL_ACCESS_TOKEN = secrets.gemini.mcpServers.github.accessToken;
       };
 
-      nixos = {
-        command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
-        args = [ "--" ];
-      };
+      # TODO uncomment when merged https://nixpkgs-tracker.ocfox.me/?pr=510339
+      # has a build issue with python3Packages.fastmcp
+      # nixos = {
+      #   command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+      #   args = [ "--" ];
+      # };
     };
   };
 }
