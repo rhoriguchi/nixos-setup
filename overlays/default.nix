@@ -45,7 +45,7 @@
 
     wallpaper = prev.callPackage ./wallpaper { };
   })
-  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=513680
+  # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=513680
   (final: prev: {
     python3 = prev.python3.override {
       packageOverrides = _: _: {
