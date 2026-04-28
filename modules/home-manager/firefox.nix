@@ -152,6 +152,14 @@
                       value = "unstable";
                     }
                     {
+                      name = "include_home_manager_options";
+                      value = 0;
+                    }
+                    {
+                      name = "include_modular_service_options";
+                      value = 0;
+                    }
+                    {
                       name = "query";
                       value = "{searchTerms}";
                     }
