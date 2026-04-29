@@ -8,7 +8,7 @@
 {
   assertions = [
     {
-      assertion = pkgs.adguardhome.schema_version == 33;
+      assertion = pkgs.adguardhome.schema_version == 34;
       message = "AdGuard Home schema version changed.";
     }
   ];
