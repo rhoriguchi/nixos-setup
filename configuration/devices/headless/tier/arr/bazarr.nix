@@ -11,7 +11,7 @@ let
   bazarrGid = 361;
 
   rootBindmountDir = "/mnt/bindmount/bazarr";
-  bindmountDir1 = "${rootBindmountDir}/resilio";
+  bindmountDir1 = "${rootBindmountDir}/sync";
   bindmountDir2 = "${rootBindmountDir}/disk";
 
   getContainerCfg = type: config.containers."bazarr-${type}".config;
@@ -125,7 +125,7 @@ let
 
                 path_mappings = [
                   [
-                    "/mnt/bindmount/sonarr/resilio-Series"
+                    "/mnt/bindmount/sonarr/sync-Series"
                     bindmountDir1
                   ]
                   [

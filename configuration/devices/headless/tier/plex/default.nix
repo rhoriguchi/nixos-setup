@@ -6,7 +6,7 @@
 }:
 let
   rootBindmountDir = "/mnt/bindmount/plex";
-  bindmountDir1 = "${rootBindmountDir}/resilio-Series";
+  bindmountDir1 = "${rootBindmountDir}/sync-Series";
   bindmountDir2 = "${rootBindmountDir}/disk-Movies";
   bindmountDir3 = "${rootBindmountDir}/disk-Series";
 in

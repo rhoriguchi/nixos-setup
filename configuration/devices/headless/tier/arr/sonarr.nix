@@ -7,7 +7,7 @@
 }:
 let
   rootBindmountDir = "/mnt/bindmount/sonarr";
-  bindmountDir1 = "${rootBindmountDir}/resilio-Series";
+  bindmountDir1 = "${rootBindmountDir}/sync-Series";
   bindmountDir2 = "${rootBindmountDir}/disk-Series";
 
   getContainerCfg = type: config.containers."sonarr-${type}".config;

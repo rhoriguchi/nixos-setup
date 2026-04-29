@@ -29,7 +29,7 @@
                 pkgs.replaceVars ./script.py {
                   sonarApiUrl = "http://${config.containers.sonarr-series.localAddress}:${toString config.services.sonarr.settings.server.port}";
                   sonarApiKey = secrets.sonarr.apiKey;
-                  sonarrRootDir = "/mnt/bindmount/sonarr/resilio-Series/Tv Shows";
+                  sonarrRootDir = "/mnt/bindmount/sonarr/sync-Series/Tv Shows";
 
                   tvTimeUsername = secrets.tvTime.username;
                   tvTimePassword = secrets.tvTime.password;
