@@ -244,7 +244,11 @@ in
           "/" = {
             proxyPass = "http://127.0.0.1:${toString config.services.uptime-kuma.settings.PORT}";
 
+            proxyWebsockets = true;
+
             extraConfig = ''
+              proxy_buffering off;
+
               include /run/nginx-authelia/auth.conf;
             '';
           };
