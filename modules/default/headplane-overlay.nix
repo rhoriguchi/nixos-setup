@@ -1,12 +1,12 @@
-# TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=398667
+# TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=515299
 
 let
   src =
     let
       owner = "NixOS";
       repo = "nixpkgs";
-      rev = "aee6662b429cf1d5b349cb6234aeddcaf1eae481";
-      sha256 = "sha256:00dcv7aflap1lnlhbzr08ij6fw3imab9v5xjg3l0np1fr4nq56jj";
+      rev = "692911f6a0289844d4fc098cc85e24ef5cd6ec43";
+      sha256 = "sha256:011jyyibiqlal9zjvv3s582gg32zvwdcw1jy0swvfk3i82i9qnyk";
     in
     builtins.fetchTarball {
       name = "nixpkgs";
