@@ -175,7 +175,6 @@
 
       ${createSymlink "${syncPath}/Git" "${home}/Git"}
       ${createSymlink "${syncPath}/KeePass" "${home}/Documents/KeePass"}
-      ${createSymlink "${syncPath}/Storage/Inspiration" "${home}/Documents/Inspiration"}
       ${createSymlink "${syncPath}/Storage/Recipes" "${home}/Documents/Recipes"}
     '';
 }
