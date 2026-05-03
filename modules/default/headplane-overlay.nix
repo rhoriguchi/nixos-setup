@@ -14,7 +14,10 @@ let
       inherit sha256;
     };
 in
+{ modulesPath, ... }:
 {
+  disabledModules = [ "${modulesPath}/services/networking/headplane.nix" ];
+
   imports = [ "${src}/nixos/modules/services/networking/headplane.nix" ];
 
   nixpkgs.overlays = [
