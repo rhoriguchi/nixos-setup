@@ -315,6 +315,27 @@
             inherit specialArgs;
           };
 
+          # Dell Wyse 5070 (N11D)
+          XXLPitu-Kenpachi = lib.nixosSystem {
+            system = "x86_64-linux";
+
+            modules = [
+              {
+                imports = [
+                  commonModule
+
+                  self.nixosModules.profiles.headless
+
+                  self.nixosModules.profiles.syncthing
+
+                  ./configuration/devices/headless/kenpachi
+                ];
+              }
+            ];
+
+            inherit specialArgs;
+          };
+
           # Raspberry Pi 4 Model B - 8GB
           XXLPitu-Grimmjow = inputs.nixos-raspberrypi.lib.nixosSystem {
             # nixos-raspberrypi
