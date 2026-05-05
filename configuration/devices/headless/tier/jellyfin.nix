@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  libCustom,
   pkgs,
   secrets,
   ...
@@ -10,6 +11,17 @@ let
   bindmountDir1 = "${rootBindmountDir}/sync-Series";
   bindmountDir2 = "${rootBindmountDir}/disk-Movies";
   bindmountDir3 = "${rootBindmountDir}/disk-Series";
+
+  autheliaUsers = import (
+    libCustom.relativeToRoot "configuration/devices/headless/tier/authelia/users.nix"
+  );
+  filteredAutheliaUsers = lib.filterAttrs (
+    _: value:
+    lib.any (groups: lib.elem groups value.groups) [
+      "admin"
+      "jellyfin"
+    ]
+  ) autheliaUsers;
 in
 {
   system.fsPackages = [ pkgs.bindfs ];
@@ -80,15 +92,29 @@ in
 
       apikeys = secrets.jellyfin.apikeys;
 
-      users.admin = {
+      users = {
+        admin = {
+          mutable = false;
+          password = secrets.jellyfin.users.admin.password;
+
+          permissions = {
+            isAdministrator = true;
+            isHidden = true;
+          };
+        };
+      }
+      // lib.mapAttrs (_: value: {
         mutable = false;
-        password = secrets.jellyfin.users.admin.password;
+        hashedPassword = "*";
+
+        authenticationProviderId = "Jellyfin.Plugin.SSO_Auth.Api.SSOController";
+        loginAttemptsBeforeLockout = null;
 
         permissions = {
-          isAdministrator = true;
+          isAdministrator = lib.elem "admin" value.groups;
           isHidden = true;
         };
-      };
+      }) filteredAutheliaUsers;
 
       network = {
         localNetworkAddresses = [ "127.0.0.1" ];
