@@ -31,6 +31,8 @@ in
       "file://${homeDirectory}/Sync/Git Sync/Git"
       "file://${homeDirectory}/Sync/Series Sync/Series"
     ]
-    ++ map (hostname: "sftp://root@${hostname}/ ${hostname}") (lib.attrNames filteredTailscaleIps);
+    ++ map (hostname: "sftp://root@${hostname}/ ${lib.replaceStrings [ "XXLPitu-" ] [ "" ] hostname}") (
+      lib.attrNames filteredTailscaleIps
+    );
   };
 }
