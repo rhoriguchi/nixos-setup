@@ -178,7 +178,5 @@ fwupdmgr update
 ### Raspberry Pi
 
 ```console
-mkdir -p /mnt/FIRMWARE && mount /dev/disk/by-label/FIRMWARE /mnt/FIRMWARE
-BOOTFS=/mnt/FIRMWARE FIRMWARE_RELEASE_STATUS=stable rpi-eeprom-update -d -a
-umount /mnt/FIRMWARE && rm -rf /mnt/FIRMWARE
+BOOTFS=/boot/firmware FIRMWARE_RELEASE_STATUS=stable rpi-eeprom-update -d -a
 ```
