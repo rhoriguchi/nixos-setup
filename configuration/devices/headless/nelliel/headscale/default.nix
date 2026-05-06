@@ -97,19 +97,17 @@ let
   deleteNodesSql = ''
     DELETE
     FROM nodes
-    WHERE given_name NOT IN (${
-      lib.concatStringsSep "," (map (hostname: "'${lib.toLower hostname}'") hostnames)
+    WHERE auth_key_id NOT IN (${
+      lib.concatStringsSep "," (map (hostname: getHostId hostname) hostnames)
     });
 
     DELETE
     FROM nodes
     WHERE id NOT IN
-        (SELECT id
-         FROM nodes AS n1
-         WHERE n1.last_seen =
-             (SELECT MAX(n2.last_seen)
-              FROM nodes AS n2
-              WHERE n2.auth_key_id = n1.auth_key_id));
+      (SELECT id
+      FROM nodes
+      GROUP BY auth_key_id
+      HAVING last_seen = MAX(last_seen));
   '';
 
   updateNodesSql = lib.concatStringsSep "\n" (
