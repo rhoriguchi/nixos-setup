@@ -9,6 +9,8 @@ let
   hostnames = lib.attrNames secrets.headscale.preAuthKeys;
   tailscaleIps = import ./ips.nix;
 
+  getHostId = hostname: lib.last (lib.splitString "." tailscaleIps.${hostname});
+
   parseKey =
     key:
     let
@@ -55,8 +57,8 @@ let
     EOF
 
     ${lib.concatStringsSep "\n" (
-      lib.imap1 (
-        index: hostname:
+      map (
+        hostname:
         let
           preAuthKey = secrets.headscale.preAuthKeys.${hostname};
 
@@ -77,7 +79,7 @@ let
               prefix,
               hash
             ) VALUES (
-              ${toString index},
+              ${getHostId hostname},
               '${unixEpoch}',
               '${expiration}',
               '[${lib.concatStringsSep "," (map (tag: ''"tag:${lib.toLower tag}"'') tags)}]',
@@ -93,8 +95,11 @@ let
   '';
 
   deleteNodesSql = ''
-    DELETE FROM nodes
-    WHERE auth_key_id > ${toString (lib.length hostnames)};
+    DELETE
+    FROM nodes
+    WHERE given_name NOT IN (${
+      lib.concatStringsSep "," (map (hostname: "'${lib.toLower hostname}'") hostnames)
+    });
 
     DELETE
     FROM nodes
@@ -108,12 +113,12 @@ let
   '';
 
   updateNodesSql = lib.concatStringsSep "\n" (
-    lib.imap1 (index: hostname: ''
+    map (hostname: ''
       UPDATE nodes
       SET given_name = '${lib.toLower hostname}',
           ipv4 = '${tailscaleIps.${hostname}}',
-          tags = (SELECT tags FROM pre_auth_keys WHERE id = ${toString index})
-      WHERE auth_key_id = ${toString index};
+          tags = (SELECT tags FROM pre_auth_keys WHERE id = ${getHostId hostname})
+      WHERE auth_key_id = ${getHostId hostname};
     '') hostnames
   );
 in
