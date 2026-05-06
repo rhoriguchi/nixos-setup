@@ -144,7 +144,9 @@ in
 
         options = {
           listenAddresses = [
-            "default"
+            "tcp://0.0.0.0:22000"
+            "quic://0.0.0.0:22000"
+            "dynamic"
           ]
           ++ lib.optional (
             cfg.relay != { }
@@ -159,6 +161,7 @@ in
 
           addresses = [
             "tcp://${tailscaleIps.${key}}:22000"
+            "quic://${tailscaleIps.${key}}:22000"
             "dynamic"
           ];
 
