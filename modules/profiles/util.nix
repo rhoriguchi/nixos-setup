@@ -5,7 +5,10 @@
   ...
 }:
 {
-  programs.htop.enable = true;
+  programs = {
+    htop.enable = true;
+    mtr.enable = true;
+  };
 
   environment = {
     defaultPackages = [ ];
@@ -28,7 +31,6 @@
       pkgs.iproute2
       pkgs.jq
       pkgs.killall
-      pkgs.mtr
       pkgs.nano
       pkgs.nixfmt
       pkgs.nixfmt-tree
