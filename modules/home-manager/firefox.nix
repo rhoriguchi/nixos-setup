@@ -246,10 +246,6 @@
                   name = "Todoist";
                   url = "https://todoist.com/app?lang=en#start";
                 }
-                {
-                  name = "Reddit";
-                  url = "https://www.reddit.com";
-                }
               ];
             }
           ];
