@@ -33,7 +33,6 @@ in
     }) (lib.filterAttrs (key: _: key != config.networking.hostName) secrets.syncthing.devices);
 
     folders = [
-      "Books"
       "Documents"
       "Git"
       "KeePass"
