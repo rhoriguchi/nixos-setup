@@ -48,7 +48,6 @@
             "bbc.co.uk"
             "cloudflare.com"
             "digitec.ch"
-            "github.com"
             "instagram.com"
             "reddit.com"
             "spiegel.de"
