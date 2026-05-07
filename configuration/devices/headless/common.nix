@@ -13,8 +13,6 @@
     "kernel.panic_on_oops" = 1;
   };
 
-  documentation.enable = false;
-
   networking.networkmanager = {
     ethernet.macAddress = "permanent";
     wifi.macAddress = "permanent";

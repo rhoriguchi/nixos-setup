@@ -18,4 +18,6 @@
 
     users.root.hashedPassword = "*";
   };
+
+  documentation.enable = false;
 }
