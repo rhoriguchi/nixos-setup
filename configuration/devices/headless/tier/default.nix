@@ -12,12 +12,12 @@
     ./authelia
     ./backup.nix
     ./fancontrol.nix
-    ./fitnesspark.nix
     ./geforce-gt-730.nix
     ./grafana
     ./home-assistant
     ./jellyfin.nix
     ./loki.nix
+    ./metric-scrapers
     ./minecraft-server
     ./monitoring.nix
     ./plex
