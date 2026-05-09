@@ -62,7 +62,7 @@
           token_url = "https://authelia.00a.ch/api/oidc/token";
           api_url = "https://authelia.00a.ch/api/oidc/userinfo";
 
-          role_attribute_path = "contains(groups, 'admin') && 'Admin' || contains(groups, 'grafana') && 'Viewer'";
+          role_attribute_path = "contains(groups, 'admin') && 'Admin' || contains(groups, 'grafana') && 'Editor'";
         };
       };
 
