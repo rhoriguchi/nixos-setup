@@ -171,7 +171,6 @@ in
         access_log off;
 
         allow 127.0.0.1;
-        ${lib.optionalString config.networking.enableIPv6 "allow ::1;"}
         deny all;
       '';
     };
