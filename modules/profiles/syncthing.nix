@@ -24,6 +24,7 @@ in
     webUI.password = secrets.syncthing.webUI.password;
 
     relay = {
+      url = "syncthing-relay.00a.ch";
       inherit (secrets.syncthing.relay) id token;
     };
 

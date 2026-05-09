@@ -71,11 +71,14 @@ in
       type = lib.types.nullOr (
         lib.types.submodule {
           options = {
+            url = lib.mkOption {
+              type = lib.types.nonEmptyStr;
+            };
             id = lib.mkOption {
-              type = lib.types.nullOr lib.types.nonEmptyStr;
+              type = lib.types.nonEmptyStr;
             };
             token = lib.mkOption {
-              type = lib.types.nullOr lib.types.nonEmptyStr;
+              type = lib.types.nonEmptyStr;
             };
           };
         }
@@ -150,7 +153,7 @@ in
           ]
           ++ lib.optional (
             cfg.relay != { }
-          ) "relay://syncthing-relay.00a.ch:22067?id=${cfg.relay.id}&token=${cfg.relay.token}";
+          ) "relay://${cfg.relay.url}:22067?id=${cfg.relay.id}&token=${cfg.relay.token}";
 
           urAccepted = -1;
           crashReportingEnabled = false;
