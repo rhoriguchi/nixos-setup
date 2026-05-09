@@ -172,67 +172,66 @@ in
         folders = lib.listToAttrs (
           map (
             folder:
-            lib.nameValuePair folder {
-              id = builtins.hashString "sha256" folder;
-              path = "${cfg.syncDir}/${if cfg.trusted then folder else builtins.hashString "sha256" folder}";
+            lib.nameValuePair folder (
+              {
+                id = builtins.hashString "sha256" folder;
+                path = "${cfg.syncDir}/${if cfg.trusted then folder else builtins.hashString "sha256" folder}";
 
-              devices = lib.mapAttrsToList (
-                key: value:
-                if (cfg.trusted && !value.trusted) then
-                  {
-                    name = key;
-                    encryptionPasswordFile = "/run/syncthing/encryption-password";
-                  }
-                else
-                  key
-              ) cfg.devices;
+                devices = lib.mapAttrsToList (
+                  key: value:
+                  if (cfg.trusted && !value.trusted) then
+                    {
+                      name = key;
+                      encryptionPasswordFile = "/run/syncthing/encryption-password";
+                    }
+                  else
+                    key
+                ) cfg.devices;
 
-              type = if cfg.trusted then "sendreceive" else "receiveencrypted";
+                type = if cfg.trusted then "sendreceive" else "receiveencrypted";
 
-              ignorePerms = true;
+                ignorePerms = true;
 
-              # A pattern beginning with a (?d) prefix enables removal of these files if they are preventing directory
-              # deletion. This prefix should be used by any OS generated files which you are happy to be removed.
-              ignorePatterns = map (ignore: "(?d)${ignore}") [
-                # Linux / Unix
-                "lost+found/"
-                ".Trash-*/"
-                ".nfs*"
-                ".directory"
+                # A pattern beginning with a (?d) prefix enables removal of these files if they are preventing directory
+                # deletion. This prefix should be used by any OS generated files which you are happy to be removed.
+                ignorePatterns = map (ignore: "(?d)${ignore}") [
+                  # Linux / Unix
+                  "lost+found/"
+                  ".Trash-*/"
+                  ".nfs*"
+                  ".directory"
 
-                # macOS
-                ".DS_Store"
-                ".AppleDouble"
-                ".LSOverride"
-                ".DocumentRevisions-V100/"
-                ".Spotlight-V100/"
-                ".TemporaryItems/"
-                ".Trashes/"
-                ".fseventsd/"
-                ".apdisk"
-                "Icon?"
+                  # macOS
+                  ".DS_Store"
+                  ".AppleDouble"
+                  ".LSOverride"
+                  ".DocumentRevisions-V100/"
+                  ".Spotlight-V100/"
+                  ".TemporaryItems/"
+                  ".Trashes/"
+                  ".fseventsd/"
+                  ".apdisk"
+                  "Icon?"
 
-                # Windows
-                "$RECYCLE.BIN/"
-                "System Volume Information/"
-                "Desktop.ini"
-                "Thumbs.db"
-                "ehthumbs.db"
-              ];
-            }
-            // lib.optionalAttrs cfg.trusted {
-              label = folder;
-            }
-            // lib.optionalAttrs cfg.trashcan.enable {
-              versioning = {
-                type = "trashcan";
-                cleanupIntervalS = 60 * 60 * 24;
-                params = {
-                  keep = 1;
-                  cleanoutDays = 30;
+                  # Windows
+                  "$RECYCLE.BIN/"
+                  "System Volume Information/"
+                  "Desktop.ini"
+                  "Thumbs.db"
+                  "ehthumbs.db"
+                ];
+              }
+              // lib.optionalAttrs cfg.trusted {
+                label = folder;
+              }
+              // lib.optionalAttrs cfg.trashcan.enable {
+                versioning = {
+                  type = "trashcan";
+                  cleanupIntervalS = 60 * 60;
+                  params.cleanoutDays = "30";
                 };
-              };
-            }
+              }
+            )
           ) cfg.folders
         );
       };
