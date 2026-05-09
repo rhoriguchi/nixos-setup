@@ -119,10 +119,13 @@ in
       }
     ];
 
-    systemd.tmpfiles.rules = lib.optionals cfg.trusted [
-      "d /run/syncthing 0750 ${cfg.user} ${cfg.group}"
-      "L+ /run/syncthing/encryption-password - - - - ${pkgs.writeText "encryption-password" cfg.encryptionPassword}"
-    ];
+    systemd.services.syncthing-init = lib.mkIf cfg.trusted {
+      serviceConfig.ExecStartPre = [
+        "+${pkgs.writeShellScript "syncthing-init-pre" ''
+          ln -sf ${pkgs.writeText "encryption-password" cfg.encryptionPassword} /run/syncthing-init/encryption-password
+        ''}"
+      ];
+    };
 
     services.syncthing = {
       enable = true;
@@ -185,7 +188,7 @@ in
                   if (cfg.trusted && !value.trusted) then
                     {
                       name = key;
-                      encryptionPasswordFile = "/run/syncthing/encryption-password";
+                      encryptionPasswordFile = "/run/syncthing-init/encryption-password";
                     }
                   else
                     key
