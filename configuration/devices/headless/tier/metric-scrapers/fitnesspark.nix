@@ -117,7 +117,7 @@ in
     "d ${metricsDir} 0750 ${config.services.nginx.user} ${config.services.nginx.group}"
   ];
 
-  systemd.services.fitnesspark-visitor-collector = {
+  systemd.services.fitnesspark-metrics-collector = {
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 

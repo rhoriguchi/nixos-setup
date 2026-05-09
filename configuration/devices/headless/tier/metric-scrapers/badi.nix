@@ -12,7 +12,7 @@ in
     "d ${metricsDir} 0750 ${config.services.nginx.user} ${config.services.nginx.group}"
   ];
 
-  systemd.services.badi-visitor-collector = {
+  systemd.services.badi-metrics-collector = {
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
