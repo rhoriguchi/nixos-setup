@@ -338,64 +338,76 @@ in
         ++ lib.optional config.services.samba.enable config.services.samba.package;
 
         config =
-          {
-            parent = {
-              db = {
-                # https://learn.netdata.cloud/docs/netdata-agent/configuration/database
-                mode = "dbengine";
-                "storage tiers" = 3;
+          (
+            {
+              parent = {
+                db = {
+                  # https://learn.netdata.cloud/docs/netdata-agent/configuration/database
+                  mode = "dbengine";
+                  "storage tiers" = 3;
 
-                # Tier 0, per second data
-                "dbengine tier 0 disk space MB" = 0;
-                "dbengine tier 0 retention time" = "30d";
+                  # Tier 0, per second data
+                  "dbengine tier 0 disk space MB" = 0;
+                  "dbengine tier 0 retention time" = "30d";
 
-                # Tier 1, per minute data
-                "dbengine tier 1 disk space MB" = 0;
-                "dbengine tier 1 retention time" = 0;
+                  # Tier 1, per minute data
+                  "dbengine tier 1 disk space MB" = 0;
+                  "dbengine tier 1 retention time" = 0;
 
-                # Tier 2, per hour data
-                "dbengine tier 2 disk space MB" = 0;
-                "dbengine tier 2 retention time" = 0;
+                  # Tier 2, per hour data
+                  "dbengine tier 2 disk space MB" = 0;
+                  "dbengine tier 2 retention time" = 0;
+                };
+
+                web = {
+                  "bind to" = lib.concatStringsSep " " [
+                    "127.0.0.1:${toString cfg.webPort}=${
+                      lib.concatStringsSep "|" [
+                        "badges"
+                        "dashboard"
+                        "management"
+                        "netdata.conf"
+                        "registry"
+                      ]
+                    }"
+                    "${tailscaleIps.${config.networking.hostName}}:${toString streamPort}=${
+                      lib.concatStringsSep "|" [
+                        "streaming"
+                      ]
+                    }"
+                  ];
+
+                  "enable gzip compression" = "no";
+                };
+
+                logs.access = "off";
               };
 
-              web = {
-                "bind to" = lib.concatStringsSep " " [
+              child = {
+                db.mode = "ram";
+
+                web."bind to" = lib.concatStringsSep " " [
                   "127.0.0.1:${toString cfg.webPort}=${
                     lib.concatStringsSep "|" [
-                      "badges"
                       "dashboard"
-                      "management"
                       "netdata.conf"
-                      "registry"
-                    ]
-                  }"
-                  "${tailscaleIps.${config.networking.hostName}}:${toString streamPort}=${
-                    lib.concatStringsSep "|" [
-                      "streaming"
                     ]
                   }"
                 ];
-
-                "enable gzip compression" = "no";
               };
-
-              logs.access = "off";
-            };
-
-            child = {
-              db.mode = "ram";
-
-              web."bind to" = lib.concatStringsSep " " [
-                "127.0.0.1:${toString cfg.webPort}=${
-                  lib.concatStringsSep "|" [
-                    "dashboard"
-                    "netdata.conf"
-                  ]
-                }"
-              ];
-            };
-          }
-          .${cfg.type};
+            }
+            .${cfg.type}
+          )
+          // {
+            health."enabled alarms" = lib.concatStringsSep " " (
+              (map (value: "!${value}") [
+                "ping_*.host_packet_loss_*.ping_packet_loss"
+                "ping_*.host_rtt_*.ping_host_latency"
+                "web_log_nginx.excluded_requests.web_log_1m_unmatched"
+              ])
+              ++ [ "*" ]
+            );
+          };
 
         configDir = {
           "stream.conf" =
