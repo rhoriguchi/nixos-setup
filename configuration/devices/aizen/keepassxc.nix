@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   script = pkgs.writeShellScript "keepassxc.sh" ''
-    ${pkgs.libsecret}/bin/secret-tool lookup KeePass 2FA | keepassxc --pw-stdin "$HOME/Sync/KeePass/2FA.kdbx"
+    ${pkgs.libsecret}/bin/secret-tool lookup KeePass 2FA | keepassxc --pw-stdin "$HOME/Documents/KeePass/2FA.kdbx"
   '';
 
   keepassxc = pkgs.symlinkJoin {

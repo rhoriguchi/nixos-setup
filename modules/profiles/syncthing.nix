@@ -36,7 +36,6 @@ in
     folders = [
       "Documents"
       "Git"
-      "KeePass"
       "Obsidian"
       "Series"
       "Signal"

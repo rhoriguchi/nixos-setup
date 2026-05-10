@@ -171,7 +171,7 @@
       chown -R rhoriguchi:${config.users.users.rhoriguchi.group} ${lib.concatStringsSep " " downloadDirs}
 
       ${createSymlink "${syncDir}/Git" "${home}/Git"}
-      ${createSymlink "${syncDir}/KeePass" "${home}/Documents/KeePass"}
+      ${createSymlink "${syncDir}/Storage/KeePass" "${home}/Documents/KeePass"}
       ${createSymlink "${syncDir}/Storage/Recipes" "${home}/Documents/Recipes"}
     '';
 }
