@@ -155,9 +155,14 @@
       ];
 
       createSymlink = source: target: ''
-        if [ -d "${source}" ] && [ ! \( -L "${target}" \) ] && [ ! \( -e "${target}" \) ]; then
-          rm -rf "${target}"
-          ln -sf "${source}" "${target}"
+        if [ -d "${source}" ]; then
+          if [ -L "${target}" ]; then
+            if [ "$(readlink "${target}")" != "${source}" ]; then
+              ln -sfT "${source}" "${target}"
+            fi
+          elif [ ! -e "${target}" ]; then
+            ln -sfT "${source}" "${target}"
+          fi
         fi
       '';
     in
