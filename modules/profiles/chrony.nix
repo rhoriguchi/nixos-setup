@@ -5,5 +5,13 @@
     "time.nist.gov"
   ];
 
-  services.chrony.enable = true;
+  services.chrony = {
+    enable = true;
+
+    enableRTCTrimming = false;
+
+    extraConfig = ''
+      rtcsync
+    '';
+  };
 }
