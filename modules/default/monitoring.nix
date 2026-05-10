@@ -332,7 +332,9 @@ in
           # S.M.A.R.T. collector
           pkgs.smartmontools
         ]
+        # Fail2ban collector
         ++ lib.optional config.services.fail2ban.enable config.services.fail2ban.package
+        # Samba collector
         ++ lib.optional config.services.samba.enable config.services.samba.package;
 
         config =
