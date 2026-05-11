@@ -144,6 +144,8 @@ in
 
     samba = {
       enable = true;
+
+      nmbd.enable = false;
       winbindd.enable = false;
 
       settings = {
