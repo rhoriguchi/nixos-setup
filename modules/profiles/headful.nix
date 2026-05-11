@@ -6,7 +6,6 @@
     ./bluetooth.nix
     ./dconf-editor.nix
     ./gaming.nix
-    ./git.nix
     ./local-send.nix
     ./mission-center.nix
     ./nautilus.nix

@@ -1,10 +1,14 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = [
-    pkgs.git
-    pkgs.git-crypt
-    pkgs.git-lfs
-  ];
+  programs = {
+    git = {
+      enable = true;
 
-  programs.gnupg.agent.enable = true;
+      lfs.enable = true;
+    };
+
+    gnupg.agent.enable = true;
+  };
+
+  environment.systemPackages = [ pkgs.git-crypt ];
 }

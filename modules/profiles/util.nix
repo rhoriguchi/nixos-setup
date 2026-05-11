@@ -7,6 +7,7 @@
 {
   programs = {
     htop.enable = true;
+
     mtr.enable = true;
   };
 
@@ -24,14 +25,12 @@
       pkgs.ethtool
       pkgs.expect
       pkgs.file
-      pkgs.git
       pkgs.gnugrep
       pkgs.gnutar
       pkgs.ipcalc
       pkgs.iproute2
       pkgs.jq
       pkgs.killall
-      pkgs.nano
       pkgs.nixfmt
       pkgs.nixfmt-tree
       pkgs.nmap

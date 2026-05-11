@@ -1,6 +1,7 @@
 {
   imports = [
     ./fwupd.nix
+    ./git.nix
     ./i18n.nix
     ./keyboard.nix
     ./nano.nix
