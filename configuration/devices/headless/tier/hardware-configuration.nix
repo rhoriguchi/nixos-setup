@@ -26,6 +26,7 @@
     fsType = "zfs";
   };
 
+  # WD BLACK SN850X 2000GB
   fileSystems."/boot1" = {
     device = "/dev/disk/by-uuid/B521-E7CE";
     fsType = "vfat";
@@ -37,6 +38,7 @@
     ];
   };
 
+  # WD BLACK SN8100 2000GB
   fileSystems."/boot2" = {
     device = "/dev/disk/by-uuid/CCEA-8F6C";
     fsType = "vfat";
