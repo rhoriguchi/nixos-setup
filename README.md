@@ -101,7 +101,7 @@ zpool create -f \
   -O mountpoint=legacy \
   os \
   mirror \
-    nvme-WD_BLACK_SN850X_2000GB_24271Z801901_1-part2 \
+    nvme-WD_BLACK_SN8100_2000GB_2522AN401949_1-part2 \
     nvme-WD_BLACK_SN850X_2000GB_25256R803288_1-part2
 
 zfs create \
