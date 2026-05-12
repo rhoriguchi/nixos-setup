@@ -7,8 +7,9 @@
 {
   programs = {
     htop.enable = true;
-
     mtr.enable = true;
+    nano.enable = true;
+    vim.enable = true;
   };
 
   environment = {

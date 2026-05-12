@@ -26,7 +26,6 @@
   local-send = ./local-send.nix;
   loki = ./loki.nix;
   mission-center = ./mission-center.nix;
-  nano = ./nano.nix;
   nautilus = ./nautilus.nix;
   nftables = ./nftables.nix;
   nginx = ./nginx.nix;

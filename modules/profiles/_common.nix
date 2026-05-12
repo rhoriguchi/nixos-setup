@@ -4,7 +4,6 @@
     ./git.nix
     ./i18n.nix
     ./keyboard.nix
-    ./nano.nix
     ./nftables.nix
     ./nix.nix
     ./nvd.nix
