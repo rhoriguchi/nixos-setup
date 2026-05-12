@@ -16,7 +16,7 @@ in
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
 
-    startAt = "*:0/5";
+    startAt = "*:0/30";
 
     script = ''
       export LC_ALL=C.UTF-8
