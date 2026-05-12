@@ -1,7 +1,7 @@
 {
   imports = [
     ./bazarr.nix
-    ./cleanup-empty-series-dirs.nix
+    ./cleanup-empty-dirs.nix
     ./deluge
     ./prowlarr.nix
     ./recyclarr.nix
