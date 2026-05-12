@@ -223,7 +223,7 @@ in
 
     script = lib.concatStringsSep "\n" (
       lib.mapAttrsToList (key: value: ''
-        ${pkgs.expect}/bin/expect <<EOF
+        ${pkgs.expect}/bin/expect <<'EOF'
         spawn ${config.services.samba.package}/bin/smbpasswd -a ${key}
         expect "New SMB password:"
         send "${value.password}\n"

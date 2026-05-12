@@ -269,7 +269,7 @@ in
     script = ''
       dbFile="${config.services.uptime-kuma.settings.DATA_DIR}kuma.db"
       if [ -f "$dbFile" ]; then
-        ${pkgs.sqlite-interactive}/bin/sqlite3 "$dbFile" << 'EOF'
+        ${pkgs.sqlite-interactive}/bin/sqlite3 "$dbFile" <<'EOF'
           ${updateSettings}
           ${addUser}
           ${addMonitors}

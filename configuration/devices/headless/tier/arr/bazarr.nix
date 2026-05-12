@@ -77,7 +77,7 @@ let
           script = ''
             dbFile="${containerCfg.services.bazarr.dataDir}/db/bazarr.db"
             if [ -f "$dbFile" ]; then
-              ${pkgs.sqlite-interactive}/bin/sqlite3 "$dbFile" << 'EOF'
+              ${pkgs.sqlite-interactive}/bin/sqlite3 "$dbFile" <<'EOF'
                 DELETE FROM table_languages_profiles;
 
                 INSERT OR REPLACE INTO table_languages_profiles (
