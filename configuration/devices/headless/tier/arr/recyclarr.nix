@@ -25,12 +25,12 @@ let
       };
 
       # > recyclarr list qualities sonarr
-      quality_definition.type = "${type}";
+      quality_definition.type = type;
 
       delete_old_custom_formats = true;
     }
     // lib.optionalAttrs (type == "anime") {
-      # > recyclarr config list templates
+      # https://github.com/recyclarr/config-templates/blob/master/sonarr/templates/anime-sonarr-v4.yml
       include = [
         {
           template = "sonarr-quality-definition-anime";
