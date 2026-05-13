@@ -20,6 +20,8 @@ let
           rename = true;
           standard = "default";
           daily = "default";
+        }
+        // lib.optionalAttrs (type == "anime") {
           anime = "default";
         };
       };
