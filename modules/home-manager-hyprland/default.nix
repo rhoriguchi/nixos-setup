@@ -7,6 +7,8 @@
 
     systemd.enable = false;
 
+    configType = "hyprlang";
+
     # Config keys https://github.com/hyprwm/Hyprland/blob/main/src/config/ConfigManager.cpp
     settings = {
       misc = {
