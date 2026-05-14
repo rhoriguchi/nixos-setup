@@ -71,6 +71,7 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 
 winget install --accept-source-agreements --exact --silent --uninstall-previous AppWork.JDownloader
 winget install --accept-source-agreements --exact --silent --uninstall-previous Blitz.Blitz
+winget install --accept-source-agreements --exact --silent --uninstall-previous CPUID.HWMonitor
 winget install --accept-source-agreements --exact --silent --uninstall-previous Discord.Discord
 winget install --accept-source-agreements --exact --silent --uninstall-previous IObit.Uninstaller
 winget install --accept-source-agreements --exact --silent --uninstall-previous LocalSend.LocalSend
