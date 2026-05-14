@@ -30,7 +30,7 @@ in
         "/var/cache/netdata"
         "/var/lib/${config.services.prometheus.stateDir}"
         "/var/lib/bazarr-anime"
-        "/var/lib/bazarr-series"
+        "/var/lib/bazarr-series-movies"
         "/var/lib/sonarr-anime"
         "/var/lib/sonarr-series"
         "/var/lib/terraria"

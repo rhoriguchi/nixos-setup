@@ -11,8 +11,11 @@ let
   bazarrGid = 361;
 
   rootBindmountDir = "/mnt/bindmount/bazarr";
-  bindmountDir1 = "${rootBindmountDir}/sync";
-  bindmountDir2 = "${rootBindmountDir}/disk";
+  bindmountDir1 = "${rootBindmountDir}/sync-series";
+  bindmountDir2 = "${rootBindmountDir}/disk-series";
+  bindmountDir3 = "${rootBindmountDir}/disk-movies";
+
+  getName = type: lib.concatStringsSep " " (map (t: lib.toSentenceCase t) (lib.splitString "-" type));
 
   getContainerCfg = type: config.containers."bazarr-${type}".config;
 
@@ -30,7 +33,7 @@ let
       localAddress =
         {
           anime = "169.254.1.178";
-          series = "169.254.1.193";
+          series-movies = "169.254.1.193";
         }
         .${type};
 
@@ -48,6 +51,11 @@ let
         "${bindmountDir2}" = {
           isReadOnly = false;
           hostPath = bindmountDir2;
+        };
+
+        "${bindmountDir3}" = {
+          isReadOnly = false;
+          hostPath = bindmountDir3;
         };
       };
 
@@ -120,7 +128,7 @@ let
               auth.apikey = secrets.bazarr.apiKey;
 
               general = {
-                instance_name = "Bazarr ${lib.toSentenceCase type}";
+                instance_name = "Bazarr ${getName type}";
                 base_url = "/${type}";
 
                 path_mappings = [
@@ -131,6 +139,13 @@ let
                   [
                     "/mnt/bindmount/sonarr/disk-Series"
                     bindmountDir2
+                  ]
+                ];
+
+                path_mappings_movie = [
+                  [
+                    "/mnt/bindmount/radarr/disk-Movies"
+                    bindmountDir3
                   ]
                 ];
 
@@ -146,6 +161,7 @@ let
                 ];
                 enabled_integrations = [ "anidb" ];
 
+                use_radarr = true;
                 use_sonarr = true;
               };
 
@@ -159,14 +175,31 @@ let
                 api_client_ver = 1;
               };
 
-              sonarr = {
-                apikey = secrets.sonarr.apiKey;
-                ip = config.containers."sonarr-${type}".localAddress;
-                port = config.containers."sonarr-${type}".config.services.sonarr.settings.server.port;
-                base_url = "/${type}";
-                sync_only_monitored_series = true;
-                series_sync = 15;
-              };
+              radarr =
+                let
+                  t = if type == "series-movies" then "movies" else type;
+                in
+                {
+                  apikey = secrets.radarr.apiKey;
+                  ip = config.containers."radarr-${t}".localAddress;
+                  port = config.containers."radarr-${t}".config.services.radarr.settings.server.port;
+                  base_url = "/${t}";
+                  sync_only_monitored_movies = true;
+                  movies_sync = 15;
+                };
+
+              sonarr =
+                let
+                  t = if type == "series-movies" then "series" else type;
+                in
+                {
+                  apikey = secrets.sonarr.apiKey;
+                  ip = config.containers."sonarr-${t}".localAddress;
+                  port = config.containers."sonarr-${t}".config.services.sonarr.settings.server.port;
+                  base_url = "/${t}";
+                  sync_only_monitored_series = true;
+                  series_sync = 15;
+                };
             };
           };
 
@@ -250,20 +283,36 @@ in
         }"
       ];
     };
+
+    "${bindmountDir3}" = {
+      depends = [ "/mnt/Data/Movies" ];
+      device = "/mnt/Data/Movies";
+      fsType = "fuse.bindfs";
+      noCheck = true;
+      options = [
+        "map=${
+          lib.concatStringsSep ":" [
+            "root/${config.services.bazarr.user}"
+            "@root/@${config.services.bazarr.group}"
+          ]
+        }"
+      ];
+    };
   };
 
   systemd.tmpfiles.rules = [
     "d /var/lib/bazarr-anime 0750 ${config.services.bazarr.user} ${config.services.bazarr.group}"
-    "d /var/lib/bazarr-series 0750 ${config.services.bazarr.user} ${config.services.bazarr.group}"
+    "d /var/lib/bazarr-series-movies 0750 ${config.services.bazarr.user} ${config.services.bazarr.group}"
 
     "d ${rootBindmountDir} 0550 ${config.services.bazarr.user} ${config.services.bazarr.group}"
     "d ${bindmountDir1} 0550 ${config.services.bazarr.user} ${config.services.bazarr.group}"
     "d ${bindmountDir2} 0550 ${config.services.bazarr.user} ${config.services.bazarr.group}"
+    "d ${bindmountDir3} 0550 ${config.services.bazarr.user} ${config.services.bazarr.group}"
   ];
 
   containers = {
     bazarr-anime = createContainer "anime";
-    bazarr-series = createContainer "series";
+    bazarr-series-movies = createContainer "series-movies";
   };
 
   services = {
@@ -275,7 +324,7 @@ in
             containerCfg = getContainerCfg type;
           in
           {
-            name = "Bazarr ${lib.toSentenceCase type}";
+            name = "Bazarr ${getName type}";
             url = "http://${
               config.containers."bazarr-${type}".localAddress
             }:${toString containerCfg.services.prometheus.exporters.exportarr-bazarr.port}/metrics";
@@ -283,7 +332,7 @@ in
         )
         [
           "anime"
-          "series"
+          "series-movies"
         ];
 
     infomaniak = {
@@ -310,7 +359,7 @@ in
           "/".return = "302 /anime";
 
           "/anime" = createNginxVirtualHostLocation "anime";
-          "/series" = createNginxVirtualHostLocation "series";
+          "/series" = createNginxVirtualHostLocation "series-movies";
         };
       };
     };
