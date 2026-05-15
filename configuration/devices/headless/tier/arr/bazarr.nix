@@ -53,7 +53,7 @@ let
 
       config = {
         # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=507378
-        imports = [ (libCustom.relativeToRoot "modules/default/bazarr-overlay.nix") ];
+        imports = [ (libCustom.relativeToRoot "modules/default/overlays/bazarr.nix") ];
 
         nixpkgs.pkgs = pkgs;
         system.stateVersion = config.system.stateVersion;
