@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  libCustom,
+  pkgs,
+  ...
+}:
 let
   screenshotsDir = "${config.home.homeDirectory}/Pictures/Screenshots";
 
@@ -36,7 +41,14 @@ in
   };
 
   wayland.windowManager.hyprland.settings.bind = [
-    ", Print, exec, ${config.programs.hyprshot.package}/bin/hyprshot --mode active --mode output"
-    "SHIFT, Print, exec, ${regionScreenshotScript}"
+    (libCustom.hyprland.mkExecBindRule {
+      key = "Print";
+      command = "${config.programs.hyprshot.package}/bin/hyprshot --mode active --mode output";
+    })
+    (libCustom.hyprland.mkExecBindRule {
+      mods = "SHIFT";
+      key = "Print";
+      command = "${regionScreenshotScript}";
+    })
   ];
 }

@@ -1,13 +1,18 @@
 # TODO HYPRLAND find something better
 # https://github.com/ArtsyMacaw/wlogout
 {
+  libCustom,
   osConfig,
   pkgs,
   ...
 }:
 {
   wayland.windowManager.hyprland.settings.bind = [
-    "$mainMod, ESCAPE, exec, ${pkgs.nwg-bar}/bin/nwg-bar"
+    (libCustom.hyprland.mkExecBindRule {
+      mods = "SUPER";
+      key = "ESCAPE";
+      command = "${pkgs.nwg-bar}/bin/nwg-bar";
+    })
   ];
 
   xdg.configFile."nwg-bar/bar.json".source = (pkgs.formats.json { }).generate "bar.json" [

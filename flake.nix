@@ -37,7 +37,7 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.54.3";
+      url = "github:hyprwm/Hyprland?ref=v0.55.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -165,7 +165,9 @@
           [
             inputs.deploy-rs.overlays.default
             inputs.firefox-addons.overlays.default
+            # TODO review once resolve https://github.com/hyprwm/Hyprland/discussions/14532
             inputs.hyprland.overlays.default
+            inputs.hyprland.overlays.hyprland-packages
             inputs.llm-agents.overlays.default
             inputs.nix-minecraft.overlay
           ]

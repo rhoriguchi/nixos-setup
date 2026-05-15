@@ -1,4 +1,4 @@
-{ libCustom, ... }:
+{ config, libCustom, ... }:
 {
   imports = libCustom.getImports ./.;
 
@@ -7,10 +7,7 @@
 
     systemd.enable = false;
 
-    configType = "hyprlang";
-
-    # Config keys https://github.com/hyprwm/Hyprland/blob/main/src/config/ConfigManager.cpp
-    settings = {
+    settings.config = {
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
@@ -28,4 +25,9 @@
   };
 
   services.hyprpolkitagent.enable = true;
+
+  # https://wiki.hypr.land/Configuring/Start/#autocompletions
+  programs.vscode.profiles.default.userSettings."Lua.workspace.library" = [
+    "${config.xdg.configHome}/hypr/.luarc.json"
+  ];
 }

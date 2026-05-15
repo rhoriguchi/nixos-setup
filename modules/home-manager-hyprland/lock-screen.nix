@@ -2,6 +2,7 @@
   colors,
   config,
   lib,
+  libCustom,
   osConfig,
   pkgs,
   ...
@@ -67,6 +68,10 @@
   };
 
   wayland.windowManager.hyprland.settings.bind = [
-    "$mainMod, L, exec, ${osConfig.systemd.package}/bin/loginctl lock-session"
+    (libCustom.hyprland.mkExecBindRule {
+      mods = "SUPER";
+      key = "L";
+      command = "${osConfig.systemd.package}/bin/loginctl lock-session";
+    })
   ];
 }

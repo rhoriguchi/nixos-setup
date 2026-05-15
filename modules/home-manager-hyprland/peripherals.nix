@@ -1,19 +1,23 @@
-{ config, pkgs, ... }:
-let
-  homeDirectory = config.home.homeDirectory;
-in
+{ pkgs, libCustom, ... }:
 {
   home.packages = [ pkgs.nwg-displays ];
 
   wayland.windowManager.hyprland.settings = {
-    source = [
-      "${homeDirectory}/.config/hypr/monitors.conf"
-      "${homeDirectory}/.config/hypr/workspaces.conf"
+    # TODO uncomment when https://github.com/nwg-piotr/nwg-displays/issues/134 fixed
+    # source = [
+    #   "${homeDirectory}/.config/hypr/monitors.conf"
+    #   "${homeDirectory}/.config/hypr/workspaces.conf"
+    # ];
+
+    monitor = [
+      {
+        output = "";
+        mode = "highres";
+        scale = 1;
+      }
     ];
 
-    monitor = [ ", highres, auto, 1" ];
-
-    input = {
+    config.input = {
       repeat_delay = 500;
       repeat_rate = 30;
 
@@ -41,6 +45,29 @@ in
         kb_layout = "us";
         kb_variant = "";
         kb_model = "";
+      }
+    ];
+
+    bind = [
+      (libCustom.hyprland.mkBindRule {
+        mods = "SUPER";
+        key = "mouse:272";
+        dispatcher = "dragWindow";
+        flags.mouse = true;
+      })
+      (libCustom.hyprland.mkBindRule {
+        mods = "SUPER";
+        key = "mouse:273";
+        dispatcher = "resizeWindow";
+        flags.mouse = true;
+      })
+    ];
+
+    gesture = [
+      {
+        fingers = 3;
+        direction = "horizontal";
+        action = "workspace";
       }
     ];
   };

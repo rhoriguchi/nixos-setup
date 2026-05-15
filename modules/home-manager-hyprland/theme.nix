@@ -1,6 +1,7 @@
 {
   colors,
   lib,
+  libCustom,
   pkgs,
   ...
 }:
@@ -34,35 +35,55 @@
   };
 
   wayland.windowManager.hyprland.settings = {
-    workspace = [
-      # Smart gaps
-      "f[1], gapsin:0, gapsout:0"
-      "w[tv1], gapsin:0, gapsout:0"
+    workspace_rule = [
+      {
+        workspace = "f[1]";
+        gaps_in = 0;
+        gaps_out = 0;
+      }
+      {
+        workspace = "w[tv1]";
+        gaps_in = 0;
+        gaps_out = 0;
+      }
     ];
 
-    windowrule = [
-      # Smart gaps
-      "border_size 0, match:float false, match:workspace f[1]"
-      "rounding 0, match:float false, match:workspace f[1]"
-      "border_size 0, match:float false, match:workspace w[tv1]"
-      "rounding 0, match:float false, match:workspace w[tv1]"
-    ];
+    window_rule =
+      libCustom.hyprland.mkWindowRules
+        {
+          border_size = 0;
+          rounding = 0;
+        }
+        [
+          {
+            float = false;
+            workspace = "f[1]";
+          }
+          {
+            float = false;
+            workspace = "w[tv1]";
+          }
+        ];
 
-    general = {
-      layout = "dwindle";
+    config = {
+      general = {
+        layout = "dwindle";
 
-      gaps_in = 5;
-      gaps_out = 0;
-      border_size = 3;
+        gaps_in = 5;
+        gaps_out = 0;
+        border_size = 3;
 
-      "col.active_border" = "rgb(${lib.removePrefix "#" colors.normal.accent})";
-      "col.inactive_border" = "rgb(${lib.removePrefix "#" colors.normal.gray})";
-    };
+        col = {
+          active_border = "rgb(${lib.removePrefix "#" colors.normal.accent})";
+          inactive_border = "rgb(${lib.removePrefix "#" colors.normal.gray})";
+        };
+      };
 
-    decoration = {
-      rounding = 8;
+      decoration = {
+        rounding = 8;
 
-      blur.size = 3;
+        blur.size = 3;
+      };
     };
   };
 }

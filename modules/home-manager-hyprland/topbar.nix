@@ -2,6 +2,7 @@
   colors,
   config,
   lib,
+  libCustom,
   pkgs,
   ...
 }:
@@ -252,7 +253,12 @@ in
       "hyprland/submap" = {
         format = "  {}";
 
-        on-click = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch submap reset";
+        on-click = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch '${
+          (libCustom.hyprland._mkLuaCommand {
+            dispatcher = "submap";
+            args = "reset";
+          }).expr
+        }'";
 
         tooltip = false;
       };
