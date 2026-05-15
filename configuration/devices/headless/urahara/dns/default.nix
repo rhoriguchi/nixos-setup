@@ -140,7 +140,7 @@ let
   );
 in
 {
-  imports = [ ./adguardhome.nix ];
+  imports = [ ./pihole.nix ];
 
   networking = {
     nameservers = [ "127.0.0.1" ];

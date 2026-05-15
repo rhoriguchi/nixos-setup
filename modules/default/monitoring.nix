@@ -256,6 +256,15 @@ in
             lib.optional config.services.kea.dhcp4.enable "/run/kea/kea-dhcp4.socket"
             ++ lib.optional config.services.kea.dhcp6.enable "/run/kea/kea-dhcp6.socket";
         };
+
+        pihole = {
+          enable = config.services.pihole-web.enable;
+
+          listenAddress = "127.0.0.1";
+
+          piholeHostname = "127.0.0.1";
+          piholePort = lib.toInt (lib.head (lib.splitString "," config.services.pihole-web.ports));
+        };
       };
 
       headscale.settings.metrics_listen_addr = "127.0.0.1:9090";
@@ -559,6 +568,10 @@ in
               ++ lib.optional config.services.loki.enable {
                 name = "Loki";
                 url = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/metrics";
+              }
+              ++ lib.optional config.services.prometheus.exporters.pihole.enable {
+                name = "Pi-hole";
+                url = "http://127.0.0.1:${toString config.services.prometheus.exporters.pihole.port}/metrics";
               }
               ++ lib.optional config.services.prometheus.exporters.exportarr-prowlarr.enable {
                 name = "Prowlarr";
