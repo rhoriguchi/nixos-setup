@@ -181,8 +181,9 @@
         "files.trimTrailingWhitespace" = true;
         "git.autofetch" = "all";
         "githubPullRequests.terminalLinksHandler" = "github";
-        "javascript.updateImportsOnFileMove.enabled" = "always";
-        "javascript.updateImportsOnPaste.enabled" = true;
+        "js/ts.inlayHints.parameterNames.enabled" = "all";
+        "js/ts.updateImportsOnFileMove.enabled" = "always";
+        "js/ts.updateImportsOnPaste.enabled" = true;
         "peacock.affectActivityBar" = true;
         "peacock.affectStatusBar" = true;
         "peacock.affectTitleBar" = false;
@@ -212,10 +213,6 @@
           }) colors.normal
         );
         "peacock.showColorInStatusBar" = false;
-        "prettier.arrowParens" = "always";
-        "prettier.printWidth" = 120;
-        "prettier.singleQuote" = true;
-        "prettier.trailingComma" = "es5";
         "security.workspace.trust.enabled" = false;
         "svg.preview.autoShow" = true;
         "telemetry.telemetryLevel" = "off";
@@ -263,9 +260,6 @@
         "todo-tree.regex.regexCaseSensitive" = false;
         "todo-tree.tree.expanded" = true;
         "todo-tree.tree.showCountsInTree" = true;
-        "typescript.inlayHints.parameterNames.enabled" = "all";
-        "typescript.updateImportsOnFileMove.enabled" = "always";
-        "typescript.updateImportsOnPaste.enabled" = true;
         "window.autoDetectColorScheme" = true;
         "window.newWindowDimensions" = "maximized";
         "window.openFoldersInNewWindow" = "on";
@@ -284,7 +278,6 @@
         "workbench.preferredLightColorTheme" = "Light+";
         "workbench.startupEditor" = "none";
         "[html]"."editor.defaultFormatter" = "vscode.html-language-features";
-        "[javascript]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
         "[json]" = {
           "editor.defaultFormatter" = "vscode.json-language-features";
           "editor.tabSize" = 2;
@@ -297,11 +290,7 @@
         "[markdown]"."editor.tabSize" = 2;
         "[nix]"."editor.tabSize" = 2;
         "[terraform]"."editor.tabSize" = 2;
-        "[typescript]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-          "editor.tabSize" = 2;
-        };
-        "[typescriptreact]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "[typescript]"."editor.tabSize" = 2;
         "[yaml]" = {
           "editor.defaultFormatter" = "redhat.vscode-yaml";
           "editor.tabSize" = 2;
