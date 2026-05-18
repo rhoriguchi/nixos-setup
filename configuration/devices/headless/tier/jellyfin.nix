@@ -178,9 +178,15 @@ in
               ];
 
               typeOptions.Movie = {
-                metadataFetchers = [ "AniDB" ];
+                metadataFetchers = [
+                  "AniDB"
+                  "TheMovieDb"
+                  "The Open Movie Database"
+                ];
                 imageFetchers = [
                   "AniDB"
+                  "TheMovieDb"
+                  "The Open Movie Database"
                   "Embedded Image Extractor"
                   "Screen Grabber"
                 ];
@@ -203,16 +209,35 @@ in
 
               typeOptions = {
                 Series = {
-                  metadataFetchers = [ "AniDB" ];
-                  imageFetchers = [ "AniDB" ];
+                  metadataFetchers = [
+                    "AniDB"
+                    "TheMovieDb"
+                    "The Open Movie Database"
+                  ];
+                  imageFetchers = [
+                    "AniDB"
+                    "TheMovieDb"
+                  ];
                 };
                 Season = {
-                  metadataFetchers = [ "AniDB" ];
-                  imageFetchers = [ "AniDB" ];
+                  metadataFetchers = [
+                    "AniDB"
+                    "TheMovieDb"
+                  ];
+                  imageFetchers = [
+                    "AniDB"
+                    "TheMovieDb"
+                  ];
                 };
                 Episode = {
-                  metadataFetchers = [ "AniDB" ];
+                  metadataFetchers = [
+                    "AniDB"
+                    "TheMovieDb"
+                    "The Open Movie Database"
+                  ];
                   imageFetchers = [
+                    "TheMovieDb"
+                    "The Open Movie Database"
                     "Embedded Image Extractor"
                     "Screen Grabber"
                   ];
