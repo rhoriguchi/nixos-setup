@@ -39,6 +39,16 @@
         sha256 = "sha256-5+9j8WuZj1wkmtZ7xuo43fpd8OLaEEdl8bF1g8NN2Vs=";
       }
     }/pkgs/by-name/ta/tautulli/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=521410
+    nwg-displays = prev.callPackage (import "${
+      prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "c3ecc9e9250f26f21b1e42ab38efd72c166feb9e";
+        sha256 = "sha256-l7P5VVA0rvTKIUOuA+vg5penE3nmlbPYyPAPnAjzaLs=";
+      }
+    }/pkgs/by-name/nw/nwg-displays/package.nix") { };
   })
   (_: prev: {
     hs = prev.callPackage ./hs { };
