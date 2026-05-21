@@ -410,9 +410,10 @@ in
           // {
             health."enabled alarms" = lib.concatStringsSep " " (
               (map (value: "!${value}") [
-                "ping_*.host_packet_loss_*.ping_packet_loss"
-                "ping_*.host_rtt_*.ping_host_latency"
-                "web_log_nginx.excluded_requests.web_log_1m_unmatched"
+                "ping_packet_loss"
+                "ping_host_latency"
+                "ping_rtt"
+                "web_log_1m_unmatched"
               ])
               ++ [ "*" ]
             );
