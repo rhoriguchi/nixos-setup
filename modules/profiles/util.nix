@@ -9,7 +9,20 @@
     htop.enable = true;
     mtr.enable = true;
     nano.enable = true;
-    vim.enable = true;
+
+    vim = {
+      enable = true;
+
+      package = pkgs.symlinkJoin {
+        inherit (pkgs.vim) name pname version;
+        paths = [ pkgs.vim ];
+
+        postBuild = ''
+          rm $out/share/applications/gvim.desktop
+          rm $out/share/applications/vim.desktop
+        '';
+      };
+    };
   };
 
   environment = {
