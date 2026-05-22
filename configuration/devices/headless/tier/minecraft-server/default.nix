@@ -13,7 +13,7 @@ let
 
   serverPort = 25566;
   serverName = "world";
-  package = pkgs.paperServers.paper-1_21_11;
+  package = pkgs.paperServers.paper-26_1_2;
 
   # https://mcuuid.net
   whitelist = {
@@ -44,7 +44,7 @@ in
   assertions = [
     {
       assertion =
-        lib.versionAtLeast package.version "1.21.4" && lib.versionOlder package.version "1.21.12";
+        lib.versionAtLeast package.version "1.21.4" && lib.versionOlder package.version "26.1.3";
       message = "WorldEdit has unsupported Paper version.";
     }
   ];
@@ -283,8 +283,8 @@ in
               let
                 owner = "BlueMap-Minecraft";
                 repo = "BlueMap";
-                tag = "5.16";
-                sha256 = "sha256-eduusmBTLb1WYk+LzoqyL7yhWK5KKGCwT8zv+55Gdso=";
+                tag = "5.20";
+                sha256 = "sha256-L2VrpHMg2v9g0nCwYB6d094jzL/0HdJ/Blly+XPBv4M=";
               in
               pkgs.fetchurl {
                 url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/bluemap-${tag}-paper.jar";
@@ -303,8 +303,8 @@ in
               let
                 owner = "TechnicJelle";
                 repo = "BlueMapSpawnMarker";
-                tag = "1.3";
-                sha256 = "sha256-/tAdODdf2lSxeqk1Cv4YJX/Ox4YIxUKEz+3o7cCeASk=";
+                tag = "1.4";
+                sha256 = "sha256-brwugMDJA0WmoJSVoxrMOk0TBkI26qi/UWENxCz0Ets=";
               in
               pkgs.fetchurl {
                 url = "https://github.com/${owner}/${repo}/releases/download/v${tag}/BlueMapSpawnMarker-${tag}.jar";
@@ -324,9 +324,10 @@ in
               };
 
             # https://hangar.papermc.io/EngineHub/WorldEdit/versions
+            # TODO update to none beta version
             "plugins/WorldEdit.jar" = pkgs.fetchurl {
-              url = "https://hangarcdn.papermc.io/plugins/EngineHub/WorldEdit/versions/7.4.2/PAPER/worldedit-bukkit-7.4.2.jar";
-              sha256 = "sha256-DuFSsb5d+1FQBQXiv1qMnWbwnH+khL+a6jhNfntFmwY=";
+              url = "https://hangarcdn.papermc.io/plugins/EngineHub/WorldEdit/versions/7.4.3-beta-01/PAPER/worldedit-bukkit-7.4.3-beta-01.jar";
+              sha256 = "sha256-DeD7qPcYQiSqqVkmweZIgOBCW3EsDJ8Od5Si15ppkCc=";
             };
           };
 
