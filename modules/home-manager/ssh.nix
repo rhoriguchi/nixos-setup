@@ -24,40 +24,39 @@ in
 
     enableDefaultConfig = false;
 
-    matchBlocks = {
+    settings = {
       "*" = {
-        identityFile = "${home}/.ssh/id_ed25519";
+        IdentityFile = "${home}/.ssh/id_ed25519";
 
-        compression = true;
-        controlPath = "${home}/.ssh/master-%r@%n:%p";
-        addKeysToAgent = "yes";
-        serverAliveInterval = 10;
-        userKnownHostsFile = "${home}/.ssh/known_hosts";
-
-        extraOptions.ConnectionAttempts = "3";
+        Compression = true;
+        ControlPath = "${home}/.ssh/master-%r@%n:%p";
+        AddKeysToAgent = "yes";
+        ServerAliveInterval = 10;
+        ConnectionAttempts = 3;
+        UserKnownHostsFile = "${home}/.ssh/known_hosts";
       };
 
       "github.com" = {
-        user = "git";
-        identityFile = "${home}/.ssh/github_ed25519";
+        User = "git";
+        IdentityFile = "${home}/.ssh/github_ed25519";
       };
 
       "gitlab.com" = {
-        user = "git";
-        identityFile = "${home}/.ssh/gitlab_ed25519";
+        User = "git";
+        IdentityFile = "${home}/.ssh/gitlab_ed25519";
       };
 
       "jcrk.synology.me" = {
-        user = "xxlpitu";
-        port = 10022;
+        User = "xxlpitu";
+        Port = 10022;
       };
     }
     // (lib.mapAttrs' (
       key: value:
       lib.nameValuePair (lib.toLower key) {
-        hostname = value;
-        user = "xxlpitu";
-        extraOptions.HostKeyAlias = lib.toLower key;
+        Hostname = value;
+        User = "xxlpitu";
+        HostKeyAlias = lib.toLower key;
       }
     ) filteredTailscaleIps);
   };
