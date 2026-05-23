@@ -63,6 +63,7 @@
         class = "firefox";
         title = "Cashew — Mozilla Firefox";
       }
+      { class = "obsidian"; }
       { class = "org.gnome.seahorse.Application"; }
       { class = "org.keepassxc.KeePassXC"; }
       { class = "org.telegram.desktop"; }
