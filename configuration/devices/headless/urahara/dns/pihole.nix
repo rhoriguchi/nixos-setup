@@ -34,13 +34,13 @@ in
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "pihole.00a.ch" ];
+      hostnames = [ "ad-blocker.00a.ch" ];
     };
 
     nginx = {
       enable = true;
 
-      virtualHosts."pihole.00a.ch" = {
+      virtualHosts."ad-blocker.00a.ch" = {
         enableACME = true;
         acmeRoot = null;
         forceSSL = true;
@@ -102,7 +102,7 @@ in
       enable = true;
 
       ports = [ webPort ];
-      hostName = "pihole.00a.ch";
+      hostName = "ad-blocker.00a.ch";
     };
   };
 }
