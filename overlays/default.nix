@@ -20,16 +20,6 @@
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=508784
-    netdata = prev.callPackage (import "${
-      prev.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "0316d482c5909f83e7653bd00f8891ae42359671";
-        sha256 = "sha256-/lu7YeE20O/RtToa1J3NFFeSIgXqqe9OE2hNiHH76WI=";
-      }
-    }/pkgs/tools/system/netdata") { protobuf = prev.protobuf_21; };
-
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=521410
     nwg-displays = prev.callPackage (import "${
       prev.fetchFromGitHub {
