@@ -40,7 +40,7 @@
       }
     }/pkgs/by-name/nw/nwg-displays/package.nix") { };
   })
-  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=523148
+  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=522705
   (final: prev: {
     python3 = prev.python3.override {
       packageOverrides = _: _: {
@@ -48,8 +48,8 @@
           prev.fetchFromGitHub {
             owner = "NixOS";
             repo = "nixpkgs";
-            rev = "432d7c76329604e00d565b6fec3bab5826c05742";
-            sha256 = "sha256-SWrrhqdZHQTGkB2t0jSh9RpG6sU7XvKa0xV9557b+m0=";
+            rev = "b07305823393e93af763459ad78072eb6b60588c";
+            sha256 = "sha256-K0zLTJFI6sfsx2V/5pEKwwkxEGFYPmP6NWx5x8p22is=";
           }
         }/pkgs/development/python-modules/jedi-language-server") { };
       };
