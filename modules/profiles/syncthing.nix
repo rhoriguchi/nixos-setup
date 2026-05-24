@@ -38,7 +38,6 @@ in
       "Git"
       "Obsidian"
       "Series"
-      "Signal"
       "Storage"
     ];
   };

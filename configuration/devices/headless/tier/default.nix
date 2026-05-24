@@ -26,6 +26,7 @@
     ./samba.nix
     ./syncthing-relay.nix
     ./terraria.nix
+    ./webdav.nix
 
     ./hardware-configuration.nix
   ];

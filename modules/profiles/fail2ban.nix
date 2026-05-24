@@ -86,6 +86,15 @@ in
           bantime = "1d";
         };
       };
+
+      webdav = {
+        enabled = config.services.webdav.enable;
+
+        settings = {
+          filter = "webdav";
+          action = "%(banaction_allports)s";
+        };
+      };
     };
   };
 
@@ -132,6 +141,18 @@ in
       Definition.failregex = ''%(__prefix_line)suser "<F-USER>.*</F-USER>" was not found in "\/nix\/store\/.*\.htpasswd", client: <HOST>,.*$'';
 
       Init.datepattern = "%%Y/%%m/%%d %%H:%%M:%%S";
+    };
+
+    # https://github.com/hacdias/webdav#fail2ban-setup
+    "fail2ban/filter.d/webdav.local".source = format.generate "webdav.local" {
+      INCLUDES.before = "common.conf";
+
+      Definition.failregex = ''
+        ^.*invalid password\s+\{.*"remote_address":\s*"<HOST>(?::\d+)?".*\}$
+        ^.*invalid username\s+\{.*"remote_address":\s*"<HOST>(?::\d+)?".*\}$
+      '';
+
+      Init.datepattern = "%%Y-%%m-%%dT%%H:%%M:%%S\.%%f%%z";
     };
   };
 }
