@@ -7,7 +7,7 @@
 }:
 let
   rootBindmountDir = "/mnt/bindmount/radarr";
-  bindmountDir1 = "${rootBindmountDir}/disk-Movies";
+  bindmountDir = "${rootBindmountDir}/disk-Movies";
 
   getContainerCfg = type: config.containers."radarr-${type}".config;
 
@@ -35,9 +35,9 @@ let
           hostPath = "/var/lib/radarr-${type}";
         };
 
-        "${bindmountDir1}" = {
+        "${bindmountDir}" = {
           isReadOnly = false;
-          hostPath = bindmountDir1;
+          hostPath = bindmountDir;
         };
 
         "/mnt/Data/Deluge" = {
@@ -137,7 +137,7 @@ in
   };
 
   system.fsPackages = [ pkgs.bindfs ];
-  fileSystems."${bindmountDir1}" = {
+  fileSystems."${bindmountDir}" = {
     depends = [ "/mnt/Data/Movies" ];
     device = "/mnt/Data/Movies";
     fsType = "fuse.bindfs";
@@ -157,7 +157,7 @@ in
     "d /var/lib/radarr-movies 0750 ${config.services.radarr.user} ${config.services.radarr.group}"
 
     "d ${rootBindmountDir} 0550 ${config.services.radarr.user} ${config.services.radarr.group}"
-    "d ${bindmountDir1} 0550 ${config.services.radarr.user} ${config.services.radarr.group}"
+    "d ${bindmountDir} 0550 ${config.services.radarr.user} ${config.services.radarr.group}"
   ];
 
   containers = {
