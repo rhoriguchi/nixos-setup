@@ -28,10 +28,10 @@
         alias = "! git config --get-regexp '^alias.' | sort | ${pkgs.gnused}/bin/sed -e 's/^alias\\.//' -e 's/\\ /\\ =\\ /'";
 
         changes = "! git diff --stat";
-        graph = "! git history --graph --all --decorate";
-        history = "! git log --pretty='%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ar %C(auto)%d %C(reset)%s'";
-        last = "! git history -1";
-        own-history = ''! git history --all --decorate --author="$(git config user.name)"'';
+        graph = "! git commits --graph --all --decorate";
+        commits = "! git log --pretty='%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ar %C(auto)%d %C(reset)%s'";
+        last = "! git commits -1";
+        my-commits = ''! git commits --all --decorate --author="$(git config user.name)"'';
         patch = "! git --no-pager diff";
         tracked =
           let
