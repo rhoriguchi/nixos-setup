@@ -8,6 +8,7 @@ let
 
   tierDomains = [
     "authelia.00a.ch"
+    "bazarr.00a.ch"
     "deluge.00a.ch"
     "grafana.00a.ch"
     "home-assistant.00a.ch"
@@ -17,7 +18,9 @@ let
     "prometheus.00a.ch"
     "prowlarr.00a.ch"
     "radarr.00a.ch"
+    "rustdesk.00a.ch"
     "sonarr.00a.ch"
+    "syncthing-relay.00a.ch"
     "tautulli.00a.ch"
     "webdav.00a.ch"
   ];
