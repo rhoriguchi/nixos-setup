@@ -29,23 +29,20 @@
         sha256 = "sha256-l7P5VVA0rvTKIUOuA+vg5penE3nmlbPYyPAPnAjzaLs=";
       }
     }/pkgs/by-name/nw/nwg-displays/package.nix") { };
-  })
-  # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=522705
-  (final: prev: {
-    python3 = prev.python3.override {
-      packageOverrides = _: _: {
-        jedi-language-server = prev.python3Packages.callPackage (import "${
+
+    linuxPackages_latest = prev.linuxPackages_latest.extend (
+      _: kernelPrev: {
+        # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=523308
+        openrazer = kernelPrev.callPackage (import "${
           prev.fetchFromGitHub {
             owner = "NixOS";
             repo = "nixpkgs";
-            rev = "b07305823393e93af763459ad78072eb6b60588c";
-            sha256 = "sha256-K0zLTJFI6sfsx2V/5pEKwwkxEGFYPmP6NWx5x8p22is=";
+            rev = "99643def59501d1eabb1ca01ef701b66d41908fe";
+            sha256 = "sha256-GGsXHdmXIlI8q0qDYkelWsquTDhYzSAVmfWrwEoF73w=";
           }
-        }/pkgs/development/python-modules/jedi-language-server") { };
-      };
-    };
-
-    python3Packages = final.python3.pkgs;
+        }/pkgs/os-specific/linux/openrazer/driver.nix") { };
+      }
+    );
   })
   (_: prev: {
     hs = prev.callPackage ./hs { };
