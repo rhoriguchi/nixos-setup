@@ -11,6 +11,7 @@
     ./arr
     ./authelia
     ./backup.nix
+    ./couchdb.nix
     ./fancontrol.nix
     ./nvidia-quadro-rtx-5000.nix
     ./grafana
