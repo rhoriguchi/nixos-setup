@@ -11,6 +11,7 @@
     ./arr
     ./authelia
     ./backup.nix
+    ./couchdb.nix
     ./fancontrol.nix
     ./grafana
     ./home-assistant

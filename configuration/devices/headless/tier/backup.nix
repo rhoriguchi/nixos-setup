@@ -34,6 +34,7 @@ in
         "/var/lib/sonarr-anime"
         "/var/lib/sonarr-series"
 
+        config.services.couchdb.databaseDir
         config.services.home-assistant.configDir
         config.services.jellyfin.dataDir
         config.services.loki.dataDir

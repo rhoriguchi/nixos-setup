@@ -42,7 +42,6 @@ in
     folders = [
       "Documents"
       "Git"
-      "Obsidian"
       "Series"
       "Storage"
     ];
