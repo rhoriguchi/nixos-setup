@@ -123,12 +123,24 @@ in
         }
       ];
     };
+
+    firewall.interfaces = lib.listToAttrs (
+      map (
+        interface:
+        lib.nameValuePair interface {
+          allowedUDPPorts = [
+            5353 # mDNS
+          ];
+        }
+      ) config.services.avahi.allowInterfaces
+    );
   };
 
   services = {
     avahi = {
       enable = true;
 
+      openFirewall = false;
       ipv6 = false;
 
       reflector = true;

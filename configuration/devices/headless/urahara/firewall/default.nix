@@ -125,7 +125,9 @@ in
           }
 
           chain lan-to-lan-ipv4-filter {
-            ip daddr @multicast_ipv4_address accept
+            iifname { ${lib.concatStringsSep ", " config.services.avahi.allowInterfaces} }  \
+              oifname { ${lib.concatStringsSep ", " config.services.avahi.allowInterfaces} } \
+              ip daddr @multicast_ipv4_address accept
 
             iifname @management_network_interface oifname @management_network_interface accept
 
