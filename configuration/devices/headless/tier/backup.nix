@@ -35,6 +35,7 @@ in
         "/var/lib/sonarr-series"
         "/var/lib/terraria"
 
+        config.services.couchdb.databaseDir
         config.services.home-assistant.configDir
         config.services.jellyfin.dataDir
         config.services.loki.dataDir
