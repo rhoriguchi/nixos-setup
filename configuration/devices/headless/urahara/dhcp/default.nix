@@ -128,12 +128,6 @@ in
                 data = "192.168.3.1";
               }
             ];
-            reservations = [
-              {
-                hw-address = "dc:a6:32:da:9d:b3";
-                ip-address = ips.ulquiorra;
-              }
-            ];
           }
           {
             id = 10;

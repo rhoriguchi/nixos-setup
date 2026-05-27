@@ -64,7 +64,10 @@ in
       listenAddresses = [ "0.0.0.0:${toString cupsPort}" ];
       allowFrom = [
         "127.0.0.1"
-        "192.168.2.*"
+
+        "10.*"
+        "172.16.*"
+        "192.168.*"
       ];
       browsing = true;
       defaultShared = true;
@@ -127,9 +130,6 @@ in
               proxy_set_header X-Forwarded-Proto $scheme;
               proxy_set_header X-Forwarded-Host $host;
               proxy_set_header X-Forwarded-Server $host;
-
-              allow 192.168.2.0/24;
-              deny all;
             '';
           };
         };
@@ -146,9 +146,6 @@ in
               proxy_read_timeout 300s;
               proxy_connect_timeout 300s;
               proxy_send_timeout 300s;
-
-              allow 192.168.2.0/24;
-              deny all;
             '';
           };
         };

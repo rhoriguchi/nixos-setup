@@ -148,7 +148,6 @@ in
             ip saddr ${ips.tier} oifname @iot_vlan_interface udp dport { 4003 } accept # Home Assistant - Govee
 
             ip daddr ${ips.tier} tcp dport { 80, 443 } accept # HTTP / HTTPS
-            ip daddr ${ips.ulquiorra} tcp dport { 80, 443 } accept # HTTP / HTTPS
 
             ${
               let
