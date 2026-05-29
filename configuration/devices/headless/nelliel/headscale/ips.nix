@@ -4,7 +4,6 @@
   headplane-agent = "100.123.123.1";
 
   XXLPitu-Aizen = "100.123.123.35";
-  XXLPitu-Grimmjow = "100.123.123.214";
   XXLPitu-Kenpachi = "100.123.123.148";
   XXLPitu-Nelliel = "100.123.123.251";
   XXLPitu-Nnoitra = "100.123.123.77";

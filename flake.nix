@@ -339,34 +339,6 @@
           };
 
           # Raspberry Pi 4 Model B - 8GB
-          XXLPitu-Grimmjow = inputs.nixos-raspberrypi.lib.nixosSystem {
-            # nixos-raspberrypi
-            trustCaches = true;
-
-            system = "aarch64-linux";
-
-            modules = [
-              {
-                imports = [
-                  commonModule
-
-                  inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
-
-                  self.nixosModules.profiles.headless
-
-                  self.nixosModules.profiles.syncthing
-
-                  ./configuration/devices/headless/raspberry-pi-4/grimmjow
-                ];
-              }
-            ];
-
-            specialArgs = specialArgs // {
-              inherit (inputs) nixos-raspberrypi;
-            };
-          };
-
-          # Raspberry Pi 4 Model B - 8GB
           XXLPitu-Ulquiorra = inputs.nixos-raspberrypi.lib.nixosSystem {
             # nixos-raspberrypi
             trustCaches = true;
