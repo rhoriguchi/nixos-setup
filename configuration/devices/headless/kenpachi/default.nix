@@ -30,4 +30,6 @@
       "1.0.0.1"
     ];
   };
+
+  services.custom-syncthing.bandwidthLimit.upload = 15 * 1024;
 }

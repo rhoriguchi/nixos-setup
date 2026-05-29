@@ -20,5 +20,9 @@
     ];
   };
 
-  services.custom-syncthing.syncDir = "/mnt/Data/Sync";
+  services.custom-syncthing = {
+    syncDir = "/mnt/Data/Sync";
+
+    bandwidthLimit.upload = 15 * 1024;
+  };
 }

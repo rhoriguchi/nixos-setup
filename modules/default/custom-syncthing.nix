@@ -67,6 +67,21 @@ in
       };
       default = { };
     };
+    bandwidthLimit = lib.mkOption {
+      type = lib.types.submodule {
+        options = {
+          download = lib.mkOption {
+            type = lib.types.int;
+            default = 0;
+          };
+          upload = lib.mkOption {
+            type = lib.types.int;
+            default = 0;
+          };
+        };
+      };
+      default = { };
+    };
     relay = lib.mkOption {
       type = lib.types.nullOr (
         lib.types.submodule {
@@ -117,6 +132,14 @@ in
         assertion = cfg.webUI.password != null;
         message = "Web ui password can't be null";
       }
+      {
+        assertion = cfg.bandwidthLimit.download >= 0;
+        message = "Syncthing download bandwidth limit must be non-negative";
+      }
+      {
+        assertion = cfg.bandwidthLimit.upload >= 0;
+        message = "Syncthing upload bandwidth limit must be non-negative";
+      }
     ];
 
     systemd.services.syncthing-init = lib.mkIf cfg.trusted {
@@ -162,18 +185,25 @@ in
           crashReportingEnabled = false;
         };
 
-        devices = lib.mapAttrs (key: value: {
-          inherit (value) id;
+        devices =
+          let
+            numDevices = lib.length (lib.attrNames cfg.devices);
+          in
+          lib.mapAttrs (key: value: {
+            inherit (value) id;
 
-          addresses = [
-            "tcp://${tailscaleIps.${key}}:22000"
-            "quic://${tailscaleIps.${key}}:22000"
-            "dynamic"
-          ];
+            addresses = [
+              "tcp://${tailscaleIps.${key}}:22000"
+              "quic://${tailscaleIps.${key}}:22000"
+              "dynamic"
+            ];
 
-          autoAcceptFolders = false;
-          untrusted = !value.trusted;
-        }) cfg.devices;
+            autoAcceptFolders = false;
+            untrusted = !value.trusted;
+
+            maxRecvKbps = if numDevices > 0 then cfg.bandwidthLimit.download / numDevices else 0;
+            maxSendKbps = if numDevices > 0 then cfg.bandwidthLimit.upload / numDevices else 0;
+          }) cfg.devices;
 
         folders = lib.listToAttrs (
           map (
