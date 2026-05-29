@@ -489,6 +489,16 @@ in
             ];
           };
         }
+        // lib.optionalAttrs (lib.elem "nvidia" config.services.xserver.videoDrivers) {
+          "go.d/nvidia_smi.conf" = pkgs.writers.writeYAML "nvidia_smi.conf" {
+            jobs = [
+              {
+                name = "local";
+                binary_path = "${config.hardware.nvidia.package.bin}/bin/nvidia-smi";
+              }
+            ];
+          };
+        }
         // {
           "go.d/nvme.conf" = pkgs.writers.writeYAML "nvme.conf" { jobs = [ { name = "local"; } ]; };
         }
