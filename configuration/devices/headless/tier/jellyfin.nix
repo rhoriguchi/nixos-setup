@@ -127,6 +127,9 @@ in
         enableRemoteAccess = false;
       };
 
+      encoding.hardwareAccelerationType =
+        if lib.elem "nvidia" config.services.xserver.videoDrivers then "nvenc" else "none";
+
       system = {
         serverName = "Jellyfin";
 
