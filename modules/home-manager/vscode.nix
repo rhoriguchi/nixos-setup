@@ -61,62 +61,62 @@
       ];
 
       userTasks = {
-        "version" = "2.0.0";
-        "tasks" = [
+        version = "2.0.0";
+        tasks = [
           {
-            "type" = "shell";
-            "label" = "deadnix file";
-            "command" = ''${pkgs.deadnix}/bin/deadnix "''${file}"'';
-            "presentation" = {
-              "clear" = true;
-              "focus" = true;
-              "panel" = "dedicated";
-              "reveal" = "always";
+            type = "shell";
+            label = "deadnix file";
+            command = ''${pkgs.deadnix}/bin/deadnix "''${file}"'';
+            presentation = {
+              clear = true;
+              focus = true;
+              panel = "dedicated";
+              reveal = "always";
             };
-            "group" = "none";
-            "problemMatcher" = [ ];
+            group = "none";
+            problemMatcher = [ ];
           }
           {
-            "type" = "shell";
-            "label" = "deadnix workspace";
-            "command" = lib.concatStringsSep " | " [
+            type = "shell";
+            label = "deadnix workspace";
+            command = lib.concatStringsSep " | " [
               "${pkgs.findutils}/bin/find \"\${workspaceFolder}\" -name '*.nix' -and ! -name 'hardware-configuration.nix'"
               "${pkgs.findutils}/bin/xargs ${pkgs.deadnix}/bin/deadnix"
             ];
-            "presentation" = {
-              "clear" = true;
-              "focus" = true;
-              "panel" = "dedicated";
-              "reveal" = "always";
+            presentation = {
+              clear = true;
+              focus = true;
+              panel = "dedicated";
+              reveal = "always";
             };
-            "group" = "none";
-            "problemMatcher" = [ ];
+            group = "none";
+            problemMatcher = [ ];
           }
           {
-            "type" = "shell";
-            "label" = "nixfmt file";
-            "command" = ''${pkgs.nixfmt-tree}/bin/treefmt "''${file}"'';
-            "presentation" = {
-              "clear" = true;
-              "close" = true;
-              "panel" = "dedicated";
-              "reveal" = "silent";
+            type = "shell";
+            label = "nixfmt file";
+            command = ''${pkgs.nixfmt-tree}/bin/treefmt "''${file}"'';
+            presentation = {
+              clear = true;
+              close = true;
+              panel = "dedicated";
+              reveal = "silent";
             };
-            "group" = "none";
-            "problemMatcher" = [ ];
+            group = "none";
+            problemMatcher = [ ];
           }
           {
-            "type" = "shell";
-            "label" = "nixfmt workspace";
-            "command" = ''${pkgs.nixfmt-tree}/bin/treefmt "''${workspaceFolder}"'';
-            "presentation" = {
-              "clear" = true;
-              "close" = true;
-              "panel" = "dedicated";
-              "reveal" = "silent";
+            type = "shell";
+            label = "nixfmt workspace";
+            command = ''${pkgs.nixfmt-tree}/bin/treefmt "''${workspaceFolder}"'';
+            presentation = {
+              clear = true;
+              close = true;
+              panel = "dedicated";
+              reveal = "silent";
             };
-            "group" = "none";
-            "problemMatcher" = [ ];
+            group = "none";
+            problemMatcher = [ ];
           }
         ];
       };
