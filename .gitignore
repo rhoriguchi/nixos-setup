@@ -1,3 +1,4 @@
+.copilotignore
 .deploy-gc/
 .geminiignore
 .lycheecache
