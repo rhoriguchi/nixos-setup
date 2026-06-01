@@ -70,6 +70,11 @@
           keyColor = colors.normal.accent;
         }
         {
+          type = "lm";
+          key = "│ ├󰍂";
+          keyColor = colors.normal.accent;
+        }
+        {
           type = "Icons";
           key = "│ ├󰀻";
           keyColor = colors.normal.accent;
