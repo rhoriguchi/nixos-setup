@@ -60,7 +60,7 @@ let
       };
 
       config = {
-        # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=507378
+        # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=519655
         imports = [ (libCustom.relativeToRoot "modules/default/overlays/bazarr.nix") ];
 
         nixpkgs.pkgs = pkgs;
@@ -123,7 +123,6 @@ let
 
             openFirewall = true;
 
-            mutableSettings = false;
             settings = {
               auth.apikey = secrets.bazarr.apiKey;
 
@@ -208,7 +207,7 @@ let
 
             openFirewall = true;
 
-            url = "http://127.0.0.1:${toString containerCfg.services.bazarr.listenPort}/${type}";
+            url = "http://127.0.0.1:${toString containerCfg.services.bazarr.settings.general.port}/${type}";
 
             environment.API_KEY = containerCfg.services.bazarr.settings.auth.apikey;
           };
@@ -224,7 +223,7 @@ let
     {
       proxyPass = "http://${
         config.containers."bazarr-${type}".localAddress
-      }:${toString containerCfg.services.bazarr.listenPort}";
+      }:${toString containerCfg.services.bazarr.settings.general.port}";
 
       extraConfig = ''
         include /run/nginx-authelia/auth.conf;
