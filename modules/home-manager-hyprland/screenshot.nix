@@ -7,7 +7,7 @@
 let
   screenshotsDir = "${config.home.homeDirectory}/Pictures/Screenshots";
 
-  regionScreenshotScript = pkgs.writeShellScript "screenshot-region.sh" ''
+  regionScreenshotScript = pkgs.writers.writeBash "screenshot-region.sh" ''
     ${pkgs.procps}/bin/pgrep -u "$USER" hyprshot >/dev/null || ${config.programs.hyprshot.package}/bin/hyprshot --mode region
   '';
 in

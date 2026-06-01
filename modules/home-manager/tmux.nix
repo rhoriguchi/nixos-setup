@@ -80,7 +80,7 @@ in
     };
   };
 
-  home.file.".tmuxp/Default.yaml".source = (pkgs.formats.yaml { }).generate "Default.yaml" {
+  home.file.".tmuxp/Default.yaml".source = pkgs.writers.writeYAML "Default.yaml" {
     session_name = "Default";
     start_directory = homeDirectory;
 

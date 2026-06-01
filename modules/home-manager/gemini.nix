@@ -46,7 +46,7 @@
               {
                 name = "sync-git-crypt-to-geminiignore";
                 type = "command";
-                command = pkgs.writeShellScript "sync-git-crypt-to-geminiignore.sh" ''
+                command = pkgs.writers.writeBash "sync-git-crypt-to-geminiignore.sh" ''
                   GIT_ROOT=$(${config.programs.git.package}/bin/git rev-parse --show-toplevel 2>/dev/null)
 
                   if [ -n "$GIT_ROOT" ]; then

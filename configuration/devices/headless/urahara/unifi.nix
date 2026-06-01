@@ -26,7 +26,7 @@ in
       prometheus.http_listen = "127.0.0.1:9130";
     };
 
-    netdata.configDir."go.d/snmp.conf" = (pkgs.formats.yaml { }).generate "snmp.conf" {
+    netdata.configDir."go.d/snmp.conf" = pkgs.writers.writeYAML "snmp.conf" {
       jobs = [
         {
           name = "Cloud Key Gen.2";

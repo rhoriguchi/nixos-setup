@@ -144,7 +144,7 @@ in
 
     systemd.services.syncthing-init = lib.mkIf cfg.trusted {
       serviceConfig.ExecStartPre = [
-        "+${pkgs.writeShellScript "syncthing-init-pre" ''
+        "+${pkgs.writers.writeBash "syncthing-init-pre" ''
           ln -sf ${pkgs.writeText "encryption-password" cfg.encryptionPassword} /run/syncthing-init/encryption-password
         ''}"
       ];

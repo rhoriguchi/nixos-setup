@@ -43,7 +43,7 @@
     };
   };
 
-  services.netdata.configDir."go.d/ethtool.conf" = (pkgs.formats.yaml { }).generate "ethtool.conf" {
+  services.netdata.configDir."go.d/ethtool.conf" = pkgs.writers.writeYAML "ethtool.conf" {
     jobs = [
       {
         name = "local";

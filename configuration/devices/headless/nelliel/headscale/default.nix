@@ -144,7 +144,7 @@ in
           override_local_dns = false;
         };
 
-        policy.path = (pkgs.formats.json { }).generate "policy.json" {
+        policy.path = pkgs.writers.writeJSON "policy.json" {
           tagOwners = {
             "tag:admin" = [ ];
             "tag:exit-node" = [ ];
@@ -188,7 +188,7 @@ in
           server.enabled = false;
 
           paths = [
-            # `(pkgs.formats.yaml { }).generate` does not support keys as number
+            # `pkgs.writers.writeYAML` does not support keys as number
             (pkgs.writeText "derpmap.yaml" ''
               regions:
                 998:

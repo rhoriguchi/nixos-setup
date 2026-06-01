@@ -15,7 +15,7 @@
     })
   ];
 
-  xdg.configFile."nwg-bar/bar.json".source = (pkgs.formats.json { }).generate "bar.json" [
+  xdg.configFile."nwg-bar/bar.json".source = pkgs.writers.writeJSON "bar.json" [
     {
       label = "Suspend";
       exec = "${osConfig.systemd.package}/bin/systemctl suspend";

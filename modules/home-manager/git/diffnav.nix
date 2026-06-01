@@ -6,7 +6,7 @@
 
   programs.git.iniContent.pager.diff = "diffnav";
 
-  xdg.configFile."diffnav/config.yml".source = (pkgs.formats.yaml { }).generate "config.yaml" {
+  xdg.configFile."diffnav/config.yml".source = pkgs.writers.writeYAML "config.yaml" {
     ui.icons = "nerd-fonts-filetype";
   };
 }

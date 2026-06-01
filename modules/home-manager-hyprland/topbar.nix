@@ -112,7 +112,7 @@ in
         format-off = "<span color='${disabledColor}'>󰂲 </span>";
         format-disabled = "<span color='${disabledColor}'>󰂲 </span>";
 
-        on-click = "${pkgs.writeShellScript "toggle-bluetooth.sh" ''
+        on-click = "${pkgs.writers.writeBash "toggle-bluetooth.sh" ''
           state=$(${pkgs.bluez}/bin/bluetoothctl show | ${pkgs.gnugrep}/bin/grep "Powered:" | awk '{print $2}')
           case "$state" in
             yes)
@@ -204,7 +204,7 @@ in
 
         tooltip-format-wifi = "{signaldBm} dBm ({signalStrength}%)";
 
-        on-click = "${pkgs.writeShellScript "toggle-wifi.sh" ''
+        on-click = "${pkgs.writers.writeBash "toggle-wifi.sh" ''
           if [ $(${pkgs.networkmanager}/bin/nmcli radio wifi | ${pkgs.gawk}/bin/awk '/led/ {print}') = 'enabled'  ] ; then
             ${pkgs.networkmanager}/bin/nmcli radio wifi off
           else

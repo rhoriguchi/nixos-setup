@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  script = pkgs.writeShellScript "keepassxc.sh" ''
+  script = pkgs.writers.writeBash "keepassxc.sh" ''
     ${pkgs.libsecret}/bin/secret-tool lookup KeePass 2FA | keepassxc --pw-stdin "$HOME/Documents/KeePass/2FA.kdbx"
   '';
 

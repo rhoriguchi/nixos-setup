@@ -65,7 +65,7 @@ in
         ];
 
         authentication_backend = {
-          file.path = (pkgs.formats.yaml { }).generate "authelia-users.yaml" {
+          file.path = pkgs.writers.writeYAML "authelia-users.yaml" {
             users = lib.mapAttrs (
               key: value:
               {

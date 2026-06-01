@@ -13,7 +13,7 @@ let
   apiUrl = "https://api.openweathermap.org/data/2.5";
   url = "${apiUrl}/weather?appid=${apiKey}&lat=${toString lat}&lon=${toString lon}&units=${units}";
 
-  script = pkgs.writeShellScript "openweather.sh" ''
+  script = pkgs.writers.writeBash "openweather.sh" ''
     output="$(${pkgs.curl}/bin/curl --silent '${url}' | ${pkgs.jq}/bin/jq '.main.temp')"
     echo "''${output:-0}"
   '';

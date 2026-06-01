@@ -9,7 +9,7 @@ let
   snapshotDir = "${backupDir}/snapshot/XXLPitu-Aizen";
   keyPath = "${config.users.users.rhoriguchi.home}/Sync/Storage/Luks/backup.key";
 
-  preExecShellScript = pkgs.writeShellScript "rsnapshot-preExec" ''
+  preExecShellScript = pkgs.writers.writeBash "rsnapshot-preExec" ''
     mkdir -p "${backupDir}"
 
     ${pkgs.cryptsetup}/bin/cryptsetup luksOpen --key-file "${keyPath}" /dev/disk/by-uuid/792d67dc-3de4-4790-9e51-ec281e28b0d1 backup
@@ -19,7 +19,7 @@ let
     mkdir -p "${snapshotDir}"
   '';
 
-  postExecShellScript = pkgs.writeShellScript "rsnapshot-postExec" ''
+  postExecShellScript = pkgs.writers.writeBash "rsnapshot-postExec" ''
     rm -rf "${backupDir}/.Trash-*" || true
 
     umount ${backupDir} || true
