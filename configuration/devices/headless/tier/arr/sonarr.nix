@@ -119,6 +119,8 @@ let
       recommendedProxySettings = false;
 
       extraConfig = ''
+        include /run/nginx-authelia/auth.conf;
+
         proxy_buffering off;
 
         proxy_set_header Host $host;
@@ -127,8 +129,6 @@ let
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Server $host;
-
-        include /run/nginx-authelia/auth.conf;
       '';
     };
 in

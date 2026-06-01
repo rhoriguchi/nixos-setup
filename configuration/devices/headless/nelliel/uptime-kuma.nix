@@ -247,9 +247,9 @@ in
             proxyWebsockets = true;
 
             extraConfig = ''
-              proxy_buffering off;
-
               include /run/nginx-authelia/auth.conf;
+
+              proxy_buffering off;
             '';
           };
 
