@@ -356,9 +356,11 @@ in
 
         locations = {
           "/".return = "302 /anime";
+          "/series".return = "302 /series-movies";
+          "/movies".return = "302 /series-movies";
 
           "/anime" = createNginxVirtualHostLocation "anime";
-          "/series" = createNginxVirtualHostLocation "series-movies";
+          "/series-movies" = createNginxVirtualHostLocation "series-movies";
         };
       };
     };
