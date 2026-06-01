@@ -22,10 +22,12 @@ let
 in
 {
   programs = {
-    zsh.shellAliases.spf = "${config.programs.superfile.package}/bin/superfile";
+    # TODO uncomment when fixed
+    # zsh.shellAliases.spf = "${config.programs.superfile.package}/bin/superfile";
 
     superfile = {
-      enable = true;
+      # TODO uncomment when fixed
+      # enable = true;
 
       firstUseCheck = false;
 
