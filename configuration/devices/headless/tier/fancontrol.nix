@@ -80,8 +80,8 @@ in
     script = ''
       file=$(mktemp)
 
-      ${script} > $file
-      fancontrol $file
+      ${script} > "$file"
+      fancontrol "$file"
     '';
 
     serviceConfig.Restart = "on-abort";
