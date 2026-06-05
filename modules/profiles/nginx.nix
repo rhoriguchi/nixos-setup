@@ -16,6 +16,12 @@
 
   services = {
     nginx = {
+      package = pkgs.nginx.override {
+        modules = [
+          pkgs.nginxModules.moreheaders
+        ];
+      };
+
       recommendedBrotliSettings = true;
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
@@ -24,9 +30,9 @@
       recommendedUwsgiSettings = true;
 
       commonHttpConfig = ''
-        add_header Referrer-Policy origin-when-cross-origin;
-        add_header X-Content-Type-Options nosniff;
-        add_header X-Frame-Options DENY;
+        more_set_headers Referrer-Policy origin-when-cross-origin;
+        more_set_headers X-Content-Type-Options nosniff;
+        more_set_headers X-Frame-Options DENY;
       '';
 
       virtualHosts."_" = {

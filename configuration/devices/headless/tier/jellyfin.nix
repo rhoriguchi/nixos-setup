@@ -303,9 +303,7 @@ in
 
             extraConfig = ''
               # Needed for OIDC Authentication
-              add_header Referrer-Policy "origin-when-cross-origin" always;
-              add_header X-Content-Type-Options "nosniff" always;
-              add_header X-Frame-Options "SAMEORIGIN" always;
+              more_set_headers X-Frame-Options SAMEORIGIN;
             '';
           };
 
