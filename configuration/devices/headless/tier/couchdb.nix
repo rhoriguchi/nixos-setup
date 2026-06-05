@@ -31,8 +31,7 @@ in
           max_http_request_size = 4294967296;
         };
 
-        # TODO this is for Fauxton
-        # chttpd_auth.proxy_use_secret = false;
+        chttpd_auth.proxy_use_secret = false;
 
         # 50 * 2^20 => 50 MB
         couchdb.max_document_size = 52428800;
@@ -74,24 +73,28 @@ in
 
           proxy_buffering off;
           proxy_request_buffering off;
+
+          # Clear Auth headers to prevent bypass
+          more_clear_input_headers X-Auth-CouchDB-UserName;
+          more_clear_input_headers X-Auth-CouchDB-Roles;
+          more_clear_input_headers X-Auth-CouchDB-Token;
         '';
 
         locations = {
-          # TODO commented
-          # "/".return = "302 /_utils";
+          "/".return = "302 /_utils";
 
           # TODO figure fauxton and auto login
           # https://couchdb.apache.org/fauxton-visual-guide/index.html
           # https://docs.couchdb.org/en/stable/api/server/authn.html
           # TODO web sockets needed?
-          # "/_utils" = {
-          #   proxyPass = "http://127.0.0.1:${toString config.services.couchdb.port}/_utils";
-          #   extraConfig = ''
-          #     include /run/nginx-authelia/auth.conf;
+          "/_utils" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.couchdb.port}/_utils";
+            extraConfig = ''
+              include /run/nginx-authelia/auth.conf;
 
-          #     proxy_set_header X-Auth-CouchDB-UserName ${config.services.couchdb.adminUser};
-          #   '';
-          # };
+              proxy_set_header X-Auth-CouchDB-UserName ${config.services.couchdb.adminUser};
+            '';
+          };
         }
         // (lib.listToAttrs (
           map (
