@@ -30,6 +30,7 @@
     pkgs.snapshot
     pkgs.vlc
     pkgs.whatsapp-electron
+    pkgs.wl-clipboard
     pkgs.wpa_supplicant_gui
   ];
 }
