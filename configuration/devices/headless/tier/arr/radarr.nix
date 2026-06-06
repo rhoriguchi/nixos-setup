@@ -208,7 +208,7 @@ in
         '';
 
         locations = {
-          "/".return = "302 /anime";
+          "/".return = "302 /movies";
 
           "/anime" = createNginxVirtualHostLocation "anime";
           "/movies" = createNginxVirtualHostLocation "movies";
