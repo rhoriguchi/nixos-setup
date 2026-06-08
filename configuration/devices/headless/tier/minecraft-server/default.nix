@@ -143,17 +143,7 @@ in
 
           serverProperties.server-port = proxyPort;
 
-          # `server-uuid` is random id that `bStats` uses to identify server
-          files."plugins/bStats/config.txt" = pkgs.writeText "config.txt" ''
-            enabled=false
-
-            server-uuid=5a650f19-3c33-4cbe-865a-1982cdd89e50
-            log-errors=false
-            log-sent-data=false
-            log-response-status-text=false
-          '';
-
-          symlinks = {
+          files = {
             # https://docs.papermc.io/velocity/configuration
             "velocity.toml" = pkgs.writers.writeTOML "velocity.toml" {
               config-version = "2.7";
@@ -177,6 +167,18 @@ in
               forced-hosts."minecraft.00a.ch" = [ serverName ];
             };
 
+            # `server-uuid` is random id that `bStats` uses to identify server
+            "plugins/bStats/config.txt" = pkgs.writeText "config.txt" ''
+              enabled=false
+
+              server-uuid=5a650f19-3c33-4cbe-865a-1982cdd89e50
+              log-errors=false
+              log-sent-data=false
+              log-response-status-text=false
+            '';
+          };
+
+          symlinks = {
             "plugins/VelocityWhitelistr.jar" =
               let
                 owner = "TISUnion";
