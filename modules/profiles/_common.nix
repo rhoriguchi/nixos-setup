@@ -9,6 +9,7 @@
     ./nvd.nix
     ./shell.nix
     ./sudo-rs.nix
+    ./systemd.nix
     ./tailscale.nix
     ./tmp-management.nix
     ./util.nix
