@@ -7,7 +7,7 @@
       github = {
         command = "${pkgs.github-mcp-server}/bin/github-mcp-server";
         args = [ "stdio" ];
-        env.GITHUB_PERSONAL_ACCESS_TOKEN = secrets.gemini.mcpServers.github.accessToken;
+        env.GITHUB_PERSONAL_ACCESS_TOKEN = secrets.mcpServers.github.accessToken;
       };
 
       nixos = {
