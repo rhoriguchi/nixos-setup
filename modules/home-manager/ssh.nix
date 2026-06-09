@@ -36,6 +36,11 @@ in
         UserKnownHostsFile = "${home}/.ssh/known_hosts";
       };
 
+      "codeberg.org" = {
+        User = "git";
+        IdentityFile = "${home}/.ssh/codeberg_ed25519";
+      };
+
       "github.com" = {
         User = "git";
         IdentityFile = "${home}/.ssh/github_ed25519";
