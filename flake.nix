@@ -114,6 +114,18 @@
             }
           ) { } names;
         };
+
+      mkPkgs =
+        args:
+        import inputs.nixpkgs (
+          lib.recursiveUpdate args {
+            config = {
+              allowUnfree = true;
+              nvidia.acceptLicense = true;
+            };
+            overlays = [ self.overlays.default ];
+          }
+        );
     in
     {
       lib = libCustom;
@@ -371,10 +383,8 @@
     // inputs.flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import inputs.nixpkgs {
+        pkgs = mkPkgs {
           inherit system;
-          config.allowUnfree = true;
-          overlays = [ self.overlays.default ];
         };
       in
       {
