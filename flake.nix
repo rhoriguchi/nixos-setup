@@ -237,14 +237,6 @@
                 ];
 
                 boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-                # nixos-raspberrypi
-                nix.settings = {
-                  substituters = [ "https://nixos-raspberrypi.cachix.org" ];
-                  trusted-public-keys = [
-                    "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
-                  ];
-                };
               }
             ];
 
@@ -341,7 +333,7 @@
           # Raspberry Pi 4 Model B - 8GB
           XXLPitu-Ulquiorra = inputs.nixos-raspberrypi.lib.nixosSystem {
             # nixos-raspberrypi
-            trustCaches = true;
+            trustCaches = false;
 
             system = "aarch64-linux";
 
