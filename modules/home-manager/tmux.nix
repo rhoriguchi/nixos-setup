@@ -24,11 +24,13 @@ in
       };
 
       initContent = ''
-        if [ "$TMUX" = ''' ]; then
-          if [ "$XDG_SESSION_TYPE" = 'tty' ]; then
-            ${tmux} has-session -t "TTY $(basename $(tty))" && ${tmux} attach-session -t "TTY $(basename $(tty))" || ${tmux} new-session -s "TTY $(basename $(tty))"
-          elif [ "$TERM_PROGRAM" != 'vscode' ] && [ "$TERMINAL_EMULATOR" != 'JetBrains-JediTerm' ]; then
-            ${attachSession}
+        if [[ -z "$TMUX" ]]; then
+          if [[ -z "$SSH_CONNECTION" && "$TERM_PROGRAM" != "vscode" && "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]]; then
+            if [[ "$XDG_SESSION_TYPE" == "tty" ]]; then
+              ${tmux} has-session -t "TTY $(basename $(tty))" && ${tmux} attach-session -t "TTY $(basename $(tty))" || ${tmux} new-session -s "TTY $(basename $(tty))"
+            else
+              ${attachSession}
+            fi
           fi
         fi
       '';
