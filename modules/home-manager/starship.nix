@@ -20,6 +20,7 @@
 
       username = {
         format = ''[\[$user\]]($style) '';
+        style_user = "${colors.normal.yellow} bold";
         style_root = "${colors.normal.red} bold";
 
         show_always = false;
