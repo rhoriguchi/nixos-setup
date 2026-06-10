@@ -118,12 +118,12 @@
       mkPkgs =
         args:
         import inputs.nixpkgs (
-          lib.recursiveUpdate args {
+          lib.recursiveUpdate (builtins.removeAttrs args [ "overlays" ]) {
             config = {
               allowUnfree = true;
               nvidia.acceptLicense = true;
             };
-            overlays = [ self.overlays.default ];
+            overlays = [ self.overlays.default ] ++ (args.overlays or [ ]);
           }
         );
     in
@@ -360,6 +360,18 @@
 
                   ./configuration/devices/headless/raspberry-pi-4/ulquiorra
                 ];
+
+                # Cross-compile the kernel, while using emulation/cache for the rest
+                boot.kernelPackages =
+                  (mkPkgs {
+                    localSystem = "x86_64-linux";
+                    crossSystem = "aarch64-linux";
+                    overlays = [
+                      inputs.nixos-raspberrypi.overlays.vendor-kernel
+                      inputs.nixos-raspberrypi.overlays.vendor-firmware
+                      inputs.nixos-raspberrypi.overlays.kernel-and-firmware
+                    ];
+                  }).linuxPackages_rpi4;
               }
             ];
 
