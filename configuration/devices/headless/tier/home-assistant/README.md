@@ -24,6 +24,12 @@
   - Shelly
     - Wake up sensor with button or wait till it shows up
 - Settings to change
+  - `Profile` (bottom left user icon) -> `Advanced mode = true`
+  - Configure default network interface
+    - `Settings` -> `System` -> `Network` -> `Network adapter`
+  - Setup automatic backups
+    - `Settings` -> `System` -> `Backups` -> `Set up backups`
+    - `Settings` -> `System` -> `Backups` -> `Configure backup settings` -> `Locations` -> `This system` -> `[COG ICON]` -> `Encryption` -> `Turn off`
   - Add guest user
     - `Settings` -> `People` -> `Add person`
       - Name: `Guest`
@@ -32,12 +38,8 @@
         - Local Access only: `true`
         - Administrator: `false`
     - Get ID from <https://home-assistant.00a.ch/config/users> and update `trusted_users` in [auth.nix](./auth.nix)
-  - Configure default network interface
-    - `Settings` -> `System` -> `Network` -> `Network adapter`
-  - Setup automatic backups
-    - `Settings` -> `System` -> `Backups` -> `Set up backups`
-    - `Settings` -> `System` -> `Backups` -> `Configure backup settings` -> `Locations` -> `This system` -> `[COG ICON]` -> `Encryption` -> `Turn off`
-  - `Profile` (bottom left user icon) -> `Advanced mode = true`
+  - Set default dashboard
+    - `Settings` -> `Dashboards` -> `Overview (User created)` ->  `[KEBAB MENU ICON]` -> `Set as default`
   - Delete all areas
     - `Settings` -> `Areas & zones` -> `Areas`
 
