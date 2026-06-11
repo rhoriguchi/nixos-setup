@@ -70,7 +70,12 @@
 
       history = { };
 
-      recorder.exclude.entities = [ "sensor.time" ];
+      recorder = {
+        exclude.entities = [ "sensor.time" ];
+
+        auto_purge = true;
+        purge_keep_days = 30;
+      };
 
       system_health = { };
 
