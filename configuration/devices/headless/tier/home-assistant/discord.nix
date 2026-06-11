@@ -43,7 +43,7 @@
       conditions = [
         {
           condition = "state";
-          entity_id = "binary_sensor.reduit_badring";
+          entity_id = "binary_sensor.reduit_badring_leak_sensor";
           state = "on";
           for.seconds = 30;
         }
