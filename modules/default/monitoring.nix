@@ -111,6 +111,8 @@ in
         prometheus = true;
       };
 
+      home-assistant.config.prometheus.requires_auth = false;
+
       loki.configuration.server.register_instrumentation = true;
 
       mysql.ensureUsers = [
@@ -557,6 +559,10 @@ in
               ++ lib.optional config.services.headscale.enable {
                 name = "Headscale";
                 url = "http://${config.services.headscale.settings.metrics_listen_addr}/metrics";
+              }
+              ++ lib.optional config.services.home-assistant.enable {
+                name = "Home Assistant";
+                url = "http://127.0.0.1:${toString config.services.home-assistant.config.http.server_port}/api/prometheus";
               }
               ++ lib.optionals config.services.immich.enable [
                 {

@@ -17,14 +17,18 @@
         acmeRoot = null;
         forceSSL = true;
 
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.home-assistant.config.http.server_port}";
+        locations = {
+          "/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.home-assistant.config.http.server_port}";
 
-          proxyWebsockets = true;
+            proxyWebsockets = true;
 
-          extraConfig = ''
-            proxy_buffering off;
-          '';
+            extraConfig = ''
+              proxy_buffering off;
+            '';
+          };
+
+          "/api/prometheus".return = 444;
         };
       };
     };
