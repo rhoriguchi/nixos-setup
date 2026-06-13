@@ -70,7 +70,7 @@ nix-shell -p libsecret --run 'secret-tool store --label=KeePass KeePass 2FA'
 - `Advanced mode(F7)` -> `Boot` -> `Boot Configuration` -> `Wait For [F1] If Error` -> `Disabled`
 - `Advanced mode(F7)` -> `Boot` `Secure Boot` -> `OS Type` -> `Other OS`
 - `Advanced mode(F7)` -> `Boot` `Secure Boot` -> `Secure Boot Mode` -> `Custom`
-- `Advanced mode(F7)` -> `Tool` -> `ASUS Armoury Crate` -> `Download & Install ARMOURY CRATE app` -> `Disabled`
+- `Advanced mode(F7)` -> `Tool` -> `Auto Install ASUS Utilities` -> `Disabled`
 - `AURA(F4)` -> `Aura Off`
 - `ReSizable BAR` -> `ON`
 

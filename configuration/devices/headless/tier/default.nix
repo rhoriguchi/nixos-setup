@@ -59,8 +59,8 @@
     hostName = "XXLPitu-Tier";
 
     interfaces = {
-      eno1.useDHCP = true;
-      wlp11s0.useDHCP = true;
+      enp11s0.useDHCP = true;
+      wlp9s0.useDHCP = true;
     };
 
     firewall.allowedTCPPorts = [
