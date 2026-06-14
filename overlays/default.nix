@@ -29,6 +29,16 @@
         sha256 = "sha256-je59cSRtfoz2H34zOlLJd/PLuyRNEPxyBM6NWZx/yTE=";
       }
     }/pkgs/by-name/pr/prowlarr/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=531636
+    radarr = prev.callPackage (import "${
+      prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "84ebca080acacbacb6723e875b87d992547012d3";
+        sha256 = "sha256-LqujjBr3+BP4nm1kqgVzfgbWrXXy59SAI5vNDdh7Pmw=";
+      }
+    }/pkgs/by-name/ra/radarr/package.nix") { };
   })
   (_: prev: {
     hs = prev.callPackage ./hs { };
