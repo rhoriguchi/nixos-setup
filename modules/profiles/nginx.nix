@@ -52,7 +52,5 @@
         };
       };
     };
-
-    logrotate.settings.nginx.enable = false;
   };
 }
