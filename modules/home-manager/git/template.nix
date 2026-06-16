@@ -1,5 +1,10 @@
-{ config, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf config.programs.git.enable {
   programs.git.settings.init.templatedir = "${config.home.homeDirectory}/.git_template";
 
   home.file = {

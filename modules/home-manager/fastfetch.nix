@@ -6,9 +6,9 @@
   ...
 }:
 {
-  home.packages = [ pkgs.nerd-fonts.roboto-mono ];
+  home.packages = lib.mkIf config.programs.fastfetch.enable [ pkgs.nerd-fonts.roboto-mono ];
 
-  programs.zsh.shellAliases.neofetch = "${config.programs.fastfetch.package}/bin/fastfetch --config neofetch";
+  programs.zsh.shellAliases.neofetch = lib.mkIf config.programs.fastfetch.enable "${config.programs.fastfetch.package}/bin/fastfetch --config neofetch";
 
   programs.fastfetch = {
     enable = true;

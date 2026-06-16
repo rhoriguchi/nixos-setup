@@ -1,10 +1,11 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
 {
-  home.packages = [
+  home.packages = lib.mkIf config.programs.nixkraken.enable [
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.roboto-mono
   ];

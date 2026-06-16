@@ -7,7 +7,7 @@
 }:
 {
   programs = {
-    vscode.profiles.default.extensions = [
+    vscode.profiles.default.extensions = lib.mkIf config.programs.gemini-cli.enable [
       pkgs.vscode-extensions.Google.gemini-cli-vscode-ide-companion
     ];
 

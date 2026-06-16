@@ -22,7 +22,7 @@ let
 in
 {
   programs = {
-    zsh.shellAliases.spf = "${config.programs.superfile.package}/bin/superfile";
+    zsh.shellAliases.spf = lib.mkIf config.programs.superfile.enable "${config.programs.superfile.package}/bin/superfile";
 
     superfile = {
       enable = true;

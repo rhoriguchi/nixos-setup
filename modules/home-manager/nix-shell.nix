@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   package = config.programs.nix-your-shell.nix-output-monitor.package;
 in
@@ -14,7 +14,7 @@ in
       nix-output-monitor.enable = true;
     };
 
-    zsh.shellAliases = {
+    zsh.shellAliases = lib.mkIf config.programs.nix-your-shell.enable {
       "nix build" = "${package}/bin/nom build";
       "nix develop" = "${package}/bin/nom develop";
       nix-build = "${package}/bin/nom-build";

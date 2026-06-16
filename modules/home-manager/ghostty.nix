@@ -6,7 +6,7 @@
   ...
 }:
 {
-  home = {
+  home = lib.mkIf config.programs.ghostty.enable {
     packages = [ pkgs.nerd-fonts.roboto-mono ];
 
     sessionVariables.TERMINAL = "ghostty";
@@ -14,11 +14,13 @@
 
   programs = {
     # Don't set if `null`, `userSettings` uses mkMerge so options can't be overwritten
-    vscode.profiles.default.userSettings = lib.mkIf (config.programs.ghostty.package != null) {
-      "terminal.external.linuxExec" = "${config.programs.ghostty.package}/bin/ghostty";
-    };
+    vscode.profiles.default.userSettings =
+      lib.mkIf (config.programs.ghostty.enable && config.programs.ghostty.package != null)
+        {
+          "terminal.external.linuxExec" = "${config.programs.ghostty.package}/bin/ghostty";
+        };
 
-    nixkraken.tools.terminal.package = config.programs.ghostty.package;
+    nixkraken.tools.terminal.package = lib.mkIf config.programs.ghostty.enable config.programs.ghostty.package;
 
     ghostty = {
       enable = true;

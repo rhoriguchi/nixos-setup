@@ -6,7 +6,7 @@
   ...
 }:
 {
-  home.packages = [
+  home.packages = lib.mkIf config.programs.vscode.enable [
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.roboto-mono
   ];

@@ -7,14 +7,16 @@
 }:
 {
   home.sessionVariables.BROWSER = lib.mkIf (
-    config.programs.firefox.package != null
+    config.programs.firefox.enable && config.programs.firefox.package != null
   ) "${config.programs.firefox.package}/bin/firefox";
 
   programs = {
     # Don't set if `null`, `userSettings` uses mkMerge so options can't be overwritten
-    vscode.profiles.default.userSettings = lib.mkIf (config.programs.ghostty.package != null) {
-      "workbench.externalBrowser" = "${config.programs.firefox.package}/bin/firefox";
-    };
+    vscode.profiles.default.userSettings =
+      lib.mkIf (config.programs.firefox.enable && config.programs.firefox.package != null)
+        {
+          "workbench.externalBrowser" = "${config.programs.firefox.package}/bin/firefox";
+        };
 
     firefox = {
       enable = true;

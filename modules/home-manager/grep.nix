@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   programs = {
     grep = {
@@ -8,6 +8,6 @@
       colors.mt = "1;38;5;127";
     };
 
-    zsh.shellAliases.grep = "${config.programs.grep.package}/bin/grep --color=auto";
+    zsh.shellAliases.grep = lib.mkIf config.programs.grep.enable "${config.programs.grep.package}/bin/grep --color=auto";
   };
 }

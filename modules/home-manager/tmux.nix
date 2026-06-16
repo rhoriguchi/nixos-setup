@@ -1,6 +1,7 @@
 {
   colors,
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -16,7 +17,7 @@ in
   programs = {
     fzf.tmux.enableShellIntegration = true;
 
-    zsh = {
+    zsh = lib.mkIf config.programs.tmux.enable {
       shellAliases = {
         attach = attachSession;
         clear = "${pkgs.ncurses}/bin/clear && ${tmux} clear-history 2> /dev/null";
@@ -82,20 +83,22 @@ in
     };
   };
 
-  home.file.".tmuxp/Default.yaml".source = pkgs.writers.writeYAML "Default.yaml" {
-    session_name = "Default";
-    start_directory = homeDirectory;
+  home.file.".tmuxp/Default.yaml" = lib.mkIf config.programs.tmux.enable {
+    source = pkgs.writers.writeYAML "Default.yaml" {
+      session_name = "Default";
+      start_directory = homeDirectory;
 
-    windows = [
-      {
-        focus = true;
-        start_directory = homeDirectory;
-      }
-      {
-        window_name = "Nix config";
-        start_directory = "${homeDirectory}/Sync/Git/nixos-setup";
-        window_index = 9;
-      }
-    ];
+      windows = [
+        {
+          focus = true;
+          start_directory = homeDirectory;
+        }
+        {
+          window_name = "Nix config";
+          start_directory = "${homeDirectory}/Sync/Git/nixos-setup";
+          window_index = 9;
+        }
+      ];
+    };
   };
 }
