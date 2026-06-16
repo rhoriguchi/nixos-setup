@@ -131,10 +131,7 @@ in
 
             iifname @management_network_interface oifname @management_network_interface accept
 
-            iifname @trusted_vlan_interface oifname @management_network_interface accept
-            iifname @trusted_vlan_interface oifname @trusted_vlan_interface accept
-            iifname @trusted_vlan_interface oifname @iot_vlan_interface accept
-            iifname @trusted_vlan_interface oifname @dmz_vlan_interface accept
+            iifname @trusted_vlan_interface accept
 
             iifname @iot_vlan_interface ip daddr ${ips.tier} tcp dport { 443 } accept # Home Assistant - Shelly
             iifname @iot_vlan_interface ip daddr ${ips.tier} tcp dport { 445 } accept # Samba
