@@ -184,6 +184,7 @@
         "js/ts.inlayHints.parameterNames.enabled" = "all";
         "js/ts.updateImportsOnFileMove.enabled" = "always";
         "js/ts.updateImportsOnPaste.enabled" = true;
+        "keyboard.dispatch" = "keyCode";
         "peacock.affectActivityBar" = true;
         "peacock.affectStatusBar" = true;
         "peacock.affectTitleBar" = false;
