@@ -13,7 +13,7 @@
     ./ntp.nix
     ./tv7
     ./unifi.nix
-    ./web-proxy.nix
+    ./web-proxy
 
     ./hardware-configuration.nix
   ];

@@ -23,9 +23,24 @@ in
         }
       );
     };
+    transparent = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 
   config = lib.mkIf (config.services.nginx.enable && lib.attrNames cfg.upstreams != [ ]) {
+    systemd.services.nginx.serviceConfig = lib.mkIf cfg.transparent {
+      CapabilityBoundingSet = [
+        "CAP_NET_ADMIN"
+        "CAP_NET_RAW"
+      ];
+      AmbientCapabilities = [
+        "CAP_NET_ADMIN"
+        "CAP_NET_RAW"
+      ];
+    };
+
     services.nginx = {
       defaultSSLListenPort = 9443;
 
@@ -69,6 +84,7 @@ in
           ssl_preread on;
 
           proxy_pass $upstream;
+          ${lib.optionalString cfg.transparent "proxy_bind $remote_addr transparent;"}
         }
       '';
     };
