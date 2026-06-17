@@ -92,6 +92,27 @@ in
 
             iifname { ${config.networking.nat.externalInterface} } ip saddr @rfc1918 drop
             iifname { ${config.networking.nat.externalInterface} } ip6 saddr @rfc4193 drop
+
+            ${lib.pipe internalInterfaces [
+              (lib.filter (
+                interface:
+                let
+                  key = "net.ipv4.conf.${lib.replaceStrings [ "." ] [ "/" ] interface}.rp_filter";
+                in
+                lib.hasAttr key config.boot.kernel.sysctl && config.boot.kernel.sysctl.${key} != 1
+              ))
+
+              (map (
+                interface:
+                let
+                  addresses = config.networking.interfaces.${interface}.ipv4.addresses;
+                  cidrs = map (address: "${address.address}/${toString address.prefixLength}") addresses;
+                in
+                "iifname ${interface} ip saddr != { ${lib.concatStringsSep ", " cidrs} } drop"
+              ))
+
+              (lib.concatStringsSep "\n")
+            ]}
           }
 
           chain output {
