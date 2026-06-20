@@ -86,6 +86,13 @@ in
             elements = { 224.0.1.0/24, 224.0.2.0/24, 239.0.0.0/8 }
           }
 
+          chain prerouting {
+            type filter hook prerouting priority filter; policy accept;
+
+            iifname { ${config.networking.nat.externalInterface} } ip saddr @rfc1918 drop
+            iifname { ${config.networking.nat.externalInterface} } ip6 saddr @rfc4193 drop
+          }
+
           chain output {
             type filter hook output priority filter; policy accept;
 
