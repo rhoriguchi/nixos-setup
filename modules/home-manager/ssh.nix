@@ -10,13 +10,6 @@ let
   tailscaleIps = import (
     libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
-  filteredTailscaleIps = lib.filterAttrs (
-    key: _:
-    !(lib.elem key [
-      "headplane-agent"
-      "XXLPitu-Nnoitra"
-    ])
-  ) tailscaleIps;
 in
 {
   programs.ssh = {
@@ -56,13 +49,23 @@ in
         Port = 10022;
       };
     }
-    // (lib.mapAttrs' (
-      key: value:
-      lib.nameValuePair (lib.toLower key) {
-        Hostname = value;
-        User = "xxlpitu";
-        HostKeyAlias = lib.toLower key;
-      }
-    ) filteredTailscaleIps);
+    // lib.pipe tailscaleIps [
+      (lib.filterAttrs (
+        key: _:
+        !(lib.elem key [
+          "headplane-agent"
+          "XXLPitu-Nnoitra"
+        ])
+      ))
+
+      (lib.mapAttrs' (
+        key: value:
+        lib.nameValuePair (lib.toLower key) {
+          Hostname = value;
+          User = "xxlpitu";
+          HostKeyAlias = lib.toLower key;
+        }
+      ))
+    ];
   };
 }

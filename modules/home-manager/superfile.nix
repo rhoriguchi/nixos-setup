@@ -4,22 +4,6 @@
   lib,
   ...
 }:
-let
-  bookmarks = (
-    map (
-      bookmark:
-      let
-        splits = lib.splitString " " bookmark;
-      in
-      {
-        name = lib.replaceStrings [ "file://${config.home.homeDirectory}/" ] [ "" ] (
-          lib.elemAt splits (lib.length splits - 1)
-        );
-        location = lib.replaceStrings [ "file://" ] [ "" ] (lib.head splits);
-      }
-    ) (lib.filter (bookmark: !(lib.hasPrefix "sftp://" bookmark)) config.gtk.gtk3.bookmarks)
-  );
-in
 {
   programs = {
     zsh.shellAliases.spf = lib.mkIf config.programs.superfile.enable "${config.programs.superfile.package}/bin/superfile";
@@ -45,7 +29,22 @@ in
         zoxide_support = true;
       };
 
-      pinnedFolders = bookmarks;
+      pinnedFolders = lib.pipe config.gtk.gtk3.bookmarks [
+        (lib.filter (bookmark: !(lib.hasPrefix "sftp://" bookmark)))
+
+        (map (
+          bookmark:
+          let
+            splits = lib.splitString " " bookmark;
+          in
+          {
+            name = lib.replaceStrings [ "file://${config.home.homeDirectory}/" ] [ "" ] (
+              lib.elemAt splits (lib.length splits - 1)
+            );
+            location = lib.replaceStrings [ "file://" ] [ "" ] (lib.head splits);
+          }
+        ))
+      ];
 
       hotkeys.pinned_folder = [ ];
 

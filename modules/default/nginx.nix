@@ -31,23 +31,33 @@ in
       streamConfig = ''
         ${lib.optionalString (cfg.resolvers != [ ]) "resolver ${lib.concatStringsSep " " cfg.resolvers};"}
 
-        ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList (key: value: ''
-            upstream ${key} {
-              server ${value.server};
-            }
-          '') cfg.upstreams
-        )}
+        ${lib.pipe cfg.upstreams [
+          (lib.mapAttrsToList (
+            key: value: ''
+              upstream ${key} {
+                server ${value.server};
+              }
+            ''
+          ))
+
+          (lib.concatStringsSep "\n")
+        ]}
 
         map $ssl_preread_server_name $upstream {
           # indicates that source values can be hostnames with a prefix or suffix mask:
           hostnames;
 
-          ${lib.concatStringsSep "\n" (
-            lib.mapAttrsToList (
-              key: value: lib.concatStringsSep "\n" (map (host: "${host} ${key};") value.hostnames)
-            ) cfg.upstreams
-          )}
+          ${lib.pipe cfg.upstreams [
+            (lib.mapAttrsToList (
+              key: value:
+              lib.pipe value.hostnames [
+                (map (host: "${host} ${key};"))
+                (lib.concatStringsSep "\n")
+              ]
+            ))
+
+            (lib.concatStringsSep "\n")
+          ]}
         }
 
         server {

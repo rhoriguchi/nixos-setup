@@ -26,18 +26,26 @@ let
     '';
   };
 
-  addStyleToCards =
+  addStyleToCards = map (
     cards:
-    map (
-      card:
+    lib.pipe cards [
       (
+        card:
         card
         // lib.optionalAttrs (lib.hasAttr card.type cardStyles) {
           card_mod.style = cardStyles.${card.type};
         }
-        // lib.optionalAttrs (lib.hasAttr "cards" card) { cards = addStyleToCards card.cards; }
       )
-    ) cards;
+
+      (
+        card:
+        card
+        // lib.optionalAttrs (lib.hasAttr "cards" card) {
+          cards = addStyleToCards card.cards;
+        }
+      )
+    ]
+  );
 in
 {
   systemd.tmpfiles.rules = [

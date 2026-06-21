@@ -11,14 +11,6 @@ let
   tailscaleIps = import (
     libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
-  filteredTailscaleIps = lib.filterAttrs (
-    key: _:
-    !(lib.elem key [
-      osConfig.networking.hostName
-      "headplane-agent"
-      "XXLPitu-Nnoitra"
-    ])
-  ) tailscaleIps;
 in
 {
   gtk = {
@@ -31,8 +23,19 @@ in
       "file://${homeDirectory}/Sync/Git Sync/Git"
       "file://${homeDirectory}/Sync/Series Sync/Series"
     ]
-    ++ map (hostname: "sftp://root@${hostname}/ ${lib.replaceStrings [ "XXLPitu-" ] [ "" ] hostname}") (
-      lib.attrNames filteredTailscaleIps
-    );
+    ++ lib.pipe tailscaleIps [
+      lib.attrNames
+
+      (
+        hostnames:
+        lib.subtractLists [
+          osConfig.networking.hostName
+          "headplane-agent"
+          "XXLPitu-Nnoitra"
+        ] hostnames
+      )
+
+      (map (hostname: "sftp://root@${hostname}/ ${lib.replaceStrings [ "XXLPitu-" ] [ "" ] hostname}"))
+    ];
   };
 }

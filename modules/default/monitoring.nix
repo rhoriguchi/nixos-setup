@@ -209,34 +209,36 @@ in
               )
               ++ lib.optional (config.services.frr.ospfd.enable || config.services.frr.ospf6d.enable) "ospf"
               ++ lib.optional config.services.frr.pimd.enable "pim"
-              ++ lib.optional (lib.any (module: module ? enable && module.enable == true) (
-                lib.attrValues (
-                  # Filter all keys that where renamed or removed
-                  lib.filterAttrs (
-                    key: _:
-                    !(lib.elem key [
-                      "babel"
-                      "bfd"
-                      "bgp"
-                      "eigrp"
-                      "fabric"
-                      "isis"
-                      "ldp"
-                      "mgmt"
-                      "nhrp"
-                      "ospf"
-                      "ospf6"
-                      "pbr"
-                      "pim"
-                      "rip"
-                      "ripng"
-                      "sharp"
-                      "static"
-                      "zebra"
-                    ])
-                  ) config.services.frr
+              ++ lib.optional (lib.pipe config.services.frr [
+                # Filter all keys that where renamed or removed
+                (
+                  module:
+                  lib.removeAttrs module [
+                    "babel"
+                    "bfd"
+                    "bgp"
+                    "eigrp"
+                    "fabric"
+                    "isis"
+                    "ldp"
+                    "mgmt"
+                    "nhrp"
+                    "ospf"
+                    "ospf6"
+                    "pbr"
+                    "pim"
+                    "rip"
+                    "ripng"
+                    "sharp"
+                    "static"
+                    "zebra"
+                  ]
                 )
-              )) "route"
+
+                lib.attrValues
+
+                (lib.any (module: module.enable or false))
+              ]) "route"
               ++ lib.optional config.services.frr.vrrpd.enable "vrrp";
           in
           {
@@ -248,7 +250,7 @@ in
             group = "frrvty";
 
             inherit enabledCollectors;
-            disabledCollectors = lib.filter (collector: !(lib.elem collector enabledCollectors)) collectors;
+            disabledCollectors = lib.subtractLists enabledCollectors collectors;
           };
 
         kea = {
@@ -265,7 +267,11 @@ in
           listenAddress = "127.0.0.1";
 
           piholeHostname = "127.0.0.1";
-          piholePort = lib.toInt (lib.head (lib.splitString "," config.services.pihole-web.ports));
+          piholePort = lib.pipe config.services.pihole-web.ports [
+            (lib.splitString ",")
+            lib.head
+            lib.toInt
+          ];
         };
       };
 
@@ -696,18 +702,22 @@ in
     users.users.${config.services.netdata.user}.extraGroups =
       # Redis collector
       lib.optionals redisEnabled (
-        map (server: server.group) (lib.attrValues config.services.redis.servers)
+        lib.pipe config.services.redis.servers [
+          lib.attrValues
+          (map (server: server.group))
+        ]
       )
 
       # Web server collector
       ++ lib.optional config.services.nginx.enable config.services.nginx.group
 
       # X.509 certificate collector
-      ++ (
-        let
-          acmeGroups = lib.unique (map (acme: acme.group) (lib.attrValues config.security.acme.certs));
-        in
-        lib.optionals hasCerts acmeGroups
+      ++ lib.optionals hasCerts (
+        lib.pipe config.security.acme.certs [
+          lib.attrValues
+          (map (acme: acme.group))
+          lib.unique
+        ]
       );
 
     networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts =

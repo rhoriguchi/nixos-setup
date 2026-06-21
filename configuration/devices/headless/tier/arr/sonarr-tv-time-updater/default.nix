@@ -34,13 +34,17 @@
                   tvTimeUsername = secrets.tvTime.username;
                   tvTimePassword = secrets.tvTime.password;
 
-                  excludedTvdbIds = lib.concatStringsSep ", " (
-                    map (tvdbId: toString tvdbId) [
-                      366924 # Reacher(2022)
-                      371980 # Severance(2022)
-                      422712 # Daredevil: Born Again
-                    ]
-                  );
+                  excludedTvdbIds =
+                    lib.pipe
+                      [
+                        366924 # Reacher(2022)
+                        371980 # Severance(2022)
+                        422712 # Daredevil: Born Again
+                      ]
+                      [
+                        (map toString)
+                        (lib.concatStringsSep ", ")
+                      ];
                 }
               )
             );

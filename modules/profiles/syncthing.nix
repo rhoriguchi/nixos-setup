@@ -28,10 +28,16 @@ in
       inherit (secrets.syncthing.relay) id token;
     };
 
-    devices = lib.mapAttrs (key: value: {
-      inherit (value) id;
-      trusted = lib.elem key trustedDevices;
-    }) (lib.filterAttrs (key: _: key != config.networking.hostName) secrets.syncthing.devices);
+    devices = lib.pipe secrets.syncthing.devices [
+      (lib.filterAttrs (key: _: key != config.networking.hostName))
+
+      (lib.mapAttrs (
+        key: value: {
+          inherit (value) id;
+          trusted = lib.elem key trustedDevices;
+        }
+      ))
+    ];
 
     folders = [
       "Documents"

@@ -15,13 +15,6 @@ let
   autheliaUsers = import (
     libCustom.relativeToRoot "configuration/devices/headless/tier/authelia/users.nix"
   );
-  filteredAutheliaUsers = lib.filterAttrs (
-    _: value:
-    lib.any (groups: lib.elem groups value.groups) [
-      "admin"
-      "jellyfin"
-    ]
-  ) autheliaUsers;
 in
 {
   system.fsPackages = [ pkgs.bindfs ];
@@ -103,18 +96,30 @@ in
           };
         };
       }
-      // lib.mapAttrs (_: value: {
-        mutable = false;
-        hashedPassword = "*";
+      // lib.pipe autheliaUsers [
+        (lib.filterAttrs (
+          _: value:
+          lib.any (group: lib.elem group value.groups) [
+            "admin"
+            "jellyfin"
+          ]
+        ))
 
-        authenticationProviderId = "Jellyfin.Plugin.SSO_Auth.Api.SSOController";
-        loginAttemptsBeforeLockout = null;
+        (lib.mapAttrs (
+          _: value: {
+            mutable = false;
+            hashedPassword = "*";
 
-        permissions = {
-          isAdministrator = lib.elem "admin" value.groups;
-          isHidden = true;
-        };
-      }) filteredAutheliaUsers;
+            authenticationProviderId = "Jellyfin.Plugin.SSO_Auth.Api.SSOController";
+            loginAttemptsBeforeLockout = null;
+
+            permissions = {
+              isAdministrator = lib.elem "admin" value.groups;
+              isHidden = true;
+            };
+          }
+        ))
+      ];
 
       network = {
         localNetworkAddresses = [ "127.0.0.1" ];

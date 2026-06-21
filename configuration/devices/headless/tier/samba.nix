@@ -221,21 +221,25 @@ in
   systemd.services.add-samba-users = {
     after = [ config.systemd.services.samba-smbd.name ];
 
-    script = lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (key: value: ''
-        ${pkgs.expect}/bin/expect <<'EOF'
-        spawn ${config.services.samba.package}/bin/smbpasswd -a ${key}
-        expect "New SMB password:"
-        send "${value.password}\n"
-        expect "Retype new SMB password:"
-        send "${value.password}\n"
-        send "quit\n"
-        interact
-        EOF
+    script = lib.pipe secrets.samba.users [
+      (lib.mapAttrsToList (
+        key: value: ''
+          ${pkgs.expect}/bin/expect <<'EOF'
+          spawn ${config.services.samba.package}/bin/smbpasswd -a ${key}
+          expect "New SMB password:"
+          send "${value.password}\n"
+          expect "Retype new SMB password:"
+          send "${value.password}\n"
+          send "quit\n"
+          interact
+          EOF
 
-        ${config.services.samba.package}/bin/smbpasswd -e ${key}
-      '') secrets.samba.users
-    );
+          ${config.services.samba.package}/bin/smbpasswd -e ${key}
+        ''
+      ))
+
+      (lib.concatStringsSep "\n")
+    ];
 
     serviceConfig.Type = "oneshot";
 

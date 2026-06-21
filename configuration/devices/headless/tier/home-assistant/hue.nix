@@ -238,23 +238,27 @@ in
       ];
     }
   ]
-  ++ lib.flatten (
-    map (data: createSwitchAutomations data) [
-      {
-        name = "bedroom";
-        targetId = "light.group_switch_bedroom";
-        switch = switches.bedroom;
-      }
-      {
-        name = "living room";
-        targetId = "light.group_switch_living_room";
-        switch = switches.living_room;
-      }
-      {
-        name = "office";
-        targetId = "light.group_switch_office";
-        switch = switches.office;
-      }
-    ]
-  );
+  ++
+    lib.pipe
+      [
+        {
+          name = "bedroom";
+          targetId = "light.group_switch_bedroom";
+          switch = switches.bedroom;
+        }
+        {
+          name = "living room";
+          targetId = "light.group_switch_living_room";
+          switch = switches.living_room;
+        }
+        {
+          name = "office";
+          targetId = "light.group_switch_office";
+          switch = switches.office;
+        }
+      ]
+      [
+        (map createSwitchAutomations)
+        lib.flatten
+      ];
 }

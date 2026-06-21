@@ -1,21 +1,30 @@
 { lib, ... }:
 {
   getImports =
-    let
-      getFiles = dir: lib.attrNames (builtins.readDir dir);
-      filter =
+    dir:
+    lib.pipe (lib.readDir dir) [
+      (lib.mapAttrsToList (
+        name: type: {
+          path = dir + "/${name}";
+          inherit type name;
+        }
+      ))
+
+      (lib.filter (
         file:
-        if lib.pathIsDirectory file then
-          lib.elem "default.nix" (getFiles file)
+        if file.type == "directory" then
+          lib.pathExists (file.path + "/default.nix")
         else
-          lib.hasSuffix ".nix" file && !(lib.hasSuffix "default.nix" file);
-    in
-    dir: lib.filter filter (map (file: dir + "/${file}") (getFiles dir));
+          lib.hasSuffix ".nix" file.name && file.name != "default.nix"
+      ))
+
+      (map (file: file.path))
+    ];
 
   relativeToRoot = lib.path.append ./.;
 
   hyprland = rec {
-    mkWindowRules = attrs: builtins.map (match: { inherit match; } // attrs);
+    mkWindowRules = attrs: map (match: { inherit match; } // attrs);
 
     _mkLuaCommand =
       let

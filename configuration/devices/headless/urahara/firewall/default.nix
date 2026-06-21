@@ -9,9 +9,10 @@ let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
 
-  internalInterfaces = lib.filter (interface: lib.hasPrefix internalInterface interface) (
-    lib.attrNames config.networking.interfaces
-  );
+  internalInterfaces = lib.pipe config.networking.interfaces [
+    lib.attrNames
+    (lib.filter (interface: lib.hasPrefix internalInterface interface))
+  ];
 
   ips = import (libCustom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 in
@@ -153,20 +154,19 @@ in
 
             ip daddr ${ips.tier} tcp dport { 80, 443 } accept # HTTP / HTTPS
 
-            ${
-              let
-                rules = map (
-                  forwardPort:
-                  let
-                    splits = lib.splitString ":" forwardPort.destination;
-                    ip = lib.head splits;
-                    port = lib.last splits;
-                  in
-                  "ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept"
-                ) config.networking.nat.forwardPorts;
-              in
-              lib.concatStringsSep "\n" rules
-            }
+           ${lib.pipe config.networking.nat.forwardPorts [
+             (map (
+               forwardPort:
+               let
+                 splits = lib.splitString ":" forwardPort.destination;
+                 ip = lib.head splits;
+                 port = lib.last splits;
+               in
+               "ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept"
+             ))
+
+             (lib.concatStringsSep "\n")
+           ]}
 
             tcp dport { 21027, 22000 } accept # Syncthing
             tcp dport { 53317 } accept # LocalSend

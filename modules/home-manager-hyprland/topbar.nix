@@ -355,16 +355,19 @@ in
       }
 
       ${
-        let
-          configuredModules =
+        lib.pipe
+          (
             config.programs.waybar.settings.topBar.modules-left
             ++ config.programs.waybar.settings.topBar.modules-center
-            ++ config.programs.waybar.settings.topBar.modules-right;
-          modules = map (
-            module: lib.replaceStrings [ "hyprland/" "/" "#" ] [ "" "-" "." ] module
-          ) configuredModules;
-        in
-        lib.concatStringsSep ", " (map (module: "#${module}") modules)
+            ++ config.programs.waybar.settings.topBar.modules-right
+          )
+          [
+            (map (module: lib.replaceStrings [ "hyprland/" "/" "#" ] [ "" "-" "." ] module))
+
+            (map (module: "#${module}"))
+
+            (lib.concatStringsSep ", ")
+          ]
       } {
         padding: 0 10px;
       }

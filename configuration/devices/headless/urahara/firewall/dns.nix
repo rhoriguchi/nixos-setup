@@ -7,20 +7,22 @@
 let
   internalInterface = interfaces.internal;
 
-  internalSubnets = lib.filter (
-    subnet: lib.hasPrefix internalInterface subnet.interface
-  ) config.services.kea.dhcp4.settings.subnet4;
-  internalSubnetsWithDns = lib.filter (
-    subnet: lib.any (opt: opt.name == "domain-name-servers") (subnet.option-data or [ ])
-  ) internalSubnets;
+  internalSubnetsWithDns = lib.pipe config.services.kea.dhcp4.settings.subnet4 [
+    (lib.filter (subnet: lib.hasPrefix internalInterface subnet.interface))
+    (lib.filter (subnet: lib.any (opt: opt.name == "domain-name-servers") (subnet.option-data or [ ])))
+  ];
 
-  internalSubnetsByInterface = lib.listToAttrs (
-    map (
+  internalSubnetsByInterface = lib.pipe internalSubnetsWithDns [
+    (map (
       subnet:
-      lib.nameValuePair subnet.interface
-        (lib.findFirst (opt: opt.name == "domain-name-servers") null (subnet.option-data or [ ])).data
-    ) internalSubnetsWithDns
-  );
+      let
+        dnsOpt = lib.findFirst (opt: opt.name == "domain-name-servers") null (subnet.option-data or [ ]);
+      in
+      lib.nameValuePair subnet.interface dnsOpt.data
+    ))
+
+    lib.listToAttrs
+  ];
 
   internalDnsInterfaces = map (subnet: subnet.interface) internalSubnetsWithDns;
 in
@@ -55,14 +57,18 @@ in
           }
 
           chain dns-dnat-filter {
-            ${lib.concatStringsSep "\n" (
-              lib.mapAttrsToList (interface: dnsIp: ''
-                iifname { ${interface} } \
-                  ip daddr != ${dnsIp} \
-                  meta l4proto { tcp, udp } \
-                  dnat ip to ${dnsIp}:53
-              '') internalSubnetsByInterface
-            )}
+            ${lib.pipe internalSubnetsByInterface [
+              (lib.mapAttrsToList (
+                interface: dnsIp: ''
+                  iifname { ${interface} } \
+                    ip daddr != ${dnsIp} \
+                    meta l4proto { tcp, udp } \
+                    dnat ip to ${dnsIp}:53
+                ''
+              ))
+
+              (lib.concatStringsSep "\n")
+            ]}
 
             accept
           }

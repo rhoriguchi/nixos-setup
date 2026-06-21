@@ -9,9 +9,10 @@ let
   externalInterface = interfaces.external;
   internalInterface = interfaces.internal;
 
-  internalInterfaces = lib.filter (interface: lib.hasPrefix internalInterface interface) (
-    lib.attrNames config.networking.interfaces
-  );
+  internalInterfaces = lib.pipe config.networking.interfaces [
+    lib.attrNames
+    (lib.filter (interface: lib.hasPrefix internalInterface interface))
+  ];
 
   ips = import (libCustom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 in
@@ -31,9 +32,10 @@ in
           ipv6rs
           ia_na 1
           ia_pd 2 ${
-            lib.concatStringsSep " " (
-              lib.imap0 (index: interface: "${interface}/${toString index}") internalInterfaces
-            )
+            lib.pipe internalInterfaces [
+              (lib.imap0 (index: interface: "${interface}/${toString index}"))
+              (lib.concatStringsSep " ")
+            ]
           }
       '';
     };
@@ -66,21 +68,9 @@ in
 
     # Calling bridge interface `br-management` fails
     bridges.br0.interfaces =
-      lib.filter
-        (
-          interface:
-          !(lib.elem interface [
-            externalInterface
-            internalInterface
-          ])
-        )
-        [
-          "eth0"
-          "eth1"
-          "eth2"
-          "eth3"
-          "eth4"
-        ];
+      lib.subtractLists
+        [ externalInterface internalInterface ]
+        [ "eth0" "eth1" "eth2" "eth3" "eth4" ];
 
     interfaces = {
       "${externalInterface}".useDHCP = true;
@@ -124,16 +114,18 @@ in
       ];
     };
 
-    firewall.interfaces = lib.listToAttrs (
-      map (
+    firewall.interfaces = lib.pipe config.services.avahi.allowInterfaces [
+      (map (
         interface:
         lib.nameValuePair interface {
           allowedUDPPorts = [
             5353 # mDNS
           ];
         }
-      ) config.services.avahi.allowInterfaces
-    );
+      ))
+
+      lib.listToAttrs
+    ];
   };
 
   services = {

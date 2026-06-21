@@ -27,9 +27,10 @@
     }
   ];
 
-  nix.settings.access-tokens = lib.concatStringsSep " " (
-    lib.mapAttrsToList (key: value: "${key}=${value}") secrets.git.accessTokens
-  );
+  nix.settings.access-tokens = lib.pipe secrets.git.accessTokens [
+    (lib.mapAttrsToList (key: value: "${key}=${value}"))
+    (lib.concatStringsSep " ")
+  ];
 
   networking = {
     hostName = "XXLPitu-Aizen";

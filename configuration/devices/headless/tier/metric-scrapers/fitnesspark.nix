@@ -142,14 +142,18 @@ in
         echo "fitnesspark_visitors{id=\"$park_id\", state=\"$state\", name=\"$display_name\"} $value" >> ${metricsDir}/metrics.tmp
       }
 
-      ${lib.concatStringsSep "\n" (
-        lib.mapAttrsToList (
+      ${lib.pipe locations [
+        (lib.mapAttrsToList (
           parkId: location:
-          ''get_visitors "${parkId}" "${lib.toLower location.state}" "${location.locationId}" "${
-            lib.replaceStrings [ " " ] [ "%20" ] location.name
-          }" "${location.displayName}"''
-        ) locations
-      )}
+          let
+            name = lib.replaceStrings [ " " ] [ "%20" ] location.name;
+            state = lib.toLower location.state;
+          in
+          ''get_visitors "${parkId}" "${state}" "${location.locationId}" "${name}" "${location.displayName}"''
+        ))
+
+        (lib.concatStringsSep "\n")
+      ]}
 
       mv ${metricsDir}/metrics.tmp ${metricsDir}/metrics
     '';

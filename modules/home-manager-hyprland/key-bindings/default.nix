@@ -105,8 +105,8 @@
       args = "e-1";
     })
   ]
-  ++ lib.flatten (
-    map (number: [
+  ++ lib.pipe (lib.genList (x: x + 1) 10) [
+    (map (number: [
       (libCustom.hyprland.mkBindRule {
         mods = "SUPER";
         key = if number == 10 then 0 else number;
@@ -119,6 +119,8 @@
         dispatcher = "moveToWorkspace";
         args = number;
       })
-    ]) (lib.genList (x: x + 1) 10)
-  );
+    ]))
+
+    lib.flatten
+  ];
 }

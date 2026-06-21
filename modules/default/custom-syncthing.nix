@@ -205,13 +205,13 @@ in
             maxSendKbps = if numDevices > 0 then cfg.bandwidthLimit.upload / numDevices else 0;
           }) cfg.devices;
 
-        folders = lib.listToAttrs (
-          map (
+        folders = lib.pipe cfg.folders [
+          (map (
             folder:
             lib.nameValuePair folder (
               {
-                id = builtins.hashString "sha256" folder;
-                path = "${cfg.syncDir}/${if cfg.trusted then folder else builtins.hashString "sha256" folder}";
+                id = lib.hashString "sha256" folder;
+                path = "${cfg.syncDir}/${if cfg.trusted then folder else lib.hashString "sha256" folder}";
 
                 devices = lib.mapAttrsToList (
                   key: value:
@@ -268,8 +268,10 @@ in
                 };
               }
             )
-          ) cfg.folders
-        );
+          ))
+
+          lib.listToAttrs
+        ];
       };
     };
   };

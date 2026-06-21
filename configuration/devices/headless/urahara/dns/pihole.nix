@@ -7,13 +7,6 @@
 let
   bindPort = config.services.bind.listenOnPort;
   webPort = 8080;
-
-  subnetsWithDomain = lib.filter (
-    subnet: lib.any (opt: opt.name == "domain-name") (subnet.option-data or [ ])
-  ) config.services.kea.dhcp4.settings.subnet4;
-
-  getDomainName =
-    subnet: (lib.findFirst (opt: opt.name == "domain-name") null (subnet.option-data or [ ])).data;
 in
 {
   # TODO
@@ -85,9 +78,18 @@ in
 
       settings.dns = {
         upstreams = [ "127.0.0.1#${toString bindPort}" ];
-        revServers = map (
-          subnet: "true,${subnet.subnet},127.0.0.1#${toString bindPort},${getDomainName subnet}"
-        ) subnetsWithDomain;
+
+        revServers = lib.pipe config.services.kea.dhcp4.settings.subnet4 [
+          (lib.filter (subnet: lib.any (opt: opt.name == "domain-name") (subnet.option-data or [ ])))
+
+          (map (
+            subnet:
+            let
+              domainName = (lib.findFirst (opt: opt.name == "domain-name") null (subnet.option-data or [ ])).data;
+            in
+            "true,${subnet.subnet},127.0.0.1#${toString bindPort},${domainName}"
+          ))
+        ];
 
         cache.size = 0;
 

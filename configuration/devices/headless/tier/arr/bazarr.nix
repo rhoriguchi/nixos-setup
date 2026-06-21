@@ -15,7 +15,13 @@ let
   bindmountDir2 = "${rootBindmountDir}/disk-series";
   bindmountDir3 = "${rootBindmountDir}/disk-movies";
 
-  getName = type: lib.concatStringsSep " " (map (t: lib.toSentenceCase t) (lib.splitString "-" type));
+  getName =
+    type:
+    lib.pipe type [
+      (lib.splitString "-")
+      (map lib.toSentenceCase)
+      (lib.concatStringsSep " ")
+    ];
 
   getContainerCfg = type: config.containers."bazarr-${type}".config;
 

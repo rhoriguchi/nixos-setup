@@ -26,9 +26,9 @@ let
     ${pkgs.cryptsetup}/bin/cryptsetup luksClose backup || true
   '';
 
-  excludeFile = pkgs.writeText "rsnapshot-default.exclude" (
-    let
-      excludedDirs = [
+  excludeFile =
+    lib.pipe
+      [
         # eCryptfs
         ".ecryptfs"
         ".Private"
@@ -110,10 +110,14 @@ let
         ".git-credentials"
         ".gnupg"
         ".ssh"
+      ]
+      [
+        (map (dir: "- /**${dir}"))
+
+        (lib.concatStringsSep "\n")
+
+        (pkgs.writeText "rsnapshot-default.exclude")
       ];
-    in
-    lib.concatStringsSep "\n" (map (dir: "- /**${dir}") excludedDirs)
-  );
 
   rsyncLongArgs = lib.concatStringsSep " " [
     # rsnapshot requires these args

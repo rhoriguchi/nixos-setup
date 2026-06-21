@@ -128,8 +128,8 @@ in
               memory = 1024 * 0.5;
             in
             lib.concatStringsSep " " [
-              "-Xms${toString (builtins.floor memory)}M"
-              "-Xmx${toString (builtins.floor memory)}M"
+              "-Xms${toString (lib.floor memory)}M"
+              "-Xmx${toString (lib.floor memory)}M"
 
               "-XX:+UseG1GC"
               "-XX:G1HeapRegionSize=4M"
@@ -214,8 +214,8 @@ in
               memory = 1024 * 6;
             in
             lib.concatStringsSep " " [
-              "-Xms${toString (builtins.floor memory)}M"
-              "-Xmx${toString (builtins.floor memory)}M"
+              "-Xms${toString (lib.floor memory)}M"
+              "-Xmx${toString (lib.floor memory)}M"
 
               "-XX:+UseG1GC"
               "-XX:+ParallelRefProcEnabled"

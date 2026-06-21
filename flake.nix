@@ -118,7 +118,7 @@
       mkPkgs =
         args:
         import inputs.nixpkgs (
-          lib.recursiveUpdate (builtins.removeAttrs args [ "overlays" ]) {
+          lib.recursiveUpdate (lib.removeAttrs args [ "overlays" ]) {
             config = {
               allowUnfree = true;
               nvidia.acceptLicense = true;
@@ -131,20 +131,20 @@
       lib = libCustom;
 
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
-        checks =
-          let
-            filterAttrs =
-              attrs:
-              lib.filterAttrs (
-                key: _:
-                !(lib.elem key [
-                  "deploy-activate"
-                  "deploy-schema"
-                ])
-              ) attrs;
-            removeChecks = checks: lib.mapAttrs (_: system: filterAttrs system) checks;
-          in
-          lib.getAttrs [ "x86_64-linux" ] (removeChecks self.checks);
+        checks = lib.pipe self.checks [
+          (lib.mapAttrs (
+            _: system:
+            lib.filterAttrs (
+              key: _:
+              !(lib.elem key [
+                "deploy-activate"
+                "deploy-schema"
+              ])
+            ) system
+          ))
+
+          (lib.getAttrs [ "x86_64-linux" ])
+        ];
       };
 
       nixosModules = {

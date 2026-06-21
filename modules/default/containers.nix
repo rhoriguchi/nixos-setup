@@ -1,12 +1,6 @@
 { config, lib, ... }:
 let
   interface = "ve-${if config.networking.nftables.enable then "*" else "+"}";
-
-  hostAddresses = lib.unique (
-    lib.mapAttrsToList (_: value: value.hostAddress) (
-      lib.filterAttrs (_: value: value.hostAddress != null) config.containers
-    )
-  );
 in
 {
   boot.kernel.sysctl = {
@@ -25,16 +19,24 @@ in
       internalInterfaces = [ interface ];
     };
 
-    nftables.tables.nspawn = lib.mkIf (config.networking.nftables.enable && hostAddresses != [ ]) {
+    nftables.tables.nspawn = lib.mkIf (config.networking.nftables.enable && config.containers != { }) {
       family = "ip";
 
       content = ''
         chain prerouting {
           type nat hook prerouting priority dstnat; policy accept;
 
-          ${lib.concatMapStringsSep "\n" (addr: ''
-            iifname "${interface}" ip daddr ${addr} dnat to 127.0.0.1
-          '') hostAddresses}
+          ${lib.pipe config.containers [
+            (lib.filterAttrs (_: value: value.hostAddress != null))
+
+            (lib.mapAttrsToList (_: value: value.hostAddress))
+
+            lib.unique
+
+            (map (addr: ''iifname "${interface}" ip daddr ${addr} dnat to 127.0.0.1''))
+
+            (lib.concatStringsSep "\n")
+          ]}
         }
       '';
     };

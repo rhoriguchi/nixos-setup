@@ -255,28 +255,30 @@
 
         userChrome = ''
           /* Multi-Account Containers */
-          ${
-            let
-              colorMap = {
-                blue = colors.normal.blue;
-                green = colors.normal.green;
-                # orange
-                # pink
-                purple = colors.normal.magenta;
-                red = colors.normal.red;
-                toolbar = colors.normal.gray;
-                turquoise = colors.normal.cyan;
-                yellow = colors.normal.yellow;
-              };
-            in
-            lib.concatStringsSep "\n" (
-              lib.mapAttrsToList (name: color: ''
-                .identity-color-${name} {
-                  --identity-tab-color: ${color} !important;
-                  --identity-icon-color: ${color} !important;
-                }
-              '') colorMap
-            )
+          ${lib.pipe
+            {
+              blue = colors.normal.blue;
+              green = colors.normal.green;
+              # orange
+              # pink
+              purple = colors.normal.magenta;
+              red = colors.normal.red;
+              toolbar = colors.normal.gray;
+              turquoise = colors.normal.cyan;
+              yellow = colors.normal.yellow;
+            }
+            [
+              (lib.mapAttrsToList (
+                name: color: ''
+                  .identity-color-${name} {
+                    --identity-tab-color: ${color} !important;
+                    --identity-icon-color: ${color} !important;
+                  }
+                ''
+              ))
+
+              (lib.concatStringsSep "\n")
+            ]
           }
         '';
 

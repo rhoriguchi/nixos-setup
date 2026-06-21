@@ -14,11 +14,13 @@ let
       content = lib.readFile file;
       getValue =
         key:
-        let
-          lines = lib.splitString "\n" content;
-          matchingLine = lib.findFirst (line: lib.hasPrefix key line) "" lines;
-        in
-        lib.removePrefix "${key} = " matchingLine;
+        lib.pipe content [
+          (lib.splitString "\n")
+
+          (lib.findFirst (line: lib.hasPrefix key line) "")
+
+          (lib.removePrefix "${key} = ")
+        ];
 
       isIpv4 = string: !(lib.hasInfix ":" string);
 
@@ -43,7 +45,12 @@ in
 {
   assertions = [
     {
-      assertion = lib.length (lib.unique (map (wgConfig: wgConfig.nameserver) wgConfigs)) == 1;
+      assertion =
+        lib.pipe wgConfigs [
+          (map (wgConfig: wgConfig.nameserver))
+          lib.unique
+          lib.length
+        ] == 1;
       message = "All WireGuard configurations must use the same nameserver.";
     }
   ];
@@ -85,21 +92,26 @@ in
       nixpkgs.pkgs = pkgs;
       system.stateVersion = config.system.stateVersion;
 
-      boot.kernel.sysctl = lib.listToAttrs (
-        map (interface: lib.nameValuePair "net.ipv4.conf.${interface}.rp_filter" 2) wgInterfaces
-      );
+      boot.kernel.sysctl = lib.pipe wgInterfaces [
+        (map (interface: lib.nameValuePair "net.ipv4.conf.${interface}.rp_filter" 2))
+
+        lib.listToAttrs
+      ];
 
       networking = {
         enableIPv6 = false;
 
-        nameservers = lib.unique (map (wgConfig: wgConfig.nameserver) wgConfigs);
+        nameservers = lib.pipe wgConfigs [
+          (map (wgConfig: wgConfig.nameserver))
+          lib.unique
+        ];
 
         localCommands = ''
           ${pkgs.iproute2}/bin/ip route del default || true
         '';
 
-        wireguard.interfaces = lib.listToAttrs (
-          lib.imap0 (
+        wireguard.interfaces = lib.pipe wgConfigs [
+          (lib.imap0 (
             index: wgConfig:
             lib.nameValuePair "wg${toString index}" {
               ips = [ wgConfig.address ];
@@ -127,8 +139,10 @@ in
                 }
               ];
             }
-          ) wgConfigs
-        );
+          ))
+
+          lib.listToAttrs
+        ];
       };
 
       systemd.services.wireguard-ecmp = {
@@ -187,15 +201,13 @@ in
 
           declarative = true;
 
-          authFile =
-            let
-              text = lib.concatStringsSep "\n" (
-                lib.mapAttrsToList (
-                  key: value: "${key}:${value.password}:${toString value.level}"
-                ) secrets.deluge.users
-              );
-            in
-            pkgs.writeText "deluge-auth" text;
+          authFile = lib.pipe secrets.deluge.users [
+            (lib.mapAttrsToList (key: value: "${key}:${value.password}:${toString value.level}"))
+
+            (lib.concatStringsSep "\n")
+
+            (pkgs.writeText "deluge-auth")
+          ];
 
           config = rec {
             new_release_check = false;

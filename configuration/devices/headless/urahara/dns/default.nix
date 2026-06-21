@@ -11,14 +11,10 @@
 let
   internalInterface = interfaces.internal;
 
-  internalSubnets = lib.filter (
-    subnet: lib.hasPrefix internalInterface subnet.interface
-  ) config.services.kea.dhcp4.settings.subnet4;
-  internalSubnetsWithDns = lib.filter (
-    subnet: lib.any (opt: opt.name == "domain-name-servers") (subnet.option-data or [ ])
-  ) internalSubnets;
-
-  internalDnsInterfaces = map (subnet: subnet.interface) internalSubnetsWithDns;
+  internalSubnetsWithDns = lib.pipe config.services.kea.dhcp4.settings.subnet4 [
+    (lib.filter (subnet: lib.hasPrefix internalInterface subnet.interface))
+    (lib.filter (subnet: lib.any (opt: opt.name == "domain-name-servers") (subnet.option-data or [ ])))
+  ];
 
   ips = import (libCustom.relativeToRoot "configuration/devices/headless/urahara/dhcp/ips.nix");
 
@@ -94,14 +90,16 @@ let
       let
         cnames =
           answer: domains:
-          lib.listToAttrs (
-            map (
+          lib.pipe domains [
+            (map (
               domain:
               lib.nameValuePair domain {
                 CNAME = [ "${answer}." ];
               }
-            ) domains
-          );
+            ))
+
+            lib.listToAttrs
+          ];
       in
       pkgs.writeText "rpz.00a.ch.zone" (
         libDns.toString "rpz.00a.ch" (
@@ -135,11 +133,10 @@ let
         )
       );
   }
-  // lib.listToAttrs (
-    map (
-      zone: lib.nameValuePair zone (pkgs.writeText "${zone}.zone" (libDns.toString zone ddnsZone))
-    ) reverseZones
-  );
+  // lib.pipe reverseZones [
+    (map (zone: lib.nameValuePair zone (pkgs.writeText "${zone}.zone" (libDns.toString zone ddnsZone))))
+    lib.listToAttrs
+  ];
 in
 {
   imports = [ ./pihole.nix ];
@@ -147,10 +144,10 @@ in
   networking = {
     nameservers = [ "127.0.0.1" ];
 
-    firewall.interfaces = lib.listToAttrs (
-      map (
-        interface:
-        lib.nameValuePair interface {
+    firewall.interfaces = lib.pipe internalSubnetsWithDns [
+      (map (
+        subnet:
+        lib.nameValuePair subnet.interface {
           allowedUDPPorts = [
             53 # DNS
           ];
@@ -159,8 +156,10 @@ in
             53 # DNS
           ];
         }
-      ) internalDnsInterfaces
-    );
+      ))
+
+      lib.listToAttrs
+    ];
   };
 
   systemd = {
@@ -170,9 +169,10 @@ in
     ]
     ++ map (zone: "C ${rootDir}/${zone}.zone 0640 named named - ${zoneFiles.${zone}}") ddnsZones;
 
-    services.bind.restartTriggers = lib.attrValues (
-      lib.filterAttrs (key: _: !(lib.elem key ddnsZones)) zoneFiles
-    );
+    services.bind.restartTriggers = lib.pipe zoneFiles [
+      (lib.filterAttrs (key: _: !(lib.elem key ddnsZones)))
+      lib.attrValues
+    ];
   };
 
   services = {

@@ -199,20 +199,16 @@
             value = "#82BFE0";
           }
         ]
-        ++ lib.sort (a: b: a.name < b.name) (
-          lib.mapAttrsToList (key: value: {
-            name =
-              let
-                head = lib.toUpper (lib.substring 0 1 key);
-                tail = lib.substring 1 (lib.stringLength key) key;
-              in
-              lib.concatStrings [
-                head
-                tail
-              ];
-            inherit value;
-          }) colors.normal
-        );
+        ++ lib.pipe colors.normal [
+          (lib.mapAttrsToList (
+            key: value: {
+              name = lib.toSentenceCase key;
+              inherit value;
+            }
+          ))
+
+          (lib.sort (a: b: a.name < b.name))
+        ];
         "peacock.showColorInStatusBar" = false;
         "security.workspace.trust.enabled" = false;
         "svg.preview.autoShow" = true;

@@ -13,14 +13,20 @@ let
 
   parseKey =
     key:
-    let
-      rawKey = lib.replaceStrings [ "hskey-api-" "hskey-auth-" ] [ "" "" ] key;
-      prefix = lib.substring 0 12 rawKey;
-    in
-    {
-      inherit prefix;
-      secret = lib.replaceStrings [ "${prefix}-" ] [ "" ] rawKey;
-    };
+    lib.pipe key [
+      (lib.replaceStrings [ "hskey-api-" "hskey-auth-" ] [ "" "" ])
+
+      (
+        rawKey:
+        let
+          prefix = lib.substring 0 12 rawKey;
+        in
+        {
+          inherit prefix;
+          secret = lib.replaceStrings [ "${prefix}-" ] [ "" ] rawKey;
+        }
+      )
+    ];
 
   unixEpoch = "1970-01-01 00:00:00.000000000+00:00";
   expiration = "2099-01-01 00:00:00.000000000+00:00";
@@ -56,12 +62,11 @@ let
       DELETE FROM pre_auth_keys;
     EOF
 
-    ${lib.concatStringsSep "\n" (
-      map (
+    ${lib.pipe hostnames [
+      (map (
         hostname:
         let
           preAuthKey = secrets.headscale.preAuthKeys.${hostname};
-
           key = parseKey preAuthKey.key;
           tags = (preAuthKey.tags or [ ]) ++ [ hostname ];
         in
@@ -82,7 +87,12 @@ let
               ${getHostId hostname},
               '${unixEpoch}',
               '${expiration}',
-              '[${lib.concatStringsSep "," (map (tag: ''"tag:${lib.toLower tag}"'') tags)}]',
+              '[${
+                lib.pipe tags [
+                  (map (tag: ''"tag:${lib.toLower tag}"''))
+                  (lib.concatStringsSep ",")
+                ]
+              }]',
               0,
               1,
               '${key.prefix}',
@@ -90,8 +100,10 @@ let
             );
           EOF
         ''
-      ) hostnames
-    )}
+      ))
+
+      (lib.concatStringsSep "\n")
+    ]}
   '';
 
   deleteNodesSql = ''
@@ -110,15 +122,17 @@ let
       HAVING last_seen = MAX(last_seen));
   '';
 
-  updateNodesSql = lib.concatStringsSep "\n" (
-    map (hostname: ''
+  updateNodesSql = lib.pipe hostnames [
+    (map (hostname: ''
       UPDATE nodes
       SET given_name = '${lib.toLower hostname}',
           ipv4 = '${tailscaleIps.${hostname}}',
           tags = (SELECT tags FROM pre_auth_keys WHERE id = ${getHostId hostname})
       WHERE auth_key_id = ${getHostId hostname};
-    '') hostnames
-  );
+    ''))
+
+    (lib.concatStringsSep "\n")
+  ];
 in
 {
   imports = [

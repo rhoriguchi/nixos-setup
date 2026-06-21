@@ -10,15 +10,6 @@ let
   tailscaleIps = import (
     libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
-  filteredTailscaleHostnames = lib.filter (
-    hostname:
-    !(lib.elem hostname [
-      config.networking.hostName
-      "headplane-agent"
-      "XXLPitu-Aizen"
-      "XXLPitu-Nnoitra"
-    ])
-  ) (lib.attrNames tailscaleIps);
 
   updateSettings =
     let
@@ -143,9 +134,23 @@ let
         60
       );
 
-      ${lib.concatStringsSep "\n" (
-        map (hostname: addTailscaleMonitor hostname) filteredTailscaleHostnames
-      )}
+      ${lib.pipe tailscaleIps [
+        lib.attrNames
+
+        (
+          hostnames:
+          lib.subtractLists [
+            config.networking.hostName
+            "headplane-agent"
+            "XXLPitu-Aizen"
+            "XXLPitu-Nnoitra"
+          ] hostnames
+        )
+
+        (map addTailscaleMonitor)
+
+        (lib.concatStringsSep "\n")
+      ]}
     '';
 
   addNotification =
@@ -179,7 +184,7 @@ let
         1,
         0,
         '${
-          builtins.toJSON {
+          lib.toJSON {
             name = "Discord";
             type = "discord";
             isDefault = false;
