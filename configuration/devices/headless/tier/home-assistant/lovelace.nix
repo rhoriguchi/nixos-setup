@@ -320,6 +320,22 @@ in
                   {
                     type = "custom:fold-entity-row";
                     head = {
+                      name = "Kitchen";
+                      entity = "light.group_kitchen";
+                    };
+
+                    open = true;
+
+                    entities = [
+                      {
+                        name = "Cabinet lights";
+                        entity = "light.kitchen_cabinet_lights";
+                      }
+                    ];
+                  }
+                  {
+                    type = "custom:fold-entity-row";
+                    head = {
                       name = "Living room";
                       entity = "light.group_living_room";
                     };

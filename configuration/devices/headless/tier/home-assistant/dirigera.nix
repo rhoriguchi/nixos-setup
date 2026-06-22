@@ -18,6 +18,55 @@
           }
         ];
       }
+
+      {
+        alias = "Reset Kitchen cabinet lights when turned on";
+        triggers = [
+          {
+            trigger = "state";
+            entity_id = "light.kitchen_cabinet_lights";
+            from = "off";
+            to = "on";
+          }
+        ];
+        actions = [
+          {
+            action = "light.turn_on";
+            target.entity_id = "light.kitchen_cabinet_lights";
+            data.brightness = 255;
+          }
+        ];
+      }
+      {
+        alias = "Turn Kitchen cabinet lights on when sunset";
+        triggers = [
+          {
+            trigger = "sun";
+            event = "sunset";
+          }
+        ];
+        actions = [
+          {
+            action = "light.turn_on";
+            target.entity_id = "light.kitchen_cabinet_lights";
+          }
+        ];
+      }
+      {
+        alias = "Turn Kitchen cabinet lights off when sunrise";
+        triggers = [
+          {
+            trigger = "sun";
+            event = "sunrise";
+          }
+        ];
+        actions = [
+          {
+            action = "light.turn_off";
+            target.entity_id = "light.kitchen_cabinet_lights";
+          }
+        ];
+      }
     ];
 
     template = [
