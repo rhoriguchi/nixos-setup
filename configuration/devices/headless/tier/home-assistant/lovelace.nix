@@ -1,18 +1,9 @@
 {
-  config,
   lib,
   pkgs,
   ...
 }:
 let
-  # TODO use https://nixos.wiki/wiki/Home_Assistant#Add_custom_lovelace_modules
-  lovelaceModules = [
-    pkgs.hs.lovelaceModule.battery-state-card
-    pkgs.hs.lovelaceModule.card-mod
-    pkgs.hs.lovelaceModule.fold-entity-row
-    pkgs.hs.lovelaceModule.mini-graph-card
-  ];
-
   theme = pkgs.hs.theme.google-home;
 
   cardStyles = {
@@ -48,19 +39,17 @@ let
   );
 in
 {
-  systemd.tmpfiles.rules = [
-    "d /run/nginx-hass 0550 ${config.services.nginx.user} ${config.services.nginx.group}"
-    "d /run/nginx-hass/js 0550 ${config.services.nginx.user} ${config.services.nginx.group}"
-  ]
-  ++ map (
-    lovelaceModule:
-    "L+ /run/nginx-hass/js/${lovelaceModule.pname}.js - - - - ${lovelaceModule}/${lovelaceModule.pname}.js"
-  ) lovelaceModules;
-
   services = {
     nginx.virtualHosts."home-assistant.00a.ch".locations."/local/".alias = "/run/nginx-hass/";
 
     home-assistant = {
+      customLovelaceModules = [
+        pkgs.hs.lovelaceModule.battery-state-card
+        pkgs.hs.lovelaceModule.card-mod
+        pkgs.hs.lovelaceModule.fold-entity-row
+        pkgs.hs.lovelaceModule.mini-graph-card
+      ];
+
       config = {
         frontend.themes = "!include ${theme}/${theme.pname}.yaml";
 
@@ -80,11 +69,6 @@ in
             ];
           }
         ];
-
-        lovelace.resources = map (lovelaceModule: {
-          url = "/local/js/${lovelaceModule.pname}.js?v=${lovelaceModule.version}";
-          type = "module";
-        }) lovelaceModules;
       };
 
       lovelaceConfig = {
