@@ -357,32 +357,6 @@ in
                       }
                     ];
                   }
-                  # TODO HS commented
-                  # { type = "divider"; }
-                  # {
-                  #   type = "custom:fold-entity-row";
-                  #   head = {
-                  #     name = "Lego";
-                  #     entity = "light.group_lego";
-                  #   };
-
-                  #   open = true;
-
-                  #   entities = [
-                  #     {
-                  #       name = "Bonsai";
-                  #       entity = "light.lego_bonsai";
-                  #     }
-                  #     {
-                  #       name = "Chrysanthemum";
-                  #       entity = "light.lego_chrysanthemum";
-                  #     }
-                  #     {
-                  #       name = "Tales of the Space Age";
-                  #       entity = "light.lego_tales_of_the_space_age";
-                  #     }
-                  #   ];
-                  # }
                 ];
               }
               {

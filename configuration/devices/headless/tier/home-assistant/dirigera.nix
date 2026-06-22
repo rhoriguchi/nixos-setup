@@ -18,30 +18,6 @@
           }
         ];
       }
-
-      # TODO HS commented
-      #   {
-      #     alias = "Turn Lego lights on when sunset";
-      #     triggers = [{
-      #       trigger = "sun";
-      #       event = "sunset";
-      #     }];
-      #     actions = [{
-      #       action = "light.turn_on";
-      #       target.entity_id = "light.group_lego";
-      #     }];
-      #   }
-      #   {
-      #     alias = "Turn Lego lights off when sunrise";
-      #     triggers = [{
-      #       trigger = "sun";
-      #       event = "sunrise";
-      #     }];
-      #     actions = [{
-      #       action = "light.turn_off";
-      #       target.entity_id = "light.group_lego";
-      #     }];
-      #   }
     ];
 
     template = [
