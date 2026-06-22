@@ -35,24 +35,5 @@
         "light.office_signe_gradient_door"
       ];
     }
-
-    {
-      platform = "group";
-      name = "Group switch bedroom";
-      entities = [ "light.bedroom_standing_lamp" ];
-    }
-    {
-      platform = "group";
-      name = "Group switch living room";
-      entities = [ "light.living_room_standing_lamp" ];
-    }
-    {
-      platform = "group";
-      name = "Group switch office";
-      entities = [
-        "light.office_signe_gradient_wall"
-        "light.office_signe_gradient_door"
-      ];
-    }
   ];
 }
