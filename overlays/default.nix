@@ -29,10 +29,20 @@
         sha256 = "sha256-Yd9rQV9+atnCCDDHFuA0IDrIXQHI01fcvI0YfdmKExU=";
       }
     }/pkgs/by-name/ta/tautulli/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=534753
+    home-assistant-custom-lovelace-modules = prev.home-assistant-custom-lovelace-modules // {
+      fold-entity-row = prev.callPackage (import "${
+        prev.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "0b4b6c94046ab86615c4b3a8131e1effe6b1ad2c";
+          sha256 = "sha256-O5ZamRhr2jtUG+iUdD9B9PDnosCkg88MiCqeCviY36M=";
+        }
+      }/pkgs/servers/home-assistant/custom-lovelace-modules/fold-entity-row/package.nix") { };
+    };
   })
   (_: prev: {
-    hs = prev.callPackage ./hs { };
-
     wallpaper = prev.callPackage ./wallpaper { };
   })
 ]

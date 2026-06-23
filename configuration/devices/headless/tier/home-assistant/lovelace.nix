@@ -42,10 +42,10 @@ in
 
     home-assistant = {
       customLovelaceModules = [
-        pkgs.hs.lovelaceModule.battery-state-card
-        pkgs.hs.lovelaceModule.card-mod
-        pkgs.hs.lovelaceModule.fold-entity-row
-        pkgs.hs.lovelaceModule.mini-graph-card
+        pkgs.home-assistant-custom-lovelace-modules.battery-state-card
+        pkgs.home-assistant-custom-lovelace-modules.card-mod
+        pkgs.home-assistant-custom-lovelace-modules.fold-entity-row
+        pkgs.home-assistant-custom-lovelace-modules.mini-graph-card
       ];
 
       lovelaceConfig = {

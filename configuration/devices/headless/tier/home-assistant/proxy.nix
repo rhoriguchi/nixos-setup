@@ -28,6 +28,14 @@
             '';
           };
 
+          "/local/nixos-lovelace-modules" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.home-assistant.config.http.server_port}/local/nixos-lovelace-modules";
+
+            extraConfig = ''
+              more_clear_headers 'X-Content-Type-Options';
+            '';
+          };
+
           "/api/prometheus".return = 444;
         };
       };
