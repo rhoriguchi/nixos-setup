@@ -4,8 +4,6 @@
   ...
 }:
 let
-  theme = pkgs.hs.theme.google-home;
-
   cardStyles = {
     "custom:mini-graph-card" = ''
       .header span {
@@ -49,27 +47,6 @@ in
         pkgs.hs.lovelaceModule.fold-entity-row
         pkgs.hs.lovelaceModule.mini-graph-card
       ];
-
-      config = {
-        frontend.themes = "!include ${theme}/${theme.pname}.yaml";
-
-        automation = [
-          {
-            alias = "Set theme at startup";
-            initial_state = true;
-            trigger = {
-              trigger = "homeassistant";
-              event = "start";
-            };
-            actions = [
-              {
-                action = "frontend.set_theme";
-                data.name = "Google - Light";
-              }
-            ];
-          }
-        ];
-      };
 
       lovelaceConfig = {
         title = "Home";
