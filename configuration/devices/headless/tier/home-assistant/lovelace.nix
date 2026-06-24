@@ -95,7 +95,22 @@ in
               }
               {
                 type = "entities";
-                title = "Dining room";
+                title = "Guest room";
+
+                entities = [
+                  {
+                    name = "Temperature";
+                    entity = "sensor.guest_room_h_t_gen3_temperature";
+                  }
+                  {
+                    name = "Humidity";
+                    entity = "sensor.guest_room_h_t_gen3_humidity";
+                  }
+                ];
+              }
+              {
+                type = "entities";
+                title = "Kitchen";
 
                 entities = [
                   {
@@ -129,21 +144,6 @@ in
                   {
                     name = "PM 10 μm";
                     entity = "sensor.airgradient_one_pm10";
-                  }
-                ];
-              }
-              {
-                type = "entities";
-                title = "Guest room";
-
-                entities = [
-                  {
-                    name = "Temperature";
-                    entity = "sensor.guest_room_h_t_gen3_temperature";
-                  }
-                  {
-                    name = "Humidity";
-                    entity = "sensor.guest_room_h_t_gen3_humidity";
                   }
                 ];
               }
