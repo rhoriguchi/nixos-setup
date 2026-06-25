@@ -418,10 +418,20 @@ in
           // {
             health."enabled alarms" = lib.concatStringsSep " " (
               (map (value: "!${value}") [
-                "ping_packet_loss*"
-                "ping_host_latency*"
-                "ping_rtt*"
-                "web_log_1m_unmatched*"
+                # https://github.com/netdata/netdata/blob/master/src/health/health.d/ping.conf
+                "ping_host_latency"
+                "ping_host_reachable"
+                "ping_packet_loss"
+
+                # https://github.com/netdata/netdata/blob/master/src/health/health.d/postgres.conf
+                "postgres_db_transactions_rollback_ratio"
+
+                # https://github.com/netdata/netdata/blob/master/src/health/health.d/web_log.conf
+                "web_log_1m_bad_requests"
+                "web_log_1m_internal_errors"
+                "web_log_1m_redirects"
+                "web_log_1m_successful"
+                "web_log_1m_unmatched"
               ])
               ++ [ "*" ]
             );
