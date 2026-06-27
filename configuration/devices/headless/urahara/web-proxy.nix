@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   libCustom,
   ...
 }:
@@ -49,12 +50,13 @@ in
 
     stream.upstreams = {
       "${config.networking.hostName}" = {
-        server = "127.0.0.1:${toString config.services.nginx.defaultSSLListenPort}";
+        ipv4 = "127.0.0.1:${toString config.services.nginx.defaultSSLListenPort}";
+        ipv6 = lib.mkIf config.networking.enableIPv6 "[::1]:${toString config.services.nginx.defaultSSLListenPort}";
         hostnames = config.services.infomaniak.hostnames;
       };
 
       XXLPitu-Tier = {
-        server = "${ips.tier}:443";
+        ipv4 = "${ips.tier}:443";
         hostnames = tierDomains;
       };
     };

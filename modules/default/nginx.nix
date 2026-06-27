@@ -13,7 +13,8 @@ in
       type = lib.types.attrsOf (
         lib.types.submodule {
           options = {
-            server = lib.mkOption { type = lib.types.nonEmptyStr; };
+            ipv4 = lib.mkOption { type = lib.types.nonEmptyStr; };
+            ipv6 = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
             hostnames = lib.mkOption {
               type = lib.types.listOf lib.types.nonEmptyStr;
               default = [ ];
@@ -35,7 +36,8 @@ in
           (lib.mapAttrsToList (
             key: value: ''
               upstream ${key} {
-                server ${value.server};
+                server ${value.ipv4};
+                ${lib.optionalString (value.ipv6 != null) "server ${value.ipv6};"}
               }
             ''
           ))
