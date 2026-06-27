@@ -80,7 +80,7 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 winget install --accept-source-agreements --exact --silent --uninstall-previous Mozilla.Firefox
 winget install --accept-source-agreements --exact --silent --uninstall-previous Notepad++.Notepad++
 winget install --accept-source-agreements --exact --silent --uninstall-previous OpenWhisperSystems.Signal
-winget install --accept-source-agreements --exact --silent --uninstall-previous RazerInc.RazerInstaller
+winget install --accept-source-agreements --exact --silent --uninstall-previous RazerInc.RazerInstaller.Synapse4
 winget install --accept-source-agreements --exact --silent --uninstall-previous RiotGames.LeagueOfLegends.EUW
 winget install --accept-source-agreements --exact --silent --uninstall-previous RustDesk.RustDesk
 winget install --accept-source-agreements --exact --silent --uninstall-previous Spotify.Spotify
