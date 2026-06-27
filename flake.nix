@@ -302,7 +302,7 @@
             inherit specialArgs;
           };
 
-          # Hetzner cx23
+          # Hetzner CX23
           XXLPitu-Nelliel = lib.nixosSystem {
             system = "x86_64-linux";
 
