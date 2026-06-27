@@ -154,19 +154,19 @@ in
 
             ip daddr ${ips.tier} tcp dport { 80, 443 } accept # HTTP / HTTPS
 
-           ${lib.pipe config.networking.nat.forwardPorts [
-             (map (
-               forwardPort:
-               let
-                 splits = lib.splitString ":" forwardPort.destination;
-                 ip = lib.head splits;
-                 port = lib.last splits;
-               in
-               "ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept"
-             ))
+            ${lib.pipe config.networking.nat.forwardPorts [
+              (map (
+                forwardPort:
+                let
+                  splits = lib.splitString ":" forwardPort.destination;
+                  ip = lib.head splits;
+                  port = lib.last splits;
+                in
+                "ip daddr ${ip} ${forwardPort.proto} dport { ${port} } accept"
+              ))
 
-             (lib.concatStringsSep "\n")
-           ]}
+              (lib.concatStringsSep "\n")
+            ]}
 
             tcp dport { 21027, 22000 } accept # Syncthing
             tcp dport { 53317 } accept # LocalSend
