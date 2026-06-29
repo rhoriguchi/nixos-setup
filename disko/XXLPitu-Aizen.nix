@@ -1,7 +1,7 @@
 {
   disko.devices.disk.main = {
     type = "disk";
-    device = "/dev/nvme0n1";
+    device = "/dev/disk/by-id/nvme-PC_SN740_NVMe_WD_1TB_2451F8404595";
 
     content = {
       type = "gpt";

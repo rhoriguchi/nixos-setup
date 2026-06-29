@@ -1,7 +1,7 @@
 {
   disko.devices.disk.main = {
     type = "disk";
-    device = "/dev/sda";
+    device = "/dev/disk/by-id/ata-WD_Blue_SA510_M.2_2280_1000GB_25385P800226";
 
     content = {
       type = "gpt";
