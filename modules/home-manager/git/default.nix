@@ -27,7 +27,6 @@
       alias = {
         alias = "! git config --get-regexp '^alias.' | sort | ${pkgs.gnused}/bin/sed -e 's/^alias\\.//' -e 's/\\ /\\ =\\ /'";
 
-        changes = "! git diff --stat";
         graph = "! git commits --graph --all --decorate";
         commits = "! git log --pretty='%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ar %C(auto)%d %C(reset)%s'";
         last = "! git commits -1";
