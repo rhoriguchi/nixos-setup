@@ -380,6 +380,43 @@
               inherit (inputs) nixos-raspberrypi;
             };
           };
+
+          XXLPitu-Vorarlberna = inputs.nixos-raspberrypi.lib.nixosSystem {
+            # nixos-raspberrypi
+            trustCaches = false;
+
+            system = "aarch64-linux";
+
+            modules = [
+              {
+                imports = [
+                  commonModule
+
+                  inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
+
+                  self.nixosModules.profiles.headless
+
+                  ./configuration/devices/headless/raspberry-pi-4/vorarlberna
+                ];
+
+                # Cross-compile the kernel, while using emulation/cache for the rest
+                boot.kernelPackages =
+                  (mkPkgs {
+                    localSystem = "x86_64-linux";
+                    crossSystem = "aarch64-linux";
+                    overlays = [
+                      inputs.nixos-raspberrypi.overlays.vendor-kernel
+                      inputs.nixos-raspberrypi.overlays.vendor-firmware
+                      inputs.nixos-raspberrypi.overlays.kernel-and-firmware
+                    ];
+                  }).linuxPackages_rpi4;
+              }
+            ];
+
+            specialArgs = specialArgs // {
+              inherit (inputs) nixos-raspberrypi;
+            };
+          };
         };
 
       deploy = mkDeploy {
