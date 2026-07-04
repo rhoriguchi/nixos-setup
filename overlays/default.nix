@@ -32,7 +32,7 @@
       }/pkgs/servers/home-assistant/custom-lovelace-modules/fold-entity-row/package.nix") { };
     };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=XXXXXXXXX
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=536968
     onedrive = prev.callPackage (import "${
       prev.fetchFromGitHub {
         owner = "NixOS";
