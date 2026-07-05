@@ -30,9 +30,9 @@
         preview-border = colors.extra.terminal.border;
       };
 
-      historyWidgetOptions = [ "--no-multi" ];
-      changeDirWidgetCommand = "";
-      fileWidgetCommand = "";
+      historyWidget.options = [ "--no-multi" ];
+      changeDirWidget.command = "";
+      fileWidget.command = "";
     };
 
     zsh = {

@@ -266,7 +266,7 @@ in
             {
               name = "tsig-key";
               algorithm = "hmac-sha256";
-              secret = secrets.kea.ddnsKey;
+              secret-file = pkgs.writeText "tsig-key" secrets.kea.ddnsKey;
             }
           ];
 

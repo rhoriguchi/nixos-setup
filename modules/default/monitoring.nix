@@ -283,40 +283,42 @@ in
         IMMICH_MICROSERVICES_METRICS_PORT = 8082;
       };
 
-      kea = {
-        dhcp4.settings.control-socket = {
-          socket-type = "unix";
-          socket-name = "/run/kea/kea-dhcp4.socket";
-        };
+      # TODO figure out with netdata
+      # https://github.com/rhoriguchi/nixpkgs/blob/7d5d19274b9f6f7498f7af01063f3b3def9bd0fc/nixos/modules/services/networking/kea.nix#L35-L37
+      # kea = {
+      #   dhcp4.settings.control-socket = {
+      #     socket-type = "unix";
+      #     socket-name = "/run/kea/kea-dhcp4.socket";
+      #   };
 
-        dhcp6.settings.control-socket = {
-          socket-type = "unix";
-          socket-name = "/run/kea/kea-dhcp6.socket";
-        };
+      #   dhcp6.settings.control-socket = {
+      #     socket-type = "unix";
+      #     socket-name = "/run/kea/kea-dhcp6.socket";
+      #   };
 
-        ctrl-agent = {
-          enable = keaEnabled;
+      #   ctrl-agent = {
+      #     enable = keaEnabled;
 
-          settings = {
-            http-host = "127.0.0.1";
-            http-port = 8000;
+      #     settings = {
+      #       http-host = "127.0.0.1";
+      #       http-port = 8000;
 
-            control-sockets =
-              lib.optionalAttrs config.services.kea.dhcp4.enable {
-                dhcp4 = {
-                  socket-type = "unix";
-                  socket-name = "/run/kea/kea-dhcp4.socket";
-                };
-              }
-              // lib.optionalAttrs config.services.kea.dhcp6.enable {
-                dhcp6 = {
-                  socket-type = "unix";
-                  socket-name = "/run/kea/kea-dhcp6.socket";
-                };
-              };
-          };
-        };
-      };
+      #       control-sockets =
+      #         lib.optionalAttrs config.services.kea.dhcp4.enable {
+      #           dhcp4 = {
+      #             socket-type = "unix";
+      #             socket-name = "/run/kea/kea-dhcp4.socket";
+      #           };
+      #         }
+      #         // lib.optionalAttrs config.services.kea.dhcp6.enable {
+      #           dhcp6 = {
+      #             socket-type = "unix";
+      #             socket-name = "/run/kea/kea-dhcp6.socket";
+      #           };
+      #         };
+      #     };
+      #   };
+      # };
 
       samba.settings.global."smbd profiling level" = "count";
 
