@@ -31,6 +31,16 @@
         }
       }/pkgs/servers/home-assistant/custom-lovelace-modules/fold-entity-row/package.nix") { };
     };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=537545
+    headscale = prev.callPackage (import "${
+      prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "4d3d8455a83b91e61cc0a0c47d859d6d6ad5c27a";
+        sha256 = "sha256-qx337J3iAX0ARHenVKztEb2ddMpg6aEl17NaWLm/eME=";
+      }
+    }/pkgs/by-name/he/headscale/package.nix") { };
   })
   (_: prev: {
     wallpaper = prev.callPackage ./wallpaper { };
