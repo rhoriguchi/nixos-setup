@@ -168,32 +168,40 @@ in
 
           autoApprovers.exitNode = [ "tag:exit-node" ];
 
-          acls = [
+          grants = [
             {
-              action = "accept";
               src = [ "tag:admin" ];
-              dst = [
-                "tag:headless:22" # SSH
+              dst = [ "tag:headless" ];
+              ip = [
+                "tcp:22" # SSH
               ];
             }
 
             {
-              action = "accept";
               src = [ "tag:headful" ];
-              dst = [
-                "tag:headful:53317" # LocalSend
-
-                "tag:headless:21027" # Syncthing
-                "tag:headless:22000" # Syncthing
-
-                "autogroup:internet:*"
+              dst = [ "tag:headful" ];
+              ip = [
+                "tcp:53317" # LocalSend
               ];
+            }
+            {
+              src = [ "tag:headful" ];
+              dst = [ "tag:headless" ];
+              ip = [
+                "tcp:21027" # Syncthing
+                "tcp:22000" # Syncthing
+              ];
+            }
+            {
+              src = [ "tag:headful" ];
+              dst = [ "autogroup:internet" ];
+              ip = [ "*" ];
             }
 
             {
-              action = "accept";
               src = [ "tag:headless" ];
-              dst = [ "tag:headless:*" ];
+              dst = [ "tag:headless" ];
+              ip = [ "*" ];
             }
           ];
         };
