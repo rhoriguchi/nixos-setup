@@ -159,6 +159,8 @@ in
         };
 
         policy.path = pkgs.writers.writeJSON "policy.json" {
+          hosts = lib.mapAttrs' (key: value: lib.nameValuePair (lib.toLower key) value) tailscaleIps;
+
           tagOwners = {
             "tag:admin" = [ ];
             "tag:exit-node" = [ ];
@@ -202,7 +204,20 @@ in
             {
               src = [ "tag:headless" ];
               dst = [ "tag:headless" ];
-              ip = [ "*" ];
+              ip = [
+                "tcp:22000" # Syncthing
+                "udp:21027" # Syncthing
+                "udp:22000" # Syncthing
+              ];
+            }
+            {
+              src = [ "tag:headless" ];
+              dst = [ "xxlpitu-tier" ];
+              ip = [
+                "tcp:3100" # Loki
+                "tcp:9090" # Prometheus
+                "tcp:19996" # Netdata
+              ];
             }
           ];
         };
