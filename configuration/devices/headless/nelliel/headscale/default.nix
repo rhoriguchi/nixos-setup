@@ -188,8 +188,9 @@ in
               src = [ "tag:headful" ];
               dst = [ "tag:headless" ];
               ip = [
-                "tcp:21027" # Syncthing
                 "tcp:22000" # Syncthing
+                "udp:21027" # Syncthing
+                "udp:22000" # Syncthing
               ];
             }
             {
