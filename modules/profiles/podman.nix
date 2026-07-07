@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   virtualisation = {
     containers.registries.search = [ "docker.io" ];
@@ -15,6 +15,6 @@
   environment = {
     systemPackages = [ pkgs.podman-compose ];
 
-    shellAliases.docker-compose = "${config.virtualisation.podman.package}/bin/podman-compose";
+    shellAliases.docker-compose = "${pkgs.podman-compose}/bin/podman-compose";
   };
 }
