@@ -12,7 +12,51 @@ let
 
   playAudioVolumeChange = "${osConfig.services.pipewire.package}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga";
 
+  hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
   swayosd-client = "${config.services.swayosd.package}/bin/swayosd-client";
+
+  displayOn = "${hyprctl} dispatch '${
+    lib.replaceStrings [ "\n" ] [ " " ]
+      (libCustom.hyprland._mkLuaCommand {
+        dispatcher = "dpms";
+        args = "enable";
+      }).expr
+  }'";
+  displayOff = "${hyprctl} dispatch '${
+    lib.replaceStrings [ "\n" ] [ " " ]
+      (libCustom.hyprland._mkLuaCommand {
+        dispatcher = "dpms";
+        args = "disable";
+      }).expr
+  }'";
+
+  brightnessScript = pkgs.writers.writeBash "brightness-step.sh" ''
+    step=10
+
+    current=$(${pkgs.brightnessctl}/bin/brightnessctl -m | cut -d, -f4 | tr -d '%')
+    dpms_on=$(${hyprctl} monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .dpmsStatus')
+
+    case "$1" in
+      down)
+        if [ "$current" -le "$step" ]; then
+          ${displayOff}
+        else
+          ${swayosd-client} --brightness "-$step"
+        fi
+        ;;
+      up)
+        if [ "$dpms_on" = "false" ]; then
+          ${displayOn}
+
+          if [ "$current" -lt "$step" ]; then
+            ${swayosd-client} --brightness "$step"
+          fi
+        else
+          ${swayosd-client} --brightness "+$step"
+        fi
+        ;;
+    esac
+  '';
 in
 {
   imports = [ ./submaps.nix ];
@@ -85,7 +129,7 @@ in
 
     (libCustom.hyprland.mkExecBindRule {
       key = "XF86MonBrightnessUp";
-      command = "${swayosd-client} --brightness +10";
+      command = "${brightnessScript} up";
       flags = {
         locked = true;
         repeating = true;
@@ -93,7 +137,7 @@ in
     })
     (libCustom.hyprland.mkExecBindRule {
       key = "XF86MonBrightnessDown";
-      command = "${swayosd-client} --brightness -10";
+      command = "${brightnessScript} down";
       flags = {
         locked = true;
         repeating = true;
