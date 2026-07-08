@@ -84,6 +84,7 @@ let
         hostname,
         port,
         interval,
+        maxretries,
         retry_interval
       )
       VALUES (
@@ -95,6 +96,7 @@ let
         'minecraft.00a.ch',
         25565,
         15,
+        4,
         15
       );
 
