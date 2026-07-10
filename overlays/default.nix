@@ -32,15 +32,15 @@
       }/pkgs/servers/home-assistant/custom-lovelace-modules/fold-entity-row/package.nix") { };
     };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=537545
-    headscale = prev.callPackage (import "${
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=539041
+    tmuxp = prev.callPackage (import "${
       prev.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
-        rev = "4d3d8455a83b91e61cc0a0c47d859d6d6ad5c27a";
-        sha256 = "sha256-qx337J3iAX0ARHenVKztEb2ddMpg6aEl17NaWLm/eME=";
+        rev = "d9e26e209f69409538e1b2480a242dea89ccc768";
+        sha256 = "sha256-ytSnwOqO+lbxaodCXpai2ZkCPoU31+Kk+KlVCkcOa2Q=";
       }
-    }/pkgs/by-name/he/headscale/package.nix") { };
+    }/pkgs/by-name/tm/tmuxp/package.nix") { };
   })
   (_: prev: {
     wallpaper = prev.callPackage ./wallpaper { };
