@@ -47,6 +47,7 @@
         pkgs.vscode-extensions.ms-python.python
         pkgs.vscode-extensions.ms-python.vscode-pylance
         pkgs.vscode-extensions.pkief.material-icon-theme
+        pkgs.vscode-extensions.redhat.java
         pkgs.vscode-extensions.redhat.vscode-yaml
         pkgs.vscode-extensions.rubymaniac.vscode-paste-and-indent
         pkgs.vscode-extensions.ryu1kn.partial-diff
