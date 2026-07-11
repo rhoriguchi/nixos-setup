@@ -192,6 +192,16 @@ in
 
           package = pkgs.deluge-2_x.overrideAttrs (oldAttrs: {
             patches = (oldAttrs.patches or [ ]) ++ [ ./remove-web-login.patch ];
+
+            # TODO workaround for `ModuleNotFoundError: No module named 'pkg_resources'`
+            # https://github.com/NixOS/nixpkgs/issues/540545
+            propagatedBuildInputs = map (
+              propagatedBuildInput:
+              if (propagatedBuildInput.pname or "") == "setuptools" then
+                pkgs.python314Packages.setuptools_80
+              else
+                propagatedBuildInput
+            ) (oldAttrs.propagatedBuildInputs or [ ]);
           });
 
           web = {
