@@ -190,7 +190,7 @@ in
         deluge = {
           enable = true;
 
-          package = pkgs.deluge.overrideAttrs (oldAttrs: {
+          package = pkgs.deluge-2_x.overrideAttrs (oldAttrs: {
             patches = (oldAttrs.patches or [ ]) ++ [ ./remove-web-login.patch ];
           });
 
