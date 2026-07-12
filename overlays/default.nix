@@ -31,16 +31,6 @@
         }
       }/pkgs/servers/home-assistant/custom-lovelace-modules/fold-entity-row/package.nix") { };
     };
-
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=539041
-    tmuxp = prev.callPackage (import "${
-      prev.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "d9e26e209f69409538e1b2480a242dea89ccc768";
-        sha256 = "sha256-ytSnwOqO+lbxaodCXpai2ZkCPoU31+Kk+KlVCkcOa2Q=";
-      }
-    }/pkgs/by-name/tm/tmuxp/package.nix") { };
   })
   (_: prev: {
     wallpaper = prev.callPackage ./wallpaper { };
