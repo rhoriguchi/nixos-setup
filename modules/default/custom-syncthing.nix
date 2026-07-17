@@ -169,6 +169,8 @@ in
         gui = {
           user = cfg.webUI.username;
           password = cfg.webUI.password;
+
+          sessionCookieDurationS = 60 * 60 * 24 * 30;
         };
 
         options = {
