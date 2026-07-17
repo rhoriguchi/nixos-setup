@@ -10,6 +10,8 @@
     ./hardware-configuration.nix
   ];
 
+  time.timeZone = "Europe/Berlin";
+
   boot.loader.grub = {
     enable = true;
 

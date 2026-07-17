@@ -95,6 +95,8 @@
   };
 
   services = {
+    automatic-timezoned.enable = true;
+
     displayManager.autoLogin.user = "rhoriguchi";
 
     onedrive.enable = true;

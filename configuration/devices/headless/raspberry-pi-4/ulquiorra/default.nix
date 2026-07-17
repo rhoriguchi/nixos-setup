@@ -6,6 +6,8 @@
     ./print-server.nix
   ];
 
+  time.timeZone = "Europe/Zurich";
+
   networking = {
     hostName = "XXLPitu-Ulquiorra";
 

@@ -31,6 +31,8 @@
     ./hardware-configuration.nix
   ];
 
+  time.timeZone = "Europe/Zurich";
+
   boot = {
     loader.grub = {
       enable = true;

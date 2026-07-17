@@ -11,8 +11,6 @@
     kernelParams = [ "systemd.setenv=SYSTEMD_SULOGIN_FORCE=1" ];
   };
 
-  time.timeZone = "Europe/Zurich";
-
   users = {
     mutableUsers = false;
 
