@@ -38,8 +38,10 @@ let
 
     case "$1" in
       down)
-        if [ "$current" -le "$step" ]; then
+        if [ "$current" -le 5 ]; then
           ${displayOff}
+        elif [ "$current" -le "$step" ]; then
+          ${swayosd-client} --brightness 5
         else
           ${swayosd-client} --brightness "-$step"
         fi
@@ -48,11 +50,15 @@ let
         if [ "$dpms_on" = "false" ]; then
           ${displayOn}
 
-          if [ "$current" -lt "$step" ]; then
-            ${swayosd-client} --brightness "$step"
+          if [ "$current" -lt 5 ]; then
+            ${swayosd-client} --brightness 5
           fi
         else
-          ${swayosd-client} --brightness "+$step"
+          if [ "$current" -lt "$step" ]; then
+            ${swayosd-client} --brightness "$step"
+          else
+            ${swayosd-client} --brightness "+$step"
+          fi
         fi
         ;;
     esac
