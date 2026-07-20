@@ -180,7 +180,7 @@
             # TODO review once resolve https://github.com/hyprwm/Hyprland/discussions/14532
             inputs.hyprland.overlays.default
             inputs.hyprland.overlays.hyprland-packages
-            inputs.llm-agents.overlays.default
+            inputs.llm-agents.overlays.shared-nixpkgs
             inputs.nix-minecraft.overlay
           ]
           ++ import ./overlays
