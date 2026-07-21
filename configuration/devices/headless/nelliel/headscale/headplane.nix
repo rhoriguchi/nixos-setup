@@ -10,15 +10,12 @@
       enable = true;
 
       settings = {
+        headscale.api_key_path = pkgs.writeText "apiKey" secrets.headscale.preAuthKeys.headplane-agent.key;
+
         server.cookie_secret_path = pkgs.writeText "cookieSecret" secrets.headplane.cookieSecret;
 
         integration = {
-          agent = {
-            enabled = true;
-
-            pre_authkey_path = pkgs.writeText "authKeyFile" secrets.headscale.preAuthKeys.headplane-agent.key;
-          };
-
+          agent.enabled = true;
           proc.enabled = true;
         };
       };
