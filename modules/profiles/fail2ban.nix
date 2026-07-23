@@ -19,6 +19,7 @@ in
       config.services.home-assistant
       config.services.immich
       config.services.nginx
+      config.services.webdav.enable
     ];
 
     ignoreIP = [
