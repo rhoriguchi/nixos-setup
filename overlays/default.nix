@@ -19,6 +19,16 @@
         sha256 = "sha256-XyfwZpc79a+uqKx41bzCvK0UKJWlGkYqtqhAKPZbDus=";
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=544063
+    plexRaw = prev.python3Packages.callPackage (import "${
+      prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "ddec78082ce3c8b288d98d814d3ba6ede5be549e";
+        sha256 = "sha256-zjNcynsWxYIfIJBvGImE1fwJeREivcn2iCnJcHLVMaI=";
+      }
+    }/pkgs/by-name/pl/plexRaw/package.nix") { };
   })
   (_: prev: {
     wallpaper = prev.callPackage ./wallpaper { };
