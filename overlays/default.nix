@@ -40,6 +40,16 @@
       }
     }/pkgs/by-name/di/diffnav/package.nix") { };
 
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=545363
+    prowlarr = prev.callPackage (import "${
+      prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "9a1f41b1d26a19f1108253a22a79a7d2431384c7";
+        sha256 = "sha256-aDMfbDHuQ9sHjV69e9fX1OYSo8CG9IkNI/zLnIk5uTs=";
+      }
+    }/pkgs/by-name/pr/prowlarr/package.nix") { };
+
     # TODO remove when https://github.com/NixOS/nixpkgs/issues/544083 resolved
     poetry = prev.poetry.overridePythonAttrs (_: {
       doCheck = false;
