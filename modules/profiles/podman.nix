@@ -1,7 +1,9 @@
 { pkgs, ... }:
 {
   virtualisation = {
-    containers.registries.search = [ "docker.io" ];
+    containers.registries.settings.registry = [
+      { location = "docker.io"; }
+    ];
 
     podman = {
       enable = true;

@@ -39,6 +39,11 @@
         sha256 = "sha256-TAAkhp1m5sJgLP7vUHSp63GfJWUbcG69po8r0NlSXPk=";
       }
     }/pkgs/by-name/di/diffnav/package.nix") { };
+
+    # TODO remove when https://github.com/NixOS/nixpkgs/issues/544083 resolved
+    poetry = prev.poetry.overridePythonAttrs (_: {
+      doCheck = false;
+    });
   })
   (_: prev: {
     wallpaper = prev.callPackage ./wallpaper { };
