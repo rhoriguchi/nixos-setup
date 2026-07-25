@@ -55,6 +55,32 @@
       doCheck = false;
     });
   })
+  # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=545582
+  (
+    final: prev:
+    let
+      src = prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "2445a70b06cb20bb734e268052b485bdd21e5e45";
+        sha256 = "sha256-qbHvii3aQwvmw278rvmv2vF7AtxWYGRY3R2dAX6JUL0=";
+      };
+    in
+    {
+      netdata = prev.callPackage (import "${src}/pkgs/tools/system/netdata") { };
+
+      python3 = prev.python3.override {
+        packageOverrides = _: _: {
+          netdata-pandas =
+            prev.python3Packages.callPackage
+              (import "${src}/pkgs/development/python-modules/netdata-pandas/default.nix")
+              { };
+        };
+      };
+
+      python3Packages = final.python3.pkgs;
+    }
+  )
   (_: prev: {
     wallpaper = prev.callPackage ./wallpaper { };
   })
