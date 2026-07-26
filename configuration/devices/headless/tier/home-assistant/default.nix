@@ -8,9 +8,6 @@
 {
   imports = libCustom.getImports ./.;
 
-  # TODO remove when https://github.com/project-chip/connectedhomeip/issues/25688 fixed
-  nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
-
   services.home-assistant = {
     enable = true;
 
