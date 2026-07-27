@@ -1,9 +1,13 @@
 { pkgs, ... }:
 {
   virtualisation = {
-    containers.registries.settings.registry = [
-      { location = "docker.io"; }
-    ];
+    containers.registries.settings = {
+      unqualified-search-registries = [ "docker.io" ];
+
+      registry = [
+        { location = "docker.io"; }
+      ];
+    };
 
     podman = {
       enable = true;
