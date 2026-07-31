@@ -12,7 +12,6 @@
     ./authelia
     ./backup.nix
     ./fancontrol.nix
-    ./nvidia-quadro-rtx-5000.nix
     ./grafana
     ./home-assistant
     ./jellyfin.nix
@@ -20,6 +19,7 @@
     ./metric-scrapers
     ./minecraft-server
     ./monitoring.nix
+    ./nvidia-quadro-rtx-5000.nix
     ./plex
     ./prometheus.nix
     ./rustdesk.nix
