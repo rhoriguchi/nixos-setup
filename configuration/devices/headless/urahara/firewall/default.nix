@@ -168,9 +168,9 @@ in
               (lib.concatStringsSep "\n")
             ]}
 
-            tcp dport { 21027, 22000 } accept # Syncthing
+            tcp dport { 22000 } accept # Syncthing
             tcp dport { 53317 } accept # LocalSend
-            udp dport { 22000 } accept # Syncthing
+            udp dport { 21027, 22000 } accept # Syncthing
             udp dport { 41641 } accept # Tailscale
 
             drop
