@@ -77,9 +77,9 @@ in
     localAddress = "169.254.1.41";
 
     bindMounts = {
-      "${config.services.deluge.dataDir}" = {
+      "${containerCfg.services.deluge.dataDir}" = {
         isReadOnly = false;
-        hostPath = containerCfg.services.deluge.dataDir;
+        hostPath = config.services.deluge.dataDir;
       };
 
       "/mnt/Data/Deluge" = {
