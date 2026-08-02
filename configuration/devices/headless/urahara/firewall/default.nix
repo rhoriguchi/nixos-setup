@@ -190,13 +190,6 @@ in
       internalInterfaces = [ "br0" ] ++ internalInterfaces;
 
       forwardPorts = [
-        # Minecraft
-        {
-          proto = "tcp";
-          destination = "${ips.tier}:25565";
-          sourcePort = 25565;
-        }
-
         # Plex
         {
           proto = "tcp";

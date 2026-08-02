@@ -58,11 +58,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixkraken = {
       url = "github:nicolas-goudry/nixkraken";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -152,7 +147,6 @@
           inputs.declarative-jellyfin.nixosModules.default
           inputs.hyprland.nixosModules.default
           inputs.nix-flatpak.nixosModules.nix-flatpak
-          inputs.nix-minecraft.nixosModules.minecraft-servers
 
           ./modules/default
         ];
@@ -181,7 +175,6 @@
             inputs.hyprland.overlays.default
             inputs.hyprland.overlays.hyprland-packages
             inputs.llm-agents.overlays.shared-nixpkgs
-            inputs.nix-minecraft.overlay
           ]
           ++ import ./overlays
         );

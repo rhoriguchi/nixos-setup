@@ -80,37 +80,12 @@ let
         name,
         user_id,
         type,
-        game,
-        hostname,
-        port,
-        interval,
-        maxretries,
-        retry_interval
-      )
-      VALUES (
-        1,
-        'Minecraft',
-        1,
-        'gamedig',
-        'minecraft',
-        'minecraft.00a.ch',
-        25565,
-        15,
-        4,
-        15
-      );
-
-      INSERT INTO monitor (
-        id,
-        name,
-        user_id,
-        type,
         push_token,
         interval,
         retry_interval
       )
       VALUES (
-        '2',
+        '1',
         'Borgmatic backup',
         1,
         'push',
@@ -199,7 +174,6 @@ let
       DELETE FROM monitor_notification;
 
       ${addMonitorNotification 1}
-      ${addMonitorNotification 2}
     '';
 in
 {

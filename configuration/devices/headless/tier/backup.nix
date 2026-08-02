@@ -38,7 +38,6 @@ in
         config.services.home-assistant.configDir
         config.services.jellyfin.dataDir
         config.services.loki.dataDir
-        config.services.minecraft-servers.dataDir
         config.services.plex.dataDir
         config.services.prowlarr.dataDir
         config.services.syncthing.dataDir
