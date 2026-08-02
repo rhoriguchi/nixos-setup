@@ -33,7 +33,6 @@ in
         "/var/lib/bazarr-series-movies"
         "/var/lib/sonarr-anime"
         "/var/lib/sonarr-series"
-        "/var/lib/terraria"
 
         config.services.home-assistant.configDir
         config.services.jellyfin.dataDir
