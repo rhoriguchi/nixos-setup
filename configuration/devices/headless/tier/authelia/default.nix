@@ -13,13 +13,19 @@ in
 
   users.users.${cfg.user}.extraGroups = [ config.services.redis.servers.authelia.group ];
 
+  systemd.tmpfiles.rules = [
+    "d /var/lib/authelia-${cfg.name} 0700 ${cfg.user} ${cfg.group} - -"
+    "f+ /var/lib/authelia-${cfg.name}/jwt_secret 0600 ${cfg.user} ${cfg.group} - ${secrets.authelia.jwtSecret}"
+    "f+ /var/lib/authelia-${cfg.name}/storage_encryption_key 0600 ${cfg.user} ${cfg.group} - ${secrets.authelia.storageEncryptionKey}"
+  ];
+
   services = {
     authelia.instances.main = {
       enable = true;
 
       secrets = {
-        jwtSecretFile = pkgs.writeText "authelia-jwt-secret" secrets.authelia.jwtSecret;
-        storageEncryptionKeyFile = pkgs.writeText "authelia-storage-encryption-key" secrets.authelia.storageEncryptionKey;
+        jwtSecretFile = "/var/lib/authelia-${cfg.name}/jwt_secret";
+        storageEncryptionKeyFile = "/var/lib/authelia-${cfg.name}/storage_encryption_key";
       };
 
       settings = {

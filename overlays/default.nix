@@ -20,7 +20,7 @@
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=544063
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=544063
     plexRaw = prev.python3Packages.callPackage (import "${
       prev.fetchFromGitHub {
         owner = "NixOS";
@@ -30,30 +30,15 @@
       }
     }/pkgs/by-name/pl/plexRaw/package.nix") { };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=545217
-    diffnav = prev.callPackage (import "${
-      prev.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "08216c07766c42eed496abb445c61e40db5e937b";
-        sha256 = "sha256-TAAkhp1m5sJgLP7vUHSp63GfJWUbcG69po8r0NlSXPk=";
-      }
-    }/pkgs/by-name/di/diffnav/package.nix") { };
-
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=545363
-    prowlarr = prev.callPackage (import "${
-      prev.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "9a1f41b1d26a19f1108253a22a79a7d2431384c7";
-        sha256 = "sha256-aDMfbDHuQ9sHjV69e9fX1OYSo8CG9IkNI/zLnIk5uTs=";
-      }
-    }/pkgs/by-name/pr/prowlarr/package.nix") { };
-
-    # TODO remove when https://github.com/NixOS/nixpkgs/issues/544083 resolved
-    poetry = prev.poetry.overridePythonAttrs (_: {
-      doCheck = false;
-    });
+    # TODO remove when resolved
+    # - This version of IDEA has multiple known security vulnerabilities, see NIXPKGS-2026-2269: https://tracker.security.nixos.org/issues/NIXPKGS-2026-2269.
+    #   The package `jetbrains.idea-oss` is currently not receiving updates in nixpkgs, consider using `jetbrains.pycharm`.
+    # - This version of PyCharm has multiple known security vulnerabilities, see NIXPKGS-2026-2269: https://tracker.security.nixos.org/issues/NIXPKGS-2026-2269.
+    #   The package `jetbrains.pycharm-oss` is currently not receiving updates in nixpkgs, consider using `jetbrains.pycharm`.
+    jetbrains = prev.jetbrains // {
+      idea-oss = prev.jetbrains.idea;
+      pycharm-oss = prev.jetbrains.pycharm;
+    };
   })
   # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=545582
   (
