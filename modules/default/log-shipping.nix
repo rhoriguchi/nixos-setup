@@ -82,6 +82,20 @@ in
           }
 
           rule {
+            source_labels = ["__journal__systemd_unit"]
+            regex = "container@(.+)\\.service"
+            target_label = "container"
+            replacement = "$1"
+          }
+
+          rule {
+            source_labels = ["__journal__systemd_unit"]
+            regex = "container@(.+)\\.service"
+            target_label = "job"
+            replacement = "container"
+          }
+
+          rule {
             source_labels = ["__journal__systemd_user_unit"]
             target_label = "user_unit"
             regex = "${
