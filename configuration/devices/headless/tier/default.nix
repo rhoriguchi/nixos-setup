@@ -24,6 +24,7 @@
     ./rustdesk.nix
     ./samba.nix
     ./syncthing-relay.nix
+    ./tvtracktime
     ./webdav.nix
 
     ./hardware-configuration.nix

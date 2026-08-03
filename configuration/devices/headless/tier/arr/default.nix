@@ -6,7 +6,7 @@
     ./prowlarr.nix
     ./radarr.nix
     ./recyclarr.nix
-    ./sonarr-tv-time-updater
+    ./sonarr-tv-track-time-updater
     ./sonarr.nix
   ];
 }

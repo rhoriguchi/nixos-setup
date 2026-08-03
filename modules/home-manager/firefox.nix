@@ -241,8 +241,8 @@
                   url = "https://www.youtube.com";
                 }
                 {
-                  name = "TV Time";
-                  url = "https://app.tvtime.com";
+                  name = "TvTrackTime";
+                  url = "https://tvtracktime.com";
                 }
                 {
                   name = "Todoist";

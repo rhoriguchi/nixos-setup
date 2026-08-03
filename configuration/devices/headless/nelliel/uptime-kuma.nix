@@ -95,6 +95,27 @@ let
       );
 
       INSERT INTO monitor (
+        id,
+        name,
+        user_id,
+        type,
+        url,
+        interval,
+        maxretries,
+        retry_interval
+      )
+      VALUES (
+        '2',
+        'tvtracktime.com',
+        1,
+        'http',
+        'https://tvtracktime.com',
+        60,
+        3,
+        20
+      );
+
+      INSERT INTO monitor (
         name,
         user_id,
         type,
@@ -174,6 +195,7 @@ let
       DELETE FROM monitor_notification;
 
       ${addMonitorNotification 1}
+      ${addMonitorNotification 2}
     '';
 in
 {
