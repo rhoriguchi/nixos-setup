@@ -10,4 +10,5 @@
   XXLPitu-Tier = "100.123.123.92";
   XXLPitu-Ulquiorra = "100.123.123.39";
   XXLPitu-Urahara = "100.123.123.113";
+  XXLPitu-Vorarlberna = "100.123.123.135";
 }

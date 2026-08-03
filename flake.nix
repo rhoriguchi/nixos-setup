@@ -58,6 +58,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixkraken = {
       url = "github:nicolas-goudry/nixkraken";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -147,6 +152,7 @@
           inputs.declarative-jellyfin.nixosModules.default
           inputs.hyprland.nixosModules.default
           inputs.nix-flatpak.nixosModules.nix-flatpak
+          inputs.nix-minecraft.nixosModules.minecraft-servers
 
           ./modules/default
         ];
@@ -175,6 +181,7 @@
             inputs.hyprland.overlays.default
             inputs.hyprland.overlays.hyprland-packages
             inputs.llm-agents.overlays.shared-nixpkgs
+            inputs.nix-minecraft.overlay
           ]
           ++ import ./overlays
         );
@@ -354,6 +361,43 @@
                   self.nixosModules.profiles.headless
 
                   ./configuration/devices/headless/raspberry-pi-4/ulquiorra
+                ];
+
+                # Cross-compile the kernel, while using emulation/cache for the rest
+                boot.kernelPackages =
+                  (mkPkgs {
+                    localSystem = "x86_64-linux";
+                    crossSystem = "aarch64-linux";
+                    overlays = [
+                      inputs.nixos-raspberrypi.overlays.vendor-kernel
+                      inputs.nixos-raspberrypi.overlays.vendor-firmware
+                      inputs.nixos-raspberrypi.overlays.kernel-and-firmware
+                    ];
+                  }).linuxPackages_rpi4;
+              }
+            ];
+
+            specialArgs = specialArgs // {
+              inherit (inputs) nixos-raspberrypi;
+            };
+          };
+
+          XXLPitu-Vorarlberna = inputs.nixos-raspberrypi.lib.nixosSystem {
+            # nixos-raspberrypi
+            trustCaches = false;
+
+            system = "aarch64-linux";
+
+            modules = [
+              {
+                imports = [
+                  commonModule
+
+                  inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
+
+                  self.nixosModules.profiles.headless
+
+                  ./configuration/devices/headless/raspberry-pi-4/vorarlberna
                 ];
 
                 # Cross-compile the kernel, while using emulation/cache for the rest

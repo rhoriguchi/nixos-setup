@@ -17,6 +17,7 @@
     ./jellyfin.nix
     ./loki.nix
     ./metric-scrapers
+    ./minecraft-server
     ./monitoring.nix
     ./nvidia-quadro-rtx-5000.nix
     ./plex
@@ -24,6 +25,7 @@
     ./rustdesk.nix
     ./samba.nix
     ./syncthing-relay.nix
+    ./terraria.nix
     ./webdav.nix
 
     ./hardware-configuration.nix

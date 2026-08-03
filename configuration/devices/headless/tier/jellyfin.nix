@@ -95,6 +95,18 @@ in
             isHidden = true;
           };
         };
+
+        samsung_tv = {
+          mutable = false;
+          password = secrets.jellyfin.users.samsung_tv.password;
+
+          loginAttemptsBeforeLockout = null;
+
+          permissions = {
+            isAdministrator = false;
+            isHidden = true;
+          };
+        };
       }
       // lib.pipe autheliaUsers [
         (lib.filterAttrs (

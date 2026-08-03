@@ -190,6 +190,13 @@ in
       internalInterfaces = [ "br0" ] ++ internalInterfaces;
 
       forwardPorts = [
+        # Minecraft
+        {
+          proto = "tcp";
+          destination = "${ips.tier}:25565";
+          sourcePort = 25565;
+        }
+
         # Plex
         {
           proto = "tcp";
@@ -234,6 +241,18 @@ in
           proto = "tcp";
           destination = "${ips.tier}:22067";
           sourcePort = 22067;
+        }
+
+        # Terraria
+        {
+          proto = "tcp";
+          destination = "${ips.tier}:7777";
+          sourcePort = 7777;
+        }
+        {
+          proto = "udp";
+          destination = "${ips.tier}:7777";
+          sourcePort = 7777;
         }
       ];
     };
