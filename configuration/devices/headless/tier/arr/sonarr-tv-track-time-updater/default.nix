@@ -6,7 +6,7 @@
   ...
 }:
 {
-  systemd.services.sonarr-tv-time-updater = {
+  systemd.services.sonarr-tv-track-time-updater = {
     after = [
       "network.target"
       config.systemd.services."container@sonarr-series".name
@@ -15,10 +15,9 @@
     script =
       let
         pythonScript =
-          pkgs.writers.writePython3 "update_series.py"
+          pkgs.writers.writePython3 "tv-track-time"
             {
               libraries = [
-                pkgs.python3Packages.pyjwt
                 pkgs.python3Packages.requests
               ];
 
@@ -31,8 +30,9 @@
                   sonarApiKey = secrets.sonarr.apiKey;
                   sonarrRootDir = "/mnt/bindmount/sonarr/sync-Series/Tv Shows";
 
-                  tvTimeUsername = secrets.tvTime.username;
-                  tvTimePassword = secrets.tvTime.password;
+                  tvTrackTimeApiUrl = "http://${config.containers.tvtracktime.localAddress}:8080";
+                  tvTrackTimeUsername = secrets.tvTrackTimeSonarrUpdater.username;
+                  tvTrackTimePassword = secrets.tvTrackTimeSonarrUpdater.password;
 
                   excludedTvdbIds =
                     lib.pipe

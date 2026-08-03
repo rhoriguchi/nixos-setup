@@ -73,10 +73,20 @@ in
       ];
     }
     // lib.optionalAttrs config.services.postgresql.enable {
-      postgresql_databases = map (database: {
-        name = database;
-        username = database;
-      }) config.services.postgresql.ensureDatabases;
+      postgresql_databases =
+        map (database: {
+          name = database;
+          username = database;
+        }) config.services.postgresql.ensureDatabases
+        ++ [
+          {
+            name = "tvtracktime";
+            hostname = config.containers.tvtracktime.localAddress;
+            port = config.containers.tvtracktime.config.services.postgresql.settings.port;
+            username = "tvtracktime";
+            password = secrets.tvtracktime.postgres.password;
+          }
+        ];
     };
   };
 

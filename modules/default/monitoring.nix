@@ -556,6 +556,10 @@ in
                 name = "Borgmatic";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.borgmatic.port}/metrics";
               }
+              ++ lib.optional config.services.cloudflared.enable {
+                name = "Cloudflared";
+                url = "http://127.0.0.1:20241/metrics";
+              }
               ++ lib.optional config.services.corerad.enable {
                 name = "CoreRAD";
                 url = "http://${config.services.corerad.settings.debug.address}/metrics";
