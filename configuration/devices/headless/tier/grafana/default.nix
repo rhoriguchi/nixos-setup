@@ -57,6 +57,8 @@
           client_id = "grafana";
           client_secret = secrets.authelia.oidcClientSecrets.grafana.secret;
 
+          oauth_allow_insecure_email_lookup = true;
+
           scopes = "openid profile groups email";
           auth_url = "https://authelia.00a.ch/api/oidc/authorization";
           token_url = "https://authelia.00a.ch/api/oidc/token";
