@@ -3,6 +3,26 @@ let
   interface = "ve-${if config.networking.nftables.enable then "*" else "+"}";
 in
 {
+  options.containers = lib.mkOption {
+    type = lib.types.attrsOf (
+      lib.types.submodule {
+        config = {
+          extraFlags = [ "--resolv-conf=off" ];
+
+          config = {
+            networking = {
+              useHostResolvConf = false;
+              nameservers = lib.mkDefault [
+                "1.1.1.1"
+                "1.0.0.1"
+              ];
+            };
+          };
+        };
+      }
+    );
+  };
+
   config = lib.mkIf (lib.any (value: value.privateNetwork) (lib.attrValues config.containers)) {
     boot.kernel.sysctl = {
       "net.ipv4.conf.all.route_localnet" = 1;
