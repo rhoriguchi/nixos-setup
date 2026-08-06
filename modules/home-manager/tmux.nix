@@ -57,6 +57,9 @@ in
         unbind %
         bind h split-window -h
 
+        unbind '0'
+        bind 0 select-window -t :10
+
         bind / copy-mode \; send-key C-r
         bind -n C-l send-keys C-l \; run 'sleep 0.2' \; clear-history
 
