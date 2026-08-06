@@ -12,6 +12,10 @@ let
 
   getContainerCfg = type: config.containers."sonarr-${type}".config;
 
+  containerCfg = getContainerCfg "anime";
+  sonarrUserUid = toString containerCfg.users.users.${containerCfg.services.sonarr.user}.uid;
+  sonarrGroupGid = toString containerCfg.users.groups.${containerCfg.services.sonarr.group}.gid;
+
   createContainer =
     type:
     let
@@ -133,15 +137,6 @@ let
     };
 in
 {
-  users = {
-    users.${config.services.sonarr.user} = {
-      group = config.services.sonarr.group;
-      uid = config.ids.uids.sonarr;
-    };
-
-    groups.${config.services.sonarr.group}.gid = config.ids.gids.sonarr;
-  };
-
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {
@@ -152,8 +147,8 @@ in
       options = [
         "map=${
           lib.concatStringsSep ":" [
-            "${config.services.syncthing.user}/${config.services.sonarr.user}"
-            "@${config.services.syncthing.group}/@${config.services.sonarr.group}"
+            "${config.services.syncthing.user}/${sonarrUserUid}"
+            "@${config.services.syncthing.group}/@${sonarrGroupGid}"
           ]
         }"
       ];
@@ -167,8 +162,8 @@ in
       options = [
         "map=${
           lib.concatStringsSep ":" [
-            "root/${config.services.sonarr.user}"
-            "@root/@${config.services.sonarr.group}"
+            "root/${sonarrUserUid}"
+            "@root/@${sonarrGroupGid}"
           ]
         }"
       ];
@@ -176,12 +171,12 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d /var/lib/sonarr-anime 0750 ${config.services.sonarr.user} ${config.services.sonarr.group}"
-    "d /var/lib/sonarr-series 0750 ${config.services.sonarr.user} ${config.services.sonarr.group}"
+    "d /var/lib/sonarr-anime 0750 ${sonarrUserUid} ${sonarrGroupGid}"
+    "d /var/lib/sonarr-series 0750 ${sonarrUserUid} ${sonarrGroupGid}"
 
-    "d ${rootBindmountDir} 0550 ${config.services.sonarr.user} ${config.services.sonarr.group}"
-    "d ${bindmountDir1} 0550 ${config.services.sonarr.user} ${config.services.sonarr.group}"
-    "d ${bindmountDir2} 0550 ${config.services.sonarr.user} ${config.services.sonarr.group}"
+    "d ${rootBindmountDir} 0550 ${sonarrUserUid} ${sonarrGroupGid}"
+    "d ${bindmountDir1} 0550 ${sonarrUserUid} ${sonarrGroupGid}"
+    "d ${bindmountDir2} 0550 ${sonarrUserUid} ${sonarrGroupGid}"
   ];
 
   containers = {

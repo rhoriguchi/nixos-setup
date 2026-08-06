@@ -55,17 +55,10 @@ in
     }
   ];
 
-  users = {
-    users.${config.services.deluge.user} = {
-      group = config.services.deluge.group;
-      uid = config.ids.uids.deluge;
-    };
-
-    groups.${config.services.deluge.group}.gid = config.ids.gids.deluge;
-  };
-
   systemd.tmpfiles.rules = [
-    "d ${config.services.deluge.dataDir} 0750 ${config.services.deluge.user} ${config.services.deluge.group}"
+    "d ${containerCfg.services.deluge.dataDir} 0750 ${
+      toString containerCfg.users.users.${containerCfg.services.deluge.user}.uid
+    } ${toString containerCfg.users.groups.${containerCfg.services.deluge.group}.gid}"
   ];
 
   containers.deluge = {

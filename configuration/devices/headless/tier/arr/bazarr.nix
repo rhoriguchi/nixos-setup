@@ -24,6 +24,9 @@ let
     ];
 
   getContainerCfg = type: config.containers."bazarr-${type}".config;
+  containerCfg = getContainerCfg "anime";
+  bazarrUserUid = toString containerCfg.users.users.${containerCfg.services.bazarr.user}.uid;
+  bazarrGroupGid = toString containerCfg.users.groups.${containerCfg.services.bazarr.group}.gid;
 
   createContainer =
     type:
@@ -248,15 +251,6 @@ in
     }
   ];
 
-  users = {
-    users.${config.services.bazarr.user} = {
-      group = config.services.bazarr.group;
-      uid = bazarrUid;
-    };
-
-    groups.${config.services.bazarr.group}.gid = bazarrGid;
-  };
-
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {
@@ -267,8 +261,8 @@ in
       options = [
         "map=${
           lib.concatStringsSep ":" [
-            "${config.services.syncthing.user}/${config.services.bazarr.user}"
-            "@${config.services.syncthing.group}/@${config.services.bazarr.group}"
+            "${config.services.syncthing.user}/${bazarrUserUid}"
+            "@${config.services.syncthing.group}/@${bazarrGroupGid}"
           ]
         }"
       ];
@@ -282,8 +276,8 @@ in
       options = [
         "map=${
           lib.concatStringsSep ":" [
-            "root/${config.services.bazarr.user}"
-            "@root/@${config.services.bazarr.group}"
+            "root/${bazarrUserUid}"
+            "@root/@${bazarrGroupGid}"
           ]
         }"
       ];
@@ -297,8 +291,8 @@ in
       options = [
         "map=${
           lib.concatStringsSep ":" [
-            "root/${config.services.bazarr.user}"
-            "@root/@${config.services.bazarr.group}"
+            "root/${bazarrUserUid}"
+            "@root/@${bazarrGroupGid}"
           ]
         }"
       ];
@@ -306,13 +300,13 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d /var/lib/bazarr-anime 0750 ${config.services.bazarr.user} ${config.services.bazarr.group}"
-    "d /var/lib/bazarr-series-movies 0750 ${config.services.bazarr.user} ${config.services.bazarr.group}"
+    "d /var/lib/bazarr-anime 0750 ${bazarrUserUid} ${bazarrGroupGid}"
+    "d /var/lib/bazarr-series-movies 0750 ${bazarrUserUid} ${bazarrGroupGid}"
 
-    "d ${rootBindmountDir} 0550 ${config.services.bazarr.user} ${config.services.bazarr.group}"
-    "d ${bindmountDir1} 0550 ${config.services.bazarr.user} ${config.services.bazarr.group}"
-    "d ${bindmountDir2} 0550 ${config.services.bazarr.user} ${config.services.bazarr.group}"
-    "d ${bindmountDir3} 0550 ${config.services.bazarr.user} ${config.services.bazarr.group}"
+    "d ${rootBindmountDir} 0550 ${bazarrUserUid} ${bazarrGroupGid}"
+    "d ${bindmountDir1} 0550 ${bazarrUserUid} ${bazarrGroupGid}"
+    "d ${bindmountDir2} 0550 ${bazarrUserUid} ${bazarrGroupGid}"
+    "d ${bindmountDir3} 0550 ${bazarrUserUid} ${bazarrGroupGid}"
   ];
 
   containers = {

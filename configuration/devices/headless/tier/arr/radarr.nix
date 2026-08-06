@@ -10,6 +10,9 @@ let
   bindmountDir = "${rootBindmountDir}/disk-Movies";
 
   getContainerCfg = type: config.containers."radarr-${type}".config;
+  containerCfg = getContainerCfg "anime";
+  radarrUserUid = toString containerCfg.users.users.${containerCfg.services.radarr.user}.uid;
+  radarrGroupGid = toString containerCfg.users.groups.${containerCfg.services.radarr.group}.gid;
 
   createContainer =
     type:
@@ -127,15 +130,6 @@ let
     };
 in
 {
-  users = {
-    users.${config.services.radarr.user} = {
-      group = config.services.radarr.group;
-      uid = config.ids.uids.radarr;
-    };
-
-    groups.${config.services.radarr.group}.gid = config.ids.gids.radarr;
-  };
-
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems."${bindmountDir}" = {
     depends = [ "/mnt/Data/Movies" ];
@@ -145,19 +139,19 @@ in
     options = [
       "map=${
         lib.concatStringsSep ":" [
-          "root/${config.services.radarr.user}"
-          "@root/@${config.services.radarr.group}"
+          "root/${radarrUserUid}"
+          "@root/@${radarrGroupGid}"
         ]
       }"
     ];
   };
 
   systemd.tmpfiles.rules = [
-    "d /var/lib/radarr-anime 0750 ${config.services.radarr.user} ${config.services.radarr.group}"
-    "d /var/lib/radarr-movies 0750 ${config.services.radarr.user} ${config.services.radarr.group}"
+    "d /var/lib/radarr-anime 0750 ${radarrUserUid} ${radarrGroupGid}"
+    "d /var/lib/radarr-movies 0750 ${radarrUserUid} ${radarrGroupGid}"
 
-    "d ${rootBindmountDir} 0550 ${config.services.radarr.user} ${config.services.radarr.group}"
-    "d ${bindmountDir} 0550 ${config.services.radarr.user} ${config.services.radarr.group}"
+    "d ${rootBindmountDir} 0550 ${radarrUserUid} ${radarrGroupGid}"
+    "d ${bindmountDir} 0550 ${radarrUserUid} ${radarrGroupGid}"
   ];
 
   containers = {
