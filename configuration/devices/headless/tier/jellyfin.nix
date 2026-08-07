@@ -308,7 +308,7 @@ in
 
             extraConfig = ''
               # Needed for OIDC Authentication
-              more_set_headers X-Frame-Options SAMEORIGIN;
+              more_set_headers 'X-Frame-Options: SAMEORIGIN';
             '';
           };
 

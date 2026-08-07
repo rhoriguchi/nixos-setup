@@ -43,9 +43,9 @@
       recommendedUwsgiSettings = true;
 
       commonHttpConfig = ''
-        more_set_headers Referrer-Policy origin-when-cross-origin;
-        more_set_headers X-Content-Type-Options nosniff;
-        more_set_headers X-Frame-Options DENY;
+        more_set_headers 'Referrer-Policy: origin-when-cross-origin';
+        more_set_headers 'X-Content-Type-Options: nosniff';
+        more_set_headers 'X-Frame-Options: DENY';
       '';
 
       virtualHosts."_" = {
