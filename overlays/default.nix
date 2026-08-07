@@ -29,8 +29,10 @@
         sha256 = "sha256-zjNcynsWxYIfIJBvGImE1fwJeREivcn2iCnJcHLVMaI=";
       }
     }/pkgs/by-name/pl/plexRaw/package.nix") { };
+  })
 
-    # TODO remove when resolved
+  # TODO remove when resolved
+  (_: prev: {
     # - This version of IDEA has multiple known security vulnerabilities, see NIXPKGS-2026-2269: https://tracker.security.nixos.org/issues/NIXPKGS-2026-2269.
     #   The package `jetbrains.idea-oss` is currently not receiving updates in nixpkgs, consider using `jetbrains.pycharm`.
     # - This version of PyCharm has multiple known security vulnerabilities, see NIXPKGS-2026-2269: https://tracker.security.nixos.org/issues/NIXPKGS-2026-2269.
@@ -40,6 +42,7 @@
       pycharm-oss = prev.jetbrains.pycharm;
     };
   })
+
   # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=545582
   (
     final: prev:
@@ -66,6 +69,7 @@
       python3Packages = final.python3.pkgs;
     }
   )
+
   (_: prev: {
     wallpaper = prev.callPackage ./wallpaper { };
   })
