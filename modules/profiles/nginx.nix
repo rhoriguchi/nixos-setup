@@ -1,5 +1,18 @@
 { pkgs, secrets, ... }:
 {
+  # TODO remove when lego >= 5.0.0
+  nixpkgs.overlays = [
+    (_: prev: {
+      lego = prev.lego.overrideAttrs (oldAttrs: {
+        postPatch = (oldAttrs.postPatch or "") + ''
+          substituteInPlace providers/dns/infomaniak/internal/client.go \
+            --replace-fail 'result := APIResponse[string]{}' 'result := APIResponse[uint64]{}' \
+            --replace-fail 'return result.Data, err' 'return strconv.FormatUint(result.Data, 10), err'
+        '';
+      });
+    })
+  ];
+
   security.acme = {
     acceptTerms = true;
 
