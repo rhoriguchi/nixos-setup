@@ -1,5 +1,10 @@
 { pkgs, secrets, ... }:
 {
+  imports = [
+    ./antigravity.nix
+    ./vscode.nix
+  ];
+
   programs.mcp = {
     enable = true;
 

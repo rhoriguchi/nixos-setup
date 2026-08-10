@@ -18,6 +18,7 @@
     };
   };
 
+  # TODO does not work
   home.file.".gemini/antigravity-cli/hooks.json" = lib.mkIf config.programs.antigravity-cli.enable ({
     source = pkgs.writers.writeJSON "hooks.json" {
       "sync-git-crypt-to-geminiignore" = {
@@ -26,15 +27,15 @@
             type = "command";
             timeout = 5;
             command = pkgs.writers.writeBash "sync-git-crypt-to-geminiignore.sh" ''
-              GIT_ROOT=$(${config.programs.git.package}/bin/git rev-parse --show-toplevel 2>/dev/null)
+              git_root=$(${config.programs.git.package}/bin/git rev-parse --show-toplevel 2>/dev/null)
 
-              if [ -n "$GIT_ROOT" ]; then
-                ENCRYPTED_FILES=$(${pkgs.git-crypt}/bin/git-crypt status 2>/dev/null |
+              if [ -n "$git_root" ]; then
+                encrypted_files=$(${pkgs.git-crypt}/bin/git-crypt status 2>/dev/null |
                   ${pkgs.gnugrep}/bin/grep -v 'not encrypted' |
                   ${pkgs.gawk}/bin/awk '{print $2}')
 
-                if [ -n "$ENCRYPTED_FILES" ]; then
-                  echo "$ENCRYPTED_FILES" > "$GIT_ROOT/.geminiignore"
+                if [ -n "$encrypted_files" ]; then
+                  echo "$encrypted_files" > "$git_root/.geminiignore"
                 fi
               fi
             '';
