@@ -2,6 +2,7 @@
 {
   imports = [
     ./antigravity.nix
+    ./claude.nix
     ./vscode.nix
   ];
 
