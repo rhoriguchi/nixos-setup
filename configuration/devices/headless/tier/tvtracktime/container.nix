@@ -52,7 +52,6 @@ in
 
   systemd.tmpfiles.rules = [
     "d /var/lib/tvtracktime-postgresql 0750 ${toString containerCfg.users.users.postgres.uid} ${toString containerCfg.users.groups.postgres.gid}"
-    "d /var/lib/tvtracktime-podman 0700 root root"
     "d /var/lib/tvtracktime-seaweedfs 0750 root root"
 
     "d ${rootBindmountDir} 0750 root root"
@@ -82,11 +81,6 @@ in
       "${containerCfg.services.postgresql.dataDir}" = {
         isReadOnly = false;
         hostPath = "/var/lib/tvtracktime-postgresql";
-      };
-
-      "/var/lib/containers" = {
-        isReadOnly = false;
-        hostPath = "/var/lib/tvtracktime-podman";
       };
 
       "/var/lib/seaweedfs" = {
