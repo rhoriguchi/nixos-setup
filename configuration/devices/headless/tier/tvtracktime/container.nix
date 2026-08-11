@@ -149,7 +149,7 @@ in
         };
 
         backend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/backend:1.1.11";
+          image = "ghcr.io/rhoriguchi/tvtracktime/backend:1.1.12";
 
           dependsOn = [ "seaweedfs" ];
 
@@ -184,7 +184,7 @@ in
         };
 
         frontend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:1.1.11";
+          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:1.1.12";
 
           login = {
             registry = "ghcr.io";
