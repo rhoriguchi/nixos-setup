@@ -59,6 +59,8 @@
         currency = "CHF";
       };
 
+      http.server_port = 8123;
+
       mobile_app = { };
 
       frontend = { };

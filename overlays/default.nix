@@ -19,26 +19,6 @@
         sha256 = "sha256-XyfwZpc79a+uqKx41bzCvK0UKJWlGkYqtqhAKPZbDus=";
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
-
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=544063
-    plexRaw = prev.python3Packages.callPackage (import "${
-      prev.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "ddec78082ce3c8b288d98d814d3ba6ede5be549e";
-        sha256 = "sha256-zjNcynsWxYIfIJBvGImE1fwJeREivcn2iCnJcHLVMaI=";
-      }
-    }/pkgs/by-name/pl/plexRaw/package.nix") { };
-
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=546698
-    sonarr = prev.callPackage (import "${
-      prev.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "f688bfedb94dd8b1f2df8f38a99f85e6ddf6d5a0";
-        sha256 = "sha256-ucCZZXCqzApkRWQC/pUyBTqxeXta9EktZ2FtY+xF2y0=";
-      }
-    }/pkgs/by-name/so/sonarr/package.nix") { };
   })
 
   # TODO remove when resolved

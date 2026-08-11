@@ -37,7 +37,9 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.56.2";
+      # TODO pin tag when hyprland > 0.56.2 is released
+      # url = "github:hyprwm/Hyprland?ref=v0.56.2";
+      url = "github:hyprwm/Hyprland?rev=45c8510c9c52aee541ac2b31c2b716d61c526241";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
