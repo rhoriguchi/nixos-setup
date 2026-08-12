@@ -42,6 +42,7 @@
             "hue"
             "mobile_app"
             "shelly"
+            "thread"
           ];
         };
 
