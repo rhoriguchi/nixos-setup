@@ -30,7 +30,7 @@
 
           ''configuration\/devices\/headless\/tier\/authelia\/rsa.2048.key''
           ''configuration\/devices\/headless\/tier\/authelia\/users.nix''
-          ''configuration\/devices\/nnoitra\/iex\.json''
+          ''configuration\/devices\/nnoitra\/iex.*\.json''
         ];
       };
       fix-byte-order-marker.enable = true;
@@ -46,7 +46,7 @@
 
           ''configuration\/devices\/headless\/tier\/authelia\/rsa.2048.key''
           ''configuration\/devices\/headless\/tier\/authelia\/users.nix''
-          ''configuration\/devices\/nnoitra\/iex\.json''
+          ''configuration\/devices\/nnoitra\/iex.*\.json''
         ];
       };
       nixfmt = {
@@ -56,7 +56,7 @@
 
           ''configuration\/devices\/headless\/tier\/authelia\/rsa.2048.key''
           ''configuration\/devices\/headless\/tier\/authelia\/users.nix''
-          ''configuration\/devices\/nnoitra\/iex\.json''
+          ''configuration\/devices\/nnoitra\/iex.*\.json''
         ];
       };
       trim-trailing-whitespace = {
