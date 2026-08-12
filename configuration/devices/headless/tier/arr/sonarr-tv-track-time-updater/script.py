@@ -41,7 +41,7 @@ class TVTrackTimeRequestHandler(object):
         tvdb_ids = [
             series["seriesId"]
             for series in series_list
-            if series.get("state") == "IN_PROGRESS" and not series.get("archived")
+            if series.get("state") in ("IN_PROGRESS", "NEWLY_AIRED") and not series.get("archived")
         ]
 
         return tvdb_ids
@@ -187,6 +187,11 @@ class SonarrHelper(object):
             f"{self._base_url}/episode", params={"seriesId": series_id}
         ).json()
 
+    def _has_downloaded_episodes(self, series_id):
+        return any(
+            episode.get("hasFile") for episode in self._get_episodes(series_id)
+        )
+
     def _set_episode_monitored(self, id, monitored):
         self._session.put(
             f"{self._base_url}/episode/monitor",
@@ -205,8 +210,12 @@ class SonarrHelper(object):
     def delete_all_missing_series(self, tvdb_ids):
         for series in self._get_all_series():
             if self._tag_id in series["tags"] and series["tvdbId"] not in tvdb_ids:
-                print(f'Removing "{series["title"]}"')
-                self._delete_series(series["id"])
+                if self._has_downloaded_episodes(series["id"]):
+                    print(f'Untagging "{series["title"]}" (episodes downloaded)')
+                    self._delete_tag(series["id"])
+                else:
+                    print(f'Removing "{series["title"]}"')
+                    self._delete_series(series["id"])
 
     def add_series(self, tvdb_id):
         series = self._lookup_series(tvdb_id)
