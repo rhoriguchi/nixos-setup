@@ -30,7 +30,7 @@
                   sonarApiKey = secrets.sonarr.apiKey;
                   sonarrRootDir = "/mnt/bindmount/sonarr/sync-Series/Tv Shows";
 
-                  tvTrackTimeApiUrl = "http://${config.containers.tvtracktime.localAddress}:8080";
+                  tvTrackTimeApiUrl = "http://${config.containers.tvtracktime-application.localAddress}:8080";
                   tvTrackTimeUsername = secrets.tvTrackTimeSonarrUpdater.username;
                   tvTrackTimePassword = secrets.tvTrackTimeSonarrUpdater.password;
 

@@ -81,8 +81,8 @@ in
         ++ [
           {
             name = "tvtracktime";
-            hostname = config.containers.tvtracktime.localAddress;
-            port = config.containers.tvtracktime.config.services.postgresql.settings.port;
+            hostname = config.containers.tvtracktime-application.localAddress;
+            port = config.containers.tvtracktime-application.config.services.postgresql.settings.port;
             username = "tvtracktime";
             password = secrets.tvtracktime.postgres.password;
           }

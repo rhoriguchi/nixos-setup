@@ -1,4 +1,18 @@
+{ config, lib, ... }:
+let
+  containerNames = [
+    "tvtracktime-application"
+  ];
+
+  existingContainerNames = lib.filter (name: lib.hasAttr name config.containers) containerNames;
+  addresses = map (name: config.containers.${name}.localAddress) existingContainerNames;
+in
 {
+  assertions = map (name: {
+    assertion = lib.hasAttr name config.containers;
+    message = "configuration/devices/headless/tier/tvtracktime/firewall.nix expects container '${name}' to exist in config.containers";
+  }) containerNames;
+
   networking.nftables.tables.tvtracktime = {
     family = "inet";
 
@@ -9,10 +23,9 @@
         elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
       }
 
-      set rfc4193 {
-        type ipv6_addr;
-        flags interval;
-        elements = { fc00::/7 }
+      set containerAddresses {
+        type ipv4_addr;
+        elements = { ${lib.concatStringsSep ", " addresses} }
       }
 
       chain input {
@@ -20,18 +33,17 @@
 
         ct state { established, related } accept
 
-        iifname { ve-tvtracktime } meta l4proto { tcp, udp } th dport { 53 } accept
+        ip saddr @containerAddresses meta l4proto { tcp, udp } th dport { 53 } accept
 
-        iifname { ve-tvtracktime } drop
+        ip saddr @containerAddresses drop
       }
 
       chain forward {
         type filter hook forward priority filter; policy accept;
 
-        iifname { ve-tvtracktime } meta l4proto { tcp, udp } th dport { 53 } accept
+        ip saddr @containerAddresses meta l4proto { tcp, udp } th dport { 53 } accept
 
-        iifname { ve-tvtracktime } ip daddr @rfc1918 drop
-        iifname { ve-tvtracktime } ip6 daddr @rfc4193 drop
+        ip saddr @containerAddresses ip daddr @rfc1918 drop
       }
     '';
   };

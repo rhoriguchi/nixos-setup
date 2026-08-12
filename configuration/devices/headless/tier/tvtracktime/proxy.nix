@@ -11,7 +11,7 @@ let
         "[::1]"
       ];
 
-  localAddress = config.containers.tvtracktime.localAddress;
+  localAddress = config.containers.tvtracktime-application.localAddress;
 in
 {
   services.nginx = {

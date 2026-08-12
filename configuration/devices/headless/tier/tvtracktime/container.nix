@@ -5,7 +5,7 @@
   ...
 }:
 let
-  containerCfg = config.containers.tvtracktime.config;
+  containerCfg = config.containers.tvtracktime-application.config;
 
   rootBindmountDir = "/mnt/bindmount/tvtracktime";
   bindmountDir = "${rootBindmountDir}/seaweedfs";
@@ -58,7 +58,7 @@ in
     "d ${bindmountDir} 0750 root root"
   ];
 
-  containers.tvtracktime = {
+  containers.tvtracktime-application = {
     autoStart = true;
     ephemeral = true;
 
@@ -102,7 +102,7 @@ in
 
         enableTCPIP = true;
         authentication = ''
-          host all all ${config.containers.tvtracktime.hostAddress}/32 scram-sha-256
+          host all all ${config.containers.tvtracktime-application.hostAddress}/32 scram-sha-256
         '';
 
         ensureDatabases = [ "tvtracktime" ];
