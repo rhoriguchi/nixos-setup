@@ -93,16 +93,9 @@ in
       nixpkgs.pkgs = pkgs;
       system.stateVersion = config.system.stateVersion;
 
-      systemd.services = {
-        postgresql.postStart = ''
-          ${containerCfg.services.postgresql.package}/bin/psql -tAc "ALTER ROLE tvtracktime WITH PASSWORD '${secrets.tvtracktime.postgres.password}';"
-        '';
-
-        podman-backend = {
-          after = [ "${config.systemd.services.postgresql.name}" ];
-          requires = [ "${config.systemd.services.postgresql.name}" ];
-        };
-      };
+      systemd.services.postgresql.postStart = ''
+        ${containerCfg.services.postgresql.package}/bin/psql -tAc "ALTER ROLE tvtracktime WITH PASSWORD '${secrets.tvtracktime.postgres.password}';"
+      '';
 
       services.postgresql = {
         enable = true;
@@ -144,8 +137,6 @@ in
 
         backend = {
           image = "ghcr.io/rhoriguchi/tvtracktime/backend:1.1.13";
-
-          dependsOn = [ "seaweedfs" ];
 
           login = {
             registry = "ghcr.io";
