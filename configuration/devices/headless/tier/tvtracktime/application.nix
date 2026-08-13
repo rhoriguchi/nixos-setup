@@ -122,7 +122,7 @@ in
 
           cmd = [
             "server"
-            "-dir=/var/lib/seaweedfs"
+
             # Override default volume server port (8080) to avoid collision with Spring Boot backend
             "-volume.port=8088"
             "-s3"
@@ -131,7 +131,7 @@ in
 
           volumes = [
             "${s3ConfigFile}:/etc/seaweedfs/s3.json:ro"
-            "/var/lib/seaweedfs:/var/lib/seaweedfs"
+            "/var/lib/seaweedfs:/data"
           ];
         };
 
