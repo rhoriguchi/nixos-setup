@@ -6,9 +6,11 @@
   ...
 }:
 let
-  containerCfg = config.containers.tvtracktime-github-runner.config;
+  user = index: "github-runner-${toString index}";
+  group = index: "github-runner-${toString index}";
 
-  inherit (containerCfg.services.github-runners.tvtracktime) user group;
+  agentCount = 5;
+  agentIndices = lib.range 1 agentCount;
 in
 {
   containers.tvtracktime-github-runner = {
@@ -27,8 +29,6 @@ in
       "--system-call-filter=bpf"
     ];
 
-    privateUsers = "pick";
-
     privateNetwork = true;
     hostAddress = "169.254.1.1";
     localAddress = "169.254.1.77";
@@ -43,44 +43,81 @@ in
       # that expect an FHS-style dynamic linker, which NixOS doesn't provide.
       programs.nix-ld.enable = true;
 
-      systemd.tmpfiles.rules = [
-        "d /run/${user} 0700 ${user} ${group}"
-        "f+ /run/${user}/github-runner-token 0400 ${user} ${group} - ${secrets.tvtracktime.githubRunnerToken}"
-      ];
+      systemd.tmpfiles.rules = lib.flatten (
+        map (index: [
+          "d /run/${user index} 0700 ${user index} ${group index}"
+          "d /run/${user index}/home 0700 ${user index} ${group index}"
+          "f+ /run/${user index}/github-runner-token 0400 ${user index} ${group index} - ${secrets.tvtracktime.githubRunnerToken}"
+        ]) agentIndices
+      );
 
       users = {
-        users.${user} = {
-          isSystemUser = true;
-          inherit group;
-          extraGroups = [ "docker" ];
-        };
+        users = lib.pipe agentIndices [
+          (map (
+            index:
+            lib.nameValuePair (user index) {
+              isSystemUser = true;
+              group = group index;
+              extraGroups = [ "docker" ];
+            }
+          ))
 
-        groups.${group} = { };
+          lib.listToAttrs
+        ];
+
+        groups = lib.pipe agentIndices [
+          (map (index: lib.nameValuePair (group index) { }))
+          lib.listToAttrs
+        ];
       };
 
-      services.github-runners.tvtracktime = {
-        enable = true;
+      services.github-runners = lib.pipe agentIndices [
+        (map (
+          index:
+          lib.nameValuePair "tvtracktime-${toString index}" {
+            enable = true;
 
-        ephemeral = true;
-        replace = true;
+            ephemeral = true;
+            replace = true;
 
-        name = "tvtracktime-runner";
-        url = "https://github.com/rhoriguchi/tvtracktime";
+            name = "tvtracktime-runner-${toString index}";
+            url = "https://github.com/rhoriguchi/tvtracktime";
 
-        user = "github-runner";
-        group = "github-runner";
+            user = user index;
+            group = group index;
 
-        tokenFile = "/run/${user}/github-runner-token";
+            tokenFile = "/run/${user index}/github-runner-token";
 
-        extraLabels = [ "nixos" ];
+            extraLabels = [ "nixos" ];
 
-        extraPackages = [ pkgs.docker-buildx ];
-      };
+            extraPackages = [
+              config.virtualisation.docker.package
 
-      systemd.services.github-runner-tvtracktime.serviceConfig = {
-        Restart = lib.mkForce "always";
-        RestartSec = 5;
-      };
+              # backend
+              pkgs.curl
+              pkgs.unzip
+            ];
+
+            extraEnvironment.MAVEN_OPTS = "-Duser.home=/run/${user index}/home";
+          }
+        ))
+
+        lib.listToAttrs
+      ];
+
+      systemd.services = lib.pipe agentIndices [
+        (map (
+          index:
+          lib.nameValuePair "github-runner-tvtracktime-${toString index}" {
+            serviceConfig = {
+              Restart = lib.mkForce "always";
+              RestartSec = 5 + (index * 3);
+            };
+          }
+        ))
+
+        lib.listToAttrs
+      ];
     };
   };
 }
