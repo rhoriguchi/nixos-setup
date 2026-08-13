@@ -2,6 +2,7 @@
 let
   containerNames = [
     "tvtracktime-application"
+    "tvtracktime-github-runner"
   ];
 
   existingContainerNames = lib.filter (name: lib.hasAttr name config.containers) containerNames;
