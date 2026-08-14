@@ -129,12 +129,6 @@ in
 
       nginx.statusPage = true;
 
-      # TODO workaround for https://github.com/NixOS/nixpkgs/issues/204189
-      postgresql.initialScript = pkgs.writeText "initialScript" ''
-        CREATE USER netdata;
-        GRANT pg_monitor TO netdata;
-      '';
-
       prometheus.exporters = {
         borgmatic = {
           enable = config.services.borgmatic.enable;
@@ -715,6 +709,11 @@ in
           chown -R ${config.services.netdata.user}:${config.services.netdata.group} /var/lib/netdata/registry
         '';
       };
+
+      postgresql.postStart = lib.mkIf config.services.postgresql.enable ''
+        ${config.services.postgresql.package}/bin/psql -tAc "SELECT 1 FROM pg_roles WHERE rolname = 'netdata'" | grep -q 1 || ${config.services.postgresql.package}/bin/psql -tAc "CREATE USER netdata"
+        ${config.services.postgresql.package}/bin/psql -tAc "GRANT pg_monitor TO netdata"
+      '';
     };
 
     users.users.${config.services.netdata.user}.extraGroups =
