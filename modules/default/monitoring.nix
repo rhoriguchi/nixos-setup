@@ -303,6 +303,7 @@ in
           withDebug = cfg.debug.enable;
           withLibbacktrace = cfg.debug.enable;
           withML = isParent;
+          withNdMcp = false;
           withNdsudo = true;
           withOtel = false;
           withSystemdJournal = false;
@@ -491,6 +492,16 @@ in
         // {
           "go.d/nvme.conf" = pkgs.writers.writeYAML "nvme.conf" { jobs = [ { name = "local"; } ]; };
         }
+        // lib.optionalAttrs config.services.postgresql.enable {
+          "go.d/postgres.conf" = pkgs.writers.writeYAML "postgres.conf" {
+            jobs = [
+              {
+                name = "local";
+                dsn = "host=/run/postgresql user=netdata dbname=postgres";
+              }
+            ];
+          };
+        }
         // lib.optionalAttrs redisEnabled {
           "go.d/redis.conf" = pkgs.writers.writeYAML "redis.conf" {
             jobs = lib.mapAttrsToList (key: value: {
@@ -501,16 +512,6 @@ in
         }
         // {
           "go.d/smartctl.conf" = pkgs.writers.writeYAML "smartctl.conf" { jobs = [ { name = "local"; } ]; };
-        }
-        // {
-          "go.d/sensors.conf" = pkgs.writers.writeYAML "sensors.conf" {
-            jobs = [
-              {
-                name = "local";
-                binary_path = "${pkgs.lm_sensors}/bin/sensors";
-              }
-            ];
-          };
         }
         // {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
@@ -644,21 +645,7 @@ in
     };
 
     systemd.services = {
-      netdata = {
-        requires = [ config.systemd.services.netdata-set-node-uuid.name ];
-
-        serviceConfig = {
-          CapabilityBoundingSet = [
-            # S.M.A.R.T. collector
-            "CAP_SYS_RAWIO"
-          ];
-
-          AmbientCapabilities = [
-            # Ping collector
-            "CAP_NET_RAW"
-          ];
-        };
-      };
+      netdata.requires = [ config.systemd.services.netdata-set-node-uuid.name ];
 
       netdata-set-node-uuid = {
         enable = config.services.netdata.enable;
