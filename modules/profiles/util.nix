@@ -64,6 +64,6 @@
       pkgs.yq-go
       pkgs.zip
     ]
-    ++ lib.optional config.services.postgresql.enable pkgs.postgresql;
+    ++ lib.optional config.services.postgresql.enable config.services.postgresql.package;
   };
 }
