@@ -17,11 +17,10 @@ let
     libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
 
-  # TODO commented
-  # keaEnabled = lib.any (service: service.enable) [
-  #   config.services.kea.dhcp4
-  #   config.services.kea.dhcp6
-  # ];
+  keaEnabled = lib.any (service: service.enable) [
+    config.services.kea.dhcp4
+    config.services.kea.dhcp6
+  ];
 
   redisEnabled = lib.any (server: server.enable) (lib.attrValues config.services.redis.servers);
 
@@ -248,14 +247,13 @@ in
             disabledCollectors = lib.subtractLists enabledCollectors collectors;
           };
 
-        # TODO figure out with kea
-        # kea = {
-        #   enable = keaEnabled;
+        kea = {
+          enable = keaEnabled;
 
-        #   targets =
-        #     lib.optional config.services.kea.dhcp4.enable "/run/kea/kea-dhcp4.socket"
-        #     ++ lib.optional config.services.kea.dhcp6.enable "/run/kea/kea-dhcp6.socket";
-        # };
+          targets =
+            lib.optional config.services.kea.dhcp4.enable "/run/kea/kea-dhcp4.socket"
+            ++ lib.optional config.services.kea.dhcp6.enable "/run/kea/kea-dhcp6.socket";
+        };
 
         pihole = {
           enable = config.services.pihole-web.enable;
@@ -279,42 +277,17 @@ in
         IMMICH_MICROSERVICES_METRICS_PORT = 8082;
       };
 
-      # TODO figure out with netdata/kea
-      # https://github.com/rhoriguchi/nixpkgs/blob/7d5d19274b9f6f7498f7af01063f3b3def9bd0fc/nixos/modules/services/networking/kea.nix#L35-L37
-      # kea = {
-      #   dhcp4.settings.control-socket = {
-      #     socket-type = "unix";
-      #     socket-name = "/run/kea/kea-dhcp4.socket";
-      #   };
+      kea = {
+        dhcp4.settings.control-socket = lib.mkIf config.services.kea.dhcp4.enable {
+          socket-type = "unix";
+          socket-name = "/run/kea/kea-dhcp4.socket";
+        };
 
-      #   dhcp6.settings.control-socket = {
-      #     socket-type = "unix";
-      #     socket-name = "/run/kea/kea-dhcp6.socket";
-      #   };
-
-      #   ctrl-agent = {
-      #     enable = keaEnabled;
-
-      #     settings = {
-      #       http-host = "127.0.0.1";
-      #       http-port = 8000;
-
-      #       control-sockets =
-      #         lib.optionalAttrs config.services.kea.dhcp4.enable {
-      #           dhcp4 = {
-      #             socket-type = "unix";
-      #             socket-name = "/run/kea/kea-dhcp4.socket";
-      #           };
-      #         }
-      #         // lib.optionalAttrs config.services.kea.dhcp6.enable {
-      #           dhcp6 = {
-      #             socket-type = "unix";
-      #             socket-name = "/run/kea/kea-dhcp6.socket";
-      #           };
-      #         };
-      #     };
-      #   };
-      # };
+        dhcp6.settings.control-socket = lib.mkIf config.services.kea.dhcp6.enable {
+          socket-type = "unix";
+          socket-name = "/run/kea/kea-dhcp6.socket";
+        };
+      };
 
       samba.settings.global."smbd profiling level" = "count";
 
