@@ -16,7 +16,6 @@
     ./home-assistant
     ./jellyfin.nix
     ./loki.nix
-    ./metric-scrapers
     ./monitoring.nix
     ./nvidia-quadro-rtx-5000.nix
     ./plex
