@@ -136,7 +136,7 @@ in
         };
 
         backend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/backend:1.1.15";
+          image = "ghcr.io/rhoriguchi/tvtracktime/backend:1.1.16";
 
           login = {
             registry = "ghcr.io";
@@ -160,6 +160,7 @@ in
             S3_ACCESS_KEY = secrets.tvtracktime.seaweedfs.accessKey;
             S3_SECRET_KEY = secrets.tvtracktime.seaweedfs.secretKey;
 
+            GITHUB_TOKEN = secrets.tvtracktime.github.applicationToken;
             TURNSTILE_SECRET = secrets.tvtracktime.turnstileSecret;
             JWT_SECRET = secrets.tvtracktime.jwtSecret;
             TVDB_API_KEY = secrets.tvtracktime.tvdbApiKey;
@@ -169,7 +170,7 @@ in
         };
 
         frontend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:1.1.15";
+          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:1.1.16";
 
           login = {
             registry = "ghcr.io";

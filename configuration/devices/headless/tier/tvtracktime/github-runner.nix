@@ -47,7 +47,7 @@ in
         map (index: [
           "d /run/${user index} 0700 ${user index} ${group index}"
           "d /run/${user index}/home 0700 ${user index} ${group index}"
-          "f+ /run/${user index}/github-runner-token 0400 ${user index} ${group index} - ${secrets.tvtracktime.githubRunnerToken}"
+          "f+ /run/${user index}/github-runner-token 0400 ${user index} ${group index} - ${secrets.tvtracktime.github.runnerToken}"
         ]) agentIndices
       );
 
