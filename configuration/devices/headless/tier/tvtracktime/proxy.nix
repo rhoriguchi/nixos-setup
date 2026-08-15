@@ -1,15 +1,11 @@
 { config, ... }:
 let
-  listen =
-    map
-      (addr: {
-        inherit addr;
-        port = config.services.nginx.defaultHTTPListenPort;
-      })
-      [
-        "127.0.0.1"
-        "[::1]"
-      ];
+  listen = [
+    {
+      addr = "127.0.0.1";
+      port = config.services.nginx.defaultHTTPListenPort;
+    }
+  ];
 
   localAddress = config.containers.tvtracktime-application.localAddress;
 in
