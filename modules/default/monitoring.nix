@@ -126,7 +126,14 @@ in
         }
       ];
 
-      nginx.statusPage = true;
+      nginx = {
+        statusPage = true;
+
+        virtualHosts.localhost.listenAddresses = [
+          "127.0.0.1"
+        ]
+        ++ lib.optionals config.networking.enableIPv6 [ "[::1]" ];
+      };
 
       prometheus.exporters = {
         borgmatic = {
