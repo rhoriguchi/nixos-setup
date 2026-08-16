@@ -57,9 +57,6 @@ let
       };
 
       config = {
-        nixpkgs.pkgs = pkgs;
-        system.stateVersion = config.system.stateVersion;
-
         users = {
           users = {
             "${config.services.sonarr.user}".extraGroups = [ config.services.deluge.group ];

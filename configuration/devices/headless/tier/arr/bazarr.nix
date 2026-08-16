@@ -72,9 +72,6 @@ let
         # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=519655
         imports = [ (libCustom.relativeToRoot "modules/default/overlays/bazarr.nix") ];
 
-        nixpkgs.pkgs = pkgs;
-        system.stateVersion = config.system.stateVersion;
-
         users = {
           users.${config.services.bazarr.user} = {
             group = config.services.bazarr.group;

@@ -34,9 +34,6 @@ in
     localAddress = "169.254.1.77";
 
     config = {
-      nixpkgs.pkgs = pkgs;
-      system.stateVersion = config.system.stateVersion;
-
       virtualisation.docker.enable = true;
 
       # actions/setup-java and actions/setup-node download prebuilt binaries

@@ -82,9 +82,6 @@ in
     };
 
     config = {
-      nixpkgs.pkgs = pkgs;
-      system.stateVersion = config.system.stateVersion;
-
       boot.kernel.sysctl = lib.pipe wgInterfaces [
         (map (interface: lib.nameValuePair "net.ipv4.conf.${interface}.rp_filter" 2))
 

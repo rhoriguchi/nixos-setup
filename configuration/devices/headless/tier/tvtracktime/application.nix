@@ -90,9 +90,6 @@ in
     };
 
     config = {
-      nixpkgs.pkgs = pkgs;
-      system.stateVersion = config.system.stateVersion;
-
       systemd.services.postgresql.postStart = ''
         ${containerCfg.services.postgresql.package}/bin/psql -tAc "ALTER ROLE tvtracktime WITH PASSWORD '${secrets.tvtracktime.postgres.password}';"
       '';
@@ -165,7 +162,7 @@ in
             JWT_SECRET = secrets.tvtracktime.jwtSecret;
             TVDB_API_KEY = secrets.tvtracktime.tvdbApiKey;
 
-            TZ = config.time.timeZone;
+            TZ = containerCfg.time.timeZone;
           };
         };
 
