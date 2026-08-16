@@ -176,6 +176,21 @@ class SonarrHelper(object):
 
         self._session.put(f"{self._base_url}/series", json=series)
 
+    def _untag_and_unmonitor(self, id):
+        series = self._session.get(f"{self._base_url}/series/{id}").json()
+
+        series["tags"] = list(filter(lambda tag: tag != self._tag_id, series["tags"]))
+        series["monitored"] = False
+        series["seasons"] = list(
+            map(lambda season: season | {"monitored": False}, series["seasons"])
+        )
+
+        self._session.put(f"{self._base_url}/series", json=series)
+
+        for episode in self._get_episodes(id):
+            if episode["monitored"]:
+                self._set_episode_monitored(episode["id"], False)
+
     def _delete_series(self, id):
         self._delete_tag(id)
         self._session.delete(
@@ -211,8 +226,8 @@ class SonarrHelper(object):
         for series in self._get_all_series():
             if self._tag_id in series["tags"] and series["tvdbId"] not in tvdb_ids:
                 if self._has_downloaded_episodes(series["id"]):
-                    print(f'Untagging "{series["title"]}" (episodes downloaded)')
-                    self._delete_tag(series["id"])
+                    print(f'Untagging and unmonitoring "{series["title"]}" (episodes downloaded)')
+                    self._untag_and_unmonitor(series["id"])
                 else:
                     print(f'Removing "{series["title"]}"')
                     self._delete_series(series["id"])
