@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   interface = "ve-${if config.networking.nftables.enable then "*" else "+"}";
 in
@@ -10,6 +15,12 @@ in
           extraFlags = [ "--resolv-conf=off" ];
 
           config = {
+            nixpkgs.pkgs = pkgs;
+
+            system.stateVersion = config.system.stateVersion;
+
+            time.timeZone = config.time.timeZone;
+
             networking = {
               useHostResolvConf = false;
               nameservers = lib.mkDefault [
