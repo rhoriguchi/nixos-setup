@@ -19,8 +19,6 @@ in
 
             system.stateVersion = config.system.stateVersion;
 
-            time.timeZone = config.time.timeZone;
-
             networking = {
               useHostResolvConf = false;
               nameservers = lib.mkDefault [

@@ -162,7 +162,7 @@ in
             JWT_SECRET = secrets.tvtracktime.jwtSecret;
             TVDB_API_KEY = secrets.tvtracktime.tvdbApiKey;
 
-            TZ = containerCfg.time.timeZone;
+            TZ = config.time.timeZone;
           };
         };
 
