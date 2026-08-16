@@ -3,12 +3,30 @@ let
   containerNames = lib.attrNames config.containers;
 in
 {
-  config = lib.mkIf (config.services.alloy.enable && (config.containers != { })) {
-    systemd.services.alloy.serviceConfig = {
-      CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
-      AmbientCapabilities = [ "CAP_DAC_READ_SEARCH" ];
+  options.containers = lib.mkOption {
+    type = lib.types.attrsOf (
+      lib.types.submodule (
+        { name, ... }:
+        {
+          config = lib.mkIf config.services.alloy.enable {
+            bindMounts."/var/log/journal" = {
+              hostPath = "/mnt/nixos-containers/${name}";
+              isReadOnly = false;
+            };
+          };
+        }
+      )
+    );
+  };
 
-      BindReadOnlyPaths = [ "/run/nixos-containers" ];
+  config = lib.mkIf (config.services.alloy.enable && (config.containers != { })) {
+    systemd.tmpfiles.rules = [
+      "d /mnt/nixos-containers 0755 root root -"
+    ]
+    ++ map (containerName: "d /mnt/nixos-containers/${containerName} 0755 root root -") containerNames;
+
+    systemd.services.alloy.serviceConfig = {
+      BindReadOnlyPaths = [ "/mnt/nixos-containers" ];
     };
 
     environment.etc = lib.listToAttrs (
@@ -38,23 +56,9 @@ in
               loki.source.journal "container_${safeContainerName}" {
                 forward_to = [loki.relabel.container_${safeContainerName}.receiver]
 
-                path = string.join([
-                  string.split(coalesce(local.file_match.container_${safeContainerName}.targets, [{ "__path__" = "/run/nixos-containers/${containerName}/var/log/journal/dummy/system.journal" }])[0].__path__, "/")[0],
-                  string.split(coalesce(local.file_match.container_${safeContainerName}.targets, [{ "__path__" = "/run/nixos-containers/${containerName}/var/log/journal/dummy/system.journal" }])[0].__path__, "/")[1],
-                  string.split(coalesce(local.file_match.container_${safeContainerName}.targets, [{ "__path__" = "/run/nixos-containers/${containerName}/var/log/journal/dummy/system.journal" }])[0].__path__, "/")[2],
-                  string.split(coalesce(local.file_match.container_${safeContainerName}.targets, [{ "__path__" = "/run/nixos-containers/${containerName}/var/log/journal/dummy/system.journal" }])[0].__path__, "/")[3],
-                  string.split(coalesce(local.file_match.container_${safeContainerName}.targets, [{ "__path__" = "/run/nixos-containers/${containerName}/var/log/journal/dummy/system.journal" }])[0].__path__, "/")[4],
-                  string.split(coalesce(local.file_match.container_${safeContainerName}.targets, [{ "__path__" = "/run/nixos-containers/${containerName}/var/log/journal/dummy/system.journal" }])[0].__path__, "/")[5],
-                  string.split(coalesce(local.file_match.container_${safeContainerName}.targets, [{ "__path__" = "/run/nixos-containers/${containerName}/var/log/journal/dummy/system.journal" }])[0].__path__, "/")[6],
-                ], "/")
+                path = "/mnt/nixos-containers/${containerName}"
 
                 relabel_rules = loki.relabel.raw_journal.rules
-              }
-
-              local.file_match "container_${safeContainerName}" {
-                path_targets = [{
-                  "__path__" = "/run/nixos-containers/.#snapshot.${containerName}*/var/log/journal/**/system.journal",
-                }]
               }
             '';
           };
