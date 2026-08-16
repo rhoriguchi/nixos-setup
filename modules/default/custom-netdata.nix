@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.services.monitoring;
+  cfg = config.services.custom-netdata;
 
   streamPort = 19996;
 
@@ -27,7 +27,7 @@ let
   hasCerts = lib.attrNames config.security.acme.certs != [ ];
 in
 {
-  options.services.monitoring = {
+  options.services.custom-netdata = {
     enable = lib.mkEnableOption "Monitoring with Netdata";
     type = lib.mkOption {
       type = lib.types.nullOr (

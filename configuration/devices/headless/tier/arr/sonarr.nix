@@ -182,7 +182,7 @@ in
   };
 
   services = {
-    monitoring.extraPrometheusJobs =
+    custom-netdata.extraPrometheusJobs =
       map
         (
           type:

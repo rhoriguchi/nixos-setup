@@ -46,7 +46,7 @@
       receiverHostname = "XXLPitu-Tier";
     };
 
-    monitoring = {
+    custom-netdata = {
       enable = true;
 
       type = "child";

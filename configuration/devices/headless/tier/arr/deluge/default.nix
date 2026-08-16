@@ -266,7 +266,7 @@ in
       };
     };
 
-    monitoring.extraPrometheusJobs = [
+    custom-netdata.extraPrometheusJobs = [
       {
         name = "Deluge";
         url = "http://${config.containers.deluge.localAddress}:${toString containerCfg.services.prometheus.exporters.deluge.port}/metrics";

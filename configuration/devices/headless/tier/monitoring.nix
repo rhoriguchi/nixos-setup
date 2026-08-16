@@ -19,7 +19,7 @@
         '';
 
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.monitoring.webPort}";
+          proxyPass = "http://127.0.0.1:${toString config.services.custom-netdata.webPort}";
 
           extraConfig = ''
             include /run/nginx-authelia/auth.conf;
@@ -36,7 +36,7 @@
       hostnames = [ "monitoring.00a.ch" ];
     };
 
-    monitoring = lib.mkForce {
+    custom-netdata = lib.mkForce {
       enable = true;
 
       type = "parent";

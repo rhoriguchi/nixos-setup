@@ -117,7 +117,7 @@ in
       port = 0;
     };
 
-    monitoring.extraPrometheusJobs = [
+    custom-netdata.extraPrometheusJobs = [
       {
         name = "Authelia";
         url = "http://127.0.0.1:${lib.last (lib.splitString ":" cfg.settings.telemetry.metrics.address)}/metrics";
