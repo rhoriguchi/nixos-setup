@@ -27,6 +27,12 @@ in
 
       restartUnits = [ config.systemd.services.jellyfin.name ];
     };
+    "services/jellyfin/users/samsung_tv" = {
+      owner = config.services.jellyfin.user;
+      group = config.services.jellyfin.group;
+
+      restartUnits = [ config.systemd.services.jellyfin.name ];
+    };
 
     "jellyfin+services/jellyfin/apiKeys/bazarr" = {
       key = "services/jellyfin/apiKeys/bazarr";
@@ -146,6 +152,18 @@ in
 
           permissions = {
             isAdministrator = true;
+            isHidden = true;
+          };
+        };
+
+        samsung_tv = {
+          mutable = false;
+          hashedPasswordFile = config.sops.secrets."services/jellyfin/users/samsung_tv".path;
+
+          loginAttemptsBeforeLockout = null;
+
+          permissions = {
+            isAdministrator = false;
             isHidden = true;
           };
         };

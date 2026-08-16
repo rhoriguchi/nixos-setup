@@ -162,7 +162,7 @@ sops secrets.yaml
 ### Adding a new host
 
 ```console
-ssh <host> "cat /etc/ssh/ssh_host_ed25519_key.pub" | nix-shell -p ssh-to-age --command ssh-to-age
+ssh root@<host> "cat /etc/ssh/ssh_host_ed25519_key.pub" | nix-shell -p ssh-to-age --command ssh-to-age
 ```
 
 Add the result to `.sops.yaml` under a new `&host_<name>` anchor and to every `creation_rules` entry's `age` list. Then, for every sops file the new host needs to decrypt (currently just `secrets.yaml`), run `sops updatekeys <file>` to re-encrypt it for the new key — a host's key only grants decryption for files it was added to.

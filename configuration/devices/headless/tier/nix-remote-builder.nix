@@ -18,6 +18,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL894uDJtooyxhVgVUFGMbFC7DnepjwALflgqdqLDN54 nix-ssh@XXLPitu-Nelliel"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBzjtyK5C41Ck27B1a5hGEK4MV4Fztbrc9Zwfdgabjbm nix-ssh@XXLPitu-Ulquiorra"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILXCuitX8TQ4/ZfN5G6YyVsTVdqh+PLRgCFhwewgJs1I nix-ssh@XXLPitu-Urahara"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWkEFD5wdVERH6yHaxJ9ueQbhXBD26dSmYqFJrzOl1a nix-ssh@XXLPitu-Vorarlberna"
       ];
     };
   };

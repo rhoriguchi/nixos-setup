@@ -56,6 +56,10 @@
       "headless"
     ];
   };
+  XXLPitu-Vorarlberna = {
+    ip = "100.123.123.135";
+    tags = [ "headless" ];
+  };
 
   # Foreign
   Niels = {

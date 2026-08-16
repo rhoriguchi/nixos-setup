@@ -7,6 +7,7 @@ keys:
   - &host_tier age1m9r48hh4x8wqja4f8dsdjuk7ylv0u8x89t5dkrj6ga8xqvrxsv8s32xvkv
   - &host_ulquiorra age1qk2ws25s6c7we65vejz9fnzem64ddvszjff2shan3cg854vaea0s338vvf
   - &host_urahara age1ygd9jlfuq3lyryqgukrgvgw8ew4epcaeuefwp2zp0vf5tm46rgrsg6em9n
+  - &host_vorarlberna age1rqupvpcr2pj50xadlp76cdgt99anc0fxqng2fjf2hwzcesxp6stq0m0sc8
 creation_rules:
   - path_regex: ^secrets\.yaml$
     key_groups:
@@ -19,3 +20,4 @@ creation_rules:
           - *host_tier
           - *host_ulquiorra
           - *host_urahara
+          - *host_vorarlberna
