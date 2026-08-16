@@ -3,7 +3,7 @@
   headful = ./headful.nix;
   headless = ./headless.nix;
 
-  alloy = ./alloy.nix;
+  alloy = ./alloy;
   authelia = ./authelia.nix;
   bluetooth = ./bluetooth.nix;
   chrony = ./chrony.nix;

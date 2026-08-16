@@ -2,7 +2,7 @@
   imports = [
     ./_common.nix
 
-    ./alloy.nix
+    ./alloy
     ./authelia.nix
     ./chrony.nix
     ./containers.nix

@@ -3,6 +3,7 @@
   imports = [
     ./_common.nix
 
+    ./alloy
     ./bluetooth.nix
     ./dconf-editor.nix
     ./gaming.nix
