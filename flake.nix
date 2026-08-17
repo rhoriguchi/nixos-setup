@@ -87,6 +87,7 @@
       # Adapted from https://github.com/hmajid2301/nixicle/blob/8e8f5b1f2612a441b9f9da3e893af60774448836/lib/deploy/default.nix
       mkDeploy =
         {
+          groups ? { },
           overrides ? { },
         }:
         let
@@ -104,6 +105,8 @@
             // lib.optionalAttrs (overrides.${name}.deploy or true) {
               "${name}" = {
                 hostname = lib.toLower (overrides.${name}.hostname or "${name}");
+
+                groups = lib.attrNames (lib.filterAttrs (_: members: lib.elem name members) groups);
 
                 profiles.system = {
                   sshUser = "root";
@@ -382,6 +385,31 @@
         };
 
       deploy = mkDeploy {
+        groups = {
+          home = [
+            "XXLPitu-Aizen"
+            "XXLPitu-Nelliel"
+            "XXLPitu-Ulquiorra"
+            "XXLPitu-Urahara"
+          ];
+
+          headful = [
+            "XXLPitu-Aizen"
+          ];
+
+          headless = [
+            "XXLPitu-Kenpachi"
+            "XXLPitu-Nelliel"
+            "XXLPitu-Tier"
+            "XXLPitu-Ulquiorra"
+            "XXLPitu-Urahara"
+          ];
+
+          raspberry-pi = [
+            "XXLPitu-Ulquiorra"
+          ];
+        };
+
         overrides.XXLPitu-Aizen = {
           hostname = "127.0.0.1";
 
