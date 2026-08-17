@@ -40,7 +40,7 @@ let
 in
 {
   system.fsPackages = [ pkgs.bindfs ];
-  fileSystems."${bindmountDir}" = {
+  fileSystems.${bindmountDir} = {
     depends = [ "/var/lib/tvtracktime-seaweedfs" ];
     device = "/var/lib/tvtracktime-seaweedfs";
     fsType = "fuse.bindfs";

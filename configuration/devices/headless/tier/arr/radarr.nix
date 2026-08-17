@@ -128,7 +128,7 @@ let
 in
 {
   system.fsPackages = [ pkgs.bindfs ];
-  fileSystems."${bindmountDir}" = {
+  fileSystems.${bindmountDir} = {
     depends = [ "/mnt/Data/Movies" ];
     device = "/mnt/Data/Movies";
     fsType = "fuse.bindfs";
