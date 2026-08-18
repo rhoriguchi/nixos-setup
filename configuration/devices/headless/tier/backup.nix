@@ -50,26 +50,35 @@ in
         }
       ];
 
-      after_backup = [
-        "${pkgs.curl}/bin/curl ${
-          lib.concatStringsSep " " [
-            "--fail"
-            "--retry 3"
-            "--show-error"
-            "--silent"
-          ]
-        } 'https://uptime-kuma.00a.ch/api/push/${secrets.uptime-kuma.pushTokens.borgmaticBackup}?status=up&msg=OK&ping='"
-      ];
-
-      on_error = [
-        "${pkgs.curl}/bin/curl ${
-          lib.concatStringsSep " " [
-            "--fail"
-            "--retry 3"
-            "--show-error"
-            "--silent"
-          ]
-        } 'https://uptime-kuma.00a.ch/api/push/${secrets.uptime-kuma.pushTokens.borgmaticBackup}=down&msg=OK&ping='"
+      commands = [
+        {
+          after = "action";
+          when = [ "create" ];
+          states = [ "finish" ];
+          run = [
+            "${pkgs.curl}/bin/curl ${
+              lib.concatStringsSep " " [
+                "--fail"
+                "--retry 3"
+                "--show-error"
+                "--silent"
+              ]
+            } 'https://uptime-kuma.00a.ch/api/push/${secrets.uptime-kuma.pushTokens.borgmaticBackup}?status=up&msg=OK&ping='"
+          ];
+        }
+        {
+          after = "error";
+          run = [
+            "${pkgs.curl}/bin/curl ${
+              lib.concatStringsSep " " [
+                "--fail"
+                "--retry 3"
+                "--show-error"
+                "--silent"
+              ]
+            } 'https://uptime-kuma.00a.ch/api/push/${secrets.uptime-kuma.pushTokens.borgmaticBackup}=down&msg=OK&ping='"
+          ];
+        }
       ];
     }
     // lib.optionalAttrs config.services.postgresql.enable {
