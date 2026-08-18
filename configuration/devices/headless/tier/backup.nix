@@ -85,6 +85,19 @@ in
             port = config.containers.tvtracktime-application.config.services.postgresql.settings.port;
             username = "tvtracktime";
             password = secrets.tvtracktime.postgres.password;
+
+            options =
+              lib.pipe
+                [
+                  "application_user"
+                  "tracked_user_series"
+                  "user_episode_watch"
+                  "user_settings"
+                ]
+                [
+                  (map (table: "--table=${table}"))
+                  (lib.concatStringsSep " ")
+                ];
           }
         ];
     };
