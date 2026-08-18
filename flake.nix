@@ -388,7 +388,7 @@
         groups = {
           home = [
             "XXLPitu-Aizen"
-            "XXLPitu-Nelliel"
+            "XXLPitu-Tier"
             "XXLPitu-Ulquiorra"
             "XXLPitu-Urahara"
           ];
