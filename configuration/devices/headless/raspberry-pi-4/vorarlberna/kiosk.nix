@@ -6,12 +6,30 @@
 }:
 {
   nixpkgs.overlays = [
-    (_: prev: { libcec = prev.libcec.override { withLibraspberrypi = true; }; })
+    (_: prev: {
+      libcec = prev.libcec.override { withLibraspberrypi = true; };
+
+      jellyfin-desktop = prev.jellyfin-desktop.overrideAttrs (oldAttrs: {
+        postPatch = (oldAttrs.postPatch or "") + ''
+          sed -i '/"value": "activatesource",/{n;s/"default": true/"default": false/}' \
+            resources/settings/settings_description.json
+        '';
+      });
+    })
   ];
 
   boot.kernelParams = [ "cma=256M" ];
 
   hardware.graphics.enable = true;
+
+  systemd.services.cage-tty1 = {
+    restartIfChanged = lib.mkForce true;
+
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
+  };
 
   users.users.${config.services.cage.user} = {
     isNormalUser = true;
