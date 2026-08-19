@@ -48,28 +48,22 @@
       '';
 
       networks =
+        let
+          trustedNetworks = [
+            "63466727"
+            "63466727-Guest"
+            "63466727-IoT"
+            "Niflheim"
+          ];
+        in
         lib.recursiveUpdate
           (lib.mapAttrs (
             key: value:
             value
             // {
               extraConfig = lib.concatStringsSep "\n" (
-                lib.catAttrs "extraConfig" [ value ]
-                ++ [
-                  (
-                    if
-                      (lib.elem key [
-                        "63466727"
-                        "63466727-Guest"
-                        "63466727-IoT"
-                        "Niflheim"
-                      ])
-                    then
-                      "mac_addr=0"
-                    else
-                      "mac_addr=2"
-                  )
-                ]
+                lib.optional (lib.hasAttr "extraConfig" value) value.extraConfig
+                ++ [ "mac_addr=${if lib.elem key trustedNetworks then "0" else "2"}" ]
               );
             }
           ) secrets.wifis)
