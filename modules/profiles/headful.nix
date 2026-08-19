@@ -13,6 +13,7 @@
     ./peripherals.nix
     ./printing.nix
     ./trash-management.nix
+    ./tv7-multicast.nix
   ];
 
   environment.systemPackages = [

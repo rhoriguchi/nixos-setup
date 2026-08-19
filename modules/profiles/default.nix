@@ -46,6 +46,7 @@
   tailscale-exit-node = ./tailscale-exit-node.nix;
   tmp-management = ./tmp-management.nix;
   trash-management = ./trash-management.nix;
+  tv7-multicast = ./tv7-multicast.nix;
   util = ./util.nix;
   virtualbox = ./virtualbox.nix;
   zfs = ./zfs.nix;

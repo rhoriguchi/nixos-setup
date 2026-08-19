@@ -295,6 +295,7 @@
                   self.nixosModules.profiles.headless
 
                   self.nixosModules.profiles.syncthing
+                  self.nixosModules.profiles.tv7-multicast
                   self.nixosModules.profiles.zfs
 
                   ./configuration/devices/headless/tier

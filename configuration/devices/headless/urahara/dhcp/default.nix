@@ -48,7 +48,7 @@ in
             id = 1;
             interface = internalInterface;
             subnet = "192.168.1.0/24";
-            pools = [ { pool = "192.168.1.2 - 192.168.1.254"; } ];
+            pools = [ { pool = "192.168.1.2 - 192.168.1.253"; } ];
 
             ddns-qualifying-suffix = "local";
 
@@ -81,7 +81,7 @@ in
             id = 2;
             interface = "${internalInterface}.2";
             subnet = "192.168.2.0/24";
-            pools = [ { pool = "192.168.2.2 - 192.168.2.254"; } ];
+            pools = [ { pool = "192.168.2.2 - 192.168.2.253"; } ];
 
             ddns-qualifying-suffix = "local";
 
@@ -108,7 +108,7 @@ in
             id = 3;
             interface = "${internalInterface}.3";
             subnet = "192.168.3.0/24";
-            pools = [ { pool = "192.168.3.2 - 192.168.3.254"; } ];
+            pools = [ { pool = "192.168.3.2 - 192.168.3.253"; } ];
 
             ddns-qualifying-suffix = "local";
 
@@ -135,7 +135,7 @@ in
             id = 10;
             interface = "${internalInterface}.10";
             subnet = "192.168.10.0/24";
-            pools = [ { pool = "192.168.10.2 - 192.168.10.254"; } ];
+            pools = [ { pool = "192.168.10.2 - 192.168.10.253"; } ];
 
             ddns-qualifying-suffix = "local";
 
@@ -168,7 +168,7 @@ in
             id = 100;
             interface = "${internalInterface}.100";
             subnet = "192.168.100.0/24";
-            pools = [ { pool = "192.168.100.2 - 192.168.100.254"; } ];
+            pools = [ { pool = "192.168.100.2 - 192.168.100.253"; } ];
 
             ddns-qualifying-suffix = "local";
 
