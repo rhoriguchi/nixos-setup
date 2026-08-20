@@ -159,6 +159,16 @@ cryptsetup luksOpen --key-file /PATH_TO_KEY_FILE /dev/disk/by-uuid/792d67dc-3de4
 mkfs.ext4 -L backup /dev/mapper/backup
 ```
 
+## Generate network topology diagram
+
+Generates SVG diagrams (physical + network-centric views) from the `home` deploy group hosts' NixOS + `topology/default.nix` configs. See [oddlama/nix-topology](https://github.com/oddlama/nix-topology).
+
+```console
+nix build '.#topology.x86_64-linux.config.output'
+```
+
+The rendered SVGs (`main.svg` and `network.svg`) are placed in `result/`.
+
 ## Upgrade firmware
 
 ### List hardware

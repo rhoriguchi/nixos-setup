@@ -60,6 +60,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixkraken = {
       url = "github:nicolas-goudry/nixkraken";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -445,6 +450,11 @@
           ++ self.checks.${system}.pre-commit.enabledPackages;
 
           shellHook = self.checks.${system}.pre-commit.shellHook;
+        };
+
+        topology = import ./topology {
+          inherit pkgs self;
+          nixTopology = inputs.nix-topology;
         };
       }
     );
