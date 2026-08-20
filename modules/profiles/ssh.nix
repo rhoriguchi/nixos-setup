@@ -1,40 +1,44 @@
 { config, lib, ... }:
 {
-  networking.nftables.tables.ssh = {
-    family = "inet";
+  networking.nftables = {
+    enable = true;
 
-    content = ''
-      set rfc1918 {
-        type ipv4_addr;
-        flags interval;
-        elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
-      }
+    tables.ssh = {
+      family = "inet";
 
-      set rfc4193 {
-        type ipv6_addr;
-        flags interval;
-        elements = { fc00::/7 }
-      }
+      content = ''
+        set rfc1918 {
+          type ipv4_addr;
+          flags interval;
+          elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
+        }
 
-      chain input {
-        # Run after `nixos-fw` input chain, because of `services.openssh.openFirewall = true`
-        type filter hook input priority filter + 10;
+        set rfc4193 {
+          type ipv6_addr;
+          flags interval;
+          elements = { fc00::/7 }
+        }
 
-        tcp dport { ${
-          lib.concatStringsSep ", " (map (port: toString port) config.services.openssh.ports)
-        } } jump ssh-filter
-      }
+        chain input {
+          # Run after `nixos-fw` input chain, because of `services.openssh.openFirewall = true`
+          type filter hook input priority filter + 10;
 
-      chain ssh-filter {
-        ${lib.optionalString config.services.tailscale.enable "iifname { ${config.services.tailscale.interfaceName} } accept"}
-        iifname { lo } accept
+          tcp dport { ${
+            lib.concatStringsSep ", " (map (port: toString port) config.services.openssh.ports)
+          } } jump ssh-filter
+        }
 
-        ip saddr @rfc1918 accept
-        ip6 saddr @rfc4193 accept
+        chain ssh-filter {
+          ${lib.optionalString config.services.tailscale.enable "iifname { ${config.services.tailscale.interfaceName} } accept"}
+          iifname { lo } accept
 
-        drop
-      }
-    '';
+          ip saddr @rfc1918 accept
+          ip6 saddr @rfc4193 accept
+
+          drop
+        }
+      '';
+    };
   };
 
   services.openssh = {
