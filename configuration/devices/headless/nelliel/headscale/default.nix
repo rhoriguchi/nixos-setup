@@ -106,13 +106,7 @@ let
     ]}
   '';
 
-  deleteNodesSql = ''
-    DELETE
-    FROM nodes
-    WHERE auth_key_id NOT IN (${
-      lib.concatStringsSep "," (map (hostname: getHostId hostname) hostnames)
-    });
-
+  deleteDuplicateNodesSql = ''
     DELETE
     FROM nodes
     WHERE id NOT IN
@@ -120,6 +114,15 @@ let
       FROM nodes
       GROUP BY auth_key_id
       HAVING last_seen = MAX(last_seen));
+  '';
+
+  deleteNodesSql = ''
+    DELETE
+    FROM nodes
+    WHERE auth_key_id NOT IN (
+      SELECT id
+      FROM pre_auth_keys
+    );
   '';
 
   updateNodesSql = lib.pipe hostnames [
@@ -303,6 +306,10 @@ in
       script = ''
         ${addApiKey}
         ${addPreAuthKeys}
+
+        ${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" <<'EOF'
+          ${deleteNodesSql}
+        EOF
       '';
 
       serviceConfig = {
@@ -320,7 +327,7 @@ in
         deleted_nodes=$(${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" <<'EOF'
           BEGIN;
 
-          ${deleteNodesSql}
+          ${deleteDuplicateNodesSql}
           SELECT changes();
 
           COMMIT;
