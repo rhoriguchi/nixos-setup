@@ -120,6 +120,9 @@ in
             ct state { established, related } accept
             ct status dnat accept
 
+            # https://www.init7.net/en/tv/channels
+            ip saddr 77.109.129.0/24 ip daddr 233.50.230.0/24 udp dport 5000 accept
+
             drop
           }
 
