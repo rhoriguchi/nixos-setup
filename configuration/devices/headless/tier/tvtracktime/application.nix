@@ -133,7 +133,7 @@ in
         };
 
         backend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/backend:1.1.20";
+          image = "ghcr.io/rhoriguchi/tvtracktime/backend:1.1.24";
 
           login = {
             registry = "ghcr.io";
@@ -167,7 +167,7 @@ in
         };
 
         frontend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:1.1.20";
+          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:1.1.24";
 
           login = {
             registry = "ghcr.io";

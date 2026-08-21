@@ -2,11 +2,10 @@ import requests
 
 
 class TVTrackTimeRequestHandler(object):
-    def __init__(self, api_url, username, password):
+    def __init__(self, api_url, api_key):
         self._base_url = api_url.rstrip("/")
         self._session = self._get_session()
-        self._username = username
-        self._password = password
+        self._api_key = api_key
 
         self._login()
 
@@ -17,8 +16,8 @@ class TVTrackTimeRequestHandler(object):
 
     def _login(self):
         response = self._session.post(
-            f"{self._base_url}/auth/login",
-            json={"usernameOrEmail": self._username, "password": self._password},
+            f"{self._base_url}/auth/login/api-key",
+            json={"apiKey": self._api_key},
         )
 
         if not response.ok:
@@ -272,7 +271,7 @@ class SonarrHelper(object):
 
 
 tv_track_time_request_handler = TVTrackTimeRequestHandler(
-    "@tvTrackTimeApiUrl@", "@tvTrackTimeUsername@", "@tvTrackTimePassword@"
+    "@tvTrackTimeApiUrl@", "@tvTrackTimeApiKey@"
 )
 sonarr_helper = SonarrHelper("@sonarApiUrl@", "@sonarApiKey@", "@sonarrRootDir@")
 
