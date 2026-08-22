@@ -71,9 +71,27 @@ in
       ip rule del fwmark ${mark} lookup nginx-transparent 2>/dev/null || true
       ip rule add fwmark ${mark} lookup nginx-transparent
       ip route replace local 0.0.0.0/0 dev lo table nginx-transparent
+
+      # Without an explicit route to each internal subnet, the table's
+      # `local 0.0.0.0/0 dev lo` catch-all also matches nginx's own
+      # outbound (spoofed source) connection to the upstream, sending it
+      # to loopback instead of out over the wire. Copy the interfaces'
+      # already-masked connected routes from the main table rather than
+      # computing the network prefix ourselves.
+      for interface in ${lib.concatMapStringsSep " " lib.escapeShellArg internalInterfaces}; do
+        ip -4 -o route show dev "$interface" scope link proto kernel | while read -r prefix _; do
+          ip route replace "$prefix" dev "$interface" table nginx-transparent
+        done
+      done
     '';
 
     preStop = ''
+      for interface in ${lib.concatMapStringsSep " " lib.escapeShellArg internalInterfaces}; do
+        ip -4 -o route show dev "$interface" scope link proto kernel | while read -r prefix _; do
+          ip route del "$prefix" dev "$interface" table nginx-transparent 2>/dev/null || true
+        done
+      done
+
       ip route del local 0.0.0.0/0 dev lo table nginx-transparent 2>/dev/null || true
       ip rule del fwmark ${mark} lookup nginx-transparent 2>/dev/null || true
     '';
