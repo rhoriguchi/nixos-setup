@@ -36,7 +36,7 @@
         window-save-state = "never";
 
         title = ''" "'';
-        theme = "Custom";
+        theme = "home-manager";
         selection-invert-fg-bg = true;
 
         scrollbar = if config.programs.tmux.enable then "never" else "system";
@@ -75,7 +75,7 @@
         ];
       };
 
-      themes.Custom = {
+      themes.home-manager = {
         background = colors.extra.terminal.background;
         foreground = colors.normal.white;
 

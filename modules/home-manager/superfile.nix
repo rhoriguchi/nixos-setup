@@ -14,7 +14,7 @@
       firstUseCheck = false;
 
       settings = {
-        theme = "Custom";
+        theme = "home-manager";
 
         auto_check_update = false;
 
@@ -48,7 +48,7 @@
 
       hotkeys.pinned_folder = [ ];
 
-      themes.Custom = {
+      themes."home-manager" = {
         file_panel_border = colors.extra.terminal.border;
         sidebar_border = colors.extra.terminal.border;
         footer_border = colors.extra.terminal.border;
