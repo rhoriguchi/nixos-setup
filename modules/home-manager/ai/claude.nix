@@ -3,6 +3,9 @@
   pkgs,
   ...
 }:
+let
+  packages = import ./packages.nix { inherit pkgs; };
+in
 {
   programs = {
     claude-code = {
@@ -11,6 +14,8 @@
       package = pkgs.llm-agents.claude-code;
 
       enableMcpIntegration = true;
+
+      plugins.ponytail = packages.ponytail;
 
       settings = {
         enableTelemetry = false;

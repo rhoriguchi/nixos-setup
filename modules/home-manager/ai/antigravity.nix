@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  packages = import ./packages.nix { inherit pkgs; };
+in
 {
   programs.antigravity-cli = {
     enable = true;
@@ -16,6 +19,8 @@
       enableTelemetry = false;
       showFeedbackSurvey = false;
     };
+
+    skills = "${packages.ponytail}/skills";
   };
 
   # TODO does not work
