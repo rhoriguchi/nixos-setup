@@ -45,17 +45,10 @@
           keyColor = colors.normal.accent;
         }
         {
-          type = "Command";
+          type = "Disk";
           key = "│ └";
-          text = "birth_install=${
-            lib.concatStringsSep "; " [
-              "$(stat -c %W /)"
-              "current=$(date +%s)"
-              "time_progression=$((current - birth_install))"
-              "days_difference=$((time_progression / 86400))"
-              "echo $days_difference days"
-            ]
-          }";
+          folders = "/";
+          format = "{days} days";
           keyColor = colors.normal.accent;
         }
 
