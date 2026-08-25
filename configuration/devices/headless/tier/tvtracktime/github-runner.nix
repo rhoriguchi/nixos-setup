@@ -95,7 +95,10 @@ in
               pkgs.unzip
             ];
 
-            extraEnvironment.MAVEN_OPTS = "-Duser.home=/run/${user index}/home";
+            extraEnvironment = {
+              HOME = "/run/${user index}/home";
+              MAVEN_OPTS = "-Duser.home=/run/${user index}/home";
+            };
           }
         ))
 
