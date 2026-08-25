@@ -133,7 +133,7 @@ in
         };
 
         backend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/backend:1.1.24";
+          image = "ghcr.io/rhoriguchi/tvtracktime/backend:1.1.26";
 
           login = {
             registry = "ghcr.io";
@@ -161,13 +161,14 @@ in
             TURNSTILE_SECRET = secrets.tvtracktime.turnstileSecret;
             JWT_SECRET = secrets.tvtracktime.jwtSecret;
             TVDB_API_KEY = secrets.tvtracktime.tvdbApiKey;
+            TMDB_ACCESS_TOKEN = secrets.tvtracktime.tmdnAccessToken;
 
             TZ = config.time.timeZone;
           };
         };
 
         frontend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:1.1.24";
+          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:1.1.26";
 
           login = {
             registry = "ghcr.io";
