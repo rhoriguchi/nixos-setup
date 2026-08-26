@@ -7,9 +7,15 @@
 let
   format = pkgs.formats.ini { };
 
-  autheliaEnabled = lib.any (instance: instance.enable) (
-    lib.attrValues config.services.authelia.instances
+  autheliaInstanceNames = lib.attrNames (
+    lib.filterAttrs (_: instance: instance.enable) config.services.authelia.instances
   );
+
+  autheliaEnabled = autheliaInstanceNames != [ ];
+
+  autheliaJournalMatch = lib.concatMapStringsSep "\n" (
+    name: "_SYSTEMD_UNIT=${if name == "" then "authelia" else "authelia-${name}"}.service"
+  ) autheliaInstanceNames;
 in
 {
   services.fail2ban = {
@@ -54,8 +60,6 @@ in
         settings = {
           filter = "home-assistant";
           action = "%(banaction_allports)s";
-
-          logpath = "/var/lib/hass/home-assistant.log";
         };
       };
 
@@ -88,6 +92,18 @@ in
         };
       };
 
+      nginx-4xx = {
+        enabled = config.services.nginx.enable;
+
+        settings = {
+          filter = "nginx-4xx";
+          action = "%(banaction_allports)s";
+
+          backend = "auto";
+          logpath = "%(nginx_access_log)s";
+        };
+      };
+
       webdav = {
         enabled = config.services.webdav.enable;
 
@@ -110,28 +126,34 @@ in
     "fail2ban/filter.d/authelia.local".source = format.generate "authelia.local" {
       INCLUDES.before = "common.conf";
 
-      Definition.failregex = ''
-        ^.*Unsuccessful (1FA|TOTP|Duo|U2F) authentication attempt by user .*remote_ip"?(:|=)"?<HOST>"?.*$
-        ^.*user not found.*path=/api/reset-password/identity/start remote_ip"?(:|=)"?<HOST>"?.*$
-        ^.*Sending an email to user.*path=/api/.*/start remote_ip"?(:|=)"?<HOST>"?.*$
-      '';
+      Definition = {
+        failregex = ''
+          ^.*Unsuccessful (1FA|TOTP|Duo|U2F) authentication attempt by user .*remote_ip"?(:|=)"?<HOST>"?.*$
+          ^.*user not found.*path=/api/reset-password/identity/start remote_ip"?(:|=)"?<HOST>"?.*$
+          ^.*Sending an email to user.*path=/api/.*/start remote_ip"?(:|=)"?<HOST>"?.*$
+        '';
 
-      Init.datepattern = "%%Y-%%m-%%dT%%H:%%M:%%S%%z";
+        journalmatch = autheliaJournalMatch;
+      };
     };
 
     # https://www.home-assistant.io/integrations/fail2ban/#create-a-filter-for-the-home-assistant-jail
     "fail2ban/filter.d/home-assistant.local".source = format.generate "home-assistant.local" {
       INCLUDES.before = "common.conf";
 
-      Definition.failregex = "^%(__prefix_line)s.*Login attempt or request with invalid authentication from <HOST>.*$";
-
-      Init.datepattern = "%%Y-%%m-%%d %%H:%%M:%%S";
+      Definition = {
+        failregex = "^%(__prefix_line)s.*Login attempt or request with invalid authentication from <HOST>.*$";
+        journalmatch = "_SYSTEMD_UNIT=home-assistant.service";
+      };
     };
 
     "fail2ban/filter.d/immich.local".source = format.generate "immich.local" {
       INCLUDES.before = "common.conf";
 
-      Definition.failregex = "^.*Failed login attempt for user <F-USER>.*</F-USER> from ip address <ADDR>.*$";
+      Definition = {
+        failregex = "^.*Failed login attempt for user <F-USER>.*</F-USER> from ip address <ADDR>.*$";
+        journalmatch = "_SYSTEMD_UNIT=immich-server.service";
+      };
 
       Init.datepattern = "%%m/%%d/%%Y, %%H:%%M:%%S %%p";
     };
@@ -139,21 +161,28 @@ in
     "fail2ban/filter.d/nginx-basic-auth.local".source = format.generate "nginx-basic-auth.local" {
       INCLUDES.before = "nginx-error-common.conf";
 
-      Definition.failregex = ''%(__prefix_line)suser "<F-USER>.*</F-USER>" was not found in "\/nix\/store\/.*\.htpasswd", client: <HOST>,.*$'';
+      Definition = {
+        failregex = ''%(__prefix_line)suser "<F-USER>.*</F-USER>" was not found in "\/nix\/store\/.*\.htpasswd", client: <HOST>,.*$'';
+        journalmatch = "_SYSTEMD_UNIT=nginx.service + _COMM=nginx";
+      };
+    };
 
-      Init.datepattern = "%%Y/%%m/%%d %%H:%%M:%%S";
+    "fail2ban/filter.d/nginx-4xx.local".source = format.generate "nginx-4xx.local" {
+      Definition.failregex = ''^<HOST> - \S+ \[\] "[^"]*" 4(?!44)\d\d'';
     };
 
     # https://github.com/hacdias/webdav#fail2ban-setup
     "fail2ban/filter.d/webdav.local".source = format.generate "webdav.local" {
       INCLUDES.before = "common.conf";
 
-      Definition.failregex = ''
-        ^.*invalid password\s+\{.*"remote_address":\s*"<HOST>(?::\d+)?".*\}$
-        ^.*invalid username\s+\{.*"remote_address":\s*"<HOST>(?::\d+)?".*\}$
-      '';
+      Definition = {
+        failregex = ''
+          ^.*invalid password\s+\{.*"remote_address":\s*"<HOST>(?::\d+)?".*\}$
+          ^.*invalid username\s+\{.*"remote_address":\s*"<HOST>(?::\d+)?".*\}$
+        '';
 
-      Init.datepattern = "%%Y-%%m-%%dT%%H:%%M:%%S\.%%f%%z";
+        journalmatch = "_SYSTEMD_UNIT=webdav.service";
+      };
     };
   };
 }
