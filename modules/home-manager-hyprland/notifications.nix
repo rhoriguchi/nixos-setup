@@ -1,8 +1,43 @@
-{ colors, config, ... }:
 {
-  # TODO HYPRLAND notification when low battery < 15%
-  # TODO HYPRLAND notification when disk 90% full
+  colors,
+  config,
+  pkgs,
+  ...
+}:
+let
+  script = pkgs.writers.writeBash "system-checks" ''
+    for battery in /sys/class/power_supply/BAT*; do
+      [ -d "$battery" ] || continue
 
+      capacity=$(${pkgs.coreutils}/bin/cat "$battery/capacity")
+      status=$(${pkgs.coreutils}/bin/cat "$battery/status")
+
+      if [ "$status" = "Discharging" ] && [ "$capacity" -lt 15 ]; then
+        ${pkgs.libnotify}/bin/notify-send \
+          --app-name="Battery" \
+          --icon=dialog-warning \
+          --urgency=critical \
+          --replace-id=19420001 \
+          "Low battery" "$capacity% remaining"
+      fi
+
+      break
+    done
+
+    read -r disk_blocks disk_free < <(${pkgs.coreutils}/bin/stat --file-system --format='%b %f' /)
+    disk_percent=$(( (disk_blocks - disk_free) * 100 / disk_blocks ))
+
+    if [ "$disk_percent" -ge 90 ]; then
+      ${pkgs.libnotify}/bin/notify-send \
+        --app-name="Disk Space" \
+        --icon=dialog-warning \
+        --urgency=critical \
+        --replace-id=19420002 \
+        "Low disk space" "/ is $disk_percent% full"
+    fi
+  '';
+in
+{
   services.swaync = {
     enable = true;
 
@@ -150,5 +185,21 @@
         background-color: ${colors.normal.accent};
       }
     '';
+  };
+
+  systemd.user = {
+    services.system-checks.Service = {
+      Type = "oneshot";
+      ExecStart = "${script}";
+    };
+
+    timers.system-checks = {
+      Timer = {
+        OnBootSec = "1m";
+        OnUnitActiveSec = "5m";
+      };
+
+      Install.WantedBy = [ "timers.target" ];
+    };
   };
 }
