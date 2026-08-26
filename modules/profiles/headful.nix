@@ -6,6 +6,7 @@
     ./alloy
     ./bluetooth.nix
     ./dconf-editor.nix
+    ./flatpak.nix
     ./gaming.nix
     ./local-send.nix
     ./mission-center.nix

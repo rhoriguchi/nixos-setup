@@ -1,5 +1,6 @@
 {
   colors,
+  config,
   lib,
   libCustom,
   pkgs,
@@ -34,6 +35,28 @@
       name = "Adwaita Sans";
       size = 11;
     };
+  };
+
+  qt = {
+    enable = true;
+
+    platformTheme.name = "gtk3";
+  };
+
+  xdg.dataFile.icons = {
+    source = pkgs.linkFarm "gtk-icon-theme-icons" (
+      lib.mapAttrsToList
+        (name: _: {
+          inherit name;
+          path = "${config.gtk.iconTheme.package}/share/icons/${name}";
+        })
+        (
+          lib.filterAttrs (name: _: name != "hicolor") (
+            builtins.readDir "${config.gtk.iconTheme.package}/share/icons"
+          )
+        )
+    );
+    recursive = true;
   };
 
   wayland.windowManager.hyprland.settings = {
