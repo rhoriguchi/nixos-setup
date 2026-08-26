@@ -94,6 +94,8 @@ deploy --magic-rollback false --rollback-succeeded false --auto-rollback false -
 - Use `Nixfmt` for all Nix files (automated via `nixfmt` or `treefmt`)
 - Maximum line length: 80 characters
 - 2-space indentation (Nixfmt default)
+- Never use the `with` expression; use explicit dotted attribute access
+  (`pkgs.foo`) or `inherit (attrset) name;` instead
 
 ### Module Structure
 
