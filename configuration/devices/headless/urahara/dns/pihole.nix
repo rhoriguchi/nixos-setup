@@ -9,10 +9,6 @@ let
   webPort = 8080;
 in
 {
-  # TODO
-  # Block with Pi Hole all DoH domains https://github.com/hagezi/dns-blocklists/blob/main/domains/doh.txt
-  # DNAT all DoH ips on firewall https://github.com/hagezi/dns-blocklists/blob/main/ips/doh.txt might break other stuff?
-
   services = {
     bind = {
       listenOn = lib.mkForce [ "127.0.0.1" ];
