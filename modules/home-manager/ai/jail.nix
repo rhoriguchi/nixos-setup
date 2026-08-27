@@ -54,17 +54,7 @@ let
     osConfig.programs.npm.package
     pkgs.typescript
     pkgs.yarn
-  ]
-  ++ lib.optional osConfig.virtualisation.docker.enable osConfig.virtualisation.docker.package
-  ++ lib.optionals osConfig.virtualisation.podman.enable (
-    [ osConfig.virtualisation.podman.package ]
-    ++ lib.optional osConfig.virtualisation.podman.dockerCompat (
-      pkgs.runCommand "docker-podman-compat" { } ''
-        mkdir -p $out/bin
-        ln -s ${osConfig.virtualisation.podman.package}/bin/podman $out/bin/docker
-      ''
-    )
-  );
+  ];
 
   mountCwd = jail.combinators.add-runtime ''
     REAL_PWD=$(realpath "$PWD")
@@ -136,18 +126,6 @@ let
       fi
     '')
   ];
-
-  forwardDocker = jail.combinators.compose [
-    (jail.combinators.try-readwrite "/run/docker.sock")
-    (jail.combinators.set-env "DOCKER_HOST" "unix:///run/docker.sock")
-    (jail.combinators.try-readonly "${homeDirectory}/.docker")
-  ];
-
-  forwardPodman = jail.combinators.compose [
-    (jail.combinators.try-readwrite "/run/podman/podman.sock")
-    (jail.combinators.set-env "CONTAINER_HOST" "unix:///run/podman/podman.sock")
-    (jail.combinators.try-readonly "${configHome}/containers")
-  ];
 in
 {
   inherit (jail) combinators;
@@ -188,8 +166,6 @@ in
 
           (jail.combinators.add-pkg-deps ([ package ] ++ sharedPkgs ++ extraPkgs))
         ]
-        ++ lib.optional osConfig.virtualisation.docker.enable forwardDocker
-        ++ lib.optional osConfig.virtualisation.podman.enable forwardPodman
         ++ extraPermissions
       );
     in
