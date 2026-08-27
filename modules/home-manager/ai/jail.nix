@@ -1,0 +1,210 @@
+{
+  config,
+  lib,
+  libJail,
+  osConfig,
+  pkgs,
+}:
+let
+  homeDirectory = config.home.homeDirectory;
+  configHome = config.xdg.configHome;
+
+  jail = libJail.init pkgs;
+
+  sharedPkgs = [
+    config.programs.git.package
+    osConfig.nix.package
+
+    pkgs.bashInteractive
+    pkgs.bzip2
+    pkgs.coreutils
+    pkgs.curl
+    pkgs.deadnix
+    pkgs.diffutils
+    pkgs.file
+    pkgs.findutils
+    pkgs.gawk
+    pkgs.gnugrep
+    pkgs.gnupg
+    pkgs.gnused
+    pkgs.gnutar
+    pkgs.gzip
+    pkgs.jq
+    pkgs.nano
+    pkgs.nixfmt-tree
+    pkgs.openssh
+    pkgs.procps
+    pkgs.unzip
+    pkgs.which
+    pkgs.xz
+    pkgs.zip
+    pkgs.zstd
+
+    pkgs.poetry
+    pkgs.python3
+    pkgs.uv
+  ]
+  ++ lib.optional config.programs.gh.enable config.programs.gh.package
+  ++ lib.optional osConfig.programs.git.lfs.enable osConfig.programs.git.lfs.package
+  ++ lib.optionals osConfig.programs.java.enable [
+    osConfig.programs.java.package
+    pkgs.maven
+  ]
+  ++ lib.optionals osConfig.programs.npm.enable [
+    osConfig.programs.npm.package
+    pkgs.typescript
+    pkgs.yarn
+  ]
+  ++ lib.optional osConfig.virtualisation.docker.enable osConfig.virtualisation.docker.package
+  ++ lib.optionals osConfig.virtualisation.podman.enable (
+    [ osConfig.virtualisation.podman.package ]
+    ++ lib.optional osConfig.virtualisation.podman.dockerCompat (
+      pkgs.runCommand "docker-podman-compat" { } ''
+        mkdir -p $out/bin
+        ln -s ${osConfig.virtualisation.podman.package}/bin/podman $out/bin/docker
+      ''
+    )
+  );
+
+  mountCwd = jail.combinators.add-runtime ''
+    REAL_PWD=$(realpath "$PWD")
+    RUNTIME_ARGS+=(--chdir "$REAL_PWD")
+
+    if [ "$REAL_PWD" = "${homeDirectory}" ]; then
+      for entry in "$REAL_PWD"/*; do
+        [ -e "$entry" ] || continue
+        RUNTIME_ARGS+=(--bind "$entry" "$entry")
+      done
+
+      for allowed_config in git gh; do
+        entry="$REAL_PWD/.config/$allowed_config"
+        [ -e "$entry" ] || continue
+        RUNTIME_ARGS+=(--bind "$entry" "$entry")
+      done
+    else
+      RUNTIME_ARGS+=(--bind "$REAL_PWD" "$REAL_PWD")
+    fi
+  '';
+
+  denyGitCryptFiles = jail.combinators.add-runtime ''
+    git_root=$(${config.programs.git.package}/bin/git -C "$REAL_PWD" rev-parse --show-toplevel 2>/dev/null || true)
+
+    if [ -n "$git_root" ]; then
+      while IFS= read -r encrypted_path; do
+        [ -n "$encrypted_path" ] || continue
+        abs_path="$git_root/$encrypted_path"
+
+        if [ -e "$abs_path" ]; then
+          exec {deny_fd}< <(printf '%s\n' "This file is git-crypt encrypted and has been hidden from this sandboxed agent.")
+          RUNTIME_ARGS+=(--ro-bind-data "$deny_fd" "$abs_path")
+        fi
+      done < <(cd "$git_root" && timeout 5 ${pkgs.git-crypt}/bin/git-crypt status -e 2>/dev/null | sed -n 's/^[[:space:]]*encrypted: //p' || true)
+    fi
+  '';
+
+  forwardSsh = jail.combinators.compose [
+    (jail.combinators.try-fwd-env "SSH_AUTH_SOCK")
+
+    (jail.combinators.add-runtime ''
+      if [ -n "''${SSH_AUTH_SOCK-}" ] && [ -S "$SSH_AUTH_SOCK" ]; then
+        RUNTIME_ARGS+=(--bind "$SSH_AUTH_SOCK" "$SSH_AUTH_SOCK")
+      fi
+    '')
+
+    (jail.combinators.add-runtime ''
+      if [ -e "${homeDirectory}/.ssh/config" ]; then
+        exec {ssh_config_fd}<"${homeDirectory}/.ssh/config"
+        RUNTIME_ARGS+=(--ro-bind-data "$ssh_config_fd" "${homeDirectory}/.ssh/config")
+      fi
+    '')
+
+    (jail.combinators.try-readonly "${homeDirectory}/.ssh/known_hosts")
+  ];
+
+  forwardGpgAgent = jail.combinators.compose [
+    (jail.combinators.write-text "${homeDirectory}/.gnupg/common.conf" "use-keyboxd")
+
+    (jail.combinators.add-runtime ''
+      GPG_AGENT_SOCKET=$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-socket 2>/dev/null || true)
+      if [ -n "$GPG_AGENT_SOCKET" ] && [ -S "$GPG_AGENT_SOCKET" ]; then
+        RUNTIME_ARGS+=(--bind "$GPG_AGENT_SOCKET" "$GPG_AGENT_SOCKET")
+      fi
+
+      GPG_KEYBOXD_SOCKET=$(${pkgs.gnupg}/bin/gpgconf --list-dirs keyboxd-socket 2>/dev/null || true)
+      if [ -n "$GPG_KEYBOXD_SOCKET" ] && [ -S "$GPG_KEYBOXD_SOCKET" ]; then
+        RUNTIME_ARGS+=(--bind "$GPG_KEYBOXD_SOCKET" "$GPG_KEYBOXD_SOCKET")
+      fi
+    '')
+  ];
+
+  forwardDocker = jail.combinators.compose [
+    (jail.combinators.try-readwrite "/run/docker.sock")
+    (jail.combinators.set-env "DOCKER_HOST" "unix:///run/docker.sock")
+    (jail.combinators.try-readonly "${homeDirectory}/.docker")
+  ];
+
+  forwardPodman = jail.combinators.compose [
+    (jail.combinators.try-readwrite "/run/podman/podman.sock")
+    (jail.combinators.set-env "CONTAINER_HOST" "unix:///run/podman/podman.sock")
+    (jail.combinators.try-readonly "${configHome}/containers")
+  ];
+in
+{
+  inherit (jail) combinators;
+
+  mkJailedAgent =
+    {
+      package,
+      name ? package.meta.mainProgram,
+      extraPkgs ? [ ],
+      extraPermissions ? [ ],
+    }:
+    let
+      jailed = jail name package (
+        [
+          jail.combinators.network
+          jail.combinators.time-zone
+          mountCwd
+
+          denyGitCryptFiles
+
+          (jail.combinators.readonly "/nix/store")
+          (jail.combinators.try-readwrite "${config.xdg.cacheHome}/nix")
+
+          (jail.combinators.try-fwd-env "LOCALE_ARCHIVE")
+          (jail.combinators.try-fwd-env "EDITOR")
+
+          forwardSsh
+          forwardGpgAgent
+
+          (jail.combinators.try-readonly "${configHome}/gh")
+          (jail.combinators.try-readonly "${configHome}/git")
+
+          (jail.combinators.try-readwrite "${homeDirectory}/.cache/pypoetry")
+          (jail.combinators.try-readwrite "${homeDirectory}/.cache/uv")
+          (jail.combinators.try-readwrite "${homeDirectory}/.cache/yarn")
+          (jail.combinators.try-readwrite "${homeDirectory}/.m2")
+          (jail.combinators.try-readwrite "${homeDirectory}/.npm")
+
+          (jail.combinators.add-pkg-deps ([ package ] ++ sharedPkgs ++ extraPkgs))
+        ]
+        ++ lib.optional osConfig.virtualisation.docker.enable forwardDocker
+        ++ lib.optional osConfig.virtualisation.podman.enable forwardPodman
+        ++ extraPermissions
+      );
+    in
+    pkgs.symlinkJoin {
+      inherit (package) name pname version;
+
+      paths = [ jailed ];
+      postBuild = ''
+        ln -s ${package}/bin/${name} $out/bin/${name}-unwrapped
+        ln -s ${pkgs.runtimeShell} $out/bin/${name}-bwrap
+
+        rm "$out/bin/${name}"
+        substitute "${jailed}/bin/${name}" "$out/bin/${name}" \
+          --replace-fail "#!${pkgs.runtimeShell}" "#!$out/bin/${name}-bwrap"
+        chmod +x "$out/bin/${name}"
+      '';
+    };
+}

@@ -2,6 +2,8 @@
   colors,
   config,
   lib,
+  libJail,
+  osConfig,
   pkgs,
   ...
 }:
@@ -11,6 +13,28 @@ let
   yamlFormat = pkgs.formats.yaml { };
 
   homeDirectory = config.home.homeDirectory;
+
+  agentJail = import ./jail.nix {
+    inherit
+      config
+      lib
+      libJail
+      osConfig
+      pkgs
+      ;
+  };
+
+  ompSandboxed = agentJail.mkJailedAgent {
+    package = pkgs.llm-agents.omp;
+
+    extraPkgs = [ pkgs.xdg-utils ];
+
+    extraPermissions = [
+      (agentJail.combinators.try-readwrite "${homeDirectory}/.omp")
+
+      agentJail.combinators.open-urls-in-browser
+    ];
+  };
 
   mcpServers = lib.optionalAttrs config.programs.mcp.enable (
     lib.mapAttrs (
@@ -107,7 +131,7 @@ in
 {
   home = {
     packages = [
-      pkgs.llm-agents.omp
+      ompSandboxed
     ];
 
     file = {

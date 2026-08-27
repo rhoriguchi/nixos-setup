@@ -1,17 +1,39 @@
 {
   config,
   lib,
+  libJail,
+  osConfig,
   pkgs,
   ...
 }:
 let
   packages = import ./packages.nix { inherit pkgs; };
+
+  agentJail = import ./jail.nix {
+    inherit
+      config
+      lib
+      libJail
+      osConfig
+      pkgs
+      ;
+  };
+
+  antigravitySandboxed = agentJail.mkJailedAgent {
+    package = pkgs.llm-agents.antigravity-cli;
+
+    extraPermissions = [
+      (agentJail.combinators.try-readwrite "${config.home.homeDirectory}/.gemini")
+
+      (agentJail.combinators.dbus { talk = [ "org.freedesktop.secrets" ]; })
+    ];
+  };
 in
 {
   programs.antigravity-cli = {
     enable = true;
 
-    package = pkgs.llm-agents.antigravity-cli;
+    package = antigravitySandboxed;
 
     enableMcpIntegration = true;
 
@@ -22,31 +44,4 @@ in
 
     skills = "${packages.ponytail}/skills";
   };
-
-  # TODO does not work
-  home.file.".gemini/antigravity-cli/hooks.json" = lib.mkIf config.programs.antigravity-cli.enable ({
-    source = pkgs.writers.writeJSON "hooks.json" {
-      "sync-git-crypt-to-geminiignore" = {
-        PreInvocation = [
-          {
-            type = "command";
-            timeout = 5;
-            command = pkgs.writers.writeBash "sync-git-crypt-to-geminiignore.sh" ''
-              git_root=$(${config.programs.git.package}/bin/git rev-parse --show-toplevel 2>/dev/null)
-
-              if [ -n "$git_root" ]; then
-                encrypted_files=$(${pkgs.git-crypt}/bin/git-crypt status 2>/dev/null |
-                  ${pkgs.gnugrep}/bin/grep -v 'not encrypted' |
-                  ${pkgs.gawk}/bin/awk '{print $2}')
-
-                if [ -n "$encrypted_files" ]; then
-                  echo "$encrypted_files" > "$git_root/.geminiignore"
-                fi
-              fi
-            '';
-          }
-        ];
-      };
-    };
-  });
 }

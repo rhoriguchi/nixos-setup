@@ -43,6 +43,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    jail-nix.url = "sourcehut:~alexdavid/jail.nix";
+
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -88,6 +90,7 @@
 
       libCustom = import ./lib.nix { inherit lib; };
       libDns = inputs.dns.lib;
+      libJail = inputs.jail-nix.lib;
 
       # Adapted from https://github.com/hmajid2301/nixicle/blob/8e8f5b1f2612a441b9f9da3e893af60774448836/lib/deploy/default.nix
       mkDeploy =
@@ -196,7 +199,8 @@
       nixosConfigurations =
         let
           specialArgs = {
-            inherit libCustom libDns;
+            inherit libCustom libDns libJail;
+
             inherit (self.nixosModules) colors;
             secrets = import ./secrets.nix;
           };
