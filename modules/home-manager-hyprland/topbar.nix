@@ -75,6 +75,9 @@ in
       };
 
       battery = {
+        # TODO remove whne version > 0.15.0
+        bat = "BAT0";
+
         interval = 10;
 
         format = "{icon}{capacity}%";
