@@ -147,7 +147,10 @@ in
         dev.autoqa = false;
         startup.checkUpdate = false;
 
-        modelRoles.default = "anthropic/claude-sonnet-5";
+        modelRoles = {
+          default = "anthropic/claude-sonnet-5";
+          commit = "anthropic/claude-haiku-4-5";
+        };
 
         skills.customDirectories = [ "${packages.ponytail}/skills" ];
       };
