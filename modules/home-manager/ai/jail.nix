@@ -31,6 +31,7 @@ let
     pkgs.gzip
     pkgs.jq
     pkgs.nano
+    pkgs.nixfmt
     pkgs.nixfmt-tree
     pkgs.openssh
     pkgs.procps
@@ -148,6 +149,7 @@ in
 
           (jail.combinators.readonly "/nix/store")
           (jail.combinators.try-readwrite "${config.xdg.cacheHome}/nix")
+          (jail.combinators.try-readonly "/etc/nix/nix.conf")
 
           (jail.combinators.try-fwd-env "LOCALE_ARCHIVE")
           (jail.combinators.try-fwd-env "EDITOR")
