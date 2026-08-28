@@ -141,6 +141,7 @@ in
     let
       jailed = jail name package (
         [
+          (jail.combinators.set-hostname osConfig.networking.hostName)
           jail.combinators.network
           jail.combinators.time-zone
           mountCwd
@@ -148,8 +149,8 @@ in
           denyGitCryptFiles
 
           (jail.combinators.readonly "/nix/store")
-          (jail.combinators.try-readwrite "${config.xdg.cacheHome}/nix")
           (jail.combinators.try-readonly "/etc/nix/nix.conf")
+          (jail.combinators.try-readwrite "${config.xdg.cacheHome}/nix")
 
           (jail.combinators.try-fwd-env "LOCALE_ARCHIVE")
           (jail.combinators.try-fwd-env "EDITOR")
