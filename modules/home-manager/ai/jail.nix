@@ -99,6 +99,88 @@ let
     fi
   '';
 
+  writeSandboxAgentsFile =
+    agentName: pkgsList:
+    let
+      packages = lib.pipe pkgsList [
+        (map (pkg: {
+          name = lib.getName pkg;
+          version = lib.getVersion pkg;
+        }))
+        lib.unique
+        (lib.sort (a: b: a.name < b.name))
+      ];
+
+      sshHosts = lib.pipe (config.programs.ssh.settings or { }) [
+        builtins.attrNames
+        (lib.remove "*")
+        (lib.sort (a: b: a < b))
+      ];
+
+      notice = pkgs.writeText "jail-agents-md-${agentName}" ''
+        # Sandbox Environment
+
+        This project is opened inside a `jail.nix` sandbox for the `${agentName}` agent. The sandbox restricts filesystem access to keep the rest of the host safe.
+
+        ## What you can do
+        - Read and write freely anywhere under this project directory (its bind-mounted root).
+        - Reach the network (DNS, HTTP/HTTPS, git remotes, package registries, etc.).
+        - Use `git`, with your SSH agent and GPG agent forwarded, so signed commits/tags and SSH remotes work normally.
+        - Use `ssh` directly; your SSH agent and `~/.ssh/config`/`known_hosts` are forwarded, so every host listed below is reachable out of the box.
+        - Use `gh` (GitHub CLI); it is pre-authenticated if the host has it configured.
+        - Use package-manager caches (pip/uv, poetry, npm, yarn, Maven) that persist across sandbox runs.
+
+        ## What you can NOT do
+        - Access files outside this project directory, aside from a few forwarded config/cache paths; the rest of the host filesystem is not visible.
+        - Write to the Nix store; it is mounted read-only.
+
+        ## Available packages
+        ${lib.concatMapStringsSep "\n" (package: "- ${package.name} ${package.version}") packages}
+
+        ## SSH hosts
+        ${lib.concatMapStringsSep "\n" (sshHost: "- ${sshHost}") sshHosts}
+
+        ## Need another tool?
+        The Nix store is mounted read-only, but `nix` itself is available inside the sandbox. Run e.g.:
+
+            nix shell nixpkgs#ripgrep
+
+        to get a temporary tool without leaving the sandbox.
+      '';
+
+      projectReference = pkgs.writeText "jail-agents-md-${agentName}-project-ref" ''
+
+        ---
+
+        ## Project instructions
+        This project's own instructions are in `AGENTS.project.md`, not here. Always read it too. It is a writable view of the project's real `AGENTS.md`; edits to it are written straight through to the real `AGENTS.md` on the host, so the project stays normal outside the sandbox.
+      '';
+    in
+    jail.combinators.compose [
+      (jail.combinators.add-runtime ''
+        REAL_PWD=$(realpath "$PWD")
+        agents_file="$REAL_PWD/AGENTS.md"
+        project_agents_file="$REAL_PWD/AGENTS.project.md"
+
+        if [ -e "$agents_file" ]; then
+          created_project_placeholder=1
+          RUNTIME_ARGS+=(--bind "$agents_file" "$project_agents_file")
+          exec {agents_fd}< <(cat ${notice} ${projectReference})
+        else
+          created_agents_placeholder=1
+          exec {agents_fd}< <(cat ${notice})
+        fi
+
+        RUNTIME_ARGS+=(--ro-bind-data "$agents_fd" "$agents_file")
+      '')
+
+      (jail.combinators.add-cleanup ''
+        [ -n "''${created_project_placeholder-}" ] && rm -f "$project_agents_file"
+        [ -n "''${created_agents_placeholder-}" ] && rm -f "$agents_file"
+        true
+      '')
+    ];
+
   forwardSsh = jail.combinators.compose [
     (jail.combinators.try-fwd-env "SSH_AUTH_SOCK")
 
@@ -157,14 +239,18 @@ in
       extraPermissions ? [ ],
     }:
     let
+      allPkgs = [ package ] ++ sharedPkgs ++ extraPkgs;
+
       jailed = jail name package (
         [
           (jail.combinators.set-hostname osConfig.networking.hostName)
           jail.combinators.network
           jail.combinators.time-zone
+
           mountCwd
 
           denyGitCryptFiles
+          (writeSandboxAgentsFile name allPkgs)
 
           (jail.combinators.readonly "/nix/store")
           (jail.combinators.try-readonly "/etc/nix/nix.conf")
@@ -185,7 +271,7 @@ in
           (jail.combinators.try-readwrite "${homeDirectory}/.m2")
           (jail.combinators.try-readwrite "${homeDirectory}/.npm")
 
-          (jail.combinators.add-pkg-deps ([ package ] ++ sharedPkgs ++ extraPkgs))
+          (jail.combinators.add-pkg-deps allPkgs)
         ]
         ++ extraPermissions
       );
