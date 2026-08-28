@@ -127,6 +127,18 @@ let
       fi
     '')
   ];
+
+  forwardGh = jail.combinators.compose [
+    (jail.combinators.add-runtime ''
+      GH_TOKEN=$(${pkgs.libsecret}/bin/secret-tool lookup service gh:github.com username rhoriguchi 2>/dev/null || true)
+
+      if [ -n "$GH_TOKEN" ]; then
+        RUNTIME_ARGS+=(--setenv GH_TOKEN "$GH_TOKEN")
+      fi
+    '')
+
+    (jail.combinators.try-readonly "${configHome}/gh")
+  ];
 in
 {
   inherit (jail) combinators;
@@ -157,8 +169,8 @@ in
 
           forwardSsh
           forwardGpgAgent
+          forwardGh
 
-          (jail.combinators.try-readonly "${configHome}/gh")
           (jail.combinators.try-readonly "${configHome}/git")
 
           (jail.combinators.try-readwrite "${homeDirectory}/.cache/pypoetry")
