@@ -56,6 +56,10 @@ let
     osConfig.programs.npm.package
     pkgs.typescript
     pkgs.yarn
+  ]
+  ++ lib.optionals osConfig.services.postgresql.enable [
+    osConfig.services.postgresql.package
+    pkgs.pgformatter
   ];
 
   mountCwd = jail.combinators.add-runtime ''
