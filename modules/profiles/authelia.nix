@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   locationFile = pkgs.writeText "location.conf" ''
     location /internal/authelia {
@@ -42,9 +47,19 @@ let
   '';
 in
 {
-  systemd.tmpfiles.rules = [
-    "d /run/nginx-authelia 0550 ${config.services.nginx.user} ${config.services.nginx.group}"
-    "L+ /run/nginx-authelia/location.conf - - - - ${locationFile}"
-    "L+ /run/nginx-authelia/auth.conf - - - - ${authFile}"
-  ];
+  systemd = {
+    tmpfiles.rules = [
+      "d /run/nginx-authelia 0550 ${config.services.nginx.user} ${config.services.nginx.group}"
+      "L+ /run/nginx-authelia/location.conf - - - - ${locationFile}"
+      "L+ /run/nginx-authelia/auth.conf - - - - ${authFile}"
+    ];
+
+    services.nginx = {
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+
+      startLimitIntervalSec = lib.mkForce 300;
+      startLimitBurst = 20;
+    };
+  };
 }
