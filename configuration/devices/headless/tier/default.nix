@@ -22,7 +22,6 @@
     ./plex
     ./prometheus.nix
     ./rustdesk.nix
-    ./samba.nix
     ./syncthing-relay.nix
     ./tvtracktime
     ./webdav.nix

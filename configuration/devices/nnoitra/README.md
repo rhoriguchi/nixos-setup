@@ -152,20 +152,6 @@ sc config Tailscale start= auto
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "LocalSend" /t REG_SZ /d " C:\Users\ryanh\AppData\Local\Programs\LocalSend\localsend_app.exe --hidden" /f
 ```
 
-## Samba share
-
-Replace `PASSWORD` with value from [secrets.nix](../../../secrets.nix).samba.users.password and save credentials
-
-```cmd
-set "FilePath=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\mount_shares.cmd"
-type NUL > "%FilePath%"
-
-echo @echo off >> "%FilePath%"
-echo. >> "%FilePath%"
-echo net use X: "\\XXLPitu-Tier.local\Movies" /user:samba "PASSWORD" >> "%FilePath%"
-echo net use Y: "\\XXLPitu-Tier.local\Series" /user:samba "PASSWORD" >> "%FilePath%"
-```
-
 ## Games
 
 ### Nexus mods
