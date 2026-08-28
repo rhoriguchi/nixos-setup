@@ -371,7 +371,7 @@ in
                         "registry"
                       ]
                     }"
-                    "${tailscaleIps.${config.networking.hostName}}:${toString streamPort}=${
+                    "${tailscaleIps.${config.networking.hostName}.ip}:${toString streamPort}=${
                       lib.concatStringsSep "|" [
                         "streaming"
                       ]
@@ -431,7 +431,7 @@ in
                   enabled = "yes";
 
                   "api key" = cfg.apiKey;
-                  destination = "${tailscaleIps.${cfg.parentHostname}}:${toString streamPort}";
+                  destination = "${tailscaleIps.${cfg.parentHostname}.ip}:${toString streamPort}";
                 };
               }
               .${cfg.type};

@@ -9,7 +9,7 @@ let
   hostnames = lib.attrNames secrets.headscale.preAuthKeys;
   tailscaleIps = import ./ips.nix;
 
-  getHostId = hostname: lib.last (lib.splitString "." tailscaleIps.${hostname});
+  getHostId = hostname: lib.last (lib.splitString "." tailscaleIps.${hostname}.ip);
 
   parseKey =
     key:
@@ -129,7 +129,7 @@ let
     (map (hostname: ''
       UPDATE nodes
       SET given_name = '${lib.toLower hostname}',
-          ipv4 = '${tailscaleIps.${hostname}}',
+          ipv4 = '${tailscaleIps.${hostname}.ip}',
           tags = (SELECT tags FROM pre_auth_keys WHERE id = ${getHostId hostname})
       WHERE auth_key_id = ${getHostId hostname};
     ''))
@@ -162,7 +162,7 @@ in
         };
 
         policy.path = pkgs.writers.writeJSON "policy.json" {
-          hosts = lib.mapAttrs' (key: value: lib.nameValuePair (lib.toLower key) value) tailscaleIps;
+          hosts = lib.mapAttrs' (key: value: lib.nameValuePair (lib.toLower key) value.ip) tailscaleIps;
 
           tagOwners = {
             "tag:admin" = [ ];

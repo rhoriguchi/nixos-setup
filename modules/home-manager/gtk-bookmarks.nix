@@ -24,16 +24,10 @@ in
       "file://${homeDirectory}/Sync/Series Sync/Series"
     ]
     ++ lib.pipe tailscaleIps [
+      (lib.filterAttrs (_: value: value.ssh or true))
       lib.attrNames
 
-      (
-        hostnames:
-        lib.subtractLists [
-          osConfig.networking.hostName
-          "headplane-agent"
-          "XXLPitu-Nnoitra"
-        ] hostnames
-      )
+      (hostnames: lib.subtractLists [ osConfig.networking.hostName ] hostnames)
 
       (map (hostname: "sftp://root@${hostname}/ ${lib.replaceStrings [ "XXLPitu-" ] [ "" ] hostname}"))
     ];

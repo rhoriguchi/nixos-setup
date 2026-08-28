@@ -195,8 +195,8 @@ in
             inherit (value) id;
 
             addresses = [
-              "tcp://${tailscaleIps.${key}}:22000"
-              "quic://${tailscaleIps.${key}}:22000"
+              "tcp://${tailscaleIps.${key}.ip}:22000"
+              "quic://${tailscaleIps.${key}.ip}:22000"
               "dynamic"
             ];
 

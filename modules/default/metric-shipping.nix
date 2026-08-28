@@ -34,7 +34,7 @@ in
             if (config.networking.hostName == cfg.receiverHostname) then
               "127.0.0.1"
             else
-              tailscaleIps.${cfg.receiverHostname}
+              tailscaleIps.${cfg.receiverHostname}.ip
           }:9090/api/v1/write"
         }
       }

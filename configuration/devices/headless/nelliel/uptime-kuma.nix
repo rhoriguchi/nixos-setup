@@ -133,17 +133,10 @@ let
       );
 
       ${lib.pipe tailscaleIps [
+        (lib.filterAttrs (_: value: value.monitoring or true))
         lib.attrNames
 
-        (
-          hostnames:
-          lib.subtractLists [
-            config.networking.hostName
-            "headplane-agent"
-            "XXLPitu-Aizen"
-            "XXLPitu-Nnoitra"
-          ] hostnames
-        )
+        (hostnames: lib.subtractLists [ config.networking.hostName ] hostnames)
 
         (map addTailscaleMonitor)
 

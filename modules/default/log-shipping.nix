@@ -35,7 +35,7 @@ in
               if (config.networking.hostName == cfg.receiverHostname) then
                 "127.0.0.1"
               else
-                tailscaleIps.${cfg.receiverHostname}
+                tailscaleIps.${cfg.receiverHostname}.ip
             }:3100/loki/api/v1/push"
           }
         }

@@ -52,18 +52,12 @@ in
       };
     }
     // lib.pipe tailscaleIps [
-      (lib.filterAttrs (
-        key: _:
-        !(lib.elem key [
-          "headplane-agent"
-          "XXLPitu-Nnoitra"
-        ])
-      ))
+      (lib.filterAttrs (_: value: value.ssh or true))
 
       (lib.mapAttrs' (
         key: value:
         lib.nameValuePair (lib.toLower key) {
-          Hostname = value;
+          Hostname = value.ip;
           User = "xxlpitu";
           HostKeyAlias = lib.toLower key;
         }
