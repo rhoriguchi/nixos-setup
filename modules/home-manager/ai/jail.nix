@@ -19,7 +19,6 @@ let
     pkgs.bzip2
     pkgs.coreutils
     pkgs.curl
-    pkgs.deadnix
     pkgs.diffutils
     pkgs.file
     pkgs.findutils
@@ -31,8 +30,6 @@ let
     pkgs.gzip
     pkgs.jq
     pkgs.nano
-    pkgs.nixfmt
-    pkgs.nixfmt-tree
     pkgs.openssh
     pkgs.procps
     pkgs.unzip
@@ -40,6 +37,10 @@ let
     pkgs.xz
     pkgs.zip
     pkgs.zstd
+
+    pkgs.nixfmt
+    pkgs.nixfmt-tree
+    pkgs.deadnix
 
     pkgs.poetry
     pkgs.python3
