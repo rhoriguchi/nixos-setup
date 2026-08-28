@@ -54,6 +54,7 @@ let
   ]
   ++ lib.optionals osConfig.programs.npm.enable [
     osConfig.programs.npm.package
+    pkgs.nodejs
     pkgs.typescript
     pkgs.yarn
   ]
