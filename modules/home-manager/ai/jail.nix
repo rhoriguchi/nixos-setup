@@ -229,6 +229,11 @@ let
     '')
   ];
 
+  bindDragDropSources = jail.combinators.compose [
+    (jail.combinators.try-readonly "${homeDirectory}/Downloads")
+    (jail.combinators.try-readonly "${homeDirectory}/Pictures")
+  ];
+
   forwardGh = jail.combinators.compose [
     (jail.combinators.add-runtime ''
       GH_TOKEN=$(${pkgs.libsecret}/bin/secret-tool lookup service gh:github.com username rhoriguchi 2>/dev/null || true)
@@ -278,6 +283,7 @@ in
           forwardGpgAgent
           forwardGh
           forwardWaylandClipboard
+          bindDragDropSources
 
           (jail.combinators.try-readonly "${configHome}/git")
 
