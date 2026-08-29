@@ -255,10 +255,12 @@ in
 
           (jail.combinators.readonly "/nix/store")
           (jail.combinators.try-readonly "/etc/nix/nix.conf")
+          (jail.combinators.try-readonly "/etc/nix/registry.json")
           (jail.combinators.try-readwrite "${config.xdg.cacheHome}/nix")
 
           (jail.combinators.try-fwd-env "LOCALE_ARCHIVE")
           (jail.combinators.try-fwd-env "EDITOR")
+          (jail.combinators.try-fwd-env "NIX_PATH")
 
           forwardSsh
           forwardGpgAgent
