@@ -197,6 +197,25 @@ in
 3. ✓ Test specific changes: `nix build .#<affected-output>`
 4. ✓ Ensure no secrets or credentials are committed
 
+## Commit Messages
+
+- **Subject only**: no body/footer. Write a single summary line; do not
+  add explanatory paragraphs, bullet lists, or `Co-authored-by`/sign-off
+  trailers.
+- **Imperative mood, capitalized**: start with a capitalized present-tense
+  verb (`Add`, `Remove`, `Fix`, `Update`, `Rename`, `Extract`, `Simplify`,
+  `Move`, `Bind`, `Handle`, `Scope`, `Track`), as if completing
+  "This commit will ...". Example: `Add nix-topology`, `Fix nginx_status`,
+  `Remove samba server`.
+- **No trailing period.**
+- **Keep it short**: aim for well under 72 characters; hard-wrap is not
+  used, so keep the whole subject on one line.
+- **State the effect, not the diff**: describe what changed at a
+  high level (e.g. `Migrate borgmatic uptime-kuma hooks to commands:`), not
+  a line-by-line account of the patch.
+- Use `git log --oneline -20` to see recent examples before writing a new
+  message.
+
 ## Project Structure
 
 ### Key Directories
