@@ -217,6 +217,18 @@ let
     '')
   ];
 
+  forwardWaylandClipboard = jail.combinators.compose [
+    (jail.combinators.try-fwd-env "WAYLAND_DISPLAY")
+    (jail.combinators.try-fwd-env "XDG_RUNTIME_DIR")
+    (jail.combinators.try-fwd-env "XDG_SESSION_TYPE")
+
+    (jail.combinators.add-runtime ''
+      if [ -n "''${WAYLAND_DISPLAY-}" ] && [ -n "''${XDG_RUNTIME_DIR-}" ] && [ -S "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" ]; then
+        RUNTIME_ARGS+=(--bind "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY")
+      fi
+    '')
+  ];
+
   forwardGh = jail.combinators.compose [
     (jail.combinators.add-runtime ''
       GH_TOKEN=$(${pkgs.libsecret}/bin/secret-tool lookup service gh:github.com username rhoriguchi 2>/dev/null || true)
@@ -265,6 +277,7 @@ in
           forwardSsh
           forwardGpgAgent
           forwardGh
+          forwardWaylandClipboard
 
           (jail.combinators.try-readonly "${configHome}/git")
 
