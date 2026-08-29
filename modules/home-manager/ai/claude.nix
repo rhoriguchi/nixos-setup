@@ -42,6 +42,11 @@ in
       settings = {
         enableTelemetry = false;
         showFeedbackSurvey = false;
+
+        attribution = {
+          commits = false;
+          pullRequests = false;
+        };
       };
     };
 
