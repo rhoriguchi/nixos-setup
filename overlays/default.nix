@@ -25,8 +25,8 @@
       prev.fetchFromGitHub {
         owner = "NixOS";
         repo = "nixpkgs";
-        rev = "a68173d41f22d36fc9f4125e862993d6f0b8a2c3";
-        sha256 = "sha256-i2+wEfzVL7hueFZHnM9ePB4WX2VW4wMybbpyY9pVjkk=";
+        rev = "d31e13c3ffa0593987316b9c4cb61d82b5c600a7";
+        sha256 = "sha256-uR1q1TaK/TRLtlro1BKlx0cw2FzBHAD8CpPnsRTNtxA=";
       }
     }/pkgs/by-name/sc/scanservjs/package.nix") { };
 
