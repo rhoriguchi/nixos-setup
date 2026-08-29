@@ -10,7 +10,6 @@ let
   disabledColor = colors.extra.terminal.border;
 in
 {
-  # TODO HYPRLAND add to the right side power button which calls power menu
   # TODO HYPRLAND add custom icon module to show nightlight state and toggle it
 
   programs.waybar = {
@@ -46,6 +45,7 @@ in
         "idle_inhibitor"
         "custom/notification"
         "tray"
+        "custom/power"
       ];
 
       backlight = {
@@ -159,6 +159,13 @@ in
         exec = "${config.services.swaync.package}/bin/swaync-client --subscribe-waybar";
         on-click = "${config.services.swaync.package}/bin/swaync-client --toggle-dnd";
         on-click-right = "${config.services.swaync.package}/bin/swaync-client --toggle-panel";
+
+        tooltip = false;
+      };
+
+      "custom/power" = {
+        format = " ";
+        on-click = "${pkgs.wtype}/bin/wtype -M logo -k Escape -m logo";
 
         tooltip = false;
       };
