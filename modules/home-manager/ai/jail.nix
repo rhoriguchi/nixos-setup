@@ -23,6 +23,7 @@ let
     pkgs.file
     pkgs.findutils
     pkgs.gawk
+    pkgs.git-crypt
     pkgs.gnugrep
     pkgs.gnupg
     pkgs.gnused
