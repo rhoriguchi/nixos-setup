@@ -286,6 +286,7 @@ in
           bindDragDropSources
 
           (jail.combinators.try-readonly "${configHome}/git")
+          (jail.combinators.try-readonly "${homeDirectory}/.nanorc")
 
           (jail.combinators.try-readwrite "${homeDirectory}/.cache/pypoetry")
           (jail.combinators.try-readwrite "${homeDirectory}/.cache/uv")
