@@ -39,6 +39,16 @@
         sha256 = "sha256-OhrsaGD2f0FUHMr3hAqBHSI+e66ecLHSYPxqQ1c9d8Y=";
       }
     }/pkgs/by-name/ta/tautulli/package.nix") { };
+
+    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=557748
+    bazecor = prev.callPackage (import "${
+      prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "5dd04ae305069934a9eaf69a073d22cbede6cd1c";
+        hash = "sha256-DAlya5cHhGaTn6pyG2g+bsuYcERWkXt8GcWXgVVMISg=";
+      }
+    }/pkgs/by-name/ba/bazecor/package.nix") { };
   })
 
   # TODO remove when resolved
