@@ -121,7 +121,7 @@ let
       notice = pkgs.writeText "jail-agents-md-${agentName}" ''
         # Sandbox Environment
 
-        This project is opened inside a `jail.nix` sandbox for the `${agentName}` agent. The sandbox restricts filesystem access to keep the rest of the host safe.
+        This project is opened inside a `bubblewrap` sandbox for the `${agentName}` agent. The sandbox restricts filesystem access to keep the rest of the host safe.
 
         ## What you can do
         - Read and write freely anywhere under this project directory (its bind-mounted root).
