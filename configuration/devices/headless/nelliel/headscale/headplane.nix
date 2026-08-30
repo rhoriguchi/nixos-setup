@@ -10,9 +10,13 @@
       enable = true;
 
       settings = {
-        headscale.api_key_path = pkgs.writeText "apiKey" secrets.headscale.preAuthKeys.headplane-agent.key;
+        headscale.api_key_path = pkgs.writeText "apiKey" secrets.headscale.apiKey;
 
-        server.cookie_secret_path = pkgs.writeText "cookieSecret" secrets.headplane.cookieSecret;
+        server = {
+          cookie_secret_path = pkgs.writeText "cookieSecret" secrets.headplane.cookieSecret;
+
+          proxy_auth.enabled = true;
+        };
 
         integration = {
           agent.enabled = true;
@@ -53,6 +57,10 @@
 
             extraConfig = ''
               include /run/nginx-authelia/auth.conf;
+
+              proxy_set_header Remote-User $authelia_user;
+              proxy_set_header Remote-Email $authelia_email;
+              proxy_set_header Remote-Name $authelia_name;
             '';
           };
         };
