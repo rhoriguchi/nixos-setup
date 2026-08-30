@@ -167,6 +167,7 @@ in
           tagOwners = {
             "tag:admin" = [ ];
             "tag:exit-node" = [ ];
+            "tag:gaming" = [ ];
             "tag:headful" = [ ];
             "tag:headless" = [ ];
           };
@@ -179,6 +180,14 @@ in
               dst = [ "tag:headless" ];
               ip = [
                 "tcp:22" # SSH
+              ];
+            }
+
+            {
+              src = [ "tag:gaming" ];
+              dst = [ "tag:gaming" ];
+              ip = [
+                "tcp:8469" # Dyson Sphere Program
               ];
             }
 

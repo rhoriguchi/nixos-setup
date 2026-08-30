@@ -26,4 +26,11 @@
   XXLPitu-Tier.ip = "100.123.123.92";
   XXLPitu-Ulquiorra.ip = "100.123.123.39";
   XXLPitu-Urahara.ip = "100.123.123.113";
+
+  # Foreign
+  Niels = {
+    ip = "100.123.123.197";
+    ssh = false;
+    monitoring = false;
+  };
 }
