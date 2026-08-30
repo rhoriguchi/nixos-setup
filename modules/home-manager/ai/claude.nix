@@ -43,6 +43,8 @@ in
         enableTelemetry = false;
         showFeedbackSurvey = false;
 
+        enableArtifact = false;
+
         attribution = {
           commits = false;
           pullRequests = false;
