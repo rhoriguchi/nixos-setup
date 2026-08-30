@@ -15,7 +15,7 @@
 
     authKeyFile =
       pkgs.writeText "authKeyFile"
-        secrets.headscale.preAuthKeys.${config.networking.hostName}.key;
+        secrets.headscale.preAuthKeys.${config.networking.hostName};
 
     extraSetFlags = [
       "--update-check=false"

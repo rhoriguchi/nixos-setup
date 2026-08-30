@@ -67,8 +67,8 @@ let
         hostname:
         let
           preAuthKey = secrets.headscale.preAuthKeys.${hostname};
-          key = parseKey preAuthKey.key;
-          tags = (preAuthKey.tags or [ ]) ++ [ hostname ];
+          key = parseKey preAuthKey;
+          tags = (tailscaleIps.${hostname}.tags or [ ]) ++ [ hostname ];
         in
         ''
           preAuthKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"

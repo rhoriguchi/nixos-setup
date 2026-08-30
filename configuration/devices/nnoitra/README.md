@@ -109,7 +109,7 @@ del /f Netdata.msi
 
 Run in an elevated cmd
 
-- Replace `PRE_AUTH_KEY` with value form [secrets.nix](../../../secrets.nix).headscale.preAuthKeys.XXLPitu-Nnoitra.key
+- Replace `PRE_AUTH_KEY` with value form [secrets.nix](../../../secrets.nix).headscale.preAuthKeys.XXLPitu-Nnoitra
 
 ```cmd
 tailscale login --login-server=https://headscale.00a.ch --auth-key "PRE_AUTH_KEY"
