@@ -278,6 +278,7 @@ in
           (writeSandboxAgentsFile name allPkgs)
 
           (jail.combinators.readonly "/nix/store")
+          (jail.combinators.try-readonly "/usr/bin/env")
           (jail.combinators.try-readonly "/etc/nix/nix.conf")
           (jail.combinators.try-readonly "/etc/nix/registry.json")
           (jail.combinators.try-readwrite "${config.xdg.cacheHome}/nix")
