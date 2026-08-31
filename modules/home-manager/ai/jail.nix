@@ -84,19 +84,77 @@ let
     fi
   '';
 
-  denyGitCryptFiles = jail.combinators.add-runtime ''
+  gitCryptCleanFilter = pkgs.writeShellScript "jail-git-crypt-clean" ''
+    set -euo pipefail
+
+    tmp=$(${pkgs.coreutils}/bin/mktemp)
+    trap '${pkgs.coreutils}/bin/rm -f "$tmp"' EXIT
+
+    ${pkgs.coreutils}/bin/cat >"$tmp"
+
+    if ${pkgs.coreutils}/bin/head -c 10 "$tmp" | ${pkgs.diffutils}/bin/cmp -s - <(printf '\0GITCRYPT\0'); then
+      ${pkgs.coreutils}/bin/cat "$tmp"
+    else
+      {
+        echo "git-crypt: refusing to add/commit this path from inside the sandbox."
+        echo "git-crypt: its key is intentionally hidden here; add or commit"
+        echo "git-crypt: new/modified content for this path from outside the sandbox."
+      } >&2
+      exit 1
+    fi
+  '';
+
+  lockGitCryptFiles = jail.combinators.add-runtime ''
     git_root=$(${config.programs.git.package}/bin/git -C "$REAL_PWD" rev-parse --show-toplevel 2>/dev/null || true)
 
     if [ -n "$git_root" ]; then
+      git_common_dir=$(${config.programs.git.package}/bin/git -C "$git_root" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)
+
+      if [ -n "$git_common_dir" ] && [ -e "$git_common_dir/git-crypt" ]; then
+        RUNTIME_ARGS+=(--tmpfs "$git_common_dir/git-crypt")
+      fi
+
+      if [ -e "$git_root/.git-crypt" ]; then
+        RUNTIME_ARGS+=(--tmpfs "$git_root/.git-crypt")
+      fi
+
+      if ${config.programs.git.package}/bin/git -C "$git_root" cat-file -e HEAD:.git-crypt/.gitattributes 2>/dev/null; then
+        exec {gitattributes_fd}< <(${config.programs.git.package}/bin/git -C "$git_root" cat-file -p HEAD:.git-crypt/.gitattributes)
+        RUNTIME_ARGS+=(--ro-bind-data "$gitattributes_fd" "$git_root/.git-crypt/.gitattributes")
+      fi
+
+      declare -A git_crypt_filters=()
+      git_config_idx=0
+
       while IFS= read -r encrypted_path; do
         [ -n "$encrypted_path" ] || continue
         abs_path="$git_root/$encrypted_path"
 
-        if [ -e "$abs_path" ]; then
-          exec {deny_fd}< <(printf '%s\n' "This file is git-crypt encrypted and has been hidden from this sandboxed agent.")
-          RUNTIME_ARGS+=(--ro-bind-data "$deny_fd" "$abs_path")
+        [ -e "$abs_path" ] || continue
+
+        filter_name=$(${config.programs.git.package}/bin/git -C "$git_root" check-attr filter -- "$encrypted_path" 2>/dev/null | sed -n 's/.*: filter: //p' || true)
+        if [ -n "$filter_name" ] && [ "$filter_name" != "unspecified" ] && [ -z "''${git_crypt_filters[$filter_name]-}" ]; then
+          git_crypt_filters[$filter_name]=1
+
+          RUNTIME_ARGS+=(
+            --setenv "GIT_CONFIG_KEY_$git_config_idx" "filter.$filter_name.clean"
+            --setenv "GIT_CONFIG_VALUE_$git_config_idx" "${gitCryptCleanFilter}"
+          )
+
+          git_config_idx=$((git_config_idx + 1))
         fi
+
+        exec {lock_fd}< <(
+          ${config.programs.git.package}/bin/git -C "$git_root" cat-file -p "HEAD:$encrypted_path" 2>/dev/null \
+            || printf '%s\n' "This file is git-crypt encrypted and has no committed version yet, so it has been hidden from this sandboxed agent."
+        )
+
+        RUNTIME_ARGS+=(--ro-bind-data "$lock_fd" "$abs_path")
       done < <(cd "$git_root" && timeout 5 ${pkgs.git-crypt}/bin/git-crypt status -e 2>/dev/null | sed -n 's/^[[:space:]]*encrypted: //p' || true)
+
+      if [ "$git_config_idx" -gt 0 ]; then
+        RUNTIME_ARGS+=(--setenv GIT_CONFIG_COUNT "$git_config_idx")
+      fi
     fi
   '';
 
@@ -136,6 +194,14 @@ let
 
         - Access files outside this project directory, aside from a few forwarded config/cache paths; the rest of the host filesystem is not visible.
         - Write to the Nix store; it is mounted read-only.
+
+        ## Git-crypt
+
+        This repository may use `git-crypt`. Its decryption key is hidden from the sandbox, and every git-crypt-encrypted file is locked to its last-committed (still-encrypted) content, read-only.
+
+        - `git status`/`git diff --stat` may show locked encrypted files as modified, and the `.git-crypt/keys/...` key file as deleted. This is expected sandbox noise, not a real change: `git diff -- <path>` applies the real content comparison and shows nothing for an unmodified locked file.
+        - Never `git add -A`, `git commit -a`, or otherwise stage/commit `.git-crypt/` or a locked encrypted file from inside the sandbox — staging the key's apparent deletion and committing it would strip the real key from history.
+        - To add or change encrypted-file content, or manage git-crypt keys, do it outside the sandbox where the real key is available.
 
         ## Available packages
 
@@ -295,7 +361,7 @@ in
 
           mountCwd
 
-          denyGitCryptFiles
+          lockGitCryptFiles
           (writeSandboxAgentsFile name allPkgs)
 
           (jail.combinators.try-readonly "/usr/bin/env")
