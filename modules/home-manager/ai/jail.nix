@@ -124,6 +124,7 @@ let
         This project is opened inside a `bubblewrap` sandbox for the `${agentName}` agent. The sandbox restricts filesystem access to keep the rest of the host safe.
 
         ## What you can do
+
         - Read and write freely anywhere under this project directory (its bind-mounted root).
         - Reach the network (DNS, HTTP/HTTPS, git remotes, package registries, etc.).
         - Use `git`, with your SSH agent and GPG agent forwarded, so signed commits/tags and SSH remotes work normally.
@@ -132,16 +133,20 @@ let
         - Use package-manager caches (pip/uv, poetry, npm, yarn, Maven) that persist across sandbox runs.
 
         ## What you can NOT do
+
         - Access files outside this project directory, aside from a few forwarded config/cache paths; the rest of the host filesystem is not visible.
         - Write to the Nix store; it is mounted read-only.
 
         ## Available packages
+
         ${lib.concatMapStringsSep "\n" (package: "- ${package.name} ${package.version}") packages}
 
         ## SSH hosts
+
         ${lib.concatMapStringsSep "\n" (sshHost: "- ${sshHost}") sshHosts}
 
         ## Need another tool?
+
         The Nix store is mounted read-only, but `nix` itself is available inside the sandbox. Run e.g.:
 
             nix shell nixpkgs#ripgrep
@@ -154,10 +159,13 @@ let
         ---
 
         ## Project instructions
+
         This project's own instructions are in `AGENTS.project.md`, not here. Always read it too. It is a writable view of the project's real `AGENTS.md`; edits to it are written straight through to the real `AGENTS.md` on the host, so the project stays normal outside the sandbox.
 
         ## Do not commit this file
+
         This `AGENTS.md` is a synthetic sandbox notice, not a real file in the repository — it only exists inside the sandbox and is not tracked at this path. Because of that, `git status` will show it as modified (and `AGENTS.project.md` as untracked): this is expected sandbox noise, not a real change.
+
         - Never `git add`, `git commit`, or otherwise stage `AGENTS.md` from inside the sandbox.
         - Never `git add`/commit `AGENTS.project.md` either; it is the writable stand-in for the real `AGENTS.md`, tracked under that name, not this one.
         - When staging changes (`git add -A`, `git commit -a`, etc.), explicitly exclude both paths, e.g. `git add -A -- . ':!AGENTS.md' ':!AGENTS.project.md'`, or stage files individually.
