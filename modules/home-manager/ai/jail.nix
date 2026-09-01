@@ -260,6 +260,15 @@ let
 
     (jail.combinators.try-readonly "${configHome}/gh")
   ];
+
+  forwardNix = jail.combinators.compose [
+    (jail.combinators.set-env "NIX_REMOTE" "daemon")
+    (jail.combinators.readonly "/nix/store")
+    (jail.combinators.try-readonly "/etc/nix/nix.conf")
+    (jail.combinators.try-readonly "/etc/nix/registry.json")
+    (jail.combinators.try-readwrite "/nix/var/nix/daemon-socket/socket")
+    (jail.combinators.try-readwrite "${config.xdg.cacheHome}/nix")
+  ];
 in
 {
   inherit (jail) combinators;
@@ -285,19 +294,16 @@ in
           denyGitCryptFiles
           (writeSandboxAgentsFile name allPkgs)
 
-          (jail.combinators.readonly "/nix/store")
           (jail.combinators.try-readonly "/usr/bin/env")
-          (jail.combinators.try-readonly "/etc/nix/nix.conf")
-          (jail.combinators.try-readonly "/etc/nix/registry.json")
-          (jail.combinators.try-readwrite "${config.xdg.cacheHome}/nix")
 
           (jail.combinators.try-fwd-env "LOCALE_ARCHIVE")
           (jail.combinators.try-fwd-env "EDITOR")
           (jail.combinators.try-fwd-env "NIX_PATH")
 
-          forwardSsh
-          forwardGpgAgent
           forwardGh
+          forwardGpgAgent
+          forwardNix
+          forwardSsh
           forwardWaylandClipboard
           bindDragDropSources
 
