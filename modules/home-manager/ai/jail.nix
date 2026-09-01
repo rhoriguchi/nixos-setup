@@ -269,6 +269,10 @@ let
     (jail.combinators.try-readwrite "/nix/var/nix/daemon-socket/socket")
     (jail.combinators.try-readwrite "${config.xdg.cacheHome}/nix")
   ];
+
+  mountJailTmp = jail.combinators.add-runtime ''
+    RUNTIME_ARGS+=(--bind "$(mktemp -d)" /tmp)
+  '';
 in
 {
   inherit (jail) combinators;
@@ -315,6 +319,8 @@ in
           (jail.combinators.try-readwrite "${homeDirectory}/.cache/yarn")
           (jail.combinators.try-readwrite "${homeDirectory}/.m2")
           (jail.combinators.try-readwrite "${homeDirectory}/.npm")
+
+          mountJailTmp
 
           (jail.combinators.add-pkg-deps allPkgs)
         ]
