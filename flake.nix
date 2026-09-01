@@ -438,9 +438,10 @@
         };
       in
       {
-        checks = import ./checks.nix {
+        checks = import ./checks {
           inherit self;
           inherit inputs;
+          inherit pkgs;
           inherit system;
         };
 

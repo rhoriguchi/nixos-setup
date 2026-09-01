@@ -1,12 +1,13 @@
 {
   self,
   inputs,
+  pkgs,
   system,
   ...
 }:
 {
   pre-commit = inputs.git-hooks.lib.${system}.run {
-    src = ./.;
+    src = ../.;
 
     default_stages = [ "pre-commit" ];
 
@@ -25,6 +26,12 @@
       };
       end-of-file-fixer = {
         enable = true;
+
+        # https://github.com/pre-commit/pre-commit-hooks/issues/338
+        package = pkgs.python3Packages.pre-commit-hooks.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [ ./end-of-file-fixer-readonly.patch ];
+        });
+
         excludes = [
           ''secrets\.nix$''
 

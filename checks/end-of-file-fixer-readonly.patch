@@ -1,0 +1,26 @@
+diff --git a/pre_commit_hooks/end_of_file_fixer.py b/pre_commit_hooks/end_of_file_fixer.py
+index a88425c..fe8d75a 100644
+--- a/pre_commit_hooks/end_of_file_fixer.py
++++ b/pre_commit_hooks/end_of_file_fixer.py
+@@ -1,6 +1,7 @@
+ from __future__ import annotations
+
+ import argparse
++import io
+ import os
+ from collections.abc import Sequence
+ from typing import IO
+@@ -58,6 +59,13 @@ def main(argv: Sequence[str] | None = None) -> int:
+
+     for filename in args.filenames:
+         # Read as binary so we can read byte-by-byte
++        with open(filename, 'rb') as file_obj:
++            contents = file_obj.read()
++        # Dry-run against an in-memory copy first: avoids opening the file
++        # for writing (and thus requiring write permission) when no fix is
++        # actually needed, e.g. for read-only-but-compliant files.
++        if not fix_file(io.BytesIO(contents)):
++            continue
+         with open(filename, 'rb+') as file_obj:
+             ret_for_file = fix_file(file_obj)
+             if ret_for_file:
