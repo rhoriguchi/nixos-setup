@@ -87,13 +87,13 @@ let
   gitCryptCleanFilter = pkgs.writeShellScript "jail-git-crypt-clean" ''
     set -euo pipefail
 
-    tmp=$(${pkgs.coreutils}/bin/mktemp)
-    trap '${pkgs.coreutils}/bin/rm -f "$tmp"' EXIT
+    tmp=$(mktemp)
+    trap 'rm -f "$tmp"' EXIT
 
-    ${pkgs.coreutils}/bin/cat >"$tmp"
+    cat >"$tmp"
 
-    if ${pkgs.coreutils}/bin/head -c 10 "$tmp" | ${pkgs.diffutils}/bin/cmp -s - <(printf '\0GITCRYPT\0'); then
-      ${pkgs.coreutils}/bin/cat "$tmp"
+    if head -c 10 "$tmp" | ${pkgs.diffutils}/bin/cmp -s - <(printf '\0GITCRYPT\0'); then
+      cat "$tmp"
     else
       {
         echo "git-crypt: refusing to add/commit this path from inside the sandbox."
