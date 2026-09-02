@@ -328,8 +328,9 @@ let
   ];
 
   forwardNix = jail.combinators.compose [
-    (jail.combinators.set-env "NIX_REMOTE" "daemon")
     (jail.combinators.readonly "/nix/store")
+    (jail.combinators.set-env "NIX_REMOTE" "daemon")
+    (jail.combinators.try-fwd-env "NIX_PATH")
     (jail.combinators.try-readonly "/etc/nix/nix.conf")
     (jail.combinators.try-readonly "/etc/nix/registry.json")
     (jail.combinators.try-readwrite "/nix/var/nix/daemon-socket/socket")
@@ -368,7 +369,6 @@ in
 
           (jail.combinators.try-fwd-env "LOCALE_ARCHIVE")
           (jail.combinators.try-fwd-env "EDITOR")
-          (jail.combinators.try-fwd-env "NIX_PATH")
 
           forwardGh
           forwardGpgAgent
