@@ -42,6 +42,12 @@ in
       showFeedbackSurvey = false;
     };
 
-    skills = "${packages.ponytail}/skills";
+    skills = pkgs.symlinkJoin {
+      name = "antigravity-cli-skills";
+      paths = [
+        "${packages.ponytail}/skills"
+        packages.skill-creator
+      ];
+    };
   };
 }

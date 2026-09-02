@@ -39,6 +39,8 @@ in
 
       plugins.ponytail = packages.ponytail;
 
+      skills.skill-creator = "${packages.skill-creator}/skill-creator";
+
       settings = {
         enableTelemetry = false;
         showFeedbackSurvey = false;

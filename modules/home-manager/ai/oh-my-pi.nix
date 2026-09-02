@@ -152,7 +152,10 @@ in
           commit = "anthropic/claude-haiku-4-5";
         };
 
-        skills.customDirectories = [ "${packages.ponytail}/skills" ];
+        skills.customDirectories = [
+          "${packages.ponytail}/skills"
+          "${packages.skill-creator}"
+        ];
       };
 
       "${homeDirectory}/.omp/agent/themes/${themeName}.json".source =
