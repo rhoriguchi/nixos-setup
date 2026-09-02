@@ -626,6 +626,10 @@ in
                 name = "Tailscale Embedded DERP";
                 url = "http://127.0.0.1:${toString config.services.tailscale.derper.port}/debug/varz";
               }
+              ++ lib.optional config.services.tempo.enable {
+                name = "Tempo";
+                url = "http://127.0.0.1:${toString config.services.tempo.settings.server.http_listen_port}/metrics";
+              }
               ++ lib.optional config.services.unpoller.enable {
                 name = "Unpoller";
                 url = "http://${config.services.unpoller.prometheus.http_listen}/metrics";

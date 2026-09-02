@@ -23,6 +23,7 @@
     ./prometheus.nix
     ./rustdesk.nix
     ./syncthing-relay.nix
+    ./tempo.nix
     ./tvtracktime
     ./webdav.nix
 

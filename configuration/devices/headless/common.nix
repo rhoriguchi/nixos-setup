@@ -46,6 +46,12 @@
       receiverHostname = "XXLPitu-Tier";
     };
 
+    tracesShipping = {
+      enable = true;
+
+      receiverHostname = "XXLPitu-Tier";
+    };
+
     custom-netdata = {
       enable = true;
 

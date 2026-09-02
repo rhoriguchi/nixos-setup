@@ -112,6 +112,24 @@
                 cacheLevel = "High";
               };
             }
+            {
+              name = "Tempo";
+              type = "tempo";
+              uid = "AEB4DE3F5F4C1E0B";
+
+              access = "proxy";
+              url = "http://127.0.0.1:${toString config.services.tempo.settings.server.http_listen_port}";
+
+              jsonData = {
+                tracesToLogsV2 = {
+                  datasourceUid = "P8E80F9AEF21F6940";
+                };
+                serviceMap = {
+                  datasourceUid = "PBFA97CFB590B2093";
+                };
+                nodeGraph.enabled = true;
+              };
+            }
           ];
         };
       };
