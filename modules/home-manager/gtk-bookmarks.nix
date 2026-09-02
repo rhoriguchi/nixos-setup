@@ -29,7 +29,7 @@ in
 
       (hostnames: lib.subtractLists [ osConfig.networking.hostName ] hostnames)
 
-      (map (hostname: "sftp://root@${hostname}/ ${lib.replaceStrings [ "XXLPitu-" ] [ "" ] hostname}"))
+      (map (hostname: "sftp://root@${hostname}/ ${lib.removePrefix "XXLPitu-" hostname}"))
     ];
   };
 }

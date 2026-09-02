@@ -38,10 +38,10 @@
             splits = lib.splitString " " bookmark;
           in
           {
-            name = lib.replaceStrings [ "file://${config.home.homeDirectory}/" ] [ "" ] (
-              lib.elemAt splits (lib.length splits - 1)
+            name = lib.removePrefix "${config.home.homeDirectory}/" (
+              lib.removePrefix "file://" (lib.last splits)
             );
-            location = lib.replaceStrings [ "file://" ] [ "" ] (lib.head splits);
+            location = lib.removePrefix "file://" (lib.head splits);
           }
         ))
       ];
