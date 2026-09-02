@@ -1,6 +1,5 @@
 {
   config,
-  secrets,
   ...
 }:
 {
@@ -12,38 +11,6 @@
   };
 
   services = {
-    nginx = {
-      enable = true;
-
-      virtualHosts."prometheus.00a.ch" = {
-        enableACME = true;
-        acmeRoot = null;
-        forceSSL = true;
-
-        extraConfig = ''
-          include /run/nginx-authelia/location.conf;
-        '';
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.prometheus.port}";
-
-          extraConfig = ''
-            include /run/nginx-authelia/auth.conf;
-          '';
-        };
-      };
-    };
-
-    infomaniak = {
-      enable = true;
-
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
-      hostnames = [
-        "prometheus.00a.ch"
-      ];
-    };
-
     prometheus = {
       enable = true;
 

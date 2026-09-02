@@ -16,7 +16,6 @@ let
     "home-assistant.00a.ch"
     "jellyfin.00a.ch"
     "monitoring.00a.ch"
-    "prometheus.00a.ch"
     "prowlarr.00a.ch"
     "radarr.00a.ch"
     "rustdesk.00a.ch"
