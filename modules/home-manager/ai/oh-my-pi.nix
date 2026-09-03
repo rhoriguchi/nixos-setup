@@ -143,6 +143,7 @@ in
           light = themeName;
         };
 
+        advisor.enabled = true;
         display.showTokenUsage = true;
         github.enabled = true;
         startup.checkUpdate = false;
@@ -152,6 +153,7 @@ in
         modelRoles = {
           default = "anthropic/claude-sonnet-5";
           commit = "anthropic/claude-haiku-4-5";
+          advisor = "google-antigravity/gemini-3.8-flash-medium";
         };
 
         skills.customDirectories = [
