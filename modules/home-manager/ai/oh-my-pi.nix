@@ -146,6 +146,7 @@ in
         display.showTokenUsage = true;
         dev.autoqa = false;
         startup.checkUpdate = false;
+        github.enabled = true;
 
         modelRoles = {
           default = "anthropic/claude-sonnet-5";
