@@ -22,7 +22,10 @@ in
 
       otelcol.receiver.otlp "tvtracktime" {
         http {
-          endpoint = "${config.containers.tvtracktime-application.hostAddress}:${toString port}"
+          // modules/profiles/containers.nix DNATs container traffic
+          // addressed to hostAddress (169.254.1.1) to 127.0.0.1, so the
+          // receiver must bind there, not on hostAddress itself.
+          endpoint = "127.0.0.1:${toString port}"
         }
 
         output {
