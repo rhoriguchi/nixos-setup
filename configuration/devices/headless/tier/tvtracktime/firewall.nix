@@ -38,6 +38,7 @@ in
           ct state { established, related } accept
 
           ip saddr @containerAddresses meta l4proto { tcp, udp } th dport { 53 } accept # DNS
+          ip saddr @containerAddresses tcp dport 56710 accept # Alloy OTLP receiver
 
           ip saddr @containerAddresses drop
         }
