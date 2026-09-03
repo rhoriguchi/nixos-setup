@@ -313,6 +313,7 @@ in
           withCups = true;
           withDBengine = isParent;
           withDebug = cfg.debug.enable;
+          withIpmi = false;
           withLibbacktrace = cfg.debug.enable;
           withML = isParent;
           withNdMcp = false;
