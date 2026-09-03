@@ -37,7 +37,7 @@ in
 
           ct state { established, related } accept
 
-          ip saddr @containerAddresses meta l4proto { tcp, udp } th dport { 53 } accept
+          ip saddr @containerAddresses meta l4proto { tcp, udp } th dport { 53 } accept # DNS
 
           ip saddr @containerAddresses drop
         }
@@ -45,7 +45,7 @@ in
         chain forward {
           type filter hook forward priority filter; policy accept;
 
-          ip saddr @containerAddresses meta l4proto { tcp, udp } th dport { 53 } accept
+          ip saddr @containerAddresses meta l4proto { tcp, udp } th dport { 53 } accept # DNS
 
           ip saddr @containerAddresses ip daddr @rfc1918 drop
         }
