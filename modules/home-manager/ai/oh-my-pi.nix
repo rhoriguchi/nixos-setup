@@ -144,9 +144,10 @@ in
         };
 
         display.showTokenUsage = true;
-        dev.autoqa = false;
-        startup.checkUpdate = false;
         github.enabled = true;
+        startup.checkUpdate = false;
+
+        dev.autoqa = false;
 
         modelRoles = {
           default = "anthropic/claude-sonnet-5";
