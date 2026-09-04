@@ -40,7 +40,7 @@
       }
     }/pkgs/by-name/ta/tautulli/package.nix") { };
 
-    # TODO remove when merged https://nixpk.gs/pr-tracker.html?pr=557748
+    # TODO remove when merged  https://nixpkgs-tracker.ocfox.me/?pr=557748
     bazecor = prev.callPackage (import "${
       prev.fetchFromGitHub {
         owner = "NixOS";
