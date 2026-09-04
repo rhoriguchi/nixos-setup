@@ -36,6 +36,8 @@ let
       (agentJail.combinators.try-readwrite "${homeDirectory}/.omp")
 
       agentJail.combinators.open-urls-in-browser
+
+      (agentJail.combinators.set-env "PUPPETEER_EXECUTABLE_PATH" "${pkgs.chromium}/bin/chromium")
     ];
   };
 
