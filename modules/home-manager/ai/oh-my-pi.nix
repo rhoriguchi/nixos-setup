@@ -27,7 +27,10 @@ let
   ompSandboxed = agentJail.mkJailedAgent {
     package = pkgs.llm-agents.omp;
 
-    extraPkgs = [ pkgs.xdg-utils ];
+    extraPkgs = [
+      # Used by omp's non-URL openPath() (export/share/login flows)
+      pkgs.xdg-utils
+    ];
 
     extraPermissions = [
       (agentJail.combinators.try-readwrite "${homeDirectory}/.omp")
