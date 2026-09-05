@@ -372,7 +372,7 @@ in
                         "registry"
                       ]
                     }"
-                    "${tailscaleIps.${config.networking.hostName}.ip}:${toString streamPort}=${
+                    "*:${toString streamPort}=${
                       lib.concatStringsSep "|" [
                         "streaming"
                       ]
