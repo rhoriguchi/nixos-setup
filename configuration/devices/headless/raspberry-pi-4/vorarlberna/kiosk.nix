@@ -19,6 +19,15 @@
     })
   ];
 
+  systemd.services.cage-tty1 = {
+    restartIfChanged = lib.mkForce true;
+
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
+  };
+
   users.users.${config.services.cage.user} = {
     isNormalUser = true;
 
@@ -44,6 +53,24 @@
       XKB_DEFAULT_VARIANT = config.services.xserver.xkb.variant;
 
       WLR_LOG = "debug";
+
+      # The vc4/v3d GPU-accelerated path (direct KMS scanout of tiled
+      # client buffers at the TV's 4K preferred mode) exhausts the
+      # kernel's swiotlb DMA bounce-buffer pool within ~30s, aborting
+      # QtWebEngine (qFatal in NativeSkiaOutputDeviceOpenGL::texture()).
+      # Bigger swiotlb/cma pools and forcing a lower mode did not help.
+      # The wlroots software (pixman) renderer sidesteps GPU/DMA-buf
+      # scanout entirely and has run crash-free where GLES2 crashed
+      # every ~30s.
+      WLR_RENDERER = "pixman";
+
+      # With only the compositor forced to software, jellyfin-desktop's
+      # QtWebEngine/Chromium still rendered its own frames on the GPU,
+      # so every frame paid for a GPU render + CPU readback + CPU
+      # composite. Disabling GPU rendering client-side too avoids that
+      # round-trip and keeps the whole pipeline on one consistent path.
+      QT_QUICK_BACKEND = "software";
+      QTWEBENGINE_CHROMIUM_FLAGS = "--disable-gpu";
     };
 
     program = "${pkgs.jellyfin-desktop}/bin/jellyfin-desktop ${
