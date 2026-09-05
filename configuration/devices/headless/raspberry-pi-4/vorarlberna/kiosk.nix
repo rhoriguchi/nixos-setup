@@ -32,6 +32,8 @@
 
     extraArguments = [
       "-d" # Don't draw client side decorations, when possible
+
+      "-D" # Enable debug logging
     ];
 
     environment = {
@@ -40,6 +42,8 @@
       XKB_DEFAULT_LAYOUT = config.services.xserver.xkb.layout;
       XKB_DEFAULT_MODEL = config.services.xserver.xkb.model;
       XKB_DEFAULT_VARIANT = config.services.xserver.xkb.variant;
+
+      WLR_LOG = "debug";
     };
 
     program = "${pkgs.jellyfin-desktop}/bin/jellyfin-desktop ${
