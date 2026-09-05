@@ -11,6 +11,11 @@ let
 
   getHostId = hostname: lib.last (lib.splitString "." tailscaleIps.${hostname}.ip);
 
+  sqlitePath = config.services.headscale.settings.database.sqlite.path;
+  # `-cmd '.timeout ...'` makes the CLI retry instead of immediately failing
+  # with "database is locked" while headscale.service holds the database.
+  sqlite = "${pkgs.sqlite-interactive}/bin/sqlite3 -cmd '.timeout ${toString (1000 * 30)}'";
+
   parseKey =
     key:
     lib.pipe key [
@@ -38,7 +43,7 @@ let
     ''
       apiKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"
 
-      ${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" <<EOF
+      ${sqlite} "${sqlitePath}" <<EOF
         DELETE FROM api_keys;
 
         INSERT INTO api_keys (
@@ -58,7 +63,7 @@ let
     '';
 
   addPreAuthKeys = ''
-    ${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" <<'EOF'
+    ${sqlite} "${sqlitePath}" <<'EOF'
       DELETE FROM pre_auth_keys;
     EOF
 
@@ -73,7 +78,7 @@ let
         ''
           preAuthKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"
 
-          ${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" <<EOF
+          ${sqlite} "${sqlitePath}" <<EOF
             INSERT INTO pre_auth_keys (
               id,
               created_at,
@@ -316,7 +321,7 @@ in
         ${addApiKey}
         ${addPreAuthKeys}
 
-        ${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" <<'EOF'
+        ${sqlite} "${sqlitePath}" <<'EOF'
           ${deleteNodesSql}
         EOF
       '';
@@ -333,7 +338,7 @@ in
       after = [ config.systemd.services.headscale.name ];
 
       script = ''
-        deleted_nodes=$(${pkgs.sqlite-interactive}/bin/sqlite3 "${config.services.headscale.settings.database.sqlite.path}" <<'EOF'
+        deleted_nodes=$(${sqlite} "${sqlitePath}" <<'EOF'
           BEGIN;
 
           ${deleteDuplicateNodesSql}
@@ -343,7 +348,7 @@ in
         EOF
         )
 
-        updated_nodes=$(${pkgs.sqlite-interactive}/bin/sqlite3 -csv "${config.services.headscale.settings.database.sqlite.path}" <<'EOF'
+        updated_nodes=$(${sqlite} -csv "${sqlitePath}" <<'EOF'
           BEGIN;
 
           ${updateNodesSql}
