@@ -540,7 +540,7 @@ in
         }
         // {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
-            jobs =
+            jobs = map (job: job // { autodetection_retry = 30; }) (
               lib.optional config.services.prometheus.exporters.exportarr-bazarr.enable {
                 name = "Bazarr";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-bazarr.port}/metrics";
@@ -639,7 +639,8 @@ in
                 name = "Uptime Kuma";
                 url = "http://127.0.0.1:${toString config.services.uptime-kuma.settings.PORT}/metrics";
               }
-              ++ cfg.extraPrometheusJobs;
+              ++ cfg.extraPrometheusJobs
+            );
           };
         }
         // lib.optionalAttrs hasCerts {
