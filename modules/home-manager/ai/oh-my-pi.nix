@@ -158,7 +158,7 @@ in
         modelRoles = {
           default = "anthropic/claude-sonnet-5";
           commit = "anthropic/claude-haiku-4-5";
-          advisor = "google-antigravity/gemini-3.8-flash-medium";
+          advisor = "google-antigravity/gemini-3.8-flash:medium";
         };
 
         skills.customDirectories = [
