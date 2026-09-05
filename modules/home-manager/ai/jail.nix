@@ -333,6 +333,7 @@ let
     (jail.combinators.try-fwd-env "NIX_PATH")
     (jail.combinators.try-readonly "/etc/nix/nix.conf")
     (jail.combinators.try-readonly "/etc/nix/registry.json")
+    (jail.combinators.try-readonly "/nix/var/log/nix")
     (jail.combinators.try-readwrite "/nix/var/nix/daemon-socket/socket")
     (jail.combinators.try-readwrite "${config.xdg.cacheHome}/nix")
   ];
