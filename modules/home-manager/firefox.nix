@@ -51,9 +51,9 @@
         search = {
           force = true;
 
-          default = "google-custom";
-          privateDefault = "google-custom";
-          order = [ "google-custom" ];
+          default = "google";
+          privateDefault = "google";
+          order = [ "google" ];
 
           engines = {
             github = {
@@ -78,27 +78,7 @@
               ];
             };
 
-            google-custom = {
-              name = "Google (Custom)";
-              iconMapObj."16" = "https://www.google.com/favicon.ico";
-              definedAliases = [ "g" ];
-
-              urls = [
-                {
-                  template = "https://www.google.com/search";
-                  params = [
-                    {
-                      name = "udm";
-                      value = "14";
-                    }
-                    {
-                      name = "q";
-                      value = "{searchTerms}";
-                    }
-                  ];
-                }
-              ];
-            };
+            google.metaData.alias = "g";
 
             google-maps = {
               name = "Google Maps";
@@ -214,9 +194,9 @@
             ddg.metaData.hidden = true;
             "ebay-ch".metaData.hidden = true;
             ecosia.metaData.hidden = true;
-            google.metaData.hidden = true;
             perplexity.metaData.hidden = true;
             qwant.metaData.hidden = true;
+            startpage.metaData.hidden = true;
             wikipedia.metaData.hidden = true;
           };
         };
