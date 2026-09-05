@@ -20,16 +20,6 @@
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=555912
-    scanservjs = prev.callPackage (import "${
-      prev.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "d31e13c3ffa0593987316b9c4cb61d82b5c600a7";
-        sha256 = "sha256-uR1q1TaK/TRLtlro1BKlx0cw2FzBHAD8CpPnsRTNtxA=";
-      }
-    }/pkgs/by-name/sc/scanservjs/package.nix") { };
-
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=557709
     tautulli = prev.callPackage (import "${
       prev.fetchFromGitHub {
@@ -49,6 +39,34 @@
         hash = "sha256-DAlya5cHhGaTn6pyG2g+bsuYcERWkXt8GcWXgVVMISg=";
       }
     }/pkgs/by-name/ba/bazecor/package.nix") { };
+
+    # TODO remove when fixed upstream https://github.com/NixOS/nixpkgs/issues/558302
+    flashrom = prev.flashrom.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [
+        # tests/chip.c: setup_bad_chip() stores a pointer to a stack-local
+        # `mock_chip` into flashctx->chip; it dangles once the helper
+        # returns, corrupting later stack allocations and causing spurious
+        # test failures on aarch64-linux.
+        (prev.writeText "flashrom-fix-dangling-chip-bad-pointer.patch" (
+          prev.lib.concatStringsSep "\n" [
+            "--- a/tests/chip.c"
+            "+++ b/tests/chip.c"
+            "@@ -781,7 +781,8 @@ static void setup_bad_chip(struct flashrom_flashctx *flashctx)"
+            " \tg_test_write_injector = NULL;"
+            " \tg_test_read_injector = NULL;"
+            " \tg_test_erase_injector[0] = NULL;"
+            " "
+            "-\tstruct flashchip mock_chip = chip_bad;"
+            "+\tstatic struct flashchip mock_chip;"
+            "+\tmock_chip = chip_bad;"
+            " \tconst char *param = \"\"; /* Default values for all params. */"
+            " "
+            " \tsetup_chip(flashctx, &mock_chip, param, NULL);"
+            ""
+          ]
+        ))
+      ];
+    });
   })
 
   # TODO remove when resolved
