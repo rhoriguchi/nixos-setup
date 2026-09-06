@@ -14,6 +14,16 @@ let
 
   homeDirectory = config.home.homeDirectory;
 
+  lspPkgs = [
+    pkgs.nixd
+    pkgs.yaml-language-server
+  ]
+  ++ lib.optional osConfig.programs.java.enable pkgs.jdt-language-server
+  ++ lib.optionals osConfig.programs.npm.enable [
+    pkgs.typescript-language-server
+    pkgs.angular-language-server
+  ];
+
   agentJail = import ./jail.nix {
     inherit
       config
@@ -30,7 +40,8 @@ let
     extraPkgs = [
       # Used by omp's non-URL openPath() (export/share/login flows)
       pkgs.xdg-utils
-    ];
+    ]
+    ++ lspPkgs;
 
     extraPermissions = [
       (agentJail.combinators.try-readwrite "${homeDirectory}/.omp")
@@ -172,6 +183,23 @@ in
     // lib.optionalAttrs (mcpServers != { }) {
       "${homeDirectory}/.omp/agent/mcp.json".source = jsonFormat.generate "mcp.json" {
         inherit mcpServers;
+      };
+    }
+    // {
+      "${homeDirectory}/.omp/agent/lsp.json".source = jsonFormat.generate "lsp.json" {
+        servers = {
+          # Cold nixd evaluation of a multi-input flake regularly exceeds the
+          # default 5s startup warmup, dropping it from auto-detection.
+          nixd.warmupTimeoutMs = 30 * 1000;
+        }
+        // lib.optionalAttrs osConfig.programs.npm.enable {
+          angular-language-server = {
+            command = "ngserver";
+            args = [ "--stdio" ];
+            fileTypes = [ ".html" ];
+            rootMarkers = [ "angular.json" ];
+          };
+        };
       };
     };
   };
