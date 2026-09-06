@@ -163,7 +163,6 @@ in
 
         skills.customDirectories = [
           "${packages.ponytail}/skills"
-          "${packages.skill-creator}"
         ];
       };
 

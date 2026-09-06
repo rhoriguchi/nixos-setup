@@ -46,7 +46,6 @@ in
       name = "antigravity-cli-skills";
       paths = [
         "${packages.ponytail}/skills"
-        packages.skill-creator
       ];
     };
   };
