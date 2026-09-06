@@ -361,6 +361,8 @@ in
           jail.combinators.network
           jail.combinators.time-zone
 
+          mountJailTmp
+
           mountCwd
 
           lockGitCryptFiles
@@ -386,8 +388,6 @@ in
           (jail.combinators.try-readwrite "${homeDirectory}/.cache/yarn")
           (jail.combinators.try-readwrite "${homeDirectory}/.m2")
           (jail.combinators.try-readwrite "${homeDirectory}/.npm")
-
-          mountJailTmp
 
           (jail.combinators.add-pkg-deps allPkgs)
         ]
