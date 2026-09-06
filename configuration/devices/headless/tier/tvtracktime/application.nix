@@ -37,6 +37,8 @@ let
       }
     ];
   };
+
+  version = "1.1.31";
 in
 {
   system.fsPackages = [ pkgs.bindfs ];
@@ -133,7 +135,7 @@ in
         };
 
         backend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/backend:1.1.30";
+          image = "ghcr.io/rhoriguchi/tvtracktime/backend:${version}";
 
           login = {
             registry = "ghcr.io";
@@ -168,7 +170,7 @@ in
         };
 
         frontend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:1.1.30";
+          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:${version}";
 
           login = {
             registry = "ghcr.io";
