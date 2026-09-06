@@ -397,6 +397,7 @@
           "services.sync.engine.passwords" = false;
           "services.sync.engine.prefs" = false;
           "services.sync.engine.tabs" = false;
+          "signon.firefoxRelay.feature" = "disabled";
           "signon.rememberSignons" = false;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "toolkit.telemetry.reportingpolicy.firstRun" = false;
