@@ -254,6 +254,16 @@ in
             };
           };
 
+      livetv.tunerHosts = [
+        {
+          # id = "57da0a2466504591b07e6aa1a352bfa1";
+          url = "https://api.init7.net/tvchannels.m3u";
+          type = "m3u";
+
+          readAtNativeFramerate = true;
+        }
+      ];
+
       branding = {
         loginDisclaimer = ''
           <form action="https://jellyfin.00a.ch/sso/OID/start/authelia">
