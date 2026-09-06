@@ -42,6 +42,7 @@ in
         config.services.prowlarr.dataDir
         config.services.syncthing.dataDir
         config.services.tautulli.dataDir
+        config.services.tempo.settings.storage.trace.local.path
       ];
 
       repositories = [
