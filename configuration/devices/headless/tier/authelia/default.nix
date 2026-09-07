@@ -61,6 +61,10 @@ in
               subject = [ "group:admin" ];
               policy = "one_factor";
             }
+            {
+              domain_regex = "^(?P<Group>[^.]+)\\.00a\\.ch$";
+              policy = "one_factor";
+            }
           ];
         };
 

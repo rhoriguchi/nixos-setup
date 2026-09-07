@@ -2,19 +2,7 @@
 {
   # https://www.authelia.com/integration/openid-connect/clients/jellyfin
   services.authelia.instances.main.settings.identity_providers.oidc = {
-    authorization_policies.jellyfin = {
-      default_policy = "deny";
-
-      rules = [
-        {
-          policy = "one_factor";
-          subject = [
-            "group:admin"
-            "group:jellyfin"
-          ];
-        }
-      ];
-    };
+    authorization_policies.jellyfin = { };
 
     clients = [
       {

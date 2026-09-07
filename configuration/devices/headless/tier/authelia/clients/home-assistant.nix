@@ -1,19 +1,7 @@
 {
   # https://github.com/christiaangoossens/hass-oidc-auth/blob/main/docs/provider-configurations/authelia.md
   services.authelia.instances.main.settings.identity_providers.oidc = {
-    authorization_policies.home-assistant = {
-      default_policy = "deny";
-
-      rules = [
-        {
-          policy = "one_factor";
-          subject = [
-            "group:admin"
-            "group:home-assistant"
-          ];
-        }
-      ];
-    };
+    authorization_policies.home-assistant = { };
 
     clients = [
       {

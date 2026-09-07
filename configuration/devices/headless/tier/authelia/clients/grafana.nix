@@ -2,19 +2,7 @@
 {
   # https://www.authelia.com/integration/openid-connect/clients/grafana
   services.authelia.instances.main.settings.identity_providers.oidc = {
-    authorization_policies.grafana = {
-      default_policy = "deny";
-
-      rules = [
-        {
-          policy = "one_factor";
-          subject = [
-            "group:admin"
-            "group:grafana"
-          ];
-        }
-      ];
-    };
+    authorization_policies.grafana = { };
 
     clients = [
       {
