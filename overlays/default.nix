@@ -57,13 +57,6 @@
         ))
       ];
     });
-
-    # TODO remove when fixed upstream https://github.com/NixOS/nixpkgs/issues/560776
-    vscode = prev.vscode.overrideAttrs (old: {
-      postPatch = old.postPatch + ''
-        ln -s node_modules resources/app/node_modules.asar.unpacked
-      '';
-    });
   })
 
   # TODO remove when resolved
