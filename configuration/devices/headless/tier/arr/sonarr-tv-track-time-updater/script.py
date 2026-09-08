@@ -1,3 +1,5 @@
+import time
+
 import requests
 
 
@@ -149,7 +151,7 @@ class SonarrHelper(object):
         return series
 
     def _add_series(self, series):
-        self._session.post(
+        response = self._session.post(
             f"{self._base_url}/series",
             json=series | {
                 "rootFolderPath": self._root_dir,
@@ -158,6 +160,8 @@ class SonarrHelper(object):
                 "tags": [self._tag_id],
             },
         )
+
+        return response.json()
 
     def _update_series(self, series):
         if "id" not in series:
@@ -201,6 +205,19 @@ class SonarrHelper(object):
             f"{self._base_url}/episode", params={"seriesId": series_id}
         ).json()
 
+    def _wait_for_episodes(self, series_id, timeout=120, interval=2):
+        elapsed = 0
+        while elapsed < timeout:
+            if self._get_episodes(series_id):
+                return
+
+            time.sleep(interval)
+            elapsed += interval
+
+        raise TimeoutError(
+            f"Timed out waiting for Sonarr to populate episodes for series {series_id}"
+        )
+
     def _has_downloaded_episodes(self, series_id):
         return any(
             episode.get("hasFile") for episode in self._get_episodes(series_id)
@@ -237,7 +254,8 @@ class SonarrHelper(object):
         if "id" not in series:
             print(f'Adding "{series["title"]}"')
 
-            self._add_series(series | {"addOptions": {"monitor": "none"}})
+            added = self._add_series(series | {"addOptions": {"monitor": "none"}})
+            self._wait_for_episodes(added["id"])
 
     def set_series_monitored(self, tvdb_id, unwatched):
         series = self._get_series(tvdb_id)
