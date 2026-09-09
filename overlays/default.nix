@@ -20,16 +20,6 @@
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
 
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=557709
-    tautulli = prev.callPackage (import "${
-      prev.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "47b032747c3efa00dcbb50704465d095241abcd5";
-        sha256 = "sha256-OhrsaGD2f0FUHMr3hAqBHSI+e66ecLHSYPxqQ1c9d8Y=";
-      }
-    }/pkgs/by-name/ta/tautulli/package.nix") { };
-
     # TODO remove when fixed upstream https://github.com/NixOS/nixpkgs/issues/558302
     flashrom = prev.flashrom.overrideAttrs (old: {
       patches = (old.patches or [ ]) ++ [
