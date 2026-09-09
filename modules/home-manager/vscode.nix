@@ -2,6 +2,7 @@
   colors,
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
@@ -25,41 +26,65 @@
       enableMcpIntegration = true;
 
       extensions = [
+        # General editing and formatting tools
         pkgs.vscode-extensions.adpyke.codesnap
         pkgs.vscode-extensions.alexdima.copy-relative-path
-        pkgs.vscode-extensions.bbenoist.nix
-        pkgs.vscode-extensions.cameron.vscode-pytest
         pkgs.vscode-extensions.davidanson.vscode-markdownlint
         pkgs.vscode-extensions.dotjoshjohnson.xml
-        pkgs.vscode-extensions.eamodio.gitlens
         pkgs.vscode-extensions.editorconfig.editorconfig
         pkgs.vscode-extensions.formulahendry.auto-close-tag
         pkgs.vscode-extensions.formulahendry.auto-rename-tag
         pkgs.vscode-extensions.foxundermoon.shell-format
-        pkgs.vscode-extensions.github.vscode-github-actions
-        pkgs.vscode-extensions.github.vscode-pull-request-github
         pkgs.vscode-extensions.gruntfuggly.todo-tree
-        pkgs.vscode-extensions.ibm.output-colorizer
         pkgs.vscode-extensions.iliazeus.vscode-ansi
         pkgs.vscode-extensions.jock.svg
-        pkgs.vscode-extensions.johnpapa.vscode-peacock
-        pkgs.vscode-extensions.ms-python.isort
-        pkgs.vscode-extensions.ms-python.python
-        pkgs.vscode-extensions.ms-python.vscode-pylance
-        pkgs.vscode-extensions.pkief.material-icon-theme
-        pkgs.vscode-extensions.redhat.java
-        pkgs.vscode-extensions.redhat.vscode-yaml
         pkgs.vscode-extensions.rubymaniac.vscode-paste-and-indent
         pkgs.vscode-extensions.ryu1kn.partial-diff
-        pkgs.vscode-extensions.spywhere.guides
         pkgs.vscode-extensions.streetsidesoftware.code-spell-checker
         pkgs.vscode-extensions.timonwong.shellcheck
         pkgs.vscode-extensions.tomoki1207.pdf
         pkgs.vscode-extensions.tyriar.sort-lines
+        pkgs.vscode-extensions.usernamehw.errorlens
         pkgs.vscode-extensions.vincaslt.highlight-matching-tag
+
+        # UI and theming
+        pkgs.vscode-extensions.ibm.output-colorizer
+        pkgs.vscode-extensions.johnpapa.vscode-peacock
+        pkgs.vscode-extensions.pkief.material-icon-theme
+        pkgs.vscode-extensions.spywhere.guides
+
+        # Git and GitHub integration
+        pkgs.vscode-extensions.eamodio.gitlens
+        pkgs.vscode-extensions.github.vscode-github-actions
+        pkgs.vscode-extensions.github.vscode-pull-request-github
+
+        # Structured data and templating (YAML, JSON, TOML, Jinja)
+        pkgs.vscode-extensions.redhat.vscode-yaml
+        pkgs.vscode-extensions.tamasfe.even-better-toml
         pkgs.vscode-extensions.wholroyd.jinja
         pkgs.vscode-extensions.zainchen.json
-      ];
+
+        # Nix
+        pkgs.vscode-extensions.jnoortheen.nix-ide
+
+        # direnv
+        pkgs.vscode-extensions.mkhl.direnv
+
+        # Python
+        pkgs.vscode-extensions.cameron.vscode-pytest
+        pkgs.vscode-extensions.ms-python.black-formatter
+        pkgs.vscode-extensions.ms-python.isort
+        pkgs.vscode-extensions.ms-python.python
+        pkgs.vscode-extensions.ms-python.vscode-pylance
+      ]
+      ++ lib.optional osConfig.programs.java.enable pkgs.vscode-extensions.redhat.java
+      ++ lib.optionals osConfig.programs.npm.enable [
+        pkgs.vscode-extensions.dbaeumer.vscode-eslint
+        pkgs.vscode-extensions.esbenp.prettier-vscode
+      ]
+      ++ lib.optional (
+        osConfig.virtualisation.docker.enable || osConfig.virtualisation.podman.enable
+      ) pkgs.vscode-extensions.docker.docker;
 
       userTasks = {
         version = "2.0.0";
@@ -89,19 +114,6 @@
               focus = true;
               panel = "dedicated";
               reveal = "always";
-            };
-            group = "none";
-            problemMatcher = [ ];
-          }
-          {
-            type = "shell";
-            label = "nixfmt file";
-            command = ''${pkgs.nixfmt-tree}/bin/treefmt "''${file}"'';
-            presentation = {
-              clear = true;
-              close = true;
-              panel = "dedicated";
-              reveal = "silent";
             };
             group = "none";
             problemMatcher = [ ];
@@ -141,6 +153,9 @@
         "editor.tabSize" = 4;
         "editor.tokenColorCustomizations".comments = colors.extra.comment;
         "editor.unicodeHighlight.includeComments" = true;
+        "errorLens.excludeByMessage" = [
+          "Unknown word"
+        ];
         "explorer.compactFolders" = false;
         "explorer.confirmDelete" = false;
         "explorer.confirmDragAndDrop" = false;
@@ -186,6 +201,10 @@
         "js/ts.updateImportsOnFileMove.enabled" = "always";
         "js/ts.updateImportsOnPaste.enabled" = true;
         "keyboard.dispatch" = "keyCode";
+        "nix.formatterPath" = [
+          "${pkgs.nixfmt}/bin/nixfmt"
+          "-"
+        ];
         "peacock.affectActivityBar" = true;
         "peacock.affectStatusBar" = true;
         "peacock.affectTitleBar" = false;
@@ -286,13 +305,27 @@
           "editor.wordWrapColumn" = 120;
         };
         "[markdown]"."editor.tabSize" = 2;
-        "[nix]"."editor.tabSize" = 2;
+        "[nix]" = {
+          "editor.defaultFormatter" = "jnoortheen.nix-ide";
+          "editor.tabSize" = 2;
+        };
+        "[python]"."editor.defaultFormatter" = "ms-python.black-formatter";
         "[terraform]"."editor.tabSize" = 2;
         "[typescript]"."editor.tabSize" = 2;
         "[yaml]" = {
           "editor.defaultFormatter" = "redhat.vscode-yaml";
           "editor.tabSize" = 2;
         };
+      }
+      // lib.optionalAttrs osConfig.programs.npm.enable {
+        "prettier.singleQuote" = true;
+        "prettier.trailingComma" = "es5";
+        "[javascript]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "[typescript]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          "editor.tabSize" = 2;
+        };
+        "[typescriptreact]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
 
       keybindings = [
