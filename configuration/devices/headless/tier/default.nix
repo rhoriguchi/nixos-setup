@@ -11,6 +11,7 @@
     ./arr
     ./authelia
     ./backup.nix
+    ./cli-proxy-api.nix
     ./couchdb.nix
     ./fancontrol.nix
     ./grafana
