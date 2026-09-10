@@ -31,6 +31,7 @@ in
         "/var/lib/${config.services.prometheus.stateDir}"
         "/var/lib/bazarr-anime"
         "/var/lib/bazarr-series-movies"
+        "/var/lib/mealie"
         "/var/lib/radarr-anime"
         "/var/lib/radarr-movies"
         "/var/lib/sonarr-anime"

@@ -119,6 +119,7 @@ let
                 "grafana.00a.ch"
                 "home-assistant.00a.ch"
                 "jellyfin.00a.ch"
+                "mealie.00a.ch"
                 "monitoring.00a.ch"
                 "prowlarr.00a.ch"
                 "radarr.00a.ch"

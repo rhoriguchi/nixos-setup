@@ -17,8 +17,10 @@
     ./home-assistant
     ./jellyfin.nix
     ./loki.nix
+    ./mealie
     ./monitoring.nix
     ./nvidia-quadro-rtx-5000.nix
+    ./ollama.nix
     ./plex
     ./prometheus.nix
     ./rustdesk.nix
