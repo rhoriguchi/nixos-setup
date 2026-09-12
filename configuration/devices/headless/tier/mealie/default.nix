@@ -8,10 +8,10 @@
 let
   aiProviders = [
     {
-      name = "Ollama - qwen2.5vl:7b";
+      name = "Ollama - qwen3-vl:8b";
       baseUrl = "http://${config.services.ollama.host}:${toString config.services.ollama.port}/v1";
       apiKey = "ollama";
-      model = "qwen2.5vl:7b";
+      model = "qwen3-vl:8b";
       image = true;
     }
   ];

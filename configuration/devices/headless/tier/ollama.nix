@@ -15,7 +15,8 @@
 
     syncModels = true;
     loadModels = [
-      "qwen2.5vl:7b"
+      # https://ollama.com/library/qwen3-vl:8b
+      "qwen3-vl:8b"
     ];
   };
 }
