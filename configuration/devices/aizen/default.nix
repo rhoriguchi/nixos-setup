@@ -2,6 +2,7 @@
   config,
   lib,
   secrets,
+  wifis,
   ...
 }:
 {
@@ -47,37 +48,10 @@
         p2p_disabled=1
       '';
 
-      networks =
-        let
-          trustedNetworks = [
-            "63466727"
-            "63466727-Guest"
-            "63466727-IoT"
-            "Niflheim"
-          ];
-
-          disableEhtNetworks = [
-            "63466727"
-            "63466727-Guest"
-            "63466727-IoT"
-          ];
-        in
-        lib.recursiveUpdate
-          (lib.mapAttrs (
-            key: value:
-            value
-            // {
-              extraConfig = lib.concatStringsSep "\n" (
-                lib.optional (lib.hasAttr "extraConfig" value) value.extraConfig
-                ++ [ "mac_addr=${if lib.elem key trustedNetworks then "0" else "2"}" ]
-                ++ lib.optional (lib.elem key disableEhtNetworks) "disable_eht=1"
-              );
-            }
-          ) secrets.wifis)
-          {
-            "63466727".priority = 100;
-            Niflheim.priority = 10;
-          };
+      networks = lib.recursiveUpdate (wifis.mkNetworks secrets.wifis) {
+        "63466727".priority = 100;
+        Niflheim.priority = 10;
+      };
     };
   };
 

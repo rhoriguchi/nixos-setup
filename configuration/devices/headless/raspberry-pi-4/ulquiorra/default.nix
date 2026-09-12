@@ -1,4 +1,9 @@
-{ config, secrets, ... }:
+{
+  config,
+  secrets,
+  wifis,
+  ...
+}:
 {
   imports = [
     ../common.nix
@@ -18,9 +23,11 @@
         p2p_disabled=1
       '';
 
-      networks."63466727-IoT" = secrets.wifis."63466727-IoT" // {
+      networks."63466727-IoT" = {
         # TODO Remove when raspberry pi supports WPA3 https://forums.raspberrypi.com/viewtopic.php?t=277468
         authProtocols = [ "WPA-PSK" ];
+        extraConfig = wifis.mkExtraConfig "63466727-IoT" [ "WPA-PSK" ] { headless = true; };
+        psk = secrets.wifis."63466727-IoT";
       };
     };
 

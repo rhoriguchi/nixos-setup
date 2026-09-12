@@ -203,6 +203,7 @@
 
             inherit (self.nixosModules) colors;
             secrets = import ./secrets.nix;
+            wifis = import ./wifis.nix { inherit lib; };
           };
 
           commonModule = {

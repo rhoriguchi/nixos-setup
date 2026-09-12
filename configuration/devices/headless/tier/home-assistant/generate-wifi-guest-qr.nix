@@ -6,7 +6,7 @@
 }:
 let
   ssid = "63466727-Guest";
-  password = secrets.wifis.${ssid}.psk;
+  password = secrets.wifis.${ssid};
 
   script =
     pkgs.writers.writePython3 "generate_wifi_guest_qr.py"
