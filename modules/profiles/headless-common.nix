@@ -16,6 +16,8 @@
     wifi.macAddress = "permanent";
   };
 
+  sops.secrets."users/xxlpitu".neededForUsers = true;
+
   users.users.xxlpitu = {
     extraGroups = [
       "wheel"
@@ -28,7 +30,7 @@
     ])
     ++ (lib.optional config.virtualisation.virtualbox.host.enable "vboxusers");
     isNormalUser = true;
-    password = secrets.users.xxlpitu.password;
+    hashedPasswordFile = config.sops.secrets."users/xxlpitu".path;
   };
 
   services = {

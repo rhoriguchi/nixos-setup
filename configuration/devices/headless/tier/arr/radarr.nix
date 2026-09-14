@@ -49,6 +49,11 @@ let
         };
       };
 
+      sopsPaths = [
+        config.sops.secrets."services/radarr/apiKey".path
+        config.sops.templates."services.radarr.environmentFile".path
+      ];
+
       config = {
         users = {
           users = {
@@ -77,11 +82,12 @@ let
               server.urlbase = "/${type}";
 
               auth = {
-                apikey = secrets.radarr.apiKey;
                 method = "Forms";
                 required = "DisabledForLocalAddresses";
               };
             };
+
+            environmentFiles = [ config.sops.templates."services.radarr.environmentFile".path ];
           };
 
           prometheus.exporters.exportarr-radarr = {
@@ -91,7 +97,7 @@ let
 
             url = "http://127.0.0.1:${toString containerCfg.services.radarr.settings.server.port}/${type}";
 
-            environment.API_KEY = containerCfg.services.radarr.settings.auth.apikey;
+            apiKeyFile = config.sops.secrets."services/radarr/apiKey".path;
           };
         };
 
@@ -127,6 +133,21 @@ let
     };
 in
 {
+  sops = {
+    secrets."services/radarr/apiKey" = { };
+
+    templates."services.radarr.environmentFile" = {
+      content = ''
+        RADARR__AUTH__APIKEY=${config.sops.placeholder."services/radarr/apiKey"}
+      '';
+
+      restartUnits = [
+        config.systemd.services."container@radarr-anime".name
+        config.systemd.services."container@radarr-movies".name
+      ];
+    };
+  };
+
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems.${bindmountDir} = {
     depends = [ "/mnt/Data/Movies" ];

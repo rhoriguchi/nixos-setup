@@ -1,14 +1,21 @@
 import json
+import os
 import sys
 import time
 
 import requests
 
+
+def read_credential(name):
+    with open(os.path.join(os.environ["CREDENTIALS_DIRECTORY"], name)) as f:
+        return f.read().strip()
+
+
 BASE_URL = "@baseUrl@"
 
 DEFAULT_USERNAME = "@defaultUsername@"
 DEFAULT_PASSWORD = "@defaultPassword@"
-NEW_PASSWORD = "@newPassword@"
+NEW_PASSWORD = read_credential("mealieAdminPassword")
 
 SETUP_USER_NAME = "@setupUserName@"
 SETUP_USER_EMAIL = "@setupUserEmail@"

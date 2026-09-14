@@ -8,6 +8,7 @@
   imports = [
     ./modules.nix
     ./networking.nix
+    ./sops.nix
   ];
 
   options.containers = lib.mkOption {

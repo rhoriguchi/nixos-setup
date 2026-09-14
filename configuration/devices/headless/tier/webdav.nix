@@ -31,9 +31,23 @@ in
     "d ${bindmountDir} 0750 ${config.services.webdav.user} ${config.services.webdav.group}"
   ];
 
+  sops = {
+    secrets."services/webdav/users/admin" = { };
+
+    templates."services.webdav.environmentFile" = {
+      restartUnits = [ config.systemd.services.webdav.name ];
+
+      content = ''
+        WEBDAV_ADMIN_PASSWORD=${config.sops.placeholder."services/webdav/users/admin"}
+      '';
+    };
+  };
+
   services = {
     webdav = {
       enable = true;
+
+      environmentFile = config.sops.templates."services.webdav.environmentFile".path;
 
       settings = {
         address = "127.0.0.1";
@@ -47,7 +61,7 @@ in
         users = [
           {
             username = "admin";
-            password = secrets.webdav.users.admin.password;
+            password = "{env}WEBDAV_ADMIN_PASSWORD";
           }
         ];
       };

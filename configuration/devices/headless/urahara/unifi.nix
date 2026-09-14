@@ -1,21 +1,28 @@
 {
+  config,
   interfaces,
   lib,
   pkgs,
-  secrets,
   ...
 }:
 let
   internalInterface = interfaces.internal;
 in
 {
+  sops.secrets."services/unpoller/users/unifipoller" = {
+    owner = "unifi-poller";
+    group = "unifi-poller";
+
+    restartUnits = [ config.systemd.services.unifi-poller.name ];
+  };
+
   services = {
     unpoller = {
       enable = true;
 
       unifi.defaults = {
         user = "unifipoller";
-        pass = pkgs.writeText "unifipoller-password" secrets.unpoller.users.unifipoller.password;
+        pass = config.sops.secrets."services/unpoller/users/unifipoller".path;
 
         url = "https://unifi.local";
         verify_ssl = false;

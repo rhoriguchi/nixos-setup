@@ -9,6 +9,9 @@ let
   backupDir = "/mnt/Data/Backup/${config.networking.hostName}";
 in
 {
+  sops.secrets."borgmatic+services/tvTrackTime/postgres/password".key =
+    "services/tvTrackTime/postgres/password";
+
   services.borgmatic = {
     enable = true;
 
@@ -98,7 +101,9 @@ in
             hostname = config.containers.tvtracktime-application.localAddress;
             port = config.containers.tvtracktime-application.config.services.postgresql.settings.port;
             username = "tvtracktime";
-            password = secrets.tvtracktime.postgres.password;
+            password = "{credential file ${
+              config.sops.secrets."borgmatic+services/tvTrackTime/postgres/password".path
+            }}";
 
             options =
               lib.pipe

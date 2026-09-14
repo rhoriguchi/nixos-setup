@@ -106,6 +106,7 @@ let
         ".wine"
 
         # Secrets
+        ".config/sops/age"
         ".docker/config.json"
         ".git-credentials"
         ".gnupg"

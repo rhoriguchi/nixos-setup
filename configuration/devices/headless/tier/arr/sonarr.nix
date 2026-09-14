@@ -56,6 +56,11 @@ let
         };
       };
 
+      sopsPaths = [
+        config.sops.secrets."services/sonarr/apiKey".path
+        config.sops.templates."services.sonarr.environmentFile".path
+      ];
+
       config = {
         users = {
           users = {
@@ -84,11 +89,12 @@ let
               server.urlbase = "/${type}";
 
               auth = {
-                apikey = secrets.sonarr.apiKey;
                 method = "Forms";
                 required = "DisabledForLocalAddresses";
               };
             };
+
+            environmentFiles = [ config.sops.templates."services.sonarr.environmentFile".path ];
           };
 
           prometheus.exporters.exportarr-sonarr = {
@@ -98,7 +104,7 @@ let
 
             url = "http://127.0.0.1:${toString containerCfg.services.sonarr.settings.server.port}/${type}";
 
-            environment.API_KEY = containerCfg.services.sonarr.settings.auth.apikey;
+            apiKeyFile = config.sops.secrets."services/sonarr/apiKey".path;
           };
         };
 
@@ -134,6 +140,21 @@ let
     };
 in
 {
+  sops = {
+    secrets."services/sonarr/apiKey" = { };
+
+    templates."services.sonarr.environmentFile" = {
+      content = ''
+        SONARR__AUTH__APIKEY=${config.sops.placeholder."services/sonarr/apiKey"}
+      '';
+
+      restartUnits = [
+        config.systemd.services."container@sonarr-anime".name
+        config.systemd.services."container@sonarr-series".name
+      ];
+    };
+  };
+
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {

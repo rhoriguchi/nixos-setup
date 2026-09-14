@@ -41,6 +41,25 @@ let
   version = "1.1.33";
 in
 {
+  sops = {
+    secrets."tvtracktime+services/tvTrackTime/postgres/password" = {
+      key = "services/tvTrackTime/postgres/password";
+
+      owner = "postgres";
+      group = "postgres";
+
+      restartUnits = [ config.systemd.services."container@tvtracktime-application".name ];
+    };
+
+    templates."services.tvtracktime.postgres.environmentFile" = {
+      content = ''
+        POSTGRES_PASSWORD=${config.sops.placeholder."tvtracktime+services/tvTrackTime/postgres/password"}
+      '';
+
+      restartUnits = [ config.systemd.services."container@tvtracktime-application".name ];
+    };
+  };
+
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems.${bindmountDir} = {
     depends = [ "/var/lib/tvtracktime-seaweedfs" ];
@@ -79,6 +98,11 @@ in
     hostAddress = "169.254.1.1";
     localAddress = "169.254.1.150";
 
+    sopsPaths = [
+      config.sops.secrets."tvtracktime+services/tvTrackTime/postgres/password".path
+      config.sops.templates."services.tvtracktime.postgres.environmentFile".path
+    ];
+
     bindMounts = {
       "${containerCfg.services.postgresql.dataDir}" = {
         isReadOnly = false;
@@ -93,7 +117,8 @@ in
 
     config = {
       systemd.services.postgresql.postStart = ''
-        ${containerCfg.services.postgresql.package}/bin/psql -tAc "ALTER ROLE tvtracktime WITH PASSWORD '${secrets.tvtracktime.postgres.password}';"
+        password="$(cat ${config.sops.secrets."tvtracktime+services/tvTrackTime/postgres/password".path})"
+        ${containerCfg.services.postgresql.package}/bin/psql -tAc "ALTER ROLE tvtracktime WITH PASSWORD '$password';"
       '';
 
       services.postgresql = {
@@ -145,6 +170,10 @@ in
 
           networks = [ "host" ];
 
+          environmentFiles = [
+            config.sops.templates."services.tvtracktime.postgres.environmentFile".path
+          ];
+
           environment = {
             SPRING_PROFILES_ACTIVE = "prod";
 
@@ -152,7 +181,6 @@ in
             POSTGRES_PORT = toString containerCfg.services.postgresql.settings.port;
             POSTGRES_DB = "tvtracktime";
             POSTGRES_USER = "tvtracktime";
-            POSTGRES_PASSWORD = secrets.tvtracktime.postgres.password;
 
             S3_URL = "http://127.0.0.1:8333";
             S3_BUCKET = "tvtracktime";

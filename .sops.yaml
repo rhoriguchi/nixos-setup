@@ -1,0 +1,21 @@
+keys:
+  - &admin_rhoriguchi age1avvpm54z7eglwxf0efs07ccwyljghy6p6q6ah9xc0nat4c3cpg0spz093c
+
+  - &host_aizen age1t4p922lvu949apg85qf932fg4p427u7vmalaal9fln886td4pdrs0xpk7t
+  - &host_kenpachi age17yys5gwdnzyah5su2chvgle6a4s8r0q9dkwvreygclpssdw3rusqpjqhss
+  - &host_nelliel age1m0drvd48599n8tr7hd5wmkskh5fatqr8f6hn2t46z88l7mv4apxqf36258
+  - &host_tier age1m9r48hh4x8wqja4f8dsdjuk7ylv0u8x89t5dkrj6ga8xqvrxsv8s32xvkv
+  - &host_ulquiorra age1qk2ws25s6c7we65vejz9fnzem64ddvszjff2shan3cg854vaea0s338vvf
+  - &host_urahara age1ygd9jlfuq3lyryqgukrgvgw8ew4epcaeuefwp2zp0vf5tm46rgrsg6em9n
+creation_rules:
+  - path_regex: ^secrets\.yaml$
+    key_groups:
+      - age:
+          - *admin_rhoriguchi
+
+          - *host_aizen
+          - *host_kenpachi
+          - *host_nelliel
+          - *host_tier
+          - *host_ulquiorra
+          - *host_urahara

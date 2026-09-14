@@ -4,6 +4,13 @@
   ...
 }:
 {
+  sops.secrets."services/grafana/secretKey" = {
+    owner = "grafana";
+    group = "grafana";
+
+    restartUnits = [ config.systemd.services.grafana.name ];
+  };
+
   services = {
     nginx = {
       enable = true;
@@ -45,7 +52,7 @@
           enforce_domain = true;
         };
 
-        security.secret_key = secrets.grafana.secretKey;
+        security.secret_key = "$__file{${config.sops.secrets."services/grafana/secretKey".path}}";
 
         auth.disable_login_form = true;
 

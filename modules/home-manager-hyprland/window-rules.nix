@@ -37,6 +37,10 @@
         class = "code";
         title = ".*secrets.nix - .* - Visual Studio Code";
       }
+      {
+        class = "code";
+        title = ".*secrets.yaml - .* - Visual Studio Code";
+      }
       { class = "discord"; }
       {
         class = "firefox";

@@ -4,7 +4,7 @@ let
     "63466727"
     "63466727-Guest"
     "63466727-IoT"
-    "Niflheim"
+    "Hueco Mundo"
   ];
 
   disableEhtNetworks = [
@@ -18,7 +18,7 @@ let
     "63466727-Guest".authProtocols = [ "SAE" ];
     "63466727-IoT".authProtocols = [ "SAE" ];
 
-    Niflheim.authProtocols = [ "WPA-PSK" ];
+    "Hueco Mundo".authProtocols = [ "WPA-PSK" ];
 
     "47555974".authProtocols = [ "WPA-PSK" ];
     FastAfBoi.authProtocols = [ "WPA-PSK" ];
@@ -40,14 +40,12 @@ let
       ++ lib.optional (lib.elem ssid disableEhtNetworks) "disable_eht=1"
     );
 
-  mkNetworks =
-    psks:
-    lib.mapAttrs (ssid: value: {
-      inherit (value) authProtocols;
-      psk = psks.${ssid};
-      extraConfig = mkExtraConfig ssid value.authProtocols { };
-    }) networks;
+  wirelessNetworks = lib.mapAttrs (ssid: value: {
+    inherit (value) authProtocols;
+    pskRaw = "ext:${ssid}";
+    extraConfig = mkExtraConfig ssid value.authProtocols { };
+  }) networks;
 in
 {
-  inherit mkExtraConfig mkNetworks;
+  inherit trustedNetworks mkExtraConfig wirelessNetworks;
 }

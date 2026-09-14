@@ -1,19 +1,36 @@
 {
   config,
-  pkgs,
   secrets,
   ...
 }:
 {
+  sops.secrets = {
+    "services/headplane/cookieSecret" = {
+      owner = config.services.headscale.user;
+      group = config.services.headscale.group;
+
+      restartUnits = [ config.systemd.services.headplane.name ];
+    };
+
+    "headplane+services/headscale/apiKey" = {
+      key = "services/headscale/apiKey";
+
+      owner = config.services.headscale.user;
+      group = config.services.headscale.group;
+
+      restartUnits = [ config.systemd.services.headplane.name ];
+    };
+  };
+
   services = {
     headplane = {
       enable = true;
 
       settings = {
-        headscale.api_key_path = pkgs.writeText "apiKey" secrets.headscale.apiKey;
+        headscale.api_key_path = config.sops.secrets."headplane+services/headscale/apiKey".path;
 
         server = {
-          cookie_secret_path = pkgs.writeText "cookieSecret" secrets.headplane.cookieSecret;
+          cookie_secret_path = config.sops.secrets."services/headplane/cookieSecret".path;
 
           proxy_auth.enabled = true;
         };

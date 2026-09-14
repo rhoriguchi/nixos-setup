@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  secrets,
-  ...
-}:
+{ config, lib, ... }:
 let
   createCustomFormatGroup =
     extraAssignScoresTo: customFormatGroup:
@@ -31,7 +26,7 @@ let
       base_url = "http://${
         config.containers."sonarr-${type}".localAddress
       }:${toString config.services.sonarr.settings.server.port}/${type}";
-      api_key = secrets.sonarr.apiKey;
+      api_key._secret = config.sops.secrets."services/sonarr/apiKey".path;
 
       media_naming = {
         series = "default";
@@ -88,7 +83,7 @@ let
       base_url = "http://${
         config.containers."radarr-${type}".localAddress
       }:${toString config.services.radarr.settings.server.port}/${type}";
-      api_key = secrets.radarr.apiKey;
+      api_key._secret = config.sops.secrets."services/radarr/apiKey".path;
 
       media_naming = {
         folder = "default";
@@ -181,6 +176,11 @@ let
     };
 in
 {
+  sops.secrets = {
+    "services/sonarr/apiKey".restartUnits = [ config.systemd.services.recyclarr.name ];
+    "services/radarr/apiKey".restartUnits = [ config.systemd.services.recyclarr.name ];
+  };
+
   services.recyclarr = {
     enable = true;
 
