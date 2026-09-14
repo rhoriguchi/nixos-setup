@@ -15,6 +15,13 @@ let
   bindmountDir2 = "${rootBindmountDir}/disk-series";
   bindmountDir3 = "${rootBindmountDir}/disk-movies";
 
+  sopsSecrets = {
+    apiKey = "services/bazarr/apiKey";
+    anidbApiClient = "services/bazarr/anidb/apiClient";
+    opensSubtitlesUsername = "services/bazarr/opensSubtitles/username";
+    opensSubtitlesPassword = "services/bazarr/opensSubtitles/password";
+  };
+
   getName =
     type:
     lib.pipe type [
@@ -67,6 +74,8 @@ let
           hostPath = bindmountDir3;
         };
       };
+
+      sopsPaths = map (name: config.sops.secrets.${name}.path) (lib.attrValues sopsSecrets);
 
       config = {
         # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=519655
@@ -130,7 +139,7 @@ let
             openFirewall = true;
 
             settings = {
-              auth.apikey = secrets.bazarr.apiKey;
+              auth.apikey._secret = config.sops.secrets.${sopsSecrets.apiKey}.path;
 
               general = {
                 instance_name = "Bazarr ${getName type}";
@@ -171,12 +180,12 @@ let
               };
 
               opensubtitlescom = {
-                username = secrets.opensSubtitles.username;
-                password = secrets.opensSubtitles.password;
+                username._secret = config.sops.secrets.${sopsSecrets.opensSubtitlesUsername}.path;
+                password._secret = config.sops.secrets.${sopsSecrets.opensSubtitlesPassword}.path;
               };
 
               anidb = {
-                api_client = secrets.bazarr.anidb.apiClient;
+                api_client._secret = config.sops.secrets.${sopsSecrets.anidbApiClient}.path;
                 api_client_ver = 1;
               };
 
@@ -215,7 +224,7 @@ let
 
             url = "http://127.0.0.1:${toString containerCfg.services.bazarr.settings.general.port}/${type}";
 
-            environment.API_KEY = containerCfg.services.bazarr.settings.auth.apikey;
+            apiKeyFile = config.sops.secrets.${sopsSecrets.apiKey}.path;
           };
         };
       };
@@ -247,6 +256,13 @@ in
       message = "Bazarr GID ${toString bazarrGid} is already in use in config.ids.gids";
     }
   ];
+
+  sops.secrets = lib.genAttrs (lib.attrValues sopsSecrets) (_: {
+    restartUnits = [
+      config.systemd.services."container@bazarr-anime".name
+      config.systemd.services."container@bazarr-series-movies".name
+    ];
+  });
 
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {

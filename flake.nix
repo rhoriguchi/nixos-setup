@@ -81,6 +81,11 @@
       url = "github:nvmd/nixos-raspberrypi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -163,6 +168,7 @@
           inputs.declarative-jellyfin.nixosModules.default
           inputs.hyprland.nixosModules.default
           inputs.nix-flatpak.nixosModules.nix-flatpak
+          inputs.sops-nix.nixosModules.sops
 
           ./modules/default
         ];
@@ -173,6 +179,8 @@
         home-manager.imports = [
           inputs.nix-index-database.homeModules.nix-index
           inputs.nixkraken.homeManagerModules.nixkraken
+          inputs.sops-nix.homeManagerModules.sops
+
           ./modules/home-manager
         ];
         home-manager-gnome.imports = [ ./modules/home-manager-gnome ];
@@ -216,6 +224,8 @@
             nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
             nixpkgs.overlays = [ self.overlays.default ];
+
+            sops.defaultSopsFile = libCustom.relativeToRoot "secrets.yaml";
           };
         in
         {
@@ -448,8 +458,10 @@
 
         devShells.default = pkgs.mkShell {
           buildInputs = [
+            pkgs.age
             pkgs.nix-output-monitor
             pkgs.nixVersions.latest
+            pkgs.sops
 
             inputs.deploy-rs.packages.${system}.deploy-rs
           ]

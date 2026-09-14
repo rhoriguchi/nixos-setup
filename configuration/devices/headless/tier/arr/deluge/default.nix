@@ -8,10 +8,17 @@
 let
   containerCfg = config.containers.deluge.config;
 
+  delugeUsers = {
+    localclient.level = 10;
+
+    # Does not work with 1 (Read Only)
+    metrics.level = 5;
+  };
+
   parseWireguardConfig =
-    file:
+    name:
     let
-      content = lib.readFile file;
+      content = lib.readFile "${wgConfigDir}/${name}";
       getValue =
         key:
         lib.pipe content [
@@ -28,7 +35,7 @@ let
       rawNameserver = lib.splitString ", " (getValue "DNS");
     in
     rec {
-      privateKey = getValue "PrivateKey";
+      inherit name;
       publicKey = getValue "PublicKey";
       address = lib.head (lib.filter isIpv4 rawAddresses);
       endpoint = getValue "Endpoint";
@@ -38,7 +45,10 @@ let
 
   wgConfigDir = ./wireguard-configs;
   wgConfigFiles = lib.attrNames (lib.readDir wgConfigDir);
-  wgConfigs = map (wgConfigFile: parseWireguardConfig "${wgConfigDir}/${wgConfigFile}") wgConfigFiles;
+  wgConfigs = map (name: parseWireguardConfig name) wgConfigFiles;
+
+  wgSecretName = name: "services/deluge/wireguard/${name}";
+  delugeUserSecretName = user: "services/deluge/users/${user}";
 
   wgInterfaces = lib.attrNames containerCfg.networking.wireguard.interfaces;
 in
@@ -54,6 +64,34 @@ in
       message = "All WireGuard configurations must use the same nameserver.";
     }
   ];
+
+  sops = {
+    secrets =
+      lib.listToAttrs (
+        map (
+          name: lib.nameValuePair name { restartUnits = [ config.systemd.services."container@deluge".name ]; }
+        ) (map (name: wgSecretName name) wgConfigFiles)
+      )
+      // lib.listToAttrs (
+        map (user: lib.nameValuePair (delugeUserSecretName user) { }) (lib.attrNames delugeUsers)
+      );
+
+    templates."services.deluge.authFile" = {
+      uid = containerCfg.users.users.${containerCfg.services.deluge.user}.uid;
+      gid = containerCfg.users.groups.${containerCfg.services.deluge.group}.gid;
+
+      content = lib.concatStringsSep "\n" (
+        map (
+          user:
+          "${user}:${config.sops.placeholder.${delugeUserSecretName user}}:${
+            toString delugeUsers.${user}.level
+          }"
+        ) (lib.attrNames delugeUsers)
+      );
+
+      restartUnits = [ config.systemd.services."container@deluge".name ];
+    };
+  };
 
   systemd.tmpfiles.rules = [
     "d ${containerCfg.services.deluge.dataDir} 0750 ${
@@ -81,6 +119,12 @@ in
       };
     };
 
+    sopsPaths = [
+      config.sops.templates."services.deluge.authFile".path
+      config.sops.secrets.${delugeUserSecretName "metrics"}.path
+    ]
+    ++ map (name: config.sops.secrets.${wgSecretName name}.path) wgConfigFiles;
+
     config = {
       boot.kernel.sysctl = lib.pipe wgInterfaces [
         (map (interface: lib.nameValuePair "net.ipv4.conf.${interface}.rp_filter" 2))
@@ -105,7 +149,7 @@ in
             index: wgConfig:
             lib.nameValuePair "wg${toString index}" {
               ips = [ wgConfig.address ];
-              inherit (wgConfig) privateKey;
+              privateKeyFile = config.sops.secrets.${wgSecretName wgConfig.name}.path;
 
               allowedIPsAsRoutes = false;
 
@@ -191,13 +235,7 @@ in
 
           declarative = true;
 
-          authFile = lib.pipe secrets.deluge.users [
-            (lib.mapAttrsToList (key: value: "${key}:${value.password}:${toString value.level}"))
-
-            (lib.concatStringsSep "\n")
-
-            (pkgs.writeText "deluge-auth")
-          ];
+          authFile = config.sops.templates."services.deluge.authFile".path;
 
           config = rec {
             new_release_check = false;
@@ -229,7 +267,7 @@ in
           openFirewall = true;
 
           delugeUser = "metrics";
-          delugePasswordFile = pkgs.writeText "deluge-metrics-password" secrets.deluge.users.metrics.password;
+          delugePasswordFile = config.sops.secrets.${delugeUserSecretName "metrics"}.path;
         };
       };
     };

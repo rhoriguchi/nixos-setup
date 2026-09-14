@@ -9,11 +9,65 @@ let
   databases = [ "obsidian" ];
 in
 {
+  sops = {
+    secrets = lib.listToAttrs (
+      map (
+        name:
+        lib.nameValuePair "services/couchdb/users/${name}" {
+          restartUnits =
+            if name == "admin" then
+              map (database: config.systemd.services."couchdb-init-${database}".name) databases
+            else
+              [ config.systemd.services."couchdb-init-${name}".name ];
+        }
+      ) ([ "admin" ] ++ databases)
+    );
+
+    templates = {
+      "services.couchdb.extraConfigFiles" = {
+        owner = config.services.couchdb.user;
+        group = config.services.couchdb.group;
+
+        content = ''
+          [admins]
+          ${config.services.couchdb.adminUser} = ${config.sops.placeholder."services/couchdb/users/admin"}
+        '';
+
+        restartUnits = [ config.systemd.services.couchdb.name ];
+      };
+    }
+    // lib.optionalAttrs config.services.custom-netdata.enable {
+      "services.netdata.couchdbCollector" = {
+        content = lib.toJSON {
+          jobs = [
+            {
+              name = "local";
+              url = "http://127.0.0.1:${toString config.services.couchdb.port}";
+              username = config.services.couchdb.adminUser;
+              password = config.sops.placeholder."services/couchdb/users/admin";
+            }
+          ];
+        };
+
+        owner = config.services.netdata.user;
+        group = config.services.netdata.group;
+
+        reloadUnits = [ config.systemd.services.netdata.name ];
+      };
+    };
+  };
+
+  services.custom-netdata.extraGoCollectors =
+    lib.optionalAttrs config.services.custom-netdata.enable
+      {
+        "go.d/couchdb.conf" = config.sops.templates."services.netdata.couchdbCollector".path;
+      };
+
   services = {
     couchdb = {
       enable = true;
 
-      adminPass = secrets.couchdb.users.admin.password;
+      extraConfigFiles = [ config.sops.templates."services.couchdb.extraConfigFiles".path ];
 
       extraConfig = {
         chttpd = {
@@ -81,7 +135,7 @@ in
             extraConfig = ''
               include /run/nginx-authelia/auth.conf;
 
-              proxy_set_header X-Auth-CouchDB-UserName admin;
+              proxy_set_header X-Auth-CouchDB-UserName ${config.services.couchdb.adminUser};
               proxy_set_header X-Auth-CouchDB-Roles _admin;
             '';
           };
@@ -91,7 +145,7 @@ in
             extraConfig = ''
               include /run/nginx-authelia/auth.conf;
 
-              proxy_set_header X-Auth-CouchDB-UserName admin;
+              proxy_set_header X-Auth-CouchDB-UserName ${config.services.couchdb.adminUser};
               proxy_set_header X-Auth-CouchDB-Roles _admin;
             '';
           };
@@ -101,7 +155,7 @@ in
             extraConfig = ''
               include /run/nginx-authelia/auth.conf;
 
-              proxy_set_header X-Auth-CouchDB-UserName admin;
+              proxy_set_header X-Auth-CouchDB-UserName ${config.services.couchdb.adminUser};
               proxy_set_header X-Auth-CouchDB-Roles _admin;
             '';
           };
@@ -142,8 +196,9 @@ in
             sleep 1
           done
 
-          admin_auth="admin:${config.services.couchdb.adminPass}"
+          admin_auth="${config.services.couchdb.adminUser}:$(cat "$CREDENTIALS_DIRECTORY/adminPassword")"
           base="http://127.0.0.1:${toString config.services.couchdb.port}"
+          db_password="$(cat "$CREDENTIALS_DIRECTORY/dbPassword")"
 
           # PUT on an already-existing db/user/doc is a harmless no-op (curl
           # without -f exits 0 on non-2xx too), so these are safe to run
@@ -152,9 +207,7 @@ in
           ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" "$base/${database}" > /dev/null
           ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" \
             -H "Content-Type: application/json" \
-            -d '{"name":"${database}","password":"${
-              secrets.couchdb.users.${database}.password
-            }","roles":[],"type":"user"}' \
+            -d '{"name":"${database}","password":"'"$db_password"'","roles":[],"type":"user"}' \
             "$base/_users/org.couchdb.user:${database}" > /dev/null
 
           ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" \
@@ -164,8 +217,14 @@ in
         '';
 
         serviceConfig = {
+          DynamicUser = true;
           Type = "oneshot";
           RemainAfterExit = true;
+
+          LoadCredential = [
+            "adminPassword:${config.sops.secrets."services/couchdb/users/admin".path}"
+            "dbPassword:${config.sops.secrets."services/couchdb/users/${database}".path}"
+          ];
         };
       }
     ) databases

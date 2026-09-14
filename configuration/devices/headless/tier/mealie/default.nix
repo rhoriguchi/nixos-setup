@@ -16,7 +16,7 @@ let
     }
   ];
 
-  mealieSetupScript =
+  pythonScript =
     pkgs.writers.writePython3 "mealie-setup"
       {
         libraries = [ pkgs.python3Packages.requests ];
@@ -29,7 +29,6 @@ let
 
             defaultUsername = "admin";
             defaultPassword = "MyPassword";
-            newPassword = secrets.mealie.bootstrapAdminPassword;
 
             setupUserName = "Setup User";
             setupUserEmail = config.security.acme.defaults.email;
@@ -40,6 +39,10 @@ let
       );
 in
 {
+  sops.secrets."services/mealie/users/admin".restartUnits = [
+    config.systemd.services.mealie-setup.name
+  ];
+
   services = {
     mealie = {
       enable = true;
@@ -95,11 +98,16 @@ in
     after = [ config.systemd.services.mealie.name ];
     wantedBy = [ "multi-user.target" ];
 
-    script = "${mealieSetupScript}";
+    script = "${pythonScript}";
 
     serviceConfig = {
+      DynamicUser = true;
       Type = "oneshot";
       RemainAfterExit = true;
+
+      LoadCredential = [
+        "mealieAdminPassword:${config.sops.secrets."services/mealie/users/admin".path}"
+      ];
     };
   };
 }

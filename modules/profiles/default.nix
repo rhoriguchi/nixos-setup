@@ -7,7 +7,7 @@
   authelia = ./authelia.nix;
   bluetooth = ./bluetooth.nix;
   chrony = ./chrony.nix;
-  containers = ./containers.nix;
+  containers = ./containers;
   dconf-editor = ./dconf-editor.nix;
   doas = ./doas.nix;
   docker = ./docker.nix;

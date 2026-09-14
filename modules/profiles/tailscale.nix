@@ -1,10 +1,11 @@
+{ config, ... }:
 {
-  config,
-  pkgs,
-  secrets,
-  ...
-}:
-{
+  sops.secrets."tailscale:services/headscale/preAuthKeys/${config.networking.hostName}" = {
+    key = "services/headscale/preAuthKeys/${config.networking.hostName}";
+
+    restartUnits = [ config.systemd.services.tailscaled-autoconnect.name ];
+  };
+
   services.tailscale = {
     enable = true;
 
@@ -14,8 +15,7 @@
     disableUpstreamLogging = true;
 
     authKeyFile =
-      pkgs.writeText "authKeyFile"
-        secrets.headscale.preAuthKeys.${config.networking.hostName};
+      config.sops.secrets."tailscale:services/headscale/preAuthKeys/${config.networking.hostName}".path;
 
     extraSetFlags = [
       "--update-check=false"

@@ -140,6 +140,33 @@ zfs create \
   data/sync
 ```
 
+## Secrets
+
+Secrets live in `secrets.yaml` at the repo root, encrypted with [sops](https://github.com/getsops/sops) using [age](https://github.com/FiloSottile/age) keys declared in `.sops.yaml`. Each host decrypts using its own SSH host key, converted to an age key automatically by [sops-nix](https://github.com/Mic92/sops-nix); a personal admin key is a separate age key.
+
+### One-time admin setup
+
+```console
+mkdir -p ~/.config/sops/age
+age-keygen -o ~/.config/sops/age/keys.txt
+```
+
+Add the printed public key to the `keys` list in `.sops.yaml` under a `&admin_<username>` anchor, and to the `age` list of every `creation_rules` entry. Then, for every sops file you need to decrypt (currently just `secrets.yaml`), have someone with existing access run `sops updatekeys <file>` to re-encrypt it for the new key.
+
+### Editing secrets
+
+```console
+sops secrets.yaml
+```
+
+### Adding a new host
+
+```console
+ssh <host> "cat /etc/ssh/ssh_host_ed25519_key.pub" | nix-shell -p ssh-to-age --command ssh-to-age
+```
+
+Add the result to `.sops.yaml` under a new `&host_<name>` anchor and to every `creation_rules` entry's `age` list. Then, for every sops file the new host needs to decrypt (currently just `secrets.yaml`), run `sops updatekeys <file>` to re-encrypt it for the new key — a host's key only grants decryption for files it was added to.
+
 ## disko
 
 ```console

@@ -56,6 +56,10 @@ in
       );
       default = [ ];
     };
+    extraGoCollectors = lib.mkOption {
+      type = lib.types.attrsOf lib.types.path;
+      default = { };
+    };
     debug = lib.mkOption {
       type = lib.types.submodule {
         options = {
@@ -94,11 +98,6 @@ in
       {
         assertion = isChild -> lib.elem cfg.parentHostname (lib.attrNames tailscaleIps);
         message = "When type is child parentHostname must be tailscale host";
-      }
-
-      {
-        assertion = config.services.couchdb.enable -> config.services.couchdb.adminPass != null;
-        message = "When couchdb is enabled services.couchdb.adminPass must be set";
       }
     ];
 
@@ -458,18 +457,6 @@ in
             jobs = [ { name = "local"; } ];
           };
         }
-        // lib.optionalAttrs config.services.couchdb.enable {
-          "go.d/couchdb.conf" = pkgs.writers.writeYAML "couchdb.conf" {
-            jobs = [
-              {
-                name = "local";
-                url = "http://127.0.0.1:${toString config.services.couchdb.port}";
-                username = config.services.couchdb.adminUser;
-                password = config.services.couchdb.adminPass;
-              }
-            ];
-          };
-        }
         // lib.optionalAttrs config.services.dnsmasq.enable {
           "go.d/dnsmasq_dhcp.conf" = pkgs.writers.writeYAML "dnsmasq_dhcp.conf" {
             jobs = [
@@ -670,7 +657,8 @@ in
               DEFAULT_RECIPIENT_DISCORD="netdata"
             '';
           };
-        };
+        }
+        // cfg.extraGoCollectors;
       };
     };
 

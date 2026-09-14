@@ -1,14 +1,48 @@
-{ config, secrets, ... }:
 {
+  config,
+  lib,
+  secrets,
+  ...
+}:
+{
+  sops = {
+    secrets."services/prowlarr/apiKey" = { };
+
+    templates."services.prowlarr.environmentFile" = {
+      content = ''
+        PROWLARR__AUTH__APIKEY=${config.sops.placeholder."services/prowlarr/apiKey"}
+      '';
+
+      restartUnits = [ config.systemd.services.prowlarr.name ];
+    };
+  };
+
   services = {
     prowlarr = {
       enable = true;
 
       # https://wiki.servarr.com/prowlarr/environment-variables
       settings.auth = {
-        apikey = secrets.prowlarr.apiKey;
         method = "Forms";
         required = "DisabledForLocalAddresses";
+      };
+
+      environmentFiles = [ config.sops.templates."services.prowlarr.environmentFile".path ];
+    };
+
+    prometheus.exporters.exportarr-prowlarr = lib.mkForce {
+      enable = true;
+
+      port = 9710;
+
+      url = "http://127.0.0.1:${toString config.services.prowlarr.settings.server.port}";
+
+      apiKeyFile = config.sops.secrets."services/prowlarr/apiKey".path;
+
+      environment = {
+        INTERFACE = "127.0.0.1";
+
+        PROWLARR__BACKFILL = "true";
       };
     };
 

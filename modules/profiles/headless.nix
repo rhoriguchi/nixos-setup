@@ -5,7 +5,7 @@
     ./alloy
     ./authelia.nix
     ./chrony.nix
-    ./containers.nix
+    ./containers
     ./fail2ban.nix
     ./grafana.nix
     ./loki.nix

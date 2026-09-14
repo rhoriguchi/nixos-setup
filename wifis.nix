@@ -40,14 +40,12 @@ let
       ++ lib.optional (lib.elem ssid disableEhtNetworks) "disable_eht=1"
     );
 
-  mkNetworks =
-    psks:
-    lib.mapAttrs (ssid: value: {
-      inherit (value) authProtocols;
-      psk = psks.${ssid};
-      extraConfig = mkExtraConfig ssid value.authProtocols { };
-    }) networks;
+  wirelessNetworks = lib.mapAttrs (ssid: value: {
+    inherit (value) authProtocols;
+    pskRaw = "ext:${ssid}";
+    extraConfig = mkExtraConfig ssid value.authProtocols { };
+  }) networks;
 in
 {
-  inherit mkExtraConfig mkNetworks;
+  inherit trustedNetworks mkExtraConfig wirelessNetworks;
 }
