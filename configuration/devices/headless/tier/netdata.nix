@@ -9,7 +9,7 @@
     nginx = {
       enable = true;
 
-      virtualHosts."monitoring.00a.ch" = {
+      virtualHosts."netdata.00a.ch" = {
         enableACME = true;
         acmeRoot = null;
         forceSSL = true;
@@ -33,7 +33,7 @@
 
       username = secrets.infomaniak.username;
       password = secrets.infomaniak.password;
-      hostnames = [ "monitoring.00a.ch" ];
+      hostnames = [ "netdata.00a.ch" ];
     };
 
     custom-netdata = lib.mkForce {
