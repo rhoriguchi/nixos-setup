@@ -21,10 +21,10 @@ let
   # actually forward that traffic once it arrives.
   #
   # https://www.init7.net/en/tv/channels
-  channelGroups = lib.pipe (builtins.readFile ./TV7_Multicast.xspf) [
-    (builtins.split "(233\\.50\\.230\\.[0-9]+)")
-    (builtins.filter builtins.isList)
-    (map builtins.head)
+  channelGroups = lib.pipe (lib.readFile ./TV7_Multicast.xspf) [
+    (lib.split "(233\\.50\\.230\\.[0-9]+)")
+    (lib.filter lib.isList)
+    (map lib.head)
     lib.unique
   ];
 

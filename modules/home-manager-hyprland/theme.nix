@@ -52,7 +52,7 @@
         })
         (
           lib.filterAttrs (name: _: name != "hicolor") (
-            builtins.readDir "${config.gtk.iconTheme.package}/share/icons"
+            lib.readDir "${config.gtk.iconTheme.package}/share/icons"
           )
         )
     );

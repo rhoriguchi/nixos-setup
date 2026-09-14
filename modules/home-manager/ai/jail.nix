@@ -171,7 +171,7 @@ let
       ];
 
       sshHosts = lib.pipe (config.programs.ssh.settings or { }) [
-        builtins.attrNames
+        lib.attrNames
         (lib.remove "*")
         (lib.sort (a: b: a < b))
       ];

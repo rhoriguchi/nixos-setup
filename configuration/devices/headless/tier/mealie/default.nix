@@ -34,7 +34,7 @@ let
             setupUserName = "Setup User";
             setupUserEmail = config.security.acme.defaults.email;
 
-            aiProviders = builtins.toJSON aiProviders;
+            aiProviders = lib.toJSON aiProviders;
           }
         )
       );
