@@ -2,12 +2,11 @@
   config,
   lib,
   pkgs,
-  secrets,
   ...
 }:
 let
-  hostnames = lib.attrNames secrets.headscale.preAuthKeys;
   tailscaleIps = import ./ips.nix;
+  hostnames = lib.attrNames tailscaleIps;
 
   getHostId = hostname: lib.last (lib.splitString "." tailscaleIps.${hostname}.ip);
 
@@ -16,51 +15,43 @@ let
   # with "database is locked" while headscale.service holds the database.
   sqlite = "${pkgs.sqlite-interactive}/bin/sqlite3 -cmd '.timeout ${toString (1000 * 30)}'";
 
-  parseKey =
-    key:
-    lib.pipe key [
-      (lib.replaceStrings [ "hskey-api-" "hskey-auth-" ] [ "" "" ])
+  parseKeyFn = ''
+    parse_key() {
+      local raw
 
-      (
-        rawKey:
-        let
-          prefix = lib.substring 0 12 rawKey;
-        in
-        {
-          inherit prefix;
-          secret = lib.replaceStrings [ "${prefix}-" ] [ "" ] rawKey;
-        }
-      )
-    ];
+      raw="$(printf '%s' "$1" | sed -E 's/^(hskey-api-|hskey-auth-)//')"
+      key_prefix="''${raw:0:12}"
+      key_secret="''${raw:13}"
+    }
+  '';
 
   unixEpoch = "1970-01-01 00:00:00.000000000+00:00";
   expiration = "2099-01-01 00:00:00.000000000+00:00";
 
-  addApiKey =
-    let
-      key = parseKey secrets.headscale.apiKey;
-    in
-    ''
-      apiKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"
+  addApiKey = ''
+    parse_key "$(cat ${config.sops.secrets."headscale+services/headscale/apiKey".path})"
 
-      ${sqlite} "${sqlitePath}" <<EOF
-        DELETE FROM api_keys;
+    apiKeyPrefix="$key_prefix"
+    apiKeyHash="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "$key_secret" | cut -d: -f2)"
 
-        INSERT INTO api_keys (
-          id,
-          created_at,
-          expiration,
-          prefix,
-          hash
-        ) VALUES (
-          1,
-          '${unixEpoch}',
-          '${expiration}',
-          '${key.prefix}',
-          '$apiKey'
-        );
-      EOF
-    '';
+    ${sqlite} "${sqlitePath}" <<EOF
+      DELETE FROM api_keys;
+
+      INSERT INTO api_keys (
+        id,
+        created_at,
+        expiration,
+        prefix,
+        hash
+      ) VALUES (
+        1,
+        '${unixEpoch}',
+        '${expiration}',
+        '$apiKeyPrefix',
+        '$apiKeyHash'
+      );
+    EOF
+  '';
 
   addPreAuthKeys = ''
     ${sqlite} "${sqlitePath}" <<'EOF'
@@ -71,12 +62,15 @@ let
       (map (
         hostname:
         let
-          preAuthKey = secrets.headscale.preAuthKeys.${hostname};
-          key = parseKey preAuthKey;
           tags = (tailscaleIps.${hostname}.tags or [ ]) ++ [ hostname ];
         in
         ''
-          preAuthKey="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "${key.secret}" | cut -d: -f2)"
+          parse_key "$(cat ${
+            config.sops.secrets."headscale+services/headscale/preAuthKeys/${hostname}".path
+          })"
+
+          preAuthKeyPrefix="$key_prefix"
+          preAuthKeyHash="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "$key_secret" | cut -d: -f2)"
 
           ${sqlite} "${sqlitePath}" <<EOF
             INSERT INTO pre_auth_keys (
@@ -100,8 +94,8 @@ let
               }]',
               0,
               1,
-              '${key.prefix}',
-              '$preAuthKey'
+              '$preAuthKeyPrefix',
+              '$preAuthKeyHash'
             );
           EOF
         ''
@@ -146,6 +140,31 @@ in
   imports = [
     ./headplane.nix
   ];
+
+  sops.secrets =
+    lib.listToAttrs (
+      map (
+        hostname:
+        lib.nameValuePair "headscale+services/headscale/preAuthKeys/${hostname}" {
+          key = "services/headscale/preAuthKeys/${hostname}";
+
+          owner = config.services.headscale.user;
+          group = config.services.headscale.group;
+
+          restartUnits = [ config.systemd.services.headscale-setup.name ];
+        }
+      ) hostnames
+    )
+    // {
+      "headscale+services/headscale/apiKey" = {
+        key = "services/headscale/apiKey";
+
+        owner = config.services.headscale.user;
+        group = config.services.headscale.group;
+
+        restartUnits = [ config.systemd.services.headscale-setup.name ];
+      };
+    };
 
   services = {
     headscale = {
@@ -281,8 +300,6 @@ in
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [
         "headscale.00a.ch"
       ];
@@ -318,6 +335,8 @@ in
       wantedBy = [ "multi-user.target" ];
 
       script = ''
+        ${parseKeyFn}
+
         ${addApiKey}
         ${addPreAuthKeys}
 

@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  secrets,
   ...
 }:
 {
@@ -11,8 +10,6 @@
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "tautulli.00a.ch" ];
     };
 

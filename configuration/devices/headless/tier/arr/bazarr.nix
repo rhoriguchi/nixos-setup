@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  secrets,
   ...
 }:
 let
@@ -67,6 +66,15 @@ let
         };
       };
 
+      sopsPaths = [
+        config.sops.secrets."services/bazarr/anidb/apiClient".path
+        config.sops.secrets."services/bazarr/apiKey".path
+        config.sops.secrets."services/bazarr/opensSubtitles/password".path
+        config.sops.secrets."services/bazarr/opensSubtitles/username".path
+        config.sops.secrets."services/radarr/apiKey".path
+        config.sops.secrets."services/sonarr/apiKey".path
+      ];
+
       config = {
         users = {
           users.${config.services.bazarr.user} = {
@@ -126,7 +134,7 @@ let
             openFirewall = true;
 
             settings = {
-              auth.apikey = secrets.bazarr.apiKey;
+              auth.apikey._secret = config.sops.secrets."services/bazarr/apiKey".path;
 
               general = {
                 instance_name = "Bazarr ${getName type}";
@@ -167,12 +175,12 @@ let
               };
 
               opensubtitlescom = {
-                username = secrets.opensSubtitles.username;
-                password = secrets.opensSubtitles.password;
+                username._secret = config.sops.secrets."services/bazarr/opensSubtitles/username".path;
+                password._secret = config.sops.secrets."services/bazarr/opensSubtitles/password".path;
               };
 
               anidb = {
-                api_client = secrets.bazarr.anidb.apiClient;
+                api_client._secret = config.sops.secrets."services/bazarr/anidb/apiClient".path;
                 api_client_ver = 1;
               };
 
@@ -181,7 +189,7 @@ let
                   t = if type == "series-movies" then "movies" else type;
                 in
                 {
-                  apikey = secrets.radarr.apiKey;
+                  apikey._secret = config.sops.secrets."services/radarr/apiKey".path;
                   ip = config.containers."radarr-${t}".localAddress;
                   port = config.containers."radarr-${t}".config.services.radarr.settings.server.port;
                   base_url = "/${t}";
@@ -194,7 +202,7 @@ let
                   t = if type == "series-movies" then "series" else type;
                 in
                 {
-                  apikey = secrets.sonarr.apiKey;
+                  apikey._secret = config.sops.secrets."services/sonarr/apiKey".path;
                   ip = config.containers."sonarr-${t}".localAddress;
                   port = config.containers."sonarr-${t}".config.services.sonarr.settings.server.port;
                   base_url = "/${t}";
@@ -211,7 +219,7 @@ let
 
             url = "http://127.0.0.1:${toString containerCfg.services.bazarr.settings.general.port}/${type}";
 
-            environment.API_KEY = containerCfg.services.bazarr.settings.auth.apikey;
+            apiKeyFile = config.sops.secrets."services/bazarr/apiKey".path;
           };
         };
       };
@@ -243,6 +251,33 @@ in
       message = "Bazarr GID ${toString bazarrGid} is already in use in config.ids.gids";
     }
   ];
+
+  sops.secrets = {
+    "services/bazarr/apiKey".restartUnits = [
+      config.systemd.services."container@bazarr-anime".name
+      config.systemd.services."container@bazarr-series-movies".name
+    ];
+    "services/bazarr/anidb/apiClient".restartUnits = [
+      config.systemd.services."container@bazarr-anime".name
+      config.systemd.services."container@bazarr-series-movies".name
+    ];
+    "services/bazarr/opensSubtitles/username".restartUnits = [
+      config.systemd.services."container@bazarr-anime".name
+      config.systemd.services."container@bazarr-series-movies".name
+    ];
+    "services/bazarr/opensSubtitles/password".restartUnits = [
+      config.systemd.services."container@bazarr-anime".name
+      config.systemd.services."container@bazarr-series-movies".name
+    ];
+    "services/radarr/apiKey".restartUnits = [
+      config.systemd.services."container@bazarr-anime".name
+      config.systemd.services."container@bazarr-series-movies".name
+    ];
+    "services/sonarr/apiKey".restartUnits = [
+      config.systemd.services."container@bazarr-anime".name
+      config.systemd.services."container@bazarr-series-movies".name
+    ];
+  };
 
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
@@ -330,8 +365,6 @@ in
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "bazarr.00a.ch" ];
     };
 

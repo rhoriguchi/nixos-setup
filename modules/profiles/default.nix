@@ -22,6 +22,7 @@
   hardening = ./hardening.nix;
   hyprland = ./hyprland.nix;
   i18n = ./i18n.nix;
+  infomaniak = ./infomaniak.nix;
   java = ./java.nix;
   javascript = ./javascript.nix;
   kernel-latest = ./kernel-latest.nix;
@@ -33,6 +34,7 @@
   loki = ./loki.nix;
   mission-center = ./mission-center.nix;
   nautilus = ./nautilus.nix;
+  netdata = ./netdata.nix;
   nftables = ./nftables.nix;
   nginx = ./nginx.nix;
   nix = ./nix.nix;

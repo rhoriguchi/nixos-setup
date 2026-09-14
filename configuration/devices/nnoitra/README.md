@@ -92,7 +92,7 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 
 Run in an elevated cmd
 
-- Replace `CLAIM_TOKEN` with value form [secrets.nix](../../../secrets.nix).monitoring.claimToken
+- Replace `CLAIM_TOKEN` with the output of `sops --decrypt --extract '["services"]["netdata"]["claimToken"]' secrets.yaml`
 
 ```cmd
 set TMPDIR="%TEMP%\tempdir_%RANDOM%"
@@ -109,7 +109,7 @@ del /f Netdata.msi
 
 Run in an elevated cmd
 
-- Replace `PRE_AUTH_KEY` with value form [secrets.nix](../../../secrets.nix).headscale.preAuthKeys.XXLPitu-Nnoitra
+- Replace `PRE_AUTH_KEY` with the output of `sops --decrypt --extract '["services"]["headscale"]["preAuthKeys"]["XXLPitu-Nnoitra"]' secrets.yaml`
 
 ```cmd
 tailscale login --login-server=https://headscale.00a.ch --auth-key "PRE_AUTH_KEY"

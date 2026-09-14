@@ -1,7 +1,7 @@
 {
   config,
+  lib,
   pkgs,
-  secrets,
   ...
 }:
 let
@@ -10,37 +10,95 @@ let
   rootBindmountDir = "/mnt/bindmount/tvtracktime";
   bindmountDir = "${rootBindmountDir}/seaweedfs";
 
-  s3ConfigFile = pkgs.writers.writeJSON "s3.json" {
-    identities = [
-      {
-        name = "tvtracktime";
-        credentials = [
-          {
-            accessKey = secrets.tvtracktime.seaweedfs.accessKey;
-            secretKey = secrets.tvtracktime.seaweedfs.secretKey;
-          }
-        ];
-        actions = [
-          "Read"
-          "Write"
-          "List"
-          "Tagging"
-          "Admin"
-        ];
-      }
-
-      {
-        name = "anonymous";
-        actions = [
-          "Read"
-        ];
-      }
-    ];
-  };
-
   version = "1.1.34";
 in
 {
+  sops = {
+    secrets = {
+      "services/tvTrackTime/dockerRegistryPassword".restartUnits = [
+        config.systemd.services."container@tvtracktime-application".name
+      ];
+
+      "tvtracktime-postgres+services/tvTrackTime/postgres/password" = {
+        key = "services/tvTrackTime/postgres/password";
+
+        owner = "postgres";
+        group = "postgres";
+
+        restartUnits = [ config.systemd.services."container@tvtracktime-application".name ];
+      };
+
+      "tvtracktime-backend+services/tvTrackTime/postgres/password" = {
+        key = "services/tvTrackTime/postgres/password";
+      };
+
+      "services/tvTrackTime/seaweedfs/accessKey" = { };
+      "services/tvTrackTime/seaweedfs/secretKey" = { };
+
+      "services/tvTrackTime/backend/jwtSecret" = { };
+      "services/tvTrackTime/backend/turnstileSecret" = { };
+      "services/tvTrackTime/backend/tvdbApiKey" = { };
+      "services/tvTrackTime/backend/tmdbAccessToken" = { };
+      "services/tvTrackTime/backend/githubToken" = { };
+    };
+
+    templates = {
+      "services.tvtracktime.seaweedfs.s3ConfigFile" = {
+        uid = 1000;
+        gid = 1000;
+
+        content = lib.toJSON {
+          identities = [
+            {
+              name = "tvtracktime";
+              credentials = [
+                {
+                  accessKey = config.sops.placeholder."services/tvTrackTime/seaweedfs/accessKey";
+                  secretKey = config.sops.placeholder."services/tvTrackTime/seaweedfs/secretKey";
+                }
+              ];
+              actions = [
+                "Read"
+                "Write"
+                "List"
+                "Tagging"
+                "Admin"
+              ];
+            }
+
+            {
+              name = "anonymous";
+              actions = [
+                "Read"
+              ];
+            }
+          ];
+        };
+
+        restartUnits = [ config.systemd.services."container@tvtracktime-application".name ];
+      };
+
+      "services.tvtracktime.backend.environmentFile" = {
+        content = ''
+          POSTGRES_PASSWORD=${
+            config.sops.placeholder."tvtracktime-backend+services/tvTrackTime/postgres/password"
+          }
+
+          S3_ACCESS_KEY=${config.sops.placeholder."services/tvTrackTime/seaweedfs/accessKey"}
+          S3_SECRET_KEY=${config.sops.placeholder."services/tvTrackTime/seaweedfs/secretKey"}
+
+          JWT_SECRET=${config.sops.placeholder."services/tvTrackTime/backend/jwtSecret"}
+          TURNSTILE_SECRET=${config.sops.placeholder."services/tvTrackTime/backend/turnstileSecret"}
+          TVDB_API_KEY=${config.sops.placeholder."services/tvTrackTime/backend/tvdbApiKey"}
+          TMDB_ACCESS_TOKEN=${config.sops.placeholder."services/tvTrackTime/backend/tmdbAccessToken"}
+          GITHUB_TOKEN=${config.sops.placeholder."services/tvTrackTime/backend/githubToken"}
+        '';
+
+        restartUnits = [ config.systemd.services."container@tvtracktime-application".name ];
+      };
+    };
+  };
+
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems.${bindmountDir} = {
     depends = [ "/var/lib/tvtracktime-seaweedfs" ];
@@ -79,6 +137,14 @@ in
     hostAddress = "169.254.1.1";
     localAddress = "169.254.1.150";
 
+    sopsPaths = [
+      config.sops.secrets."services/tvTrackTime/dockerRegistryPassword".path
+      config.sops.secrets."tvtracktime-postgres+services/tvTrackTime/postgres/password".path
+
+      config.sops.templates."services.tvtracktime.backend.environmentFile".path
+      config.sops.templates."services.tvtracktime.seaweedfs.s3ConfigFile".path
+    ];
+
     bindMounts = {
       "${containerCfg.services.postgresql.dataDir}" = {
         isReadOnly = false;
@@ -93,7 +159,10 @@ in
 
     config = {
       systemd.services.postgresql.postStart = ''
-        ${containerCfg.services.postgresql.package}/bin/psql -tAc "ALTER ROLE tvtracktime WITH PASSWORD '${secrets.tvtracktime.postgres.password}';"
+        password="$(cat ${
+          config.sops.secrets."tvtracktime-postgres+services/tvTrackTime/postgres/password".path
+        })"
+        ${containerCfg.services.postgresql.package}/bin/psql -tAc "ALTER ROLE tvtracktime WITH PASSWORD '$password';"
       '';
 
       services.postgresql = {
@@ -129,7 +198,9 @@ in
           ];
 
           volumes = [
-            "${s3ConfigFile}:/etc/seaweedfs/s3.json:ro"
+            "${
+              config.sops.templates."services.tvtracktime.seaweedfs.s3ConfigFile".path
+            }:/etc/seaweedfs/s3.json:ro"
             "/var/lib/seaweedfs:/data"
           ];
         };
@@ -140,10 +211,14 @@ in
           login = {
             registry = "ghcr.io";
             username = "rhoriguchi";
-            passwordFile = "${pkgs.writeText "password" secrets.tvtracktime.dockerRegistryPassword}";
+            passwordFile = config.sops.secrets."services/tvTrackTime/dockerRegistryPassword".path;
           };
 
           networks = [ "host" ];
+
+          environmentFiles = [
+            config.sops.templates."services.tvtracktime.backend.environmentFile".path
+          ];
 
           environment = {
             SPRING_PROFILES_ACTIVE = "prod";
@@ -152,18 +227,9 @@ in
             POSTGRES_PORT = toString containerCfg.services.postgresql.settings.port;
             POSTGRES_DB = "tvtracktime";
             POSTGRES_USER = "tvtracktime";
-            POSTGRES_PASSWORD = secrets.tvtracktime.postgres.password;
 
             S3_URL = "http://127.0.0.1:8333";
             S3_BUCKET = "tvtracktime";
-            S3_ACCESS_KEY = secrets.tvtracktime.seaweedfs.accessKey;
-            S3_SECRET_KEY = secrets.tvtracktime.seaweedfs.secretKey;
-
-            GITHUB_TOKEN = secrets.tvtracktime.github.applicationToken;
-            TURNSTILE_SECRET = secrets.tvtracktime.turnstileSecret;
-            JWT_SECRET = secrets.tvtracktime.jwtSecret;
-            TVDB_API_KEY = secrets.tvtracktime.tvdbApiKey;
-            TMDB_ACCESS_TOKEN = secrets.tvtracktime.tmdnAccessToken;
 
             TZ = config.time.timeZone;
           };
@@ -175,7 +241,7 @@ in
           login = {
             registry = "ghcr.io";
             username = "rhoriguchi";
-            passwordFile = "${pkgs.writeText "password" secrets.tvtracktime.dockerRegistryPassword}";
+            passwordFile = config.sops.secrets."services/tvTrackTime/dockerRegistryPassword".path;
           };
 
           networks = [ "host" ];

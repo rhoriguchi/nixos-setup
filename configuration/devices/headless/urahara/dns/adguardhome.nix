@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  secrets,
   ...
 }:
 {
@@ -25,8 +24,6 @@
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "ad-blocker.00a.ch" ];
     };
 

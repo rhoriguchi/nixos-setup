@@ -1,10 +1,23 @@
 {
   config,
   lib,
-  secrets,
   ...
 }:
 {
+  sops = {
+    secrets = {
+      "services/netdata/claimToken".restartUnits = [ config.systemd.services.netdata.name ];
+      "services/netdata/discordWebhookUrl" = { };
+    };
+
+    templates."services.netdata.healthAlarmNotify" = {
+      content = config.services.custom-netdata.healthAlarmNotify.text;
+
+      owner = config.services.netdata.user;
+      group = config.services.netdata.group;
+    };
+  };
+
   services = {
     nginx = {
       enable = true;
@@ -31,8 +44,6 @@
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "netdata.00a.ch" ];
     };
 
@@ -40,8 +51,13 @@
       enable = true;
 
       type = lib.mkForce "parent";
-      claimToken = secrets.monitoring.claimToken;
-      discordWebhookUrl = secrets.monitoring.discordWebhookUrl;
+
+      claimTokenFile = config.sops.secrets."services/netdata/claimToken".path;
+
+      healthAlarmNotify = {
+        file = config.sops.templates."services.netdata.healthAlarmNotify".path;
+        discordWebhookUrl = config.sops.placeholder."services/netdata/discordWebhookUrl";
+      };
     };
   };
 }

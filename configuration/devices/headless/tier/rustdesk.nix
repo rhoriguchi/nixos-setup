@@ -1,15 +1,24 @@
-{ pkgs, secrets, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 let
-  privateKey = pkgs.writeText "id_ed25519" secrets.rustdesk.privateKey;
-  publicKey = pkgs.writeText "id_ed25519.pub" secrets.rustdesk.publicKey;
+  rustdeskUnitNames = [
+    config.systemd.services.rustdesk-signal.name
+    config.systemd.services.rustdesk-relay.name
+  ];
 in
 {
+  sops.secrets = {
+    "services/rustdesk/privateKey".restartUnits = rustdeskUnitNames;
+    "services/rustdesk/publicKey".restartUnits = rustdeskUnitNames;
+  };
+
   services = {
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "rustdesk.00a.ch" ];
     };
 
@@ -19,24 +28,34 @@ in
       signal = {
         relayHosts = [ "rustdesk.00a.ch" ];
         extraArgs = [
-          "--key"
-          secrets.rustdesk.publicKey
           "--mask"
           "192.168.0.0/16"
         ];
       };
-
-      relay.extraArgs = [
-        "--key"
-        secrets.rustdesk.publicKey
-      ];
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "L+ /var/lib/rustdesk/id_ed25519 - - - - ${privateKey}"
-    "L+ /var/lib/rustdesk/id_ed25519.pub - - - - ${publicKey}"
-  ];
+  systemd.services = lib.listToAttrs (
+    map
+      (
+        name:
+        lib.nameValuePair name {
+          serviceConfig.LoadCredential = [
+            "id_ed25519:${config.sops.secrets."services/rustdesk/privateKey".path}"
+            "id_ed25519.pub:${config.sops.secrets."services/rustdesk/publicKey".path}"
+          ];
+
+          preStart = ''
+            install -m 400 "$CREDENTIALS_DIRECTORY/id_ed25519" id_ed25519
+            install -m 400 "$CREDENTIALS_DIRECTORY/id_ed25519.pub" id_ed25519.pub
+          '';
+        }
+      )
+      [
+        "rustdesk-signal"
+        "rustdesk-relay"
+      ]
+  );
 
   networking.firewall = {
     allowedTCPPorts = [

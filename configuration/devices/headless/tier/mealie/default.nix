@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  secrets,
   ...
 }:
 let
@@ -16,7 +15,7 @@ let
     }
   ];
 
-  mealieSetupScript =
+  pythonScript =
     pkgs.writers.writePython3 "mealie-setup"
       {
         libraries = [ pkgs.python3Packages.requests ];
@@ -29,7 +28,6 @@ let
 
             defaultUsername = "admin";
             defaultPassword = "MyPassword";
-            newPassword = secrets.mealie.bootstrapAdminPassword;
 
             setupUserName = "Setup User";
             setupUserEmail = config.security.acme.defaults.email;
@@ -40,9 +38,29 @@ let
       );
 in
 {
+  sops = {
+    secrets = {
+      "services/authelia/oidc/clientSecrets/mealie/secret" = { };
+
+      "services/mealie/users/admin".restartUnits = [
+        config.systemd.services.mealie-setup.name
+      ];
+    };
+
+    templates."services.mealie.environmentFile" = {
+      content = ''
+        OIDC_CLIENT_SECRET=${config.sops.placeholder."services/authelia/oidc/clientSecrets/mealie/secret"}
+      '';
+
+      restartUnits = [ config.systemd.services.mealie.name ];
+    };
+  };
+
   services = {
     mealie = {
       enable = true;
+
+      credentialsFile = config.sops.templates."services.mealie.environmentFile".path;
 
       database.createLocally = true;
 
@@ -54,7 +72,6 @@ in
         OIDC_SIGNUP_ENABLED = "true";
         OIDC_CONFIGURATION_URL = "https://authelia.00a.ch/.well-known/openid-configuration";
         OIDC_CLIENT_ID = "mealie";
-        OIDC_CLIENT_SECRET = secrets.authelia.oidcClientSecrets.mealie.secret;
         OIDC_AUTO_REDIRECT = "false";
         OIDC_ADMIN_GROUP = "admin";
         OIDC_USER_GROUP = "mealie";
@@ -64,8 +81,6 @@ in
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "mealie.00a.ch" ];
     };
 
@@ -95,11 +110,16 @@ in
     after = [ config.systemd.services.mealie.name ];
     wantedBy = [ "multi-user.target" ];
 
-    script = "${mealieSetupScript}";
+    script = "${pythonScript}";
 
     serviceConfig = {
+      DynamicUser = true;
       Type = "oneshot";
       RemainAfterExit = true;
+
+      LoadCredential = [
+        "mealieAdminPassword:${config.sops.secrets."services/mealie/users/admin".path}"
+      ];
     };
   };
 }

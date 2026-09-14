@@ -1,11 +1,9 @@
-{ config, secrets, ... }:
+{ config, ... }:
 {
   services = {
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "home-assistant.00a.ch" ];
     };
 

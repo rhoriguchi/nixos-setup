@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  secrets,
   ...
 }:
 let
@@ -21,8 +20,6 @@ in
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "ad-blocker.00a.ch" ];
     };
 

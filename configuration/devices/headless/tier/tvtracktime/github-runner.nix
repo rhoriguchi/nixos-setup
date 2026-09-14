@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  secrets,
   ...
 }:
 let
@@ -13,6 +12,10 @@ let
   agentIndices = lib.range 1 agentCount;
 in
 {
+  sops.secrets."services/tvTrackTime/github/runnerToken" = {
+    restartUnits = [ config.systemd.services."container@tvtracktime-github-runner".name ];
+  };
+
   containers.tvtracktime-github-runner = {
     autoStart = true;
     ephemeral = true;
@@ -33,6 +36,10 @@ in
     hostAddress = "169.254.1.1";
     localAddress = "169.254.1.77";
 
+    sopsPaths = [
+      config.sops.secrets."services/tvTrackTime/github/runnerToken".path
+    ];
+
     config = {
       virtualisation.docker.enable = true;
 
@@ -44,7 +51,6 @@ in
         map (index: [
           "d /run/${user index} 0700 ${user index} ${group index}"
           "d /run/${user index}/home 0700 ${user index} ${group index}"
-          "f+ /run/${user index}/github-runner-token 0400 ${user index} ${group index} - ${secrets.tvtracktime.github.runnerToken}"
         ]) agentIndices
       );
 
@@ -83,7 +89,7 @@ in
             user = user index;
             group = group index;
 
-            tokenFile = "/run/${user index}/github-runner-token";
+            tokenFile = config.sops.secrets."services/tvTrackTime/github/runnerToken".path;
 
             extraLabels = [ "nixos" ];
 

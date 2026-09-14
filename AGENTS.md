@@ -147,6 +147,38 @@ config = lib.mkIf condition {
 - **Options**: camelCase (e.g., `myCustomOption`)
 - **Attributes**: kebab-case for flake outputs, camelCase for options
 
+### sops Secret Naming
+
+- `sops.secrets.<name>` uses the `/`-separated path matching its
+  location in `secrets.yaml` exactly (`services/rustdesk/privateKey`,
+  `users/xxlpitu`, `wifis/${ssid}`). `key` defaults to `name`; don't
+  override `key` just to rename for readability, whether the secret is
+  read directly (`.path`, `.owner`) or via `sops.placeholder.<name>`.
+- `sops.templates.<name>` uses dot notation describing what it
+  generates (`services.webdav.environmentFile`,
+  `services.deluge.authFile`, `networking.wireless.secretsFile`).
+- Put `restartUnits`/`reloadUnits` on the leaf a systemd unit actually
+  reads: on the TEMPLATE when a secret is only consumed via
+  `sops.placeholder.<name>` inside it (the template already restarts
+  on rendered-content change); also on the secret if it's also/only
+  read directly. Skip it for secrets with no running unit (e.g.
+  `hashedPasswordFile`/`neededForUsers`, read by PAM/activation).
+- Prefer `reloadUnits` over `restartUnits` when the unit defines
+  `ExecReload` and re-reads the secret on reload (e.g. `bind`'s
+  `rndc reload`, `netdata`'s `SIGHUP`); avoids downtime. Units without
+  `ExecReload`, or that only load secrets via `LoadCredential`/
+  `EnvironmentFile`/`preStart` at process start, need `restartUnits`.
+- An explicit `key` override always uses `/` as the nesting separator.
+- `sops.secrets` keys are global: if the same logical secret is declared by
+  more than one module with different owners, prefix the key with the owning
+  module/service using `+` as the separator (`headplane+services/headscale/apiKey`,
+  `headscale+services/headscale/apiKey`).
+- `modules/default/*` never reference `config.sops.*`; sops only exposes
+  secrets as runtime files, not eval-time strings. Take a file-path option
+  (e.g. `apiKeyFile`), or an `internal` rendered-text option when the value
+  must be inlined in generated text — the host wraps it via
+  `sops.placeholder`/`sops.templates`.
+
 ### Type Definitions
 
 - Always specify types with `lib.mkOption`

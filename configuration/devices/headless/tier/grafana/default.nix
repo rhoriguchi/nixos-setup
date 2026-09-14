@@ -1,9 +1,24 @@
 {
   config,
-  secrets,
   ...
 }:
 {
+  sops.secrets = {
+    "services/grafana/secretKey" = {
+      owner = "grafana";
+      group = "grafana";
+
+      restartUnits = [ config.systemd.services.grafana.name ];
+    };
+
+    "services/authelia/oidc/clientSecrets/grafana/secret" = {
+      owner = "grafana";
+      group = "grafana";
+
+      restartUnits = [ config.systemd.services.grafana.name ];
+    };
+  };
+
   services = {
     nginx = {
       enable = true;
@@ -28,8 +43,6 @@
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [
         "grafana.00a.ch"
       ];
@@ -45,7 +58,7 @@
           enforce_domain = true;
         };
 
-        security.secret_key = secrets.grafana.secretKey;
+        security.secret_key = "$__file{${config.sops.secrets."services/grafana/secretKey".path}}";
 
         auth.disable_login_form = true;
 
@@ -55,7 +68,9 @@
           name = "Authelia";
           allow_sign_up = true;
           client_id = "grafana";
-          client_secret = secrets.authelia.oidcClientSecrets.grafana.secret;
+          client_secret = "$__file{${
+            config.sops.secrets."services/authelia/oidc/clientSecrets/grafana/secret".path
+          }}";
 
           oauth_allow_insecure_email_lookup = true;
 

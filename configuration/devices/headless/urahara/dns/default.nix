@@ -5,7 +5,6 @@
   libCustom,
   libDns,
   pkgs,
-  secrets,
   ...
 }:
 let
@@ -141,6 +140,29 @@ in
 {
   imports = [ ./pihole.nix ];
 
+  sops = {
+    secrets."services/kea/ddnsKey" = {
+      owner = "kea";
+      group = "kea";
+
+      reloadUnits = [ config.systemd.services.kea-dhcp-ddns-server.name ];
+    };
+
+    templates."services.bind.tsigKey" = {
+      owner = "named";
+      group = "named";
+
+      content = ''
+        key tsig-key {
+          algorithm hmac-sha256;
+          secret "${config.sops.placeholder."services/kea/ddnsKey"}";
+        };
+      '';
+
+      reloadUnits = [ config.systemd.services.bind.name ];
+    };
+  };
+
   networking = {
     nameservers = [ "127.0.0.1" ];
 
@@ -232,10 +254,7 @@ in
           remote-hostname "dns.quad9.net";
         };
 
-        key tsig-key {
-          algorithm hmac-sha256;
-          secret "${secrets.kea.ddnsKey}";
-        };
+        include "${config.sops.templates."services.bind.tsigKey".path}";
 
         logging {
           category rpz { null; };
@@ -266,7 +285,7 @@ in
             {
               name = "tsig-key";
               algorithm = "hmac-sha256";
-              secret-file = pkgs.writeText "tsig-key" secrets.kea.ddnsKey;
+              secret-file = config.sops.secrets."services/kea/ddnsKey".path;
             }
           ];
 

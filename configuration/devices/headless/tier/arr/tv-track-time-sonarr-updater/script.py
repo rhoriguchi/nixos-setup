@@ -1,6 +1,12 @@
+import os
 import time
 
 import requests
+
+
+def read_credential(name):
+    with open(os.path.join(os.environ["CREDENTIALS_DIRECTORY"], name)) as f:
+        return f.read().strip()
 
 
 class TVTrackTimeRequestHandler(object):
@@ -289,9 +295,9 @@ class SonarrHelper(object):
 
 
 tv_track_time_request_handler = TVTrackTimeRequestHandler(
-    "@tvTrackTimeApiUrl@", "@tvTrackTimeApiKey@"
+    "@tvTrackTimeApiUrl@", read_credential("tvTrackTimeApiKey")
 )
-sonarr_helper = SonarrHelper("@sonarApiUrl@", "@sonarApiKey@", "@sonarrRootDir@")
+sonarr_helper = SonarrHelper("@sonarApiUrl@", read_credential("sonarApiKey"), "@sonarrRootDir@")
 
 tvdb_ids = tv_track_time_request_handler.get_in_progress_tvdb_ids()
 excluded_tvdb_ids = [@excludedTvdbIds@]

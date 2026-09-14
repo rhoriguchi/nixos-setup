@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  secrets,
   ...
 }:
 let
@@ -100,8 +99,6 @@ in
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [
         "printer.00a.ch"
         "scanner.00a.ch"

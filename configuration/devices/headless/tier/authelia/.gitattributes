@@ -1,2 +1,0 @@
-rsa.2048.key filter=git-crypt diff=git-crypt
-users.nix filter=git-crypt diff=git-crypt

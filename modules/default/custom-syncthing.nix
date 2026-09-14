@@ -2,7 +2,6 @@
   config,
   lib,
   libCustom,
-  pkgs,
   ...
 }:
 let
@@ -16,17 +15,17 @@ in
   options.services.custom-syncthing = {
     enable = lib.mkEnableOption "Custom Syncthing";
     cert = lib.mkOption {
-      type = lib.types.nonEmptyStr;
+      type = lib.types.path;
     };
     key = lib.mkOption {
-      type = lib.types.nonEmptyStr;
+      type = lib.types.path;
     };
     trusted = lib.mkOption {
       type = lib.types.bool;
       default = false;
     };
-    encryptionPassword = lib.mkOption {
-      type = lib.types.nullOr lib.types.nonEmptyStr;
+    encryptionPasswordFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
       default = null;
     };
     user = lib.mkOption {
@@ -48,8 +47,8 @@ in
             type = lib.types.nonEmptyStr;
             default = "admin";
           };
-          password = lib.mkOption {
-            type = lib.types.nullOr lib.types.nonEmptyStr;
+          passwordFile = lib.mkOption {
+            type = lib.types.nullOr lib.types.path;
             default = null;
           };
         };
@@ -125,12 +124,12 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.trusted -> cfg.encryptionPassword != null;
-        message = "When device is trusted encryptionPassword can't be null";
+        assertion = cfg.trusted -> cfg.encryptionPasswordFile != null;
+        message = "When device is trusted encryptionPasswordFile can't be null";
       }
       {
-        assertion = cfg.webUI.password != null;
-        message = "Web ui password can't be null";
+        assertion = cfg.webUI.passwordFile != null;
+        message = "Web ui passwordFile can't be null";
       }
       {
         assertion = cfg.bandwidthLimit.download >= 0;
@@ -141,14 +140,6 @@ in
         message = "Syncthing upload bandwidth limit must be non-negative";
       }
     ];
-
-    systemd.services.syncthing-init = lib.mkIf cfg.trusted {
-      serviceConfig.ExecStartPre = [
-        "+${pkgs.writers.writeBash "syncthing-init-pre" ''
-          ln -sf ${pkgs.writeText "encryption-password" cfg.encryptionPassword} /run/syncthing-init/encryption-password
-        ''}"
-      ];
-    };
 
     services.syncthing = {
       enable = true;
@@ -164,11 +155,11 @@ in
 
       dataDir = cfg.syncDir;
       configDir = "/var/lib/syncthing/.config/syncthing";
+      guiPasswordFile = cfg.webUI.passwordFile;
 
       settings = {
         gui = {
           user = cfg.webUI.username;
-          password = cfg.webUI.password;
 
           sessionCookieDurationS = 60 * 60 * 24 * 30;
         };
@@ -220,7 +211,7 @@ in
                   if (cfg.trusted && !value.trusted) then
                     {
                       name = key;
-                      encryptionPasswordFile = "/run/syncthing-init/encryption-password";
+                      encryptionPasswordFile = cfg.encryptionPasswordFile;
                     }
                   else
                     key

@@ -6,10 +6,12 @@
     ./alloy
     ./authelia.nix
     ./chrony.nix
-    ./containers.nix
+    ./containers
     ./fail2ban.nix
     ./grafana.nix
+    ./infomaniak.nix
     ./loki.nix
+    ./netdata.nix
     ./nginx.nix
     ./nix-garbage-collection.nix
   ];

@@ -1,12 +1,33 @@
 {
   config,
+  lib,
   libCustom,
   pkgs,
-  secrets,
   ...
 }:
 {
   imports = libCustom.getImports ./.;
+
+  sops = {
+    secrets = {
+      "services/home-assistant/location/latitude" = { };
+      "services/home-assistant/location/longitude" = { };
+      "services/home-assistant/location/elevation" = { };
+    };
+
+    templates."services.home-assistant.secretsFile" = {
+      owner = "hass";
+      group = "hass";
+
+      content = ''
+        latitude: ${config.sops.placeholder."services/home-assistant/location/latitude"}
+        longitude: ${config.sops.placeholder."services/home-assistant/location/longitude"}
+        elevation: ${config.sops.placeholder."services/home-assistant/location/elevation"}
+      '';
+
+      restartUnits = [ config.systemd.services.home-assistant.name ];
+    };
+  };
 
   services.home-assistant = {
     enable = true;
@@ -50,9 +71,9 @@
       homeassistant = {
         name = "Home";
         time_zone = config.time.timeZone;
-        latitude = secrets.home.latitude;
-        longitude = secrets.home.longitude;
-        elevation = secrets.home.elevation;
+        latitude = "!secret latitude";
+        longitude = "!secret longitude";
+        elevation = "!secret elevation";
         country = "CH";
         language = "en-GB";
         unit_system = "metric";
@@ -84,4 +105,10 @@
       logger.default = "warning";
     };
   };
+
+  systemd.services.home-assistant.preStart = lib.mkAfter ''
+    ln -sf ${
+      config.sops.templates."services.home-assistant.secretsFile".path
+    } "${config.services.home-assistant.configDir}/secrets.yaml"
+  '';
 }

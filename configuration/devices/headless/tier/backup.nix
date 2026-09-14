@@ -2,13 +2,18 @@
   config,
   lib,
   pkgs,
-  secrets,
   ...
 }:
 let
   backupDir = "/mnt/Data/Backup/${config.networking.hostName}";
 in
 {
+  sops.secrets = {
+    "borgmatic+services/tvTrackTime/postgres/password".key = "services/tvTrackTime/postgres/password";
+
+    "services/uptime-kuma/pushTokens/borgmaticBackup" = { };
+  };
+
   services.borgmatic = {
     enable = true;
 
@@ -68,7 +73,9 @@ in
                 "--show-error"
                 "--silent"
               ]
-            } 'https://uptime-kuma.00a.ch/api/push/${secrets.uptime-kuma.pushTokens.borgmaticBackup}?status=up&msg=OK&ping='"
+            } 'https://uptime-kuma.00a.ch/api/push/'\"$(cat ${
+              config.sops.secrets."services/uptime-kuma/pushTokens/borgmaticBackup".path
+            })\"'?status=up&msg=OK&ping='"
           ];
         }
         {
@@ -81,7 +88,9 @@ in
                 "--show-error"
                 "--silent"
               ]
-            } 'https://uptime-kuma.00a.ch/api/push/${secrets.uptime-kuma.pushTokens.borgmaticBackup}?status=down&msg=OK&ping='"
+            } 'https://uptime-kuma.00a.ch/api/push/'\"$(cat ${
+              config.sops.secrets."services/uptime-kuma/pushTokens/borgmaticBackup".path
+            })\"'?status=down&msg=OK&ping='"
           ];
         }
       ];
@@ -98,7 +107,9 @@ in
             hostname = config.containers.tvtracktime-application.localAddress;
             port = config.containers.tvtracktime-application.config.services.postgresql.settings.port;
             username = "tvtracktime";
-            password = secrets.tvtracktime.postgres.password;
+            password = "{credential file ${
+              config.sops.secrets."borgmatic+services/tvTrackTime/postgres/password".path
+            }}";
 
             options =
               lib.pipe

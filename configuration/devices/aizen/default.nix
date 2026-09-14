@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  secrets,
   wifis,
   ...
 }:
@@ -13,6 +12,46 @@
 
     ./hardware-configuration.nix
   ];
+
+  sops = {
+    secrets =
+      lib.listToAttrs (
+        map (ssid: lib.nameValuePair "wifis/${ssid}" { }) (lib.attrNames wifis.wirelessNetworks)
+      )
+      // {
+        "nix/settings/access-tokens/github.com" = { };
+
+        "users/rhoriguchi".neededForUsers = true;
+        "users/sillert".neededForUsers = true;
+      };
+
+    templates = {
+      "networking.wireless.secretsFile" = {
+        owner = "wpa_supplicant";
+
+        content = lib.concatStrings (
+          map (ssid: "${ssid}=${config.sops.placeholder."wifis/${ssid}"}\n") (
+            lib.attrNames wifis.wirelessNetworks
+          )
+        );
+
+        restartUnits = [ config.systemd.services.wpa_supplicant.name ];
+      };
+
+      "nix.extraOptions.accessTokens" = {
+        group = "wheel";
+        mode = "0440";
+
+        content = "access-tokens = ${
+          lib.concatStringsSep " " [
+            "github.com=${config.sops.placeholder."nix/settings/access-tokens/github.com"}"
+          ]
+        }";
+
+        restartUnits = [ config.systemd.services.nix-daemon.name ];
+      };
+    };
+  };
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -26,10 +65,9 @@
     }
   ];
 
-  nix.settings.access-tokens = lib.pipe secrets.git.accessTokens [
-    (lib.mapAttrsToList (key: value: "${key}=${value}"))
-    (lib.concatStringsSep " ")
-  ];
+  nix.extraOptions = ''
+    !include ${config.sops.templates."nix.extraOptions.accessTokens".path}
+  '';
 
   networking = {
     hostName = "XXLPitu-Aizen";
@@ -46,10 +84,12 @@
         p2p_disabled=1
       '';
 
-      networks = lib.recursiveUpdate (wifis.mkNetworks secrets.wifis) {
+      networks = lib.recursiveUpdate wifis.wirelessNetworks {
         "63466727".priority = 100;
-        Niflheim.priority = 10;
+        "Hueco Mundo".priority = 10;
       };
+
+      secretsFile = config.sops.templates."networking.wireless.secretsFile".path;
     };
   };
 
@@ -105,7 +145,7 @@
         "libvirtd"
       ]);
       isNormalUser = true;
-      password = secrets.users.rhoriguchi.password;
+      hashedPasswordFile = config.sops.secrets."users/rhoriguchi".path;
     };
 
     sillert = {
@@ -116,7 +156,7 @@
       ++ (lib.optional config.hardware.openrazer.enable "openrazer")
       ++ (lib.optional config.networking.wireless.enable "wpa_supplicant");
       isNormalUser = true;
-      password = secrets.users.sillert.password;
+      hashedPasswordFile = config.sops.secrets."users/sillert".path;
     };
   };
 

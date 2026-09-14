@@ -3,7 +3,6 @@
   lib,
   libCustom,
   pkgs,
-  secrets,
   ...
 }:
 let
@@ -17,6 +16,33 @@ let
   );
 in
 {
+  sops.secrets = {
+    "services/authelia/oidc/clientSecrets/jellyfin/secret".restartUnits = [
+      config.systemd.services.jellyfin-setup.name
+    ];
+
+    "services/jellyfin/users/admin" = {
+      owner = config.services.jellyfin.user;
+      group = config.services.jellyfin.group;
+
+      restartUnits = [ config.systemd.services.jellyfin.name ];
+    };
+
+    "services/jellyfin/apikeys/radarr" = {
+      owner = config.services.jellyfin.user;
+      group = config.services.jellyfin.group;
+
+      restartUnits = [ config.systemd.services.jellyfin.name ];
+    };
+
+    "services/jellyfin/apikeys/sonarr" = {
+      owner = config.services.jellyfin.user;
+      group = config.services.jellyfin.group;
+
+      restartUnits = [ config.systemd.services.jellyfin.name ];
+    };
+  };
+
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems = {
     "${bindmountDir1}" = {
@@ -79,16 +105,19 @@ in
     declarative-jellyfin = {
       enable = true;
 
-      serverId = secrets.jellyfin.serverId;
+      serverId = "56833fc00b574f6f9b9b51e30673ff02";
 
       logDir = "/var/log/jellyfin";
 
-      apikeys = secrets.jellyfin.apikeys;
+      apikeys = {
+        Radarr.keyPath = config.sops.secrets."services/jellyfin/apikeys/radarr".path;
+        Sonarr.keyPath = config.sops.secrets."services/jellyfin/apikeys/sonarr".path;
+      };
 
       users = {
         admin = {
           mutable = false;
-          password = secrets.jellyfin.users.admin.password;
+          hashedPasswordFile = config.sops.secrets."services/jellyfin/users/admin".path;
 
           permissions = {
             isAdministrator = true;
@@ -289,8 +318,6 @@ in
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "jellyfin.00a.ch" ];
     };
 
@@ -376,7 +403,9 @@ in
           -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "OidClientId" \
             -v "jellyfin" \
           -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "OidSecret" \
-            -v "${secrets.authelia.oidcClientSecrets.jellyfin.secret}" \
+            -v "$(cat ${
+              config.sops.secrets."services/authelia/oidc/clientSecrets/jellyfin/secret".path
+            })" \
           -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "SchemeOverride" \
             -v "https" \
           -s "/PluginConfiguration/OidConfigs/item[key/string='authelia']/value/PluginConfiguration" -t elem -n "DisablePushedAuthorization" \

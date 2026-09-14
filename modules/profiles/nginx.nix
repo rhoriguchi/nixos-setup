@@ -1,5 +1,7 @@
-{ pkgs, secrets, ... }:
+{ config, pkgs, ... }:
 {
+  sops.secrets."services/infomaniak/accessToken" = { };
+
   security.acme = {
     acceptTerms = true;
 
@@ -8,7 +10,8 @@
 
       # https://go-acme.github.io/lego/dns/infomaniak
       dnsProvider = "infomaniak";
-      credentialFiles.INFOMANIAK_ACCESS_TOKEN_FILE = pkgs.writeText "infomaniak_access_token" secrets.infomaniak.accessToken;
+      credentialFiles.INFOMANIAK_ACCESS_TOKEN_FILE =
+        config.sops.secrets."services/infomaniak/accessToken".path;
 
       dnsPropagationCheck = false;
     };

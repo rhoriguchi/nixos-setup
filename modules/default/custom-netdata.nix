@@ -38,9 +38,10 @@ in
       );
     };
     parentHostname = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
-    apiKey = lib.mkOption { type = lib.types.nonEmptyStr; };
-    claimToken = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
-    discordWebhookUrl = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
+    claimTokenFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      default = null;
+    };
     webPort = lib.mkOption {
       type = lib.types.port;
       default = 19999;
@@ -55,6 +56,42 @@ in
         }
       );
       default = [ ];
+    };
+    extraGoCollectors = lib.mkOption {
+      type = lib.types.attrsOf lib.types.path;
+      default = { };
+    };
+    streamConf = lib.mkOption {
+      type = lib.types.submodule {
+        options = {
+          apiKey = lib.mkOption { type = lib.types.nonEmptyStr; };
+          text = lib.mkOption {
+            type = lib.types.str;
+            internal = true;
+          };
+          file = lib.mkOption {
+            type = lib.types.path;
+          };
+        };
+      };
+    };
+    healthAlarmNotify = lib.mkOption {
+      type = lib.types.submodule {
+        options = {
+          text = lib.mkOption {
+            type = lib.types.str;
+            internal = true;
+          };
+          file = lib.mkOption {
+            type = lib.types.path;
+          };
+          discordWebhookUrl = lib.mkOption {
+            type = lib.types.nullOr lib.types.nonEmptyStr;
+            default = null;
+          };
+        };
+      };
+      default = { };
     };
     debug = lib.mkOption {
       type = lib.types.submodule {
@@ -80,12 +117,12 @@ in
         message = "When type is parent hostname must be tailscale host";
       }
       {
-        assertion = isParent -> cfg.discordWebhookUrl != null;
-        message = "When type is parent discordWebhookUrl must be set";
+        assertion = isParent -> cfg.healthAlarmNotify.discordWebhookUrl != null;
+        message = "When type is parent healthAlarmNotify.discordWebhookUrl must be set";
       }
       {
-        assertion = isParent -> cfg.claimToken != null;
-        message = "When type is parent claimToken must be set";
+        assertion = isParent -> cfg.claimTokenFile != null;
+        message = "When type is parent claimTokenFile must be set";
       }
       {
         assertion = isChild -> cfg.parentHostname != null;
@@ -95,14 +132,45 @@ in
         assertion = isChild -> lib.elem cfg.parentHostname (lib.attrNames tailscaleIps);
         message = "When type is child parentHostname must be tailscale host";
       }
-
-      {
-        assertion = config.services.couchdb.enable -> config.services.couchdb.adminPass != null;
-        message = "When couchdb is enabled services.couchdb.adminPass must be set";
-      }
     ];
 
     services = {
+      custom-netdata = {
+        streamConf = {
+          text =
+            {
+              parent = ''
+                [${cfg.streamConf.apiKey}]
+                enabled = yes
+              '';
+
+              child = ''
+                [stream]
+                enabled = yes
+                api key = ${cfg.streamConf.apiKey}
+                destination = ${tailscaleIps.${cfg.parentHostname}.ip}:${toString streamPort}
+              '';
+            }
+            .${cfg.type};
+
+          file = lib.mkDefault (pkgs.writeText "stream.conf" cfg.streamConf.text);
+        };
+
+        healthAlarmNotify = {
+          text =
+            if isParent then
+              ''
+                SEND_DISCORD="YES"
+                DISCORD_WEBHOOK_URL="${cfg.healthAlarmNotify.discordWebhookUrl}"
+                DEFAULT_RECIPIENT_DISCORD="netdata"
+              ''
+            else
+              "";
+
+          file = lib.mkDefault (pkgs.writeText "health_alarm_notify.conf" cfg.healthAlarmNotify.text);
+        };
+      };
+
       bind.extraConfig = ''
         statistics-channels {
           inet 127.0.0.1 port 8653 allow { 127.0.0.1; };
@@ -322,7 +390,7 @@ in
           withSystemdJournal = false;
         };
 
-        claimTokenFile = if isParent then pkgs.writeText "claimToken" cfg.claimToken else null;
+        claimTokenFile = cfg.claimTokenFile;
 
         extraNdsudoPackages = [
           # Optical modules collector
@@ -423,19 +491,7 @@ in
           };
 
         configDir = {
-          "stream.conf" =
-            (pkgs.formats.ini { }).generate "stream.conf"
-              {
-                parent.${cfg.apiKey}.enabled = "yes";
-
-                child.stream = {
-                  enabled = "yes";
-
-                  "api key" = cfg.apiKey;
-                  destination = "${tailscaleIps.${cfg.parentHostname}.ip}:${toString streamPort}";
-                };
-              }
-              .${cfg.type};
+          "stream.conf" = cfg.streamConf.file;
         }
         // {
           "exporting.conf" = (pkgs.formats.ini { }).generate "exporting.conf" {
@@ -456,18 +512,6 @@ in
         // lib.optionalAttrs config.services.chrony.enable {
           "go.d/chrony.conf" = pkgs.writers.writeYAML "chrony.conf" {
             jobs = [ { name = "local"; } ];
-          };
-        }
-        // lib.optionalAttrs config.services.couchdb.enable {
-          "go.d/couchdb.conf" = pkgs.writers.writeYAML "couchdb.conf" {
-            jobs = [
-              {
-                name = "local";
-                url = "http://127.0.0.1:${toString config.services.couchdb.port}";
-                username = config.services.couchdb.adminUser;
-                password = config.services.couchdb.adminPass;
-              }
-            ];
           };
         }
         // lib.optionalAttrs config.services.dnsmasq.enable {
@@ -661,16 +705,8 @@ in
             ];
           };
         }
-        // lib.optionalAttrs isParent {
-          "health_alarm_notify.conf" = pkgs.writeTextFile {
-            name = "health_alarm_notify.conf";
-            text = ''
-              SEND_DISCORD="YES"
-              DISCORD_WEBHOOK_URL="${cfg.discordWebhookUrl}"
-              DEFAULT_RECIPIENT_DISCORD="netdata"
-            '';
-          };
-        };
+        // lib.optionalAttrs isParent { "health_alarm_notify.conf" = cfg.healthAlarmNotify.file; }
+        // cfg.extraGoCollectors;
       };
     };
 

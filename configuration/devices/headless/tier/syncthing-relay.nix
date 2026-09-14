@@ -9,8 +9,6 @@
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "syncthing-relay.00a.ch" ];
     };
 

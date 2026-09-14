@@ -1,4 +1,4 @@
-{ secrets, ... }:
+{ ... }:
 {
   services = {
     tailscale.derper = {
@@ -15,8 +15,6 @@
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [
         "derp-nbg.00a.ch"
       ];

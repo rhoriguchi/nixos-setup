@@ -1,31 +1,92 @@
 {
   config,
   lib,
-  pkgs,
-  secrets,
   ...
 }:
 let
   cfg = config.services.authelia.instances.main;
+
+  restartUnit = config.systemd.services."authelia-${cfg.name}".name;
+
+  autheliaUsers = import ./users.nix;
+
+  autheliaUserSecretFields = [
+    "displayname"
+    "email"
+    "password"
+  ];
+
+  autheliaUserSecretName = user: field: "services/authelia/users/${user}/${field}";
 in
 {
   imports = [ ./clients ];
 
-  users.users.${cfg.user}.extraGroups = [ config.services.redis.servers.authelia.group ];
+  sops = {
+    secrets =
+      lib.listToAttrs (
+        lib.concatMap (
+          user:
+          map (field: lib.nameValuePair (autheliaUserSecretName user field) { }) autheliaUserSecretFields
+        ) (lib.attrNames autheliaUsers)
+      )
+      // {
+        "services/authelia/oidc/jwks".restartUnits = [ restartUnit ];
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/authelia-${cfg.name} 0700 ${cfg.user} ${cfg.group} - -"
-    "f+ /var/lib/authelia-${cfg.name}/jwt_secret 0600 ${cfg.user} ${cfg.group} - ${secrets.authelia.jwtSecret}"
-    "f+ /var/lib/authelia-${cfg.name}/storage_encryption_key 0600 ${cfg.user} ${cfg.group} - ${secrets.authelia.storageEncryptionKey}"
-  ];
+        "services/authelia/jwtSecret" = {
+          owner = cfg.user;
+          group = cfg.group;
+
+          restartUnits = [ restartUnit ];
+        };
+
+        "services/authelia/storageEncryptionKey" = {
+          owner = cfg.user;
+          group = cfg.group;
+
+          restartUnits = [ restartUnit ];
+        };
+
+        "services/authelia/sessionSecret" = {
+          owner = cfg.user;
+          group = cfg.group;
+
+          restartUnits = [ restartUnit ];
+        };
+      };
+
+    templates."services.authelia.users" = {
+      owner = cfg.user;
+      group = cfg.group;
+
+      content = lib.toJSON {
+        users = lib.mapAttrs (
+          user: userCfg:
+          {
+            inherit (userCfg) groups;
+          }
+          // lib.listToAttrs (
+            map (
+              field: lib.nameValuePair field config.sops.placeholder.${autheliaUserSecretName user field}
+            ) autheliaUserSecretFields
+          )
+        ) autheliaUsers;
+      };
+
+      restartUnits = [ restartUnit ];
+    };
+  };
+
+  users.users.${cfg.user}.extraGroups = [ config.services.redis.servers.authelia.group ];
 
   services = {
     authelia.instances.main = {
       enable = true;
 
       secrets = {
-        jwtSecretFile = "/var/lib/authelia-${cfg.name}/jwt_secret";
-        storageEncryptionKeyFile = "/var/lib/authelia-${cfg.name}/storage_encryption_key";
+        jwtSecretFile = config.sops.secrets."services/authelia/jwtSecret".path;
+        storageEncryptionKeyFile = config.sops.secrets."services/authelia/storageEncryptionKey".path;
+        oidcIssuerPrivateKeyFile = config.sops.secrets."services/authelia/oidc/jwks".path;
+        sessionSecretFile = config.sops.secrets."services/authelia/sessionSecret".path;
       };
 
       settings = {
@@ -40,8 +101,6 @@ in
         };
 
         session = {
-          secret = secrets.authelia.sessionSecret;
-
           cookies = [
             {
               authelia_url = "https://authelia.00a.ch";
@@ -68,22 +127,8 @@ in
           ];
         };
 
-        identity_providers.oidc.jwks = [
-          {
-            key = lib.readFile ./rsa.2048.key;
-          }
-        ];
-
         authentication_backend = {
-          file.path = pkgs.writers.writeYAML "authelia-users.yaml" {
-            users = lib.mapAttrs (
-              key: value:
-              {
-                displayname = lib.toLower key;
-              }
-              // value
-            ) (import ./users.nix);
-          };
+          file.path = config.sops.templates."services.authelia.users".path;
 
           password_reset.disable = true;
           password_change.disable = true;
@@ -131,8 +176,6 @@ in
     infomaniak = {
       enable = true;
 
-      username = secrets.infomaniak.username;
-      password = secrets.infomaniak.password;
       hostnames = [ "authelia.00a.ch" ];
     };
 

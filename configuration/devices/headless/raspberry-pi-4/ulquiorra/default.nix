@@ -1,15 +1,29 @@
 {
   config,
-  secrets,
   wifis,
   ...
 }:
+let
+  ssid = "63466727-IoT";
+in
 {
   imports = [
     ../common.nix
 
     ./print-server.nix
   ];
+
+  sops = {
+    secrets."wifis/${ssid}" = { };
+
+    templates."networking.wireless.secretsFile" = {
+      owner = "wpa_supplicant";
+
+      content = "${ssid}=${config.sops.placeholder."wifis/${ssid}"}";
+
+      restartUnits = [ config.systemd.services.wpa_supplicant.name ];
+    };
+  };
 
   time.timeZone = "Europe/Zurich";
 
@@ -23,12 +37,14 @@
         p2p_disabled=1
       '';
 
-      networks."63466727-IoT" = {
+      networks.${ssid} = {
         # TODO Remove when raspberry pi supports WPA3 https://forums.raspberrypi.com/viewtopic.php?t=277468
         authProtocols = [ "WPA-PSK" ];
-        extraConfig = wifis.mkExtraConfig "63466727-IoT" [ "WPA-PSK" ] { headless = true; };
-        psk = secrets.wifis."63466727-IoT";
+        extraConfig = wifis.mkExtraConfig ssid [ "WPA-PSK" ] { headless = true; };
+        pskRaw = "ext:${ssid}";
       };
+
+      secretsFile = config.sops.templates."networking.wireless.secretsFile".path;
     };
 
     firewall.allowedTCPPorts = [
