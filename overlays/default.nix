@@ -43,6 +43,33 @@
     };
   })
 
+  # TODO remove when declarative-jellyfin supports latest version
+  (
+    final: prev:
+    let
+      src = prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "36ad827548eeb6c254289a3d427c17f78a139da7";
+        sha256 = "sha256-AN+Jdi2y1yI6FRp6bFcWV2VAdlgJdehAmLSouxsreHA=";
+      };
+    in
+    {
+      jellyfin = final.callPackage (import "${src}/pkgs/by-name/je/jellyfin/package.nix") { };
+
+      jellyfin-web = final.callPackage (import "${src}/pkgs/by-name/je/jellyfin-web/package.nix") { };
+
+      jellyfin-ffmpeg = final.callPackage (import "${
+        prev.fetchFromGitHub {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "f0bbf6065ee0779a042acebaa18b361a496af9f9";
+          sha256 = "sha256-jY5K98BLpTMkqoMAcqa8hRwkyYmC7zd+wV1k5PPrXsk=";
+        }
+      }/pkgs/by-name/je/jellyfin-ffmpeg/package.nix") { };
+    }
+  )
+
   (_: prev: {
     wallpaper = prev.callPackage ./wallpaper { };
   })
