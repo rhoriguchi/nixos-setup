@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
+    module-overrides.url = "path:./modules/overrides";
+
     declarative-jellyfin = {
       url = "github:Sveske-Juice/declarative-jellyfin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -165,6 +167,8 @@
           inputs.nix-flatpak.nixosModules.nix-flatpak
 
           ./modules/default
+
+          inputs.module-overrides.nixosModules.default
         ];
 
         profiles = import ./modules/profiles;
@@ -204,6 +208,8 @@
             inherit (self.nixosModules) colors;
             secrets = import ./secrets.nix;
             wifis = import ./wifis.nix { inherit lib; };
+
+            hostModules = self.nixosModules.default;
           };
 
           commonModule = {

@@ -49,6 +49,23 @@
         "type": "github"
       }
     },
+    "bazarr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783795904,
+        "narHash": "sha256-ImKtaW3FhuWQ9LfnX1eay9cOTDvdnZxNJbELd3KbOe0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "215cf43531f0449535bf3818562675c817bda11b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "215cf43531f0449535bf3818562675c817bda11b",
+        "type": "github"
+      }
+    },
     "bun2nix": {
       "inputs": {
         "flake-parts": [
@@ -730,6 +747,40 @@
         "type": "github"
       }
     },
+    "module-overrides": {
+      "inputs": {
+        "bazarr": "bazarr",
+        "netdata": "netdata",
+        "ollama": "ollama",
+        "syncthing-relay": "syncthing-relay"
+      },
+      "locked": {
+        "path": "./modules/overrides",
+        "type": "path"
+      },
+      "original": {
+        "path": "./modules/overrides",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "netdata": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787086221,
+        "narHash": "sha256-DvGMzhpC2dQYODCw81zpPpIU/o/hc8pDCLKjcQeN6Y8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c0a8f331b280c32b83fc3ae3a28c38bcefeec449",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c0a8f331b280c32b83fc3ae3a28c38bcefeec449",
+        "type": "github"
+      }
+    },
     "nix-fast-build": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -951,6 +1002,23 @@
         "type": "github"
       }
     },
+    "ollama": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788882073,
+        "narHash": "sha256-fWuIG/ybnxgGFcqJWtNFg9Jdmo3bwGp7Ikp16ej5SHI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ae98b3f341a74ab75a0ce317ac6b8023a6fb3672",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ae98b3f341a74ab75a0ce317ac6b8023a6fb3672",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -985,6 +1053,7 @@
         "hyprland": "hyprland",
         "jail-nix": "jail-nix",
         "llm-agents": "llm-agents",
+        "module-overrides": "module-overrides",
         "nix-flatpak": "nix-flatpak",
         "nix-github-actions": "nix-github-actions",
         "nix-index-database": "nix-index-database",
@@ -993,6 +1062,23 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs"
+      }
+    },
+    "syncthing-relay": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782932789,
+        "narHash": "sha256-0DY0GWd8QkCEOJcBwY1EE+YwY4wR9bhaf9EWRo/3ATk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7a310d8f6557ce447cd4ea71cd1348f433d63013",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7a310d8f6557ce447cd4ea71cd1348f433d63013",
+        "type": "github"
       }
     },
     "systems": {

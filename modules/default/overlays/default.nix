@@ -1,4 +1,0 @@
-{ libCustom, ... }:
-{
-  imports = libCustom.getImports ./.;
-}
