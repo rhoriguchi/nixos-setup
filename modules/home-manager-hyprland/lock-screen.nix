@@ -41,6 +41,23 @@
 
           position = "0, 0";
         }
+
+        # Caps Lock indicator
+        {
+          text = "cmd[update:500] ${
+            lib.concatStringsSep " | " [
+              "${config.wayland.windowManager.hyprland.package}/bin/hyprctl devices -j"
+              "${pkgs.jq}/bin/jq -r 'if ([.keyboards[].capsLock] | any) then \"Caps Lock\" else \"\" end'"
+            ]
+          }";
+          color = "rgb(${lib.removePrefix "#" colors.normal.white})";
+          font_size = 16;
+          font_family = config.gtk.font.name;
+
+          halign = "center";
+          valign = "bottom";
+          position = "0, 110";
+        }
       ];
 
       input-field = {
