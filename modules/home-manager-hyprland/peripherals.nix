@@ -1,4 +1,9 @@
-{ pkgs, libCustom, ... }:
+{
+  pkgs,
+  libCustom,
+  osConfig,
+  ...
+}:
 {
   home.packages = [ pkgs.nwg-displays ];
 
@@ -16,9 +21,9 @@
         repeat_delay = 500;
         repeat_rate = 30;
 
-        kb_layout = "ch";
-        kb_variant = "de_nodeadkeys";
-        kb_model = "pc105";
+        kb_layout = osConfig.services.xserver.xkb.layout;
+        kb_model = osConfig.services.xserver.xkb.model;
+        kb_variant = osConfig.services.xserver.xkb.variant;
 
         resolve_binds_by_sym = true;
 

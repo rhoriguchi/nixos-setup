@@ -42,7 +42,7 @@ in
       "org/gnome/desktop/input-sources".sources = [
         (lib.hm.gvariant.mkTuple [
           "xkb"
-          "ch+de_nodeadkeys"
+          "${osConfig.services.xserver.xkb.layout}+${osConfig.services.xserver.xkb.variant}"
         ])
         (lib.hm.gvariant.mkTuple [
           "xkb"
