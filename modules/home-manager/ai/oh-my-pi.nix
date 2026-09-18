@@ -34,22 +34,8 @@ let
       ;
   };
 
-  # TODO remove when https://github.com/numtide/llm-agents.nix/issues/7841 fixed
-  pkg = pkgs.llm-agents.omp.overrideAttrs (old: {
-    buildPhase =
-      let
-        templateBunPath = lib.head (
-          lib.match ".*(/nix/store/[a-z0-9]+-omp-bun-runtime-template-[0-9.]+/libexec/bun).*" old.buildPhase
-        );
-      in
-      lib.replaceStrings [ templateBunPath ] [ "${pkgs.bun}/bin/bun" ] old.buildPhase;
-    installCheckPhase =
-      lib.replaceStrings [ "\"1.3.14\"" ] [ "\"${pkgs.bun.version}\"" ]
-        old.installCheckPhase;
-  });
-
   ompSandboxed = agentJail.mkJailedAgent {
-    package = pkg;
+    package = pkgs.llm-agents.omp;
 
     extraPkgs = [
       # Used by omp's non-URL openPath() (export/share/login flows)
