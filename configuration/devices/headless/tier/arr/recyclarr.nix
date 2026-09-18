@@ -6,10 +6,11 @@
 }:
 let
   createCustomFormatGroup =
-    customFormatGroup:
+    extraAssignScoresTo: customFormatGroup:
     map (trashId: {
       trash_id = trashId;
       select_all = true;
+      assign_scores_to = extraAssignScoresTo ++ [ { name = "Any"; } ];
     }) customFormatGroup;
 
   sonarrCommonCustomFormatGroups = [
@@ -52,13 +53,18 @@ let
     }
     // lib.optionalAttrs (type == "anime") {
       # > recyclarr list custom-format-groups sonarr
-      custom_format_groups.add = createCustomFormatGroup (
-        [
-          "f206572b1147d0221bb1c96765b349e8" # [Release Groups] Anime
-          "f54985e5e96747cef58731f1cf4c9181" # [Streaming Services] Anime
-        ]
-        ++ sonarrCommonCustomFormatGroups
-      );
+      custom_format_groups.add =
+        createCustomFormatGroup
+          [
+            { trash_id = "20e0fc959f1f1704bed501f23bdae76f"; } # [Anime] Remux-1080p
+          ]
+          (
+            [
+              "f206572b1147d0221bb1c96765b349e8" # [Release Groups] Anime
+              "f54985e5e96747cef58731f1cf4c9181" # [Streaming Services] Anime
+            ]
+            ++ sonarrCommonCustomFormatGroups
+          );
 
       # > recyclarr list quality-profiles sonarr
       quality_profiles = [
@@ -67,7 +73,7 @@ let
     }
     // lib.optionalAttrs (type == "series") {
       # > recyclarr list custom-format-groups sonarr
-      custom_format_groups.add = createCustomFormatGroup (
+      custom_format_groups.add = createCustomFormatGroup [ ] (
         [
           "b4a4353e3b3e6789dbef07677ff23686" # [Release Groups] HQ
           "abe720fab2d27682adc2a735136cec02" # [Streaming Services] General
@@ -101,13 +107,18 @@ let
     }
     // lib.optionalAttrs (type == "anime") {
       # > recyclarr list custom-format-groups radarr
-      custom_format_groups.add = createCustomFormatGroup (
-        [
-          "1f8404f7f72c7edc8901f2f3589d1a91" # [Release Groups] Anime
-          "f993ad37540147e4d00e66503545d81b" # [Streaming Services] Anime
-        ]
-        ++ radarrCommonCustomFormatGroups
-      );
+      custom_format_groups.add =
+        createCustomFormatGroup
+          [
+            { trash_id = "722b624f9af1e492284c4bc842153a38"; } # [Anime] Remux-1080p
+          ]
+          (
+            [
+              "1f8404f7f72c7edc8901f2f3589d1a91" # [Release Groups] Anime
+              "f993ad37540147e4d00e66503545d81b" # [Streaming Services] Anime
+            ]
+            ++ radarrCommonCustomFormatGroups
+          );
 
       # > recyclarr list quality-profiles radarr
       quality_profiles = [
@@ -116,17 +127,22 @@ let
     }
     // lib.optionalAttrs (type == "movies") {
       # > recyclarr list custom-format-groups radarr
-      custom_format_groups.add = createCustomFormatGroup (
-        [
-          "b2f2af430f73f3ad1f9948f33e0f0cf8" # [Release Groups] HQ
-          "d9cc9a504e5ede6294c8b973aad4f028" # [Streaming Services] General
-        ]
-        ++ radarrCommonCustomFormatGroups
-      );
+      custom_format_groups.add =
+        createCustomFormatGroup
+          [
+            { trash_id = "d1d67249d3890e49bc12e275d989a7e9"; } # HD Bluray + WEB
+          ]
+          (
+            [
+              "b2f2af430f73f3ad1f9948f33e0f0cf8" # [Release Groups] HQ
+              "d9cc9a504e5ede6294c8b973aad4f028" # [Streaming Services] General
+            ]
+            ++ radarrCommonCustomFormatGroups
+          );
 
       # > recyclarr list quality-profiles radarr
       quality_profiles = [
-        { trash_id = "d1d67249d3890e49bc12e275d989a7e9"; } # [Movies] HD Bluray + WEB
+        { trash_id = "d1d67249d3890e49bc12e275d989a7e9"; } # HD Bluray + WEB
 
         {
           name = "Any";
@@ -139,14 +155,17 @@ let
               [
                 "Remux-1080p"
                 "Bluray-1080p"
-                "WEB 1080p"
+                "WEBDL-1080p"
+                "WEBRip-1080p"
                 "HDTV-1080p"
                 "Bluray-720p"
-                "WEB 720p"
+                "WEBDL-720p"
+                "WEBRip-720p"
                 "HDTV-720p"
                 "Bluray-576p"
                 "Bluray-480p"
-                "WEB 480p"
+                "WEBDL-480p"
+                "WEBRip-480p"
                 "DVD-R"
                 "DVD"
                 "SDTV"
