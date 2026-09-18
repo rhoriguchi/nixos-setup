@@ -22,6 +22,7 @@
   i18n = ./i18n.nix;
   java = ./java.nix;
   javascript = ./javascript.nix;
+  kernel-panic = ./kernel-panic.nix;
   keyboard = ./keyboard.nix;
   kotlin = ./kotlin.nix;
   laptop-power-management = ./laptop-power-management.nix;

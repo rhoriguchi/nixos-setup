@@ -3,6 +3,7 @@
     ./fwupd.nix
     ./git.nix
     ./i18n.nix
+    ./kernel-panic.nix
     ./keyboard.nix
     ./nftables.nix
     ./nix.nix
