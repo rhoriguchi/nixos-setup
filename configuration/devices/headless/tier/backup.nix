@@ -81,7 +81,7 @@ in
                 "--show-error"
                 "--silent"
               ]
-            } 'https://uptime-kuma.00a.ch/api/push/${secrets.uptime-kuma.pushTokens.borgmaticBackup}=down&msg=OK&ping='"
+            } 'https://uptime-kuma.00a.ch/api/push/${secrets.uptime-kuma.pushTokens.borgmaticBackup}?status=down&msg=OK&ping='"
           ];
         }
       ];
