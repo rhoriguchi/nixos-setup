@@ -1,6 +1,7 @@
 {
   imports = [
     ./_common.nix
+    ./headless-common.nix
 
     ./alloy
     ./authelia.nix

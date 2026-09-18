@@ -7,8 +7,6 @@
 }:
 {
   imports = [
-    ../../common.nix
-
     ./hp-g4.nix
     ./keepassxc.nix
     ./rsnapshot.nix

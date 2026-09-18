@@ -1,8 +1,6 @@
 { pkgs, ... }:
 {
   imports = [
-    ../common.nix
-
     ./broken-emmc.nix
     ./derper.nix
     ./dhcp

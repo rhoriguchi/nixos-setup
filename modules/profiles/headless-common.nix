@@ -5,8 +5,6 @@
   ...
 }:
 {
-  imports = [ ../../common.nix ];
-
   # https://docs.kernel.org/next/admin-guide/sysctl/kernel.html
   boot.kernel.sysctl = {
     "kernel.panic" = 60;

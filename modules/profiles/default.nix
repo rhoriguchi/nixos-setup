@@ -11,6 +11,7 @@
   dconf-editor = ./dconf-editor.nix;
   doas = ./doas.nix;
   docker = ./docker.nix;
+  documentation = ./documentation.nix;
   fail2ban = ./fail2ban.nix;
   flatpak = ./flatpak.nix;
   fwupd = ./fwupd.nix;
@@ -18,10 +19,12 @@
   git = ./git.nix;
   gnome = ./gnome;
   grafana = ./grafana.nix;
+  hardening = ./hardening.nix;
   hyprland = ./hyprland.nix;
   i18n = ./i18n.nix;
   java = ./java.nix;
   javascript = ./javascript.nix;
+  kernel-latest = ./kernel-latest.nix;
   kernel-panic = ./kernel-panic.nix;
   keyboard = ./keyboard.nix;
   kotlin = ./kotlin.nix;

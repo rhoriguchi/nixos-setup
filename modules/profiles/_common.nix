@@ -1,8 +1,11 @@
 {
   imports = [
+    ./documentation.nix
     ./fwupd.nix
     ./git.nix
+    ./hardening.nix
     ./i18n.nix
+    ./kernel-latest.nix
     ./kernel-panic.nix
     ./keyboard.nix
     ./nftables.nix

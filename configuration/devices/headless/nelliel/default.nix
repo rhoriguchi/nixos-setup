@@ -1,8 +1,6 @@
 { config, ... }:
 {
   imports = [
-    ../common.nix
-
     ./derper.nix
     ./headscale
     ./uptime-kuma.nix

@@ -6,8 +6,6 @@
 }:
 {
   imports = [
-    ../common.nix
-
     ./arr
     ./authelia
     ./backup.nix
