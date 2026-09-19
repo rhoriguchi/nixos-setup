@@ -51,7 +51,70 @@ let
 
   addMonitors =
     let
-      addTailscaleMonitor = hostname: ''
+      insertBorgmaticMonitor = ''
+        INSERT INTO monitor (
+          id,
+          name,
+          user_id,
+          type,
+          push_token,
+          interval,
+          retry_interval
+        )
+        VALUES (
+          '1',
+          'Borgmatic backup',
+          1,
+          'push',
+          '$pushToken',
+          ${toString ((60 * 60 * 24) + (60 * 60 * 6))},
+          0
+        );
+      '';
+
+      insertTvtracktimeMonitor = ''
+        INSERT INTO monitor (
+          id,
+          name,
+          user_id,
+          type,
+          url,
+          interval,
+          maxretries,
+          retry_interval
+        )
+        VALUES (
+          '2',
+          'tvtracktime.com',
+          1,
+          'http',
+          'https://tvtracktime.com',
+          60,
+          3,
+          20
+        );
+      '';
+
+      insertSelfMonitor = ''
+        INSERT INTO monitor (
+          name,
+          user_id,
+          type,
+          hostname,
+          interval,
+          retry_interval
+        )
+        VALUES (
+          '${config.networking.hostName}',
+          1,
+          'ping',
+          '${config.networking.hostName}',
+          60,
+          60
+        );
+      '';
+
+      insertTailscaleMonitor = hostname: ''
         INSERT INTO monitor (
           name,
           user_id,
@@ -71,82 +134,49 @@ let
           60
         );
       '';
-    in
-    ''
-      DELETE FROM monitor;
 
-      INSERT INTO monitor (
-        id,
-        name,
-        user_id,
-        type,
-        push_token,
-        interval,
-        retry_interval
-      )
-      VALUES (
-        '1',
-        'Borgmatic backup',
-        1,
-        'push',
-        '${secrets.uptime-kuma.pushTokens.borgmaticBackup}',
-        ${toString ((60 * 60 * 24) + (60 * 60 * 6))},
-        0
-      );
-
-      INSERT INTO monitor (
-        id,
-        name,
-        user_id,
-        type,
-        url,
-        interval,
-        maxretries,
-        retry_interval
-      )
-      VALUES (
-        '2',
-        'tvtracktime.com',
-        1,
-        'http',
-        'https://tvtracktime.com',
-        60,
-        3,
-        20
-      );
-
-      INSERT INTO monitor (
-        name,
-        user_id,
-        type,
-        hostname,
-        interval,
-        retry_interval
-      )
-      VALUES (
-        '${config.networking.hostName}',
-        1,
-        'ping',
-        '${config.networking.hostName}',
-        60,
-        60
-      );
-
-      ${lib.pipe tailscaleIps [
+      insertTailscaleMonitors = lib.pipe tailscaleIps [
         (lib.filterAttrs (_: value: value.monitoring or true))
         lib.attrNames
 
         (hostnames: lib.subtractLists [ config.networking.hostName ] hostnames)
 
-        (map addTailscaleMonitor)
+        (map insertTailscaleMonitor)
 
         (lib.concatStringsSep "\n")
-      ]}
+      ];
+    in
+    ''
+      DELETE FROM monitor;
+
+      ${insertBorgmaticMonitor}
+      ${insertTvtracktimeMonitor}
+      ${insertSelfMonitor}
+      ${insertTailscaleMonitors}
     '';
 
-  addNotification =
+  addNotifications =
     let
-      addMonitorNotification = monitorId: ''
+      insertDiscordNotification = ''
+        INSERT INTO notification (
+          id,
+          name,
+          user_id,
+          active,
+          is_default,
+          config
+        )
+        VALUES (
+          1,
+          'Discord',
+          1,
+          1,
+          0,
+          '$discordNotificationConfig'
+        );
+      '';
+
+      insertMonitorNotification = monitorId: ''
         INSERT INTO monitor_notification (
           notification_id,
           monitor_id
@@ -160,38 +190,36 @@ let
     ''
       DELETE FROM notification;
 
-      INSERT INTO notification (
-        id,
-        name,
-        user_id,
-        active,
-        is_default,
-        config
-      )
-      VALUES (
-        1,
-        'Discord',
-        1,
-        1,
-        0,
-        '${
-          lib.toJSON {
-            name = "Discord";
-            type = "discord";
-            isDefault = false;
-            applyExisting = false;
-            inherit (secrets.uptime-kuma) discordWebhookUrl;
-          }
-        }'
-      );
+      ${insertDiscordNotification}
 
       DELETE FROM monitor_notification;
 
-      ${addMonitorNotification 1}
-      ${addMonitorNotification 2}
+      ${insertMonitorNotification 1}
+      ${insertMonitorNotification 2}
     '';
 in
 {
+  sops = {
+    secrets = {
+      "services/uptime-kuma/discordWebhookUrl" = { };
+      "services/uptime-kuma/pushTokens/borgmaticBackup".restartUnits = [
+        config.systemd.services.uptime-kuma-setup.name
+      ];
+    };
+
+    templates."services.uptime-kuma.discordNotificationConfig" = {
+      content = lib.toJSON {
+        name = "Discord";
+        type = "discord";
+        isDefault = false;
+        applyExisting = false;
+        discordWebhookUrl = config.sops.placeholder."services/uptime-kuma/discordWebhookUrl";
+      };
+
+      restartUnits = [ config.systemd.services.uptime-kuma-setup.name ];
+    };
+  };
+
   services = {
     uptime-kuma = {
       enable = true;
@@ -265,11 +293,22 @@ in
     script = ''
       dbFile="${config.services.uptime-kuma.settings.DATA_DIR}kuma.db"
       if [ -f "$dbFile" ]; then
+        pushToken="$(cat ${config.sops.secrets."services/uptime-kuma/pushTokens/borgmaticBackup".path})"
+        discordNotificationConfig="$(cat ${
+          config.sops.templates."services.uptime-kuma.discordNotificationConfig".path
+        })"
+
         ${pkgs.sqlite-interactive}/bin/sqlite3 "$dbFile" <<'EOF'
           ${updateSettings}
           ${addUser}
+      EOF
+
+        ${pkgs.sqlite-interactive}/bin/sqlite3 "$dbFile" <<EOF
           ${addMonitors}
-          ${addNotification}
+      EOF
+
+        ${pkgs.sqlite-interactive}/bin/sqlite3 "$dbFile" <<EOF
+          ${addNotifications}
       EOF
 
         echo 'Restarting ${config.systemd.services.uptime-kuma.name}'
