@@ -20,7 +20,7 @@
     - Serial number: `08:D5:D1:35:34:37:5C:1A`
       Rename: `light.bedroom_nightstand_lamp_right`
   - Philips Hue
-    - Host: `ecb5faac6110.local`
+    - Host: `C42996CAC1E6.local`
   - Shelly
     - Wake up sensor with button or wait till it shows up
   - Thread
