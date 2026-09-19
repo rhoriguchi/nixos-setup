@@ -38,7 +38,7 @@ let
     ];
   };
 
-  version = "1.1.33";
+  version = "1.1.34";
 in
 {
   system.fsPackages = [ pkgs.bindfs ];
