@@ -9,7 +9,7 @@
     monitoring = false;
   };
 
-  # Headless
+  # Headful
   XXLPitu-Aizen = {
     ip = "100.123.123.35";
     monitoring = false;
