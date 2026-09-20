@@ -1,10 +1,10 @@
-{ secrets, ... }:
+{ osConfig, ... }:
 {
-  services.wlsunset = {
+  services.gammastep = {
     enable = true;
 
-    latitude = secrets.home.latitude;
-    longitude = secrets.home.longitude;
+    tray = true;
+    provider = if osConfig.services.geoclue2.enable then "geoclue2" else "manual";
 
     temperature = {
       day = 10000;
