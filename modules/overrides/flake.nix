@@ -16,11 +16,6 @@
       url = "github:NixOS/nixpkgs/?rev=ae98b3f341a74ab75a0ce317ac6b8023a6fb3672";
       flake = false;
     };
-
-    syncthing-relay = {
-      url = "github:NixOS/nixpkgs/?rev=7a310d8f6557ce447cd4ea71cd1348f433d63013";
-      flake = false;
-    };
   };
 
   outputs =
@@ -43,9 +38,6 @@
 
         # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=561392
         ollama = mkOverride "services/misc/ollama" inputs.ollama;
-
-        # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=513794
-        syncthing-relay = mkOverride "services/networking/syncthing-relay" inputs.syncthing-relay;
       };
     in
     {

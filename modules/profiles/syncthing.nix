@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  secrets,
   ...
 }:
 let
@@ -57,11 +56,6 @@ in
     cert = config.sops.secrets."services/syncthing/devices/${config.networking.hostName}/cert".path;
 
     webUI.passwordFile = config.sops.secrets."services/syncthing/webUI/password".path;
-
-    relay = {
-      url = "syncthing-relay.00a.ch";
-      inherit (secrets.syncthing.relay) id token;
-    };
 
     devices = lib.pipe deviceIds [
       (lib.filterAttrs (key: _: key != config.networking.hostName))

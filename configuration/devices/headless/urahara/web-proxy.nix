@@ -21,7 +21,6 @@ let
     "radarr.00a.ch"
     "rustdesk.00a.ch"
     "sonarr.00a.ch"
-    "syncthing-relay.00a.ch"
     "tautulli.00a.ch"
     "webdav.00a.ch"
   ];

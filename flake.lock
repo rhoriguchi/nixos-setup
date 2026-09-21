@@ -750,8 +750,7 @@
       "inputs": {
         "bazarr": "bazarr",
         "netdata": "netdata",
-        "ollama": "ollama",
-        "syncthing-relay": "syncthing-relay"
+        "ollama": "ollama"
       },
       "locked": {
         "path": "./modules/overrides",
@@ -1082,23 +1081,6 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "syncthing-relay": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1782932789,
-        "narHash": "sha256-0DY0GWd8QkCEOJcBwY1EE+YwY4wR9bhaf9EWRo/3ATk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "7a310d8f6557ce447cd4ea71cd1348f433d63013",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "7a310d8f6557ce447cd4ea71cd1348f433d63013",
         "type": "github"
       }
     },

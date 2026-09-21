@@ -81,24 +81,6 @@ in
       };
       default = { };
     };
-    relay = lib.mkOption {
-      type = lib.types.nullOr (
-        lib.types.submodule {
-          options = {
-            url = lib.mkOption {
-              type = lib.types.nonEmptyStr;
-            };
-            id = lib.mkOption {
-              type = lib.types.nonEmptyStr;
-            };
-            token = lib.mkOption {
-              type = lib.types.nonEmptyStr;
-            };
-          };
-        }
-      );
-      default = { };
-    };
     devices = lib.mkOption {
       type = lib.types.attrsOf (
         lib.types.submodule {
@@ -169,10 +151,7 @@ in
             "tcp://0.0.0.0:22000"
             "quic://0.0.0.0:22000"
             "dynamic"
-          ]
-          ++ lib.optional (
-            cfg.relay != { }
-          ) "relay://${cfg.relay.url}:22067?id=${cfg.relay.id}&token=${cfg.relay.token}";
+          ];
 
           urAccepted = -1;
           crashReportingEnabled = false;
