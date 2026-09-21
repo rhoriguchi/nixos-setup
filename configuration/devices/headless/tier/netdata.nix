@@ -36,12 +36,11 @@
       hostnames = [ "netdata.00a.ch" ];
     };
 
-    custom-netdata = lib.mkForce {
+    custom-netdata = {
       enable = true;
 
-      type = "parent";
+      type = lib.mkForce "parent";
       claimToken = secrets.monitoring.claimToken;
-      apiKey = secrets.monitoring.apiKey;
       discordWebhookUrl = secrets.monitoring.discordWebhookUrl;
     };
   };
