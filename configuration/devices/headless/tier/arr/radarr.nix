@@ -118,8 +118,6 @@ let
         proxy_buffering off;
 
         proxy_set_header Host $host;
-        proxy_set_header X-Real-IP 127.0.0.1;
-        proxy_set_header X-Forwarded-For 127.0.0.1;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Server $host;
