@@ -3,22 +3,22 @@
 
   inputs = {
     bazarr = {
-      url = "github:NixOS/nixpkgs/215cf43531f0449535bf3818562675c817bda11b";
+      url = "github:NixOS/nixpkgs/?rev=215cf43531f0449535bf3818562675c817bda11b";
       flake = false;
     };
 
     netdata = {
-      url = "github:NixOS/nixpkgs/c0a8f331b280c32b83fc3ae3a28c38bcefeec449";
+      url = "github:NixOS/nixpkgs/?rev=c0a8f331b280c32b83fc3ae3a28c38bcefeec449";
       flake = false;
     };
 
     ollama = {
-      url = "github:NixOS/nixpkgs/ae98b3f341a74ab75a0ce317ac6b8023a6fb3672";
+      url = "github:NixOS/nixpkgs/?rev=ae98b3f341a74ab75a0ce317ac6b8023a6fb3672";
       flake = false;
     };
 
     syncthing-relay = {
-      url = "github:NixOS/nixpkgs/7a310d8f6557ce447cd4ea71cd1348f433d63013";
+      url = "github:NixOS/nixpkgs/?rev=7a310d8f6557ce447cd4ea71cd1348f433d63013";
       flake = false;
     };
   };
