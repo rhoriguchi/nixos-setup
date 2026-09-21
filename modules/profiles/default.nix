@@ -39,6 +39,7 @@
   nginx = ./nginx.nix;
   nix = ./nix.nix;
   nix-garbage-collection = ./nix-garbage-collection.nix;
+  nix-remote-builder = ./nix-remote-builder.nix;
   nvd = ./nvd.nix;
   peripherals = ./peripherals.nix;
   podman = ./podman.nix;
