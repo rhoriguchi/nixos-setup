@@ -33,8 +33,6 @@
         });
 
         excludes = [
-          ''secrets\.nix$''
-
           ''configuration\/devices\/nnoitra\/iex.*\.json''
         ];
       };
@@ -47,23 +45,16 @@
       mixed-line-endings = {
         enable = true;
         excludes = [
-          ''secrets\.nix$''
-
           ''configuration\/devices\/nnoitra\/iex.*\.json''
         ];
       };
       nixfmt = {
         enable = true;
         excludes = [
-          ''secrets\.nix$''
-
           ''configuration\/devices\/nnoitra\/iex.*\.json''
         ];
       };
-      trim-trailing-whitespace = {
-        enable = true;
-        excludes = [ ''secrets\.nix$'' ];
-      };
+      trim-trailing-whitespace.enable = true;
     };
   };
 }
