@@ -47,6 +47,8 @@ in
 
         enableArtifact = false;
 
+        promptSuggestionEnabled = false;
+
         attribution = {
           commits = false;
           pullRequests = false;
