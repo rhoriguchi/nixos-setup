@@ -29,6 +29,16 @@
         sha256 = "sha256-kXAWCXGTwQsxMqm2OGyXjmBDAqCLZbcKZbiLKuMWzm4=";
       }
     }/pkgs/by-name/fl/flashrom/package.nix") { };
+
+    # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/565157
+    sonarr = prev.callPackage (import "${
+      prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "92270594a141f6724f72ccd064ec6e4b68623d53";
+        sha256 = "sha256-De+vX+S3YXMDgGAmpRL4+elIjMUU5SWzh46HGo94uEE=";
+      }
+    }/pkgs/by-name/so/sonarr/package.nix") { };
   })
 
   # TODO remove when resolved
