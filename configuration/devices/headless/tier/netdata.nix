@@ -15,6 +15,8 @@
 
       owner = config.services.netdata.user;
       group = config.services.netdata.group;
+
+      reloadUnits = [ config.systemd.services.netdata.name ];
     };
   };
 
