@@ -132,7 +132,9 @@ let
 
         The Nix store is mounted read-only, but `nix` itself is available inside the sandbox. Run e.g.:
 
-            nix shell nixpkgs#ripgrep
+        ```console
+        nix shell nixpkgs#ripgrep
+        ```
 
         to get a temporary tool without leaving the sandbox.
       '';
