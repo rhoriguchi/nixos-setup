@@ -30,6 +30,16 @@
       }
     }/pkgs/by-name/fl/flashrom/package.nix") { };
 
+    # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/565142
+    prowlarr = prev.callPackage (import "${
+      prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "6af5a4f0d4c7dbe959f7f5dc4309516e7b5286a4";
+        sha256 = "sha256-HMn5P31N7uqa7xC59J2qo1GGXS9+tSkDzOtA0+BcaWA=";
+      }
+    }/pkgs/by-name/pr/prowlarr/package.nix") { };
+
     # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/565157
     sonarr = prev.callPackage (import "${
       prev.fetchFromGitHub {
