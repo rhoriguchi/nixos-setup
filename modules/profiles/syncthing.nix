@@ -17,7 +17,7 @@ let
 in
 {
   sops.secrets = {
-    "services/syncthing/webUI/password" = {
+    "services/syncthing/webUi/password" = {
       owner = config.services.custom-syncthing.user;
       group = config.services.custom-syncthing.group;
 
@@ -55,7 +55,7 @@ in
     key = config.sops.secrets."services/syncthing/devices/${config.networking.hostName}/key".path;
     cert = config.sops.secrets."services/syncthing/devices/${config.networking.hostName}/cert".path;
 
-    webUI.passwordFile = config.sops.secrets."services/syncthing/webUI/password".path;
+    webUI.passwordFile = config.sops.secrets."services/syncthing/webUi/password".path;
 
     devices = lib.pipe deviceIds [
       (lib.filterAttrs (key: _: key != config.networking.hostName))

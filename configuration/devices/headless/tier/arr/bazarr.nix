@@ -69,8 +69,8 @@ let
       sopsPaths = [
         config.sops.secrets."services/bazarr/anidb/apiClient".path
         config.sops.secrets."services/bazarr/apiKey".path
-        config.sops.secrets."services/bazarr/opensSubtitles/password".path
-        config.sops.secrets."services/bazarr/opensSubtitles/username".path
+        config.sops.secrets."services/bazarr/openSubtitles/password".path
+        config.sops.secrets."services/bazarr/openSubtitles/username".path
         config.sops.secrets."services/radarr/apiKey".path
         config.sops.secrets."services/sonarr/apiKey".path
       ];
@@ -175,8 +175,8 @@ let
               };
 
               opensubtitlescom = {
-                username._secret = config.sops.secrets."services/bazarr/opensSubtitles/username".path;
-                password._secret = config.sops.secrets."services/bazarr/opensSubtitles/password".path;
+                username._secret = config.sops.secrets."services/bazarr/openSubtitles/username".path;
+                password._secret = config.sops.secrets."services/bazarr/openSubtitles/password".path;
               };
 
               anidb = {
@@ -261,11 +261,11 @@ in
       config.systemd.services."container@bazarr-anime".name
       config.systemd.services."container@bazarr-series-movies".name
     ];
-    "services/bazarr/opensSubtitles/username".restartUnits = [
+    "services/bazarr/openSubtitles/username".restartUnits = [
       config.systemd.services."container@bazarr-anime".name
       config.systemd.services."container@bazarr-series-movies".name
     ];
-    "services/bazarr/opensSubtitles/password".restartUnits = [
+    "services/bazarr/openSubtitles/password".restartUnits = [
       config.systemd.services."container@bazarr-anime".name
       config.systemd.services."container@bazarr-series-movies".name
     ];
