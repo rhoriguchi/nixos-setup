@@ -35,10 +35,6 @@
     ++ libCustom.hyprland.mkWindowRules { no_screen_share = true; } [
       {
         class = "code";
-        title = ".*secrets.nix - .* - Visual Studio Code";
-      }
-      {
-        class = "code";
         title = ".*secrets.yaml - .* - Visual Studio Code";
       }
       { class = "discord"; }
