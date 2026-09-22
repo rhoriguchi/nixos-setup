@@ -746,7 +746,7 @@
         "type": "github"
       }
     },
-    "module-overrides": {
+    "local-module-overrides": {
       "inputs": {
         "bazarr": "bazarr",
         "netdata": "netdata",
@@ -1052,7 +1052,7 @@
         "hyprutils": "hyprutils",
         "jail-nix": "jail-nix",
         "llm-agents": "llm-agents",
-        "module-overrides": "module-overrides",
+        "local-module-overrides": "local-module-overrides",
         "nix-flatpak": "nix-flatpak",
         "nix-github-actions": "nix-github-actions",
         "nix-index-database": "nix-index-database",

@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
-    module-overrides.url = "path:./modules/overrides";
+    local-module-overrides.url = "path:./modules/overrides";
 
     declarative-jellyfin = {
       url = "github:Sveske-Juice/declarative-jellyfin";
@@ -183,9 +183,9 @@
           inputs.nix-flatpak.nixosModules.nix-flatpak
           inputs.sops-nix.nixosModules.sops
 
-          ./modules/default
+          inputs.local-module-overrides.nixosModules.default
 
-          inputs.module-overrides.nixosModules.default
+          ./modules/default
         ];
 
         profiles = import ./modules/profiles;
