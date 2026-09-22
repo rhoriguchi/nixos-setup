@@ -23,7 +23,7 @@
     # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/563332
     flashrom = prev.callPackage (import "${
       prev.fetchFromGitHub {
-        owner = "ruiiiijiiiiang";
+        owner = "NixOS";
         repo = "nixpkgs";
         rev = "45cad503a7a0873ff8fa0542d749b495631808b0";
         sha256 = "sha256-kXAWCXGTwQsxMqm2OGyXjmBDAqCLZbcKZbiLKuMWzm4=";
