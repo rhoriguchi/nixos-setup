@@ -10,15 +10,10 @@ let
   disabledColor = colors.extra.terminal.border;
 in
 {
-  # TODO HYPRLAND add custom icon module to show nightlight state and toggle it
-
   programs.waybar = {
     enable = true;
 
     systemd.enable = true;
-
-    # TODO HYPRLAND remove
-    systemd.enableInspect = true;
 
     settings.topBar = {
       layer = "top";
@@ -75,7 +70,7 @@ in
       };
 
       battery = {
-        # TODO remove whne version > 0.15.0
+        # TODO remove when version > 0.15.0
         bat = "BAT0";
 
         interval = 10;
@@ -141,6 +136,7 @@ in
         interval = 1;
 
         format = "  {usage}%";
+        tooltip = false;
       };
 
       "custom/notification" = {
@@ -152,8 +148,8 @@ in
           dnd-none = "<span color='${disabledColor}'> </span>";
           inhibited-notification = " <sup> </sup>";
           inhibited-none = " ";
-          dnd-inhibited-notification = "<span color='${disabledColor}'> </span<sup> </sup>";
-          dnd-inhibited-none = "<span color='${disabledColor}'> </span";
+          dnd-inhibited-notification = "<span color='${disabledColor}'> </span><sup> </sup>";
+          dnd-inhibited-none = "<span color='${disabledColor}'> </span>";
         };
         return-type = "json";
         exec = "${config.services.swaync.package}/bin/swaync-client --subscribe-waybar";
@@ -174,7 +170,7 @@ in
         format = "󰋊 {percentage_used}%";
         path = "/";
 
-        tooltip-format = "{specific_used:0.2f} GB / {specific_total:0.2f} GB";
+        tooltip = false;
         unit = "GB";
       };
 
@@ -193,7 +189,7 @@ in
 
         format = "  {percentage}%";
 
-        tooltip-format = "{used:0.1f} GB / {total:0.1f} GB";
+        tooltip = false;
       };
 
       network = {
@@ -253,13 +249,11 @@ in
         on-scroll-down = "${pkgs.wtype}/bin/wtype -k XF86AudioLowerVolume";
       };
 
-      # TODO HYPRLAND add css to align center
       tray = {
         icon-size = 22;
-        spacing = 5;
+        spacing = 3;
       };
 
-      # TODO HYPRLAND make red or accent background?
       "hyprland/submap" = {
         format = "  {}";
 
@@ -324,30 +318,42 @@ in
       }
 
       #workspaces button {
-        padding: 0 5px;
+        padding: 0 6px;
+        margin: 4px 1px;
+        border-radius: 4px;
         background-color: transparent;
+        transition: background-color 0.15s ease-in-out;
       }
 
       #workspaces button:hover {
-        /* TODO HYPRLAND use background color */
-        background: rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: none;
       }
 
-      /* TODO HYPRLAND does not work */
-      #workspaces button.focused {
-        background-color:rgb(21, 0, 255);
-        box-shadow: inset 0 -3px ${colors.extra.terminal.border};
+      #workspaces button.active {
+        background-color: ${colors.normal.accent};
       }
 
-      /* TODO HYPRLAND make it blink */
+      @keyframes urgent-blink {
+        50% {
+          background-color: transparent;
+        }
+      }
+
       #workspaces button.urgent {
         background-color: ${colors.normal.red};
+        animation: urgent-blink 1s steps(2, end) infinite;
       }
 
-      /* TODO HYPRLAND Not sure what this does */
-      #mode {
-        background-color:rgb(0, 255, 47);
-        border-bottom: 3px solid #ffffff;
+      #submap {
+        background-color: ${colors.normal.accent};
+        color: ${colors.normal.white};
+        margin: 4px 2px;
+        border-radius: 4px;
+      }
+
+      #custom-notification {
+        letter-spacing: -2px;
       }
 
       menu, tooltip {
@@ -372,6 +378,8 @@ in
             ++ config.programs.waybar.settings.topBar.modules-right
           )
           [
+            (builtins.filter (module: module != "hyprland/window"))
+
             (map (module: lib.replaceStrings [ "hyprland/" "/" "#" ] [ "" "-" "." ] module))
 
             (map (module: "#${module}"))
@@ -379,7 +387,7 @@ in
             (lib.concatStringsSep ", ")
           ]
       } {
-        padding: 0 10px;
+        padding: 0 6px;
       }
     '';
   };
