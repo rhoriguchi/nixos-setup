@@ -20,7 +20,7 @@
       }
     }/pkgs/by-name/ga/gamedig/package.nix") { };
 
-    # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/563332
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=563332
     flashrom = prev.callPackage (import "${
       prev.fetchFromGitHub {
         owner = "NixOS";
@@ -30,7 +30,7 @@
       }
     }/pkgs/by-name/fl/flashrom/package.nix") { };
 
-    # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/565142
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=565142
     prowlarr = prev.callPackage (import "${
       prev.fetchFromGitHub {
         owner = "NixOS";
@@ -40,7 +40,7 @@
       }
     }/pkgs/by-name/pr/prowlarr/package.nix") { };
 
-    # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/565157
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=565157
     sonarr = prev.callPackage (import "${
       prev.fetchFromGitHub {
         owner = "NixOS";
@@ -50,7 +50,7 @@
       }
     }/pkgs/by-name/so/sonarr/package.nix") { };
 
-    # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/565160
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=565160
     bazarr = prev.callPackage (import "${
       prev.fetchFromGitHub {
         owner = "NixOS";
