@@ -49,6 +49,16 @@
         sha256 = "sha256-De+vX+S3YXMDgGAmpRL4+elIjMUU5SWzh46HGo94uEE=";
       }
     }/pkgs/by-name/so/sonarr/package.nix") { };
+
+    # TODO remove when merged https://github.com/NixOS/nixpkgs/pull/565160
+    bazarr = prev.callPackage (import "${
+      prev.fetchFromGitHub {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = "99b212d6c7fe7c484515a5579a1a7fb3652bb20b";
+        sha256 = "sha256-TRmKLd+FxIX7XRAzXuJr8sAPpXAMr8oJtTgwcXlQSJY=";
+      }
+    }/pkgs/by-name/ba/bazarr/package.nix") { };
   })
 
   # TODO remove when resolved
