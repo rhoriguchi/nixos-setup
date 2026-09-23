@@ -1,5 +1,3 @@
-# TODO HYPRLAND find something better
-# https://github.com/ArtsyMacaw/wlogout
 {
   colors,
   config,
