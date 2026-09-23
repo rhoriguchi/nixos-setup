@@ -4,6 +4,8 @@
   ...
 }:
 {
+  sops.secrets."users/xxlpitu".neededForUsers = true;
+
   # https://docs.kernel.org/next/admin-guide/sysctl/kernel.html
   boot.kernel.sysctl = {
     "kernel.panic" = 60;
@@ -14,8 +16,6 @@
     ethernet.macAddress = "permanent";
     wifi.macAddress = "permanent";
   };
-
-  sops.secrets."users/xxlpitu".neededForUsers = true;
 
   users.users.xxlpitu = {
     extraGroups = [
