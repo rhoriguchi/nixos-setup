@@ -49,12 +49,10 @@ in
       notification-body-image-width = 200;
       notification-window-width = 400;
 
-      control-center-margin-top = config.wayland.windowManager.hyprland.settings.config.general.gaps_out;
-      control-center-margin-bottom =
-        config.wayland.windowManager.hyprland.settings.config.general.gaps_out;
-      control-center-margin-right =
-        config.wayland.windowManager.hyprland.settings.config.general.gaps_out;
-      control-center-margin-left = config.wayland.windowManager.hyprland.settings.config.general.gaps_out;
+      control-center-margin-top = 0;
+      control-center-margin-bottom = 0;
+      control-center-margin-right = 0;
+      control-center-margin-left = 0;
       control-center-width = 400;
 
       widgets = [
@@ -73,8 +71,8 @@ in
       }
 
       .control-center {
-        background-color: ${colors.extra.terminal.background};
-        border: ${toString config.wayland.windowManager.hyprland.settings.config.general.border_size}px solid ${colors.normal.accent};
+        background-color: alpha(${colors.extra.terminal.background}, 0.85);
+        border: 1px solid ${colors.normal.accent};
         padding: 10px;
       }
 
@@ -94,16 +92,18 @@ in
         background: ${colors.normal.red};
       }
 
-      .notification-row {
-        margin-top: -${
-          toString (10 - 2 * config.wayland.windowManager.hyprland.settings.config.general.border_size)
-        }px;
+      .notification-background {
+        padding: 6px 0;
+      }
+
+      .notification-group-headers {
+        margin: 0;
       }
 
       .notification {
         background: ${colors.extra.terminal.background};
-        border: ${toString config.wayland.windowManager.hyprland.settings.config.general.border_size}px solid ${colors.normal.accent};
-        border-radius: ${toString config.wayland.windowManager.hyprland.settings.config.decoration.rounding}px;
+        border: 1px solid ${colors.normal.accent};
+        border-radius: 8px;
         padding: 10px;
       }
 
@@ -111,7 +111,7 @@ in
         font-size: 16px;
         font-weight: bold;
         background: transparent;
-        color: ${colors.normal.accent};
+        color: ${colors.normal.white};
         text-shadow: none;
       }
 
@@ -120,15 +120,17 @@ in
         font-weight: bold;
         background: transparent;
         text-shadow: none;
-        margin-right: 18px;
+        margin-right: 30px;
       }
 
       .close-button {
         background-color: ${colors.normal.red};
         color: ${colors.extra.terminal.background};
-        margin-top: 5px;
-        margin-right: 5px;
-        border-radius: ${toString config.wayland.windowManager.hyprland.settings.config.decoration.rounding}px;
+        min-width: 22px;
+        min-height: 22px;
+        margin-top: 12px;
+        margin-right: 12px;
+        border-radius: 8px;
       }
 
       .notification-default-action:hover,
@@ -151,14 +153,16 @@ in
       }
 
       .notification-group-buttons {
-        margin-right: 10px;
+        margin: 0;
         padding-bottom: 10px;
       }
 
       .notification-group-close-all-button,
       .notification-group-collapse-button {
         background: ${colors.extra.terminal.border};
-        border-radius: ${toString config.wayland.windowManager.hyprland.settings.config.decoration.rounding}px;
+        border-radius: 8px;
+        min-width: 32px;
+        min-height: 32px;
         margin: 2px;
         padding: 0;
       }
@@ -178,7 +182,7 @@ in
 
       .widget-mpris button {
         background-color: transparent;
-        border-radius: ${toString config.wayland.windowManager.hyprland.settings.config.decoration.rounding}px;
+        border-radius: 8px;
       }
 
       .widget-mpris button:hover {
