@@ -1,5 +1,5 @@
 { lib, ... }:
-{
+rec {
   getImports =
     dir:
     lib.pipe (lib.readDir dir) [
@@ -22,6 +22,18 @@
     ];
 
   relativeToRoot = lib.path.append ./.;
+
+  ansiColorCode =
+    hex:
+    {
+      bold ? false,
+    }:
+    let
+      channel = offset: toString (lib.fromHexString (lib.substring offset 2 hex));
+    in
+    "${lib.optionalString bold "1;"}38;2;${channel 1};${channel 3};${channel 5}";
+
+  ansiColor = hex: opts: "\\x1b[${ansiColorCode hex opts}m";
 
   hyprland = rec {
     mkWindowRules = attrs: map (match: { inherit match; } // attrs);

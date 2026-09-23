@@ -1,6 +1,8 @@
 {
+  colors,
   config,
   lib,
+  libCustom,
   pkgs,
   ...
 }:
@@ -17,8 +19,9 @@ lib.mkIf config.programs.git.enable {
           local title=$(head -n 1 "$COMMIT_MSG_FILE")
 
           if [ ''${#title} -gt $MAX_TITLE_LENGTH ]; then
-              # TODO figure out how to use hex colors variable
-              echo -e "\x1b[1;38;5;203mCommit title is ''${#title} characters long, must be equal or shorter than $MAX_TITLE_LENGTH characters!\e[0m";
+              echo -e "${
+                libCustom.ansiColor colors.normal.red { bold = true; }
+              }Commit title is ''${#title} characters long, must be equal or shorter than $MAX_TITLE_LENGTH characters!\e[0m";
               exit 1
           fi
       }

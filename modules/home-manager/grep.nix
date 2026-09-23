@@ -1,11 +1,16 @@
-{ config, lib, ... }:
+{
+  colors,
+  config,
+  lib,
+  libCustom,
+  ...
+}:
 {
   programs = {
     grep = {
       enable = true;
 
-      # TODO figure out how to use hex colors variable
-      colors.mt = "1;38;5;127";
+      colors.mt = libCustom.ansiColorCode colors.normal.accent { bold = true; };
     };
 
     zsh.shellAliases.grep = lib.mkIf config.programs.grep.enable "${config.programs.grep.package}/bin/grep --color=auto";

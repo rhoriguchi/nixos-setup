@@ -2,6 +2,7 @@
   colors,
   config,
   lib,
+  libCustom,
   pkgs,
   ...
 }:
@@ -36,9 +37,8 @@
           let
             colorize = color: text: ''${color}${text}\e[0m'';
 
-            # TODO figure out how to use hex colors variable
-            red = colorize ''\x1b[1;38;5;203m'';
-            green = colorize ''\x1b[1;38;5;41m'';
+            red = colorize (libCustom.ansiColor colors.normal.red { bold = true; });
+            green = colorize (libCustom.ansiColor colors.normal.green { bold = true; });
           in
           ''! f() { if [ $# -eq 0 ]; then echo -e '${red "Missing file or directory"}'; else tracked=$(git ls-files ''${1}); if [[ -z ''${tracked} ]]; then echo -e "${red "Not tracked"} ''${1}"; else echo -e "${green "Tracked"} ''${1}"; fi; fi; }; f'';
       };
