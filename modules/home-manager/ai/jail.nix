@@ -119,6 +119,7 @@ let
 
         - Access files outside this project directory, aside from a few forwarded config/cache paths; the rest of the host filesystem is not visible.
         - Write to the Nix store; it is mounted read-only.
+        - Open a pull request (e.g. `gh pr create`) without asking the user first.
 
         ## Available packages
 
