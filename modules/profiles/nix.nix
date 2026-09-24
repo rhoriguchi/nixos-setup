@@ -29,6 +29,9 @@
         "flakes"
       ];
     };
+
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedClass = "idle";
   };
 
   nixpkgs.config = {

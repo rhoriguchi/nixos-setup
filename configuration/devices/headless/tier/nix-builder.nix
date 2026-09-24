@@ -11,9 +11,6 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDlViLvbDIaywFbmErFMg4ffB/EzCN197kxAgQsrUgNu nix-ssh@XXLPitu-Aizen"
       ];
     };
-
-    daemonCPUSchedPolicy = "idle";
-    daemonIOSchedClass = "idle";
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
