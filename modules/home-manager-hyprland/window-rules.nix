@@ -40,16 +40,19 @@
       { class = "discord"; }
       {
         class = "firefox";
-        title = ".* \\| Bitwarden Web vault — Mozilla Firefox";
+        title = ".*\\| Bitwarden Web vault — Mozilla Firefox";
       }
       {
         class = "firefox";
-        title = ".* Discord \\| .* — Mozilla Firefox";
+        title = ".*Discord \\| .* — Mozilla Firefox";
       }
-
       {
         class = "firefox";
         title = ".*Gmail — Mozilla Firefox";
+      }
+      {
+        class = "firefox";
+        title = ".*Proton Mail — Mozilla Firefox";
       }
       {
         class = "firefox";
