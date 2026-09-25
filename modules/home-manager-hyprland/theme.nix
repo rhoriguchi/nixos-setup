@@ -35,6 +35,12 @@
       name = "Adwaita Sans";
       size = 11;
     };
+
+    gtk4.extraCss = ''
+      @define-color accent_color ${colors.normal.accent};
+      @define-color accent_bg_color ${colors.normal.accent};
+      @define-color accent_fg_color ${colors.normal.white};
+    '';
   };
 
   qt = {
