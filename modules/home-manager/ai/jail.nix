@@ -146,7 +146,7 @@ let
 
         ## Project instructions
 
-        This project's own instructions are in `AGENTS.project.md`, not here. Always read it too. It is a writable view of the project's real `AGENTS.md`; edits to it are written straight through to the real `AGENTS.md` on the host, so the project stays normal outside the sandbox.
+        This project's own instructions are in `AGENTS.project.md`, not here. Always read @AGENTS.project.md too. It is a writable view of the project's real `AGENTS.md`; edits to it are written straight through to the real `AGENTS.md` on the host, so the project stays normal outside the sandbox.
 
         ## Do not commit this file
 
