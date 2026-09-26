@@ -114,7 +114,11 @@ in
             options =
               lib.pipe
                 [
+                  "api_key"
                   "application_user"
+                  "jwt_token"
+                  "series_tag"
+                  "tag"
                   "tracked_user_series"
                   "user_episode_watch"
                   "user_settings"
