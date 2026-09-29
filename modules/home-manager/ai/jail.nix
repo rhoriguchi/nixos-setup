@@ -22,6 +22,7 @@ let
     pkgs.diffutils
     pkgs.file
     pkgs.findutils
+    pkgs.fontconfig
     pkgs.gawk
     pkgs.gnugrep
     pkgs.gnupg
@@ -301,6 +302,10 @@ in
 
           (jail.combinators.try-readonly "${configHome}/git")
           (jail.combinators.try-readonly "${homeDirectory}/.nanorc")
+
+          (jail.combinators.try-readonly "/etc/fonts")
+          (jail.combinators.try-readonly "${configHome}/fontconfig")
+          (jail.combinators.try-readwrite "${homeDirectory}/.cache/fontconfig")
 
           (jail.combinators.try-readwrite "${homeDirectory}/.cache/pypoetry")
           (jail.combinators.try-readwrite "${homeDirectory}/.cache/uv")
