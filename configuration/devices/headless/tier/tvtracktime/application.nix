@@ -10,7 +10,7 @@ let
   rootBindmountDir = "/mnt/bindmount/tvtracktime";
   bindmountDir = "${rootBindmountDir}/seaweedfs";
 
-  version = "1.1.40";
+  version = "1.1.42";
 in
 {
   sops = {
