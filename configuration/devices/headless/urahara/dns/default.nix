@@ -137,7 +137,7 @@ let
   ];
 in
 {
-  imports = [ ./pihole.nix ];
+  imports = [ ./adguardhome.nix ];
 
   sops = {
     secrets."services/kea/ddnsKey" = {
