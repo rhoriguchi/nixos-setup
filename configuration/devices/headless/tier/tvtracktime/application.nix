@@ -96,6 +96,33 @@ in
 
         restartUnits = [ config.systemd.services."container@tvtracktime-application".name ];
       };
+    }
+    // lib.optionalAttrs config.services.custom-netdata.enable {
+      "services.netdata.s3checkCollector" = {
+        content = lib.toJSON {
+          jobs = [
+            {
+              name = "SeaweedFS";
+              mode_lifecycle = {
+                source = {
+                  endpoint = "http://${config.containers.tvtracktime-application.localAddress}:8333";
+                  region = "us-east-1";
+                  bucket = "tvtracktime";
+                  credentials = {
+                    access_key_id = config.sops.placeholder."services/tvTrackTime/seaweedfs/accessKey";
+                    secret_access_key = config.sops.placeholder."services/tvTrackTime/seaweedfs/secretKey";
+                  };
+                };
+              };
+            }
+          ];
+        };
+
+        owner = config.services.netdata.user;
+        group = config.services.netdata.group;
+
+        reloadUnits = [ config.systemd.services.netdata.name ];
+      };
     };
   };
 
@@ -117,6 +144,12 @@ in
     "d ${rootBindmountDir} 0750 root root"
     "d ${bindmountDir} 0750 root root"
   ];
+
+  services.custom-netdata.extraGoCollectors =
+    lib.optionalAttrs config.services.custom-netdata.enable
+      {
+        "go.d/s3check.conf" = config.sops.templates."services.netdata.s3checkCollector".path;
+      };
 
   containers.tvtracktime-application = {
     autoStart = true;
