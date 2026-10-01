@@ -61,8 +61,8 @@
       },
       "original": {
         "owner": "NixOS",
+        "ref": "pull/519655/head",
         "repo": "nixpkgs",
-        "rev": "215cf43531f0449535bf3818562675c817bda11b",
         "type": "github"
       }
     },
@@ -774,8 +774,8 @@
       },
       "original": {
         "owner": "NixOS",
+        "ref": "pull/507414/head",
         "repo": "nixpkgs",
-        "rev": "c0a8f331b280c32b83fc3ae3a28c38bcefeec449",
         "type": "github"
       }
     },
@@ -1012,8 +1012,8 @@
       },
       "original": {
         "owner": "NixOS",
+        "ref": "pull/561392/head",
         "repo": "nixpkgs",
-        "rev": "ae98b3f341a74ab75a0ce317ac6b8023a6fb3672",
         "type": "github"
       }
     },
