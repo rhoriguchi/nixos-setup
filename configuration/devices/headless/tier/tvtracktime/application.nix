@@ -184,7 +184,7 @@ in
 
       virtualisation.oci-containers.containers = {
         seaweedfs = {
-          image = "docker.io/chrislusf/seaweedfs:4.40";
+          image = "docker.io/chrislusf/seaweedfs:4.48";
 
           networks = [ "host" ];
 
