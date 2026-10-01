@@ -39,6 +39,22 @@
         sha256 = "sha256-De+vX+S3YXMDgGAmpRL4+elIjMUU5SWzh46HGo94uEE=";
       }
     }/pkgs/by-name/so/sonarr/package.nix") { };
+
+    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=569151
+    netdata =
+      prev.callPackage
+        (import "${
+          prev.fetchFromGitHub {
+            owner = "NixOS";
+            repo = "nixpkgs";
+            rev = "38cedbc5b6355b48026f733ddbcd349ea40c36bc";
+            sha256 = "sha256-/cIxnWTqRZPuUuUrgzVnKzHOCl0unLmL/aGdP1YvsL8=";
+          }
+        }/pkgs/tools/system/netdata")
+        {
+          go = prev.go_1_27;
+          buildGoModule = prev.buildGo127Module;
+        };
   })
 
   # TODO remove when resolved
