@@ -28,8 +28,9 @@
           disabledModules = [ "${modulesPath}/${path}.nix" ];
           imports = [ "${src}/nixos/modules/${path}.nix" ];
         };
-
-      modules = {
+    in
+    {
+      nixosModules.default.imports = builtins.attrValues {
         # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=519655
         bazarr = mkOverride "services/misc/bazarr" inputs.bazarr;
 
@@ -38,11 +39,6 @@
 
         # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=561392
         ollama = mkOverride "services/misc/ollama" inputs.ollama;
-      };
-    in
-    {
-      nixosModules = modules // {
-        default.imports = builtins.attrValues modules;
       };
     };
 }
