@@ -52,11 +52,11 @@
     "bazarr": {
       "flake": false,
       "locked": {
-        "lastModified": 1783795904,
-        "narHash": "sha256-ImKtaW3FhuWQ9LfnX1eay9cOTDvdnZxNJbELd3KbOe0=",
+        "lastModified": 1790655813,
+        "narHash": "sha256-zeFMllXEcwTcn/L8DKFlXNRzdDOvZp3cslF0YG9u0RE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "215cf43531f0449535bf3818562675c817bda11b",
+        "rev": "7df82da3018b695476a78cf518fa4474b89048da",
         "type": "github"
       },
       "original": {
