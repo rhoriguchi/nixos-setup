@@ -142,7 +142,12 @@ let
 in
 {
   sops = {
-    secrets."services/radarr/apiKey" = { };
+    secrets."services/radarr/apiKey" = {
+      restartUnits = [
+        config.systemd.services."container@radarr-anime".name
+        config.systemd.services."container@radarr-movies".name
+      ];
+    };
 
     templates."services.radarr.environmentFile" = {
       content = ''

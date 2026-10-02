@@ -72,7 +72,14 @@ in
         ) (map (name: wgSecretName name) wgConfigFiles)
       )
       // lib.listToAttrs (
-        map (user: lib.nameValuePair (delugeUserSecretName user) { }) (lib.attrNames delugeUsers)
+        map (
+          user:
+          lib.nameValuePair (delugeUserSecretName user) (
+            lib.optionalAttrs (user == "metrics") {
+              restartUnits = [ config.systemd.services."container@deluge".name ];
+            }
+          )
+        ) (lib.attrNames delugeUsers)
       );
 
     templates."services.deluge.authFile" = {

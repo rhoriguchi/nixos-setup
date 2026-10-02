@@ -5,7 +5,9 @@
 }:
 {
   sops = {
-    secrets."services/prowlarr/apiKey" = { };
+    secrets."services/prowlarr/apiKey" = {
+      restartUnits = [ config.systemd.services."prometheus-exportarr-prowlarr-exporter".name ];
+    };
 
     templates."services.prowlarr.environmentFile" = {
       content = ''

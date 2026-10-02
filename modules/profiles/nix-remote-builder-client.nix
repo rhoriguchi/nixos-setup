@@ -11,7 +11,9 @@ let
 in
 {
   sops.secrets = lib.mkIf config.nix.distributedBuilds {
-    "nix/buildMachines/${config.networking.hostName}/privateKey" = { };
+    "nix/buildMachines/${config.networking.hostName}/privateKey" = {
+      restartUnits = [ config.systemd.services.nix-daemon.name ];
+    };
   };
 
   nix = {

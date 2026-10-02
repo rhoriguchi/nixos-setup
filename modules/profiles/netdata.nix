@@ -9,7 +9,7 @@
       owner = config.services.netdata.user;
       group = config.services.netdata.group;
 
-      restartUnits = [ config.systemd.services.netdata.name ];
+      reloadUnits = [ config.systemd.services.netdata.name ];
     };
   };
 

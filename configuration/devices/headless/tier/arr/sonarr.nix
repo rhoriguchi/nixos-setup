@@ -149,7 +149,12 @@ let
 in
 {
   sops = {
-    secrets."services/sonarr/apiKey" = { };
+    secrets."services/sonarr/apiKey" = {
+      restartUnits = [
+        config.systemd.services."container@sonarr-anime".name
+        config.systemd.services."container@sonarr-series".name
+      ];
+    };
 
     templates."services.sonarr.environmentFile" = {
       content = ''
