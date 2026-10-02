@@ -11,7 +11,7 @@ let
 in
 {
   sops.secrets = lib.mkIf config.nix.distributedBuilds {
-    "nix/buildMachines/${config.networking.hostName}" = { };
+    "nix/buildMachines/${config.networking.hostName}/privateKey" = { };
   };
 
   nix = {
@@ -24,7 +24,7 @@ in
         protocol = "ssh-ng";
 
         sshUser = "nix-ssh";
-        sshKey = config.sops.secrets."nix/buildMachines/${config.networking.hostName}".path;
+        sshKey = config.sops.secrets."nix/buildMachines/${config.networking.hostName}/privateKey".path;
         # > ssh xxlpitu-tier "base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub"
         publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSURFSVZnd0gwd2pqUWI3ZWtWeFl0RXlISGpnVi9Rd3MwSzlKN2xYU1hlWVcgcm9vdEBuaXhvcwo=";
 
