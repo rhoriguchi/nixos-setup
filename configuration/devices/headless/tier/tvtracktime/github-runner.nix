@@ -16,6 +16,10 @@ in
     restartUnits = [ config.systemd.services."container@tvtracktime-github-runner".name ];
   };
 
+  systemd.tmpfiles.rules = [
+    "d /var/lib/tvtracktime-github-runner-docker 0700 root root"
+  ];
+
   containers.tvtracktime-github-runner = {
     autoStart = true;
     ephemeral = true;
@@ -39,6 +43,11 @@ in
     sopsPaths = [
       config.sops.secrets."services/tvTrackTime/github/runnerToken".path
     ];
+
+    bindMounts."/var/lib/docker" = {
+      isReadOnly = false;
+      hostPath = "/var/lib/tvtracktime-github-runner-docker";
+    };
 
     config = {
       virtualisation.docker.enable = true;
