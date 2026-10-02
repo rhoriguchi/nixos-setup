@@ -617,6 +617,10 @@ in
                 name = "Grafana";
                 url = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}/metrics";
               }
+              ++ lib.optional config.services.harmonia.cache.enable {
+                name = "Harmonia";
+                url = "http://127.0.0.1:${lib.last (lib.splitString ":" config.services.harmonia.cache.settings.bind)}/metrics";
+              }
               ++ lib.optional config.services.headscale.enable {
                 name = "Headscale";
                 url = "http://${config.services.headscale.settings.metrics_listen_addr}/metrics";
