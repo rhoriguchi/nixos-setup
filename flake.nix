@@ -6,6 +6,11 @@
 
     local-module-overrides.url = "path:./modules/overrides";
 
+    local-overlays = {
+      url = "path:./overlays";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     declarative-jellyfin = {
       url = "github:Sveske-Juice/declarative-jellyfin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -206,17 +211,16 @@
       };
 
       overlays = {
-        default = lib.composeManyExtensions (
-          [
-            inputs.deploy-rs.overlays.default
-            inputs.firefox-addons.overlays.default
-            # TODO review once resolve https://github.com/hyprwm/Hyprland/discussions/14532
-            inputs.hyprland.overlays.default
-            inputs.hyprland.overlays.hyprland-packages
-            inputs.llm-agents.overlays.shared-nixpkgs
-          ]
-          ++ import ./overlays
-        );
+        default = lib.composeManyExtensions ([
+          inputs.deploy-rs.overlays.default
+          inputs.firefox-addons.overlays.default
+          # TODO review once resolve https://github.com/hyprwm/Hyprland/discussions/14532
+          inputs.hyprland.overlays.default
+          inputs.hyprland.overlays.hyprland-packages
+          inputs.llm-agents.overlays.shared-nixpkgs
+
+          inputs.local-overlays.overlays.default
+        ]);
       };
 
       nixosConfigurations =
