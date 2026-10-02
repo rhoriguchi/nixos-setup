@@ -39,6 +39,7 @@
   nftables = ./nftables.nix;
   nginx = ./nginx.nix;
   nix = ./nix.nix;
+  nix-cache-client = ./nix-cache-client.nix;
   nix-garbage-collection = ./nix-garbage-collection.nix;
   nix-remote-builder = ./nix-remote-builder.nix;
   nvd = ./nvd.nix;

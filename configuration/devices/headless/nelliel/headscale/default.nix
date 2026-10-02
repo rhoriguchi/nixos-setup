@@ -233,6 +233,13 @@ in
             }
             {
               src = [ "tag:headful" ];
+              dst = [ "xxlpitu-tier" ];
+              ip = [
+                "tcp:5000" # Harmonia
+              ];
+            }
+            {
+              src = [ "tag:headful" ];
               dst = [ "autogroup:internet" ];
               ip = [ "*" ];
             }
@@ -251,6 +258,7 @@ in
               dst = [ "xxlpitu-tier" ];
               ip = [
                 "tcp:3100" # Loki
+                "tcp:5000" # Harmonia
                 "tcp:9090" # Prometheus
                 "tcp:19996" # Netdata
               ];

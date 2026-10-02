@@ -10,6 +10,7 @@
     ./keyboard.nix
     ./nftables.nix
     ./nix.nix
+    ./nix-cache-client.nix
     ./nvd.nix
     ./shell.nix
     ./sudo-rs.nix
