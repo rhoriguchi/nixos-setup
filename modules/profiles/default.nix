@@ -7,6 +7,7 @@
   authelia = ./authelia.nix;
   bluetooth = ./bluetooth.nix;
   chrony = ./chrony.nix;
+  container-auto-prune = ./container-auto-prune;
   containers = ./containers;
   dconf-editor = ./dconf-editor.nix;
   doas = ./doas.nix;

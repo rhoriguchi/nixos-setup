@@ -6,6 +6,7 @@
     ./alloy
     ./authelia.nix
     ./chrony.nix
+    ./container-auto-prune
     ./containers
     ./fail2ban.nix
     ./grafana.nix
