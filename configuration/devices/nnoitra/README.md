@@ -30,6 +30,10 @@ powercfg -change -monitor-timeout-dc 5
 
 REM Disable MAC randomization
 netsh wlan set profileparameter name="63466727-IoT" Randomization=no
+
+REM Disable web search
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v BingSearchEnabled /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v DisableSearchBoxSuggestions /t REG_DWORD /d 1 /f
 ```
 
 ## Manual software
