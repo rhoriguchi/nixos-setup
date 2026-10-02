@@ -19,6 +19,13 @@ let
     type:
     let
       containerCfg = getContainerCfg type;
+
+      localAddress =
+        {
+          anime = "169.254.1.136";
+          series = "169.254.1.202";
+        }
+        .${type};
     in
     {
       autoStart = true;
@@ -26,12 +33,7 @@ let
 
       privateNetwork = true;
       hostAddress = "169.254.1.1";
-      localAddress =
-        {
-          anime = "169.254.1.136";
-          series = "169.254.1.202";
-        }
-        .${type};
+      inherit localAddress;
 
       bindMounts = {
         "${containerCfg.services.sonarr.dataDir}" = {
@@ -85,7 +87,16 @@ let
             settings = {
               app.instancename = "Sonarr ${lib.toSentenceCase type}";
 
-              server.urlbase = "/${type}";
+              server = {
+                urlbase = "/${type}";
+
+                allowedhosts = lib.concatStringsSep "," [
+                  "sonarr.00a.ch"
+
+                  "127.0.0.1"
+                  localAddress
+                ];
+              };
 
               auth = {
                 method = "Forms";

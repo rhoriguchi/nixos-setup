@@ -21,9 +21,25 @@
       enable = true;
 
       # https://wiki.servarr.com/prowlarr/environment-variables
-      settings.auth = {
-        method = "Forms";
-        required = "DisabledForLocalAddresses";
+      settings = {
+        server.allowedhosts = lib.concatStringsSep "," (
+          [
+            "prowlarr.00a.ch"
+
+            "127.0.0.1"
+          ]
+          ++ lib.unique [
+            config.containers.radarr-anime.hostAddress
+            config.containers.radarr-movies.hostAddress
+            config.containers.sonarr-anime.hostAddress
+            config.containers.sonarr-series.hostAddress
+          ]
+        );
+
+        auth = {
+          method = "Forms";
+          required = "DisabledForLocalAddresses";
+        };
       };
 
       environmentFiles = [ config.sops.templates."services.prowlarr.environmentFile".path ];

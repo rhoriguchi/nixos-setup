@@ -17,6 +17,13 @@ let
     type:
     let
       containerCfg = getContainerCfg type;
+
+      localAddress =
+        {
+          anime = "169.254.1.145";
+          movies = "169.254.1.20";
+        }
+        .${type};
     in
     {
       autoStart = true;
@@ -24,12 +31,7 @@ let
 
       privateNetwork = true;
       hostAddress = "169.254.1.1";
-      localAddress =
-        {
-          anime = "169.254.1.145";
-          movies = "169.254.1.20";
-        }
-        .${type};
+      inherit localAddress;
 
       bindMounts = {
         "${containerCfg.services.radarr.dataDir}" = {
@@ -78,7 +80,16 @@ let
             settings = {
               app.instancename = "Radarr ${lib.toSentenceCase type}";
 
-              server.urlbase = "/${type}";
+              server = {
+                urlbase = "/${type}";
+
+                allowedhosts = lib.concatStringsSep "," [
+                  "radarr.00a.ch"
+
+                  "127.0.0.1"
+                  localAddress
+                ];
+              };
 
               auth = {
                 method = "Forms";
