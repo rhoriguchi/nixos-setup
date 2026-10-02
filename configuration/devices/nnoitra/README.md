@@ -77,10 +77,12 @@ winget install --accept-source-agreements --exact --silent --uninstall-previous 
 winget install --accept-source-agreements --exact --silent --uninstall-previous CPUID.HWMonitor
 winget install --accept-source-agreements --exact --silent --uninstall-previous Devolutions.UniGetUI
 winget install --accept-source-agreements --exact --silent --uninstall-previous Discord.Discord
+winget install --accept-source-agreements --exact --silent --uninstall-previous ebkr.r2modman
 winget install --accept-source-agreements --exact --silent --uninstall-previous IObit.Uninstaller
 winget install --accept-source-agreements --exact --silent --uninstall-previous LocalSend.LocalSend
 winget install --accept-source-agreements --exact --silent --uninstall-previous Mojang.MinecraftLauncher
 winget install --accept-source-agreements --exact --silent --uninstall-previous Mozilla.Firefox
+winget install --accept-source-agreements --exact --silent --uninstall-previous NexusMods.Vortex
 winget install --accept-source-agreements --exact --silent --uninstall-previous Notepad++.Notepad++
 winget install --accept-source-agreements --exact --silent --uninstall-previous RazerInc.RazerInstaller.Synapse4
 winget install --accept-source-agreements --exact --silent --uninstall-previous RiotGames.LeagueOfLegends.EUW
@@ -158,62 +160,6 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "LocalSend" /t R
 
 ## Games
 
-### Nexus mods
-
-```cmd
-winget install --accept-source-agreements --exact --silent --uninstall-previous NexusMods.Vortex
-```
-
-#### Cyberpunk 20777
+### Cyberpunk 20777
 
 - [Reset Attributes always available - Redscript](https://www.nexusmods.com/cyberpunk2077/mods/9240)
-
-### R2ModMan
-
-```cmd
-winget install --accept-source-agreements --exact --silent --uninstall-previous ebkr.r2modman
-```
-
-#### Dyson Sphere Program
-
-- CommonAPI
-
-  ```txt
-  ror2mm://v1/install/thunderstore.io/CommonAPI/CommonAPI/1.6.5
-  ```
-
-- FactoryLocator
-
-  ```txt
-  ror2mm://v1/install/thunderstore.io/starfi5h/FactoryLocator/1.3.8
-  ```
-
-- GalacticScale
-
-  ```txt
-  ror2mm://v1/install/thunderstore.io/Galactic_Scale/GalacticScale/2.16.6
-  ```
-
-- NebulaCompatibilityAssist
-
-  ```txt
-  ror2mm://v1/install/thunderstore.io/starfi5h/NebulaCompatibilityAssist/0.4.23
-  ```
-
-- NebulaMultiplayerMod
-
-  ```txt
-  ror2mm://v1/install/thunderstore.io/nebula/NebulaMultiplayerMod/0.9.12
-  ```
-
-- SmartEjectors
-
-  ```txt
-  ror2mm://v1/install/thunderstore.io/DanielHeEGG/SmartEjectors/1.3.3
-  ```
-
-- SphereEditorTools
-
-  ```txt
-  ror2mm://v1/install/thunderstore.io/starfi5h/SphereEditorTools/2.2.3
-  ```
