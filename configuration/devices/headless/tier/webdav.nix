@@ -79,7 +79,6 @@ in
 
       virtualHosts."webdav.00a.ch" = {
         enableACME = true;
-        acmeRoot = null;
         forceSSL = true;
 
         extraConfig = ''

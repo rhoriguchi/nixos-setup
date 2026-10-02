@@ -111,7 +111,6 @@ in
       virtualHosts = {
         "printer.00a.ch" = {
           enableACME = true;
-          acmeRoot = null;
           forceSSL = true;
 
           locations."/" = {
@@ -133,7 +132,6 @@ in
 
         "scanner.00a.ch" = {
           enableACME = true;
-          acmeRoot = null;
           forceSSL = true;
 
           locations."/" = {

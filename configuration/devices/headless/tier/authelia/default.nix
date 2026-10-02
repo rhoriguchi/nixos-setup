@@ -184,7 +184,6 @@ in
 
       virtualHosts."authelia.00a.ch" = {
         enableACME = true;
-        acmeRoot = null;
         forceSSL = true;
 
         locations."/".proxyPass =

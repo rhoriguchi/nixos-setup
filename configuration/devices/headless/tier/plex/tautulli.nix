@@ -18,7 +18,6 @@
 
       virtualHosts."tautulli.00a.ch" = {
         enableACME = true;
-        acmeRoot = null;
         forceSSL = true;
 
         extraConfig = ''

@@ -1,56 +1,74 @@
-{ config, pkgs, ... }:
 {
-  sops.secrets."services/infomaniak/accessToken" = { };
-
-  security.acme = {
-    acceptTerms = true;
-
-    defaults = {
-      email = "contact@00a.ch";
-
-      # https://go-acme.github.io/lego/dns/infomaniak
-      dnsProvider = "infomaniak";
-      credentialFiles.INFOMANIAK_ACCESS_TOKEN_FILE =
-        config.sops.secrets."services/infomaniak/accessToken".path;
-
-      dnsPropagationCheck = false;
-    };
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  options.services.nginx.virtualHosts = lib.mkOption {
+    type = lib.types.attrsOf (
+      lib.types.submodule (
+        { config, ... }:
+        {
+          config = lib.mkIf config.enableACME { acmeRoot = lib.mkDefault null; };
+        }
+      )
+    );
   };
 
-  services = {
-    nginx = {
-      package = pkgs.nginx.override {
-        modules = [
-          pkgs.nginxModules.moreheaders
-        ];
+  config = {
+    sops.secrets."services/infomaniak/accessToken" = { };
+
+    security.acme = {
+      acceptTerms = true;
+
+      defaults = {
+        email = "contact@00a.ch";
+
+        # https://go-acme.github.io/lego/dns/infomaniak
+        dnsProvider = "infomaniak";
+        credentialFiles.INFOMANIAK_ACCESS_TOKEN_FILE =
+          config.sops.secrets."services/infomaniak/accessToken".path;
+
+        dnsPropagationCheck = false;
       };
+    };
 
-      recommendedBrotliSettings = true;
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
-      recommendedUwsgiSettings = true;
+    services = {
+      nginx = {
+        package = pkgs.nginx.override {
+          modules = [
+            pkgs.nginxModules.moreheaders
+          ];
+        };
 
-      commonHttpConfig = ''
-        more_set_headers 'Referrer-Policy: origin-when-cross-origin';
-        more_set_headers 'X-Content-Type-Options: nosniff';
-        more_set_headers 'X-Frame-Options: DENY';
-      '';
+        recommendedBrotliSettings = true;
+        recommendedGzipSettings = true;
+        recommendedOptimisation = true;
+        recommendedProxySettings = true;
+        recommendedTlsSettings = true;
+        recommendedUwsgiSettings = true;
 
-      virtualHosts."_" = {
-        default = true;
-        rejectSSL = true;
+        commonHttpConfig = ''
+          more_set_headers 'Referrer-Policy: origin-when-cross-origin';
+          more_set_headers 'X-Content-Type-Options: nosniff';
+          more_set_headers 'X-Frame-Options: DENY';
+        '';
 
-        locations = {
-          "@blackhole".return = 444;
+        virtualHosts."_" = {
+          default = true;
+          rejectSSL = true;
 
-          "/" = {
-            return = 444;
+          locations = {
+            "@blackhole".return = 444;
 
-            extraConfig = ''
-              error_page 400 = @blackhole;
-            '';
+            "/" = {
+              return = 444;
+
+              extraConfig = ''
+                error_page 400 = @blackhole;
+              '';
+            };
           };
         };
       };

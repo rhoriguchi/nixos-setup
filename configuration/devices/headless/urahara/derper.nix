@@ -22,7 +22,6 @@
 
     nginx.virtualHosts."derp-zrh.00a.ch" = {
       enableACME = true;
-      acmeRoot = null;
     };
   };
 }
