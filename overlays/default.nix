@@ -1,15 +1,5 @@
 [
   (_: prev: {
-    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=450661
-    superfile = prev.callPackage (import "${
-      prev.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "15232e7ad0f79e85450558b7414dd61e5280af39";
-        sha256 = "sha256-HpgS/TrB9N2PU75T/L8ad0DUd6VgmMSq8MNQ214/vwY=";
-      }
-    }/pkgs/by-name/su/superfile/package.nix") { };
-
     # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
     gamedig = prev.callPackage (import "${
       prev.fetchFromGitHub {
