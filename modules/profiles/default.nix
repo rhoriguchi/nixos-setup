@@ -41,7 +41,7 @@
   nix = ./nix.nix;
   nix-cache-client = ./nix-cache-client.nix;
   nix-garbage-collection = ./nix-garbage-collection.nix;
-  nix-remote-builder = ./nix-remote-builder.nix;
+  nix-remote-builder-client = ./nix-remote-builder-client.nix;
   nvd = ./nvd.nix;
   peripherals = ./peripherals.nix;
   podman = ./podman.nix;

@@ -266,7 +266,6 @@
                   self.nixosModules.profiles.java
                   self.nixosModules.profiles.javascript
                   self.nixosModules.profiles.laptop-power-management
-                  self.nixosModules.profiles.nix-remote-builder
                   self.nixosModules.profiles.podman
                   self.nixosModules.profiles.python
                   self.nixosModules.profiles.syncthing

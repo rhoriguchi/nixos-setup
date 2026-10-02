@@ -1,23 +1,30 @@
-{ config, libCustom, ... }:
+{
+  config,
+  lib,
+  libCustom,
+  ...
+}:
 let
   tailscaleIps = import (
     libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
 in
 {
-  sops.secrets."nix/buildMachines/${config.networking.hostName}/privateKey" = { };
+  sops.secrets = lib.mkIf config.nix.distributedBuilds {
+    "nix/buildMachines/${config.networking.hostName}" = { };
+  };
 
   nix = {
     distributedBuilds = true;
 
-    buildMachines = [
+    buildMachines = lib.mkIf config.nix.distributedBuilds [
       {
         hostName = tailscaleIps.XXLPitu-Tier.ip;
 
         protocol = "ssh-ng";
 
         sshUser = "nix-ssh";
-        sshKey = config.sops.secrets."nix/buildMachines/${config.networking.hostName}/privateKey".path;
+        sshKey = config.sops.secrets."nix/buildMachines/${config.networking.hostName}".path;
         # > ssh xxlpitu-tier "base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub"
         publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSURFSVZnd0gwd2pqUWI3ZWtWeFl0RXlISGpnVi9Rd3MwSzlKN2xYU1hlWVcgcm9vdEBuaXhvcwo=";
 
@@ -33,6 +40,6 @@ in
       }
     ];
 
-    settings.builders-use-substitutes = true;
+    settings.builders-use-substitutes = lib.mkIf config.nix.distributedBuilds true;
   };
 }

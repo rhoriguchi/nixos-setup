@@ -11,6 +11,7 @@
     ./nftables.nix
     ./nix.nix
     ./nix-cache-client.nix
+    ./nix-remote-builder-client.nix
     ./nvd.nix
     ./shell.nix
     ./sudo-rs.nix

@@ -17,8 +17,8 @@
     ./loki.nix
     ./mealie
     ./netdata.nix
-    ./nix-builder.nix
     ./nix-cache.nix
+    ./nix-remote-builder.nix
     ./nvidia-quadro-rtx-5000.nix
     ./ollama.nix
     ./plex
