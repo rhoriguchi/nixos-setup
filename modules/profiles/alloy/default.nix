@@ -7,6 +7,7 @@
   imports = [
     ./borgmatic.nix
     ./containers.nix
+    ./netdata.nix
   ];
 
   services.alloy.extraFlags = [ "--disable-reporting" ];
