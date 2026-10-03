@@ -2,11 +2,30 @@
   colors,
   config,
   lib,
+  pkgs,
   ...
 }:
 {
   programs = {
-    zsh.shellAliases.spf = lib.mkIf config.programs.superfile.enable "${config.programs.superfile.package}/bin/superfile";
+    zsh.initContent = lib.mkIf config.programs.superfile.enable ''
+      spf() {
+        export SPF_LAST_DIR="${
+          if !pkgs.stdenv.hostPlatform.isDarwin then
+            "${config.xdg.stateHome}/superfile/lastdir"
+          else
+            "${config.home.homeDirectory}/Library/Application Support/superfile/lastdir"
+        }"
+
+        ${config.programs.superfile.package}/bin/superfile "$@"
+
+        [ ! -f "$SPF_LAST_DIR" ] || {
+          . "$SPF_LAST_DIR"
+          rm -f -- "$SPF_LAST_DIR" > /dev/null
+        }
+      }
+
+      functions[superfile]=$functions[spf]
+    '';
 
     superfile = {
       enable = true;
