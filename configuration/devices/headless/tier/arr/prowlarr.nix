@@ -47,16 +47,10 @@
       environmentFiles = [ config.sops.templates."services.prowlarr.environmentFile".path ];
     };
 
-    prometheus.exporters.exportarr-prowlarr = lib.mkForce {
-      enable = true;
-
-      port = 9710;
-
-      url = "http://127.0.0.1:${toString config.services.prowlarr.settings.server.port}";
-
+    prometheus.exporters.exportarr-prowlarr = {
       apiKeyFile = config.sops.secrets."services/prowlarr/apiKey".path;
 
-      environment = {
+      environment = lib.mkForce {
         INTERFACE = "127.0.0.1";
 
         PROWLARR__BACKFILL = "true";
