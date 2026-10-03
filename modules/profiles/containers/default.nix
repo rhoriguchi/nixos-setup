@@ -13,13 +13,18 @@
 
   options.containers = lib.mkOption {
     type = lib.types.attrsOf (
-      lib.types.submodule {
-        config.config = {
-          nixpkgs.pkgs = pkgs;
+      lib.types.submodule (
+        { name, ... }:
+        {
+          config.config = {
+            networking.hostName = "${config.networking.hostName}-${name}";
 
-          system.stateVersion = config.system.stateVersion;
-        };
-      }
+            nixpkgs.pkgs = pkgs;
+
+            system.stateVersion = config.system.stateVersion;
+          };
+        }
+      )
     );
   };
 }
