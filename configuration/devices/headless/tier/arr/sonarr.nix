@@ -108,11 +108,7 @@ let
           };
 
           prometheus.exporters.exportarr-sonarr = {
-            enable = true;
-
-            openFirewall = true;
-
-            url = "http://127.0.0.1:${toString containerCfg.services.sonarr.settings.server.port}/${type}";
+            url = lib.mkForce "http://127.0.0.1:${toString containerCfg.services.sonarr.settings.server.port}/${type}";
 
             apiKeyFile = config.sops.secrets."services/sonarr/apiKey".path;
           };
@@ -216,25 +212,6 @@ in
   };
 
   services = {
-    custom-netdata.extraPrometheusJobs =
-      map
-        (
-          type:
-          let
-            containerCfg = getContainerCfg type;
-          in
-          {
-            name = "Sonarr ${lib.toSentenceCase type}";
-            url = "http://${
-              config.containers."sonarr-${type}".localAddress
-            }:${toString containerCfg.services.prometheus.exporters.exportarr-sonarr.port}/metrics";
-          }
-        )
-        [
-          "anime"
-          "series"
-        ];
-
     infomaniak = {
       enable = true;
 

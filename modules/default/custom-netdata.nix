@@ -8,10 +8,7 @@
 let
   cfg = config.services.custom-netdata;
 
-  streamPort = 19996;
-
-  isParent = cfg.type == "parent";
-  isChild = cfg.type == "child";
+  isFleetParent = cfg.claimTokenFile != null;
 
   tailscaleIps = import (
     libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
@@ -39,15 +36,19 @@ in
   options = {
     services.custom-netdata = {
       enable = lib.mkEnableOption "Monitoring with Netdata";
-      type = lib.mkOption {
-        type = lib.types.nullOr (
-          lib.types.enum [
-            "parent"
-            "child"
-          ]
-        );
+      parent.enable = lib.mkEnableOption "Accepting streams from child nodes";
+      child = {
+        enable = lib.mkEnableOption "Streaming to a parent node";
+
+        parentHostname = lib.mkOption {
+          type = lib.types.nullOr lib.types.nonEmptyStr;
+          default = null;
+        };
+        parentAddress = lib.mkOption {
+          type = lib.types.nullOr lib.types.nonEmptyStr;
+          default = null;
+        };
       };
-      parentHostname = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
       claimTokenFile = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
         default = null;
@@ -55,6 +56,16 @@ in
       webPort = lib.mkOption {
         type = lib.types.port;
         default = 19999;
+      };
+      streamPort = lib.mkOption {
+        type = lib.types.port;
+        default = 19996;
+        readOnly = true;
+      };
+      localApiKey = lib.mkOption {
+        type = lib.types.nonEmptyStr;
+        default = "nspawn-local";
+        readOnly = true;
       };
       extraPrometheusJobs = lib.mkOption {
         type = lib.types.listOf (
@@ -103,6 +114,7 @@ in
         };
         default = { };
       };
+      ephemeral = lib.mkEnableOption "Marking this node as ephemeral (no disconnect alerts, auto-cleanup on the parent)";
       debug = lib.mkOption {
         type = lib.types.submodule {
           options = {
@@ -128,56 +140,67 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = config.services.tailscale.enable;
-        message = "tailscale service must be enabled";
+        assertion = isFleetParent -> config.services.tailscale.enable;
+        message = "When claimTokenFile is set tailscale service must be enabled";
       }
       {
-        assertion = isParent -> lib.elem config.networking.hostName (lib.attrNames tailscaleIps);
-        message = "When type is parent hostname must be tailscale host";
+        assertion = isFleetParent -> lib.elem config.networking.hostName (lib.attrNames tailscaleIps);
+        message = "When claimTokenFile is set hostname must be a tailscale host";
       }
       {
-        assertion = isParent -> cfg.healthAlarmNotify.discordWebhookUrl != null;
-        message = "When type is parent healthAlarmNotify.discordWebhookUrl must be set";
+        assertion = isFleetParent -> cfg.healthAlarmNotify.discordWebhookUrl != null;
+        message = "When claimTokenFile is set healthAlarmNotify.discordWebhookUrl must be set";
       }
       {
-        assertion = isParent -> cfg.claimTokenFile != null;
-        message = "When type is parent claimTokenFile must be set";
+        assertion =
+          cfg.child.enable -> (cfg.child.parentHostname != null) != (cfg.child.parentAddress != null);
+        message = "When child.enable is set exactly one of child.parentHostname or child.parentAddress must be set";
       }
       {
-        assertion = isChild -> cfg.parentHostname != null;
-        message = "When type is child parentHostname must be set";
+        assertion =
+          cfg.child.enable -> (cfg.child.parentHostname != null -> config.services.tailscale.enable);
+        message = "When child.parentHostname is set tailscale service must be enabled";
       }
       {
-        assertion = isChild -> lib.elem cfg.parentHostname (lib.attrNames tailscaleIps);
-        message = "When type is child parentHostname must be tailscale host";
+        assertion =
+          cfg.child.enable
+          -> (
+            cfg.child.parentHostname != null -> lib.elem cfg.child.parentHostname (lib.attrNames tailscaleIps)
+          );
+        message = "When child.parentHostname is set it must be a tailscale host";
       }
     ];
 
     services = {
       custom-netdata = {
         streamConf = {
-          text =
-            {
-              parent = ''
-                [${cfg.streamConf.apiKey}]
-                enabled = yes
-              '';
+          text = lib.concatStringsSep "\n" (
+            lib.optional cfg.child.enable ''
+              [stream]
+              enabled = yes
+              api key = ${cfg.streamConf.apiKey}
+              destination = ${
+                if cfg.child.parentAddress != null then
+                  cfg.child.parentAddress
+                else
+                  tailscaleIps.${cfg.child.parentHostname}.ip
+              }:${toString cfg.streamPort}
+            ''
+            ++ lib.optional cfg.parent.enable ''
+              [${cfg.streamConf.apiKey}]
+              enabled = yes
 
-              child = ''
-                [stream]
-                enabled = yes
-                api key = ${cfg.streamConf.apiKey}
-                destination = ${tailscaleIps.${cfg.parentHostname}.ip}:${toString streamPort}
-              '';
-            }
-            .${cfg.type};
+              [${cfg.localApiKey}]
+              enabled = yes
+            ''
+          );
 
           file = lib.mkDefault (pkgs.writeText "stream.conf" cfg.streamConf.text);
         };
 
         healthAlarmNotify = {
           text =
-            if isParent then
+            if isFleetParent then
               ''
                 SEND_DISCORD="YES"
                 DISCORD_WEBHOOK_URL="${cfg.healthAlarmNotify.discordWebhookUrl}"
@@ -396,13 +419,13 @@ in
         enable = true;
 
         package = pkgs.netdata.override {
-          withCloudUi = isParent;
+          withCloudUi = isFleetParent;
           withCups = true;
-          withDBengine = isParent;
+          withDBengine = isFleetParent;
           withDebug = cfg.debug.enable;
           withIpmi = false;
           withLibbacktrace = cfg.debug.enable;
-          withML = isParent;
+          withML = isFleetParent;
           withNdMcp = false;
           withNdsudo = true;
           withOtel = false;
@@ -428,8 +451,8 @@ in
 
         config =
           (
-            {
-              parent = {
+            if isFleetParent then
+              {
                 db = {
                   # https://learn.netdata.cloud/docs/netdata-agent/configuration/database
                   mode = "dbengine";
@@ -449,45 +472,54 @@ in
                 };
 
                 web = {
-                  "bind to" = lib.concatStringsSep " " [
-                    "127.0.0.1:${toString cfg.webPort}=${
-                      lib.concatStringsSep "|" [
-                        "badges"
-                        "dashboard"
-                        "management"
-                        "netdata.conf"
-                        "registry"
-                      ]
-                    }"
-                    "*:${toString streamPort}=${
+                  "bind to" = lib.concatStringsSep " " (
+                    [
+                      "127.0.0.1:${toString cfg.webPort}=${
+                        lib.concatStringsSep "|" [
+                          "badges"
+                          "dashboard"
+                          "management"
+                          "netdata.conf"
+                          "registry"
+                        ]
+                      }"
+                    ]
+                    ++ lib.optional cfg.parent.enable "*:${toString cfg.streamPort}=${
                       lib.concatStringsSep "|" [
                         "streaming"
                       ]
                     }"
-                  ];
+                  );
 
                   "enable gzip compression" = "no";
                 };
 
                 logs.access = "off";
-              };
-
-              child = {
+              }
+            else
+              {
                 db.mode = "ram";
 
-                web."bind to" = lib.concatStringsSep " " [
-                  "127.0.0.1:${toString cfg.webPort}=${
+                web."bind to" = lib.concatStringsSep " " (
+                  [
+                    "127.0.0.1:${toString cfg.webPort}=${
+                      lib.concatStringsSep "|" [
+                        "dashboard"
+                        "netdata.conf"
+                      ]
+                    }"
+                  ]
+                  ++ lib.optional cfg.parent.enable "127.0.0.1:${toString cfg.streamPort}=${
                     lib.concatStringsSep "|" [
-                      "dashboard"
-                      "netdata.conf"
+                      "streaming"
                     ]
                   }"
-                ];
-              };
-            }
-            .${cfg.type}
+                );
+              }
           )
           // {
+            global = lib.optionalAttrs cfg.ephemeral { "is ephemeral node" = "yes"; };
+
             health."enabled alarms" = lib.concatStringsSep " " (
               (map (value: "!${value}") [
                 # https://github.com/netdata/netdata/blob/master/src/health/health.d/ping.conf
@@ -626,6 +658,10 @@ in
                 name = "CoreRAD";
                 url = "http://${config.services.corerad.settings.debug.address}/metrics";
               }
+              ++ lib.optional config.services.prometheus.exporters.deluge.enable {
+                name = "Deluge";
+                url = "http://127.0.0.1:${toString config.services.prometheus.exporters.deluge.port}/metrics";
+              }
               ++ lib.optional config.services.flaresolverr.prometheusExporter.enable {
                 name = "FlareSolverr";
                 url = "http://127.0.0.1:${toString config.services.flaresolverr.prometheusExporter.port}/metrics";
@@ -684,6 +720,10 @@ in
                 name = "Prowlarr";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-prowlarr.port}/metrics";
               }
+              ++ lib.optional config.services.prometheus.exporters.exportarr-radarr.enable {
+                name = "Radarr";
+                url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-radarr.port}/metrics";
+              }
               ++ lib.optional config.services.prometheus.exporters.exportarr-sonarr.enable {
                 name = "Sonarr";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-sonarr.port}/metrics";
@@ -734,16 +774,16 @@ in
             ];
           };
         }
-        // lib.optionalAttrs isParent { "health_alarm_notify.conf" = cfg.healthAlarmNotify.file; }
+        // lib.optionalAttrs isFleetParent { "health_alarm_notify.conf" = cfg.healthAlarmNotify.file; }
         // cfg.extraGoCollectors;
       };
     };
 
     systemd.services = {
-      netdata.requires = [ config.systemd.services.netdata-set-node-uuid.name ];
+      netdata.requires = lib.optional (!cfg.ephemeral) config.systemd.services.netdata-set-node-uuid.name;
 
       netdata-set-node-uuid = {
-        enable = config.services.netdata.enable;
+        enable = config.services.netdata.enable && !cfg.ephemeral;
 
         before = [ config.systemd.services.netdata.name ];
         wantedBy = [ "multi-user.target" ];
@@ -793,8 +833,8 @@ in
       );
 
     networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts =
-      lib.mkIf isParent
-        [ streamPort ];
+      lib.mkIf isFleetParent
+        [ cfg.streamPort ];
 
     environment.etc = lib.mkIf config.services.alloy.enable {
       "alloy/prometheus.netdata.alloy".text = ''

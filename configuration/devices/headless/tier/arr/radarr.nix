@@ -101,11 +101,7 @@ let
           };
 
           prometheus.exporters.exportarr-radarr = {
-            enable = true;
-
-            openFirewall = true;
-
-            url = "http://127.0.0.1:${toString containerCfg.services.radarr.settings.server.port}/${type}";
+            url = lib.mkForce "http://127.0.0.1:${toString containerCfg.services.radarr.settings.server.port}/${type}";
 
             apiKeyFile = config.sops.secrets."services/radarr/apiKey".path;
           };
@@ -191,25 +187,6 @@ in
   };
 
   services = {
-    custom-netdata.extraPrometheusJobs =
-      map
-        (
-          type:
-          let
-            containerCfg = getContainerCfg type;
-          in
-          {
-            name = "Radarr ${lib.toSentenceCase type}";
-            url = "http://${
-              config.containers."radarr-${type}".localAddress
-            }:${toString containerCfg.services.prometheus.exporters.exportarr-radarr.port}/metrics";
-          }
-        )
-        [
-          "anime"
-          "movies"
-        ];
-
     infomaniak = {
       enable = true;
 

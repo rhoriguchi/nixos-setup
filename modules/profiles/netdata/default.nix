@@ -1,5 +1,7 @@
 { config, ... }:
 {
+  imports = [ ./containers.nix ];
+
   sops = {
     secrets."services/netdata/apiKey" = { };
 
@@ -16,8 +18,13 @@
   services.custom-netdata = {
     enable = true;
 
-    type = "child";
-    parentHostname = "XXLPitu-Tier";
+    parent.enable = config.containers != { };
+
+    child = {
+      enable = true;
+      parentHostname = "XXLPitu-Tier";
+    };
+
     streamConf = {
       apiKey = config.sops.placeholder."services/netdata/apiKey";
       file = config.sops.templates."services.netdata.streamConf".path;

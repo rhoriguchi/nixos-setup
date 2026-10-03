@@ -35,7 +35,7 @@
   loki = ./loki.nix;
   mission-center = ./mission-center.nix;
   nautilus = ./nautilus.nix;
-  netdata = ./netdata.nix;
+  netdata = ./netdata;
   nftables = ./nftables.nix;
   nginx = ./nginx.nix;
   nix = ./nix.nix;
