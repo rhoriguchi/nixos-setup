@@ -164,6 +164,8 @@ in
         github.enabled = true;
         startup.checkUpdate = false;
 
+        compaction.handoffSaveToDisk = true;
+
         dev.autoqa = false;
 
         modelRoles = {
