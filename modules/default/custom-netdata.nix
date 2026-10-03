@@ -17,6 +17,10 @@ let
     libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
 
+  autheliaEnabled = lib.any (instance: instance.enable) (
+    lib.attrValues config.services.authelia.instances
+  );
+
   keaEnabled = lib.any (service: service.enable) [
     config.services.kea.dhcp4
     config.services.kea.dhcp6
@@ -32,82 +36,92 @@ let
     // lib.optionalAttrs (lib.isString apikey) { environment.API_KEY = apikey; };
 in
 {
-  options.services.custom-netdata = {
-    enable = lib.mkEnableOption "Monitoring with Netdata";
-    type = lib.mkOption {
-      type = lib.types.nullOr (
-        lib.types.enum [
-          "parent"
-          "child"
-        ]
-      );
-    };
-    parentHostname = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
-    claimTokenFile = lib.mkOption {
-      type = lib.types.nullOr lib.types.path;
-      default = null;
-    };
-    webPort = lib.mkOption {
-      type = lib.types.port;
-      default = 19999;
-    };
-    extraPrometheusJobs = lib.mkOption {
-      type = lib.types.listOf (
-        lib.types.submodule {
+  options = {
+    services.custom-netdata = {
+      enable = lib.mkEnableOption "Monitoring with Netdata";
+      type = lib.mkOption {
+        type = lib.types.nullOr (
+          lib.types.enum [
+            "parent"
+            "child"
+          ]
+        );
+      };
+      parentHostname = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
+      claimTokenFile = lib.mkOption {
+        type = lib.types.nullOr lib.types.path;
+        default = null;
+      };
+      webPort = lib.mkOption {
+        type = lib.types.port;
+        default = 19999;
+      };
+      extraPrometheusJobs = lib.mkOption {
+        type = lib.types.listOf (
+          lib.types.submodule {
+            options = {
+              name = lib.mkOption { type = lib.types.nonEmptyStr; };
+              url = lib.mkOption { type = lib.types.nonEmptyStr; };
+            };
+          }
+        );
+        default = [ ];
+      };
+      extraGoCollectors = lib.mkOption {
+        type = lib.types.attrsOf lib.types.path;
+        default = { };
+      };
+      streamConf = lib.mkOption {
+        type = lib.types.submodule {
           options = {
-            name = lib.mkOption { type = lib.types.nonEmptyStr; };
-            url = lib.mkOption { type = lib.types.nonEmptyStr; };
+            apiKey = lib.mkOption { type = lib.types.nonEmptyStr; };
+            text = lib.mkOption {
+              type = lib.types.str;
+              internal = true;
+            };
+            file = lib.mkOption {
+              type = lib.types.path;
+            };
           };
+        };
+      };
+      healthAlarmNotify = lib.mkOption {
+        type = lib.types.submodule {
+          options = {
+            text = lib.mkOption {
+              type = lib.types.str;
+              internal = true;
+            };
+            file = lib.mkOption {
+              type = lib.types.path;
+            };
+            discordWebhookUrl = lib.mkOption {
+              type = lib.types.nullOr lib.types.nonEmptyStr;
+              default = null;
+            };
+          };
+        };
+        default = { };
+      };
+      debug = lib.mkOption {
+        type = lib.types.submodule {
+          options = {
+            enable = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+            };
+          };
+        };
+        default = { };
+      };
+    };
+
+    services.authelia.instances = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          config.settings.telemetry.metrics.enabled = lib.mkIf cfg.enable true;
         }
       );
-      default = [ ];
-    };
-    extraGoCollectors = lib.mkOption {
-      type = lib.types.attrsOf lib.types.path;
-      default = { };
-    };
-    streamConf = lib.mkOption {
-      type = lib.types.submodule {
-        options = {
-          apiKey = lib.mkOption { type = lib.types.nonEmptyStr; };
-          text = lib.mkOption {
-            type = lib.types.str;
-            internal = true;
-          };
-          file = lib.mkOption {
-            type = lib.types.path;
-          };
-        };
-      };
-    };
-    healthAlarmNotify = lib.mkOption {
-      type = lib.types.submodule {
-        options = {
-          text = lib.mkOption {
-            type = lib.types.str;
-            internal = true;
-          };
-          file = lib.mkOption {
-            type = lib.types.path;
-          };
-          discordWebhookUrl = lib.mkOption {
-            type = lib.types.nullOr lib.types.nonEmptyStr;
-            default = null;
-          };
-        };
-      };
-      default = { };
-    };
-    debug = lib.mkOption {
-      type = lib.types.submodule {
-        options = {
-          enable = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-          };
-        };
-      };
-      default = { };
     };
   };
 
@@ -590,7 +604,13 @@ in
         // {
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
             jobs = map (job: job // { autodetection_retry = 30; }) (
-              lib.optional config.services.prometheus.exporters.exportarr-bazarr.enable {
+              lib.optionals autheliaEnabled (
+                lib.mapAttrsToList (name: instance: {
+                  name = "Authelia" + lib.optionalString (name != "main") " (${name})";
+                  url = "http://127.0.0.1:${lib.last (lib.splitString ":" instance.settings.telemetry.metrics.address)}/metrics";
+                }) config.services.authelia.instances
+              )
+              ++ lib.optional config.services.prometheus.exporters.exportarr-bazarr.enable {
                 name = "Bazarr";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-bazarr.port}/metrics";
               }

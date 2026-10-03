@@ -143,8 +143,6 @@ in
         notifier.filesystem.filename = "/var/lib/authelia-${cfg.name}/notifications.txt";
 
         log.level = "info";
-
-        telemetry.metrics.enabled = true;
       };
     };
 
@@ -165,13 +163,6 @@ in
 
       port = 0;
     };
-
-    custom-netdata.extraPrometheusJobs = [
-      {
-        name = "Authelia";
-        url = "http://127.0.0.1:${lib.last (lib.splitString ":" cfg.settings.telemetry.metrics.address)}/metrics";
-      }
-    ];
 
     infomaniak = {
       enable = true;
