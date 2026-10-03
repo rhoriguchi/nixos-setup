@@ -25,6 +25,11 @@ let
   redisEnabled = lib.any (server: server.enable) (lib.attrValues config.services.redis.servers);
 
   hasCerts = lib.attrNames config.security.acme.certs != [ ];
+
+  arrApiKey =
+    apikey:
+    lib.optionalAttrs (apikey != null && !(lib.isString apikey)) { apiKeyFile = apikey._secret; }
+    // lib.optionalAttrs (lib.isString apikey) { environment.API_KEY = apikey; };
 in
 {
   options.services.custom-netdata = {
@@ -216,35 +221,37 @@ in
           listenAddress = "127.0.0.1";
         };
 
-        exportarr-bazarr = {
+        exportarr-bazarr = lib.recursiveUpdate {
           enable = config.services.bazarr.enable;
 
           port = 9708;
 
           url = "http://127.0.0.1:${toString config.services.bazarr.listenPort}";
 
-          environment = {
-            INTERFACE = "127.0.0.1";
+          environment.INTERFACE = "127.0.0.1";
+        } (arrApiKey (config.services.bazarr.settings.auth.apikey or null));
 
-            API_KEY = config.services.bazarr.settings.auth.apikey;
-          };
-        };
+        exportarr-radarr = lib.recursiveUpdate {
+          enable = config.services.radarr.enable;
 
-        exportarr-sonarr = {
+          port = 9711;
+
+          url = "http://127.0.0.1:${toString config.services.radarr.settings.server.port}";
+
+          environment.INTERFACE = "127.0.0.1";
+        } (arrApiKey (config.services.radarr.settings.auth.apikey or null));
+
+        exportarr-sonarr = lib.recursiveUpdate {
           enable = config.services.sonarr.enable;
 
           port = 9709;
 
           url = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
 
-          environment = {
-            INTERFACE = "127.0.0.1";
+          environment.INTERFACE = "127.0.0.1";
+        } (arrApiKey (config.services.sonarr.settings.auth.apikey or null));
 
-            API_KEY = config.services.sonarr.settings.auth.apikey;
-          };
-        };
-
-        exportarr-prowlarr = {
+        exportarr-prowlarr = lib.recursiveUpdate {
           enable = config.services.prowlarr.enable;
 
           port = 9710;
@@ -253,11 +260,9 @@ in
 
           environment = {
             INTERFACE = "127.0.0.1";
-
-            API_KEY = config.services.prowlarr.settings.auth.apikey;
             PROWLARR__BACKFILL = "true";
           };
-        };
+        } (arrApiKey (config.services.prowlarr.settings.auth.apikey or null));
 
         frr =
           let
