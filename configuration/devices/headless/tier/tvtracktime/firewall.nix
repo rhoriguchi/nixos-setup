@@ -46,6 +46,7 @@ in
         chain containers-input-filter {
           meta l4proto { tcp, udp } th dport { 53 } accept # DNS
           tcp dport 56710 accept # Alloy OTLP receiver
+          tcp dport ${toString config.services.custom-netdata.streamPort} accept # Netdata
 
           drop
         }

@@ -217,16 +217,6 @@ let
                 };
             };
           };
-
-          prometheus.exporters.exportarr-bazarr = {
-            enable = true;
-
-            openFirewall = true;
-
-            url = "http://127.0.0.1:${toString containerCfg.services.bazarr.settings.general.port}/${type}";
-
-            apiKeyFile = config.sops.secrets."services/bazarr/apiKey".path;
-          };
         };
       };
     };
@@ -356,25 +346,6 @@ in
   };
 
   services = {
-    custom-netdata.extraPrometheusJobs =
-      map
-        (
-          type:
-          let
-            containerCfg = getContainerCfg type;
-          in
-          {
-            name = "Bazarr ${getName type}";
-            url = "http://${
-              config.containers."bazarr-${type}".localAddress
-            }:${toString containerCfg.services.prometheus.exporters.exportarr-bazarr.port}/metrics";
-          }
-        )
-        [
-          "anime"
-          "series-movies"
-        ];
-
     infomaniak = {
       enable = true;
 

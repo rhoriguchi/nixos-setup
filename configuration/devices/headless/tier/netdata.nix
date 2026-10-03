@@ -51,7 +51,7 @@
     custom-netdata = {
       enable = true;
 
-      type = lib.mkForce "parent";
+      child.enable = lib.mkForce false;
 
       claimTokenFile = config.sops.secrets."services/netdata/claimToken".path;
 

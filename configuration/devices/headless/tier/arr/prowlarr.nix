@@ -47,15 +47,8 @@
       environmentFiles = [ config.sops.templates."services.prowlarr.environmentFile".path ];
     };
 
-    prometheus.exporters.exportarr-prowlarr = {
-      apiKeyFile = config.sops.secrets."services/prowlarr/apiKey".path;
-
-      environment = lib.mkForce {
-        INTERFACE = "127.0.0.1";
-
-        PROWLARR__BACKFILL = "true";
-      };
-    };
+    prometheus.exporters.exportarr-prowlarr.apiKeyFile =
+      config.sops.secrets."services/prowlarr/apiKey".path;
 
     flaresolverr = {
       enable = true;

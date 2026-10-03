@@ -12,7 +12,7 @@
     ./grafana.nix
     ./infomaniak.nix
     ./loki.nix
-    ./netdata.nix
+    ./netdata
     ./nginx.nix
     ./nix-garbage-collection.nix
   ];

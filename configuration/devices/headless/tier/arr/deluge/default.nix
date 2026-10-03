@@ -270,7 +270,7 @@ in
         prometheus.exporters.deluge = {
           enable = true;
 
-          openFirewall = true;
+          listenAddress = "127.0.0.1";
 
           delugeUser = "metrics";
           delugePasswordFile = config.sops.secrets.${delugeUserSecretName "metrics"}.path;
@@ -306,12 +306,5 @@ in
         };
       };
     };
-
-    custom-netdata.extraPrometheusJobs = [
-      {
-        name = "Deluge";
-        url = "http://${config.containers.deluge.localAddress}:${toString containerCfg.services.prometheus.exporters.deluge.port}/metrics";
-      }
-    ];
   };
 }
