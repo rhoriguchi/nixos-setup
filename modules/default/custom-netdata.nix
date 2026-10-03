@@ -405,6 +405,9 @@ in
           withML = isParent;
           withNdMcp = false;
           withNdsudo = true;
+          withNetfilter = false;
+          withNetflow = false;
+          withNetworkViewer = false;
           withOtel = false;
           withSystemdJournal = false;
         };
