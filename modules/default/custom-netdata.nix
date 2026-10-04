@@ -683,9 +683,17 @@ in
                 name = "Pi-hole";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.pihole.port}/metrics";
               }
+              ++ lib.optional config.services.prometheus.enable {
+                name = "Prometheus";
+                url = "http://127.0.0.1:${toString config.services.prometheus.port}/metrics";
+              }
               ++ lib.optional config.services.prometheus.exporters.exportarr-prowlarr.enable {
                 name = "Prowlarr";
                 url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-prowlarr.port}/metrics";
+              }
+              ++ lib.optional config.services.prometheus.exporters.exportarr-radarr.enable {
+                name = "Radarr";
+                url = "http://127.0.0.1:${toString config.services.prometheus.exporters.exportarr-radarr.port}/metrics";
               }
               ++ lib.optional config.services.prometheus.exporters.exportarr-sonarr.enable {
                 name = "Sonarr";
