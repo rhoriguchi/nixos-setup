@@ -24,11 +24,6 @@
       flake = false;
     };
 
-    tautulli = {
-      url = "github:NixOS/nixpkgs/pull/569437/head";
-      flake = false;
-    };
-
     jellyfin = {
       url = "github:NixOS/nixpkgs/36ad827548eeb6c254289a3d427c17f78a139da7";
       flake = false;
@@ -59,9 +54,6 @@
             go = prev.go_1_27;
             buildGoModule = prev.buildGo127Module;
           };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=569437
-          tautulli = prev.callPackage (import "${inputs.tautulli}/pkgs/by-name/ta/tautulli/package.nix") { };
         })
 
         # TODO remove when resolved
