@@ -5,15 +5,15 @@
   ...
 }:
 let
-  aiProviders = [
-    {
-      name = "Ollama - qwen3-vl:8b";
+  aiProviders = lib.optionals config.services.ollama.syncModels (
+    map (model: {
+      name = "Ollama - ${model}";
       baseUrl = "http://${config.services.ollama.host}:${toString config.services.ollama.port}/v1";
       apiKey = "ollama";
-      model = "qwen3-vl:8b";
+      inherit model;
       image = true;
-    }
-  ];
+    }) config.services.ollama.loadModels
+  );
 
   pythonScript =
     pkgs.writers.writePython3 "mealie-setup"
