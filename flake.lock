@@ -49,23 +49,6 @@
         "type": "github"
       }
     },
-    "bazarr": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1791084546,
-        "narHash": "sha256-5DtiY6MxWNIsAfimsb7B5hprNYIrxy1qveQorXhASyw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "66c4d68dc70a9a93cfdf86a5be508f1a1f6df654",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "pull/519655/head",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "bun2nix": {
       "inputs": {
         "flake-parts": [
@@ -816,8 +799,8 @@
     },
     "local-module-overrides": {
       "inputs": {
-        "bazarr": "bazarr",
-        "netdata": "netdata"
+        "nixos/bazarr": "nixos/bazarr",
+        "nixos/netdata": "nixos/netdata"
       },
       "locked": {
         "path": "./modules/overrides",
@@ -835,7 +818,7 @@
         "gamedig": "gamedig",
         "jellyfin": "jellyfin",
         "jellyfin-ffmpeg": "jellyfin-ffmpeg",
-        "netdata": "netdata_2",
+        "netdata": "netdata",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -852,23 +835,6 @@
       "parent": []
     },
     "netdata": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1787086221,
-        "narHash": "sha256-DvGMzhpC2dQYODCw81zpPpIU/o/hc8pDCLKjcQeN6Y8=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c0a8f331b280c32b83fc3ae3a28c38bcefeec449",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "pull/507414/head",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "netdata_2": {
       "flake": false,
       "locked": {
         "lastModified": 1790873467,
@@ -1072,6 +1038,40 @@
       "original": {
         "owner": "nvmd",
         "repo": "nixos-raspberrypi",
+        "type": "github"
+      }
+    },
+    "nixos/bazarr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791084546,
+        "narHash": "sha256-5DtiY6MxWNIsAfimsb7B5hprNYIrxy1qveQorXhASyw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "66c4d68dc70a9a93cfdf86a5be508f1a1f6df654",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/519655/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixos/netdata": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787086221,
+        "narHash": "sha256-DvGMzhpC2dQYODCw81zpPpIU/o/hc8pDCLKjcQeN6Y8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c0a8f331b280c32b83fc3ae3a28c38bcefeec449",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/507414/head",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
