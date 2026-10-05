@@ -69,6 +69,7 @@ let
       sopsPaths = [
         config.sops.secrets."services/bazarr/anidb/apiClient".path
         config.sops.secrets."services/bazarr/apiKey".path
+        config.sops.secrets."services/bazarr/jimaku/apiKey".path
         config.sops.secrets."services/bazarr/openSubtitles/password".path
         config.sops.secrets."services/bazarr/openSubtitles/username".path
         config.sops.secrets."services/radarr/apiKey".path
@@ -162,9 +163,10 @@ let
                 serie_default_profile = 1;
 
                 enabled_providers = [
-                  "animetosho"
+                  "jimaku"
                   "opensubtitlescom"
                   "supersubtitles"
+                  "tsukihime"
                   "tvsubtitles"
                   "yifysubtitles"
                 ];
@@ -177,6 +179,10 @@ let
               opensubtitlescom = {
                 username._secret = config.sops.secrets."services/bazarr/openSubtitles/username".path;
                 password._secret = config.sops.secrets."services/bazarr/openSubtitles/password".path;
+              };
+
+              jimaku = {
+                api_key._secret = config.sops.secrets."services/bazarr/jimaku/apiKey".path;
               };
 
               anidb = {
@@ -258,6 +264,10 @@ in
       config.systemd.services."container@bazarr-series-movies".name
     ];
     "services/bazarr/anidb/apiClient".restartUnits = [
+      config.systemd.services."container@bazarr-anime".name
+      config.systemd.services."container@bazarr-series-movies".name
+    ];
+    "services/bazarr/jimaku/apiKey".restartUnits = [
       config.systemd.services."container@bazarr-anime".name
       config.systemd.services."container@bazarr-series-movies".name
     ];
