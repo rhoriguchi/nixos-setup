@@ -444,11 +444,11 @@ in
 
                   # Tier 1, per minute data
                   "dbengine tier 1 disk space MB" = 0;
-                  "dbengine tier 1 retention time" = 0;
+                  "dbengine tier 1 retention time" = "3mo";
 
                   # Tier 2, per hour data
                   "dbengine tier 2 disk space MB" = 0;
-                  "dbengine tier 2 retention time" = 0;
+                  "dbengine tier 2 retention time" = "1y";
                 };
 
                 web = {
