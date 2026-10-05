@@ -11,11 +11,6 @@
       url = "github:NixOS/nixpkgs/pull/507414/head";
       flake = false;
     };
-
-    ollama = {
-      url = "github:NixOS/nixpkgs/pull/561392/head";
-      flake = false;
-    };
   };
 
   outputs =
@@ -36,9 +31,6 @@
 
         # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=507414
         netdata = mkOverride "services/monitoring/netdata" inputs.netdata;
-
-        # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=561392
-        ollama = mkOverride "services/misc/ollama" inputs.ollama;
       };
     };
 }
