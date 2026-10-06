@@ -799,6 +799,7 @@
     },
     "local-module-overrides": {
       "inputs": {
+        "nixos/adguardhome": "nixos/adguardhome",
         "nixos/bazarr": "nixos/bazarr",
         "nixos/netdata": "nixos/netdata"
       },
@@ -1038,6 +1039,23 @@
       "original": {
         "owner": "nvmd",
         "repo": "nixos-raspberrypi",
+        "type": "github"
+      }
+    },
+    "nixos/adguardhome": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790724411,
+        "narHash": "sha256-3wJYl3oh/eHH95dEpfK/pf0HiKIb+lDPmFha2BRl1KA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "861f76e48af481d54ccf4701d65304abcab1f04a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/568438/head",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },

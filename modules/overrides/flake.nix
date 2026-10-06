@@ -2,6 +2,11 @@
   description = "Pinned nixpkgs snapshots for unmerged module PRs";
 
   inputs = {
+    "nixos/adguardhome" = {
+      url = "github:NixOS/nixpkgs/pull/568438/head";
+      flake = false;
+    };
+
     "nixos/bazarr" = {
       url = "github:NixOS/nixpkgs/pull/519655/head";
       flake = false;
@@ -26,6 +31,9 @@
     in
     {
       nixosModules.default.imports = builtins.attrValues {
+        # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=568438
+        adguardhome = mkOverride "services/networking/adguardhome" inputs."nixos/adguardhome";
+
         # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=519655
         bazarr = mkOverride "services/misc/bazarr" inputs."nixos/bazarr";
 
