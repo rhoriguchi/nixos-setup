@@ -7,8 +7,6 @@
   ...
 }:
 let
-  packages = import ./packages.nix { inherit pkgs; };
-
   agentJail = import ./jail.nix {
     inherit
       config
@@ -37,9 +35,9 @@ in
 
       enableMcpIntegration = true;
 
-      plugins.ponytail = packages.ponytail;
+      plugins.ponytail = pkgs.skills.ponytail;
 
-      skills.skill-creator = "${packages.skill-creator}/skill-creator";
+      skills.skill-creator = "${pkgs.skills.skill-creator}/skill-creator";
 
       settings = {
         enableTelemetry = false;

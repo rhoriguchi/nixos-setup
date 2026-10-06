@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
+    local-home-manager-ai.url = "path:./modules/home-manager-ai";
+
     local-module-overrides.url = "path:./modules/overrides";
 
     local-overlays = {
@@ -203,6 +205,7 @@
 
           ./modules/home-manager
         ];
+        home-manager-ai.imports = [ ./modules/home-manager-ai ];
         home-manager-gnome.imports = [ ./modules/home-manager-gnome ];
         home-manager-hyprland.imports = [
           inputs.hyprland.homeManagerModules.default
@@ -219,6 +222,7 @@
           inputs.hyprland.overlays.hyprland-packages
           inputs.llm-agents.overlays.shared-nixpkgs
 
+          inputs.local-home-manager-ai.overlays.default
           inputs.local-overlays.overlays.default
         ]);
       };
@@ -285,6 +289,7 @@
 
                       users.rhoriguchi.imports = [
                         self.nixosModules.home-manager
+                        self.nixosModules.home-manager-ai
                         self.nixosModules.home-manager-hyprland
                       ];
                     };

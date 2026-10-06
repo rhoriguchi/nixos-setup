@@ -797,6 +797,21 @@
         "type": "github"
       }
     },
+    "local-home-manager-ai": {
+      "inputs": {
+        "ponytail": "ponytail",
+        "skills": "skills"
+      },
+      "locked": {
+        "path": "./modules/home-manager-ai",
+        "type": "path"
+      },
+      "original": {
+        "path": "./modules/home-manager-ai",
+        "type": "path"
+      },
+      "parent": []
+    },
     "local-module-overrides": {
       "inputs": {
         "nixos/adguardhome": "nixos/adguardhome",
@@ -1124,6 +1139,23 @@
         "type": "github"
       }
     },
+    "ponytail": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791226257,
+        "narHash": "sha256-sf8WLd7PFXGRM7+LGaXDT/exA0YU9Ld8U5uZFBEqM/k=",
+        "owner": "DietrichGebert",
+        "repo": "ponytail",
+        "rev": "08e952d7a8057a57ce561ff1330d093fd92eec67",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DietrichGebert",
+        "ref": "v4.13.0",
+        "repo": "ponytail",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -1159,6 +1191,7 @@
         "hyprutils": "hyprutils",
         "jail-nix": "jail-nix",
         "llm-agents": "llm-agents",
+        "local-home-manager-ai": "local-home-manager-ai",
         "local-module-overrides": "local-module-overrides",
         "local-overlays": "local-overlays",
         "nix-flatpak": "nix-flatpak",
@@ -1170,6 +1203,23 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "sops-nix": "sops-nix"
+      }
+    },
+    "skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788287438,
+        "narHash": "sha256-xaxkXFpzH4s2OIOcZqPy+HzfRAy2HbKpagjMhY+uinA=",
+        "owner": "anthropics",
+        "repo": "skills",
+        "rev": "53048666b05b4799081517d00e09e0a2dd688678",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anthropics",
+        "repo": "skills",
+        "rev": "53048666b05b4799081517d00e09e0a2dd688678",
+        "type": "github"
       }
     },
     "sonarr": {

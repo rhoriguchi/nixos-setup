@@ -8,7 +8,6 @@
   ...
 }:
 let
-  packages = import ./packages.nix { inherit pkgs; };
   jsonFormat = pkgs.formats.json { };
   yamlFormat = pkgs.formats.yaml { };
 
@@ -175,7 +174,7 @@ in
         };
 
         skills.customDirectories = [
-          "${packages.ponytail}/skills"
+          "${pkgs.skills.ponytail}/skills"
         ];
       };
 

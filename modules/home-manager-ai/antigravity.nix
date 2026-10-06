@@ -7,8 +7,6 @@
   ...
 }:
 let
-  packages = import ./packages.nix { inherit pkgs; };
-
   agentJail = import ./jail.nix {
     inherit
       config
@@ -45,7 +43,7 @@ in
     skills = pkgs.symlinkJoin {
       name = "antigravity-cli-skills";
       paths = [
-        "${packages.ponytail}/skills"
+        "${pkgs.skills.ponytail}/skills"
       ];
     };
   };
