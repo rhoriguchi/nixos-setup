@@ -168,7 +168,7 @@ in
         dev.autoqa = false;
 
         modelRoles = {
-          default = "anthropic/claude-sonnet-5";
+          default = "anthropic/claude-sonnet-5-5";
           commit = "anthropic/claude-haiku-4-5";
           advisor = "anthropic/claude-haiku-4-5";
         };
