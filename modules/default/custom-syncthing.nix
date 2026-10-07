@@ -172,6 +172,7 @@ in
 
             autoAcceptFolders = false;
             untrusted = !value.trusted;
+            group = if value.trusted then "Trusted" else "Untrusted";
 
             maxRecvKbps = if numDevices > 0 then cfg.bandwidthLimit.download / numDevices else 0;
             maxSendKbps = if numDevices > 0 then cfg.bandwidthLimit.upload / numDevices else 0;
