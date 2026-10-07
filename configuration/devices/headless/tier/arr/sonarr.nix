@@ -176,6 +176,9 @@ in
       fsType = "fuse.bindfs";
       noCheck = true;
       options = [
+        # tmpfiles `d` on the mount point would otherwise chmod the syncthing
+        # folder root through bindfs, making it read-only for syncthing
+        "chmod-ignore"
         "map=${
           lib.concatStringsSep ":" [
             "${config.services.syncthing.user}/${sonarrUserUid}"

@@ -16,6 +16,9 @@ in
     fsType = "fuse.bindfs";
     noCheck = true;
     options = [
+      # tmpfiles `d` on the mount point would otherwise chmod the syncthing
+      # folder through bindfs
+      "chmod-ignore"
       "map=${
         lib.concatStringsSep ":" [
           "${config.services.syncthing.user}/${config.services.webdav.user}"
