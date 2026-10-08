@@ -14,6 +14,11 @@
       flake = false;
     };
 
+    grafana-alloy = {
+      url = "github:NixOS/nixpkgs/pull/571091/head";
+      flake = false;
+    };
+
     jellyfin = {
       url = "github:NixOS/nixpkgs/36ad827548eeb6c254289a3d427c17f78a139da7";
       flake = false;
@@ -45,6 +50,11 @@
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=571091
+          grafana-alloy =
+            prev.callPackage (import "${inputs.grafana-alloy}/pkgs/by-name/gr/grafana-alloy/package.nix")
+              { };
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=569151
           netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") {

@@ -383,6 +383,23 @@
         "type": "github"
       }
     },
+    "grafana-alloy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791325549,
+        "narHash": "sha256-BY79lmU7pbeQ+V9fQf5DWdiq/eerLVjMCOvIvMuWk3k=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bb78d36b795063426d18eebb1289360e2ba62be4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/571091/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -832,6 +849,7 @@
       "inputs": {
         "flashrom": "flashrom",
         "gamedig": "gamedig",
+        "grafana-alloy": "grafana-alloy",
         "jellyfin": "jellyfin",
         "jellyfin-ffmpeg": "jellyfin-ffmpeg",
         "netdata": "netdata",
