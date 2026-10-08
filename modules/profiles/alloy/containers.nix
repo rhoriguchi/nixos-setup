@@ -24,7 +24,7 @@ in
       "d /mnt/nixos-containers 0755 root root -"
     ]
     ++ map (
-      containerName: "d /mnt/nixos-containers/${containerName}/journal 0755 root root -"
+      containerName: "d /mnt/nixos-containers/${containerName}/journal 0755 root root 7d"
     ) containerNames;
 
     systemd.services.alloy.serviceConfig = {
