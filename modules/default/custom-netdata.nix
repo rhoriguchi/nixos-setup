@@ -240,7 +240,9 @@ in
 
           port = 9708;
 
-          url = "http://127.0.0.1:${toString config.services.bazarr.listenPort}";
+          url = "http://127.0.0.1:${toString config.services.bazarr.settings.general.port}${
+            config.services.bazarr.settings.general.base_url or ""
+          }";
 
           environment.INTERFACE = "127.0.0.1";
         } (arrApiKey (config.services.bazarr.settings.auth.apikey or null));
@@ -250,7 +252,9 @@ in
 
           port = 9711;
 
-          url = "http://127.0.0.1:${toString config.services.radarr.settings.server.port}";
+          url = "http://127.0.0.1:${toString config.services.radarr.settings.server.port}${
+            config.services.radarr.settings.server.urlbase or ""
+          }";
 
           environment.INTERFACE = "127.0.0.1";
         } (arrApiKey (config.services.radarr.settings.auth.apikey or null));
@@ -260,7 +264,9 @@ in
 
           port = 9709;
 
-          url = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
+          url = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}${
+            config.services.sonarr.settings.server.urlbase or ""
+          }";
 
           environment.INTERFACE = "127.0.0.1";
         } (arrApiKey (config.services.sonarr.settings.auth.apikey or null));
