@@ -10,7 +10,7 @@ in
         {
           config = lib.mkIf config.services.alloy.enable {
             bindMounts."/var/log/journal" = {
-              hostPath = "/mnt/nixos-containers/${name}";
+              hostPath = "/mnt/nixos-containers/${name}/journal";
               isReadOnly = false;
             };
           };
@@ -23,7 +23,9 @@ in
     systemd.tmpfiles.rules = [
       "d /mnt/nixos-containers 0755 root root -"
     ]
-    ++ map (containerName: "d /mnt/nixos-containers/${containerName} 0755 root root -") containerNames;
+    ++ map (
+      containerName: "d /mnt/nixos-containers/${containerName}/journal 0755 root root -"
+    ) containerNames;
 
     systemd.services.alloy.serviceConfig = {
       BindReadOnlyPaths = [ "/mnt/nixos-containers" ];
@@ -56,7 +58,7 @@ in
               loki.source.journal "container_${safeContainerName}" {
                 forward_to = [loki.relabel.container_${safeContainerName}.receiver]
 
-                path = "/mnt/nixos-containers/${containerName}"
+                path = "/mnt/nixos-containers/${containerName}/journal"
 
                 relabel_rules = loki.relabel.raw_journal.rules
               }
