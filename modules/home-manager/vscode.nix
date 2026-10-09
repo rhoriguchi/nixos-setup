@@ -134,199 +134,201 @@
         ];
       };
 
-      userSettings = {
-        "cSpell.enabledFileTypes"."*" = true;
-        "cSpell.userWords" = [
-          "horiguchi"
-          "rhoriguchi"
-          "xxlpitu"
-        ];
-        "editor.bracketPairColorization.enabled" = true;
-        "editor.defaultColorDecorators" = "auto";
-        "editor.fontFamily" = "JetBrainsMono Nerd Font";
-        "editor.formatOnSave" = true;
-        "editor.guides.bracketPairs" = true;
-        "editor.insertSpaces" = true;
-        "editor.linkedEditing" = true;
-        "editor.renderWhitespace" = "trailing";
-        "editor.suggestSelection" = "first";
-        "editor.tabSize" = 4;
-        "editor.tokenColorCustomizations".comments = colors.extra.comment;
-        "editor.unicodeHighlight.includeComments" = true;
-        "errorLens.excludeByMessage" = [
-          "Unknown word"
-        ];
-        "explorer.compactFolders" = false;
-        "explorer.confirmDelete" = false;
-        "explorer.confirmDragAndDrop" = false;
-        "explorer.fileNesting.enabled" = true;
-        "explorer.fileNesting.expand" = false;
-        "files.associations" = {
-          "*.hcl" = "terraform";
-          "*.jinja2" = "jinja";
-        };
-        "files.autoSave" = "onFocusChange";
-        "files.exclude" = {
-          "**/__pychache__" = true;
-          "**/.classpath" = true;
-          "**/.deploy-gc" = true;
-          "**/.DS_Store" = true;
-          "**/.factorypath" = true;
-          "**/.git-crypt" = true;
-          "**/.git" = true;
-          "**/.hg" = true;
-          "**/.idea" = true;
-          "**/.lycheecache" = true;
-          "**/.pre-commit-config.yaml" = true;
-          "**/.project" = true;
-          "**/.settings" = true;
-          "**/.svn" = true;
-          "**/CVS" = true;
-        };
-        "files.insertFinalNewline" = true;
-        "files.readonlyInclude" = {
-          "**/.gen" = true;
-          "**/flake.lock" = true;
-          "**/node_modules" = true;
-          "**/package-lock.json" = true;
-          "**/pnpm-lock.yaml" = true;
-          "**/poetry.lock" = true;
-          "**/target" = true;
-          "**/uv.lock" = true;
-        };
-        "files.trimTrailingWhitespace" = true;
-        "git.autofetch" = "all";
-        "githubPullRequests.terminalLinksHandler" = "github";
-        "js/ts.inlayHints.parameterNames.enabled" = "all";
-        "js/ts.updateImportsOnFileMove.enabled" = "always";
-        "js/ts.updateImportsOnPaste.enabled" = true;
-        "keyboard.dispatch" = "keyCode";
-        "nix.formatterPath" = [
-          "${pkgs.nixfmt}/bin/nixfmt"
-          "-"
-        ];
-        "peacock.affectActivityBar" = true;
-        "peacock.affectStatusBar" = true;
-        "peacock.affectTitleBar" = false;
-        "peacock.elementAdjustments" = {
-          activityBar = "none";
-          statusBar = "darken";
-          titleBar = "none";
-        };
-        "peacock.favoriteColors" = [
-          {
-            name = "NixOS";
-            value = "#82BFE0";
-          }
-        ]
-        ++ lib.pipe colors.normal [
-          (lib.mapAttrsToList (
-            key: value: {
-              name = lib.toSentenceCase key;
-              inherit value;
+      userSettings = lib.mkMerge [
+        {
+          "cSpell.enabledFileTypes"."*" = true;
+          "cSpell.userWords" = [
+            "horiguchi"
+            "rhoriguchi"
+            "xxlpitu"
+          ];
+          "editor.bracketPairColorization.enabled" = true;
+          "editor.defaultColorDecorators" = "auto";
+          "editor.fontFamily" = "JetBrainsMono Nerd Font";
+          "editor.formatOnSave" = true;
+          "editor.guides.bracketPairs" = true;
+          "editor.insertSpaces" = true;
+          "editor.linkedEditing" = true;
+          "editor.renderWhitespace" = "trailing";
+          "editor.suggestSelection" = "first";
+          "editor.tabSize" = 4;
+          "editor.tokenColorCustomizations".comments = colors.extra.comment;
+          "editor.unicodeHighlight.includeComments" = true;
+          "errorLens.excludeByMessage" = [
+            "Unknown word"
+          ];
+          "explorer.compactFolders" = false;
+          "explorer.confirmDelete" = false;
+          "explorer.confirmDragAndDrop" = false;
+          "explorer.fileNesting.enabled" = true;
+          "explorer.fileNesting.expand" = false;
+          "files.associations" = {
+            "*.hcl" = "terraform";
+            "*.jinja2" = "jinja";
+          };
+          "files.autoSave" = "onFocusChange";
+          "files.exclude" = {
+            "**/__pychache__" = true;
+            "**/.classpath" = true;
+            "**/.deploy-gc" = true;
+            "**/.DS_Store" = true;
+            "**/.factorypath" = true;
+            "**/.git-crypt" = true;
+            "**/.git" = true;
+            "**/.hg" = true;
+            "**/.idea" = true;
+            "**/.lycheecache" = true;
+            "**/.pre-commit-config.yaml" = true;
+            "**/.project" = true;
+            "**/.settings" = true;
+            "**/.svn" = true;
+            "**/CVS" = true;
+          };
+          "files.insertFinalNewline" = true;
+          "files.readonlyInclude" = {
+            "**/.gen" = true;
+            "**/flake.lock" = true;
+            "**/node_modules" = true;
+            "**/package-lock.json" = true;
+            "**/pnpm-lock.yaml" = true;
+            "**/poetry.lock" = true;
+            "**/target" = true;
+            "**/uv.lock" = true;
+          };
+          "files.trimTrailingWhitespace" = true;
+          "git.autofetch" = "all";
+          "githubPullRequests.terminalLinksHandler" = "github";
+          "js/ts.inlayHints.parameterNames.enabled" = "all";
+          "js/ts.updateImportsOnFileMove.enabled" = "always";
+          "js/ts.updateImportsOnPaste.enabled" = true;
+          "keyboard.dispatch" = "keyCode";
+          "nix.formatterPath" = [
+            "${pkgs.nixfmt}/bin/nixfmt"
+            "-"
+          ];
+          "peacock.affectActivityBar" = true;
+          "peacock.affectStatusBar" = true;
+          "peacock.affectTitleBar" = false;
+          "peacock.elementAdjustments" = {
+            activityBar = "none";
+            statusBar = "darken";
+            titleBar = "none";
+          };
+          "peacock.favoriteColors" = [
+            {
+              name = "NixOS";
+              value = "#82BFE0";
             }
-          ))
+          ]
+          ++ lib.pipe colors.normal [
+            (lib.mapAttrsToList (
+              key: value: {
+                name = lib.toSentenceCase key;
+                inherit value;
+              }
+            ))
 
-          (lib.sort (a: b: a.name < b.name))
-        ];
-        "peacock.showColorInStatusBar" = false;
-        "security.workspace.trust.enabled" = false;
-        "svg.preview.autoShow" = true;
-        "telemetry.telemetryLevel" = "off";
-        "terminal.integrated.defaultProfile.linux" = "zsh";
-        "terminal.integrated.enableMultiLinePasteWarning" = "never";
-        "terminal.integrated.fontFamily" = "RobotoMono Nerd Font";
-        "terminal.integrated.profiles.linux" = {
-          sh.path = "${pkgs.bashInteractive}/bin/sh";
-          bash.path = "${config.programs.bash.package}/bin/bash";
-        }
-        // lib.optionalAttrs config.programs.fish.enable {
-          fish.path = "${config.programs.fish.package}/bin/fish";
-        }
-        // lib.optionalAttrs config.programs.zsh.enable {
-          zsh.path = "${config.programs.zsh.package}/bin/zsh";
-        };
-        "terminal.integrated.shellIntegration.enabled" = false;
-        "terminal.integrated.smoothScrolling" = true;
-        "todo-tree.highlights.customHighlight" = {
-          "[ ]" = {
-            "hideFromStatusBar" = true;
-            "hideFromTree" = true;
-            "type" = "none";
+            (lib.sort (a: b: a.name < b.name))
+          ];
+          "peacock.showColorInStatusBar" = false;
+          "security.workspace.trust.enabled" = false;
+          "svg.preview.autoShow" = true;
+          "telemetry.telemetryLevel" = "off";
+          "terminal.integrated.defaultProfile.linux" = "zsh";
+          "terminal.integrated.enableMultiLinePasteWarning" = "never";
+          "terminal.integrated.fontFamily" = "RobotoMono Nerd Font";
+          "terminal.integrated.profiles.linux" = {
+            sh.path = "${pkgs.bashInteractive}/bin/sh";
+            bash.path = "${config.programs.bash.package}/bin/bash";
+            fish = lib.mkIf config.programs.fish.enable {
+              path = "${config.programs.fish.package}/bin/fish";
+            };
+            zsh = lib.mkIf config.programs.zsh.enable {
+              path = "${config.programs.zsh.package}/bin/zsh";
+            };
           };
-          "[x]" = {
-            "hideFromStatusBar" = true;
-            "hideFromTree" = true;
-            "type" = "none";
+          "terminal.integrated.shellIntegration.enabled" = false;
+          "terminal.integrated.smoothScrolling" = true;
+          "todo-tree.highlights.customHighlight" = {
+            "[ ]" = {
+              "hideFromStatusBar" = true;
+              "hideFromTree" = true;
+              "type" = "none";
+            };
+            "[x]" = {
+              "hideFromStatusBar" = true;
+              "hideFromTree" = true;
+              "type" = "none";
+            };
           };
-        };
-        "todo-tree.highlights.defaultHighlight" = {
-          fontWeight = "bold";
-          foreground = "${colors.normal.green}";
-          type = "text-and-comment";
-        };
-        "todo-tree.general.tags" = [
-          "[ ]"
-          "[x]"
-          "BUG"
-          "FIXME"
-          "HACK"
-          "TODO"
-          "XXX"
-        ];
-        "todo-tree.regex.regexCaseSensitive" = false;
-        "todo-tree.tree.expanded" = true;
-        "todo-tree.tree.showCountsInTree" = true;
-        "window.autoDetectColorScheme" = true;
-        "window.newWindowDimensions" = "maximized";
-        "window.openFoldersInNewWindow" = "on";
-        "window.restoreFullscreen" = false;
-        "window.zoomLevel" = 0;
-        "workbench.colorTheme" = "Light+";
-        "workbench.editor.highlightModifiedTabs" = true;
-        "workbench.editor.restoreViewState" = true;
-        "workbench.editorAssociations" = {
-          "*.md" = "vscode.markdown.preview.editor";
-          "git-rebase-todo" = "default";
-        };
-        "workbench.iconTheme" = "material-icon-theme";
-        "workbench.list.smoothScrolling" = true;
-        "workbench.preferredDarkColorTheme" = "Dark+";
-        "workbench.preferredLightColorTheme" = "Light+";
-        "workbench.startupEditor" = "none";
-        "[html]"."editor.defaultFormatter" = "vscode.html-language-features";
-        "[json]" = {
-          "editor.defaultFormatter" = "vscode.json-language-features";
-          "editor.tabSize" = 2;
-        };
-        "[jsonc]"."editor.defaultFormatter" = "vscode.json-language-features";
-        "[latex]" = {
-          "editor.wordWrap" = "wordWrapColumn";
-          "editor.wordWrapColumn" = 120;
-        };
-        "[markdown]"."editor.tabSize" = 2;
-        "[nix]" = {
-          "editor.defaultFormatter" = "jnoortheen.nix-ide";
-          "editor.tabSize" = 2;
-        };
-        "[python]"."editor.defaultFormatter" = "ms-python.black-formatter";
-        "[terraform]"."editor.tabSize" = 2;
-        "[typescript]"."editor.tabSize" = 2;
-        "[yaml]" = {
-          "editor.defaultFormatter" = "redhat.vscode-yaml";
-          "editor.tabSize" = 2;
-        };
-      }
-      // lib.optionalAttrs osConfig.programs.npm.enable {
-        "prettier.singleQuote" = true;
-        "prettier.trailingComma" = "es5";
-        "[javascript]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
-        "[typescript]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-          "editor.tabSize" = 2;
-        };
-        "[typescriptreact]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
-      };
+          "todo-tree.highlights.defaultHighlight" = {
+            fontWeight = "bold";
+            foreground = "${colors.normal.green}";
+            type = "text-and-comment";
+          };
+          "todo-tree.general.tags" = [
+            "[ ]"
+            "[x]"
+            "BUG"
+            "FIXME"
+            "HACK"
+            "TODO"
+            "XXX"
+          ];
+          "todo-tree.regex.regexCaseSensitive" = false;
+          "todo-tree.tree.expanded" = true;
+          "todo-tree.tree.showCountsInTree" = true;
+          "window.autoDetectColorScheme" = true;
+          "window.newWindowDimensions" = "maximized";
+          "window.openFoldersInNewWindow" = "on";
+          "window.restoreFullscreen" = false;
+          "window.zoomLevel" = 0;
+          "workbench.colorTheme" = "Light+";
+          "workbench.editor.highlightModifiedTabs" = true;
+          "workbench.editor.restoreViewState" = true;
+          "workbench.editorAssociations" = {
+            "*.md" = "vscode.markdown.preview.editor";
+            "git-rebase-todo" = "default";
+          };
+          "workbench.iconTheme" = "material-icon-theme";
+          "workbench.list.smoothScrolling" = true;
+          "workbench.preferredDarkColorTheme" = "Dark+";
+          "workbench.preferredLightColorTheme" = "Light+";
+          "workbench.startupEditor" = "none";
+          "[html]"."editor.defaultFormatter" = "vscode.html-language-features";
+          "[json]" = {
+            "editor.defaultFormatter" = "vscode.json-language-features";
+            "editor.tabSize" = 2;
+          };
+          "[jsonc]"."editor.defaultFormatter" = "vscode.json-language-features";
+          "[latex]" = {
+            "editor.wordWrap" = "wordWrapColumn";
+            "editor.wordWrapColumn" = 120;
+          };
+          "[markdown]"."editor.tabSize" = 2;
+          "[nix]" = {
+            "editor.defaultFormatter" = "jnoortheen.nix-ide";
+            "editor.tabSize" = 2;
+          };
+          "[python]"."editor.defaultFormatter" = "ms-python.black-formatter";
+          "[terraform]"."editor.tabSize" = 2;
+          "[typescript]"."editor.tabSize" = 2;
+          "[yaml]" = {
+            "editor.defaultFormatter" = "redhat.vscode-yaml";
+            "editor.tabSize" = 2;
+          };
+        }
+        (lib.mkIf osConfig.programs.npm.enable {
+          "prettier.singleQuote" = true;
+          "prettier.trailingComma" = "es5";
+          "[javascript]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
+          "[typescript]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            "editor.tabSize" = 2;
+          };
+          "[typescriptreact]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
+        })
+      ];
 
       keybindings = [
         {

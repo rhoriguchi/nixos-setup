@@ -96,9 +96,8 @@ in
 
         restartUnits = [ config.systemd.services."container@tvtracktime-application".name ];
       };
-    }
-    // lib.optionalAttrs config.services.custom-netdata.enable {
-      "services.netdata.s3checkCollector" = {
+
+      "services.netdata.s3checkCollector" = lib.mkIf config.services.custom-netdata.enable {
         content = lib.toJSON {
           jobs = [
             {
@@ -145,11 +144,9 @@ in
     "d ${bindmountDir} 0750 root root"
   ];
 
-  services.custom-netdata.extraGoCollectors =
-    lib.optionalAttrs config.services.custom-netdata.enable
-      {
-        "go.d/s3check.conf" = config.sops.templates."services.netdata.s3checkCollector".path;
-      };
+  services.custom-netdata.extraGoCollectors."go.d/s3check.conf" =
+    lib.mkIf config.services.custom-netdata.enable
+      config.sops.templates."services.netdata.s3checkCollector".path;
 
   containers.tvtracktime-application = {
     autoStart = true;

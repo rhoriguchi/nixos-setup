@@ -551,7 +551,7 @@ in
               }
           )
           // {
-            global = lib.optionalAttrs cfg.ephemeral { "is ephemeral node" = "yes"; };
+            global = lib.mkIf cfg.ephemeral { "is ephemeral node" = "yes"; };
 
             health."enabled alarms" = lib.concatStringsSep " " (
               (map (value: "!${value}") [
@@ -572,109 +572,115 @@ in
               ])
               ++ [ "*" ]
             );
-          }
-          // lib.optionalAttrs cfg.parent.enable {
-            "plugin:cgroups"."search for cgroups in subpaths matching" = lib.concatStringsSep " " [
-              # nspawn containers have their own child agent; the host can't
-              # resolve names of their nested containers. First match wins.
-              "!/machine.slice/container@*.service/payload"
-              defaultCgroupSearchPaths
-            ];
+
+            "plugin:cgroups" = lib.mkIf cfg.parent.enable {
+              "search for cgroups in subpaths matching" = lib.concatStringsSep " " [
+                # nspawn containers have their own child agent; the host can't
+                # resolve names of their nested containers. First match wins.
+                "!/machine.slice/container@*.service/payload"
+                defaultCgroupSearchPaths
+              ];
+            };
           };
 
         configDir = {
           "stream.conf" = cfg.streamConf.file;
-        }
-        // {
+
           "exporting.conf" = (pkgs.formats.ini { }).generate "exporting.conf" {
             # Workaround for https://github.com/netdata/netdata/issues/21368
             "prometheus:exporter"."netdata label prefix" = "netdata_";
           };
-        }
-        // lib.optionalAttrs config.services.bind.enable {
-          "go.d/bind.conf" = pkgs.writers.writeYAML "bind.conf" {
-            jobs = [
-              {
-                name = "local";
-                url = "http://127.0.0.1:8653/xml/v3";
-              }
-            ];
-          };
-        }
-        // lib.optionalAttrs config.services.chrony.enable {
-          "go.d/chrony.conf" = pkgs.writers.writeYAML "chrony.conf" {
-            jobs = [ { name = "local"; } ];
-          };
-        }
-        // lib.optionalAttrs config.services.dnsmasq.enable {
-          "go.d/dnsmasq_dhcp.conf" = pkgs.writers.writeYAML "dnsmasq_dhcp.conf" {
-            jobs = [
-              {
-                name = "local";
-                leases_path = "/var/lib/dnsmasq/dnsmasq.leases";
-                conf_path = config.services.dnsmasq.finalConfigFile;
-              }
-            ];
-          };
-        }
-        // lib.optionalAttrs config.services.dnsmasq.enable {
-          "go.d/dnsmasq.conf" = pkgs.writers.writeYAML "dnsmasq.conf" {
-            jobs = [
-              {
-                name = "local";
-                address = "127.0.0.1:${toString config.services.dnsmasq.settings.port}";
-              }
-            ];
-          };
-        }
-        // lib.optionalAttrs config.services.fail2ban.enable {
-          "go.d/fail2ban.conf" = pkgs.writers.writeYAML "fail2ban.conf" { jobs = [ { name = "local"; } ]; };
-        }
-        // lib.optionalAttrs config.services.nginx.enable {
-          "go.d/nginx.conf" = pkgs.writers.writeYAML "nginx.conf" {
-            jobs = [
-              {
-                name = "nginx";
-                url = "http://127.0.0.1/nginx_status";
-              }
-            ];
-          };
-        }
-        // lib.optionalAttrs (lib.elem "nvidia" config.services.xserver.videoDrivers) {
-          "go.d/nvidia_smi.conf" = pkgs.writers.writeYAML "nvidia_smi.conf" {
-            jobs = [
-              {
-                name = "local";
-                binary_path = "${config.hardware.nvidia.package.bin}/bin/nvidia-smi";
-              }
-            ];
-          };
-        }
-        // {
+
+          "go.d/bind.conf" = lib.mkIf config.services.bind.enable (
+            pkgs.writers.writeYAML "bind.conf" {
+              jobs = [
+                {
+                  name = "local";
+                  url = "http://127.0.0.1:8653/xml/v3";
+                }
+              ];
+            }
+          );
+
+          "go.d/chrony.conf" = lib.mkIf config.services.chrony.enable (
+            pkgs.writers.writeYAML "chrony.conf" {
+              jobs = [ { name = "local"; } ];
+            }
+          );
+
+          "go.d/dnsmasq_dhcp.conf" = lib.mkIf config.services.dnsmasq.enable (
+            pkgs.writers.writeYAML "dnsmasq_dhcp.conf" {
+              jobs = [
+                {
+                  name = "local";
+                  leases_path = "/var/lib/dnsmasq/dnsmasq.leases";
+                  conf_path = config.services.dnsmasq.finalConfigFile;
+                }
+              ];
+            }
+          );
+
+          "go.d/dnsmasq.conf" = lib.mkIf config.services.dnsmasq.enable (
+            pkgs.writers.writeYAML "dnsmasq.conf" {
+              jobs = [
+                {
+                  name = "local";
+                  address = "127.0.0.1:${toString config.services.dnsmasq.settings.port}";
+                }
+              ];
+            }
+          );
+
+          "go.d/fail2ban.conf" = lib.mkIf config.services.fail2ban.enable (
+            pkgs.writers.writeYAML "fail2ban.conf" { jobs = [ { name = "local"; } ]; }
+          );
+
+          "go.d/nginx.conf" = lib.mkIf config.services.nginx.enable (
+            pkgs.writers.writeYAML "nginx.conf" {
+              jobs = [
+                {
+                  name = "nginx";
+                  url = "http://127.0.0.1/nginx_status";
+                }
+              ];
+            }
+          );
+
+          "go.d/nvidia_smi.conf" = lib.mkIf (lib.elem "nvidia" config.services.xserver.videoDrivers) (
+            pkgs.writers.writeYAML "nvidia_smi.conf" {
+              jobs = [
+                {
+                  name = "local";
+                  binary_path = "${config.hardware.nvidia.package.bin}/bin/nvidia-smi";
+                }
+              ];
+            }
+          );
+
           "go.d/nvme.conf" = pkgs.writers.writeYAML "nvme.conf" { jobs = [ { name = "local"; } ]; };
-        }
-        // lib.optionalAttrs config.services.postgresql.enable {
-          "go.d/postgres.conf" = pkgs.writers.writeYAML "postgres.conf" {
-            jobs = [
-              {
-                name = "local";
-                dsn = "host=/run/postgresql user=netdata dbname=postgres";
-              }
-            ];
-          };
-        }
-        // lib.optionalAttrs redisEnabled {
-          "go.d/redis.conf" = pkgs.writers.writeYAML "redis.conf" {
-            jobs = lib.mapAttrsToList (key: value: {
-              name = key;
-              address = "unix://@${value.unixSocket}";
-            }) config.services.redis.servers;
-          };
-        }
-        // {
+
+          "go.d/postgres.conf" = lib.mkIf config.services.postgresql.enable (
+            pkgs.writers.writeYAML "postgres.conf" {
+              jobs = [
+                {
+                  name = "local";
+                  dsn = "host=/run/postgresql user=netdata dbname=postgres";
+                }
+              ];
+            }
+          );
+
+          "go.d/redis.conf" = lib.mkIf redisEnabled (
+            pkgs.writers.writeYAML "redis.conf" {
+              jobs = lib.mapAttrsToList (key: value: {
+                name = key;
+                address = "unix://@${value.unixSocket}";
+              }) config.services.redis.servers;
+            }
+          );
+
           "go.d/smartctl.conf" = pkgs.writers.writeYAML "smartctl.conf" { jobs = [ { name = "local"; } ]; };
-        }
-        // {
+
           "go.d/prometheus.conf" = pkgs.writers.writeYAML "prometheus.conf" {
             jobs = map (job: job // { autodetection_retry = 30; }) (
               lib.optionals autheliaEnabled (
@@ -800,26 +806,29 @@ in
               ++ cfg.extraPrometheusJobs
             );
           };
+
+          "go.d/x509check.conf" = lib.mkIf hasCerts (
+            pkgs.writers.writeYAML "x509check.conf" {
+              jobs = map (hostname: {
+                name = lib.replaceStrings [ "." ] [ "_" ] hostname;
+                source = "file:///var/lib/acme/${hostname}/cert.pem";
+              }) (lib.attrNames config.security.acme.certs);
+            }
+          );
+
+          "go.d/zfspool.conf" = lib.mkIf config.boot.zfs.enabled (
+            pkgs.writers.writeYAML "zfspool.conf" {
+              jobs = [
+                {
+                  name = "local";
+                  binary_path = "${config.boot.zfs.package}/bin/zpool";
+                }
+              ];
+            }
+          );
+
+          "health_alarm_notify.conf" = lib.mkIf isFleetParent cfg.healthAlarmNotify.file;
         }
-        // lib.optionalAttrs hasCerts {
-          "go.d/x509check.conf" = pkgs.writers.writeYAML "x509check.conf" {
-            jobs = map (hostname: {
-              name = lib.replaceStrings [ "." ] [ "_" ] hostname;
-              source = "file:///var/lib/acme/${hostname}/cert.pem";
-            }) (lib.attrNames config.security.acme.certs);
-          };
-        }
-        // lib.optionalAttrs config.boot.zfs.enabled {
-          "go.d/zfspool.conf" = pkgs.writers.writeYAML "zfspool.conf" {
-            jobs = [
-              {
-                name = "local";
-                binary_path = "${config.boot.zfs.package}/bin/zpool";
-              }
-            ];
-          };
-        }
-        // lib.optionalAttrs isFleetParent { "health_alarm_notify.conf" = cfg.healthAlarmNotify.file; }
         // cfg.extraGoCollectors;
       };
     };

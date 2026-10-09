@@ -180,13 +180,11 @@ in
 
       "${homeDirectory}/.omp/agent/themes/${themeName}.json".source =
         jsonFormat.generate "${themeName}.json" theme;
-    }
-    // lib.optionalAttrs (mcpServers != { }) {
-      "${homeDirectory}/.omp/agent/mcp.json".source = jsonFormat.generate "mcp.json" {
-        inherit mcpServers;
+
+      "${homeDirectory}/.omp/agent/mcp.json" = lib.mkIf (mcpServers != { }) {
+        source = jsonFormat.generate "mcp.json" { inherit mcpServers; };
       };
-    }
-    // {
+
       "${homeDirectory}/.omp/agent/lsp.json".source = jsonFormat.generate "lsp.json" {
         servers = {
           # Cold nixd evaluation of a multi-input flake regularly exceeds the

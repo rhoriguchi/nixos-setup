@@ -94,9 +94,8 @@ in
           ];
         }
       ];
-    }
-    // lib.optionalAttrs config.services.postgresql.enable {
-      postgresql_databases =
+
+      postgresql_databases = lib.mkIf config.services.postgresql.enable (
         map (database: {
           name = database;
           username = database;
@@ -128,7 +127,8 @@ in
                   (lib.concatStringsSep " ")
                 ];
           }
-        ];
+        ]
+      );
     };
   };
 

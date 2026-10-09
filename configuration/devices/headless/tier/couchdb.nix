@@ -34,9 +34,8 @@ in
 
         restartUnits = [ config.systemd.services.couchdb.name ];
       };
-    }
-    // lib.optionalAttrs config.services.custom-netdata.enable {
-      "services.netdata.couchdbCollector" = {
+
+      "services.netdata.couchdbCollector" = lib.mkIf config.services.custom-netdata.enable {
         content = lib.toJSON {
           jobs = [
             {
@@ -56,11 +55,9 @@ in
     };
   };
 
-  services.custom-netdata.extraGoCollectors =
-    lib.optionalAttrs config.services.custom-netdata.enable
-      {
-        "go.d/couchdb.conf" = config.sops.templates."services.netdata.couchdbCollector".path;
-      };
+  services.custom-netdata.extraGoCollectors."go.d/couchdb.conf" =
+    lib.mkIf config.services.custom-netdata.enable
+      config.sops.templates."services.netdata.couchdbCollector".path;
 
   services = {
     couchdb = {

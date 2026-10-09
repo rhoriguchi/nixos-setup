@@ -47,8 +47,8 @@ in
 
       environment = {
         TZ = config.time.timeZone;
-      }
-      // lib.optionalAttrs cfg.prometheusExporter.enable { PROMETHEUS_ENABLED = "true"; };
+        PROMETHEUS_ENABLED = lib.mkIf cfg.prometheusExporter.enable "true";
+      };
     };
   };
 }

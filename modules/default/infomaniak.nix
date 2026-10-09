@@ -32,9 +32,8 @@ in
 
       inherit (cfg) username passwordFile;
       domains = cfg.hostnames;
-    }
-    // lib.optionalAttrs (!cfg.enableIPv6) {
-      usev6 = "";
+
+      usev6 = lib.mkIf (!cfg.enableIPv6) "";
     };
   };
 }

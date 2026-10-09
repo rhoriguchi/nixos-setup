@@ -74,11 +74,9 @@ in
       // lib.listToAttrs (
         map (
           user:
-          lib.nameValuePair (delugeUserSecretName user) (
-            lib.optionalAttrs (user == "metrics") {
-              restartUnits = [ config.systemd.services."container@deluge".name ];
-            }
-          )
+          lib.nameValuePair (delugeUserSecretName user) {
+            restartUnits = lib.mkIf (user == "metrics") [ config.systemd.services."container@deluge".name ];
+          }
         ) (lib.attrNames delugeUsers)
       );
 
