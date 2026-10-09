@@ -66,6 +66,17 @@
           sonarr = prev.callPackage (import "${inputs.sonarr}/pkgs/by-name/so/sonarr/package.nix") { };
         })
 
+        (_: prev: {
+          # TODO remove when resolved https://github.com/NixOS/nixpkgs/issues/571789
+          authelia = prev.authelia.override {
+            authelia-web = prev.authelia.web.overrideAttrs (old: {
+              pnpmDeps = old.pnpmDeps.overrideAttrs {
+                outputHash = "sha256-zIaVEjbh/LIQMqnryrgVm+46GP+9gM91WCMyAqeDnaA=";
+              };
+            });
+          };
+        })
+
         # TODO remove when resolved
         (_: prev: {
           # - This version of IDEA has multiple known security vulnerabilities, see NIXPKGS-2026-2269: https://tracker.security.nixos.org/issues/NIXPKGS-2026-2269.
