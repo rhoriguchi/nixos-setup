@@ -870,11 +870,11 @@
     "netdata": {
       "flake": false,
       "locked": {
-        "lastModified": 1791241508,
-        "narHash": "sha256-yxf8wJHm66yN5KHHN+MdH54I4YMtOqxqGWHHUT7EZtY=",
+        "lastModified": 1791554773,
+        "narHash": "sha256-vkhhvAYLCgy6+uJ+4GJAW1bBbWboxNcmicDktIV9gQ4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "43efe59be57f52ad2e4908facc7c463e5bfd6f58",
+        "rev": "98e93874beac3937ab87d93d64167af31b509b36",
         "type": "github"
       },
       "original": {
