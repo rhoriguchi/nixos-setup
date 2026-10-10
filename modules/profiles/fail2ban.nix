@@ -32,6 +32,10 @@ in
       "10.0.0.0/8"
       "172.16.0.0/12"
       "192.168.0.0/16"
+    ]
+    ++ lib.pipe config.containers [
+      (lib.mapAttrsToList (_: container: container.localAddress))
+      (lib.filter (address: address != null))
     ];
 
     bantime = "1h";
