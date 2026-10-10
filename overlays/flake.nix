@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
+    fetch-pnpm-deps = {
+      url = "github:NixOS/nixpkgs/pull/572207/head";
+      flake = false;
+    };
+
     flashrom = {
       url = "github:NixOS/nixpkgs/pull/563332/head";
       flake = false;
@@ -66,15 +71,12 @@
           sonarr = prev.callPackage (import "${inputs.sonarr}/pkgs/by-name/so/sonarr/package.nix") { };
         })
 
+        # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=572207
         (_: prev: {
-          # TODO remove when resolved https://github.com/NixOS/nixpkgs/issues/571789
-          authelia = prev.authelia.override {
-            authelia-web = prev.authelia.web.overrideAttrs (old: {
-              pnpmDeps = old.pnpmDeps.overrideAttrs {
-                outputHash = "sha256-zIaVEjbh/LIQMqnryrgVm+46GP+9gM91WCMyAqeDnaA=";
-              };
-            });
-          };
+          inherit (prev.callPackages "${inputs.fetch-pnpm-deps}/pkgs/build-support/node/fetch-pnpm-deps" { })
+            fetchPnpmDeps
+            pnpmConfigHook
+            ;
         })
 
         # TODO remove when resolved

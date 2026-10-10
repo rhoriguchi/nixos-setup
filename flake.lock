@@ -149,6 +149,23 @@
         "type": "github"
       }
     },
+    "fetch-pnpm-deps": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791573087,
+        "narHash": "sha256-spfPS957dAm4neC4av5H91XshHDJx5CnRlihqmcVQnM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ed0289833b861e50ce84950a21cbfccc10b7f78c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/572207/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "nixpkgs": [
@@ -846,6 +863,7 @@
     },
     "local-overlays": {
       "inputs": {
+        "fetch-pnpm-deps": "fetch-pnpm-deps",
         "flashrom": "flashrom",
         "gamedig": "gamedig",
         "grafana-alloy": "grafana-alloy",
