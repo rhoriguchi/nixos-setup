@@ -7,6 +7,10 @@
   programs.git.iniContent.pager.diff = "diffnav";
 
   xdg.configFile."diffnav/config.yml".source = pkgs.writers.writeYAML "config.yaml" {
-    ui.icons = "nerd-fonts-filetype";
+    ui = {
+      icons = "nerd-fonts-filetype";
+      # TODO once supported use custom theme
+      theme = "dracula";
+    };
   };
 }
