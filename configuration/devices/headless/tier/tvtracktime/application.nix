@@ -9,8 +9,9 @@ let
 
   rootBindmountDir = "/mnt/bindmount/tvtracktime";
   bindmountDir = "${rootBindmountDir}/seaweedfs";
+  rendererBindmountDir = "${rootBindmountDir}/renderer";
 
-  version = "1.1.46";
+  version = "1.1.51";
 in
 {
   sops = {
@@ -40,6 +41,8 @@ in
       "services/tvTrackTime/backend/tvdbApiKey" = { };
       "services/tvTrackTime/backend/tmdbAccessToken" = { };
       "services/tvTrackTime/backend/githubToken" = { };
+
+      "services/tvTrackTime/demoApiKey" = { };
     };
 
     templates = {
@@ -87,11 +90,21 @@ in
           S3_ACCESS_KEY=${config.sops.placeholder."services/tvTrackTime/seaweedfs/accessKey"}
           S3_SECRET_KEY=${config.sops.placeholder."services/tvTrackTime/seaweedfs/secretKey"}
 
+          DEMO_API_KEY=${config.sops.placeholder."services/tvTrackTime/demoApiKey"}
+
           JWT_SECRET=${config.sops.placeholder."services/tvTrackTime/backend/jwtSecret"}
           TURNSTILE_SECRET=${config.sops.placeholder."services/tvTrackTime/backend/turnstileSecret"}
           TVDB_API_KEY=${config.sops.placeholder."services/tvTrackTime/backend/tvdbApiKey"}
           TMDB_ACCESS_TOKEN=${config.sops.placeholder."services/tvTrackTime/backend/tmdbAccessToken"}
           GITHUB_TOKEN=${config.sops.placeholder."services/tvTrackTime/backend/githubToken"}
+        '';
+
+        restartUnits = [ config.systemd.services."container@tvtracktime-application".name ];
+      };
+
+      "services.tvtracktime.renderer.environmentFile" = {
+        content = ''
+          DEMO_API_KEY=${config.sops.placeholder."services/tvTrackTime/demoApiKey"}
         '';
 
         restartUnits = [ config.systemd.services."container@tvtracktime-application".name ];
@@ -136,12 +149,24 @@ in
     ];
   };
 
+  fileSystems.${rendererBindmountDir} = {
+    depends = [ "/var/lib/tvtracktime-renderer" ];
+    device = "/var/lib/tvtracktime-renderer";
+    fsType = "fuse.bindfs";
+    noCheck = true;
+    options = [
+      "map=root/1000:@root/@1000"
+    ];
+  };
+
   systemd.tmpfiles.rules = [
     "d /var/lib/tvtracktime-postgresql 0750 ${toString containerCfg.users.users.postgres.uid} ${toString containerCfg.users.groups.postgres.gid}"
     "d /var/lib/tvtracktime-seaweedfs 0750 root root"
+    "d /var/lib/tvtracktime-renderer 0750 root root"
 
     "d ${rootBindmountDir} 0750 root root"
     "d ${bindmountDir} 0750 root root"
+    "d ${rendererBindmountDir} 0750 root root"
   ];
 
   services.custom-netdata.extraGoCollectors."go.d/s3check.conf" =
@@ -173,6 +198,7 @@ in
 
       config.sops.templates."services.tvtracktime.backend.environmentFile".path
       config.sops.templates."services.tvtracktime.seaweedfs.s3ConfigFile".path
+      config.sops.templates."services.tvtracktime.renderer.environmentFile".path
     ];
 
     bindMounts = {
@@ -185,6 +211,11 @@ in
         isReadOnly = false;
         hostPath = bindmountDir;
       };
+
+      "/var/lib/renderer" = {
+        isReadOnly = false;
+        hostPath = rendererBindmountDir;
+      };
     };
 
     config = {
@@ -194,6 +225,8 @@ in
         })"
         ${containerCfg.services.postgresql.package}/bin/psql -tAc "ALTER ROLE tvtracktime WITH PASSWORD '$password';"
       '';
+
+      networking.hosts.${config.containers.tvtracktime-application.hostAddress} = [ "tvtracktime.com" ];
 
       services.postgresql = {
         enable = true;
@@ -276,12 +309,38 @@ in
 
           networks = [ "host" ];
         };
+
+        renderer = {
+          image = "ghcr.io/rhoriguchi/tvtracktime/renderer:${version}";
+
+          login = {
+            registry = "ghcr.io";
+            username = "rhoriguchi";
+            passwordFile = config.sops.secrets."services/tvTrackTime/dockerRegistryPassword".path;
+          };
+
+          networks = [ "host" ];
+
+          environmentFiles = [
+            config.sops.templates."services.tvtracktime.renderer.environmentFile".path
+          ];
+
+          environment = {
+            FRONTEND_URL = "http://tvtracktime.com";
+            BACKEND_URL = "http://127.0.0.1:8080";
+          };
+
+          volumes = [
+            "/var/lib/renderer:/data"
+          ];
+        };
       };
 
       networking.firewall.allowedTCPPorts = [
         containerCfg.services.postgresql.settings.port
 
         80
+        3000
         8080
         8333
       ];

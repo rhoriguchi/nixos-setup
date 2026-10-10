@@ -48,6 +48,12 @@ in
           tcp dport 56710 accept # Alloy OTLP receiver
           tcp dport ${toString config.services.custom-netdata.streamPort} accept # Netdata
 
+          # Renderer (container) -> hostAddress:80
+          #   -> DNAT to 127.0.0.1 (modules/profiles/containers/networking.nix)
+          #   -> host nginx (proxy.nix)
+          #   -> application container (frontend, backend, previews, s3)
+          ip saddr ${config.containers.tvtracktime-application.localAddress} tcp dport 80 accept
+
           drop
         }
 
