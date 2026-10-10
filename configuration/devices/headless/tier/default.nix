@@ -8,7 +8,7 @@
   imports = [
     ./arr
     ./authelia
-    ./backup.nix
+    ./backup
     ./couchdb.nix
     ./fancontrol.nix
     ./grafana
