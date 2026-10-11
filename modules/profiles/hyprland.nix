@@ -5,7 +5,7 @@
   networking.networkmanager.enable = true;
 
   environment = {
-    sessionVariables.QT_QPA_PLATFORM = "wayland";
+    sessionVariables.QT_QPA_PLATFORM = "wayland;xcb";
 
     systemPackages = [
       (pkgs.symlinkJoin {
