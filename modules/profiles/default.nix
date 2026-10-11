@@ -4,6 +4,7 @@
   headless = ./headless.nix;
 
   alloy = ./alloy;
+  android-emulator = ./android-emulator.nix;
   authelia = ./authelia.nix;
   bluetooth = ./bluetooth.nix;
   chrony = ./chrony.nix;
