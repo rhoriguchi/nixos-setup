@@ -50,7 +50,11 @@ in
     };
 
     config = {
-      virtualisation.docker.enable = true;
+      virtualisation.docker = {
+        enable = true;
+
+        logDriver = "json-file";
+      };
 
       # actions/setup-java and actions/setup-node download prebuilt binaries
       # that expect an FHS-style dynamic linker, which NixOS doesn't provide.
