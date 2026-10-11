@@ -8,12 +8,16 @@
   hardware.nvidia-container-toolkit.enable = lib.elem "nvidia" config.services.xserver.videoDrivers;
 
   virtualisation = {
-    containers.registries.settings = {
-      unqualified-search-registries = [ "docker.io" ];
+    containers = {
+      containersConf.settings.containers.log_driver = "k8s-file";
 
-      registry = [
-        { location = "docker.io"; }
-      ];
+      registries.settings = {
+        unqualified-search-registries = [ "docker.io" ];
+
+        registry = [
+          { location = "docker.io"; }
+        ];
+      };
     };
 
     podman = {
