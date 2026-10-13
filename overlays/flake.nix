@@ -4,11 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
-    fetch-pnpm-deps = {
-      url = "github:NixOS/nixpkgs/pull/572207/head";
-      flake = false;
-    };
-
     flashrom = {
       url = "github:NixOS/nixpkgs/pull/563332/head";
       flake = false;
@@ -38,6 +33,11 @@
       url = "github:NixOS/nixpkgs/pull/565157/head";
       flake = false;
     };
+
+    typescript-language-server = {
+      url = "github:NixOS/nixpkgs/pull/572951/head";
+      flake = false;
+    };
   };
 
   outputs =
@@ -59,14 +59,12 @@
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=565157
           sonarr = prev.callPackage (import "${inputs.sonarr}/pkgs/by-name/so/sonarr/package.nix") { };
-        })
 
-        # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=572207
-        (_: prev: {
-          inherit (prev.callPackages "${inputs.fetch-pnpm-deps}/pkgs/build-support/node/fetch-pnpm-deps" { })
-            fetchPnpmDeps
-            pnpmConfigHook
-            ;
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=572951
+          typescript-language-server =
+            prev.callPackage
+              (import "${inputs.typescript-language-server}/pkgs/by-name/ty/typescript-language-server/package.nix")
+              { };
         })
 
         # TODO remove when resolved

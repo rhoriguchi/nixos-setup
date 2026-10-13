@@ -266,6 +266,7 @@
 
                   self.nixosModules.profiles.headful
 
+                  self.nixosModules.profiles.android-emulator
                   self.nixosModules.profiles.hyprland
                   self.nixosModules.profiles.java
                   self.nixosModules.profiles.javascript
