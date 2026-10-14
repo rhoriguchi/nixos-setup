@@ -3,12 +3,12 @@
 
   inputs = {
     ponytail = {
-      url = "github:DietrichGebert/ponytail?ref=v5.1.0";
+      url = "github:DietrichGebert/ponytail?ref=v5.2.0";
       flake = false;
     };
 
     skills = {
-      url = "github:anthropics/skills?rev=53048666b05b4799081517d00e09e0a2dd688678";
+      url = "github:anthropics/skills";
       flake = false;
     };
   };
