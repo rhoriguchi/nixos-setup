@@ -7,6 +7,6 @@ in
 {
   nix.settings = {
     substituters = [ "http://${tailscaleIps.XXLPitu-Tier.ip}:5000" ];
-    trusted-public-keys = [ "nix-cache-1:jpkey3dBIx4vsr3TEUmNB1iljoJcrD5aEnfYrWcuX+k=" ];
+    trusted-public-keys = [ "nix-cache-1:aLOypntWVuLKNiKhAafGKbT6ueKqvb1DCeu6ywSP408=" ];
   };
 }

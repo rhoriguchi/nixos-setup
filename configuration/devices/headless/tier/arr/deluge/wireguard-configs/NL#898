@@ -1,19 +1,20 @@
 [Interface]
-# Bouncing = 15
-# NetShield = 1
+# Key for NL#898
+# Bouncing = 12
+# NetShield = 0
 # Moderate NAT = off
 # NAT-PMP (Port Forwarding) = off
-# VPN Accelerator = off
+# VPN Accelerator = on
 # PrivateKey = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 Address = 10.2.0.2/32, 2a07:b944::2:2/128
 DNS = 10.2.0.1, 2a07:b944::2:1
 
 [Peer]
-# NL#673
-PublicKey = lK9RKsf9y5/jehblqhoSGV7FtlErG7QqLy13G3IV2Ao=
+# NL#898
+PublicKey = 8x7Y1OT1WRtShqk4lk3KbqpnPftTZLCpVu4VxRT/dzQ=
 AllowedIPs = 0.0.0.0/0, ::/0
-Endpoint = 46.29.25.5:51820
+Endpoint = 169.150.196.69:51820
 
 # Uncomment the following line (delete the # symbol) to connect to Proton VPN using IPv6.
-# Endpoint = [2001:968:12:2102::103]:51820
+# Endpoint = [2a02:6ea0:c041:6649::10]:51820
 PersistentKeepalive = 25
