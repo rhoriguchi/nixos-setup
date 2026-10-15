@@ -72,8 +72,8 @@ let
         config.sops.secrets."services/bazarr/jimaku/apiKey".path
         config.sops.secrets."services/bazarr/openSubtitles/password".path
         config.sops.secrets."services/bazarr/openSubtitles/username".path
-        config.sops.secrets."services/radarr/apiKey".path
-        config.sops.secrets."services/sonarr/apiKey".path
+        config.sops.secrets."bazarr+services/radarr/apiKey".path
+        config.sops.secrets."bazarr+services/sonarr/apiKey".path
       ];
 
       config = {
@@ -195,7 +195,7 @@ let
                   t = if type == "series-movies" then "movies" else type;
                 in
                 {
-                  apikey._secret = config.sops.secrets."services/radarr/apiKey".path;
+                  apikey._secret = config.sops.secrets."bazarr+services/radarr/apiKey".path;
                   ip = config.containers."radarr-${t}".localAddress;
                   port = config.containers."radarr-${t}".config.services.radarr.settings.server.port;
                   base_url = "/${t}";
@@ -208,7 +208,7 @@ let
                   t = if type == "series-movies" then "series" else type;
                 in
                 {
-                  apikey._secret = config.sops.secrets."services/sonarr/apiKey".path;
+                  apikey._secret = config.sops.secrets."bazarr+services/sonarr/apiKey".path;
                   ip = config.containers."sonarr-${t}".localAddress;
                   port = config.containers."sonarr-${t}".config.services.sonarr.settings.server.port;
                   base_url = "/${t}";
@@ -269,14 +269,22 @@ in
       config.systemd.services."container@bazarr-anime".name
       config.systemd.services."container@bazarr-series-movies".name
     ];
-    "services/radarr/apiKey".restartUnits = [
-      config.systemd.services."container@bazarr-anime".name
-      config.systemd.services."container@bazarr-series-movies".name
-    ];
-    "services/sonarr/apiKey".restartUnits = [
-      config.systemd.services."container@bazarr-anime".name
-      config.systemd.services."container@bazarr-series-movies".name
-    ];
+    "bazarr+services/radarr/apiKey" = {
+      key = "services/radarr/apiKey";
+
+      restartUnits = [
+        config.systemd.services."container@bazarr-anime".name
+        config.systemd.services."container@bazarr-series-movies".name
+      ];
+    };
+    "bazarr+services/sonarr/apiKey" = {
+      key = "services/sonarr/apiKey";
+
+      restartUnits = [
+        config.systemd.services."container@bazarr-anime".name
+        config.systemd.services."container@bazarr-series-movies".name
+      ];
+    };
   };
 
   system.fsPackages = [ pkgs.bindfs ];

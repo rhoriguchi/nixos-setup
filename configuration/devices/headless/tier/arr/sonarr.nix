@@ -58,7 +58,7 @@ let
       };
 
       sopsPaths = [
-        config.sops.secrets."services/sonarr/apiKey".path
+        config.sops.secrets."sonarr+services/sonarr/apiKey".path
         config.sops.templates."services.sonarr.environmentFile".path
       ];
 
@@ -108,7 +108,7 @@ let
           };
 
           prometheus.exporters.exportarr-sonarr = {
-            apiKeyFile = config.sops.secrets."services/sonarr/apiKey".path;
+            apiKeyFile = config.sops.secrets."sonarr+services/sonarr/apiKey".path;
           };
         };
 
@@ -143,7 +143,9 @@ let
 in
 {
   sops = {
-    secrets."services/sonarr/apiKey" = {
+    secrets."sonarr+services/sonarr/apiKey" = {
+      key = "services/sonarr/apiKey";
+
       restartUnits = [
         config.systemd.services."container@sonarr-anime".name
         config.systemd.services."container@sonarr-series".name
@@ -152,7 +154,7 @@ in
 
     templates."services.sonarr.environmentFile" = {
       content = ''
-        SONARR__AUTH__APIKEY=${config.sops.placeholder."services/sonarr/apiKey"}
+        SONARR__AUTH__APIKEY=${config.sops.placeholder."sonarr+services/sonarr/apiKey"}
       '';
 
       restartUnits = [

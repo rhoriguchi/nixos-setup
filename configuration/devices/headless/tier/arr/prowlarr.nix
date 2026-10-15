@@ -5,13 +5,15 @@
 }:
 {
   sops = {
-    secrets."services/prowlarr/apiKey" = {
+    secrets."prowlarr+services/prowlarr/apiKey" = {
+      key = "services/prowlarr/apiKey";
+
       restartUnits = [ config.systemd.services."prometheus-exportarr-prowlarr-exporter".name ];
     };
 
     templates."services.prowlarr.environmentFile" = {
       content = ''
-        PROWLARR__AUTH__APIKEY=${config.sops.placeholder."services/prowlarr/apiKey"}
+        PROWLARR__AUTH__APIKEY=${config.sops.placeholder."prowlarr+services/prowlarr/apiKey"}
       '';
 
       restartUnits = [ config.systemd.services.prowlarr.name ];
@@ -48,7 +50,7 @@
     };
 
     prometheus.exporters.exportarr-prowlarr.apiKeyFile =
-      config.sops.secrets."services/prowlarr/apiKey".path;
+      config.sops.secrets."prowlarr+services/prowlarr/apiKey".path;
 
     flaresolverr = {
       enable = true;

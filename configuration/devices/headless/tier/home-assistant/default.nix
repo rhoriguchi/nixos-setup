@@ -10,8 +10,10 @@
 
   sops = {
     secrets = {
-      "services/home-assistant/location/latitude" = { };
-      "services/home-assistant/location/longitude" = { };
+      "home-assistant+services/home-assistant/location/latitude".key =
+        "services/home-assistant/location/latitude";
+      "home-assistant+services/home-assistant/location/longitude".key =
+        "services/home-assistant/location/longitude";
       "services/home-assistant/location/elevation" = { };
     };
 
@@ -20,8 +22,8 @@
       group = "hass";
 
       content = ''
-        latitude: ${config.sops.placeholder."services/home-assistant/location/latitude"}
-        longitude: ${config.sops.placeholder."services/home-assistant/location/longitude"}
+        latitude: ${config.sops.placeholder."home-assistant+services/home-assistant/location/latitude"}
+        longitude: ${config.sops.placeholder."home-assistant+services/home-assistant/location/longitude"}
         elevation: ${config.sops.placeholder."services/home-assistant/location/elevation"}
       '';
 

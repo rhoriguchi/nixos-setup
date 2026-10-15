@@ -51,7 +51,7 @@ let
       };
 
       sopsPaths = [
-        config.sops.secrets."services/radarr/apiKey".path
+        config.sops.secrets."radarr+services/radarr/apiKey".path
         config.sops.templates."services.radarr.environmentFile".path
       ];
 
@@ -101,7 +101,7 @@ let
           };
 
           prometheus.exporters.exportarr-radarr = {
-            apiKeyFile = config.sops.secrets."services/radarr/apiKey".path;
+            apiKeyFile = config.sops.secrets."radarr+services/radarr/apiKey".path;
           };
         };
 
@@ -136,7 +136,9 @@ let
 in
 {
   sops = {
-    secrets."services/radarr/apiKey" = {
+    secrets."radarr+services/radarr/apiKey" = {
+      key = "services/radarr/apiKey";
+
       restartUnits = [
         config.systemd.services."container@radarr-anime".name
         config.systemd.services."container@radarr-movies".name
@@ -145,7 +147,7 @@ in
 
     templates."services.radarr.environmentFile" = {
       content = ''
-        RADARR__AUTH__APIKEY=${config.sops.placeholder."services/radarr/apiKey"}
+        RADARR__AUTH__APIKEY=${config.sops.placeholder."radarr+services/radarr/apiKey"}
       '';
 
       restartUnits = [
