@@ -10,8 +10,8 @@ let
 
   script = pkgs.writers.writeBash "openweather.sh" ''
     apiKey="$(cat ${config.sops.secrets."services/home-assistant/openWeatherMap/apiKey".path})"
-    lat="$(cat ${config.sops.secrets."services/home-assistant/location/latitude".path})"
-    lon="$(cat ${config.sops.secrets."services/home-assistant/location/longitude".path})"
+    lat="$(cat ${config.sops.secrets."openweather+services/home-assistant/location/latitude".path})"
+    lon="$(cat ${config.sops.secrets."openweather+services/home-assistant/location/longitude".path})"
     output="$(${pkgs.curl}/bin/curl --silent "${apiUrl}/weather?appid=$apiKey&lat=$lat&lon=$lon&units=${units}" | ${pkgs.jq}/bin/jq '.main.temp')"
     echo "''${output:-0}"
   '';
@@ -25,14 +25,18 @@ in
       restartUnits = [ config.systemd.services.home-assistant.name ];
     };
 
-    "services/home-assistant/location/latitude" = {
+    "openweather+services/home-assistant/location/latitude" = {
+      key = "services/home-assistant/location/latitude";
+
       owner = "hass";
       group = "hass";
 
       restartUnits = [ config.systemd.services.home-assistant.name ];
     };
 
-    "services/home-assistant/location/longitude" = {
+    "openweather+services/home-assistant/location/longitude" = {
+      key = "services/home-assistant/location/longitude";
+
       owner = "hass";
       group = "hass";
 

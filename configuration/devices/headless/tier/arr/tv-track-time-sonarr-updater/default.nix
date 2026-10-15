@@ -35,7 +35,7 @@ let
 in
 {
   sops.secrets = {
-    "services/sonarr/apiKey" = { };
+    "tv-track-time-sonarr-updater+services/sonarr/apiKey".key = "services/sonarr/apiKey";
     "services/tvTrackTimeSonarrUpdater/apiKey" = { };
   };
 
@@ -55,7 +55,7 @@ in
       Type = "oneshot";
 
       LoadCredential = [
-        "sonarApiKey:${config.sops.secrets."services/sonarr/apiKey".path}"
+        "sonarApiKey:${config.sops.secrets."tv-track-time-sonarr-updater+services/sonarr/apiKey".path}"
         "tvTrackTimeApiKey:${config.sops.secrets."services/tvTrackTimeSonarrUpdater/apiKey".path}"
       ];
     };

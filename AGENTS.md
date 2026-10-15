@@ -169,10 +169,24 @@ config = lib.mkIf condition {
   `ExecReload`, or that only load secrets via `LoadCredential`/
   `EnvironmentFile`/`preStart` at process start, need `restartUnits`.
 - An explicit `key` override always uses `/` as the nesting separator.
-- `sops.secrets` keys are global: if the same logical secret is declared by
-  more than one module with different owners, prefix the key with the owning
-  module/service using `+` as the separator (`headplane+services/headscale/apiKey`,
+- One `secrets.yaml` key declared or referenced by more than one module on
+  the same host MUST NOT use its bare name in those modules.
+  Give every consumer its own `sops.secrets` entry named
+  `<consumer>+<key>` with `key = "<key>"`, and keep no unprefixed entry
+  (`borgmatic+services/tvTrackTime/postgres/password`,
+  `headplane+services/headscale/apiKey`,
   `headscale+services/headscale/apiKey`).
+  - `<consumer>` is the service or module that reads the secret
+    (`radarr`, `bazarr`, `declarr`, `openweather`), not the secret's
+    owner.
+  - Use the prefixed name everywhere that consumer touches it: `.path`,
+    `sops.placeholder`, `owner`/`group`, `restartUnits`/`reloadUnits`.
+  - Applies even when owners are equal; separate entries keep each
+    consumer's `owner` and `restartUnits` from silently merging into one
+    shared secret.
+  - Several references from one module (secret + template + exporter +
+    `LoadCredential`) are one consumer and share one entry.
+  - A key used by one consumer, or on different hosts, stays bare.
 - `modules/default/*` never reference `config.sops.*`; sops only exposes
   secrets as runtime files, not eval-time strings. Take a file-path option
   (e.g. `apiKeyFile`), or an `internal` rendered-text option when the value

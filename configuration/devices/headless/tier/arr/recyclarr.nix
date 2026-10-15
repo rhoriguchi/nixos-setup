@@ -26,7 +26,7 @@ let
       base_url = "http://${
         config.containers."sonarr-${type}".localAddress
       }:${toString config.services.sonarr.settings.server.port}/${type}";
-      api_key._secret = config.sops.secrets."services/sonarr/apiKey".path;
+      api_key._secret = config.sops.secrets."recyclarr+services/sonarr/apiKey".path;
 
       media_naming = {
         series = "default";
@@ -83,7 +83,7 @@ let
       base_url = "http://${
         config.containers."radarr-${type}".localAddress
       }:${toString config.services.radarr.settings.server.port}/${type}";
-      api_key._secret = config.sops.secrets."services/radarr/apiKey".path;
+      api_key._secret = config.sops.secrets."recyclarr+services/radarr/apiKey".path;
 
       media_naming = {
         folder = "default";
@@ -177,8 +177,16 @@ let
 in
 {
   sops.secrets = {
-    "services/sonarr/apiKey".restartUnits = [ config.systemd.services.recyclarr.name ];
-    "services/radarr/apiKey".restartUnits = [ config.systemd.services.recyclarr.name ];
+    "recyclarr+services/sonarr/apiKey" = {
+      key = "services/sonarr/apiKey";
+
+      restartUnits = [ config.systemd.services.recyclarr.name ];
+    };
+    "recyclarr+services/radarr/apiKey" = {
+      key = "services/radarr/apiKey";
+
+      restartUnits = [ config.systemd.services.recyclarr.name ];
+    };
   };
 
   services.recyclarr = {
