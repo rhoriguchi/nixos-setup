@@ -56,6 +56,6 @@
   };
 
   users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL8rD8sFsnIBybHVwViGC33aT/pgWBtRNawtmGl8g2yU ryan.horiguchi@gmail.com"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA+XqsqDY63vlY0t0/eGnzXlb3Aup+vJwraB2zizCrx6 ryan.horiguchi@gmail.com"
   ];
 }
