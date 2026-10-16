@@ -18,6 +18,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    declarr = {
+      # TODO use upstream when merged https://github.com/upidapi/declarr/pull/1
+      # url = "github:upidapi/declarr";
+      url = "github:rhoriguchi/declarr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -186,9 +193,13 @@
       nixosModules = {
         default.imports = [
           inputs.declarative-jellyfin.nixosModules.default
+          inputs.declarr.nixosModules.default
           inputs.hyprland.nixosModules.default
           inputs.nix-flatpak.nixosModules.nix-flatpak
           inputs.sops-nix.nixosModules.sops
+
+          # declarr module requires the flake-parts `self'` arg but never uses it
+          { _module.args."self'" = null; }
 
           inputs.local-module-overrides.nixosModules.default
 

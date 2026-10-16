@@ -4,9 +4,8 @@
     ./cleanup-empty-dirs.nix
     ./deluge
     ./prowlarr.nix
-    ./radarr.nix
     ./recyclarr.nix
+    ./sonarr-radarr.nix
     ./tv-track-time-sonarr-updater
-    ./sonarr.nix
   ];
 }

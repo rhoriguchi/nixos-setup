@@ -28,14 +28,18 @@ in
       restartUnits = [ config.systemd.services.jellyfin.name ];
     };
 
-    "services/jellyfin/apiKeys/radarr" = {
+    "jellyfin+services/jellyfin/apiKeys/radarr" = {
+      key = "services/jellyfin/apiKeys/radarr";
+
       owner = config.services.jellyfin.user;
       group = config.services.jellyfin.group;
 
       restartUnits = [ config.systemd.services.jellyfin.name ];
     };
 
-    "services/jellyfin/apiKeys/sonarr" = {
+    "jellyfin+services/jellyfin/apiKeys/sonarr" = {
+      key = "services/jellyfin/apiKeys/sonarr";
+
       owner = config.services.jellyfin.user;
       group = config.services.jellyfin.group;
 
@@ -110,8 +114,8 @@ in
       logDir = "/var/log/jellyfin";
 
       apikeys = {
-        Radarr.keyPath = config.sops.secrets."services/jellyfin/apiKeys/radarr".path;
-        Sonarr.keyPath = config.sops.secrets."services/jellyfin/apiKeys/sonarr".path;
+        Radarr.keyPath = config.sops.secrets."jellyfin+services/jellyfin/apiKeys/radarr".path;
+        Sonarr.keyPath = config.sops.secrets."jellyfin+services/jellyfin/apiKeys/sonarr".path;
       };
 
       users = {
