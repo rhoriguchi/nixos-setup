@@ -7,6 +7,8 @@
   ...
 }:
 let
+  ponytailBandDir = "${config.xdg.configHome}/ponytail/band";
+
   agentJail = import ./jail.nix {
     inherit
       config
@@ -23,6 +25,11 @@ let
     extraPermissions = [
       (agentJail.combinators.try-readwrite config.programs.claude-code.configDir)
       (agentJail.combinators.try-readwrite "${config.home.homeDirectory}/.claude.json")
+
+      (agentJail.combinators.add-runtime ''
+        mkdir -p "${ponytailBandDir}"
+        RUNTIME_ARGS+=(--bind "${ponytailBandDir}" "${ponytailBandDir}")
+      '')
     ];
   };
 in
