@@ -14,7 +14,7 @@
   doas = ./doas.nix;
   docker = ./docker.nix;
   documentation = ./documentation.nix;
-  fail2ban = ./fail2ban.nix;
+  fail2ban = ./fail2ban;
   flatpak = ./flatpak.nix;
   fwupd = ./fwupd.nix;
   gaming = ./gaming.nix;

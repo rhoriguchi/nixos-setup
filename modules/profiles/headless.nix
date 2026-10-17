@@ -8,7 +8,7 @@
     ./chrony.nix
     ./container-auto-prune
     ./containers
-    ./fail2ban.nix
+    ./fail2ban
     ./grafana.nix
     ./infomaniak.nix
     ./loki.nix
