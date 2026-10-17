@@ -52,22 +52,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # TODO remove when merged https://github.com/hyprwm/Hyprland/pull/16288
-    hyprutils = {
-      url = "github:hyprwm/hyprutils?ref=v0.14.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hyprland = {
       # TODO pin tag when hyprland > 0.56.2 is released
       # url = "github:hyprwm/Hyprland?ref=v0.56.2";
-      url = "github:hyprwm/Hyprland?rev=45c8510c9c52aee541ac2b31c2b716d61c526241";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-
-        # TODO remove when merged https://github.com/hyprwm/Hyprland/pull/16288
-        hyprutils.follows = "hyprutils";
-      };
+      url = "github:hyprwm/Hyprland?rev=6cc0822e24ad18df62689de80593541a61b49924";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     jail-nix.url = "sourcehut:~alexdavid/jail.nix";
