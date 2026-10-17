@@ -37,6 +37,7 @@
         ];
       };
       fix-byte-order-marker.enable = true;
+      gitleaks.enable = true;
       markdownlint = {
         enable = true;
 
