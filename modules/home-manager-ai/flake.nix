@@ -3,7 +3,7 @@
 
   inputs = {
     ponytail = {
-      url = "github:DietrichGebert/ponytail?ref=v5.2.0";
+      url = "github:DietrichGebert/ponytail?ref=v5.3.2";
       flake = false;
     };
 
