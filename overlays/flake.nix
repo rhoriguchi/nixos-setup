@@ -59,12 +59,6 @@
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=565157
           sonarr = prev.callPackage (import "${inputs.sonarr}/pkgs/by-name/so/sonarr/package.nix") { };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=572951
-          typescript-language-server =
-            prev.callPackage
-              (import "${inputs.typescript-language-server}/pkgs/by-name/ty/typescript-language-server/package.nix")
-              { };
         })
 
         # TODO remove when resolved
