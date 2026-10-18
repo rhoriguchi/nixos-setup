@@ -28,16 +28,6 @@
       url = "github:NixOS/nixpkgs/pull/569151/head";
       flake = false;
     };
-
-    sonarr = {
-      url = "github:NixOS/nixpkgs/pull/565157/head";
-      flake = false;
-    };
-
-    typescript-language-server = {
-      url = "github:NixOS/nixpkgs/pull/572951/head";
-      flake = false;
-    };
   };
 
   outputs =
@@ -56,9 +46,6 @@
             go = prev.go_1_27;
             buildGoModule = prev.buildGo127Module;
           };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=565157
-          sonarr = prev.callPackage (import "${inputs.sonarr}/pkgs/by-name/so/sonarr/package.nix") { };
         })
 
         # TODO remove when resolved
