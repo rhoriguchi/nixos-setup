@@ -14,6 +14,11 @@
       flake = false;
     };
 
+    "home-assistant-custom-lovelace-modules.easy-floorplan" = {
+      url = "github:NixOS/nixpkgs/pull/575615/head";
+      flake = false;
+    };
+
     jellyfin = {
       url = "github:NixOS/nixpkgs/36ad827548eeb6c254289a3d427c17f78a139da7";
       flake = false;
@@ -45,6 +50,13 @@
           netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") {
             go = prev.go_1_27;
             buildGoModule = prev.buildGo127Module;
+          };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=575615
+          home-assistant-custom-lovelace-modules = prev.home-assistant-custom-lovelace-modules // {
+            easy-floorplan = prev.callPackage (import "${
+              inputs."home-assistant-custom-lovelace-modules.easy-floorplan"
+            }/pkgs/servers/home-assistant/custom-lovelace-modules/easy-floorplan/package.nix") { };
           };
         })
 

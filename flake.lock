@@ -404,6 +404,23 @@
         "type": "github"
       }
     },
+    "home-assistant-custom-lovelace-modules.easy-floorplan": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792331171,
+        "narHash": "sha256-enJh1Dob2LEwARTTp6Vs+/QbfC48jHLsK9NyPh5FX0k=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "32a373452fa09e77128d7597dda391366a72a3e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/575615/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -881,6 +898,7 @@
       "inputs": {
         "flashrom": "flashrom",
         "gamedig": "gamedig",
+        "home-assistant-custom-lovelace-modules.easy-floorplan": "home-assistant-custom-lovelace-modules.easy-floorplan",
         "jellyfin": "jellyfin",
         "jellyfin-ffmpeg": "jellyfin-ffmpeg",
         "netdata": "netdata",
