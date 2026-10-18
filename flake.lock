@@ -349,23 +349,6 @@
         "type": "github"
       }
     },
-    "flashrom": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1789419601,
-        "narHash": "sha256-kXAWCXGTwQsxMqm2OGyXjmBDAqCLZbcKZbiLKuMWzm4=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "45cad503a7a0873ff8fa0542d749b495631808b0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "pull/563332/head",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "gamedig": {
       "flake": false,
       "locked": {
@@ -896,7 +879,6 @@
     },
     "local-overlays": {
       "inputs": {
-        "flashrom": "flashrom",
         "gamedig": "gamedig",
         "home-assistant-custom-lovelace-modules.easy-floorplan": "home-assistant-custom-lovelace-modules.easy-floorplan",
         "jellyfin": "jellyfin",

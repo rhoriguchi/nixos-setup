@@ -4,11 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
-    flashrom = {
-      url = "github:NixOS/nixpkgs/pull/563332/head";
-      flake = false;
-    };
-
     gamedig = {
       url = "github:NixOS/nixpkgs/pull/467867/head";
       flake = false;
@@ -40,9 +35,6 @@
     {
       overlays.default = nixpkgs.lib.composeManyExtensions [
         (_: prev: {
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=563332
-          flashrom = prev.callPackage (import "${inputs.flashrom}/pkgs/by-name/fl/flashrom/package.nix") { };
-
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
 
