@@ -257,6 +257,7 @@ let
                   (area {
                     id = "reduit";
                     name = "Reduit";
+                    entity = "light.group_reduit";
                     points = [
                       [
                         1047
@@ -394,6 +395,7 @@ let
                     x = 1222;
                     y = 635;
                   }
+                  (light "reduit_fugato_color_spot" "light.reduit_fugato_color_spot" 1095 646)
                   (climate {
                     id = "network_closet_climate";
                     temperature = "sensor.network_closet_h_t_gen3_temperature";

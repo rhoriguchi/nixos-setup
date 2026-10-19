@@ -2,6 +2,15 @@
   services.home-assistant.config.light = [
     {
       platform = "group";
+      name = "Reduit Fugato color spot";
+      entities = [
+        "light.reduit_fugato_color_spot_left"
+        "light.reduit_fugato_color_spot_right"
+      ];
+    }
+
+    {
+      platform = "group";
       name = "Group Bedroom";
       entities = [
         "light.bedroom_nightstand_lamp_left"
@@ -39,6 +48,11 @@
         "light.office_signe_gradient_wall"
         "light.office_signe_gradient_door"
       ];
+    }
+    {
+      platform = "group";
+      name = "Group Reduit";
+      entities = [ "light.reduit_fugato_color_spot" ];
     }
   ];
 }

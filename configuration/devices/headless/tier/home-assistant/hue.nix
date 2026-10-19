@@ -220,6 +220,49 @@ in
       }
 
       {
+        alias = "Reset reduit Fugato color spot left when turned on";
+        triggers = [
+          {
+            trigger = "state";
+            entity_id = "light.reduit_fugato_color_spot_left";
+            from = "off";
+            to = "on";
+          }
+        ];
+        actions = [
+          {
+            action = "light.turn_on";
+            target.entity_id = "light.reduit_fugato_color_spot_left";
+            data = {
+              brightness = 255;
+              color_temp_kelvin = 2700;
+            };
+          }
+        ];
+      }
+      {
+        alias = "Reset reduit Fugato color spot right when turned on";
+        triggers = [
+          {
+            trigger = "state";
+            entity_id = "light.reduit_fugato_color_spot_right";
+            from = "off";
+            to = "on";
+          }
+        ];
+        actions = [
+          {
+            action = "light.turn_on";
+            target.entity_id = "light.reduit_fugato_color_spot_right";
+            data = {
+              brightness = 255;
+              color_temp_kelvin = 2700;
+            };
+          }
+        ];
+      }
+
+      {
         alias = "Toggle dining room standing light";
         triggers = [
           {

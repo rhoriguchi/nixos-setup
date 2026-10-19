@@ -334,6 +334,22 @@ in
                       }
                     ];
                   }
+                  {
+                    type = "custom:fold-entity-row";
+                    head = {
+                      name = "Reduit";
+                      entity = "light.group_reduit";
+                    };
+
+                    open = true;
+
+                    entities = [
+                      {
+                        name = "Fugato color spot";
+                        entity = "light.reduit_fugato_color_spot";
+                      }
+                    ];
+                  }
                 ];
               }
               {
