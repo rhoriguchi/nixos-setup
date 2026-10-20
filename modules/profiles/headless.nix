@@ -14,6 +14,5 @@
     ./loki.nix
     ./netdata
     ./nginx.nix
-    ./nix-garbage-collection.nix
   ];
 }

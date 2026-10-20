@@ -10,6 +10,7 @@
     ./keyboard.nix
     ./nftables.nix
     ./nix-cache-client.nix
+    ./nix-garbage-collection.nix
     ./nix-remote-builder-client.nix
     ./nix.nix
     ./nvd.nix
