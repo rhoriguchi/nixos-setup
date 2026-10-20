@@ -9,9 +9,9 @@
     ./kernel-panic.nix
     ./keyboard.nix
     ./nftables.nix
-    ./nix.nix
     ./nix-cache-client.nix
     ./nix-remote-builder-client.nix
+    ./nix.nix
     ./nvd.nix
     ./shell.nix
     ./sudo-rs.nix
