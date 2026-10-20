@@ -9,11 +9,6 @@
       flake = false;
     };
 
-    "home-assistant-custom-lovelace-modules.easy-floorplan" = {
-      url = "github:NixOS/nixpkgs/pull/575615/head";
-      flake = false;
-    };
-
     jellyfin = {
       url = "github:NixOS/nixpkgs/36ad827548eeb6c254289a3d427c17f78a139da7";
       flake = false;
@@ -24,8 +19,8 @@
       flake = false;
     };
 
-    netdata = {
-      url = "github:NixOS/nixpkgs/pull/569151/head";
+    openrazer = {
+      url = "github:NixOS/nixpkgs/pull/576293/head";
       flake = false;
     };
   };
@@ -38,19 +33,32 @@
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
 
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=569151
-          netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") {
-            go = prev.go_1_27;
-            buildGoModule = prev.buildGo127Module;
-          };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=575615
-          home-assistant-custom-lovelace-modules = prev.home-assistant-custom-lovelace-modules // {
-            easy-floorplan = prev.callPackage (import "${
-              inputs."home-assistant-custom-lovelace-modules.easy-floorplan"
-            }/pkgs/servers/home-assistant/custom-lovelace-modules/easy-floorplan/package.nix") { };
-          };
         })
+
+        # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=576293
+        (
+          _: prev:
+          let
+            extendKernelPackages =
+              packages:
+              if packages ? extend then
+                packages.extend (
+                  kernelFinal: _: {
+                    openrazer =
+                      kernelFinal.callPackage (import "${inputs.openrazer}/pkgs/os-specific/linux/openrazer/driver.nix")
+                        { };
+                  }
+                )
+              else
+                packages;
+          in
+          {
+            linuxKernel = prev.linuxKernel // {
+              packages = nixpkgs.lib.mapAttrs (_: extendKernelPackages) prev.linuxKernel.packages;
+              packageAliases = nixpkgs.lib.mapAttrs (_: extendKernelPackages) prev.linuxKernel.packageAliases;
+            };
+          }
+        )
 
         # TODO remove when resolved
         (_: prev: {
