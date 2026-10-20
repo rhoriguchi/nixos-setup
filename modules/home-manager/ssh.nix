@@ -46,9 +46,10 @@ in
         IdentityFile = "${home}/.ssh/gitlab_ed25519";
       };
 
-      "jcrk.synology.me" = {
+      "jdh-server" = {
         User = "xxlpitu";
         Port = 10022;
+        IdentityFile = "${home}/.ssh/jdh_server_ed25519";
       };
     }
     // lib.pipe tailscaleIps [
