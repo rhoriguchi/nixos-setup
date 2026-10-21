@@ -346,7 +346,7 @@ let
                     y = 141;
                   })
 
-                  (light "office_signe_gradient_wall" "light.office_signe_gradient_wall" 1221 452)
+                  (light "office_signe_gradient_wall" "light.office_signe_gradient_wall" 1221 284)
                   (light "office_signe_gradient_door" "light.office_signe_gradient_door" 1039 452)
                   (climate {
                     id = "office_climate";
