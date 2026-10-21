@@ -169,8 +169,14 @@ let
                   "tsukihime"
                   "tvsubtitles"
                   "yifysubtitles"
+
+                  "whisperai"
                 ];
                 enabled_integrations = [ "anidb" ];
+
+                use_whisper_fallback = true;
+                use_whisper_fallback_series = true;
+                parse_embedded_audio_track = true;
 
                 use_radarr = true;
                 use_sonarr = true;
@@ -189,6 +195,17 @@ let
                 api_client._secret = config.sops.secrets."services/bazarr/anidb/apiClient".path;
                 api_client_ver = 1;
               };
+
+              whisperai = {
+                endpoint = "http://${
+                  config.containers."bazarr-${type}".hostAddress
+                }:${config.virtualisation.oci-containers.containers.subgen.environment.WEBHOOK_PORT}";
+
+                pass_video_name = true;
+              };
+
+              # Never resync already timed Whisper output
+              subsync.checker.blacklisted_providers = [ "whisperai" ];
 
               radarr =
                 let
