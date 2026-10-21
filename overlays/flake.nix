@@ -19,6 +19,11 @@
       flake = false;
     };
 
+    nvidia-x11 = {
+      url = "github:NixOS/nixpkgs/pull/576397/head";
+      flake = false;
+    };
+
     openrazer = {
       url = "github:NixOS/nixpkgs/pull/576293/head";
       flake = false;
@@ -35,7 +40,6 @@
 
         })
 
-        # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=576293
         (
           _: prev:
           let
@@ -44,9 +48,17 @@
               if packages ? extend then
                 packages.extend (
                   kernelFinal: _: {
+                    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=576293
                     openrazer =
                       kernelFinal.callPackage (import "${inputs.openrazer}/pkgs/os-specific/linux/openrazer/driver.nix")
                         { };
+
+                    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=576397
+                    nvidiaPackages = nixpkgs.lib.dontRecurseIntoAttrs (
+                      nixpkgs.lib.makeExtensible (
+                        _: kernelFinal.callPackage (import "${inputs.nvidia-x11}/pkgs/os-specific/linux/nvidia-x11") { }
+                      )
+                    );
                   }
                 )
               else
