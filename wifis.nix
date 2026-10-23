@@ -21,10 +21,13 @@ let
     "Hueco Mundo".authProtocols = [ "WPA-PSK" ];
 
     "47555974".authProtocols = [ "WPA-PSK" ];
+    CLARO_WIFI.authProtocols = [ "WPA-PSK" ];
     FastAfBoi.authProtocols = [ "WPA-PSK" ];
     Horidoli.authProtocols = [ "WPA-PSK" ];
+    NETGEAR89.authProtocols = [ "WPA-PSK" ];
     "NO INTERNET ACCESS".authProtocols = [ "WPA-PSK" ];
     NoWIFI4U.authProtocols = [ "WPA-PSK" ];
+    palace.authProtocols = [ "WPA-PSK" ];
     "Streng Guest".authProtocols = [ "WPA-PSK" ];
     TartarosDotHell.authProtocols = [ "WPA-PSK" ];
   };
