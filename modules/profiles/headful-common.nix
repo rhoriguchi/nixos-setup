@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  networking.dhcpcd.wait = "background";
+
   environment.systemPackages = [
     pkgs.baobab
     pkgs.discord
