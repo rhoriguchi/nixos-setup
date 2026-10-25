@@ -19,13 +19,13 @@
       flake = false;
     };
 
-    nvidia-x11 = {
-      url = "github:NixOS/nixpkgs/pull/576397/head";
-      flake = false;
+    mcp-nixos = {
+      url = "github:utensils/mcp-nixos";
+      inputs.nixpkgs.url = "github:NixOS/nixpkgs/b12141ef619e0a9c1c84dc8c684040326f27cdcc";
     };
 
-    openrazer = {
-      url = "github:NixOS/nixpkgs/pull/576293/head";
+    mealie = {
+      url = "github:NixOS/nixpkgs/pull/578307/head";
       flake = false;
     };
   };
@@ -38,39 +38,12 @@
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
 
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=578307
+          mealie = prev.callPackage (import "${inputs.mealie}/pkgs/by-name/me/mealie/package.nix") { };
+
+          # TODO remove when nixpkgs mcp-nixos builds again, currently fastmcp-slim is broken
+          inherit (inputs.mcp-nixos.packages.${prev.stdenv.hostPlatform.system}) mcp-nixos;
         })
-
-        (
-          _: prev:
-          let
-            extendKernelPackages =
-              packages:
-              if packages ? extend then
-                packages.extend (
-                  kernelFinal: _: {
-                    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=576293
-                    openrazer =
-                      kernelFinal.callPackage (import "${inputs.openrazer}/pkgs/os-specific/linux/openrazer/driver.nix")
-                        { };
-
-                    # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=576397
-                    nvidiaPackages = nixpkgs.lib.dontRecurseIntoAttrs (
-                      nixpkgs.lib.makeExtensible (
-                        _: kernelFinal.callPackage (import "${inputs.nvidia-x11}/pkgs/os-specific/linux/nvidia-x11") { }
-                      )
-                    );
-                  }
-                )
-              else
-                packages;
-          in
-          {
-            linuxKernel = prev.linuxKernel // {
-              packages = nixpkgs.lib.mapAttrs (_: extendKernelPackages) prev.linuxKernel.packages;
-              packageAliases = nixpkgs.lib.mapAttrs (_: extendKernelPackages) prev.linuxKernel.packageAliases;
-            };
-          }
-        )
 
         # TODO remove when resolved
         (_: prev: {

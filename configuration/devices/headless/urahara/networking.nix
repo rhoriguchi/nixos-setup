@@ -114,7 +114,7 @@ in
       ];
     };
 
-    firewall.interfaces = lib.pipe config.services.avahi.allowInterfaces [
+    firewall.interfaces = lib.pipe config.services.avahi.settings.server.allow-interfaces [
       (map (
         interface:
         lib.nameValuePair interface {
@@ -133,14 +133,19 @@ in
       enable = true;
 
       openFirewall = false;
-      ipv6 = false;
 
-      reflector = true;
-      allowInterfaces = [
-        "${internalInterface}.2"
-        "${internalInterface}.3"
-        "${internalInterface}.10"
-      ];
+      settings = {
+        server = {
+          use-ipv6 = false;
+          allow-interfaces = [
+            "${internalInterface}.2"
+            "${internalInterface}.3"
+            "${internalInterface}.10"
+          ];
+        };
+
+        reflector.enable-reflector = true;
+      };
     };
 
     frr = {
