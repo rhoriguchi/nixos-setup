@@ -907,6 +907,7 @@
         "jellyfin-ffmpeg": "jellyfin-ffmpeg",
         "mcp-nixos": "mcp-nixos",
         "mealie": "mealie",
+        "netdata": "netdata",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -954,6 +955,23 @@
       "original": {
         "owner": "NixOS",
         "ref": "pull/578307/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "netdata": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792894338,
+        "narHash": "sha256-iXkEoPr0LCunxn7ITnsJZ9hYiCsQ03kt9yHihJ+ANnk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "99744f3cc241d84aba17c3f214c76dc0e01d5318",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/578946/head",
         "repo": "nixpkgs",
         "type": "github"
       }
