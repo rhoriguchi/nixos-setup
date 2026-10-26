@@ -911,6 +911,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
+        "onedrive": "onedrive",
         "tautulli": "tautulli"
       },
       "locked": {
@@ -1242,6 +1243,23 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "onedrive": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792836199,
+        "narHash": "sha256-5+Pj2jwWm32NXpMuk7RVN2Oou0qr5/ZjfLjG1TqfO/8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "cd1669afda570105cb69f06d2a6b5b91a1582080",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/578257/head",
         "repo": "nixpkgs",
         "type": "github"
       }

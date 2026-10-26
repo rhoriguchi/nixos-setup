@@ -34,6 +34,11 @@
       flake = false;
     };
 
+    onedrive = {
+      url = "github:NixOS/nixpkgs/pull/578257/head";
+      flake = false;
+    };
+
     tautulli = {
       url = "github:NixOS/nixpkgs/pull/577581/head";
       flake = false;
@@ -56,6 +61,9 @@
             go = prev.go_1_27;
             buildGoModule = prev.buildGo127Module;
           };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=578257
+          onedrive = prev.callPackage (import "${inputs.onedrive}/pkgs/by-name/on/onedrive/package.nix") { };
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=577581
           tautulli = prev.callPackage (import "${inputs.tautulli}/pkgs/by-name/ta/tautulli/package.nix") { };
