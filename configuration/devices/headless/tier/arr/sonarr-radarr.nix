@@ -235,7 +235,7 @@ let
 
         content = "http://${
           config.containers."${name}-${type}".hostAddress
-        }:${toString config.services.declarative-jellyfin.network.internalHttpPort}/library/refresh?api_key=${
+        }:${toString config.services.declarative-jellyfin.network.internalHttpPort}/library/refresh?ApiKey=${
           config.sops.placeholder."declarr+services/jellyfin/apiKeys/${name}"
         }";
 

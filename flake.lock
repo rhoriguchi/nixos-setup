@@ -813,40 +813,6 @@
         "type": "sourcehut"
       }
     },
-    "jellyfin": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1780990860,
-        "narHash": "sha256-AN+Jdi2y1yI6FRp6bFcWV2VAdlgJdehAmLSouxsreHA=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "36ad827548eeb6c254289a3d427c17f78a139da7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "36ad827548eeb6c254289a3d427c17f78a139da7",
-        "type": "github"
-      }
-    },
-    "jellyfin-ffmpeg": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1787520392,
-        "narHash": "sha256-jY5K98BLpTMkqoMAcqa8hRwkyYmC7zd+wV1k5PPrXsk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f0bbf6065ee0779a042acebaa18b361a496af9f9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f0bbf6065ee0779a042acebaa18b361a496af9f9",
-        "type": "github"
-      }
-    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -903,8 +869,6 @@
     "local-overlays": {
       "inputs": {
         "gamedig": "gamedig",
-        "jellyfin": "jellyfin",
-        "jellyfin-ffmpeg": "jellyfin-ffmpeg",
         "mcp-nixos": "mcp-nixos",
         "mealie": "mealie",
         "netdata": "netdata",
