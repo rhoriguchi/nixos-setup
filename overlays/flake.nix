@@ -33,6 +33,11 @@
       url = "github:NixOS/nixpkgs/pull/578946/head";
       flake = false;
     };
+
+    tautulli = {
+      url = "github:NixOS/nixpkgs/pull/577581/head";
+      flake = false;
+    };
   };
 
   outputs =
@@ -51,6 +56,9 @@
             go = prev.go_1_27;
             buildGoModule = prev.buildGo127Module;
           };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=577581
+          tautulli = prev.callPackage (import "${inputs.tautulli}/pkgs/by-name/ta/tautulli/package.nix") { };
 
           # TODO remove when nixpkgs mcp-nixos builds again, currently fastmcp-slim is broken
           inherit (inputs.mcp-nixos.packages.${prev.stdenv.hostPlatform.system}) mcp-nixos;

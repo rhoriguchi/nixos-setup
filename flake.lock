@@ -910,7 +910,8 @@
         "netdata": "netdata",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "tautulli": "tautulli"
       },
       "locked": {
         "path": "./overlays",
@@ -1433,6 +1434,23 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tautulli": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792712766,
+        "narHash": "sha256-3pbR76xQazqf3jf9IQJ72toUnWimWhUmJTrG2G40zRc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1f9a06c0cc7a8dbfb2a7e6e68683da803ceda836",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/577581/head",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
