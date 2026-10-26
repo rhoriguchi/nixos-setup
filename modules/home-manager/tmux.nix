@@ -66,6 +66,8 @@ in
         unbind C
 
         set -g clock-mode-colour '${colors.normal.accent}'
+        set -g copy-mode-current-match-style bg=magenta,fg=black
+        set -g copy-mode-match-style bg=cyan,fg=black
         set -g message-command-style bg='${colors.normal.black}',fg='${colors.normal.green}'
         set -g message-style bg='${colors.normal.green}',fg='${colors.normal.black}'
         set -g mode-style 'fg=default,bg=default,reverse'
