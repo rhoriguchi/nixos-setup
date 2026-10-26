@@ -62,7 +62,8 @@ let
       (map (
         hostname:
         let
-          tags = (tailscaleIps.${hostname}.tags or [ ]) ++ [ hostname ];
+          hostTags = tailscaleIps.${hostname}.tags or [ ];
+          tags = if hostTags == [ ] then [ hostname ] else hostTags;
         in
         ''
           parse_key "$(cat ${
