@@ -19,10 +19,7 @@
       flake = false;
     };
 
-    mcp-nixos = {
-      url = "github:utensils/mcp-nixos";
-      inputs.nixpkgs.url = "github:NixOS/nixpkgs/b12141ef619e0a9c1c84dc8c684040326f27cdcc";
-    };
+    mcp-nixos.url = "github:utensils/mcp-nixos";
 
     mealie = {
       url = "github:NixOS/nixpkgs/pull/578307/head";
