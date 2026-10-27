@@ -28,6 +28,15 @@ in
       restartUnits = [ config.systemd.services.jellyfin.name ];
     };
 
+    "jellyfin+services/jellyfin/apiKeys/bazarr" = {
+      key = "services/jellyfin/apiKeys/bazarr";
+
+      owner = config.services.jellyfin.user;
+      group = config.services.jellyfin.group;
+
+      restartUnits = [ config.systemd.services.jellyfin.name ];
+    };
+
     "jellyfin+services/jellyfin/apiKeys/radarr" = {
       key = "services/jellyfin/apiKeys/radarr";
 
@@ -114,6 +123,7 @@ in
       logDir = "/var/log/jellyfin";
 
       apikeys = {
+        Bazarr.keyPath = config.sops.secrets."jellyfin+services/jellyfin/apiKeys/bazarr".path;
         Radarr.keyPath = config.sops.secrets."jellyfin+services/jellyfin/apiKeys/radarr".path;
         Sonarr.keyPath = config.sops.secrets."jellyfin+services/jellyfin/apiKeys/sonarr".path;
       };

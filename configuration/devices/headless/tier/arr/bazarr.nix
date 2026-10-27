@@ -13,6 +13,48 @@ let
   bindmountDir2 = "${rootBindmountDir}/disk-series";
   bindmountDir3 = "${rootBindmountDir}/disk-movies";
 
+  # https://github.com/jellyfin/jellyfin/blob/v12.2/Emby.Server.Implementations/Library/LibraryManager.cs#L792-L819
+  # https://github.com/jellyfin/jellyfin/blob/v12.2/MediaBrowser.Common/Extensions/BaseExtensions.cs#L30-L35
+  jellyfinLibraryId =
+    name:
+    lib.fileContents (
+      pkgs.runCommand "jellyfin-library-id"
+        {
+          nativeBuildInputs = [
+            pkgs.gawk
+            pkgs.iconv
+          ];
+          libraryName = name;
+        }
+        ''
+          md5hex="$(
+            printf '%s' "MediaBrowser.Controller.Entities.CollectionFolderroot\\default\\$libraryName" \
+              | iconv -f UTF-8 -t UTF-16LE \
+              | md5sum \
+              | awk '{print $1}'
+          )"
+
+          echo "''${md5hex:6:2}''${md5hex:4:2}''${md5hex:2:2}''${md5hex:0:2}-''${md5hex:10:2}''${md5hex:8:2}-''${md5hex:14:2}''${md5hex:12:2}-''${md5hex:16:4}-''${md5hex:20:12}" > $out
+        ''
+    );
+
+  jellyfinLibraries = {
+    anime = [
+      "Anime"
+      "Anime Movies"
+    ];
+    series-movies = [
+      "TV Shows"
+      "Movies"
+    ];
+  };
+
+  jellyfinLibraryNames =
+    type: contentType:
+    lib.filter (
+      name: config.services.declarative-jellyfin.libraries.${name}.contentType == contentType
+    ) jellyfinLibraries.${type};
+
   getName =
     type:
     lib.pipe type [
@@ -72,6 +114,7 @@ let
         config.sops.secrets."services/bazarr/jimaku/apiKey".path
         config.sops.secrets."services/bazarr/openSubtitles/password".path
         config.sops.secrets."services/bazarr/openSubtitles/username".path
+        config.sops.secrets."bazarr+services/jellyfin/apiKeys/bazarr".path
         config.sops.secrets."bazarr+services/radarr/apiKey".path
         config.sops.secrets."bazarr+services/sonarr/apiKey".path
       ];
@@ -178,6 +221,7 @@ let
                 use_whisper_fallback_series = true;
                 parse_embedded_audio_track = true;
 
+                use_jellyfin = true;
                 use_radarr = true;
                 use_sonarr = true;
               };
@@ -232,6 +276,21 @@ let
                   sync_only_monitored_series = true;
                   series_sync = 15;
                 };
+
+              jellyfin = {
+                url = "http://${
+                  config.containers."bazarr-${type}".hostAddress
+                }:${toString config.services.declarative-jellyfin.network.internalHttpPort}";
+                apikey._secret = config.sops.secrets."bazarr+services/jellyfin/apiKeys/bazarr".path;
+
+                update_series_library = true;
+                series_library = jellyfinLibraryNames type "tvshows";
+                series_library_ids = map jellyfinLibraryId (jellyfinLibraryNames type "tvshows");
+
+                update_movie_library = true;
+                movie_library = jellyfinLibraryNames type "movies";
+                movie_library_ids = map jellyfinLibraryId (jellyfinLibraryNames type "movies");
+              };
             };
           };
         };
@@ -286,6 +345,14 @@ in
       config.systemd.services."container@bazarr-anime".name
       config.systemd.services."container@bazarr-series-movies".name
     ];
+    "bazarr+services/jellyfin/apiKeys/bazarr" = {
+      key = "services/jellyfin/apiKeys/bazarr";
+
+      restartUnits = [
+        config.systemd.services."container@bazarr-anime".name
+        config.systemd.services."container@bazarr-series-movies".name
+      ];
+    };
     "bazarr+services/radarr/apiKey" = {
       key = "services/radarr/apiKey";
 
