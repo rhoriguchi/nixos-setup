@@ -171,6 +171,23 @@
         "type": "github"
       }
     },
+    "diffnav": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793121665,
+        "narHash": "sha256-l4PA4/U+HYGPg7zVAIcAWupVKkmx/S+dugF02oMP6yg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "81f175eeace38780231dd920a2f62d7839296981",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/579731/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "dns": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -868,6 +885,7 @@
     },
     "local-overlays": {
       "inputs": {
+        "diffnav": "diffnav",
         "gamedig": "gamedig",
         "mcp-nixos": "mcp-nixos",
         "mealie": "mealie",

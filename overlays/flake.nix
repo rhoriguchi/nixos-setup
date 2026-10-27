@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
+    diffnav = {
+      url = "github:NixOS/nixpkgs/pull/579731/head";
+      flake = false;
+    };
+
     gamedig = {
       url = "github:NixOS/nixpkgs/pull/467867/head";
       flake = false;
@@ -37,6 +42,9 @@
     {
       overlays.default = nixpkgs.lib.composeManyExtensions [
         (_: prev: {
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=579731
+          diffnav = prev.callPackage (import "${inputs.diffnav}/pkgs/by-name/di/diffnav/package.nix") { };
+
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
 
