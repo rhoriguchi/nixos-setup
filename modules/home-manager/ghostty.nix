@@ -61,7 +61,7 @@
         clipboard-write = "allow";
         clipboard-trim-trailing-spaces = true;
         clipboard-paste-protection = false;
-        copy-on-select = false;
+        copy-on-select = "none";
 
         link-url = true;
 

@@ -14,6 +14,11 @@
       flake = false;
     };
 
+    ghostty = {
+      url = "github:NixOS/nixpkgs/pull/579717/head";
+      flake = false;
+    };
+
     mcp-nixos.url = "github:utensils/mcp-nixos";
 
     mealie = {
@@ -47,6 +52,9 @@
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=579717
+          ghostty = prev.callPackage (import "${inputs.ghostty}/pkgs/by-name/gh/ghostty/package.nix") { };
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=578307
           mealie = prev.callPackage (import "${inputs.mealie}/pkgs/by-name/me/mealie/package.nix") { };
