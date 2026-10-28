@@ -28,6 +28,7 @@ let
     "NO INTERNET ACCESS".authProtocols = [ "WPA-PSK" ];
     NoWIFI4U.authProtocols = [ "WPA-PSK" ];
     palace.authProtocols = [ "WPA-PSK" ];
+    PALACE.authProtocols = [ "WPA-PSK" ];
     "Streng Guest".authProtocols = [ "WPA-PSK" ];
     TartarosDotHell.authProtocols = [ "WPA-PSK" ];
   };
