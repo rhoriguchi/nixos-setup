@@ -21,23 +21,8 @@
 
     mcp-nixos.url = "github:utensils/mcp-nixos";
 
-    mealie = {
-      url = "github:NixOS/nixpkgs/pull/578307/head";
-      flake = false;
-    };
-
     netdata = {
       url = "github:NixOS/nixpkgs/pull/578946/head";
-      flake = false;
-    };
-
-    onedrive = {
-      url = "github:NixOS/nixpkgs/pull/578257/head";
-      flake = false;
-    };
-
-    tautulli = {
-      url = "github:NixOS/nixpkgs/pull/577581/head";
       flake = false;
     };
   };
@@ -56,20 +41,11 @@
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=579717
           ghostty = prev.callPackage (import "${inputs.ghostty}/pkgs/by-name/gh/ghostty/package.nix") { };
 
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=578307
-          mealie = prev.callPackage (import "${inputs.mealie}/pkgs/by-name/me/mealie/package.nix") { };
-
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=578946
           netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") {
             go = prev.go_1_27;
             buildGoModule = prev.buildGo127Module;
           };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=578257
-          onedrive = prev.callPackage (import "${inputs.onedrive}/pkgs/by-name/on/onedrive/package.nix") { };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=577581
-          tautulli = prev.callPackage (import "${inputs.tautulli}/pkgs/by-name/ta/tautulli/package.nix") { };
 
           # TODO remove when nixpkgs mcp-nixos builds again, currently fastmcp-slim is broken
           inherit (inputs.mcp-nixos.packages.${prev.stdenv.hostPlatform.system}) mcp-nixos;
