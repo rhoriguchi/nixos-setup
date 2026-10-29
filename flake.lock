@@ -889,6 +889,22 @@
       },
       "parent": []
     },
+    "local-pykvmd": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./modules/pykvmd",
+        "type": "path"
+      },
+      "original": {
+        "path": "./modules/pykvmd",
+        "type": "path"
+      },
+      "parent": []
+    },
     "mcp-nixos": {
       "inputs": {
         "devshell": "devshell",
@@ -1247,6 +1263,7 @@
         "local-home-manager-ai": "local-home-manager-ai",
         "local-module-overrides": "local-module-overrides",
         "local-overlays": "local-overlays",
+        "local-pykvmd": "local-pykvmd",
         "nix-flatpak": "nix-flatpak",
         "nix-github-actions": "nix-github-actions",
         "nix-index-database": "nix-index-database",
