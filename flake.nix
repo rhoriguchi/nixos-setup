@@ -13,6 +13,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    local-pykvmd = {
+      url = "path:./modules/pykvmd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     declarative-jellyfin = {
       url = "github:Sveske-Juice/declarative-jellyfin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -203,6 +208,7 @@
           { _module.args."self'" = null; }
 
           inputs.local-module-overrides.nixosModules.default
+          inputs.local-pykvmd.nixosModules.default
 
           ./modules/default
         ];
@@ -236,6 +242,7 @@
 
           inputs.local-home-manager-ai.overlays.default
           inputs.local-overlays.overlays.default
+          inputs.local-pykvmd.overlays.default
         ]);
       };
 
