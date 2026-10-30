@@ -29,6 +29,7 @@
         findNoDups = true;
         ignoreAllDups = true;
         ignoreDups = true;
+        ignoreSpace = true;
         saveNoDups = true;
         share = true;
       };
