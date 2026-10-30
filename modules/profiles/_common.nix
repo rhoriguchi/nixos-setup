@@ -1,6 +1,5 @@
 {
   imports = [
-    ./documentation.nix
     ./fwupd.nix
     ./git.nix
     ./hardening.nix

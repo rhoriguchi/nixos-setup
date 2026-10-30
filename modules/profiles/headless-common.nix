@@ -51,4 +51,6 @@
       receiverHostname = "XXLPitu-Tier";
     };
   };
+
+  documentation.enable = false;
 }
