@@ -4,25 +4,13 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
-    diffnav = {
-      url = "github:NixOS/nixpkgs/pull/579731/head";
-      flake = false;
-    };
-
     gamedig = {
       url = "github:NixOS/nixpkgs/pull/467867/head";
       flake = false;
     };
 
-    ghostty = {
-      url = "github:NixOS/nixpkgs/pull/579717/head";
-      flake = false;
-    };
-
-    mcp-nixos.url = "github:utensils/mcp-nixos";
-
-    netdata = {
-      url = "github:NixOS/nixpkgs/pull/578946/head";
+    jellyfin = {
+      url = "github:NixOS/nixpkgs/bf316c9c2a7763dfae6171b3e1622401831ddfec";
       flake = false;
     };
   };
@@ -32,23 +20,8 @@
     {
       overlays.default = nixpkgs.lib.composeManyExtensions [
         (_: prev: {
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=579731
-          diffnav = prev.callPackage (import "${inputs.diffnav}/pkgs/by-name/di/diffnav/package.nix") { };
-
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=579717
-          ghostty = prev.callPackage (import "${inputs.ghostty}/pkgs/by-name/gh/ghostty/package.nix") { };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=578946
-          netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") {
-            go = prev.go_1_27;
-            buildGoModule = prev.buildGo127Module;
-          };
-
-          # TODO remove when nixpkgs mcp-nixos builds again, currently fastmcp-slim is broken
-          inherit (inputs.mcp-nixos.packages.${prev.stdenv.hostPlatform.system}) mcp-nixos;
         })
 
         # TODO remove when resolved
@@ -61,6 +34,19 @@
             idea-oss = prev.jetbrains.idea;
             pycharm-oss = prev.jetbrains.pycharm;
           };
+        })
+
+        # TODO remove when declarative-jellyfin supports latest version
+        (final: _: {
+          jellyfin = final.callPackage (import "${inputs.jellyfin}/pkgs/by-name/je/jellyfin/package.nix") { };
+
+          jellyfin-web =
+            final.callPackage (import "${inputs.jellyfin}/pkgs/by-name/je/jellyfin-web/package.nix")
+              { };
+
+          jellyfin-ffmpeg =
+            final.callPackage (import "${inputs.jellyfin}/pkgs/by-name/je/jellyfin-ffmpeg/package.nix")
+              { };
         })
 
         (_: prev: {
