@@ -160,4 +160,14 @@ in
       backup	${config.users.users.rhoriguchi.home}/	./
     '';
   };
+
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "rsnapshot-manual" ''
+      exec ${pkgs.systemd}/bin/systemd-inhibit \
+        --what=sleep:idle:handle-lid-switch \
+        --who=rsnapshot \
+        --why="Backup running" \
+        ${pkgs.rsnapshot}/bin/rsnapshot manual
+    '')
+  ];
 }
