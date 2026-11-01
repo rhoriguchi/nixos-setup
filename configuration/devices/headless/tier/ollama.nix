@@ -13,7 +13,13 @@
     package =
       if lib.elem "nvidia" config.services.xserver.videoDrivers then pkgs.ollama-cuda else pkgs.ollama;
 
-    environmentVariables.OLLAMA_KEEP_ALIVE = "5m";
+    environmentVariables = {
+      OLLAMA_KEEP_ALIVE = "5m";
+
+      OLLAMA_CONTEXT_LENGTH = "131072";
+      OLLAMA_FLASH_ATTENTION = "1";
+      OLLAMA_NUM_PARALLEL = "1";
+    };
 
     syncModels = true;
     loadModels = [
