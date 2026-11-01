@@ -817,7 +817,8 @@
         "jellyfin": "jellyfin",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "prowlarr": "prowlarr"
       },
       "locked": {
         "path": "./overlays",
@@ -1103,6 +1104,23 @@
       "original": {
         "owner": "cachix",
         "repo": "git-hooks.nix",
+        "type": "github"
+      }
+    },
+    "prowlarr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793570288,
+        "narHash": "sha256-3uWiyKogRI8RDmaVW8qGOErR41BHGHOxRVyMUbQOKkk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "cabf3be15e17d24166d44792f7e7afc39fe6eb08",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/581969/head",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },

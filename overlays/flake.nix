@@ -13,6 +13,11 @@
       url = "github:NixOS/nixpkgs/bf316c9c2a7763dfae6171b3e1622401831ddfec";
       flake = false;
     };
+
+    prowlarr = {
+      url = "github:NixOS/nixpkgs/pull/581969/head";
+      flake = false;
+    };
   };
 
   outputs =
@@ -22,6 +27,9 @@
         (_: prev: {
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=581969
+          prowlarr = prev.callPackage (import "${inputs.prowlarr}/pkgs/by-name/pr/prowlarr/package.nix") { };
         })
 
         # TODO remove when resolved
