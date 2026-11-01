@@ -13,6 +13,10 @@ let
     "63466727-IoT"
   ];
 
+  only24GhzNetworks = [
+    "CLARO_WIFI"
+  ];
+
   networks = {
     "63466727".authProtocols = [ "SAE" ];
     "63466727-Guest".authProtocols = [ "SAE" ];
@@ -42,6 +46,13 @@ let
       lib.optional (lib.elem "SAE" authProtocols) "ieee80211w=2"
       ++ [ "mac_addr=${if headless || lib.elem ssid trustedNetworks then "0" else "2"}" ]
       ++ lib.optional (lib.elem ssid disableEhtNetworks) "disable_eht=1"
+      ++ lib.optional (lib.elem ssid only24GhzNetworks) "freq_list=${
+        lib.pipe (lib.range 1 13) [
+          (map (channel: 2407 + 5 * channel))
+          (frequencies: frequencies ++ [ 2484 ])
+          (lib.concatMapStringsSep " " toString)
+        ]
+      }"
     );
 
   wirelessNetworks = lib.mapAttrs (ssid: value: {
