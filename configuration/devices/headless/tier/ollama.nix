@@ -8,6 +8,8 @@
   services.ollama = {
     enable = true;
 
+    host = "0.0.0.0";
+
     package =
       if lib.elem "nvidia" config.services.xserver.videoDrivers then pkgs.ollama-cuda else pkgs.ollama;
 
@@ -19,4 +21,8 @@
       "gemma4:12b"
     ];
   };
+
+  networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [
+    config.services.ollama.port
+  ];
 }

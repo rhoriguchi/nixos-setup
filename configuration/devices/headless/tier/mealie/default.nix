@@ -8,7 +8,7 @@ let
   aiProviders = lib.optionals config.services.ollama.syncModels (
     map (model: {
       name = "Ollama - ${model}";
-      baseUrl = "http://${config.services.ollama.host}:${toString config.services.ollama.port}/v1";
+      baseUrl = "http://127.0.0.1:${toString config.services.ollama.port}/v1";
       apiKey = "ollama";
       inherit model;
       image = true;
