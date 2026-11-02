@@ -178,6 +178,17 @@ in
         ];
       };
 
+      "${homeDirectory}/.omp/agent/models.yml".source = yamlFormat.generate "models.yml" {
+        providers.ollama = {
+          baseUrl = "http://${tailscaleIps.XXLPitu-Tier.ip}:11434/v1";
+          api = "openai-responses";
+          auth = "none";
+          discovery.type = "ollama";
+
+          modelOverrides."gemma4:12b".contextWindow = 131072;
+        };
+      };
+
       "${homeDirectory}/.omp/agent/themes/${themeName}.json".source =
         jsonFormat.generate "${themeName}.json" theme;
 
