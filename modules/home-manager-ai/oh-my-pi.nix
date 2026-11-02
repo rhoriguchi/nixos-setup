@@ -185,7 +185,10 @@ in
           auth = "none";
           discovery.type = "ollama";
 
-          modelOverrides."gemma4:12b".contextWindow = 131072;
+          modelOverrides = {
+            "gemma4:12b".contextWindow = 131072;
+            "qwen3-vl:8b".contextWindow = 131072;
+          };
         };
       };
 
