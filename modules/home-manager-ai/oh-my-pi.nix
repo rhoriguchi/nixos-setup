@@ -2,6 +2,7 @@
   colors,
   config,
   lib,
+  libCustom,
   libJail,
   osConfig,
   pkgs,
@@ -10,6 +11,10 @@
 let
   jsonFormat = pkgs.formats.json { };
   yamlFormat = pkgs.formats.yaml { };
+
+  tailscaleIps = import (
+    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
+  );
 
   homeDirectory = config.home.homeDirectory;
 
@@ -164,6 +169,9 @@ in
         startup.checkUpdate = false;
 
         compaction.handoffSaveToDisk = true;
+
+        memory.backend = "hindsight";
+        hindsight.apiUrl = "http://${tailscaleIps.XXLPitu-Tier.ip}:8888";
 
         dev.autoqa = false;
 

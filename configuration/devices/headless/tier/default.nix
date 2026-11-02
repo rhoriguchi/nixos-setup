@@ -12,6 +12,7 @@
     ./couchdb.nix
     ./fancontrol.nix
     ./grafana
+    ./hindsight.nix
     ./home-assistant
     ./jellyfin.nix
     ./loki.nix

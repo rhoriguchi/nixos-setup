@@ -237,6 +237,7 @@ in
               dst = [ "xxlpitu-tier" ];
               ip = [
                 "tcp:5000" # Harmonia
+                "tcp:8888" # Hindsight
                 "tcp:11434" # Ollama
               ];
             }
