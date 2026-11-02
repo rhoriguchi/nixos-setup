@@ -30,415 +30,8 @@
       },
       "id": 1,
       "panels": [],
-      "title": "GPU",
+      "title": "iGPU and services",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "max": 100,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 0,
-        "y": 1
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "12.4.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "netdata_nvidia_smi_gpu_utilization_percent_average",
-          "legendFormat": "GPU",
-          "refId": "A",
-          "range": true,
-          "instant": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "netdata_nvidia_smi_gpu_encoder_utilization_percent_average",
-          "legendFormat": "encoder",
-          "refId": "B",
-          "range": true,
-          "instant": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "netdata_nvidia_smi_gpu_decoder_utilization_percent_average",
-          "legendFormat": "decoder",
-          "refId": "C",
-          "range": true,
-          "instant": false
-        }
-      ],
-      "title": "Quadro RTX 5000 load",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 5,
-        "x": 8,
-        "y": 1
-      },
-      "id": 3,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "12.4.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "netdata_nvidia_smi_gpu_frame_buffer_memory_usage_B_average{netdata_dimension=\"used\"}",
-          "legendFormat": "used",
-          "refId": "A",
-          "range": true,
-          "instant": false
-        }
-      ],
-      "title": "VRAM used",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "watt"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "temp C"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              },
-              {
-                "id": "unit",
-                "value": "celsius"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 13,
-        "y": 1
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "pluginVersion": "12.4.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "netdata_nvidia_smi_gpu_power_draw_Watts_average",
-          "legendFormat": "power W",
-          "refId": "A",
-          "range": true,
-          "instant": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "netdata_nvidia_smi_gpu_temperature_Celsius_average",
-          "legendFormat": "temp C",
-          "refId": "B",
-          "range": true,
-          "instant": false
-        }
-      ],
-      "title": "Power / temperature",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 5,
-        "x": 19,
-        "y": 1
-      },
-      "id": 5,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.4.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "netdata_nvidia_smi_gpu_performance_state_state_average == 1",
-          "legendFormat": "{{netdata_dimension}}",
-          "refId": "A",
-          "range": false,
-          "instant": true
-        }
-      ],
-      "title": "P-state",
-      "type": "stat"
     },
     {
       "datasource": {
@@ -500,9 +93,9 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 12,
+        "w": 8,
         "x": 0,
-        "y": 8
+        "y": 1
       },
       "id": 6,
       "options": {
@@ -608,9 +201,9 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 12,
-        "x": 12,
-        "y": 8
+        "w": 8,
+        "x": 8,
+        "y": 1
       },
       "id": 7,
       "options": {
@@ -634,7 +227,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum by (service_name) (netdata_systemd_service_cpu_utilization_percentage_average{hostname=\"XXLPitu-Tier\", service_name=~\"jellyfin|plex|ollama|prowlarr|home-assistant|mealie|couchdb|syncthing\"})",
+          "expr": "sum by (service_name) (netdata_systemd_service_cpu_utilization_percentage_average{hostname=\"XXLPitu-Tier\", service_name=~\"jellyfin|plex|prowlarr|home-assistant|couchdb|syncthing\"})",
           "legendFormat": "{{service_name}}",
           "refId": "A",
           "range": true,
@@ -704,9 +297,9 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 12,
-        "x": 0,
-        "y": 14
+        "w": 8,
+        "x": 16,
+        "y": 1
       },
       "id": 8,
       "options": {
@@ -730,7 +323,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum by (service_name) (netdata_systemd_service_memory_ram_usage_MiB_average{hostname=\"XXLPitu-Tier\", netdata_dimension=~\"anon|file\", service_name=~\"jellyfin|plex|ollama|prowlarr|home-assistant|mealie|couchdb|syncthing\"})",
+          "expr": "sum by (service_name) (netdata_systemd_service_memory_ram_usage_MiB_average{hostname=\"XXLPitu-Tier\", netdata_dimension=~\"anon|file\", service_name=~\"jellyfin|plex|prowlarr|home-assistant|couchdb|syncthing\"})",
           "legendFormat": "{{service_name}}",
           "refId": "A",
           "range": true,
@@ -746,7 +339,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 7
       },
       "id": 9,
       "panels": [],
@@ -815,7 +408,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 8
       },
       "id": 10,
       "options": {
@@ -910,7 +503,7 @@
         "h": 7,
         "w": 6,
         "x": 12,
-        "y": 21
+        "y": 8
       },
       "id": 11,
       "options": {
@@ -1006,7 +599,7 @@
         "h": 7,
         "w": 6,
         "x": 18,
-        "y": 21
+        "y": 8
       },
       "id": 12,
       "options": {
@@ -1046,7 +639,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 15
       },
       "id": 13,
       "panels": [],
@@ -1114,7 +707,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 29
+        "y": 16
       },
       "id": 14,
       "options": {
@@ -1160,7 +753,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 29
+        "y": 16
       },
       "id": 15,
       "options": {
@@ -1198,7 +791,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 23
       },
       "id": 16,
       "panels": [],
@@ -1241,7 +834,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 37
+        "y": 24
       },
       "id": 17,
       "options": {
@@ -1321,7 +914,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 37
+        "y": 24
       },
       "id": 18,
       "options": {
@@ -1427,7 +1020,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 37
+        "y": 24
       },
       "id": 19,
       "options": {
@@ -1498,7 +1091,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 31
       },
       "id": 20,
       "options": {
@@ -1558,7 +1151,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 48
+        "y": 35
       },
       "id": 21,
       "panels": [],
@@ -1627,7 +1220,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 49
+        "y": 36
       },
       "id": 22,
       "options": {
@@ -1734,7 +1327,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 49
+        "y": 36
       },
       "id": 23,
       "options": {
