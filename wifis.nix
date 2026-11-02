@@ -55,12 +55,22 @@ let
       }"
     );
 
-  wirelessNetworks = lib.mapAttrs (ssid: value: {
-    inherit (value) authProtocols;
-    pskRaw = "ext:${ssid}";
-    extraConfig = mkExtraConfig ssid value.authProtocols { };
-  }) networks;
+  wirelessNetworks = lib.mapAttrs (
+    ssid: value:
+    {
+      inherit (value) authProtocols;
+      extraConfig = mkExtraConfig ssid value.authProtocols { };
+    }
+    // lib.optionalAttrs (value.authProtocols != [ "NONE" ]) { pskRaw = "ext:${ssid}"; }
+  ) networks;
+
+  passwordSsids = lib.attrNames (lib.filterAttrs (_: network: network ? pskRaw) wirelessNetworks);
 in
 {
-  inherit trustedNetworks mkExtraConfig wirelessNetworks;
+  inherit
+    trustedNetworks
+    mkExtraConfig
+    wirelessNetworks
+    passwordSsids
+    ;
 }

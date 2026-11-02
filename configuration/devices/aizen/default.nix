@@ -15,9 +15,7 @@
 
   sops = {
     secrets =
-      lib.listToAttrs (
-        map (ssid: lib.nameValuePair "wifis/${ssid}" { }) (lib.attrNames wifis.wirelessNetworks)
-      )
+      lib.listToAttrs (map (ssid: lib.nameValuePair "wifis/${ssid}" { }) wifis.passwordSsids)
       // {
         "nix/settings/access-tokens/github.com" = { };
 
@@ -30,9 +28,7 @@
         owner = "wpa_supplicant";
 
         content = lib.concatStrings (
-          map (ssid: "${ssid}=${config.sops.placeholder."wifis/${ssid}"}\n") (
-            lib.attrNames wifis.wirelessNetworks
-          )
+          map (ssid: "${ssid}=${config.sops.placeholder."wifis/${ssid}"}\n") wifis.passwordSsids
         );
 
         restartUnits = [ config.systemd.services.wpa_supplicant.name ];
