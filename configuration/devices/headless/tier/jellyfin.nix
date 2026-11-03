@@ -37,6 +37,15 @@ in
       restartUnits = [ config.systemd.services.jellyfin.name ];
     };
 
+    "jellyfin+services/jellyfin/apiKeys/cleanupEmptyDirs" = {
+      key = "services/jellyfin/apiKeys/cleanupEmptyDirs";
+
+      owner = config.services.jellyfin.user;
+      group = config.services.jellyfin.group;
+
+      restartUnits = [ config.systemd.services.jellyfin.name ];
+    };
+
     "jellyfin+services/jellyfin/apiKeys/radarr" = {
       key = "services/jellyfin/apiKeys/radarr";
 
@@ -124,6 +133,8 @@ in
 
       apikeys = {
         Bazarr.keyPath = config.sops.secrets."jellyfin+services/jellyfin/apiKeys/bazarr".path;
+        CleanupEmptyDirs.keyPath =
+          config.sops.secrets."jellyfin+services/jellyfin/apiKeys/cleanupEmptyDirs".path;
         Radarr.keyPath = config.sops.secrets."jellyfin+services/jellyfin/apiKeys/radarr".path;
         Sonarr.keyPath = config.sops.secrets."jellyfin+services/jellyfin/apiKeys/sonarr".path;
       };
