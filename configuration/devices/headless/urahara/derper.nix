@@ -6,7 +6,7 @@
 
       openFirewall = true;
 
-      verifyClients = false;
+      verifyClients = true;
 
       domain = "derp-zrh.00a.ch";
       configureNginx = true;

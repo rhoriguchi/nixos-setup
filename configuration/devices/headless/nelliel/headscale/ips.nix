@@ -35,7 +35,10 @@
   };
   XXLPitu-Nelliel = {
     ip = "100.123.123.251";
-    tags = [ "headless" ];
+    tags = [
+      "derp"
+      "headless"
+    ];
   };
   XXLPitu-Tier = {
     ip = "100.123.123.92";
@@ -48,6 +51,7 @@
   XXLPitu-Urahara = {
     ip = "100.123.123.113";
     tags = [
+      "derp"
       "exit-node"
       "headless"
     ];

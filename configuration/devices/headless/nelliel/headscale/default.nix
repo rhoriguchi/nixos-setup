@@ -196,6 +196,7 @@ in
 
           tagOwners = {
             "tag:admin" = [ ];
+            "tag:derp" = [ ];
             "tag:exit-node" = [ ];
             "tag:gaming" = [ ];
             "tag:headful" = [ ];
@@ -205,6 +206,14 @@ in
           autoApprovers.exitNode = [ "tag:exit-node" ];
 
           grants = [
+            {
+              src = [ "*" ];
+              dst = [ "tag:derp" ];
+              ip = [
+                "tcp:443" # DERP verifyClients needs peer visibility
+              ];
+            }
+
             {
               src = [ "tag:admin" ];
               dst = [ "tag:headless" ];
