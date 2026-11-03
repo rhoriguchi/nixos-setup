@@ -59,7 +59,12 @@
 
         security.secret_key = "$__file{${config.sops.secrets."services/grafana/secretKey".path}}";
 
-        auth.disable_login_form = true;
+        auth = {
+          disable_login = true;
+          disable_login_form = true;
+        };
+
+        "auth.basic".enabled = false;
 
         "auth.generic_oauth" = {
           enabled = true;
