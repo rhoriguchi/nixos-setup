@@ -1,6 +1,6 @@
 { lib }:
 let
-  trustedNetworks = [
+  permanentMacNetworks = [
     "63466727"
     "63466727-Guest"
     "63466727-IoT"
@@ -44,7 +44,7 @@ let
     }:
     lib.concatStringsSep "\n" (
       lib.optional (lib.elem "SAE" authProtocols) "ieee80211w=2"
-      ++ [ "mac_addr=${if headless || lib.elem ssid trustedNetworks then "0" else "2"}" ]
+      ++ [ "mac_addr=${if headless || lib.elem ssid permanentMacNetworks then "0" else "2"}" ]
       ++ lib.optional (lib.elem ssid disableEhtNetworks) "disable_eht=1"
       ++ lib.optional (lib.elem ssid only24GhzNetworks) "freq_list=${
         lib.pipe (lib.range 1 13) [
@@ -68,7 +68,7 @@ let
 in
 {
   inherit
-    trustedNetworks
+    permanentMacNetworks
     mkExtraConfig
     wirelessNetworks
     passwordSsids
