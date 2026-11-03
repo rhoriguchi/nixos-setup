@@ -53,6 +53,17 @@ let
       agentJail.combinators.open-urls-in-browser
 
       (agentJail.combinators.set-env "PUPPETEER_EXECUTABLE_PATH" "${pkgs.chromium}/bin/chromium")
+
+      (agentJail.combinators.add-runtime ''
+        case "$(realpath "$PWD")" in
+          /tmp | /tmp/*)
+            RUNTIME_ARGS+=(
+              --setenv HINDSIGHT_AUTO_RETAIN 0
+              --setenv HINDSIGHT_AUTO_RECALL 0
+            )
+            ;;
+        esac
+      '')
     ];
   };
 
