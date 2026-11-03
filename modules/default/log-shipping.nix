@@ -40,8 +40,22 @@ in
           }
         }
 
-        loki.relabel "default" {
+        loki.process "redact" {
           forward_to = [loki.write.default.receiver]
+
+          stage.replace {
+            expression = `(?i)(?:api[_-]?key|auth[_-]?token|access[_-]?token|x-plex-token)=([^&\s"]+)`
+            replace = "REDACTED"
+          }
+
+          stage.replace {
+            expression = `(?i)security password: (\S+)`
+            replace = "REDACTED"
+          }
+        }
+
+        loki.relabel "default" {
+          forward_to = [loki.process.redact.receiver]
 
           rule {
             source_labels = ["hostname"]
