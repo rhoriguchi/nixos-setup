@@ -131,7 +131,12 @@ let
       SET given_name = '${lib.toLower hostname}',
           ipv4 = '${tailscaleIps.${hostname}.ip}',
           tags = (SELECT tags FROM pre_auth_keys WHERE id = ${getHostId hostname})
-      WHERE auth_key_id = ${getHostId hostname};
+      WHERE auth_key_id = ${getHostId hostname}
+        AND (
+          given_name IS NOT '${lib.toLower hostname}'
+          OR ipv4 IS NOT '${tailscaleIps.${hostname}.ip}'
+          OR tags IS NOT (SELECT tags FROM pre_auth_keys WHERE id = ${getHostId hostname})
+        );
     ''))
 
     (lib.concatStringsSep "\n")
@@ -381,7 +386,7 @@ in
           BEGIN;
 
           ${updateNodesSql}
-          SELECT changes();
+          SELECT total_changes();
 
           COMMIT;
         EOF
