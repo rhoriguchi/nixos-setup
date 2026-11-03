@@ -1,5 +1,21 @@
 { config, ... }:
+let
+  port = 3100;
+in
 {
+  sops = {
+    secrets."nginx+services/loki/pushPassword".key = "services/loki/pushPassword";
+
+    templates."services.nginx.loki.htpasswd" = {
+      content = "alloy:{PLAIN}${config.sops.placeholder."nginx+services/loki/pushPassword"}";
+
+      owner = config.services.nginx.user;
+      group = config.services.nginx.group;
+
+      reloadUnits = [ config.systemd.services.nginx.name ];
+    };
+  };
+
   fileSystems."/mnt/Data/Monitoring/loki" = {
     depends = [ "/mnt/Data/Monitoring" ];
     device = config.services.loki.dataDir;
@@ -16,8 +32,8 @@
       auth_enabled = false;
 
       server = {
-        http_listen_address = "0.0.0.0";
-        http_listen_port = 3100;
+        http_listen_address = "127.0.0.1";
+        http_listen_port = 56711;
 
         grpc_listen_port = 0;
       };
@@ -67,7 +83,34 @@
     };
   };
 
+  services.nginx = {
+    enable = true;
+
+    virtualHosts."loki" = {
+      listen = [
+        {
+          addr = "0.0.0.0";
+          port = port;
+        }
+      ];
+
+      basicAuthFile = config.sops.templates."services.nginx.loki.htpasswd".path;
+
+      extraConfig = ''
+        access_log off;
+        client_max_body_size 16m;
+      '';
+
+      locations = {
+        "= /loki/api/v1/push".proxyPass =
+          "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}";
+
+        "/".return = 404;
+      };
+    };
+  };
+
   networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [
-    config.services.loki.configuration.server.http_listen_port
+    port
   ];
 }

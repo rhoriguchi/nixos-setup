@@ -15,6 +15,7 @@ in
   options.services.metricShipping = {
     enable = lib.mkEnableOption "Ship logs with Grafana Alloy to Loki";
     receiverHostname = lib.mkOption { type = lib.types.nullOr lib.types.nonEmptyStr; };
+    passwordFile = lib.mkOption { type = lib.types.path; };
   };
 
   config = lib.mkIf cfg.enable {
@@ -27,6 +28,10 @@ in
 
     services.alloy.enable = true;
 
+    systemd.services.alloy.serviceConfig.LoadCredential = [
+      "prometheusPushPassword:${cfg.passwordFile}"
+    ];
+
     environment.etc."alloy/prometheus.alloy".text = ''
       prometheus.remote_write "default" {
         endpoint {
@@ -36,6 +41,11 @@ in
             else
               tailscaleIps.${cfg.receiverHostname}.ip
           }:9090/api/v1/write"
+
+          basic_auth {
+            username = "alloy"
+            password_file = sys.env("CREDENTIALS_DIRECTORY") + "/prometheusPushPassword"
+          }
         }
       }
 

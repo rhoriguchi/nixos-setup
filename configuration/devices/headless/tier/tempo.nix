@@ -1,7 +1,3 @@
-{
-  config,
-  ...
-}:
 let
   grpcPort = 4317;
 in
@@ -20,7 +16,7 @@ in
       settings = {
         server.http_listen_port = 3200;
 
-        distributor.receivers.otlp.protocols.grpc.endpoint = "0.0.0.0:${toString grpcPort}";
+        distributor.receivers.otlp.protocols.grpc.endpoint = "127.0.0.1:${toString grpcPort}";
 
         storage.trace = {
           backend = "local";
@@ -42,8 +38,4 @@ in
       };
     };
   };
-
-  networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [
-    grpcPort
-  ];
 }

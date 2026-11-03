@@ -4,7 +4,21 @@
   ...
 }:
 {
-  sops.secrets."users/xxlpitu".neededForUsers = true;
+  sops.secrets = {
+    "users/xxlpitu".neededForUsers = true;
+
+    "alloy+services/loki/pushPassword" = {
+      key = "services/loki/pushPassword";
+
+      restartUnits = [ config.systemd.services.alloy.name ];
+    };
+
+    "alloy+services/prometheus/pushPassword" = {
+      key = "services/prometheus/pushPassword";
+
+      restartUnits = [ config.systemd.services.alloy.name ];
+    };
+  };
 
   # https://docs.kernel.org/next/admin-guide/sysctl/kernel.html
   boot.kernel.sysctl = {
@@ -37,12 +51,14 @@
       enable = true;
 
       receiverHostname = "XXLPitu-Tier";
+      passwordFile = config.sops.secrets."alloy+services/loki/pushPassword".path;
     };
 
     metricShipping = {
       enable = true;
 
       receiverHostname = "XXLPitu-Tier";
+      passwordFile = config.sops.secrets."alloy+services/prometheus/pushPassword".path;
     };
 
     tracesShipping = {
