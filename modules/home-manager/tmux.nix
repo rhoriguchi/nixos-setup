@@ -62,6 +62,12 @@ in
 
         bind g command-prompt -p index { select-window -t ":%%" }
 
+        unbind p
+        bind -n S-Left previous-window
+
+        unbind n
+        bind -n S-Right next-window
+
         bind / copy-mode \; send-key C-r
         bind -n C-l send-keys C-l \; run 'sleep 0.2' \; clear-history
 
