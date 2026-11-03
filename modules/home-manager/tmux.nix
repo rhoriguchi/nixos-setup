@@ -60,6 +60,8 @@ in
         unbind '0'
         bind 0 select-window -t :10
 
+        bind g command-prompt -p index { select-window -t ":%%" }
+
         bind / copy-mode \; send-key C-r
         bind -n C-l send-keys C-l \; run 'sleep 0.2' \; clear-history
 
