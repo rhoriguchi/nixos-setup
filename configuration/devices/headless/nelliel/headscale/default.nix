@@ -59,48 +59,42 @@ let
     EOF
 
     ${lib.pipe hostnames [
-      (map (
-        hostname:
-        let
-          hostTags = tailscaleIps.${hostname}.tags or [ ];
-          tags = if hostTags == [ ] then [ hostname ] else hostTags;
-        in
-        ''
-          parse_key "$(cat ${
-            config.sops.secrets."headscale+services/headscale/preAuthKeys/${hostname}".path
-          })"
+      (map (hostname: ''
+        parse_key "$(cat ${
+          config.sops.secrets."headscale+services/headscale/preAuthKeys/${hostname}".path
+        })"
 
-          preAuthKeyPrefix="$key_prefix"
-          preAuthKeyHash="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "$key_secret" | cut -d: -f2)"
+        preAuthKeyPrefix="$key_prefix"
+        preAuthKeyHash="$(${pkgs.apacheHttpd}/bin/htpasswd -bnBC 10 "" "$key_secret" | cut -d: -f2)"
 
-          ${sqlite} "${sqlitePath}" <<EOF
-            INSERT INTO pre_auth_keys (
-              id,
-              created_at,
-              expiration,
-              tags,
-              ephemeral,
-              reusable,
-              prefix,
-              hash
-            ) VALUES (
-              ${getHostId hostname},
-              '${unixEpoch}',
-              '${expiration}',
-              '[${
-                lib.pipe tags [
-                  (map (tag: ''"tag:${lib.toLower tag}"''))
-                  (lib.concatStringsSep ",")
-                ]
-              }]',
-              0,
-              1,
-              '$preAuthKeyPrefix',
-              '$preAuthKeyHash'
-            );
-          EOF
-        ''
-      ))
+        ${sqlite} "${sqlitePath}" <<EOF
+          INSERT INTO pre_auth_keys (
+            id,
+            created_at,
+            expiration,
+            tags,
+            ephemeral,
+            reusable,
+            prefix,
+            hash
+          ) VALUES (
+            ${getHostId hostname},
+            '${unixEpoch}',
+            '${expiration}',
+            '[${
+              lib.pipe (tailscaleIps.${hostname}.tags or [ ]) [
+                (hostTags: if hostTags == [ ] then [ hostname ] else hostTags)
+                (map (tag: ''"tag:${lib.toLower tag}"''))
+                (lib.concatStringsSep ",")
+              ]
+            }]',
+            0,
+            1,
+            '$preAuthKeyPrefix',
+            '$preAuthKeyHash'
+          );
+        EOF
+      ''))
 
       (lib.concatStringsSep "\n")
     ]}
