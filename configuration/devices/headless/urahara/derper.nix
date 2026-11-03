@@ -1,4 +1,3 @@
-{ ... }:
 {
   services = {
     tailscale.derper = {
