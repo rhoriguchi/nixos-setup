@@ -122,6 +122,7 @@ in
             }
             {
               domain_regex = "^(?P<Group>[^.]+)\\.00a\\.ch$";
+              subject = [ "group:{{ .Group }}" ];
               policy = "one_factor";
             }
           ];
