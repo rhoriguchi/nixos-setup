@@ -24,6 +24,7 @@
   - Shelly
     - Wake up sensor with button or wait till it shows up
   - Thread
+  - UI eXtension
 - Settings to change
   - `Profile` (bottom left user icon) -> `Advanced mode = true`
   - Configure default network interface

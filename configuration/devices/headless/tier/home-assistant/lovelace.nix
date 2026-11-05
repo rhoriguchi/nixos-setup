@@ -41,9 +41,10 @@ in
     nginx.virtualHosts."home-assistant.00a.ch".locations."/local/".alias = "/run/nginx-hass/";
 
     home-assistant = {
+      customComponents = [ pkgs.home-assistant-custom-components.uix ];
+
       customLovelaceModules = [
         pkgs.home-assistant-custom-lovelace-modules.battery-state-card
-        pkgs.home-assistant-custom-lovelace-modules.card-mod
         pkgs.home-assistant-custom-lovelace-modules.fold-entity-row
         pkgs.home-assistant-custom-lovelace-modules.mini-graph-card
       ];
