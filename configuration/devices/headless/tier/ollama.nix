@@ -16,7 +16,7 @@
     environmentVariables = {
       OLLAMA_KEEP_ALIVE = "5m";
 
-      OLLAMA_CONTEXT_LENGTH = "131072";
+      OLLAMA_CONTEXT_LENGTH = toString (1024 * 128);
       OLLAMA_FLASH_ATTENTION = "1";
       OLLAMA_NUM_PARALLEL = "1";
     };
