@@ -25,6 +25,7 @@ in
         "backlight"
         "battery"
         "pulseaudio"
+        "pulseaudio#microphone"
       ]
       ++ lib.optional (!osConfig.services.blueman.enable) "bluetooth"
       ++ [
@@ -241,10 +242,8 @@ in
           " "
           "  "
         ];
-        format-bluetooth = " {volume}% {format_source}";
+        format-bluetooth = " {volume}%";
         format-bluetooth-muted = "<span color='${disabledColor}'> </span>";
-        format-source = " {volume}%";
-        format-source-muted = " ";
 
         tooltip = false;
 
@@ -254,6 +253,19 @@ in
         smooth-scrolling-threshold = 1;
         on-scroll-up = "${pkgs.wtype}/bin/wtype -k XF86AudioRaiseVolume";
         on-scroll-down = "${pkgs.wtype}/bin/wtype -k XF86AudioLowerVolume";
+      };
+
+      "pulseaudio#microphone" = {
+        format = "{format_source}";
+        format-muted = "{format_source}";
+        format-bluetooth = "{format_source}";
+        format-bluetooth-muted = "{format_source}";
+        format-source = " {volume}%";
+        format-source-muted = "<span color='${disabledColor}'> </span>";
+
+        tooltip = false;
+
+        on-click = "${pkgs.wtype}/bin/wtype -k XF86AudioMicMute";
       };
 
       tray = {
