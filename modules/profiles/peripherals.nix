@@ -8,14 +8,6 @@
   programs = {
     bazecor.enable = true;
 
-    solaar = {
-      enable = true;
-
-      userService = {
-        enable = true;
-
-        extraArgs = [ "--restart-on-wake-up" ];
-      };
-    };
+    openlogi.enable = true;
   };
 }

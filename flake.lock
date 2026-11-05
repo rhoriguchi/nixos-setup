@@ -799,7 +799,8 @@
     },
     "local-module-overrides": {
       "inputs": {
-        "nixos/netdata": "nixos/netdata"
+        "nixos/netdata": "nixos/netdata",
+        "nixos/openlogi": "nixos/openlogi"
       },
       "locked": {
         "path": "./modules/overrides",
@@ -1033,6 +1034,23 @@
       "original": {
         "owner": "NixOS",
         "ref": "pull/507414/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixos/openlogi": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793851093,
+        "narHash": "sha256-g6d/37HWDh3/SksvBvLVUSQcXH2AWKP/IVNMTxmekbI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "038884c6487a080c25939ee5b9efe59e04437eec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/583451/head",
         "repo": "nixpkgs",
         "type": "github"
       }
