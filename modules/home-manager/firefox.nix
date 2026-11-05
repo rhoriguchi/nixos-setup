@@ -45,6 +45,11 @@
         pkgs.firefox-addons.wappalyzer
       ];
 
+      policies = {
+        DisableFirefoxStudies = true;
+        DisableTelemetry = true;
+      };
+
       profiles.default = {
         isDefault = true;
 

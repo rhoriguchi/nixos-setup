@@ -24,6 +24,8 @@ in
           local.path = "/var/lib/tempo/blocks";
         };
 
+        usage_report.reporting_enabled = false;
+
         live_store = {
           wal.path = "/var/lib/tempo/live-store/traces";
           shutdown_marker_dir = "/var/lib/tempo/live-store/shutdown-marker";

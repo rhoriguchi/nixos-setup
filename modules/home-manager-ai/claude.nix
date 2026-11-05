@@ -47,8 +47,11 @@ in
       skills.skill-creator = "${pkgs.skills.skill-creator}/skill-creator";
 
       settings = {
-        enableTelemetry = false;
-        showFeedbackSurvey = false;
+        # https://code.claude.com/docs/en/data-usage#telemetry-services
+        env = {
+          DISABLE_ERROR_REPORTING = "1";
+          DISABLE_TELEMETRY = "1";
+        };
 
         enableArtifact = false;
 

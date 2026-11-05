@@ -39,6 +39,7 @@
     preStart = ''
       ${pkgs.gnused}/bin/sed -i '/http_password/d' '${config.services.tautulli.configFile}'
       ${pkgs.gnused}/bin/sed -i '/http_username/d' '${config.services.tautulli.configFile}'
+      ${pkgs.gnused}/bin/sed -i -e '/^system_analytics/d' -e '/^\[Advanced\]/a system_analytics = 0' '${config.services.tautulli.configFile}'
     '';
     preStop = preStart;
   };
