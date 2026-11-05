@@ -83,6 +83,12 @@ in
         # hindsight marks consolidation_failed_at and moves past.
         HINDSIGHT_API_CONSOLIDATION_MAX_COMPLETION_TOKENS = toString (1024 * 8);
 
+        # Unset by default; mental-model refresh calls (retraction/delta ops)
+        # read this cap. A looping gemma4:12b call otherwise generates until the
+        # LLM timeout (~30k tokens, 5 min), blocking the single ollama slot and
+        # starving retain.
+        HINDSIGHT_API_REFLECT_MAX_COMPLETION_TOKENS = toString (1024 * 8);
+
         # Embeddings/reranker providers default to `local`.
         HF_HOME = "/var/cache/hindsight/huggingface";
         HOME = "/var/lib/hindsight";
