@@ -3,6 +3,7 @@
   config,
   lib,
   libCustom,
+  osConfig,
   pkgs,
   ...
 }:
@@ -24,7 +25,9 @@ in
         "backlight"
         "battery"
         "pulseaudio"
-        "bluetooth"
+      ]
+      ++ lib.optional (!osConfig.services.blueman.enable) "bluetooth"
+      ++ [
         "network"
         "hyprland/submap"
 
