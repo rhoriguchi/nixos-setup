@@ -226,6 +226,10 @@ in
         interval = 1;
 
         format = " {bandwidthDownBytes}  {bandwidthUpBytes} ";
+        format-linked = "";
+        format-disconnected = "";
+        format-disabled = "";
+
         tooltip-format = "{ifname} {ipaddr}/{cidr}";
       };
 
