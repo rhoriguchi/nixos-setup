@@ -14,6 +14,11 @@
       flake = false;
     };
 
+    openlogi = {
+      url = "github:NixOS/nixpkgs/pull/583471/head";
+      flake = false;
+    };
+
     prowlarr = {
       url = "github:NixOS/nixpkgs/pull/581969/head";
       flake = false;
@@ -27,6 +32,9 @@
         (_: prev: {
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=583471
+          openlogi = prev.callPackage (import "${inputs.openlogi}/pkgs/by-name/op/openlogi/package.nix") { };
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=581969
           prowlarr = prev.callPackage (import "${inputs.prowlarr}/pkgs/by-name/pr/prowlarr/package.nix") { };

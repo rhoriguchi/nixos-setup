@@ -819,6 +819,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
+        "openlogi": "openlogi",
         "prowlarr": "prowlarr"
       },
       "locked": {
@@ -1083,6 +1084,23 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "openlogi": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793855258,
+        "narHash": "sha256-qeQH/CcotuZzUt7jIyZRwvzmUVqG1IdKBgrY9Q/F/Yw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5ee36fdb60323591d181ffc789de7559b077a85d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/583471/head",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
