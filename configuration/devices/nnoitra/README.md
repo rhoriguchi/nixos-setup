@@ -73,6 +73,7 @@ REM Xbox
 winget install --accept-source-agreements --exact --silent --uninstall-previous 9MV0B5HZVK9Z
 
 winget install --accept-source-agreements --exact --silent --uninstall-previous AppWork.JDownloader
+winget install --accept-source-agreements --exact --silent --uninstall-previous AprilNEA.OpenLogi
 winget install --accept-source-agreements --exact --silent --uninstall-previous Blitz.Blitz
 winget install --accept-source-agreements --exact --silent --uninstall-previous CPUID.HWMonitor
 winget install --accept-source-agreements --exact --silent --uninstall-previous Devolutions.UniGetUI
