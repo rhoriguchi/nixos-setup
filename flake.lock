@@ -820,7 +820,8 @@
           "nixpkgs"
         ],
         "openlogi": "openlogi",
-        "prowlarr": "prowlarr"
+        "prowlarr": "prowlarr",
+        "waybar": "waybar"
       },
       "locked": {
         "path": "./overlays",
@@ -1412,6 +1413,23 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "waybar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793907685,
+        "narHash": "sha256-FrZjRfgJYg/+dNrVP2N52x/E7CFa2h+GRC+7t2BJC+w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "26b2a60405fb59997256a1741974b5a349af435d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/583754/head",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },

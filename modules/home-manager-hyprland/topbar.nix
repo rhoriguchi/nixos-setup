@@ -74,9 +74,6 @@ in
       };
 
       battery = {
-        # TODO remove when version > 0.15.0
-        bat = "BAT0";
-
         interval = 10;
 
         format = "{icon}{capacity}%";
@@ -292,6 +289,8 @@ in
         sort-by-number = true;
 
         on-click = "activate";
+
+        tooltip = false;
       };
     };
 

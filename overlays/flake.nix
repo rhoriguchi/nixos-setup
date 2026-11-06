@@ -23,6 +23,11 @@
       url = "github:NixOS/nixpkgs/pull/581969/head";
       flake = false;
     };
+
+    waybar = {
+      url = "github:NixOS/nixpkgs/pull/583754/head";
+      flake = false;
+    };
   };
 
   outputs =
@@ -38,6 +43,9 @@
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=581969
           prowlarr = prev.callPackage (import "${inputs.prowlarr}/pkgs/by-name/pr/prowlarr/package.nix") { };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=583754
+          waybar = prev.callPackage (import "${inputs.waybar}/pkgs/by-name/wa/waybar/package.nix") { };
         })
 
         # TODO remove when resolved
