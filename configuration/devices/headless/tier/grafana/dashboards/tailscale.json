@@ -291,7 +291,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "count(netdata_prometheus_Uptime_Kuma_monitor_status_status_average == 0) or vector(0)",
+          "expr": "count(netdata_prometheus_Uptime_Kuma_monitor_status_status_average{monitor_type=\"tailscale-ping\"} == 0) or vector(0)",
           "legendFormat": "__auto",
           "refId": "A",
           "range": true,
@@ -402,7 +402,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "fixed",
+            "fixedColor": "green"
           },
           "custom": {
             "fillOpacity": 70,
@@ -484,7 +485,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "netdata_prometheus_Uptime_Kuma_monitor_status_status_average",
+          "expr": "netdata_prometheus_Uptime_Kuma_monitor_status_status_average{monitor_type=\"tailscale-ping\"}",
           "legendFormat": "{{monitor_name}}",
           "refId": "A",
           "range": true,
@@ -580,7 +581,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "netdata_prometheus_Uptime_Kuma_monitor_response_time_seconds_seconds_average{window=\"1d\"}",
+          "expr": "netdata_prometheus_Uptime_Kuma_monitor_response_time_seconds_seconds_average{window=\"1d\", monitor_type=\"tailscale-ping\"}",
           "legendFormat": "{{monitor_name}}",
           "refId": "A",
           "range": true,
@@ -662,7 +663,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sort(netdata_prometheus_Uptime_Kuma_monitor_uptime_ratio_uptime_average{window=\"30d\"})",
+          "expr": "sort(netdata_prometheus_Uptime_Kuma_monitor_uptime_ratio_uptime_average{window=\"30d\", monitor_type=\"tailscale-ping\"})",
           "legendFormat": "{{monitor_name}}",
           "refId": "A",
           "range": false,
