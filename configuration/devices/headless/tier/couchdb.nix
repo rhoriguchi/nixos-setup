@@ -6,6 +6,19 @@
 }:
 let
   databases = [ "obsidian" ];
+
+  corsConfig = ''
+    more_set_headers 'WWW-Authenticate: Basic realm="couchdb"';
+
+    more_set_headers 'Access-Control-Allow-Origin: $couchdb_cors_origin';
+    more_set_headers 'Access-Control-Allow-Credentials: true';
+    more_set_headers 'Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE, HEAD';
+    more_set_headers 'Access-Control-Allow-Headers: Authorization, Content-Type, *';
+
+    if ($request_method = 'OPTIONS') {
+      return 204;
+    }
+  '';
 in
 {
   sops = {
@@ -153,21 +166,14 @@ in
             '';
           };
 
+          "= /sync/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.couchdb.port}/";
+            extraConfig = corsConfig;
+          };
+
           "/sync/obsidian" = {
             proxyPass = "http://127.0.0.1:${toString config.services.couchdb.port}/obsidian";
-
-            extraConfig = ''
-              more_set_headers 'WWW-Authenticate: Basic realm="couchdb"';
-
-              more_set_headers 'Access-Control-Allow-Origin: $couchdb_cors_origin';
-              more_set_headers 'Access-Control-Allow-Credentials: true';
-              more_set_headers 'Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE, HEAD';
-              more_set_headers 'Access-Control-Allow-Headers: Authorization, Content-Type, *';
-
-              if ($request_method = 'OPTIONS') {
-                return 204;
-              }
-            '';
+            extraConfig = corsConfig;
           };
         };
       };
