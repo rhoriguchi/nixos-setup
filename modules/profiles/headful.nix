@@ -14,6 +14,7 @@
     ./nautilus.nix
     ./peripherals.nix
     ./printing.nix
+    ./tailscale-systray.nix
     ./trash-management.nix
     ./tv7-multicast.nix
   ];

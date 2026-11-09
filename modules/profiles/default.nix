@@ -55,6 +55,7 @@
   systemd = ./systemd.nix;
   tailscale = ./tailscale.nix;
   tailscale-exit-node = ./tailscale-exit-node.nix;
+  tailscale-systray = ./tailscale-systray.nix;
   tmp-management = ./tmp-management.nix;
   trash-management = ./trash-management.nix;
   tv7-multicast = ./tv7-multicast.nix;
