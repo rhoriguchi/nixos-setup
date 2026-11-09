@@ -363,6 +363,29 @@ in
 
                 filters = { };
 
+                entities = [
+                  {
+                    entity = "sensor.body_comp_battery";
+                    state_map = [
+                      {
+                        from = "high";
+                        to = 100;
+                        display = "High";
+                      }
+                      {
+                        from = "medium";
+                        to = 50;
+                        display = "Medium";
+                      }
+                      {
+                        from = "low";
+                        to = 20;
+                        display = "Low";
+                      }
+                    ];
+                  }
+                ];
+
                 bulk_rename = [
                   {
                     from = "FP5 Battery level";
@@ -382,6 +405,12 @@ in
 
                   # Ikea Badring
                   { from = " Badring Battery"; }
+
+                  # Withings Body Comp
+                  {
+                    from = "Body Comp Battery";
+                    to = "Bathroom 1";
+                  }
                 ];
                 sort.by = "name";
 
@@ -415,6 +444,12 @@ in
                     name = "Ikea Badring {range}%";
                     entities = [
                       "sensor.reduit_badring_battery"
+                    ];
+                  }
+                  {
+                    name = "Withings Body Comp";
+                    entities = [
+                      "sensor.body_comp_battery"
                     ];
                   }
                 ];

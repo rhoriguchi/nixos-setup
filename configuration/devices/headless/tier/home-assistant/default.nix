@@ -66,6 +66,7 @@
             "mobile_app"
             "shelly"
             "thread"
+            "withings"
           ];
         };
 

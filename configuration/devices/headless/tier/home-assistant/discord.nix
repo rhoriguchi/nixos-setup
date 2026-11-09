@@ -20,12 +20,19 @@
           ];
           below = 11;
         }
+        {
+          trigger = "state";
+          entity_id = [
+            "sensor.body_comp_battery"
+          ];
+          to = "low";
+        }
       ];
       actions = [
         {
           action = "notify.home_assistant_bot";
           data = {
-            message = "{{ trigger.to_state.name }} has 10% or less battery";
+            message = "{{ trigger.to_state.name }} has low battery (10% or less)";
             target = [ "1285383628527763579" ];
           };
         }

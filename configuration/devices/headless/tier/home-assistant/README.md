@@ -24,6 +24,8 @@
   - Shelly
     - Wake up sensor with button or wait till it shows up
   - Thread
+  - Withings
+    - Name: `Home Assistant`
   - UI eXtension
 - Settings to change
   - `Profile` (bottom left user icon) -> `Advanced mode = true`
