@@ -1112,11 +1112,11 @@
     "openlogi": {
       "flake": false,
       "locked": {
-        "lastModified": 1793855258,
-        "narHash": "sha256-qeQH/CcotuZzUt7jIyZRwvzmUVqG1IdKBgrY9Q/F/Yw=",
+        "lastModified": 1794320967,
+        "narHash": "sha256-5Ghk9fw3xphECXkj0NCwqi/0K6ZrHCaVPtOss1Q5enM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5ee36fdb60323591d181ffc789de7559b077a85d",
+        "rev": "7b315b85d6206d6487eb0e54d6d5e50f378432af",
         "type": "github"
       },
       "original": {
@@ -1491,11 +1491,11 @@
     "waybar": {
       "flake": false,
       "locked": {
-        "lastModified": 1793907685,
-        "narHash": "sha256-FrZjRfgJYg/+dNrVP2N52x/E7CFa2h+GRC+7t2BJC+w=",
+        "lastModified": 1794049212,
+        "narHash": "sha256-jAsHa0EvEZhNwgVJyJLsX4dk9qqj4q3Aum37GASf7WI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "26b2a60405fb59997256a1741974b5a349af435d",
+        "rev": "0987880e58964420e8ce164b45b5e75cefd6c7d3",
         "type": "github"
       },
       "original": {
