@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "adguardhome": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794166892,
+        "narHash": "sha256-ljLhv6dMbeNV99ODWvrultO7KIB+xA7faU9zJ0lNqY0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "32bca8da0dbd8d90027bdde7984b7ade3407d55f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/585101/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "aquamarine": {
       "inputs": {
         "hyprutils": [
@@ -814,6 +831,7 @@
     },
     "local-overlays": {
       "inputs": {
+        "adguardhome": "adguardhome",
         "gamedig": "gamedig",
         "jellyfin": "jellyfin",
         "nixpkgs": [
