@@ -14,6 +14,9 @@ let
       proxy_ssl_server_name on;
       proxy_ssl_name authelia.00a.ch;
 
+      proxy_connect_timeout 5s;
+      proxy_read_timeout 10s;
+
       proxy_set_header X-Original-Method $request_method;
       proxy_set_header X-Original-URL $scheme://$http_host$request_uri;
       proxy_set_header X-Forwarded-For $remote_addr;
