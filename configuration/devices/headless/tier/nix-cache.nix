@@ -1,9 +1,4 @@
-{ config, lib, ... }:
-let
-  keepRecentDays = 6 * 30;
-  ensureFreeGiB = 500;
-in
-{
+{ config, lib, ... }: {
   sops.secrets."nix/cache/nix-cache-1/signingKey".restartUnits = [
     config.systemd.services.harmonia.name
   ];
@@ -21,8 +16,10 @@ in
       enable = true;
 
       automatic = true;
-      ensureFree = "${toString ensureFreeGiB}G";
-      keepRecent = "${toString keepRecentDays}d";
+      dates = "05:00";
+
+      ensureFree = "500G";
+      keepRecent = lib.mkForce "${toString (6 * 30)}d";
       deleteOlderThan = lib.mkForce null;
     };
   };
