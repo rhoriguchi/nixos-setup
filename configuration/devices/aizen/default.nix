@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  wifis,
   ...
 }:
 {
@@ -9,31 +8,20 @@
     ./hp-g4.nix
     ./keepassxc.nix
     ./rsnapshot.nix
+    ./wifi.nix
 
     ./hardware-configuration.nix
   ];
 
   sops = {
-    secrets =
-      lib.listToAttrs (map (ssid: lib.nameValuePair "wifis/${ssid}" { }) wifis.passwordSsids)
-      // {
-        "nix/settings/access-tokens/github.com" = { };
+    secrets = {
+      "nix/settings/access-tokens/github.com" = { };
 
-        "users/rhoriguchi".neededForUsers = true;
-        "users/sillert".neededForUsers = true;
-      };
+      "users/rhoriguchi".neededForUsers = true;
+      "users/sillert".neededForUsers = true;
+    };
 
     templates = {
-      "networking.wireless.secretsFile" = {
-        owner = "wpa_supplicant";
-
-        content = lib.concatStrings (
-          map (ssid: "${ssid}=${config.sops.placeholder."wifis/${ssid}"}\n") wifis.passwordSsids
-        );
-
-        restartUnits = [ config.systemd.services.wpa_supplicant.name ];
-      };
-
       "nix.extraOptions.accessTokens" = {
         group = "wheel";
         mode = "0440";
@@ -65,29 +53,7 @@
     !include ${config.sops.templates."nix.extraOptions.accessTokens".path}
   '';
 
-  networking = {
-    hostName = "XXLPitu-Aizen";
-
-    interfaces.wlp0s20f3.useDHCP = true; # WiFi
-
-    networkmanager.unmanaged = [ "wlp0s20f3" ];
-
-    wireless = {
-      enable = true;
-
-      userControlled = true;
-      extraConfig = ''
-        p2p_disabled=1
-      '';
-
-      networks = lib.recursiveUpdate wifis.wirelessNetworks {
-        "63466727".priority = 100;
-        "Hueco Mundo".priority = 10;
-      };
-
-      secretsFile = config.sops.templates."networking.wireless.secretsFile".path;
-    };
-  };
+  networking.hostName = "XXLPitu-Aizen";
 
   hardware.printers = {
     ensureDefaultPrinter = "Home";
