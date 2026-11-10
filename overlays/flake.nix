@@ -34,6 +34,21 @@
       flake = false;
     };
 
+    "python3Packages.geopandas" = {
+      url = "github:NixOS/nixpkgs/pull/584702/head";
+      flake = false;
+    };
+
+    "python3Packages.speechrecognition" = {
+      url = "github:NixOS/nixpkgs/pull/585193/head";
+      flake = false;
+    };
+
+    rustdesk-flutter = {
+      url = "github:NixOS/nixpkgs/pull/585583/head";
+      flake = false;
+    };
+
     waybar = {
       url = "github:NixOS/nixpkgs/pull/583754/head";
       flake = false;
@@ -65,8 +80,34 @@
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=581969
           prowlarr = prev.callPackage (import "${inputs.prowlarr}/pkgs/by-name/pr/prowlarr/package.nix") { };
 
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=585583
+          rustdesk-flutter =
+            prev.callPackage (import "${inputs.rustdesk-flutter}/pkgs/by-name/ru/rustdesk-flutter/package.nix")
+              { };
+
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=583754
           waybar = prev.callPackage (import "${inputs.waybar}/pkgs/by-name/wa/waybar/package.nix") { };
+        })
+
+        (_: prev: {
+          pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+            (pythonFinal: _: {
+              # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=584702
+              geodatasets = pythonFinal.callPackage "${
+                inputs."python3Packages.geopandas"
+              }/pkgs/development/python-modules/geodatasets/default.nix" { };
+
+              # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=584702
+              geopandas = pythonFinal.callPackage "${
+                inputs."python3Packages.geopandas"
+              }/pkgs/development/python-modules/geopandas/default.nix" { };
+
+              # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=585193
+              speechrecognition = pythonFinal.callPackage "${
+                inputs."python3Packages.speechrecognition"
+              }/pkgs/development/python-modules/speechrecognition/default.nix" { };
+            })
+          ];
         })
 
         # TODO remove when resolved

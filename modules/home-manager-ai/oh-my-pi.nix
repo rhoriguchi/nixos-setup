@@ -167,7 +167,7 @@ in
 
     file = {
       "${homeDirectory}/.omp/agent/config.yml".source = yamlFormat.generate "config.yml" {
-        setupVersion = 2;
+        setupVersion = 3;
 
         theme = {
           dark = themeName;
