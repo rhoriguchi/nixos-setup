@@ -197,6 +197,8 @@ in
   };
 
   services = {
+    resolved.enable = false;
+
     nginx.stream.resolvers = [ "127.0.0.1" ];
 
     bind = {
@@ -231,34 +233,54 @@ in
         '';
       }) zoneFiles;
 
-      extraOptions = ''
-        response-policy {
-          zone "rpz.00a.ch";
-        };
-      '';
+      extraOptions = lib.mkMerge [
+        ''
+          response-policy {
+            zone "rpz.00a.ch";
+          };
+        ''
 
-      extraConfig = ''
-        tls cloudflare-tls {
-          ca-file "/etc/ssl/certs/ca-certificates.crt";
-          remote-hostname "cloudflare-dns.com";
-        };
+        (lib.mkIf config.services.tailscale.enable ''
+          validate-except {
+            "tailnet";
+          };
+        '')
+      ];
 
-        tls google-tls {
-          ca-file "/etc/ssl/certs/ca-certificates.crt";
-          remote-hostname "dns.google";
-        };
+      extraConfig = lib.mkMerge [
+        ''
+          tls cloudflare-tls {
+            ca-file "/etc/ssl/certs/ca-certificates.crt";
+            remote-hostname "cloudflare-dns.com";
+          };
 
-        tls quad9-tls {
-          ca-file "/etc/ssl/certs/ca-certificates.crt";
-          remote-hostname "dns.quad9.net";
-        };
+          tls google-tls {
+            ca-file "/etc/ssl/certs/ca-certificates.crt";
+            remote-hostname "dns.google";
+          };
 
-        include "${config.sops.templates."services.bind.tsigKey".path}";
+          tls quad9-tls {
+            ca-file "/etc/ssl/certs/ca-certificates.crt";
+            remote-hostname "dns.quad9.net";
+          };
 
-        logging {
-          category rpz { null; };
-        };
-      '';
+          include "${config.sops.templates."services.bind.tsigKey".path}";
+
+          logging {
+            category rpz { null; };
+          };
+        ''
+
+        (lib.mkIf config.services.tailscale.enable ''
+          zone "tailnet" {
+            type static-stub;
+            server-addresses { 100.100.100.100; };
+            forward only;
+            forwarders { };
+            allow-query { localhost; };
+          };
+        '')
+      ];
     };
 
     kea = {

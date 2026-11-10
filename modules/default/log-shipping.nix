@@ -1,15 +1,10 @@
 {
   config,
   lib,
-  libCustom,
   ...
 }:
 let
   cfg = config.services.logShipping;
-
-  tailscaleIps = import (
-    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
-  );
 in
 {
   options.services.logShipping = {
@@ -38,7 +33,7 @@ in
               if (config.networking.hostName == cfg.receiverHostname) then
                 "127.0.0.1"
               else
-                tailscaleIps.${cfg.receiverHostname}.ip
+                "${cfg.receiverHostname}.tailnet"
             }:3100/loki/api/v1/push"
 
             basic_auth {

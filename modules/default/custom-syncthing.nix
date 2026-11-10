@@ -1,15 +1,10 @@
 {
   config,
   lib,
-  libCustom,
   ...
 }:
 let
   cfg = config.services.custom-syncthing;
-
-  tailscaleIps = import (
-    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
-  );
 in
 {
   options.services.custom-syncthing = {
@@ -165,8 +160,8 @@ in
             inherit (value) id;
 
             addresses = [
-              "tcp://${tailscaleIps.${key}.ip}:22000"
-              "quic://${tailscaleIps.${key}.ip}:22000"
+              "tcp://${key}.tailnet:22000"
+              "quic://${key}.tailnet:22000"
               "dynamic"
             ];
 

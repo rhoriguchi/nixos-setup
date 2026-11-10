@@ -56,9 +56,9 @@ in
       (lib.filterAttrs (_: value: value.ssh or true))
 
       (lib.mapAttrs' (
-        key: value:
+        key: _:
         lib.nameValuePair (lib.toLower key) {
-          Hostname = value.ip;
+          Hostname = "${key}.tailnet";
           User = "xxlpitu";
           HostKeyAlias = lib.toLower key;
         }

@@ -1,15 +1,10 @@
 {
   config,
   lib,
-  libCustom,
   ...
 }:
 let
   cfg = config.services.tracesShipping;
-
-  tailscaleIps = import (
-    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
-  );
 in
 {
   options.services.tracesShipping = {
@@ -34,7 +29,7 @@ in
             if (config.networking.hostName == cfg.receiverHostname) then
               "127.0.0.1"
             else
-              tailscaleIps.${cfg.receiverHostname}.ip
+              "${cfg.receiverHostname}.tailnet"
           }:4317"
 
           tls {
