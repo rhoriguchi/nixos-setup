@@ -2,7 +2,6 @@
   colors,
   config,
   lib,
-  libCustom,
   libJail,
   osConfig,
   pkgs,
@@ -11,10 +10,6 @@
 let
   jsonFormat = pkgs.formats.json { };
   yamlFormat = pkgs.formats.yaml { };
-
-  tailscaleIps = import (
-    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
-  );
 
   homeDirectory = config.home.homeDirectory;
 
@@ -182,7 +177,7 @@ in
         compaction.handoffSaveToDisk = true;
 
         memory.backend = "hindsight";
-        hindsight.apiUrl = "http://${tailscaleIps.XXLPitu-Tier.ip}:8888";
+        hindsight.apiUrl = "http://xxlpitu-tier.tailnet:8888";
 
         dev.autoqa = false;
 
@@ -199,7 +194,7 @@ in
 
       "${homeDirectory}/.omp/agent/models.yml".source = yamlFormat.generate "models.yml" {
         providers.ollama = {
-          baseUrl = "http://${tailscaleIps.XXLPitu-Tier.ip}:11434/v1";
+          baseUrl = "http://xxlpitu-tier.tailnet:11434/v1";
           api = "openai-responses";
           auth = "none";
           discovery.type = "ollama";

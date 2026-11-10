@@ -59,6 +59,11 @@
       settings = {
         http.address = "127.0.0.1:3000";
 
+        user_rules = [
+          "||tailnet^"
+          "@@||tailnet^$client=127.0.0.1|::1"
+        ];
+
         dns = rec {
           bootstrap_dns = [ "127.0.0.1:${toString config.services.bind.listenOnPort}" ];
           upstream_dns = bootstrap_dns;

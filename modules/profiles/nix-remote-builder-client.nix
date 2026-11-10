@@ -1,14 +1,8 @@
 {
   config,
   lib,
-  libCustom,
   ...
 }:
-let
-  tailscaleIps = import (
-    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
-  );
-in
 {
   sops.secrets = lib.mkIf config.nix.distributedBuilds {
     "nix/buildMachines/${config.networking.hostName}/privateKey" = {
@@ -21,7 +15,7 @@ in
 
     buildMachines = lib.mkIf config.nix.distributedBuilds [
       {
-        hostName = tailscaleIps.XXLPitu-Tier.ip;
+        hostName = "xxlpitu-tier.tailnet";
 
         protocol = "ssh-ng";
 

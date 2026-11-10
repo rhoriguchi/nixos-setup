@@ -8,6 +8,11 @@ let
   webPort = 8080;
 in
 {
+  # TODO: restrict `.tailnet` to localhost like adguardhome.nix does.
+  # dnsmasq can't scope per client; use Pi-hole groups/clients (regex deny in
+  # the default group, regex allow in a `localhost` group containing the
+  # clients 127.0.0.1 and ::1).
+
   services = {
     bind = {
       listenOn = lib.mkForce [ "127.0.0.1" ];

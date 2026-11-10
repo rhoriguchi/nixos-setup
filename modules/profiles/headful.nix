@@ -9,6 +9,7 @@
     ./documentation.nix
     ./flatpak.nix
     ./gaming.nix
+    ./geoclue2.nix
     ./local-send.nix
     ./mission-center.nix
     ./nautilus.nix

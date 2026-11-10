@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  libCustom,
   pkgs,
   ...
 }:
@@ -9,10 +8,6 @@ let
   cfg = config.services.custom-netdata;
 
   isFleetParent = cfg.claimTokenFile != null;
-
-  tailscaleIps = import (
-    libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
-  );
 
   autheliaEnabled = lib.any (instance: instance.enable) (
     lib.attrValues config.services.authelia.instances
@@ -166,10 +161,6 @@ in
         message = "When claimTokenFile is set tailscale service must be enabled";
       }
       {
-        assertion = isFleetParent -> lib.elem config.networking.hostName (lib.attrNames tailscaleIps);
-        message = "When claimTokenFile is set hostname must be a tailscale host";
-      }
-      {
         assertion = isFleetParent -> cfg.healthAlarmNotify.discordWebhookUrl != null;
         message = "When claimTokenFile is set healthAlarmNotify.discordWebhookUrl must be set";
       }
@@ -182,14 +173,6 @@ in
         assertion =
           cfg.child.enable -> (cfg.child.parentHostname != null -> config.services.tailscale.enable);
         message = "When child.parentHostname is set tailscale service must be enabled";
-      }
-      {
-        assertion =
-          cfg.child.enable
-          -> (
-            cfg.child.parentHostname != null -> lib.elem cfg.child.parentHostname (lib.attrNames tailscaleIps)
-          );
-        message = "When child.parentHostname is set it must be a tailscale host";
       }
     ];
 
@@ -205,7 +188,7 @@ in
                 if cfg.child.parentAddress != null then
                   cfg.child.parentAddress
                 else
-                  tailscaleIps.${cfg.child.parentHostname}.ip
+                  "${cfg.child.parentHostname}.tailnet"
               }:${toString cfg.streamPort}
             ''
             ++ lib.optional cfg.parent.enable ''

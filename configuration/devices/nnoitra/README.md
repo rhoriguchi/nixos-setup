@@ -124,7 +124,6 @@ Run in an elevated cmd
 ```cmd
 tailscale login --login-server=https://headscale.00a.ch --auth-key "PRE_AUTH_KEY"
 
-tailscale set --accept-dns=false
 tailscale set --accept-routes=false
 tailscale set --update-check=false
 ```

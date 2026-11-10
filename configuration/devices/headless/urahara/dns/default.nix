@@ -197,6 +197,8 @@ in
   };
 
   services = {
+    resolved.enable = false;
+
     nginx.stream.resolvers = [ "127.0.0.1" ];
 
     bind = {
@@ -235,6 +237,11 @@ in
         response-policy {
           zone "rpz.00a.ch";
         };
+      ''
+      + lib.optionalString config.services.tailscale.enable ''
+        validate-except {
+          "tailnet";
+        };
       '';
 
       extraConfig = ''
@@ -257,6 +264,15 @@ in
 
         logging {
           category rpz { null; };
+        };
+      ''
+      + lib.optionalString config.services.tailscale.enable ''
+        zone "tailnet" {
+          type static-stub;
+          server-addresses { 100.100.100.100; };
+          forward only;
+          forwarders { };
+          allow-query { localhost; };
         };
       '';
     };
