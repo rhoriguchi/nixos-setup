@@ -72,13 +72,6 @@ rec {
       }:
       lib.generators.mkLuaInline (dispatcherMap.${dispatcher} args);
 
-    mkLuaExecCommand =
-      command:
-      _mkLuaCommand {
-        dispatcher = "exec";
-        args = command;
-      };
-
     mkBindRule =
       {
         mods ? "",
