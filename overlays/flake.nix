@@ -24,6 +24,11 @@
       flake = false;
     };
 
+    nwg-drawer = {
+      url = "github:NixOS/nixpkgs/pull/585260/head";
+      flake = false;
+    };
+
     openlogi = {
       url = "github:NixOS/nixpkgs/pull/583471/head";
       flake = false;
@@ -73,6 +78,11 @@
             buildGoModule = prev.buildGo127Module;
             go = prev.go_1_27;
           };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=585260
+          nwg-drawer =
+            prev.callPackage (import "${inputs.nwg-drawer}/pkgs/by-name/nw/nwg-drawer/package.nix")
+              { };
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=583471
           openlogi = prev.callPackage (import "${inputs.openlogi}/pkgs/by-name/op/openlogi/package.nix") { };
