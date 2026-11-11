@@ -18,6 +18,7 @@
   flatpak = ./flatpak.nix;
   fwupd = ./fwupd.nix;
   gaming = ./gaming.nix;
+  geoclue2 = ./geoclue2.nix;
   git = ./git.nix;
   gnome = ./gnome;
   grafana = ./grafana.nix;
