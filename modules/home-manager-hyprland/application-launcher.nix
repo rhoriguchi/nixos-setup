@@ -12,6 +12,7 @@ let
       "-closebtn right" # close button position: 'left' or 'right', 'none' by default (default "none")
       "-nocats" # Disable filtering by category
       "-nofs" # Disable file search
+      "-wm hyprland"
       "-s ${pkgs.writeText "drawer.css" ''
         window {
           background-color: ${colors.extra.terminal.background};
