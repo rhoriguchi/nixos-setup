@@ -30,6 +30,10 @@ let
       }).expr
   }'";
 
+  volumeScript = pkgs.writers.writeBash "volume-step.sh" ''
+    ${swayosd-client} "$@" && ${playAudioVolumeChange}
+  '';
+
   brightnessScript = pkgs.writers.writeBash "brightness-step.sh" ''
     step=10
 
@@ -168,10 +172,7 @@ in
 
     (libCustom.hyprland.mkExecBindRule {
       key = "XF86AudioRaiseVolume";
-      command = lib.concatStringsSep " && " [
-        "${swayosd-client} --output-volume +5"
-        playAudioVolumeChange
-      ];
+      command = "${volumeScript} --output-volume +5";
       flags = {
         locked = true;
         repeating = true;
@@ -179,10 +180,7 @@ in
     })
     (libCustom.hyprland.mkExecBindRule {
       key = "XF86AudioLowerVolume";
-      command = lib.concatStringsSep " && " [
-        "${swayosd-client} --output-volume -5"
-        playAudioVolumeChange
-      ];
+      command = "${volumeScript} --output-volume -5";
       flags = {
         locked = true;
         repeating = true;
@@ -190,10 +188,7 @@ in
     })
     (libCustom.hyprland.mkExecBindRule {
       key = "XF86AudioMute";
-      command = lib.concatStringsSep " && " [
-        "${swayosd-client} --output-volume mute-toggle"
-        playAudioVolumeChange
-      ];
+      command = "${volumeScript} --output-volume mute-toggle";
       flags.locked = true;
     })
     (libCustom.hyprland.mkExecBindRule {
