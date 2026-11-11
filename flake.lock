@@ -837,6 +837,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
+        "nwg-drawer": "nwg-drawer",
         "openlogi": "openlogi",
         "prowlarr": "prowlarr",
         "python3Packages.geopandas": "python3Packages.geopandas",
@@ -1106,6 +1107,23 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nwg-drawer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794198278,
+        "narHash": "sha256-jxP3fTIPC9upiyWhRHmCIcKz07y+WTnmdjPv3urV/t8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f52f846e37c13dd27c9568e58add0f0e7626fa27",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/585260/head",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
