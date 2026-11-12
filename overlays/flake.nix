@@ -18,46 +18,6 @@
       url = "github:NixOS/nixpkgs/bf316c9c2a7763dfae6171b3e1622401831ddfec";
       flake = false;
     };
-
-    netdata = {
-      url = "github:NixOS/nixpkgs/pull/585482/head";
-      flake = false;
-    };
-
-    nwg-drawer = {
-      url = "github:NixOS/nixpkgs/pull/585260/head";
-      flake = false;
-    };
-
-    openlogi = {
-      url = "github:NixOS/nixpkgs/pull/583471/head";
-      flake = false;
-    };
-
-    prowlarr = {
-      url = "github:NixOS/nixpkgs/pull/581969/head";
-      flake = false;
-    };
-
-    "python3Packages.geopandas" = {
-      url = "github:NixOS/nixpkgs/pull/584702/head";
-      flake = false;
-    };
-
-    "python3Packages.speechrecognition" = {
-      url = "github:NixOS/nixpkgs/pull/585193/head";
-      flake = false;
-    };
-
-    rustdesk-flutter = {
-      url = "github:NixOS/nixpkgs/pull/585583/head";
-      flake = false;
-    };
-
-    waybar = {
-      url = "github:NixOS/nixpkgs/pull/583754/head";
-      flake = false;
-    };
   };
 
   outputs =
@@ -72,52 +32,6 @@
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=585482
-          netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata/default.nix") {
-            buildGoModule = prev.buildGo127Module;
-            go = prev.go_1_27;
-          };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=585260
-          nwg-drawer =
-            prev.callPackage (import "${inputs.nwg-drawer}/pkgs/by-name/nw/nwg-drawer/package.nix")
-              { };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=583471
-          openlogi = prev.callPackage (import "${inputs.openlogi}/pkgs/by-name/op/openlogi/package.nix") { };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=581969
-          prowlarr = prev.callPackage (import "${inputs.prowlarr}/pkgs/by-name/pr/prowlarr/package.nix") { };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=585583
-          rustdesk-flutter =
-            prev.callPackage (import "${inputs.rustdesk-flutter}/pkgs/by-name/ru/rustdesk-flutter/package.nix")
-              { };
-
-          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=583754
-          waybar = prev.callPackage (import "${inputs.waybar}/pkgs/by-name/wa/waybar/package.nix") { };
-        })
-
-        (_: prev: {
-          pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-            (pythonFinal: _: {
-              # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=584702
-              geodatasets = pythonFinal.callPackage "${
-                inputs."python3Packages.geopandas"
-              }/pkgs/development/python-modules/geodatasets/default.nix" { };
-
-              # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=584702
-              geopandas = pythonFinal.callPackage "${
-                inputs."python3Packages.geopandas"
-              }/pkgs/development/python-modules/geopandas/default.nix" { };
-
-              # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=585193
-              speechrecognition = pythonFinal.callPackage "${
-                inputs."python3Packages.speechrecognition"
-              }/pkgs/development/python-modules/speechrecognition/default.nix" { };
-            })
-          ];
         })
 
         # TODO remove when resolved
