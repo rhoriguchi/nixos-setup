@@ -11,7 +11,7 @@ let
   bindmountDir = "${rootBindmountDir}/seaweedfs";
   rendererBindmountDir = "${rootBindmountDir}/renderer";
 
-  version = "1.1.61";
+  version = "1.1.62";
 in
 {
   sops = {
