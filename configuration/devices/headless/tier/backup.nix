@@ -99,7 +99,7 @@ in
       postgresql_databases = lib.mkIf config.services.postgresql.enable (
         map (database: {
           name = database;
-          username = database;
+          username = "postgres";
         }) config.services.postgresql.ensureDatabases
         ++ [
           {
