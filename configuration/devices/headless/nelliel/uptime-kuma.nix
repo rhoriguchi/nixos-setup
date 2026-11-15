@@ -58,7 +58,8 @@ let
           type,
           push_token,
           interval,
-          retry_interval
+          retry_interval,
+          resend_interval
         )
         VALUES (
           '1',
@@ -67,7 +68,8 @@ let
           'push',
           '$pushToken',
           ${toString ((60 * 60 * 24) + (60 * 60 * 6))},
-          0
+          0,
+          1
         );
       '';
 

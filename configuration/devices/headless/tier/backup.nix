@@ -91,7 +91,7 @@ in
               ]
             } 'https://uptime-kuma.00a.ch/api/push/'\"$(cat ${
               config.sops.secrets."services/uptime-kuma/pushTokens/borgmaticBackup".path
-            })\"'?status=down&msg=OK&ping='"
+            })\"'?status=down&msg=Failed&ping='"
           ];
         }
       ];
