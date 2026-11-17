@@ -18,6 +18,11 @@
       url = "github:NixOS/nixpkgs/bf316c9c2a7763dfae6171b3e1622401831ddfec";
       flake = false;
     };
+
+    tautulli = {
+      url = "github:NixOS/nixpkgs/pull/589632/head";
+      flake = false;
+    };
   };
 
   outputs =
@@ -42,6 +47,9 @@
               '';
             });
           };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589632
+          tautulli = prev.callPackage (import "${inputs.tautulli}/pkgs/by-name/ta/tautulli/package.nix") { };
         })
 
         # TODO remove when resolved

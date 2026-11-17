@@ -835,7 +835,8 @@
         "jellyfin": "jellyfin",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "tautulli": "tautulli"
       },
       "locked": {
         "path": "./overlays",
@@ -1273,6 +1274,23 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tautulli": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794947460,
+        "narHash": "sha256-4CBfi/TJXw8lHzjj3pDTX7iw/vlcM6xt1XUQmuFQVxk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "2e1520cd499fa374e5d4d57f5119c5526a9210bf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/589632/head",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
