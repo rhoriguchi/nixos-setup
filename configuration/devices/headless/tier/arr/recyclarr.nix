@@ -64,9 +64,12 @@ let
       # > recyclarr list quality-profiles sonarr
       quality_profiles = [
         { trash_id = "20e0fc959f1f1704bed501f23bdae76f"; } # [Anime] Remux-1080p
+        { name = "Any"; }
       ];
     }
     // lib.optionalAttrs (type == "series") {
+      quality_profiles = [ { name = "Any"; } ];
+
       # > recyclarr list custom-format-groups sonarr
       custom_format_groups.add = createCustomFormatGroup [ ] (
         [

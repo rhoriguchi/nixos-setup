@@ -837,6 +837,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
+        "servarr": "servarr",
         "tautulli": "tautulli"
       },
       "locked": {
@@ -1168,6 +1169,23 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs",
         "sops-nix": "sops-nix"
+      }
+    },
+    "servarr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795097375,
+        "narHash": "sha256-bSB3t7aqTMFPicBIvJVBBI5UgnfE0tf3ZLhNjNX7pmY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "291e78a9e0bb07bfeb8d4cc969ad7f69cc356066",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/589560/head",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "skills": {
