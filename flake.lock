@@ -833,6 +833,7 @@
         "adguardhome": "adguardhome",
         "gamedig": "gamedig",
         "jellyfin": "jellyfin",
+        "nginx": "nginx",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -847,6 +848,23 @@
         "type": "path"
       },
       "parent": []
+    },
+    "nginx": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795016073,
+        "narHash": "sha256-OUhRt/thIUIEVhBD3iYx1p8CXmWGTUXVquGT7/KR30w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f0a5d452ddf1d33975d62054a1999327d952a98d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/589961/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
     },
     "nix-fast-build": {
       "inputs": {

@@ -19,6 +19,11 @@
       flake = false;
     };
 
+    nginx = {
+      url = "github:NixOS/nixpkgs/pull/589961/head";
+      flake = false;
+    };
+
     tautulli = {
       url = "github:NixOS/nixpkgs/pull/589632/head";
       flake = false;
@@ -37,6 +42,14 @@
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589961
+          nginxStable = prev.callPackage (import "${inputs.nginx}/pkgs/servers/http/nginx/stable.nix") {
+            openssl = prev.openssl_4_1;
+            zlib-ng = prev.zlib-ng.override { withZlibCompat = true; };
+            withPerl = false;
+            modules = [ prev.nginxModules.moreheaders ];
+          };
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589632
           tautulli = prev.callPackage (import "${inputs.tautulli}/pkgs/by-name/ta/tautulli/package.nix") { };
