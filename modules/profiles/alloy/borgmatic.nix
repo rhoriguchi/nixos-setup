@@ -3,21 +3,31 @@ let
   cfg = config.services.borgmatic;
 
   port = 56701;
+
+  settings = {
+    monitoring_verbosity = 2;
+
+    loki = {
+      url = "http://127.0.0.1:${toString port}/loki/api/v1/push";
+
+      # Needs at least one label
+      labels.job = "borgmatic";
+
+      send_logs = true;
+    };
+  };
 in
 {
+  options.services.borgmatic.configurations = lib.mkOption {
+    type = lib.types.attrsOf (
+      lib.types.submodule {
+        config = lib.mkIf cfg.enable settings;
+      }
+    );
+  };
+
   config = lib.mkIf cfg.enable {
-    services.borgmatic.settings = {
-      monitoring_verbosity = 2;
-
-      loki = {
-        url = "http://127.0.0.1:${toString port}/loki/api/v1/push";
-
-        # Needs at least one label
-        labels.job = "borgmatic";
-
-        send_logs = true;
-      };
-    };
+    services.borgmatic.settings = settings;
 
     environment.etc = lib.mkIf config.services.alloy.enable {
       "alloy/loki.borgmatic.alloy".text = ''

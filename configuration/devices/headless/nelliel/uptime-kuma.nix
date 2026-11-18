@@ -50,28 +50,34 @@ let
 
   addMonitors =
     let
-      insertBorgmaticMonitor = ''
-        INSERT INTO monitor (
+      insertBorgmaticMonitor =
+        {
           id,
           name,
-          user_id,
-          type,
-          push_token,
-          interval,
-          retry_interval,
-          resend_interval
-        )
-        VALUES (
-          '1',
-          'Borgmatic backup',
-          1,
-          'push',
-          '$pushToken',
-          ${toString ((60 * 60 * 24) + (60 * 60 * 6))},
-          0,
-          1
-        );
-      '';
+          pushToken,
+        }:
+        ''
+          INSERT INTO monitor (
+            id,
+            name,
+            user_id,
+            type,
+            push_token,
+            interval,
+            retry_interval,
+            resend_interval
+          )
+          VALUES (
+            '${toString id}',
+            '${name}',
+            1,
+            'push',
+            '${pushToken}',
+            ${toString ((60 * 60 * 24) + (60 * 60 * 6))},
+            0,
+            1
+          );
+        '';
 
       insertTvtracktimeMonitor = ''
         INSERT INTO monitor (
@@ -85,7 +91,7 @@ let
           retry_interval
         )
         VALUES (
-          '2',
+          '3',
           'tvtracktime.com',
           1,
           'http',
@@ -150,7 +156,16 @@ let
     ''
       DELETE FROM monitor;
 
-      ${insertBorgmaticMonitor}
+      ${insertBorgmaticMonitor {
+        id = 1;
+        name = "Borgmatic backup";
+        pushToken = "$pushToken";
+      }}
+      ${insertBorgmaticMonitor {
+        id = 2;
+        name = "Borgmatic backup remote";
+        pushToken = "$pushTokenRemote";
+      }}
       ${insertTvtracktimeMonitor}
       ${insertSelfMonitor}
       ${insertTailscaleMonitors}
@@ -197,6 +212,7 @@ let
 
       ${insertMonitorNotification 1}
       ${insertMonitorNotification 2}
+      ${insertMonitorNotification 3}
     '';
 in
 {
@@ -204,6 +220,9 @@ in
     secrets = {
       "services/uptime-kuma/discordWebhookUrl" = { };
       "services/uptime-kuma/pushTokens/borgmaticBackup".restartUnits = [
+        config.systemd.services.uptime-kuma-setup.name
+      ];
+      "services/uptime-kuma/pushTokens/borgmaticBackupRemote".restartUnits = [
         config.systemd.services.uptime-kuma-setup.name
       ];
     };
@@ -292,6 +311,9 @@ in
       dbFile="${config.services.uptime-kuma.settings.DATA_DIR}kuma.db"
       if [ -f "$dbFile" ]; then
         pushToken="$(cat ${config.sops.secrets."services/uptime-kuma/pushTokens/borgmaticBackup".path})"
+        pushTokenRemote="$(cat ${
+          config.sops.secrets."services/uptime-kuma/pushTokens/borgmaticBackupRemote".path
+        })"
         discordNotificationConfig="$(cat ${
           config.sops.templates."services.uptime-kuma.discordNotificationConfig".path
         })"
