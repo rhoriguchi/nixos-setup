@@ -38,16 +38,6 @@
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
 
-          home-assistant-custom-components = prev.home-assistant-custom-components // {
-            # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=587567
-            auth_oidc = prev.home-assistant-custom-components.auth_oidc.overrideAttrs (old: {
-              postPatch = old.postPatch + ''
-                substituteInPlace tests/test_hass_auth_provider.py \
-                  --replace-fail "hass.data[PERSON_DOMAIN][1]" "hass.data[PERSON_DOMAIN].storage_collection"
-              '';
-            });
-          };
-
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589632
           tautulli = prev.callPackage (import "${inputs.tautulli}/pkgs/by-name/ta/tautulli/package.nix") { };
         })

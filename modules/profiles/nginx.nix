@@ -30,7 +30,7 @@
         credentialFiles.INFOMANIAK_ACCESS_TOKEN_FILE =
           config.sops.secrets."services/infomaniak/accessToken".path;
 
-        dnsPropagationCheck = false;
+        dnsAuthoritativePropagationCheck = false;
       };
     };
 
