@@ -10,6 +10,25 @@ let
     libCustom.relativeToRoot "configuration/devices/headless/nelliel/headscale/ips.nix"
   );
 
+  getHostId = hostname: lib.last (lib.splitString "." tailscaleIps.${hostname}.ip);
+
+  monitorIds = {
+    borgmaticBackup = 256;
+    borgmaticBackupRemote = 257;
+    tvtracktime = 258;
+  };
+
+  tailscaleMonitorHostnames = lib.pipe tailscaleIps [
+    (lib.filterAttrs (_: value: value.monitoring or true))
+    lib.attrNames
+
+    (hostnames: lib.subtractLists [ config.networking.hostName ] hostnames)
+  ];
+
+  monitorIdList =
+    map (hostname: lib.toInt (getHostId hostname)) tailscaleMonitorHostnames
+    ++ lib.attrValues monitorIds;
+
   updateSettings =
     let
       updateSetting = key: value: ''
@@ -48,6 +67,40 @@ let
     );
   '';
 
+  historyTables = [
+    "heartbeat"
+    "stat_minutely"
+    "stat_hourly"
+    "stat_daily"
+    "monitor_tls_info"
+    "notification_sent_history"
+  ];
+
+  configTables = [
+    "monitor_group"
+    "monitor_maintenance"
+    "monitor_tag"
+  ];
+
+  clearChangedHistory =
+    {
+      id,
+      type,
+      identity,
+    }:
+    lib.concatMapStringsSep "\n" (table: ''
+      DELETE FROM ${table}
+      WHERE monitor_id = ${toString id}
+        AND NOT EXISTS (
+          SELECT 1 FROM monitor
+          WHERE id = ${toString id}
+            AND type IS '${type}'
+            ${lib.concatStringsSep "\n      " (
+              lib.mapAttrsToList (column: value: "AND ${column} IS '${value}'") identity
+            )}
+        );
+    '') historyTables;
+
   addMonitors =
     let
       insertBorgmaticMonitor =
@@ -57,7 +110,7 @@ let
           pushToken,
         }:
         ''
-          INSERT INTO monitor (
+          INSERT OR REPLACE INTO monitor (
             id,
             name,
             user_id,
@@ -80,7 +133,7 @@ let
         '';
 
       insertTvtracktimeMonitor = ''
-        INSERT INTO monitor (
+        INSERT OR REPLACE INTO monitor (
           id,
           name,
           user_id,
@@ -91,7 +144,7 @@ let
           retry_interval
         )
         VALUES (
-          '3',
+          '${toString monitorIds.tvtracktime}',
           'tvtracktime.com',
           1,
           'http',
@@ -102,27 +155,14 @@ let
         );
       '';
 
-      insertSelfMonitor = ''
-        INSERT INTO monitor (
-          name,
-          user_id,
-          type,
-          hostname,
-          interval,
-          retry_interval
-        )
-        VALUES (
-          '${config.networking.hostName}',
-          1,
-          'ping',
-          '${config.networking.hostName}',
-          60,
-          60
-        );
-      '';
-
       insertTailscaleMonitor = hostname: ''
-        INSERT INTO monitor (
+        ${clearChangedHistory {
+          id = getHostId hostname;
+          type = "tailscale-ping";
+          identity.hostname = hostname;
+        }}
+        INSERT OR REPLACE INTO monitor (
+          id,
           name,
           user_id,
           type,
@@ -132,6 +172,7 @@ let
           retry_interval
         )
         VALUES (
+          ${getHostId hostname},
           '${hostname}',
           1,
           'tailscale-ping',
@@ -142,33 +183,46 @@ let
         );
       '';
 
-      insertTailscaleMonitors = lib.pipe tailscaleIps [
-        (lib.filterAttrs (_: value: value.monitoring or true))
-        lib.attrNames
-
-        (hostnames: lib.subtractLists [ config.networking.hostName ] hostnames)
-
+      insertTailscaleMonitors = lib.pipe tailscaleMonitorHostnames [
         (map insertTailscaleMonitor)
 
         (lib.concatStringsSep "\n")
       ];
     in
     ''
-      DELETE FROM monitor;
-
+      ${clearChangedHistory {
+        id = monitorIds.borgmaticBackup;
+        type = "push";
+        identity.push_token = "$pushToken";
+      }}
       ${insertBorgmaticMonitor {
-        id = 1;
+        id = monitorIds.borgmaticBackup;
         name = "Borgmatic backup";
         pushToken = "$pushToken";
       }}
+      ${clearChangedHistory {
+        id = monitorIds.borgmaticBackupRemote;
+        type = "push";
+        identity.push_token = "$pushTokenRemote";
+      }}
       ${insertBorgmaticMonitor {
-        id = 2;
+        id = monitorIds.borgmaticBackupRemote;
         name = "Borgmatic backup remote";
         pushToken = "$pushTokenRemote";
       }}
+      ${clearChangedHistory {
+        id = monitorIds.tvtracktime;
+        type = "http";
+        identity.url = "https://tvtracktime.com";
+      }}
       ${insertTvtracktimeMonitor}
-      ${insertSelfMonitor}
       ${insertTailscaleMonitors}
+
+      DELETE FROM monitor WHERE id NOT IN (${lib.concatMapStringsSep ", " toString monitorIdList});
+
+      ${lib.concatMapStringsSep "\n" (table: ''
+        DELETE FROM ${table} WHERE monitor_id NOT IN (SELECT id FROM monitor);
+      '') (historyTables ++ configTables)}
     '';
 
   addNotifications =
@@ -210,9 +264,9 @@ let
 
       DELETE FROM monitor_notification;
 
-      ${insertMonitorNotification 1}
-      ${insertMonitorNotification 2}
-      ${insertMonitorNotification 3}
+      ${insertMonitorNotification monitorIds.borgmaticBackup}
+      ${insertMonitorNotification monitorIds.borgmaticBackupRemote}
+      ${insertMonitorNotification monitorIds.tvtracktime}
     '';
 in
 {
@@ -239,6 +293,15 @@ in
       restartUnits = [ config.systemd.services.uptime-kuma-setup.name ];
     };
   };
+
+  assertions = [
+    {
+      assertion = lib.length (lib.unique monitorIdList) == lib.length monitorIdList;
+      message = "uptime-kuma monitor ids must be unique, got ${
+        lib.concatMapStringsSep ", " toString monitorIdList
+      }";
+    }
+  ];
 
   services = {
     uptime-kuma = {
