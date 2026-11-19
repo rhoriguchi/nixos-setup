@@ -46,7 +46,7 @@ in
         IdentityFile = "${home}/.ssh/gitlab_ed25519";
       };
 
-      "jdh-server" = {
+      "jcrk.synology.me" = {
         User = "xxlpitu";
         Port = 10022;
         IdentityFile = "${home}/.ssh/jdh_server_ed25519";
