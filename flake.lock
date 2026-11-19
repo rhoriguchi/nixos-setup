@@ -1059,11 +1059,11 @@
     "nixos/netdata": {
       "flake": false,
       "locked": {
-        "lastModified": 1787086221,
-        "narHash": "sha256-DvGMzhpC2dQYODCw81zpPpIU/o/hc8pDCLKjcQeN6Y8=",
+        "lastModified": 1795110541,
+        "narHash": "sha256-uYIP67z77rSgke77RaGp2aKn6L8hOsHBOl7RDd3N12c=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c0a8f331b280c32b83fc3ae3a28c38bcefeec449",
+        "rev": "f1751e68bf34736d29fb6f3b33924b01ea7fc5d2",
         "type": "github"
       },
       "original": {
