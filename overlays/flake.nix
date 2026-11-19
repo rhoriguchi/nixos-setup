@@ -4,11 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
-    adguardhome = {
-      url = "github:NixOS/nixpkgs/pull/585101/head";
-      flake = false;
-    };
-
     gamedig = {
       url = "github:NixOS/nixpkgs/pull/467867/head";
       flake = false;
@@ -47,11 +42,6 @@
                 { };
           in
           {
-            # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=585101
-            adguardhome =
-              prev.callPackage (import "${inputs.adguardhome}/pkgs/by-name/ad/adguardhome/package.nix")
-                { buildGoModule = prev.buildGo127Module; };
-
             # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
             gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
 
