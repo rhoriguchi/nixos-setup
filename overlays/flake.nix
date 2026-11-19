@@ -14,6 +14,11 @@
       flake = false;
     };
 
+    netdata = {
+      url = "github:NixOS/nixpkgs/pull/590575/head";
+      flake = false;
+    };
+
     nginx = {
       url = "github:NixOS/nixpkgs/pull/589961/head";
       flake = false;
@@ -44,6 +49,12 @@
           {
             # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
             gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
+
+            # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=590575
+            netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") {
+              go = prev.go_1_27;
+              buildGoModule = prev.buildGo127Module;
+            };
 
             # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589961
             nginxStable = prev.callPackage (import "${inputs.nginx}/pkgs/servers/http/nginx/stable.nix") {

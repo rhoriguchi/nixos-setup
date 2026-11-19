@@ -434,6 +434,8 @@ in
           withCups = true;
           withDBengine = isFleetParent;
           withDebug = cfg.debug.enable;
+          withDem = false;
+          withFreeIpmi = false;
           withIpmi = false;
           withLibbacktrace = cfg.debug.enable;
           withML = isFleetParent;
