@@ -66,11 +66,9 @@ in
 
   sops = {
     secrets =
-      lib.listToAttrs (
-        map (
-          name: lib.nameValuePair name { restartUnits = [ config.systemd.services."container@deluge".name ]; }
-        ) (map (name: wgSecretName name) wgConfigFiles)
-      )
+      lib.genAttrs (map wgSecretName wgConfigFiles) (_: {
+        restartUnits = [ config.systemd.services."container@deluge".name ];
+      })
       // lib.listToAttrs (
         map (
           user:
@@ -130,11 +128,9 @@ in
     ++ map (name: config.sops.secrets.${wgSecretName name}.path) wgConfigFiles;
 
     config = {
-      boot.kernel.sysctl = lib.pipe wgInterfaces [
-        (map (interface: lib.nameValuePair "net.ipv4.conf.${interface}.rp_filter" 2))
-
-        lib.listToAttrs
-      ];
+      boot.kernel.sysctl = lib.genAttrs (map (
+        interface: "net.ipv4.conf.${interface}.rp_filter"
+      ) wgInterfaces) (_: 2);
 
       networking = {
         enableIPv6 = false;

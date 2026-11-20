@@ -81,10 +81,7 @@ in
           lib.listToAttrs
         ];
 
-        groups = lib.pipe agentIndices [
-          (map (index: lib.nameValuePair (group index) { }))
-          lib.listToAttrs
-        ];
+        groups = lib.genAttrs (map group agentIndices) (_: { });
       };
 
       services.github-runners = lib.pipe agentIndices [

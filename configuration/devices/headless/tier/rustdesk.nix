@@ -35,27 +35,23 @@ in
     };
   };
 
-  systemd.services = lib.listToAttrs (
-    map
-      (
-        name:
-        lib.nameValuePair name {
-          serviceConfig.LoadCredential = [
-            "id_ed25519:${config.sops.secrets."services/rustdesk/privateKey".path}"
-            "id_ed25519.pub:${config.sops.secrets."services/rustdesk/publicKey".path}"
-          ];
-
-          preStart = ''
-            install -m 400 "$CREDENTIALS_DIRECTORY/id_ed25519" id_ed25519
-            install -m 400 "$CREDENTIALS_DIRECTORY/id_ed25519.pub" id_ed25519.pub
-          '';
-        }
-      )
+  systemd.services =
+    lib.genAttrs
       [
         "rustdesk-signal"
         "rustdesk-relay"
       ]
-  );
+      (_: {
+        serviceConfig.LoadCredential = [
+          "id_ed25519:${config.sops.secrets."services/rustdesk/privateKey".path}"
+          "id_ed25519.pub:${config.sops.secrets."services/rustdesk/publicKey".path}"
+        ];
+
+        preStart = ''
+          install -m 400 "$CREDENTIALS_DIRECTORY/id_ed25519" id_ed25519
+          install -m 400 "$CREDENTIALS_DIRECTORY/id_ed25519.pub" id_ed25519.pub
+        '';
+      });
 
   networking.firewall = {
     allowedTCPPorts = [

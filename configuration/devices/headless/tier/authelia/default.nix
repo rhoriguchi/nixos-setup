@@ -23,12 +23,9 @@ in
 
   sops = {
     secrets =
-      lib.listToAttrs (
-        lib.concatMap (
-          user:
-          map (field: lib.nameValuePair (autheliaUserSecretName user field) { }) autheliaUserSecretFields
-        ) (lib.attrNames autheliaUsers)
-      )
+      lib.genAttrs (lib.concatMap (user: map (autheliaUserSecretName user) autheliaUserSecretFields) (
+        lib.attrNames autheliaUsers
+      )) (_: { })
       // {
         "services/authelia/oidc/jwks".restartUnits = [ restartUnit ];
 
@@ -64,10 +61,8 @@ in
           {
             inherit (userCfg) groups;
           }
-          // lib.listToAttrs (
-            map (
-              field: lib.nameValuePair field config.sops.placeholder.${autheliaUserSecretName user field}
-            ) autheliaUserSecretFields
+          // lib.genAttrs autheliaUserSecretFields (
+            field: config.sops.placeholder.${autheliaUserSecretName user field}
           )
         ) autheliaUsers;
       };

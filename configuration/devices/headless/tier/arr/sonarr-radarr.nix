@@ -139,17 +139,10 @@ let
               hostPath = "/mnt/Data/Deluge";
             };
           }
-          // lib.pipe bindmounts [
-            (map (
-              m:
-              lib.nameValuePair (mountPath m) {
-                isReadOnly = false;
-                hostPath = mountPath m;
-              }
-            ))
-
-            lib.listToAttrs
-          ];
+          // lib.genAttrs (map mountPath bindmounts) (path: {
+            isReadOnly = false;
+            hostPath = path;
+          });
 
           sopsPaths = [
             config.sops.secrets."${name}+services/${name}/apiKey".path

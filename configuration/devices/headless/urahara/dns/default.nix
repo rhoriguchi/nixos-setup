@@ -89,16 +89,9 @@ let
       let
         cnames =
           answer: domains:
-          lib.pipe domains [
-            (map (
-              domain:
-              lib.nameValuePair domain {
-                CNAME = [ "${answer}." ];
-              }
-            ))
-
-            lib.listToAttrs
-          ];
+          lib.genAttrs domains (_: {
+            CNAME = [ "${answer}." ];
+          });
       in
       pkgs.writeText "rpz.00a.ch.zone" (
         libDns.toString "rpz.00a.ch" (
@@ -131,10 +124,7 @@ let
         )
       );
   }
-  // lib.pipe reverseZones [
-    (map (zone: lib.nameValuePair zone (pkgs.writeText "${zone}.zone" (libDns.toString zone ddnsZone))))
-    lib.listToAttrs
-  ];
+  // lib.genAttrs reverseZones (zone: pkgs.writeText "${zone}.zone" (libDns.toString zone ddnsZone));
 in
 {
   imports = [ ./adguardhome.nix ];
@@ -165,22 +155,15 @@ in
   networking = {
     nameservers = [ "127.0.0.1" ];
 
-    firewall.interfaces = lib.pipe internalSubnetsWithDns [
-      (map (
-        subnet:
-        lib.nameValuePair subnet.interface {
-          allowedUDPPorts = [
-            53 # DNS
-          ];
+    firewall.interfaces = lib.genAttrs (map (subnet: subnet.interface) internalSubnetsWithDns) (_: {
+      allowedUDPPorts = [
+        53 # DNS
+      ];
 
-          allowedTCPPorts = [
-            53 # DNS
-          ];
-        }
-      ))
-
-      lib.listToAttrs
-    ];
+      allowedTCPPorts = [
+        53 # DNS
+      ];
+    });
   };
 
   systemd = {

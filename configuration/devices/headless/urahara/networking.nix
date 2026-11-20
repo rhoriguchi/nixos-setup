@@ -114,18 +114,11 @@ in
       ];
     };
 
-    firewall.interfaces = lib.pipe config.services.avahi.settings.server.allow-interfaces [
-      (map (
-        interface:
-        lib.nameValuePair interface {
-          allowedUDPPorts = [
-            5353 # mDNS
-          ];
-        }
-      ))
-
-      lib.listToAttrs
-    ];
+    firewall.interfaces = lib.genAttrs config.services.avahi.settings.server.allow-interfaces (_: {
+      allowedUDPPorts = [
+        5353 # mDNS
+      ];
+    });
   };
 
   services = {

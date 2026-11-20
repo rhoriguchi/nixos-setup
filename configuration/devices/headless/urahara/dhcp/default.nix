@@ -12,18 +12,11 @@ let
   ips = import ./ips.nix;
 in
 {
-  networking.firewall.interfaces = lib.pipe interfaceNames [
-    (map (
-      interfaceName:
-      lib.nameValuePair interfaceName {
-        allowedUDPPorts = [
-          67 # DHCP
-        ];
-      }
-    ))
-
-    lib.listToAttrs
-  ];
+  networking.firewall.interfaces = lib.genAttrs interfaceNames (_: {
+    allowedUDPPorts = [
+      67 # DHCP
+    ];
+  });
 
   services.kea = {
     dhcp4 = {

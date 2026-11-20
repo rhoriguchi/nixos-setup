@@ -1,19 +1,17 @@
 { config, lib, ... }:
-{
-  networking.firewall.interfaces = lib.pipe config.services.kea.dhcp4.settings.subnet4 [
+let
+  ntpInterfaces = lib.pipe config.services.kea.dhcp4.settings.subnet4 [
     (lib.filter (subnet: lib.any (opt: opt.name == "ntp-servers") (subnet.option-data or [ ])))
 
-    (map (
-      subnet:
-      lib.nameValuePair subnet.interface {
-        allowedUDPPorts = [
-          123 # NTP
-        ];
-      }
-    ))
-
-    lib.listToAttrs
+    (map (subnet: subnet.interface))
   ];
+in
+{
+  networking.firewall.interfaces = lib.genAttrs ntpInterfaces (_: {
+    allowedUDPPorts = [
+      123 # NTP
+    ];
+  });
 
   services.chrony = {
     enable = true;

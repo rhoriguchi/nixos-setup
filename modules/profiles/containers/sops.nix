@@ -10,15 +10,10 @@
             default = [ ];
           };
 
-          config.bindMounts = lib.listToAttrs (
-            map (
-              path:
-              lib.nameValuePair path {
-                hostPath = path;
-                isReadOnly = true;
-              }
-            ) config.sopsPaths
-          );
+          config.bindMounts = lib.genAttrs config.sopsPaths (path: {
+            hostPath = path;
+            isReadOnly = true;
+          });
         }
       )
     );

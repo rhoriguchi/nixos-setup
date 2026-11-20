@@ -6,7 +6,7 @@
 }:
 {
   sops = {
-    secrets = lib.listToAttrs (map (ssid: lib.nameValuePair "wifis/${ssid}" { }) wifis.passwordSsids);
+    secrets = lib.genAttrs (map (ssid: "wifis/${ssid}") wifis.passwordSsids) (_: { });
 
     templates."networking.wireless.secretsFile" = {
       owner = "wpa_supplicant";

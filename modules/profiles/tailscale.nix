@@ -50,16 +50,11 @@ in
   systemd.network = lib.mkIf hasUnmanagedInterfaces {
     wait-online.enable = false;
 
-    networks = lib.listToAttrs (
-      map (
-        interface:
-        lib.nameValuePair "40-${interface}" {
-          networkConfig.IPv6AcceptRA = true;
+    networks = lib.genAttrs (map (interface: "40-${interface}") unmanagedInterfaces) (_: {
+      networkConfig.IPv6AcceptRA = true;
 
-          dhcpV4Config.UseDomains = true;
-        }
-      ) unmanagedInterfaces
-    );
+      dhcpV4Config.UseDomains = true;
+    });
   };
 
   services.resolved = {
