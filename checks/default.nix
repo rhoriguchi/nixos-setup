@@ -33,7 +33,7 @@
         });
 
         excludes = [
-          ''configuration\/devices\/nnoitra\/iex.*\.json''
+          ''configuration\/devices\/headful\/nnoitra\/iex.*\.json''
         ];
       };
       fix-byte-order-marker.enable = true;
@@ -46,13 +46,13 @@
       mixed-line-endings = {
         enable = true;
         excludes = [
-          ''configuration\/devices\/nnoitra\/iex.*\.json''
+          ''configuration\/devices\/headful\/nnoitra\/iex.*\.json''
         ];
       };
       nixfmt = {
         enable = true;
         excludes = [
-          ''configuration\/devices\/nnoitra\/iex.*\.json''
+          ''configuration\/devices\/headful\/nnoitra\/iex.*\.json''
         ];
       };
       trim-trailing-whitespace.enable = true;

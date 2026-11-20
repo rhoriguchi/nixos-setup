@@ -274,7 +274,7 @@
                   self.nixosModules.profiles.python
                   self.nixosModules.profiles.syncthing
 
-                  ./configuration/devices/aizen
+                  ./configuration/devices/headful/aizen
 
                   inputs.home-manager.nixosModules.default
                   {
