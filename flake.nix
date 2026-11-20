@@ -465,6 +465,34 @@
               inherit (inputs) nixos-raspberrypi;
             };
           };
+
+          # Raspberry Pi 4 Model B - 8GB
+          XXLPitu-Unohana = inputs.nixos-raspberrypi.lib.nixosSystem {
+            # nixos-raspberrypi
+            trustCaches = false;
+
+            system = "aarch64-linux";
+
+            modules = [
+              {
+                imports = [
+                  commonModule
+
+                  inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
+
+                  self.nixosModules.profiles.headless
+
+                  ./configuration/devices/headless/raspberry-pi-4/unohana
+                ];
+
+                boot.kernelPackages = mkRaspberryPiCrossKernelPackages "rpi4";
+              }
+            ];
+
+            specialArgs = specialArgs // {
+              inherit (inputs) nixos-raspberrypi;
+            };
+          };
         };
 
       installerImages = lib.genAttrs [ "rpi02" "rpi3" "rpi4" "rpi5" ] (
@@ -484,6 +512,7 @@
             "XXLPitu-Aizen"
             "XXLPitu-Tier"
             "XXLPitu-Ulquiorra"
+            "XXLPitu-Unohana"
             "XXLPitu-Urahara"
             "XXLPitu-Vorarlberna"
           ];
@@ -497,12 +526,14 @@
             "XXLPitu-Nelliel"
             "XXLPitu-Tier"
             "XXLPitu-Ulquiorra"
+            "XXLPitu-Unohana"
             "XXLPitu-Urahara"
             "XXLPitu-Vorarlberna"
           ];
 
           raspberry-pi = [
             "XXLPitu-Ulquiorra"
+            "XXLPitu-Unohana"
             "XXLPitu-Vorarlberna"
           ];
         };

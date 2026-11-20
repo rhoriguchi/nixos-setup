@@ -123,6 +123,12 @@ in
                 data = "192.168.3.1";
               }
             ];
+            reservations = [
+              {
+                hw-address = "02:7c:3e:91:a4:5d";
+                ip-address = ips.unohana;
+              }
+            ];
           }
           {
             id = 10;

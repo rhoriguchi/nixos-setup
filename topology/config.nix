@@ -25,6 +25,10 @@ in
     XXLPitu-Aizen.interfaces.wlp0s20f3.network = keaNetwork 2;
 
     XXLPitu-Ulquiorra.interfaces.wlan0.network = keaNetwork 3;
+    XXLPitu-Unohana.interfaces.eth0 = {
+      addresses = [ ips.unohana ];
+      network = keaNetwork 3;
+    };
     XXLPitu-Vorarlberna.interfaces.eth0.network = keaNetwork 3;
 
     XXLPitu-Tier.interfaces.enp11s0 = {
@@ -74,6 +78,10 @@ in
         tier = {
           sharesNetworkWith = [ ];
           physicalConnections = [ (mkConnection "XXLPitu-Tier" "enp11s0") ];
+        };
+        unohana = {
+          sharesNetworkWith = [ ];
+          physicalConnections = [ (mkConnection "XXLPitu-Unohana" "eth0") ];
         };
       };
     };

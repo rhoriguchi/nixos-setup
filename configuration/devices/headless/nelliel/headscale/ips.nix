@@ -48,6 +48,10 @@
     ip = "100.123.123.39";
     tags = [ "headless" ];
   };
+  XXLPitu-Unohana = {
+    ip = "100.123.123.146";
+    tags = [ "headless" ];
+  };
   XXLPitu-Urahara = {
     ip = "100.123.123.113";
     tags = [
