@@ -12,17 +12,13 @@ let
     (lib.filter (subnet: lib.any (opt: opt.name == "domain-name-servers") (subnet.option-data or [ ])))
   ];
 
-  internalSubnetsByInterface = lib.pipe internalSubnetsWithDns [
-    (map (
-      subnet:
-      let
-        dnsOpt = lib.findFirst (opt: opt.name == "domain-name-servers") null (subnet.option-data or [ ]);
-      in
-      lib.nameValuePair subnet.interface dnsOpt.data
-    ))
-
-    lib.listToAttrs
-  ];
+  internalSubnetsByInterface = lib.genAttrs' internalSubnetsWithDns (
+    subnet:
+    let
+      dnsOpt = lib.findFirst (opt: opt.name == "domain-name-servers") null (subnet.option-data or [ ]);
+    in
+    lib.nameValuePair subnet.interface dnsOpt.data
+  );
 
   internalDnsInterfaces = map (subnet: subnet.interface) internalSubnetsWithDns;
 in

@@ -94,26 +94,24 @@ in
 
       config.host.apiKey = config.sops.secrets."declarr+services/prowlarr/apiKey".path;
 
-      applications = lib.listToAttrs (
-        map (
-          app:
-          let
-            container = config.containers.${containerName app};
-          in
-          lib.nameValuePair "${lib.toSentenceCase app.service} ${app.type}" {
-            implementation = lib.toSentenceCase app.service;
-            syncLevel = "fullSync";
-            tags = [ app.type ];
+      applications = lib.genAttrs' apps (
+        app:
+        let
+          container = config.containers.${containerName app};
+        in
+        lib.nameValuePair "${lib.toSentenceCase app.service} ${app.type}" {
+          implementation = lib.toSentenceCase app.service;
+          syncLevel = "fullSync";
+          tags = [ app.type ];
 
-            fields = {
-              apiKey = config.sops.secrets."declarr+services/${app.service}/apiKey".path;
-              baseUrl = "http://${container.localAddress}:${
-                toString container.config.services.${app.service}.settings.server.port
-              }/${app.type}";
-              prowlarrUrl = "http://${container.hostAddress}:${toString config.services.prowlarr.settings.server.port}";
-            };
-          }
-        ) apps
+          fields = {
+            apiKey = config.sops.secrets."declarr+services/${app.service}/apiKey".path;
+            baseUrl = "http://${container.localAddress}:${
+              toString container.config.services.${app.service}.settings.server.port
+            }/${app.type}";
+            prowlarrUrl = "http://${container.hostAddress}:${toString config.services.prowlarr.settings.server.port}";
+          };
+        }
       );
 
       indexerProxy.FlareSolverr = {

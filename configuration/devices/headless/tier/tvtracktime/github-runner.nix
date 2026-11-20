@@ -68,72 +68,60 @@ in
       );
 
       users = {
-        users = lib.pipe agentIndices [
-          (map (
-            index:
-            lib.nameValuePair (user index) {
-              isSystemUser = true;
-              group = group index;
-              extraGroups = [ "docker" ];
-            }
-          ))
-
-          lib.listToAttrs
-        ];
+        users = lib.genAttrs' agentIndices (
+          index:
+          lib.nameValuePair (user index) {
+            isSystemUser = true;
+            group = group index;
+            extraGroups = [ "docker" ];
+          }
+        );
 
         groups = lib.genAttrs (map group agentIndices) (_: { });
       };
 
-      services.github-runners = lib.pipe agentIndices [
-        (map (
-          index:
-          lib.nameValuePair "tvtracktime-${toString index}" {
-            enable = true;
+      services.github-runners = lib.genAttrs' agentIndices (
+        index:
+        lib.nameValuePair "tvtracktime-${toString index}" {
+          enable = true;
 
-            ephemeral = true;
-            replace = true;
+          ephemeral = true;
+          replace = true;
 
-            name = "tvtracktime-runner-${toString index}";
-            url = "https://github.com/rhoriguchi/tvtracktime";
+          name = "tvtracktime-runner-${toString index}";
+          url = "https://github.com/rhoriguchi/tvtracktime";
 
-            user = user index;
-            group = group index;
+          user = user index;
+          group = group index;
 
-            tokenFile = config.sops.secrets."services/tvTrackTime/github/runnerToken".path;
+          tokenFile = config.sops.secrets."services/tvTrackTime/github/runnerToken".path;
 
-            extraLabels = [ "nixos" ];
+          extraLabels = [ "nixos" ];
 
-            extraPackages = [
-              config.virtualisation.docker.package
+          extraPackages = [
+            config.virtualisation.docker.package
 
-              # backend
-              pkgs.curl
-              pkgs.unzip
-            ];
+            # backend
+            pkgs.curl
+            pkgs.unzip
+          ];
 
-            extraEnvironment = {
-              HOME = "/run/${user index}/home";
-              MAVEN_OPTS = "-Duser.home=/run/${user index}/home";
-            };
-          }
-        ))
+          extraEnvironment = {
+            HOME = "/run/${user index}/home";
+            MAVEN_OPTS = "-Duser.home=/run/${user index}/home";
+          };
+        }
+      );
 
-        lib.listToAttrs
-      ];
-
-      systemd.services = lib.pipe agentIndices [
-        (map (
-          index:
-          lib.nameValuePair "github-runner-tvtracktime-${toString index}" {
-            serviceConfig = {
-              Restart = lib.mkForce "always";
-              RestartSec = 5 + (index * 3);
-            };
-          }
-        ))
-
-        lib.listToAttrs
-      ];
+      systemd.services = lib.genAttrs' agentIndices (
+        index:
+        lib.nameValuePair "github-runner-tvtracktime-${toString index}" {
+          serviceConfig = {
+            Restart = lib.mkForce "always";
+            RestartSec = 5 + (index * 3);
+          };
+        }
+      );
     };
   };
 }

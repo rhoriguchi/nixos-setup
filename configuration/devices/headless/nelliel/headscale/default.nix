@@ -142,18 +142,16 @@ in
   ];
 
   sops.secrets =
-    lib.listToAttrs (
-      map (
-        hostname:
-        lib.nameValuePair "headscale+services/headscale/preAuthKeys/${hostname}" {
-          key = "services/headscale/preAuthKeys/${hostname}";
+    lib.genAttrs' hostnames (
+      hostname:
+      lib.nameValuePair "headscale+services/headscale/preAuthKeys/${hostname}" {
+        key = "services/headscale/preAuthKeys/${hostname}";
 
-          owner = config.services.headscale.user;
-          group = config.services.headscale.group;
+        owner = config.services.headscale.user;
+        group = config.services.headscale.group;
 
-          restartUnits = [ config.systemd.services.headscale-setup.name ];
-        }
-      ) hostnames
+        restartUnits = [ config.systemd.services.headscale-setup.name ];
+      }
     )
     // {
       "headscale+services/headscale/apiKey" = {

@@ -69,13 +69,11 @@ in
       lib.genAttrs (map wgSecretName wgConfigFiles) (_: {
         restartUnits = [ config.systemd.services."container@deluge".name ];
       })
-      // lib.listToAttrs (
-        map (
-          user:
-          lib.nameValuePair (delugeUserSecretName user) {
-            restartUnits = lib.mkIf (user == "metrics") [ config.systemd.services."container@deluge".name ];
-          }
-        ) (lib.attrNames delugeUsers)
+      // lib.genAttrs' (lib.attrNames delugeUsers) (
+        user:
+        lib.nameValuePair (delugeUserSecretName user) {
+          restartUnits = lib.mkIf (user == "metrics") [ config.systemd.services."container@deluge".name ];
+        }
       );
 
     templates."services.deluge.authFile" = {

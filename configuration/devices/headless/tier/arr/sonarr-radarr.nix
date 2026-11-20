@@ -316,27 +316,23 @@ let
         ) types;
       };
 
-      fileSystems = lib.pipe bindmounts [
-        (map (
-          bindmount:
-          lib.nameValuePair (mountPath bindmount) {
-            depends = bindmount.depends or [ bindmount.device ];
-            inherit (bindmount) device;
-            fsType = "fuse.bindfs";
-            noCheck = true;
-            options = (bindmount.options or [ ]) ++ [
-              "map=${
-                lib.concatStringsSep ":" [
-                  "${bindmount.user or "root"}/${userUid}"
-                  "@${bindmount.group or "root"}/@${groupGid}"
-                ]
-              }"
-            ];
-          }
-        ))
-
-        lib.listToAttrs
-      ];
+      fileSystems = lib.genAttrs' bindmounts (
+        bindmount:
+        lib.nameValuePair (mountPath bindmount) {
+          depends = bindmount.depends or [ bindmount.device ];
+          inherit (bindmount) device;
+          fsType = "fuse.bindfs";
+          noCheck = true;
+          options = (bindmount.options or [ ]) ++ [
+            "map=${
+              lib.concatStringsSep ":" [
+                "${bindmount.user or "root"}/${userUid}"
+                "@${bindmount.group or "root"}/@${groupGid}"
+              ]
+            }"
+          ];
+        }
+      );
 
       systemd.tmpfiles.rules =
         map (type: "d /var/lib/${instance type} 0750 ${userUid} ${groupGid}") typeNames

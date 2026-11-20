@@ -22,17 +22,15 @@ let
 in
 {
   sops = {
-    secrets = lib.listToAttrs (
-      map (
-        name:
-        lib.nameValuePair "services/couchdb/users/${name}" {
-          restartUnits =
-            if name == "admin" then
-              map (database: config.systemd.services."couchdb-init-${database}".name) databases
-            else
-              [ config.systemd.services."couchdb-init-${name}".name ];
-        }
-      ) ([ "admin" ] ++ databases)
+    secrets = lib.genAttrs' ([ "admin" ] ++ databases) (
+      name:
+      lib.nameValuePair "services/couchdb/users/${name}" {
+        restartUnits =
+          if name == "admin" then
+            map (database: config.systemd.services."couchdb-init-${database}".name) databases
+          else
+            [ config.systemd.services."couchdb-init-${name}".name ];
+      }
     );
 
     templates = {
@@ -180,52 +178,50 @@ in
     };
   };
 
-  systemd.services = lib.listToAttrs (
-    map (
-      database:
-      lib.nameValuePair "couchdb-init-${database}" {
-        enable = config.services.couchdb.enable;
+  systemd.services = lib.genAttrs' databases (
+    database:
+    lib.nameValuePair "couchdb-init-${database}" {
+      enable = config.services.couchdb.enable;
 
-        wants = [ config.systemd.services.couchdb.name ];
-        after = [ config.systemd.services.couchdb.name ];
-        wantedBy = [ "multi-user.target" ];
+      wants = [ config.systemd.services.couchdb.name ];
+      after = [ config.systemd.services.couchdb.name ];
+      wantedBy = [ "multi-user.target" ];
 
-        script = ''
-          until ${pkgs.curl}/bin/curl -s http://127.0.0.1:${toString config.services.couchdb.port}/ > /dev/null; do
-            sleep 1
-          done
+      script = ''
+        until ${pkgs.curl}/bin/curl -s http://127.0.0.1:${toString config.services.couchdb.port}/ > /dev/null; do
+          sleep 1
+        done
 
-          admin_auth="${config.services.couchdb.adminUser}:$(cat "$CREDENTIALS_DIRECTORY/adminPassword")"
-          base="http://127.0.0.1:${toString config.services.couchdb.port}"
-          db_password="$(cat "$CREDENTIALS_DIRECTORY/dbPassword")"
+        admin_auth="${config.services.couchdb.adminUser}:$(cat "$CREDENTIALS_DIRECTORY/adminPassword")"
+        base="http://127.0.0.1:${toString config.services.couchdb.port}"
+        db_password="$(cat "$CREDENTIALS_DIRECTORY/dbPassword")"
 
-          # PUT on an already-existing db/user/doc is a harmless no-op (curl
-          # without -f exits 0 on non-2xx too), so these are safe to run
-          # unconditionally instead of checking existence first.
-          ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" "$base/_users" > /dev/null
-          ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" "$base/${database}" > /dev/null
-          ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" \
-            -H "Content-Type: application/json" \
-            -d '{"name":"${database}","password":"'"$db_password"'","roles":[],"type":"user"}' \
-            "$base/_users/org.couchdb.user:${database}" > /dev/null
+        # PUT on an already-existing db/user/doc is a harmless no-op (curl
+        # without -f exits 0 on non-2xx too), so these are safe to run
+        # unconditionally instead of checking existence first.
+        ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" "$base/_users" > /dev/null
+        ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" "$base/${database}" > /dev/null
+        ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" \
+          -H "Content-Type: application/json" \
+          -d '{"name":"${database}","password":"'"$db_password"'","roles":[],"type":"user"}' \
+          "$base/_users/org.couchdb.user:${database}" > /dev/null
 
-          ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" \
-            -H "Content-Type: application/json" \
-            -d '{"admins":{"names":["${database}"],"roles":[]},"members":{"names":["${database}"],"roles":[]}}' \
-            "$base/${database}/_security"
-        '';
+        ${pkgs.curl}/bin/curl -s -X PUT -u "$admin_auth" \
+          -H "Content-Type: application/json" \
+          -d '{"admins":{"names":["${database}"],"roles":[]},"members":{"names":["${database}"],"roles":[]}}' \
+          "$base/${database}/_security"
+      '';
 
-        serviceConfig = {
-          DynamicUser = true;
-          Type = "oneshot";
-          RemainAfterExit = true;
+      serviceConfig = {
+        DynamicUser = true;
+        Type = "oneshot";
+        RemainAfterExit = true;
 
-          LoadCredential = [
-            "adminPassword:${config.sops.secrets."services/couchdb/users/admin".path}"
-            "dbPassword:${config.sops.secrets."services/couchdb/users/${database}".path}"
-          ];
-        };
-      }
-    ) databases
+        LoadCredential = [
+          "adminPassword:${config.sops.secrets."services/couchdb/users/admin".path}"
+          "dbPassword:${config.sops.secrets."services/couchdb/users/${database}".path}"
+        ];
+      };
+    }
   );
 }

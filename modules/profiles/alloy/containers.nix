@@ -31,41 +31,39 @@ in
       BindReadOnlyPaths = [ "/mnt/nixos-containers" ];
     };
 
-    environment.etc = lib.listToAttrs (
-      map (
-        containerName:
-        let
-          safeContainerName = lib.replaceStrings [ "-" ] [ "_" ] containerName;
-        in
-        {
-          name = "alloy/loki.container.${containerName}.alloy";
-          value = {
-            text = ''
-              loki.relabel "container_${safeContainerName}" {
-                forward_to = [loki.relabel.default.receiver]
+    environment.etc = lib.genAttrs' containerNames (
+      containerName:
+      let
+        safeContainerName = lib.replaceStrings [ "-" ] [ "_" ] containerName;
+      in
+      {
+        name = "alloy/loki.container.${containerName}.alloy";
+        value = {
+          text = ''
+            loki.relabel "container_${safeContainerName}" {
+              forward_to = [loki.relabel.default.receiver]
 
-                rule {
-                  target_label = "job"
-                  replacement = "container"
-                }
-
-                rule {
-                  target_label = "container"
-                  replacement = "${containerName}"
-                }
+              rule {
+                target_label = "job"
+                replacement = "container"
               }
 
-              loki.source.journal "container_${safeContainerName}" {
-                forward_to = [loki.relabel.container_${safeContainerName}.receiver]
-
-                path = "/mnt/nixos-containers/${containerName}/journal"
-
-                relabel_rules = loki.relabel.raw_journal.rules
+              rule {
+                target_label = "container"
+                replacement = "${containerName}"
               }
-            '';
-          };
-        }
-      ) containerNames
+            }
+
+            loki.source.journal "container_${safeContainerName}" {
+              forward_to = [loki.relabel.container_${safeContainerName}.receiver]
+
+              path = "/mnt/nixos-containers/${containerName}/journal"
+
+              relabel_rules = loki.relabel.raw_journal.rules
+            }
+          '';
+        };
+      }
     );
   };
 }
