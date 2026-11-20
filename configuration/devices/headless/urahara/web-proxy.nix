@@ -25,6 +25,8 @@ let
     "webdav.00a.ch"
   ];
 
+  unohanaDomains = [ "pykvm.00a.ch" ];
+
   getVirtualHost = name: ip: domains: {
     "${name}" = {
       serverAliases = domains;
@@ -58,8 +60,15 @@ in
         ipv4 = "${ips.tier}:443";
         hostnames = tierDomains;
       };
+
+      XXLPitu-Unohana = {
+        ipv4 = "${ips.unohana}:443";
+        hostnames = unohanaDomains;
+      };
     };
 
-    virtualHosts = (getVirtualHost "XXLPitu-Tier.local" ips.tier tierDomains);
+    virtualHosts =
+      (getVirtualHost "XXLPitu-Tier.local" ips.tier tierDomains)
+      // (getVirtualHost "XXLPitu-Unohana.local" ips.unohana unohanaDomains);
   };
 }

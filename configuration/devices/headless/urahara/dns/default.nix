@@ -103,6 +103,7 @@ let
                 "printer.00a.ch"
                 "scanner.00a.ch"
               ])
+              // (cnames "XXLPitu-Unohana.local" [ "pykvm.00a.ch" ])
               // (cnames "XXLPitu-Tier.local" [
                 "authelia.00a.ch"
                 "bazarr.00a.ch"

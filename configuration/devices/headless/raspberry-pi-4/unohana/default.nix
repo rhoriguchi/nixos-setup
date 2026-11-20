@@ -1,6 +1,8 @@
 {
   imports = [
     ../common.nix
+
+    ./pykvm.nix
   ];
 
   time.timeZone = "Europe/Zurich";
