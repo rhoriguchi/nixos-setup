@@ -19,18 +19,8 @@
       flake = false;
     };
 
-    nginx = {
-      url = "github:NixOS/nixpkgs/pull/589961/head";
-      flake = false;
-    };
-
     servarr = {
       url = "github:NixOS/nixpkgs/pull/589560/head";
-      flake = false;
-    };
-
-    tautulli = {
-      url = "github:NixOS/nixpkgs/pull/589632/head";
       flake = false;
     };
   };
@@ -56,14 +46,6 @@
               buildGoModule = prev.buildGo127Module;
             };
 
-            # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589961
-            nginxStable = prev.callPackage (import "${inputs.nginx}/pkgs/servers/http/nginx/stable.nix") {
-              openssl = prev.openssl_4_1;
-              zlib-ng = prev.zlib-ng.override { withZlibCompat = true; };
-              withPerl = false;
-              modules = [ prev.nginxModules.moreheaders ];
-            };
-
             # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589560
             prowlarr = prev.callPackage (import "${inputs.servarr}/pkgs/by-name/pr/prowlarr/package.nix") { };
 
@@ -76,9 +58,6 @@
             sonarr = prev.callPackage (import "${inputs.servarr}/pkgs/by-name/so/sonarr/package.nix") {
               inherit openur-ffmpeg;
             };
-
-            # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589632
-            tautulli = prev.callPackage (import "${inputs.tautulli}/pkgs/by-name/ta/tautulli/package.nix") { };
           }
         )
 

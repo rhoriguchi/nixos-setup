@@ -137,6 +137,7 @@ let
       thinkingMax = colors.bright.red;
       bashMode = colors.normal.cyan;
       pythonMode = colors.normal.green;
+      btwMode = colors.normal.accent;
 
       statusLineSep = colors.extra.terminal.border;
       statusLineModel = colors.normal.yellow;
