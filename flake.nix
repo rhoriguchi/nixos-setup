@@ -460,6 +460,17 @@
           };
         };
 
+      installerImages = lib.genAttrs [ "rpi02" "rpi3" "rpi4" "rpi5" ] (
+        variant:
+        (inputs.nixos-raspberrypi.nixosConfigurations."${variant}-installer".extendModules {
+          modules = [
+            self.nixosModules.profiles.ssh
+
+            { boot.kernelPackages = mkRaspberryPiCrossKernelPackages variant; }
+          ];
+        }).config.system.build.sdImage
+      );
+
       deploy = mkDeploy {
         groups = {
           home = [

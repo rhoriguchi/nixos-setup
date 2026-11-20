@@ -173,6 +173,14 @@ Add the result to `.sops.yaml` under a new `&host_<name>` anchor and to every `c
 nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode destroy,format,mount ./disko/XXLPitu-Aizen.nix
 ```
 
+## Raspberry Pi installer image
+
+Available targets: `rpi02`, `rpi3`, `rpi4` and `rpi5`.
+
+```console
+nix build '.#installerImages.rpi4'
+```
+
 ## Encrypt backup drive
 
 ```console
