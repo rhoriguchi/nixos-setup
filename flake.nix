@@ -158,6 +158,18 @@
             overlays = [ self.overlays.default ] ++ (args.overlays or [ ]);
           }
         );
+
+      mkRaspberryPiCrossKernelPackages =
+        variant:
+        (mkPkgs {
+          localSystem = "x86_64-linux";
+          crossSystem = "aarch64-linux";
+          overlays = [
+            inputs.nixos-raspberrypi.overlays.vendor-kernel
+            inputs.nixos-raspberrypi.overlays.vendor-firmware
+            inputs.nixos-raspberrypi.overlays.kernel-and-firmware
+          ];
+        })."linuxPackages_${variant}";
     in
     {
       lib = libCustom;
@@ -410,17 +422,7 @@
                   ./configuration/devices/headless/raspberry-pi-4/ulquiorra
                 ];
 
-                # Cross-compile the kernel, while using emulation/cache for the rest
-                boot.kernelPackages =
-                  (mkPkgs {
-                    localSystem = "x86_64-linux";
-                    crossSystem = "aarch64-linux";
-                    overlays = [
-                      inputs.nixos-raspberrypi.overlays.vendor-kernel
-                      inputs.nixos-raspberrypi.overlays.vendor-firmware
-                      inputs.nixos-raspberrypi.overlays.kernel-and-firmware
-                    ];
-                  }).linuxPackages_rpi4;
+                boot.kernelPackages = mkRaspberryPiCrossKernelPackages "rpi4";
               }
             ];
 
@@ -448,17 +450,7 @@
                   ./configuration/devices/headless/raspberry-pi-4/vorarlberna
                 ];
 
-                # Cross-compile the kernel, while using emulation/cache for the rest
-                boot.kernelPackages =
-                  (mkPkgs {
-                    localSystem = "x86_64-linux";
-                    crossSystem = "aarch64-linux";
-                    overlays = [
-                      inputs.nixos-raspberrypi.overlays.vendor-kernel
-                      inputs.nixos-raspberrypi.overlays.vendor-firmware
-                      inputs.nixos-raspberrypi.overlays.kernel-and-firmware
-                    ];
-                  }).linuxPackages_rpi4;
+                boot.kernelPackages = mkRaspberryPiCrossKernelPackages "rpi4";
               }
             ];
 
