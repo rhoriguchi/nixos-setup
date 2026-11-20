@@ -17,7 +17,7 @@ let
       (
         lib.readFile (
           pkgs.replaceVars ./script.py {
-            sonarApiUrl = "http://${config.containers.sonarr-series.localAddress}:${toString config.services.sonarr.settings.server.port}";
+            sonarApiUrl = "http://${config.containers.sonarr-series.localAddress}:${toString config.services.sonarr.settings.server.port}${config.containers.sonarr-series.config.services.sonarr.settings.server.urlbase}";
             sonarrRootDir = "/mnt/bindmount/sonarr/sync-Series/Tv Shows";
 
             tvTrackTimeApiUrl = "http://${config.containers.tvtracktime-application.localAddress}:8080";

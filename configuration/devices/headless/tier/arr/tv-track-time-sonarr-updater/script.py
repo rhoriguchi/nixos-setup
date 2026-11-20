@@ -86,7 +86,7 @@ class SonarrHelper(object):
         self._add_root_dir(root_dir)
 
         self._quality_profile_id = self.get_quality_profile_id("Any")
-        self._language_profile_id = self.get_language_profile_id("English")
+        self._language = self.get_language("English")
         self._tag_id = self.get_tag_id("tv_track_time")
 
     @staticmethod
@@ -114,18 +114,19 @@ class SonarrHelper(object):
     def _get_all_languages(self):
         return self._session.get(f"{self._base_url}/language").json()
 
-    def get_language_profile_id(self, name):
+    def get_language(self, name):
         match = next(
             filter(
-                lambda profile: profile["name"].lower() == name.lower(),
+                lambda language: language["name"].lower() == name.lower(),
                 self._get_all_languages(),
-            )
+            ),
+            None,
         )
 
         if not match:
-            raise ValueError(f'No language profile found with name "{name}"')
+            raise ValueError(f'No language found with name "{name}"')
 
-        return match["id"]
+        return {"id": match["id"], "name": match["name"]}
 
     def _get_all_series(self):
         return self._session.get(f"{self._base_url}/series").json()
@@ -144,6 +145,17 @@ class SonarrHelper(object):
         self._session.post(f"{self._base_url}/rootFolder", json={"path": root_dir})
 
     def get_tag_id(self, tag):
+        existing = next(
+            filter(
+                lambda item: item["label"].lower() == tag.lower(),
+                self._session.get(f"{self._base_url}/tag").json(),
+            ),
+            None,
+        )
+
+        if existing:
+            return existing["id"]
+
         return self._session.post(f"{self._base_url}/tag", json={"label": tag}).json()[
             "id"
         ]
@@ -162,7 +174,7 @@ class SonarrHelper(object):
             json=series | {
                 "rootFolderPath": self._root_dir,
                 "qualityProfileId": self._quality_profile_id,
-                "languageProfileId": self._language_profile_id,
+                "language": self._language,
                 "tags": [self._tag_id],
             },
         )
