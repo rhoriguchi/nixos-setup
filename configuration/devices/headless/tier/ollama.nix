@@ -25,9 +25,6 @@
     loadModels = [
       # https://ollama.com/library/gemma4:12b
       "gemma4:12b"
-
-      # https://ollama.com/library/qwen3-vl:8b
-      "qwen3-vl:8b"
     ];
   };
 

@@ -202,7 +202,6 @@ in
 
           modelOverrides = {
             "gemma4:12b".contextWindow = 128 * 1024;
-            "qwen3-vl:8b".contextWindow = 128 * 1024;
           };
         };
       };
