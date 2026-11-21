@@ -18,6 +18,11 @@
       url = "github:NixOS/nixpkgs/pull/590575/head";
       flake = false;
     };
+
+    superfile = {
+      url = "github:NixOS/nixpkgs/pull/591404/head";
+      flake = false;
+    };
   };
 
   outputs =
@@ -33,6 +38,11 @@
             go = prev.go_1_27;
             buildGoModule = prev.buildGo127Module;
           };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=591404
+          superfile =
+            prev.callPackage (import "${inputs.superfile}/pkgs/by-name/su/superfile/package.nix")
+              { };
         })
 
         # TODO remove when resolved

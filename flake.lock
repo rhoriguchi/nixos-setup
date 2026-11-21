@@ -818,7 +818,8 @@
         "netdata": "netdata",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "superfile": "superfile"
       },
       "locked": {
         "path": "./overlays",
@@ -1184,6 +1185,23 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "superfile": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795285456,
+        "narHash": "sha256-QijhvaCKD9hqwv4haJpWSTXMXnTXmvgxqm6AZlrB/dY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f64495f9298454f2d5755c92a77294f08b7cfcc2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/591404/head",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
