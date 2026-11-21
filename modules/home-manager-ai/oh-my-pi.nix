@@ -36,16 +36,10 @@ let
   ompSandboxed = agentJail.mkJailedAgent {
     package = pkgs.llm-agents.omp;
 
-    extraPkgs = [
-      # Used by omp's non-URL openPath() (export/share/login flows)
-      pkgs.xdg-utils
-    ]
-    ++ lspPkgs;
+    extraPkgs = lspPkgs;
 
     extraPermissions = [
       (agentJail.combinators.try-readwrite "${homeDirectory}/.omp")
-
-      agentJail.combinators.open-urls-in-browser
 
       (agentJail.combinators.set-env "PUPPETEER_EXECUTABLE_PATH" "${pkgs.chromium}/bin/chromium")
 

@@ -15,6 +15,8 @@ let
     config.programs.git.package
     osConfig.nix.package
 
+    pkgs.llm-agents.open-code-review
+
     pkgs.bashInteractive
     pkgs.bzip2
     pkgs.coreutils
@@ -35,6 +37,7 @@ let
     pkgs.procps
     pkgs.unzip
     pkgs.which
+    pkgs.xdg-utils
     pkgs.xz
     pkgs.zip
     pkgs.zstd
@@ -281,6 +284,7 @@ in
           (jail.combinators.set-hostname osConfig.networking.hostName)
           jail.combinators.network
           jail.combinators.time-zone
+          jail.combinators.open-urls-in-browser
 
           mountJailTmp
 
@@ -312,6 +316,7 @@ in
           (jail.combinators.try-readwrite "${homeDirectory}/.cache/yarn")
           (jail.combinators.try-readwrite "${homeDirectory}/.m2")
           (jail.combinators.try-readwrite "${homeDirectory}/.npm")
+          (jail.combinators.try-readwrite "${homeDirectory}/.opencodereview")
 
           (jail.combinators.add-pkg-deps allPkgs)
         ]
