@@ -18,48 +18,22 @@
       url = "github:NixOS/nixpkgs/pull/590575/head";
       flake = false;
     };
-
-    servarr = {
-      url = "github:NixOS/nixpkgs/pull/589560/head";
-      flake = false;
-    };
   };
 
   outputs =
     { nixpkgs, ... }@inputs:
     {
       overlays.default = nixpkgs.lib.composeManyExtensions [
-        (
-          _: prev:
-          let
-            openur-ffmpeg =
-              prev.callPackage (import "${inputs.servarr}/pkgs/by-name/op/openur-ffmpeg/package.nix")
-                { };
-          in
-          {
-            # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
-            gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
+        (_: prev: {
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
+          gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
 
-            # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=590575
-            netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") {
-              go = prev.go_1_27;
-              buildGoModule = prev.buildGo127Module;
-            };
-
-            # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589560
-            prowlarr = prev.callPackage (import "${inputs.servarr}/pkgs/by-name/pr/prowlarr/package.nix") { };
-
-            # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589560
-            radarr = prev.callPackage (import "${inputs.servarr}/pkgs/by-name/ra/radarr/package.nix") {
-              inherit openur-ffmpeg;
-            };
-
-            # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=589560
-            sonarr = prev.callPackage (import "${inputs.servarr}/pkgs/by-name/so/sonarr/package.nix") {
-              inherit openur-ffmpeg;
-            };
-          }
-        )
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=590575
+          netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") {
+            go = prev.go_1_27;
+            buildGoModule = prev.buildGo127Module;
+          };
+        })
 
         # TODO remove when resolved
         (_: prev: {
