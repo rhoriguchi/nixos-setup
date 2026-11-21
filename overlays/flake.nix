@@ -34,10 +34,7 @@
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=590575
-          netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") {
-            go = prev.go_1_27;
-            buildGoModule = prev.buildGo127Module;
-          };
+          netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") { };
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=591404
           superfile =

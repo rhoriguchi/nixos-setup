@@ -834,11 +834,11 @@
     "netdata": {
       "flake": false,
       "locked": {
-        "lastModified": 1795118698,
-        "narHash": "sha256-j5zc6kmVKf3GaUXWbyTK7mwxSHZ6G3uhNg3P7WOKnpM=",
+        "lastModified": 1795296033,
+        "narHash": "sha256-s9htOjLwUZNybZNFrxSN4CWXfTYKn5/yp1WT6aWSRcE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3b1b01d94fa859c1d56fe335650736589f015793",
+        "rev": "8dccb5fef88aa891d34c5f0144c880e228d7ad1c",
         "type": "github"
       },
       "original": {
