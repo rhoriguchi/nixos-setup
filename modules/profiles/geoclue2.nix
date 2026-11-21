@@ -5,7 +5,7 @@
   ...
 }:
 let
-  iniFormat = pkgs.formats.ini { };
+  format = pkgs.formats.ini { };
 in
 {
   services.geoclue2.enable = true;
@@ -13,7 +13,7 @@ in
   environment.etc."geoclue/conf.d/ip.conf" =
     lib.mkIf (config.services.geoclue2.enable && config.networking.networkmanager.unmanaged != [ ])
       {
-        source = iniFormat.generate "geoclue-ip.conf" {
+        source = format.generate "geoclue-ip.conf" {
           ip = {
             enable = true;
             method = "ichnaea";
