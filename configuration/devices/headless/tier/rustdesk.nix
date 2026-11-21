@@ -48,8 +48,10 @@ in
         ];
 
         preStart = ''
-          install -m 400 "$CREDENTIALS_DIRECTORY/id_ed25519" id_ed25519
-          install -m 400 "$CREDENTIALS_DIRECTORY/id_ed25519.pub" id_ed25519.pub
+          for key in id_ed25519 id_ed25519.pub; do
+            install -m 400 "$CREDENTIALS_DIRECTORY/$key" "$key.$$"
+            mv -f "$key.$$" "$key"
+          done
         '';
       });
 
