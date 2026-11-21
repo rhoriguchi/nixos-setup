@@ -330,6 +330,13 @@ in
         substitute "${jailed}/bin/${name}" "$out/bin/${name}" \
           --replace-fail "#!${pkgs.runtimeShell}" "#!$out/bin/${name}-bwrap"
         chmod +x "$out/bin/${name}"
+
+        for dir in bash-completion fish zsh; do
+          if [ -d "${package}/share/$dir" ]; then
+            mkdir -p "$out/share"
+            ln -s "${package}/share/$dir" "$out/share/$dir"
+          fi
+        done
       '';
     };
 }
