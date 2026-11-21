@@ -42,9 +42,10 @@ let
     pkgs.zip
     pkgs.zstd
 
+    pkgs.deadnix
+    pkgs.deploy-rs.deploy-rs
     pkgs.nixfmt
     pkgs.nixfmt-tree
-    pkgs.deadnix
 
     pkgs.poetry
     pkgs.python3
