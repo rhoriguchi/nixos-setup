@@ -3,6 +3,8 @@
     config.systemd.services.harmonia.name
   ];
 
+  boot.loader.grub.configurationLimit = 5;
+
   services.harmonia = {
     cache = {
       enable = true;
