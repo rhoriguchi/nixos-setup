@@ -20,7 +20,21 @@ let
   };
 
   ocrSandboxed = agentJail.mkJailedAgent {
-    package = pkgs.llm-agents.open-code-review;
+    package = pkgs.llm-agents.open-code-review.overrideAttrs (old: {
+      nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.makeWrapper ];
+
+      postFixup = (old.postFixup or "") + ''
+        wrapProgram "$out/bin/ocr" --run ${lib.escapeShellArg ''
+          case "''${1:-}" in
+            review | scan)
+              subcommand="$1"
+              shift
+              set -- "$subcommand" --timeout 0 --concurrency 1 "$@"
+              ;;
+          esac
+        ''}
+      '';
+    });
 
     extraPermissions = [
       (agentJail.combinators.try-readwrite "${config.home.homeDirectory}/.opencodereview")
@@ -72,6 +86,7 @@ in
         url = "http://xxlpitu-tier.tailnet:11434/v1";
         protocol = "openai";
         api_key = "ollama";
+        timeout_sec = 60 * 30;
         models = [
           "gemma4:12b"
         ];
