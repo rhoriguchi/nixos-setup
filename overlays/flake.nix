@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
+    easy-floorplan = {
+      url = "github:NixOS/nixpkgs/pull/591874/head";
+      flake = false;
+    };
+
     gamedig = {
       url = "github:NixOS/nixpkgs/pull/467867/head";
       flake = false;
@@ -27,6 +32,14 @@
         (_: prev: {
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=467867
           gamedig = prev.callPackage (import "${inputs.gamedig}/pkgs/by-name/ga/gamedig/package.nix") { };
+
+          # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=591874
+          home-assistant-custom-lovelace-modules = prev.home-assistant-custom-lovelace-modules // {
+            easy-floorplan =
+              prev.callPackage
+                (import "${inputs.easy-floorplan}/pkgs/servers/home-assistant/custom-lovelace-modules/easy-floorplan/package.nix")
+                { };
+          };
 
           # TODO remove when merged https://nixpkgs-tracker.ocfox.me/?pr=590575
           netdata = prev.callPackage (import "${inputs.netdata}/pkgs/tools/system/netdata") { };

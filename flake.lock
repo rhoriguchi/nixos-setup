@@ -170,6 +170,23 @@
         "type": "github"
       }
     },
+    "easy-floorplan": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795384659,
+        "narHash": "sha256-5LOXuipBMUzq4EzvZP36EmXha4fXKxVijLrEyPGOUgY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ceb0a29b20bf209aa2be16853490125e6b983644",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/591874/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "nixpkgs": [
@@ -741,23 +758,6 @@
         "type": "sourcehut"
       }
     },
-    "jellyfin": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1793019653,
-        "narHash": "sha256-sizb14loi7BBq28mrIUG+i7ge2ZFkMyWcWLwGur5DGI=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "bf316c9c2a7763dfae6171b3e1622401831ddfec",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "bf316c9c2a7763dfae6171b3e1622401831ddfec",
-        "type": "github"
-      }
-    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -813,8 +813,8 @@
     },
     "local-overlays": {
       "inputs": {
+        "easy-floorplan": "easy-floorplan",
         "gamedig": "gamedig",
-        "jellyfin": "jellyfin",
         "netdata": "netdata",
         "nixpkgs": [
           "nixpkgs"
