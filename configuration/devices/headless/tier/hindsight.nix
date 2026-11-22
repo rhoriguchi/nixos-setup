@@ -95,7 +95,7 @@ in
       };
 
       serviceConfig = {
-        ExecStart = lib.getExe hindsight;
+        ExecStart = "${hindsight}/bin/hindsight-api";
         User = "hindsight";
         Group = "hindsight";
         StateDirectory = "hindsight";
