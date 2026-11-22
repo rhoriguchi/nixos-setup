@@ -9,11 +9,6 @@
       flake = false;
     };
 
-    jellyfin = {
-      url = "github:NixOS/nixpkgs/bf316c9c2a7763dfae6171b3e1622401831ddfec";
-      flake = false;
-    };
-
     netdata = {
       url = "github:NixOS/nixpkgs/pull/590575/head";
       flake = false;
@@ -52,19 +47,6 @@
             idea-oss = prev.jetbrains.idea;
             pycharm-oss = prev.jetbrains.pycharm;
           };
-        })
-
-        # TODO remove when declarative-jellyfin supports latest version
-        (final: _: {
-          jellyfin = final.callPackage (import "${inputs.jellyfin}/pkgs/by-name/je/jellyfin/package.nix") { };
-
-          jellyfin-web =
-            final.callPackage (import "${inputs.jellyfin}/pkgs/by-name/je/jellyfin-web/package.nix")
-              { };
-
-          jellyfin-ffmpeg =
-            final.callPackage (import "${inputs.jellyfin}/pkgs/by-name/je/jellyfin-ffmpeg/package.nix")
-              { };
         })
 
         (_: prev: {
