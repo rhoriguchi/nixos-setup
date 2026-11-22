@@ -58,32 +58,26 @@
       XKB_DEFAULT_VARIANT = config.services.xserver.xkb.variant;
     };
 
-    program = lib.getExe (
-      pkgs.writeShellApplication {
-        name = "kiosk";
+    program = pkgs.writeShellScript "kiosk" ''
+      apply_mode() {
+        output=$(${pkgs.wlr-randr}/bin/wlr-randr)
 
-        text = ''
-          apply_mode() {
-            output=$(${pkgs.wlr-randr}/bin/wlr-randr)
-
-            grep -q "1920x1080 px, 60.* (current)" <<< "$output" \
-              || ${pkgs.wlr-randr}/bin/wlr-randr --output HDMI-A-1 --mode 1920x1080@60Hz
-          }
-
-          apply_mode || echo "Failed to set 1080p mode, continuing at the preferred mode" >&2
-
-          while sleep 5; do
-            apply_mode || true
-          done &
-
-          exec ${pkgs.jellyfin-desktop}/bin/jellyfin-desktop ${
-            lib.concatStringsSep " " [
-              "--platform wayland"
-              "--tv"
-            ]
-          }
-        '';
+        grep -q "1920x1080 px, 60.* (current)" <<< "$output" \
+          || ${pkgs.wlr-randr}/bin/wlr-randr --output HDMI-A-1 --mode 1920x1080@60Hz
       }
-    );
+
+      apply_mode || echo "Failed to set 1080p mode, continuing at the preferred mode" >&2
+
+      while sleep 5; do
+        apply_mode || true
+      done &
+
+      exec ${pkgs.jellyfin-desktop}/bin/jellyfin-desktop ${
+        lib.concatStringsSep " " [
+          "--platform wayland"
+          "--tv"
+        ]
+      }
+    '';
   };
 }
