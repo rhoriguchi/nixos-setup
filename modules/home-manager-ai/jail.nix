@@ -326,8 +326,8 @@ in
     in
     pkgs.symlinkJoin {
       inherit (package) name pname version;
-
       paths = [ jailed ];
+
       postBuild = ''
         ln -s ${package}/bin/${name} $out/bin/${name}-unwrapped
         ln -s ${pkgs.runtimeShell} $out/bin/${name}-bwrap

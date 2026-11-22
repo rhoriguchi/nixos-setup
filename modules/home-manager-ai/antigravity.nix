@@ -42,6 +42,7 @@ in
 
     skills = pkgs.symlinkJoin {
       name = "antigravity-cli-skills";
+
       paths = [
         "${pkgs.skills.ponytail}/skills"
       ];
