@@ -337,12 +337,30 @@ in
           --replace-fail "#!${pkgs.runtimeShell}" "#!$out/bin/${name}-bwrap"
         chmod +x "$out/bin/${name}"
 
-        for dir in bash-completion fish zsh; do
-          if [ -d "${package}/share/$dir" ]; then
-            mkdir -p "$out/share"
-            ln -s "${package}/share/$dir" "$out/share/$dir"
+        if [ -d "${package}/share" ]; then
+          mkdir -p "$out/share"
+
+          for dir in bash-completion fish zsh; do
+            [ -d "${package}/share/$dir" ] || continue
+            cp -rs --no-preserve=mode "${package}/share/$dir" "$out/share/$dir"
+          done
+
+          bash_completion="${package}/share/bash-completion/completions/${name}.bash"
+          if [ -f "$bash_completion" ]; then
+            sed 's/^\(complete .* \)${name}$/\1${name}-unwrapped/' "$bash_completion" \
+              > "$out/share/bash-completion/completions/${name}-unwrapped.bash"
           fi
-        done
+
+          if [ -f "${package}/share/zsh/site-functions/_${name}" ]; then
+            printf '#compdef ${name}-unwrapped\n_${name} "$@"\n' \
+              > "$out/share/zsh/site-functions/_${name}-unwrapped"
+          fi
+
+          if [ -f "${package}/share/fish/vendor_completions.d/${name}.fish" ]; then
+            echo 'complete -c ${name}-unwrapped --wraps ${name}' \
+              > "$out/share/fish/vendor_completions.d/${name}-unwrapped.fish"
+          fi
+        fi
       '';
     };
 }
