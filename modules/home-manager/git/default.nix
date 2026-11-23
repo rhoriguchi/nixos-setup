@@ -30,7 +30,7 @@
 
         graph = "! git commits --graph --all --decorate";
         commits = "! git log --pretty='%C(${colors.normal.yellow})%H  %C(bold ${colors.normal.blue})%ar %C(auto)%d %C(reset)%s'";
-        last = "! git commits -1";
+        last = "! git log -1 --pretty='%C(${colors.normal.yellow})%H%n%C(bold)%s%C(reset)%n%n%-b'";
         my-commits = ''! git commits --all --decorate --author="$(git config user.name)"'';
         patch = "! git --no-pager diff";
         tracked =
