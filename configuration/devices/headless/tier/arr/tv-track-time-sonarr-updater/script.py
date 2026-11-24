@@ -38,7 +38,7 @@ class TVTrackTimeRequestHandler(object):
         self._session.headers.update({"Authorization": f"Bearer {token}"})
 
     def get_in_progress_tvdb_ids(self):
-        response = self._session.get(f"{self._base_url}/user/series")
+        response = self._session.get(f"{self._base_url}/series")
         if not response.ok:
             raise ValueError(
                 f"TvTrackTime returned status code {response.status_code} with reason: {response.reason}"
@@ -54,7 +54,7 @@ class TVTrackTimeRequestHandler(object):
         return tvdb_ids
 
     def get_unwatched_episodes(self, tvdb_id):
-        response = self._session.get(f"{self._base_url}/user/series/{tvdb_id}")
+        response = self._session.get(f"{self._base_url}/series/{tvdb_id}")
         if not response.ok:
             raise ValueError(
                 f"TvTrackTime returned status code {response.status_code} for series {tvdb_id}: {response.reason}"

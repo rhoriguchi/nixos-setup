@@ -11,7 +11,7 @@ let
   bindmountDir = "${rootBindmountDir}/seaweedfs";
   rendererBindmountDir = "${rootBindmountDir}/renderer";
 
-  version = "1.1.64";
+  version = "1.3.0";
 in
 {
   sops = {
@@ -41,6 +41,7 @@ in
       "services/tvTrackTime/backend/tvdbApiKey" = { };
       "services/tvTrackTime/backend/tmdbAccessToken" = { };
       "services/tvTrackTime/backend/githubToken" = { };
+      "services/tvTrackTime/backend/resendApiKey" = { };
 
       "services/tvTrackTime/demoApiKey" = { };
     };
@@ -97,6 +98,7 @@ in
           TVDB_API_KEY=${config.sops.placeholder."services/tvTrackTime/backend/tvdbApiKey"}
           TMDB_ACCESS_TOKEN=${config.sops.placeholder."services/tvTrackTime/backend/tmdbAccessToken"}
           GITHUB_TOKEN=${config.sops.placeholder."services/tvTrackTime/backend/githubToken"}
+          RESEND_API_KEY=${config.sops.placeholder."services/tvTrackTime/backend/resendApiKey"}
         '';
 
         restartUnits = [ config.systemd.services."container@tvtracktime-application".name ];
