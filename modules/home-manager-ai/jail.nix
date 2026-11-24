@@ -153,14 +153,16 @@ let
 
         This project's own instructions are in `AGENTS.project.md`, not here. Always read @AGENTS.project.md too. It is a writable view of the project's real `AGENTS.md`; edits to it are written straight through to the real `AGENTS.md` on the host, so the project stays normal outside the sandbox.
 
+        Only the `AGENTS.md` in the project root is replaced by this notice. `AGENTS.md` files in subdirectories (e.g. `backend/AGENTS.md`) are the real, tracked files: read them before working in that subdirectory, edit them when the project's instructions say to keep them up to date, and commit them like any other file.
+
         ## Do not commit this file
 
-        This `AGENTS.md` is a synthetic sandbox notice, not a real file in the repository — it only exists inside the sandbox and is not tracked at this path. Because of that, `git status` will show it as modified (and `AGENTS.project.md` as untracked): this is expected sandbox noise, not a real change.
+        This root `AGENTS.md` is a synthetic sandbox notice, not a real file in the repository — it only exists inside the sandbox and is not tracked at this path. Because of that, `git status` will show it as modified (and `AGENTS.project.md` as untracked): this is expected sandbox noise, not a real change.
 
-        - Never `git add`, `git commit`, or otherwise stage `AGENTS.md` from inside the sandbox.
-        - Never `git add`/commit `AGENTS.project.md` either; it is the writable stand-in for the real `AGENTS.md`, tracked under that name, not this one.
-        - When staging changes (`git add -A`, `git commit -a`, etc.), explicitly exclude both paths, e.g. `git add -A -- . ':!AGENTS.md' ':!AGENTS.project.md'`, or stage files individually.
-        - To change the project's real instructions, edit `AGENTS.project.md`; the write goes straight through to the host's `AGENTS.md` and will appear correctly in the next commit made outside the sandbox.
+        - Never `git add`, `git commit`, or otherwise stage the root `AGENTS.md` from inside the sandbox.
+        - Never `git add`/commit `AGENTS.project.md` either; it is the writable stand-in for the real root `AGENTS.md`, tracked under that name, not this one.
+        - When staging changes (`git add -A`, `git commit -a`, etc.), explicitly exclude both root paths, e.g. `git add -A -- . ':!AGENTS.md' ':!AGENTS.project.md'`, or stage files individually. These pathspecs only match the project root, so `AGENTS.md` files in subdirectories are still staged.
+        - To change the project's real root instructions, edit `AGENTS.project.md`; the write goes straight through to the host's `AGENTS.md` and will appear correctly in the next commit made outside the sandbox.
       '';
     in
     jail.combinators.compose [
