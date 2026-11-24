@@ -221,6 +221,10 @@ let
         '';
       };
 
+      createNginxVirtualHostFeedLocation = type: {
+        proxyPass = baseUrl type;
+      };
+
       jellyfinWebhookUrlTemplate = type: "services.declarr.${instance type}.jellyfinWebhookUrl";
 
       createJellyfinWebhookUrlTemplate = type: {
@@ -369,8 +373,10 @@ let
             locations = {
               "/".return = "302 /${defaultType}";
             }
+            // lib.mapAttrs' (type: _: lib.nameValuePair "/${type}" (createNginxVirtualHostLocation type)) types
             // lib.mapAttrs' (
-              type: _: lib.nameValuePair "/${type}" (createNginxVirtualHostLocation type)
+              type: _:
+              lib.nameValuePair "~ ^/${type}/feed/v[0-9]+/calendar/" (createNginxVirtualHostFeedLocation type)
             ) types;
           };
         };
