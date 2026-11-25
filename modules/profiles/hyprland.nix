@@ -85,47 +85,37 @@
   };
 
   nixpkgs.overlays = [
-    (_: prev: {
-      # Required for Signal to work with GNOME Keyring
-      signal-desktop =
-        let
-          package = prev.signal-desktop;
-        in
-        prev.symlinkJoin {
-          inherit (package) name pname version;
-          paths = [ package ];
-
-          nativeBuildInputs = [ prev.makeWrapper ];
-
-          postBuild = ''
-            wrapProgram $out/bin/${package.meta.mainProgram} \
-              --set XDG_CURRENT_DESKTOP "GNOME"
-          '';
-        };
-    })
-
-    # Required for JetBrains IDEs to use GNOME Keyring
+    # Required for GNOME Keyring
     (
       _: prev:
-      prev.lib.genAttrs [ "intellij-idea" "intellij-idea-oss" "pycharm" "pycharm-oss" ] (
-        name:
-        let
-          package = prev.${name};
-        in
-        prev.symlinkJoin {
-          inherit (package) name pname version;
-          paths = [ package ];
+      prev.lib.genAttrs
+        [
+          "signal-desktop"
 
-          nativeBuildInputs = [ prev.makeWrapper ];
+          "intellij-idea"
+          "intellij-idea-oss"
+          "pycharm"
+          "pycharm-oss"
+        ]
+        (
+          name:
+          let
+            package = prev.${name};
+          in
+          prev.symlinkJoin {
+            inherit (package) name pname version;
+            paths = [ package ];
 
-          postBuild = ''
-            wrapProgram $out/bin/${package.meta.mainProgram} \
-              --set XDG_CURRENT_DESKTOP "GNOME"
-          '';
+            nativeBuildInputs = [ prev.makeWrapper ];
 
-          meta.mainProgram = package.meta.mainProgram;
-        }
-      )
+            postBuild = ''
+              wrapProgram $out/bin/${package.meta.mainProgram} \
+                --set XDG_CURRENT_DESKTOP "GNOME"
+            '';
+
+            meta.mainProgram = package.meta.mainProgram;
+          }
+        )
     )
   ];
 }
