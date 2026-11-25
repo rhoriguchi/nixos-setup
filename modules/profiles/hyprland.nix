@@ -87,17 +87,21 @@
   nixpkgs.overlays = [
     (_: prev: {
       # Required for Signal to work with GNOME Keyring
-      signal-desktop = prev.symlinkJoin {
-        inherit (prev.signal-desktop) name pname version;
-        paths = [ prev.signal-desktop ];
+      signal-desktop =
+        let
+          package = prev.signal-desktop;
+        in
+        prev.symlinkJoin {
+          inherit (package) name pname version;
+          paths = [ package ];
 
-        nativeBuildInputs = [ prev.makeWrapper ];
+          nativeBuildInputs = [ prev.makeWrapper ];
 
-        postBuild = ''
-          wrapProgram $out/bin/signal-desktop \
-            --set XDG_CURRENT_DESKTOP "GNOME"
-        '';
-      };
+          postBuild = ''
+            wrapProgram $out/bin/${package.meta.mainProgram} \
+              --set XDG_CURRENT_DESKTOP "GNOME"
+          '';
+        };
 
       # Required for JetBrains IDEs to use GNOME Keyring
       jetbrains =
