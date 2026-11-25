@@ -98,6 +98,29 @@
             --set XDG_CURRENT_DESKTOP "GNOME"
         '';
       };
+
+      # Required for JetBrains IDEs to use GNOME Keyring
+      jetbrains =
+        prev.jetbrains
+        // prev.lib.genAttrs [ "idea" "idea-oss" "pycharm" "pycharm-oss" ] (
+          name:
+          let
+            package = prev.jetbrains.${name};
+          in
+          prev.symlinkJoin {
+            inherit (package) name pname version;
+            paths = [ package ];
+
+            nativeBuildInputs = [ prev.makeWrapper ];
+
+            postBuild = ''
+              wrapProgram $out/bin/${package.meta.mainProgram} \
+                --set XDG_CURRENT_DESKTOP "GNOME"
+            '';
+
+            meta.mainProgram = package.meta.mainProgram;
+          }
+        );
     })
   ];
 }
