@@ -53,13 +53,11 @@
         # TODO remove when resolved
         (_: prev: {
           # - This version of IDEA has multiple known security vulnerabilities, see NIXPKGS-2026-2269: https://tracker.security.nixos.org/issues/NIXPKGS-2026-2269.
-          #   The package `jetbrains.idea-oss` is currently not receiving updates in nixpkgs, consider using `jetbrains.pycharm`.
+          #   The package `jetbrains.idea-oss` is currently not receiving updates in nixpkgs, consider using `jetbrains.idea`.
           # - This version of PyCharm has multiple known security vulnerabilities, see NIXPKGS-2026-2269: https://tracker.security.nixos.org/issues/NIXPKGS-2026-2269.
           #   The package `jetbrains.pycharm-oss` is currently not receiving updates in nixpkgs, consider using `jetbrains.pycharm`.
-          jetbrains = prev.jetbrains // {
-            idea-oss = prev.jetbrains.idea;
-            pycharm-oss = prev.jetbrains.pycharm;
-          };
+          intellij-idea-oss = prev.intellij-idea;
+          pycharm-oss = prev.pycharm;
         })
 
         (_: prev: {

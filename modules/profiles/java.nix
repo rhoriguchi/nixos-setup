@@ -3,7 +3,7 @@
   programs.java.enable = true;
 
   environment.systemPackages = [
-    pkgs.jetbrains.idea-oss
+    pkgs.intellij-idea-oss
     pkgs.maven
   ];
 }
