@@ -117,7 +117,7 @@ let
         - Reach the network (DNS, HTTP/HTTPS, git remotes, package registries, etc.).
         - Use `git`, with your SSH agent and GPG agent forwarded, so signed commits/tags and SSH remotes work normally.
         - Use `ssh` directly; your SSH agent and `~/.ssh/config`/`known_hosts` are forwarded, so every host listed below is reachable out of the box.
-        - Use `gh` (GitHub CLI); it is pre-authenticated if the host has it configured.
+        ${lib.optionalString config.programs.gh.enable "- Use `gh` (GitHub CLI); it is pre-authenticated if the host has it configured."}
         - Use package-manager caches (pip/uv, poetry, npm, yarn, Maven) that persist across sandbox runs.
 
         ## What you can NOT do
@@ -300,7 +300,6 @@ in
           (jail.combinators.try-fwd-env "LOCALE_ARCHIVE")
           (jail.combinators.try-fwd-env "EDITOR")
 
-          forwardGh
           forwardGpgAgent
           forwardNix
           forwardSsh
@@ -323,6 +322,7 @@ in
 
           (jail.combinators.add-pkg-deps allPkgs)
         ]
+        ++ lib.optional config.programs.gh.enable forwardGh
         ++ extraPermissions
       );
     in
