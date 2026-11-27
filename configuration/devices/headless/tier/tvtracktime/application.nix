@@ -11,7 +11,7 @@ let
   bindmountDir = "${rootBindmountDir}/seaweedfs";
   rendererBindmountDir = "${rootBindmountDir}/renderer";
 
-  version = "1.3.3";
+  version = "1.3.4";
 in
 {
   sops = {
@@ -230,19 +230,28 @@ in
 
       networking.hosts.${config.containers.tvtracktime-application.hostAddress} = [ "tvtracktime.com" ];
 
-      services.postgresql = {
-        enable = true;
+      services = {
+        postgresql = {
+          enable = true;
 
-        enableTCPIP = true;
-        authentication = ''
-          host all all ${config.containers.tvtracktime-application.hostAddress}/32 scram-sha-256
-        '';
+          enableTCPIP = true;
+          authentication = ''
+            host all all ${config.containers.tvtracktime-application.hostAddress}/32 scram-sha-256
+          '';
 
-        ensureDatabases = [ "tvtracktime" ];
-        ensureUsers = [
+          ensureDatabases = [ "tvtracktime" ];
+          ensureUsers = [
+            {
+              name = "tvtracktime";
+              ensureDBOwnership = true;
+            }
+          ];
+        };
+
+        custom-netdata.extraPrometheusJobs = [
           {
-            name = "tvtracktime";
-            ensureDBOwnership = true;
+            name = "TvTrackTime";
+            url = "http://127.0.0.1:8080/metrics";
           }
         ];
       };

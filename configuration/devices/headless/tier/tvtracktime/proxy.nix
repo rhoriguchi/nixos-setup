@@ -72,6 +72,9 @@ in
           '';
 
           "/api/".proxyPass = "http://${localAddress}:8080/";
+          "/api/metrics".return = 404;
+          "= /api/health".return = 404;
+
           "/swagger-ui".proxyPass = "http://${localAddress}:8080";
           "/v3/api-docs".proxyPass = "http://${localAddress}:8080";
 
