@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   listen = [
     {
@@ -13,12 +18,49 @@ in
   services.nginx = {
     enable = true;
 
+    appendHttpConfig = ''
+      map $http_user_agent $tvtracktime_link_preview_bot {
+        default 0;
+        "~*(${
+          lib.concatStringsSep "|" [
+            "Applebot"
+            "Cardyb"
+            "Discordbot"
+            "Embedly"
+            "facebookexternalhit"
+            "Facebot"
+            "LinkedInBot"
+            "Mastodon"
+            "Pinterest/0.2"
+            "Pinterestbot"
+            "redditbot"
+            "SkypeUriPreview"
+            "Slackbot"
+            "Synapse"
+            "TelegramBot"
+            "Twitterbot"
+            "ViberBot"
+            "WhatsApp"
+          ]
+        })" 1;
+      }
+    '';
+
     virtualHosts = {
       "tvtracktime.com" = {
         inherit listen;
 
         locations = {
           "/".proxyPass = "http://${localAddress}:80";
+
+          "~ ^/series/(?<seriesId>[0-9]+)$" = {
+            proxyPass = "http://${localAddress}:80";
+            extraConfig = ''
+              if ($tvtracktime_link_preview_bot) {
+                rewrite ^ /api/link-preview/series/$seriesId last;
+              }
+            '';
+          };
 
           "= /sitemap.xml".alias = pkgs.writeText "sitemap.xml" ''
             <?xml version="1.0" encoding="UTF-8"?>
