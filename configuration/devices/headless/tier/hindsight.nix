@@ -6,6 +6,47 @@
 }:
 let
   port = 8888;
+  controlPlanePort = 9999;
+
+  controlPlane = pkgs.llm-agents.hindsight-control-plane;
+
+  hardening = {
+    User = "hindsight";
+    Group = "hindsight";
+    Restart = "on-failure";
+    RestartSec = 5;
+
+    CapabilityBoundingSet = "";
+    AmbientCapabilities = "";
+    NoNewPrivileges = true;
+    LockPersonality = true;
+    PrivateTmp = true;
+    PrivateDevices = true;
+    ProtectSystem = "strict";
+    ProtectHome = true;
+    ProtectProc = "invisible";
+    ProtectClock = true;
+    ProtectControlGroups = true;
+    ProtectHostname = true;
+    ProtectKernelLogs = true;
+    ProtectKernelModules = true;
+    ProtectKernelTunables = true;
+    RemoveIPC = true;
+    RestrictAddressFamilies = [
+      "AF_UNIX"
+      "AF_INET"
+      "AF_INET6"
+    ];
+    RestrictNamespaces = true;
+    RestrictRealtime = true;
+    RestrictSUIDSGID = true;
+    SystemCallArchitectures = "native";
+    SystemCallFilter = [
+      "@system-service"
+      "~@privileged"
+    ];
+    UMask = "0077";
+  };
 
   hindsight = pkgs.llm-agents.hindsight.overridePythonAttrs (old: {
     # Upstream leaves torch out of the default closure; the default `local`
@@ -94,56 +135,76 @@ in
         HOME = "/var/lib/hindsight";
       };
 
-      serviceConfig = {
-        ExecStart = "${hindsight}/bin/hindsight-api";
-        User = "hindsight";
-        Group = "hindsight";
-        StateDirectory = "hindsight";
-        CacheDirectory = "hindsight";
-        WorkingDirectory = "/var/lib/hindsight";
-        Restart = "on-failure";
-        RestartSec = 5;
+      serviceConfig = lib.mkMerge [
+        hardening
 
-        CapabilityBoundingSet = "";
-        AmbientCapabilities = "";
-        NoNewPrivileges = true;
-        LockPersonality = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        ProtectProc = "invisible";
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        RemoveIPC = true;
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
-        UMask = "0077";
+        {
+          ExecStart = "${hindsight}/bin/hindsight-api";
+          StateDirectory = "hindsight";
+          CacheDirectory = "hindsight";
+          WorkingDirectory = "/var/lib/hindsight";
+        }
+      ];
+    };
+
+    hindsight-control-plane = {
+      wantedBy = [ "multi-user.target" ];
+      wants = [ config.systemd.services.hindsight.name ];
+      after = [ config.systemd.services.hindsight.name ];
+
+      environment = {
+        HOSTNAME = "127.0.0.1";
+        PORT = toString controlPlanePort;
+        HINDSIGHT_CP_DATAPLANE_API_URL = "http://127.0.0.1:${toString port}";
       };
+
+      serviceConfig = lib.mkMerge [
+        hardening
+
+        {
+          ExecStart = "${controlPlane}/bin/hindsight-control-plane";
+        }
+      ];
     };
   };
 
-  services.custom-netdata.extraPrometheusJobs = [
-    {
-      name = "Hindsight";
-      url = "http://127.0.0.1:${toString port}/metrics";
-    }
-  ];
+  services = {
+    custom-netdata.extraPrometheusJobs = [
+      {
+        name = "Hindsight";
+        url = "http://127.0.0.1:${toString port}/metrics";
+      }
+    ];
+
+    infomaniak = {
+      enable = true;
+
+      hostnames = [ "hindsight.00a.ch" ];
+    };
+
+    nginx = {
+      enable = true;
+
+      virtualHosts."hindsight.00a.ch" = {
+        enableACME = true;
+        forceSSL = true;
+
+        extraConfig = ''
+          include /run/nginx-authelia/location.conf;
+        '';
+
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString controlPlanePort}";
+
+          extraConfig = ''
+            include /run/nginx-authelia/auth.conf;
+
+            proxy_buffering off;
+          '';
+        };
+      };
+    };
+  };
 
   networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [
     port
