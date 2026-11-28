@@ -228,15 +228,14 @@ in
         ${containerCfg.services.postgresql.package}/bin/psql -tAc "ALTER ROLE tvtracktime WITH PASSWORD '$password';"
       '';
 
-      networking.hosts.${config.containers.tvtracktime-application.hostAddress} = [ "tvtracktime.com" ];
-
       services = {
         postgresql = {
           enable = true;
 
           enableTCPIP = true;
           authentication = ''
-            host all all ${config.containers.tvtracktime-application.hostAddress}/32 scram-sha-256
+            host tvtracktime tvtracktime 10.88.0.0/16 scram-sha-256
+            host tvtracktime tvtracktime ${config.containers.tvtracktime-application.hostAddress}/32 scram-sha-256
           '';
 
           ensureDatabases = [ "tvtracktime" ];
@@ -256,104 +255,105 @@ in
         ];
       };
 
-      virtualisation.oci-containers.containers = {
-        seaweedfs = {
-          image = "docker.io/chrislusf/seaweedfs:4.48";
+      virtualisation = {
+        podman.defaultNetwork.settings.dns_enabled = true;
 
-          networks = [ "host" ];
+        oci-containers.containers = {
+          seaweedfs = {
+            image = "docker.io/chrislusf/seaweedfs:4.48";
 
-          cmd = [
-            "server"
+            ports = [ "8333:8333" ];
 
-            # Override default volume server port (8080) to avoid collision with Spring Boot backend
-            "-volume.port=8088"
-            "-s3"
-            "-s3.config=/etc/seaweedfs/s3.json"
-          ];
+            cmd = [
+              "server"
 
-          volumes = [
-            "${
-              config.sops.templates."services.tvtracktime.seaweedfs.s3ConfigFile".path
-            }:/etc/seaweedfs/s3.json:ro"
-            "/var/lib/seaweedfs:/data"
-          ];
-        };
+              "-s3"
+              "-s3.config=/etc/seaweedfs/s3.json"
+            ];
 
-        backend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/backend:${version}";
-
-          login = {
-            registry = "ghcr.io";
-            username = "rhoriguchi";
-            passwordFile = config.sops.secrets."services/tvTrackTime/dockerRegistryPassword".path;
+            volumes = [
+              "${
+                config.sops.templates."services.tvtracktime.seaweedfs.s3ConfigFile".path
+              }:/etc/seaweedfs/s3.json:ro"
+              "/var/lib/seaweedfs:/data"
+            ];
           };
 
-          networks = [ "host" ];
+          backend = {
+            image = "ghcr.io/rhoriguchi/tvtracktime/backend:${version}";
 
-          environmentFiles = [
-            config.sops.templates."services.tvtracktime.backend.environmentFile".path
-          ];
+            login = {
+              registry = "ghcr.io";
+              username = "rhoriguchi";
+              passwordFile = config.sops.secrets."services/tvTrackTime/dockerRegistryPassword".path;
+            };
 
-          environment = {
-            SPRING_PROFILES_ACTIVE = "prod";
+            ports = [ "8080:8080" ];
 
-            POSTGRES_HOST = "127.0.0.1";
-            POSTGRES_PORT = toString containerCfg.services.postgresql.settings.port;
-            POSTGRES_DB = "tvtracktime";
-            POSTGRES_USER = "tvtracktime";
+            environmentFiles = [
+              config.sops.templates."services.tvtracktime.backend.environmentFile".path
+            ];
 
-            S3_URL = "http://127.0.0.1:8333";
-            S3_BUCKET = "tvtracktime";
+            environment = {
+              SPRING_PROFILES_ACTIVE = "prod";
 
-            TZ = config.time.timeZone;
-          };
-        };
+              POSTGRES_HOST = "10.88.0.1";
+              POSTGRES_PORT = toString containerCfg.services.postgresql.settings.port;
+              POSTGRES_DB = "tvtracktime";
+              POSTGRES_USER = "tvtracktime";
 
-        frontend = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/frontend:${version}";
+              S3_URL = "http://seaweedfs:8333";
+              S3_BUCKET = "tvtracktime";
 
-          login = {
-            registry = "ghcr.io";
-            username = "rhoriguchi";
-            passwordFile = config.sops.secrets."services/tvTrackTime/dockerRegistryPassword".path;
-          };
-
-          networks = [ "host" ];
-        };
-
-        renderer = {
-          image = "ghcr.io/rhoriguchi/tvtracktime/renderer:${version}";
-
-          login = {
-            registry = "ghcr.io";
-            username = "rhoriguchi";
-            passwordFile = config.sops.secrets."services/tvTrackTime/dockerRegistryPassword".path;
+              TZ = config.time.timeZone;
+            };
           };
 
-          networks = [ "host" ];
+          frontend = {
+            image = "ghcr.io/rhoriguchi/tvtracktime/frontend:${version}";
 
-          environmentFiles = [
-            config.sops.templates."services.tvtracktime.renderer.environmentFile".path
-          ];
+            login = {
+              registry = "ghcr.io";
+              username = "rhoriguchi";
+              passwordFile = config.sops.secrets."services/tvTrackTime/dockerRegistryPassword".path;
+            };
 
-          environment = {
-            FRONTEND_URL = "http://tvtracktime.com";
-            BACKEND_URL = "http://127.0.0.1:8080";
+            ports = [ "80:80" ];
           };
 
-          volumes = [
-            "/var/lib/renderer:/data"
-          ];
+          renderer = {
+            image = "ghcr.io/rhoriguchi/tvtracktime/renderer:${version}";
+
+            login = {
+              registry = "ghcr.io";
+              username = "rhoriguchi";
+              passwordFile = config.sops.secrets."services/tvTrackTime/dockerRegistryPassword".path;
+            };
+
+            ports = [ "3000:3000" ];
+
+            extraOptions = [
+              "--add-host=tvtracktime.com:${config.containers.tvtracktime-application.hostAddress}"
+            ];
+
+            environmentFiles = [
+              config.sops.templates."services.tvtracktime.renderer.environmentFile".path
+            ];
+
+            environment = {
+              FRONTEND_URL = "http://tvtracktime.com";
+              BACKEND_URL = "http://backend:8080";
+            };
+
+            volumes = [
+              "/var/lib/renderer:/data"
+            ];
+          };
         };
       };
 
       networking.firewall.allowedTCPPorts = [
         containerCfg.services.postgresql.settings.port
-
-        80
-        3000
-        8080
-        8333
       ];
     };
   };

@@ -77,7 +77,11 @@ in
         chain forward {
           type filter hook forward priority filter; policy accept;
 
+          oifname @containerInterfaces ct state { established, related } accept
+
           iifname @containerInterfaces jump containers-forward-filter
+
+          oifname @containerInterfaces drop
         }
 
         chain containers-forward-filter {
