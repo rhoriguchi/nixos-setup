@@ -55,6 +55,7 @@ in
 
           "~ ^/series/(?<seriesId>[0-9]+)$" = {
             proxyPass = "http://${localAddress}:80";
+
             extraConfig = ''
               if ($tvtracktime_link_preview_bot) {
                 rewrite ^ /api/link-preview/series/$seriesId last;
