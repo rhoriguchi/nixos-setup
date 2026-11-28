@@ -31,6 +31,8 @@
           config.sops.secrets."services/infomaniak/accessToken".path;
 
         dnsAuthoritativePropagationCheck = false;
+
+        extraLegoFlags = [ "--dns.propagation.wait=5m" ];
       };
     };
 
