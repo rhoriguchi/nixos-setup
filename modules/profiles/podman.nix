@@ -11,13 +11,7 @@
     containers = {
       containersConf.settings.containers.log_driver = "k8s-file";
 
-      registries.settings = {
-        unqualified-search-registries = [ "docker.io" ];
-
-        registry = [
-          { location = "docker.io"; }
-        ];
-      };
+      registries.settings.unqualified-search-registries = [ "docker.io" ];
     };
 
     podman = {
